@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import Head from 'next/head';
 import AppBar from '~/components/header/AppBar';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
@@ -62,8 +62,7 @@ export default function MainLayout(props: any) {
                     <LeftSideComponent />
                   </Grid>
                   <Grid item xs={12} sm={10}>
-                    {' '}
-                    <Paper>{props.children}</Paper>
+                    {props.children}
                   </Grid>
                 </Grid>
               </Grid>
