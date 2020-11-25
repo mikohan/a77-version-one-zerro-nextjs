@@ -44,10 +44,10 @@ export default function MainLayout(props: any) {
           <Grid item>
             <AppBar />
           </Grid>
-          <Grid className={classes.main} item container>
+          <Grid className={classes.main} item container xs={12} sm={10}>
             <Grid container item xs={12} spacing={2}>
               <Grid item sm={2}>
-                some content
+                Here Side Components Going
               </Grid>
               <Grid item xs={12} sm={10}>
                 {' '}
