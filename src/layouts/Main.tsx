@@ -4,6 +4,7 @@ import Head from 'next/head';
 import AppBar from '~/components/header/AppBar';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
+import Footer from '~/components/footer/Footer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +56,9 @@ export default function MainLayout(props: any) {
             </Grid>
           </Grid>
           <Grid className={classes.footerGrid} item container>
-            <footer>some footer</footer>
+            <Grid item xs={12}>
+              <Footer />
+            </Grid>
           </Grid>
         </Grid>
       </div>
