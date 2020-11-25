@@ -9,7 +9,6 @@ import { SWRConfig } from 'swr';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
-import { Nav } from '~/components/header/Nav';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -67,15 +66,10 @@ export default class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Nav />
           <SWRConfig
             value={{ fetcher: (url: string) => axios(url).then((r) => r.data) }}
           >
-            <Container maxWidth={false}>
-              <Box marginTop={2}>
-                <Component {...pageProps} />
-              </Box>
-            </Container>
+            <Component {...pageProps} />
           </SWRConfig>
         </ThemeProvider>
       </React.Fragment>
