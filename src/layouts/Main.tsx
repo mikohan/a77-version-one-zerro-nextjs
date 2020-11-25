@@ -39,7 +39,7 @@ export default function MainLayout(props: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={classes.root}>
-        <Grid className="pageStylse" container direction="column">
+        <Grid className={classes.rootGrid} container direction="column">
           <Grid item>
             <AppBar />
           </Grid>
@@ -54,7 +54,7 @@ export default function MainLayout(props: any) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid className="footerStyle" item container>
+          <Grid className={classes.footerGrid} item container>
             <footer>some footer</footer>
           </Grid>
         </Grid>
