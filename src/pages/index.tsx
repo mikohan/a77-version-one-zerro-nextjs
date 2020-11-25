@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MainLayout from '~/layouts/Main';
+import Link from 'next/link';
 
 const useStyles = makeStyles(
   createStyles((theme: Theme) => {
@@ -27,6 +28,7 @@ export default function Home() {
   return (
     <MainLayout>
       <h1>My new page here</h1>
+      <Link href="/testpage">To Test Page</Link>
     </MainLayout>
   );
 }

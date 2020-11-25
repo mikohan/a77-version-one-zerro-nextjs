@@ -9,6 +9,8 @@ import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 
+import 'styles/globals.scss';
+
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
 });
