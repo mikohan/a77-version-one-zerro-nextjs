@@ -5,6 +5,7 @@ import AppBar from '~/components/header/AppBar';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
+import LeftSideComponent from '~/components/main/LeftSideComponent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,7 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       minHeight: '100vh',
     },
-    main: {},
+    mainGrid: {
+      marginTop: theme.spacing(2),
+    },
     footerGrid: {
       position: 'absolute',
       left: 0,
@@ -44,15 +47,27 @@ export default function MainLayout(props: any) {
           <Grid item>
             <AppBar />
           </Grid>
-          <Grid className={classes.main} item container xs={12} sm={10}>
-            <Grid container item xs={12} spacing={2}>
-              <Grid item sm={2}>
-                Here Side Components Going
+          <Grid className={classes.main} item container>
+            <Grid container>
+              <Grid xs={false} sm={1} />
+              <Grid xs={12} sm={10}>
+                <Grid
+                  className={classes.mainGrid}
+                  container
+                  item
+                  xs={12}
+                  spacing={1}
+                >
+                  <Grid item xs={false} sm={2}>
+                    <LeftSideComponent />
+                  </Grid>
+                  <Grid item xs={12} sm={10}>
+                    {' '}
+                    <Paper>{props.children}</Paper>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={10}>
-                {' '}
-                <Paper>{props.children}</Paper>
-              </Grid>
+              <Grid xs={false} sm={1} />
             </Grid>
           </Grid>
           <Grid className={classes.footerGrid} item container>
