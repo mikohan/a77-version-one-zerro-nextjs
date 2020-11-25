@@ -47,7 +47,7 @@ export default function MainLayout(props: any) {
           <Grid item>
             <AppBar />
           </Grid>
-          <Grid className={classes.main} item container>
+          <Grid item container>
             <Grid container>
               <Grid xs={false} sm={1} />
               <Grid xs={12} sm={10}>
