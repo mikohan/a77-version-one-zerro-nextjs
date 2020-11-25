@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MainLayout from '~/layouts/Main';
 import Link from 'next/link';
@@ -9,9 +8,6 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(2),
     },
-    h3: {
-      color: 'red',
-    },
   })
 );
 
@@ -21,7 +17,6 @@ export default function Home() {
     <MainLayout>
       <Paper className={classes.paper}>
         <Link href="/testpage">To Test Page</Link>
-        <h3>Some content</h3>
       </Paper>
     </MainLayout>
   );
