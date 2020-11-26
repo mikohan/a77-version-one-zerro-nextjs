@@ -4,6 +4,10 @@ import Link from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ListForTesting from '~/components/ListForTesting';
+import { GetServerSideProps } from 'next';
+import { makesUrl } from '~/config';
+import { IMake } from '~/interfaces/IMake';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,34 +17,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Home() {
+interface IHomeProps {
+  makes: IMake[];
+}
+
+export default function Home(props: IHomeProps) {
   const classes = useStyles();
-  const links = [
-    { path: 'hyundai/porter/engine', name: 'Engine' },
-    { path: 'hyundai/porter/transmission', name: 'Transmission' },
-  ];
-  const makeLinks = [
-    { path: 'hyundai', name: 'Хендай' },
-    { path: 'bmw', name: 'БМВ' },
-  ];
-  const modelLinks = [
-    { path: 'hyundai/porter-1', name: 'porter1' },
-    { path: 'bmw/bmv520', name: 'bmw520' },
-  ];
+
+  const { makes } = props;
   return (
     <MainLayout>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <ListForTesting links={links} />
+            <ListForTesting makes={makes} />
           </Grid>
           <Grid item xs={4}>
             Text
-            <ListForTesting links={makeLinks} />
           </Grid>
           <Grid item xs={4}>
             Text
-            <ListForTesting links={modelLinks} />
           </Grid>
           <Link href="/testpage">To Test Page</Link>
         </Grid>
@@ -48,3 +44,14 @@ export default function Home() {
     </MainLayout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const promise = await axios.get(makesUrl);
+  const makes: IMake[] = await promise.data;
+
+  return {
+    props: {
+      makes: makes,
+    },
+  };
+};

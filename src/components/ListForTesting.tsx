@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/Inbox';
 import Link from 'next/link';
+import { IMake } from '~/interfaces/IMake';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,22 +19,22 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IListItemProps {
-  links: { path: string; name: string }[];
+  makes: IMake[];
 }
 
-export default function SimpleList(props: IListItemProps) {
+export default function SimpleList({ makes }: IListItemProps) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <List component="nav" aria-label="main mailbox folders">
-        {props.links.map((link: any) => (
-          <Link key={link.path} href={`/car/${link.path}`}>
-            <ListItem key={link.path} button>
+        {makes.map((make: IMake) => (
+          <Link key={make.id} href={`/car/${make.slug}`}>
+            <ListItem button>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={link.name} />
+              <ListItemText primary={make.name} />
             </ListItem>
           </Link>
         ))}

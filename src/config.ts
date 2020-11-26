@@ -7,3 +7,5 @@ export const productUrl = `http://localhost:8000/testcategory/products/products/
 export const categoriesUrl = `http://localhost:8000/testcategory/categories/`;
 
 export const getModelsByMakeUrl = 'http://localhost:8000/testcategory/models/';
+
+export const makesUrl = 'http://localhost:8000/testcategory/makes/';
