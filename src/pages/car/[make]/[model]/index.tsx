@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
+import { ICategory } from '~/interfaces/ICategory';
 
 interface IModelProps {
   model: ICar;
@@ -14,7 +15,8 @@ interface IModelProps {
 }
 
 function Model(props: IModelProps) {
-  const { model } = props;
+  const { model, categories } = props;
+  console.log(categories);
   return (
     <div>
       <MainLayout>
@@ -40,10 +42,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const categoriesPromise = await axios.get(`${categoriesUrl}`);
   const categories = await categoriesPromise.data;
 
+  const filtredCategories = categories.filter((cat: ICategory) => {
+    return cat.count !== 0;
+  });
+
   return {
     props: {
       model: vehicle,
-      categories: categories,
+      categories: filtredCategories,
     },
   };
 };
