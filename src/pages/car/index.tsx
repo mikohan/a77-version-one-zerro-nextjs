@@ -4,6 +4,7 @@ import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
+import MainLayout from '~/layouts/Main';
 
 interface ICarProps {
   makes: string[];
@@ -12,14 +13,18 @@ interface ICarProps {
 function Car(props: ICarProps) {
   return (
     <div>
-      <h1>inside all cars list here</h1>
-      <List>
-        {props.makes.map((make: string) => (
-          <Link href={`/car/${make}`} key={make}>
-            <ListItem>{make}</ListItem>
-          </Link>
-        ))}
-      </List>
+      <MainLayout>
+        <h1>inside all cars list here</h1>
+        <List>
+          {props.makes.map((make: string) => (
+            <Link href={`/car/${make}`} key={make}>
+              <a>
+                <ListItem>{make}</ListItem>
+              </a>
+            </Link>
+          ))}
+        </List>
+      </MainLayout>
     </div>
   );
 }
@@ -43,7 +48,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    fallback: false,
+    fallback: true,
     paths: [{ params: { make: 'hyundai' } }],
   };
 };
