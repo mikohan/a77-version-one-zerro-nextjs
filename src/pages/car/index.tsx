@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
@@ -29,7 +29,7 @@ function Car(props: ICarProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const promise = await axios.get(vehiclesUrl);
   const vehicles = await promise.data;
   let makes: string[] = [];
@@ -43,13 +43,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       makes: makes,
     },
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    fallback: true,
-    paths: [{ params: { make: 'hyundai' } }],
   };
 };
 

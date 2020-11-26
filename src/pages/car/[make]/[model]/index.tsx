@@ -33,7 +33,6 @@ function Model(props: IModelProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const modelSlug = context.params?.model;
-  console.log(`${vehiclesUrl}${modelSlug}`);
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
   const vehicle = await promise.data;
 
