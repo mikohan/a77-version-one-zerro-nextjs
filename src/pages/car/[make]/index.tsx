@@ -20,6 +20,15 @@ function Make(props: ICarProps) {
     <div>
       <MainLayout>
         <h1>Car Single Make and Models List</h1>
+        <List>
+          {models.map((model: ICar) => (
+            <Link href={`/car/${make}/${model.slug}`} key={model.id}>
+              <ListItem>
+                <pre>{JSON.stringify(model, null, 4)}</pre>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
       </MainLayout>
     </div>
   );
@@ -31,7 +40,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const promise = await axios.get(encoded);
   const models = promise.data;
-  console.log(models);
 
   return {
     props: {
@@ -53,7 +61,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = makes.map((make: any) => {
     return { params: { make: make } };
   });
-  console.log(paths);
 
   return {
     fallback: false,
