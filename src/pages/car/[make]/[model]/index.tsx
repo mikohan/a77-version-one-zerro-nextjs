@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/ICategory';
+import { List, ListItem } from '@material-ui/core';
 
 interface IModelProps {
   model: ICar;
@@ -16,7 +17,6 @@ interface IModelProps {
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
-  console.log(categories);
   return (
     <div>
       <MainLayout>
@@ -26,7 +26,15 @@ function Model(props: IModelProps) {
             <pre>{JSON.stringify(model, null, 4)}</pre>
           </Grid>
           <Grid item xs={6}>
-            soem text
+            <List>
+              {categories.map((cat: ICategory) => {
+                return (
+                  <ListItem key={cat.id}>
+                    <Typography variant="body2">{cat.name}</Typography>
+                  </ListItem>
+                );
+              })}
+            </List>
           </Grid>
         </Grid>
       </MainLayout>
