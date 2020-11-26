@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
-import { vehiclesUrl } from '~/config';
+import { categoriesUrl, vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,7 @@ import { ICar } from '~/interfaces/ICar';
 
 interface IModelProps {
   model: ICar;
+  categories: ICategory[];
 }
 
 function Model(props: IModelProps) {
@@ -36,9 +37,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
   const vehicle = await promise.data;
 
+  const categoriesPromise = await axios.get(`${categoriesUrl}`);
+  const categories = await categoriesPromise.data;
+
   return {
     props: {
       model: vehicle,
+      categories: categories,
     },
   };
 };

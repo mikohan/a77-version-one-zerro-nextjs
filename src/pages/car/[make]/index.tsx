@@ -30,6 +30,7 @@ function Make(props: ICarProps) {
                   <a>
                     <Typography variant="h1">{model.model}</Typography>
                     <Typography variant="h3">{model.engine}</Typography>
+                    <div>some text</div>
                   </a>
                 </Box>
               </ListItem>
