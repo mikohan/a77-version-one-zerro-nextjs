@@ -5,3 +5,5 @@ export const vehiclesUrl = `${apiUrl}products/vehicles/`;
 export const productUrl = `http://localhost:8000/testcategory/products/products/kolenval/`;
 
 export const categoriesUrl = `http://localhost:8000/testcategory/categories/`;
+
+export const getModelsByMakeUrl = 'http://localhost:8000/testcategory/models/';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Head from 'next/head';
 import AppBar from '~/components/header/AppBar';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
@@ -43,8 +43,8 @@ export default function MainLayout(props: any) {
           </Grid>
           <Grid item container>
             <Grid container>
-              <Grid xs={false} sm={1} />
-              <Grid xs={12} sm={10}>
+              <Grid item xs={false} sm={1} />
+              <Grid item xs={12} sm={10}>
                 <Grid
                   className={classes.mainGrid}
                   container
@@ -60,7 +60,7 @@ export default function MainLayout(props: any) {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid xs={false} sm={1} />
+              <Grid item xs={false} sm={1} />
             </Grid>
           </Grid>
           <Grid className={classes.footerGrid} item container>

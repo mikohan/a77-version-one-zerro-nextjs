@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import axios from 'axios';
-import { vehiclesUrl } from '~/config';
+import { getModelsByMakeUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
@@ -33,9 +33,10 @@ function Make(props: ICarProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const promise = await axios.get(vehiclesUrl);
-  const vehicles = await promise.data;
   const make = context.params?.make;
+
+  const promise = await axios.get(`${getModelsByMakeUrl}${make}/`);
+  const vehicles = await promise.data;
   let models: string[] = [];
   const modd = vehicles.filter((vehicle: any) => {
     return vehicle.make === make;

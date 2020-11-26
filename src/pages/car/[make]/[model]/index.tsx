@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import axios from 'axios';
 import { vehiclesUrl } from '~/config';
+import MainLayout from '~/layouts/Main';
 
 export interface ICar {
   id: number;
@@ -19,8 +20,10 @@ function Model(props: IModelProps) {
   const { model } = props;
   return (
     <div>
-      <h1>inside all cars list here</h1>
-      <pre>{JSON.stringify(model, null, 4)}</pre>
+      <MainLayout>
+        <h1>inside all cars list here</h1>
+        <pre>{JSON.stringify(model, null, 4)}</pre>
+      </MainLayout>
     </div>
   );
 }
