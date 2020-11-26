@@ -21,11 +21,11 @@ export default function Home() {
   ];
   const makeLinks = [
     { path: 'hyundai', name: 'Хендай' },
-    { path: 'BMW', name: 'БМВ' },
+    { path: 'bmw', name: 'БМВ' },
   ];
   const modelLinks = [
-    { path: 'hyundai/porter', name: 'Хендай Porter' },
-    { path: 'BMW/520d', name: 'БМВ 520' },
+    { path: 'hyundai/porter-1', name: 'porter1' },
+    { path: 'bmw/bmv520', name: 'bmw520' },
   ];
   return (
     <MainLayout>

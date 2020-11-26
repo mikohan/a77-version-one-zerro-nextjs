@@ -1,8 +1,10 @@
 import React from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
 
@@ -15,14 +17,21 @@ function Model(props: IModelProps) {
   return (
     <div>
       <MainLayout>
-        <h1>inside all cars list here</h1>
-        <pre>{JSON.stringify(model, null, 4)}</pre>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Typography variant="h1">{model.model}</Typography>
+            <pre>{JSON.stringify(model, null, 4)}</pre>
+          </Grid>
+          <Grid item xs={6}>
+            soem text
+          </Grid>
+        </Grid>
       </MainLayout>
     </div>
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const modelSlug = context.params?.model;
   console.log(`${vehiclesUrl}${modelSlug}`);
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
@@ -32,13 +41,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       model: vehicle,
     },
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    fallback: true,
-    paths: [{ params: { make: 'Hyundai', model: 'Porter 1' } }],
   };
 };
 

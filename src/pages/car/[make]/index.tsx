@@ -5,6 +5,8 @@ import { getModelsByMakeUrl, vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 import { ICar } from '~/interfaces/ICar';
 
@@ -24,7 +26,12 @@ function Make(props: ICarProps) {
           {models.map((model: ICar) => (
             <Link href={`/car/${make}/${model.slug}`} key={model.id}>
               <ListItem>
-                <pre>{JSON.stringify(model, null, 4)}</pre>
+                <Box>
+                  <a>
+                    <Typography variant="h1">{model.model}</Typography>
+                    <Typography variant="h3">{model.engine}</Typography>
+                  </a>
+                </Box>
               </ListItem>
             </Link>
           ))}

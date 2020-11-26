@@ -28,7 +28,7 @@ export default function SimpleList(props: IListItemProps) {
     <div className={classes.root}>
       <List component="nav" aria-label="main mailbox folders">
         {props.links.map((link: any) => (
-          <Link key={link.slug} href={`/car/${link.path}`}>
+          <Link key={link.path} href={`/car/${link.path}`}>
             <ListItem key={link.path} button>
               <ListItemIcon>
                 <InboxIcon />
