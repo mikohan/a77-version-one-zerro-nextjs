@@ -1,32 +1,25 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import axios from 'axios';
-import { getModelsByMakeUrl } from '~/config';
+import { getModelsByMakeUrl, vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
 
+import { ICar } from '~/interfaces/ICar';
+
 interface ICarProps {
-  models: string[];
+  models: ICar[];
   make: string;
 }
 
 function Make(props: ICarProps) {
-  const { make, models } = props;
+  let { make, models } = props;
 
   return (
     <div>
       <MainLayout>
         <h1>Car Single Make and Models List</h1>
-        <List>
-          {models.map((model: string) => (
-            <Link href={`/car/${make}/${model}`} key={model}>
-              <a>
-                <ListItem>{model}</ListItem>
-              </a>
-            </Link>
-          ))}
-        </List>
       </MainLayout>
     </div>
   );
@@ -34,19 +27,11 @@ function Make(props: ICarProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const make = context.params?.make;
+  const encoded = encodeURI(`${getModelsByMakeUrl}${make}/`);
 
-  const promise = await axios.get(`${getModelsByMakeUrl}${make}/`);
-  const vehicles = await promise.data;
-  let models: string[] = [];
-  const modd = vehicles.filter((vehicle: any) => {
-    return vehicle.make === make;
-  });
-
-  for (let i = 0; i < modd.length; i++) {
-    if (!models.includes(modd[i].model)) {
-      models.push(modd[i].model);
-    }
-  }
+  const promise = await axios.get(encoded);
+  const models = promise.data;
+  console.log(models);
 
   return {
     props: {
@@ -57,9 +42,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const prom = await axios.get(vehiclesUrl);
+  const vehicles = await prom.data;
+  let makes: string[] = [];
+  for (let i = 0; i < vehicles.length; i++) {
+    if (!makes.includes(vehicles[i].make)) {
+      makes.push(vehicles[i].make);
+    }
+  }
+  const paths = makes.map((make: any) => {
+    return { params: { make: make } };
+  });
+  console.log(paths);
+
   return {
-    fallback: true,
-    paths: [{ params: { make: 'hyundai', model: 'porter' } }],
+    fallback: false,
+    paths: paths,
   };
 };
 

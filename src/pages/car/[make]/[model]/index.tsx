@@ -4,13 +4,7 @@ import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
 
-export interface ICar {
-  id: number;
-  year: number[];
-  make: string;
-  model: string;
-  engine: string;
-}
+import { ICar } from '~/interfaces/ICar';
 
 interface IModelProps {
   model: ICar;
