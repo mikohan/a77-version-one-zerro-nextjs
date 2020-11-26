@@ -35,7 +35,6 @@ export default function MainLayout(props: any) {
     <React.Fragment>
       <Head>
         <title>A77 new life</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={classes.root}>
         <Grid className={classes.rootGrid} container direction="column">
