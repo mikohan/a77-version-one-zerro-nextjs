@@ -11,6 +11,7 @@ import { ICategory } from '~/interfaces/ICategory';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '~/store/actions/categoriesAction';
 import { useEffect } from 'react';
+import { wrapper } from '../../../../../pages/_app';
 
 interface CategoryProps {
   category: string;
@@ -26,9 +27,9 @@ export default function Cagetory(props: CategoryProps) {
     return state.getCategoriesReducer;
   });
 
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, []);
+  /* useEffect(() => { */
+  /*   dispatch(fetchCategories()); */
+  /* }, []); */
 
   const { category, make, model, updated } = props;
   const router = useRouter();

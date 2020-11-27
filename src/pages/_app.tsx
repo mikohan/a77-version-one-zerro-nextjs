@@ -61,6 +61,6 @@ MyApp.propTypes = {
 };
 
 const makestore = () => store;
-const wrapper = createWrapper(makestore);
+export const wrapper = createWrapper(makestore);
 
 export default wrapper.withRedux(MyApp);
