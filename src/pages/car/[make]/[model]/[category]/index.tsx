@@ -1,14 +1,19 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
+import { categoriesUrl, vehiclesUrl } from '~/config';
+import { ICar } from '~/interfaces/ICar';
+import { ICategory } from '~/interfaces/ICategory';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
   console.log(category, make, model);
 
   return {
+    revalidate: 60,
     props: {
       car: {},
       category: category,
@@ -20,10 +25,36 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // here is good place to add whole pages to be generated
+
+  const vehiclesPromise = await axios.get(vehiclesUrl);
+  const vehicles = await vehiclesPromise.data;
+
+  const makeModel = vehicles.map((vehicle: ICar) => {
+    return {
+      make: vehicle.make,
+      model: vehicle.model,
+    };
+  });
+
+  const categoryPromise = await axios.get(categoriesUrl);
+  const categories = await categoryPromise.data;
+
+  const paths: any = [];
+
+  categories.forEach((cat: ICategory) => {
+    makeModel.forEach((val: { make: string; model: string }) => {
+      paths.push({
+        params: { make: val.make, model: val.model, category: cat.slug },
+      });
+    });
+  });
+
+  console.log(paths.length);
+
   return {
     fallback: true,
 
-    paths: [],
+    paths: paths,
   };
 };
 
