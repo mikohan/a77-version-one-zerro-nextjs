@@ -14,7 +14,7 @@ export const getCategoriesReducer = (state = initialState, action: any) => {
         ...state,
         categories: action.payload,
         loading: false,
-        car: action.payload.car,
+        car: action.car,
       };
     default:
       return state;

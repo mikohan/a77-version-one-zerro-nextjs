@@ -4,10 +4,11 @@ import axios from 'axios';
 
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
+import { Grid, List, ListItem } from '@material-ui/core';
 import { categoriesUrl, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/ICategory';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '~/store/actions/categoriesAction';
 import { useEffect } from 'react';
 
@@ -21,9 +22,12 @@ interface CategoryProps {
 
 export default function Cagetory(props: CategoryProps) {
   const dispatch = useDispatch();
+  const { categories } = useSelector((state: any) => {
+    return state.getCategoriesReducer;
+  });
 
   useEffect(() => {
-    dispatch(fetchCategories);
+    dispatch(fetchCategories());
   }, []);
 
   const { category, make, model, updated } = props;
@@ -35,10 +39,25 @@ export default function Cagetory(props: CategoryProps) {
   return (
     <div>
       <MainLayout>
-        <Typography variant="h1">
-          {`${category} for ${make} ${model}`}{' '}
-        </Typography>
-        <Typography variant="h4">{updated}</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Typography variant="h1">
+              {`${category} for ${make} ${model}`}{' '}
+            </Typography>
+            <Typography variant="h4">{updated}</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <List>
+              {categories ? (
+                categories?.map((cat: ICategory) => (
+                  <ListItem key={cat.id}>{cat.name}</ListItem>
+                ))
+              ) : (
+                <div>No Categories</div>
+              )}
+            </List>
+          </Grid>
+        </Grid>
       </MainLayout>
     </div>
   );
