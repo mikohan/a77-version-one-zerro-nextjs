@@ -10,16 +10,20 @@ import { ICategory } from '~/interfaces/ICategory';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
-  console.log(category, make, model);
+  if (!category) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
-    revalidate: 60,
     props: {
       car: {},
       category: category,
       make: make,
       model: model,
     },
+    revalidate: 60,
   };
 };
 
