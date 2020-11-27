@@ -1,9 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 
-export const getServerSideProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
   console.log(category, make, model);
 
@@ -17,14 +18,14 @@ export const getServerSideProps: GetStaticProps = async (context) => {
   };
 };
 
-/* export const getStaticPaths: GetStaticPaths = async (context) => { */
-/*   console.log(context); */
-/*   return { */
-/*     fallback: true, */
+export const getStaticPaths: GetStaticPaths = async () => {
+  // here is good place to add whole pages to be generated
+  return {
+    fallback: true,
 
-/*     paths: [], */
-/*   }; */
-/* }; */
+    paths: [],
+  };
+};
 
 interface CategoryProps {
   category: string;
@@ -35,6 +36,11 @@ interface CategoryProps {
 
 export default function Cagetory(props: CategoryProps) {
   const { category, make, model } = props;
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Is Loading ....</div>;
+  }
   return (
     <div>
       <MainLayout>

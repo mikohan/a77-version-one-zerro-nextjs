@@ -29,7 +29,7 @@ function Car(props: ICarProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetServerSideProps = async () => {
   const promise = await axios.get(vehiclesUrl);
   const vehicles = await promise.data;
   let makes: string[] = [];
