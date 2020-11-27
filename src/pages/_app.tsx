@@ -8,6 +8,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
+import { Provider } from 'react-redux';
 
 import 'styles/globals.scss';
 
