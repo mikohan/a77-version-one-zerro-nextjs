@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       category: category,
       make: make,
       model: model,
+      updated: Date.now(),
     },
     revalidate: 60,
   };
@@ -67,10 +68,11 @@ interface CategoryProps {
   categoryId?: number;
   make: string;
   model: string;
+  updated: Date;
 }
 
 export default function Cagetory(props: CategoryProps) {
-  const { category, make, model } = props;
+  const { category, make, model, updated } = props;
   const router = useRouter();
 
   if (router.isFallback) {
@@ -82,7 +84,7 @@ export default function Cagetory(props: CategoryProps) {
         <Typography variant="h1">
           {`${category} for ${make} ${model}`}{' '}
         </Typography>
-        <Typography variant="h4">{category}</Typography>
+        <Typography variant="h4">{updated}</Typography>
       </MainLayout>
     </div>
   );
