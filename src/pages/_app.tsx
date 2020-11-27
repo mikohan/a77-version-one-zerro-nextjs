@@ -9,6 +9,8 @@ import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 import { Provider } from 'react-redux';
+import { createWrapper } from 'next-redux-wrapper';
+import store from '~/store/store';
 
 import 'styles/globals.scss';
 
@@ -22,7 +24,7 @@ Router.events.on('routeChangeError', () => {
   NProgress.remove();
 });
 
-export default function MyApp(props: any) {
+function MyApp(props: any) {
   const { Component, pageProps } = props;
 
   React.useEffect(() => {
@@ -42,11 +44,13 @@ export default function MyApp(props: any) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Provider>
     </React.Fragment>
   );
 }
@@ -55,3 +59,8 @@ MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
+
+const makestore = () => store;
+const wrapper = createWrapper(makestore);
+
+export default wrapper.withRedux(MyApp);

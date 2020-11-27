@@ -7,6 +7,42 @@ import Typography from '@material-ui/core/Typography';
 import { categoriesUrl, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/ICategory';
+import { useDispatch } from 'react-redux';
+import { fetchCategories } from '~/store/actions/categoriesAction';
+import { useEffect } from 'react';
+
+interface CategoryProps {
+  category: string;
+  categoryId?: number;
+  make: string;
+  model: string;
+  updated: Date;
+}
+
+export default function Cagetory(props: CategoryProps) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategories);
+  }, []);
+
+  const { category, make, model, updated } = props;
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Is Loading ....</div>;
+  }
+  return (
+    <div>
+      <MainLayout>
+        <Typography variant="h1">
+          {`${category} for ${make} ${model}`}{' '}
+        </Typography>
+        <Typography variant="h4">{updated}</Typography>
+      </MainLayout>
+    </div>
+  );
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
@@ -54,38 +90,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     });
   });
 
-  console.log(paths.length);
-
   return {
     fallback: true,
 
     paths: paths,
   };
 };
-
-interface CategoryProps {
-  category: string;
-  categoryId?: number;
-  make: string;
-  model: string;
-  updated: Date;
-}
-
-export default function Cagetory(props: CategoryProps) {
-  const { category, make, model, updated } = props;
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return <div>Is Loading ....</div>;
-  }
-  return (
-    <div>
-      <MainLayout>
-        <Typography variant="h1">
-          {`${category} for ${make} ${model}`}{' '}
-        </Typography>
-        <Typography variant="h4">{updated}</Typography>
-      </MainLayout>
-    </div>
-  );
-}
