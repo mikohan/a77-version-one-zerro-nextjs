@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/ICategory';
 import { List, ListItem } from '@material-ui/core';
+import Link from 'next/link';
 
 interface IModelProps {
   model: ICar;
@@ -30,7 +31,11 @@ function Model(props: IModelProps) {
               {categories.map((cat: ICategory) => {
                 return (
                   <ListItem key={cat.id}>
-                    <Typography variant="body2">{cat.name}</Typography>
+                    <Link
+                      href={`/car/${model.make}/${model.model}/${cat.slug}`}
+                    >
+                      <Typography variant="body2">{cat.name}</Typography>
+                    </Link>
                   </ListItem>
                 );
               })}
