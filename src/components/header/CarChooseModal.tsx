@@ -69,14 +69,15 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
 
   const router = useRouter();
 
+  const stateModel = useSelector((state: IState) => state.currentCar.carModel);
+
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     dispatch(changeCarModel(event.target.value as string));
     // Closing car selector form
     setAnchorEl(null);
-    router.push('/car/bmw/bmv520');
+    const pushUrl = `/car/${make}/${event.target.value as string}`;
+    router.push(pushUrl);
   };
-
-  const stateModel = useSelector((state: IState) => state.currentCar.carModel);
 
   return (
     <div>
