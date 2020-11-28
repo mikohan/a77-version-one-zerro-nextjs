@@ -16,6 +16,7 @@ import { changeCarModel } from '~/store/actions/categoriesAction';
 import CarChooseModal from '~/components/header/CarChooseModal';
 
 import { useToggle } from '~/hooks/useToggle';
+import { asString } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,37 +32,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function asString(query: string | string[]) {
-  if (Array.isArray(query)) {
-    return query[0];
-  }
-  return query;
-}
-
 export default function ButtonAppBar() {
-  // use toggle test
-  const [toggle, setToggle] = useToggle(false);
-
-  console.log(toggle);
-
-  // End of use toggle
-
   const classes = useStyles();
   const router = useRouter();
-  const carModel = asString(router.query.model || 'all');
-  const carMake = router.query.make || '';
-  let carHref = '/';
-  if (carModel) {
-    carHref = `/car/${carMake}/${carModel}`;
-  }
+  /* const carModel = asString(router.query.model || 'all'); */
+  /* const carMake = router.query.make || ''; */
   const dispatch = useDispatch();
   const storeCarModel = useSelector((state: any) => {
     return state.currentCar.carModel;
   });
-  console.log('Store car model', storeCarModel);
+
+  let carHref = '/';
+  if (storeCarModel) {
+    carHref = `/car/${storeCarModel.make}/${storeCarModel.model}`;
+  }
 
   useEffect(() => {
-    dispatch(changeCarModel(carModel));
+    /* dispatch(changeCarModel(carModel)); */
     dispatch(getMakes());
   }, []);
 
@@ -74,27 +61,22 @@ export default function ButtonAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={setToggle}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Link href="/">
+            <Link href="/car">
               <a>Главная</a>
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
             <Link href={carHref}>
-              <a>
-                {storeCarModel
-                  ? storeCarModel.toUpperCase()
-                  : carModel.toUpperCase()}
-              </a>
+              <a>{storeCarModel.toUpperCase()}</a>
             </Link>
           </Typography>
           <Button color="inherit">Some Button</Button>
 
-          <CarChooseModal currentCar={carModel} />
+          <CarChooseModal currentCar={storeCarModel} />
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
