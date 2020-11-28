@@ -1,1 +1,2 @@
 export const GET_CAGEGORIES = 'GET_CAGEGORIES';
+export const CHANGE_CAR_MODEL = 'CHANGE_CAR_MODEL';

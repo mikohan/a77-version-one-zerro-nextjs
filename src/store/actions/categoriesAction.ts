@@ -12,3 +12,10 @@ export const fetchCategories = (carModel: string) => async (dispatch: any) => {
     car: carModel,
   });
 };
+
+export const changeCarModel = (carModel: string) => (dispatch: any) => {
+  dispatch({
+    type: types.CHANGE_CAR_MODEL,
+    payload: carModel,
+  });
+};
