@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Link from 'next/link';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +24,7 @@ export default function AppBarDense() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="inherit">
         <Toolbar variant="dense">
           <IconButton
             edge="start"
@@ -33,8 +35,10 @@ export default function AppBarDense() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit">
-            Photos
+            <Link href="/">Главная</Link>
           </Typography>
+          <Button color="inherit">Login</Button>
+          <Button color="inherit">Some Button</Button>
         </Toolbar>
       </AppBar>
     </div>

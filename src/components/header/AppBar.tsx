@@ -17,6 +17,8 @@ import CarChooseModal from '~/components/header/CarChooseModal';
 
 import { useToggle } from '~/hooks/useToggle';
 import { asString } from '~/helpers';
+import { MenuItem } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,34 +66,26 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar elevation={1} color="inherit" position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={setToggle}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            <Link href="/">
-              <a>Главная</a>
-            </Link>
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link href={carHref}>
-              <a>
-                {storeCarModel
-                  ? storeCarModel.toUpperCase()
-                  : carModel.toUpperCase()}
-              </a>
-            </Link>
-          </Typography>
-
-          <CarChooseModal currentCar={carModel} />
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Some Button</Button>
+        <Toolbar variant="dense">
+          <Grid container>
+            <Grid item xs={1}>
+              <Typography variant="h6" className={classes.title}>
+                <Link href={carHref}>
+                  <a>
+                    {storeCarModel
+                      ? storeCarModel.toUpperCase()
+                      : carModel.toUpperCase()}
+                  </a>
+                </Link>
+              </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Typography style={{ flex: 1 }} variant="h6">
+                <CarChooseModal currentCar={carModel} />
+              </Typography>
+            </Grid>
+            <Grid item></Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>
