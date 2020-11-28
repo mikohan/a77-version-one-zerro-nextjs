@@ -6,6 +6,9 @@ const initialState: IState = {
     makes: [],
     categories: [],
   },
+  currentCar: {
+    carModel: '',
+  },
 };
 
 export const getCategoriesReducer = (state = initialState, action: any) => {

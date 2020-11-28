@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
@@ -8,14 +8,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeCarModel,
-  fetchCategories,
-} from '~/store/actions/categoriesAction';
+import { changeCarModel } from '~/store/actions/categoriesAction';
 import { IMake } from '~/interfaces/IState';
-import { vehiclesUrl } from '~/config';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
+import { IState } from '~/interfaces/IState';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,10 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 interface CarChooseModalProps {
   currentCar?: string;
-}
-
-interface IModelState {
-  models: string[];
 }
 
 export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
@@ -73,9 +67,16 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
 
   const dispatch = useDispatch();
 
+  const router = useRouter();
+
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     dispatch(changeCarModel(event.target.value as string));
+    // Closing car selector form
+    setAnchorEl(null);
+    router.push('/car/bmw/bmv520');
   };
+
+  const stateModel = useSelector((state: IState) => state.currentCar.carModel);
 
   return (
     <div>
@@ -108,8 +109,8 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
                 <InputLabel id="demo-simple-select-label">Модель</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={''}
+                  id="model-select"
+                  value={stateModel}
                   onChange={handleModelChange}
                   disabled={make ? false : true}
                 >

@@ -9,4 +9,6 @@ export interface IMake {
 
 export interface IState {
   cars: { makes: IMake[]; categories: ICategory[] };
+
+  currentCar: { carModel: string };
 }

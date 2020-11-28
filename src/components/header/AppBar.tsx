@@ -47,7 +47,7 @@ export default function ButtonAppBar() {
   }
   const dispatch = useDispatch();
   const storeCarModel = useSelector((state: any) => {
-    return state.changeCarModelReducer.carModel;
+    return state.currentCar.carModel;
   });
   console.log('Store car model', storeCarModel);
 

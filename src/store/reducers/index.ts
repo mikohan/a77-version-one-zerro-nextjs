@@ -5,5 +5,5 @@ import { changeCarModelReducer } from './changeCarModelReducer';
 
 export default combineReducers({
   cars: getCategoriesReducer,
-  changeCarModelReducer: changeCarModelReducer,
+  currentCar: changeCarModelReducer,
 });
