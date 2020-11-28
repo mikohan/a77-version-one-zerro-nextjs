@@ -31,9 +31,7 @@ function Model(props: IModelProps) {
               {categories.map((cat: ICategory) => {
                 return (
                   <ListItem key={cat.id}>
-                    <Link
-                      href={`/car/${model.make}/${model.model}/${cat.slug}`}
-                    >
+                    <Link href={`/car/${model.make}/${model.slug}/${cat.slug}`}>
                       <Typography variant="body2">{cat.name}</Typography>
                     </Link>
                   </ListItem>
