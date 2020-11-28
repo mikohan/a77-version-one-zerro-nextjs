@@ -15,6 +15,8 @@ import { changeCarModel } from '~/store/actions/categoriesAction';
 
 import CarChooseModal from '~/components/header/CarChooseModal';
 
+import { useToggle } from '~/hooks/useToggle';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -37,6 +39,13 @@ function asString(query: string | string[]) {
 }
 
 export default function ButtonAppBar() {
+  // use toggle test
+  const [toggle, setToggle] = useToggle(false);
+
+  console.log(toggle);
+
+  // End of use toggle
+
   const classes = useStyles();
   const router = useRouter();
   const carModel = asString(router.query.model || 'all');
@@ -65,6 +74,7 @@ export default function ButtonAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={setToggle}
           >
             <MenuIcon />
           </IconButton>
