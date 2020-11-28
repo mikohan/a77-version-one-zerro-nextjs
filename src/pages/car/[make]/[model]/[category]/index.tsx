@@ -23,9 +23,9 @@ interface CategoryProps {
 
 export default function Cagetory(props: CategoryProps) {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state: any) => {
-    return state.getCategoriesReducer;
-  });
+  /* const { categories } = useSelector((state: any) => { */
+  /*   return state.getCategoriesReducer; */
+  /* }); */
 
   /* useEffect(() => { */
   /*   dispatch(fetchCategories()); */
@@ -33,7 +33,6 @@ export default function Cagetory(props: CategoryProps) {
 
   const { category, make, model, updated } = props;
   const router = useRouter();
-  console.log(category, make, model);
 
   return (
     <div>
@@ -45,17 +44,7 @@ export default function Cagetory(props: CategoryProps) {
             </Typography>
             <Typography variant="h4">{updated}</Typography>
           </Grid>
-          <Grid item xs={6}>
-            <List>
-              {categories ? (
-                categories?.map((cat: ICategory) => (
-                  <ListItem key={cat.id}>{cat.name}</ListItem>
-                ))
-              ) : (
-                <div>No Categories</div>
-              )}
-            </List>
-          </Grid>
+          <Grid item xs={6}></Grid>
         </Grid>
       </MainLayout>
     </div>

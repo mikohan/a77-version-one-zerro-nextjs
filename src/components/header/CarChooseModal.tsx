@@ -8,7 +8,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '~/store/actions/categoriesAction';
+import {
+  changeCarModel,
+  fetchCategories,
+} from '~/store/actions/categoriesAction';
+import { IMake } from '~/interfaces/IState';
+import { vehiclesUrl } from '~/config';
+import axios from 'axios';
+import { ICar } from '~/interfaces/ICar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +38,11 @@ const useStyles = makeStyles((theme: Theme) =>
 interface CarChooseModalProps {
   currentCar?: string;
 }
+
+interface IModelState {
+  models: string[];
+}
+
 export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -42,15 +54,28 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   const open = Boolean(anchorEl);
   const id = open ? 'transitions-popper' : undefined;
 
-  const [age, setAge] = React.useState('');
+  const [make, setMake] = React.useState('');
+  const [models, setModels] = React.useState([]);
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
+  const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
+    const url = 'http://localhost:8000/testcategory/models/';
+
+    const getUrl = `${url}${event.target.value}/`;
+    const res = await axios.get(getUrl);
+    const models = await res.data;
+    setMake(event.target.value as string);
+    setModels(models);
   };
 
   const carMakes = useSelector((state: any) => {
     return state.cars.makes;
   });
+
+  const dispatch = useDispatch();
+
+  const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    dispatch(changeCarModel(event.target.value as string));
+  };
 
   return (
     <div>
@@ -62,29 +87,37 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
           <Fade {...TransitionProps} timeout={350}>
             <div className={classes.paper}>
               <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-label">Марка</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={age}
+                  value={make}
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value="all">Все Машины</MenuItem>
+                  {carMakes.map((make: IMake) => {
+                    return (
+                      <MenuItem key={make.slug} value={make.slug}>
+                        {make.name.toUpperCase()}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-label">Модель</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={age}
-                  onChange={handleChange}
+                  value={''}
+                  onChange={handleModelChange}
+                  disabled={make ? false : true}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {models.map((model: ICar) => (
+                    <MenuItem key={model.id} value={model.slug}>
+                      {model.model} {model.year[0]} {model.year[1]}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </div>
