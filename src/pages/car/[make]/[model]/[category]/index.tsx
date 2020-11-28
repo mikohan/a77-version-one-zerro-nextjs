@@ -45,6 +45,7 @@ export default function Cagetory(props: CategoryProps) {
             <Typography variant="h1">
               {`${category} for ${make} ${model}`}{' '}
             </Typography>
+            <h1>Test h1</h1>
             <Typography variant="h4">{updated}</Typography>
           </Grid>
           <Grid item xs={6}>

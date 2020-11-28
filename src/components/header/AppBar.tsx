@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '~/store/actions/categoriesAction';
+import { changeCarModel } from '~/store/actions/categoriesAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,10 +44,14 @@ export default function ButtonAppBar() {
     carHref = `/car/${carMake}/${carModel}`;
   }
   const dispatch = useDispatch();
+  const storeCarModel = useSelector((state: any) => {
+    return state.changeCarModelReducer.carModel;
+  });
+  console.log('Store car model', storeCarModel);
 
   useEffect(() => {
-    dispatch(fetchCategories(carModel));
-  });
+    dispatch(changeCarModel(carModel));
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -61,8 +66,17 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Link href={carHref}>
+            <Link href="/">
               <a>Главная</a>
+            </Link>
+          </Typography>
+          <Typography variant="h6" className={classes.title}>
+            <Link href={carHref}>
+              <a>
+                {storeCarModel
+                  ? storeCarModel.toUpperCase()
+                  : carModel.toUpperCase()}
+              </a>
             </Link>
           </Typography>
           <Button color="inherit">{carModel}</Button>
