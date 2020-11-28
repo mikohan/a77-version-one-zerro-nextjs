@@ -26,10 +26,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function asString(query: string | string[]) {
+  if (Array.isArray(query)) {
+    return query[0];
+  }
+  return query;
+}
+
 export default function ButtonAppBar() {
   const classes = useStyles();
   const router = useRouter();
-  const carModel = router.query.model || 'all';
+  const carModel = asString(router.query.model || 'all');
   const carMake = router.query.make || '';
   let carHref = '/';
   if (carModel) {
@@ -38,7 +45,7 @@ export default function ButtonAppBar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchCategories(carModel));
   });
 
   return (
