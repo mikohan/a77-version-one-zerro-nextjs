@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories, getMakes } from '~/store/actions/categoriesAction';
+import { getMakes } from '~/store/actions/categoriesAction';
 import { changeCarModel } from '~/store/actions/categoriesAction';
 
 import CarChooseModal from '~/components/header/CarChooseModal';
@@ -56,8 +56,6 @@ export default function ButtonAppBar() {
     dispatch(getMakes());
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-
   return (
     <div className={classes.root}>
       <AppBar elevation={1} color="inherit" position="static">
@@ -84,9 +82,7 @@ export default function ButtonAppBar() {
               </a>
             </Link>
           </Typography>
-          <Button onClick={() => setOpen(true)} color="inherit">
-            {carModel}
-          </Button>
+          <Button color="inherit">Some Button</Button>
 
           <CarChooseModal currentCar={carModel} />
           <Button color="inherit">Login</Button>
