@@ -1,4 +1,4 @@
-import { categoriesUrl } from '~/config';
+import { categoriesUrl, makesUrl } from '~/config';
 import * as types from '~/store/types';
 import axios from 'axios';
 
@@ -17,5 +17,14 @@ export const changeCarModel = (carModel: string) => (dispatch: any) => {
   dispatch({
     type: types.CHANGE_CAR_MODEL,
     payload: carModel,
+  });
+};
+
+export const getMakes = () => async (dispatch: any) => {
+  const res = await axios.get(makesUrl);
+  const makes = await res.data;
+  dispatch({
+    type: types.GET_MAKES,
+    payload: makes,
   });
 };

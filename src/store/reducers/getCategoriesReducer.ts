@@ -2,9 +2,10 @@ import * as types from '~/store/types';
 import { IState } from '~/interfaces/IState';
 
 const initialState: IState = {
-  categories: [],
-  loading: false,
-  car: '',
+  cars: {
+    makes: [],
+    categories: [],
+  },
 };
 
 export const getCategoriesReducer = (state = initialState, action: any) => {
@@ -15,6 +16,11 @@ export const getCategoriesReducer = (state = initialState, action: any) => {
         categories: action.payload,
         loading: false,
         car: action.car,
+      };
+    case types.GET_MAKES:
+      return {
+        ...state,
+        makes: action.payload,
       };
     default:
       return state;

@@ -1,6 +1,12 @@
 import { ICategory } from './ICategory';
+
+export interface IMake {
+  id: number;
+  slug: string;
+  name: string;
+  country: number;
+}
+
 export interface IState {
-  categories: ICategory[];
-  loading: boolean;
-  car: string;
+  cars: { makes: IMake[]; categories: ICategory[] };
 }

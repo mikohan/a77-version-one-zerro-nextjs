@@ -4,6 +4,6 @@ import { getCategoriesReducer } from './getCategoriesReducer';
 import { changeCarModelReducer } from './changeCarModelReducer';
 
 export default combineReducers({
-  getCategoriesReducer: getCategoriesReducer,
+  cars: getCategoriesReducer,
   changeCarModelReducer: changeCarModelReducer,
 });

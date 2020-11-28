@@ -33,10 +33,8 @@ export default function Cagetory(props: CategoryProps) {
 
   const { category, make, model, updated } = props;
   const router = useRouter();
+  console.log(category, make, model);
 
-  if (router.isFallback) {
-    return <div>Is Loading ....</div>;
-  }
   return (
     <div>
       <MainLayout>
@@ -45,7 +43,6 @@ export default function Cagetory(props: CategoryProps) {
             <Typography variant="h1">
               {`${category} for ${make} ${model}`}{' '}
             </Typography>
-            <h1>Test h1</h1>
             <Typography variant="h4">{updated}</Typography>
           </Grid>
           <Grid item xs={6}>
