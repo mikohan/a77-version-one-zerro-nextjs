@@ -16,6 +16,7 @@ import { changeCarModel } from '~/store/actions/categoriesAction';
 import CarChooseModal from '~/components/header/CarChooseModal';
 
 import { useToggle } from '~/hooks/useToggle';
+import { asString } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,13 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-function asString(query: string | string[]) {
-  if (Array.isArray(query)) {
-    return query[0];
-  }
-  return query;
-}
 
 export default function ButtonAppBar() {
   // use toggle test
@@ -61,7 +55,9 @@ export default function ButtonAppBar() {
   console.log('Store car model', storeCarModel);
 
   useEffect(() => {
-    dispatch(changeCarModel(carModel));
+    if (carModel !== 'all') {
+      dispatch(changeCarModel(carModel));
+    }
     dispatch(getMakes());
   }, []);
 
@@ -92,10 +88,10 @@ export default function ButtonAppBar() {
               </a>
             </Link>
           </Typography>
-          <Button color="inherit">Some Button</Button>
 
           <CarChooseModal currentCar={carModel} />
           <Button color="inherit">Login</Button>
+          <Button color="inherit">Some Button</Button>
         </Toolbar>
       </AppBar>
     </div>

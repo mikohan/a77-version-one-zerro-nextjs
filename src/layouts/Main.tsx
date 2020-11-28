@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import Head from 'next/head';
 import AppBar from '~/components/header/AppBar';
+import AppBarDense from '~/components/header/AppBarDense';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
@@ -38,7 +39,10 @@ export default function MainLayout(props: any) {
       </Head>
       <div className={classes.root}>
         <Grid className={classes.rootGrid} container direction="column">
-          <Grid item>
+          <Grid item xs={12}>
+            <AppBarDense />
+          </Grid>
+          <Grid item xs={12}>
             <AppBar />
           </Grid>
           <Grid item container>
