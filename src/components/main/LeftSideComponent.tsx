@@ -30,7 +30,7 @@ export default function LeftSideComponent() {
       <Grid item xs={12}>
         <Paper className={classes.paper}>Here goes some content for side</Paper>
         <Paper className={classes.paper}>
-          <FilterCheck options={filterOptions} value={['bmw']} />
+          <FilterCheck />
         </Paper>
       </Grid>
     </Grid>

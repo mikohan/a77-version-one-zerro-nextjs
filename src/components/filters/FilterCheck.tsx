@@ -1,59 +1,114 @@
-// react
 import React from 'react';
-// third-party
-// application
-import Checkbox from '@material-ui/core/Checkbox';
-import { ICheckFilter, ICheckFilterValue } from '~/interfaces/filters';
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-interface Props {
-  options: ICheckFilter;
-  value: ICheckFilterValue;
-  onChangeValue?: (event: {
-    filter: ICheckFilter;
-    value: ICheckFilterValue;
-  }) => void;
-}
+const GreenCheckbox = withStyles({
+  root: {
+    color: green[400],
+    '&$checked': {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
-function FilterCheck(props: any) {
-  const { options, value, onChangeValue } = props;
+export default function CheckboxLabels() {
+  const [state, setState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+    checkedF: true,
+    checkedG: true,
+  });
 
-  const updateValue = (newValue: ICheckFilterValue) => {
-    if (onChangeValue) {
-      onChangeValue({ filter: options, value: newValue });
-    }
-  };
-
-  // noinspection DuplicatedCode
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked && !value.includes(event.target.value)) {
-      updateValue([...value, event.target.value]);
-    }
-    if (!event.target.checked && value.includes(event.target.value)) {
-      updateValue(value.filter((x: any) => x !== event.target.value));
-    }
+    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   return (
-    <div className="filter-list">
-      <div className="filter-list__list">
-        {options.items.map((item: any) => (
-          <label key={item.slug}>
-            <Checkbox
-              value={item.slug}
-              checked={value.includes(item.slug)}
-              disabled={item.count === 0}
-              onChange={handleChange}
-            />
-
-            <span className="filter-list__title">{item.name}</span>
-            {item.count !== 0 && (
-              <span className="filter-list__counter">{item.count}</span>
-            )}
-          </label>
-        ))}
-      </div>
-    </div>
+    <FormGroup row>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={state.checkedA}
+            onChange={handleChange}
+            name="checkedA"
+          />
+        }
+        label="Secondary"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={state.checkedB}
+            onChange={handleChange}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Primary"
+      />
+      <FormControlLabel
+        control={<Checkbox name="checkedC" />}
+        label="Uncontrolled"
+      />
+      <FormControlLabel
+        disabled
+        control={<Checkbox name="checkedD" />}
+        label="Disabled"
+      />
+      <FormControlLabel
+        disabled
+        control={<Checkbox checked name="checkedE" />}
+        label="Disabled"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={state.checkedF}
+            onChange={handleChange}
+            name="checkedF"
+            indeterminate
+          />
+        }
+        label="Indeterminate"
+      />
+      <FormControlLabel
+        control={
+          <GreenCheckbox
+            checked={state.checkedG}
+            onChange={handleChange}
+            name="checkedG"
+          />
+        }
+        label="Custom color"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite />}
+            name="checkedH"
+          />
+        }
+        label="Custom icon"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+            checkedIcon={<CheckBoxIcon fontSize="small" />}
+            name="checkedI"
+          />
+        }
+        label="Custom size"
+      />
+    </FormGroup>
   );
 }
-
-export default FilterCheck;

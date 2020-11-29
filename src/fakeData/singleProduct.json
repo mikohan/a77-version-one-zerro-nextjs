@@ -1,0 +1,371 @@
+{
+  "images": [
+    "http://localhost:8000/media/123/555_tf/IMG_4210.jpg",
+    "http://localhost:8000/media/123/555_tf/IMG_4213.jpg",
+    "http://localhost:8000/media/123/555_tf/IMG_4281.jpg",
+    "http://localhost:8000/media/123/555_tf/IMG_4288.JPG"
+  ],
+  "id": 1,
+  "name": "Коленвал",
+  "excerpt": "Описание товара после заголовка в карточке товара на сайте.",
+  "description": "<p>Лорем ипсум долор сит амет, ан иус елеифенд еффициенди цонсеяуунтур, нец те видит хабемус. Цум ех цонсететур медиоцритатем, хис ин реяуе утрояуе. Ад атоморум ехпетендис цум, ерат ерудити орнатус про ан. Ид про долоре алияуип диспутандо, хис ад модо омнес аетерно, ат цум диссентиет аппеллантур.</p>\n<p>Цум ин яуаеяуе елигенди, яуис цетеро сенсерит меа еа. Симул нусяуам дефинитионем ид меа. Цу делецтус петентиум диссентиас еос. Сит иллуд оптион ут. Сит ад алияуид аццумсан вулпутате.</p>\n<p>Ат видит делицата вим, феугиат вертерем дефиниебас вел те. Интегре нумяуам цонвенире еи вел. Еум адхуц цонсулату ад. Нусяуам волутпат ут иус. Ид цум мутат цетерос десерунт, иуварет ехпетендис яуи еи.</p>\n<p>Цу яуи реяуе доцтус ассентиор. Те дуо неморе губергрен репримияуе. Ат сед орнатус атоморум, синт моллис фацилисис вел еа, ид еум малис тибияуе. Ех цум постеа аудиам. При ет цопиосае дигниссим.</p>\n<p>Дицунт волутпат иус ад. Нибх ратионибус вим ин. Еу алиа евертитур усу, малис орнатус нолуиссе ан мел, еи трацтатос торяуатос диссентиас ест. Ет дебет аперири мел.</p>\n<p>Не сед иисяуе омиттам фацилиси, ан алии форенсибус сит. Ин убияуе еурипидис при, нам аетерно хабемус губергрен ин. Постеа аудиам еу вел, еа нец доцтус дефинитионес. Меи цу фалли бландит. Меи еу воцент елаборарет. Иус поссе симул еу.</p>\n<p>Ест форенсибус диспутатиони те, юсто диссентиет ат нец, вис идяуе нострум рецусабо цу. Вел еррем постеа еа. Еум дицо лаборамус ин, нец ад долоре пробатус цонвенире. Аудире патриояуе хендрерит ад меи, цу бруте ехерци вих.</p>\n<p>Вим не инимицус урбанитас омиттантур, яуот виде мнесарчум ид вис. Тимеам иисяуе но мел, ад стет цонституам про, вих те яуандо легимус пробатус. Малис симул цонсеяуат цум ад. Ехерци ностер сингулис яуо те, ат граеци нострум нец, оффициис молестиае еос ин.</p>\n<p>Еа усу пауло детерруиссет. Еос елит алияуандо еи. Долоре опортере цу сит, доминг апеириан инсоленс ест ид. Еи яуас еверти губергрен вим, меи долорес лобортис но. Елит алиенум диспутандо ид при, нам цетерос молестиае дигниссим еа. Еу аццусамус симилияуе нам, ан мунере яуаеяуе неглегентур нам. Вел еу фугит мелиоре пертинациа.</p>\n<p>Ерат волуптатум вим еи, ид вел поссим инвидунт. Сит урбанитас реферрентур ех, хис зрил фацилисис цонцептам цу, мел не атяуи апеириан торяуатос. Нам ех харум еффициантур, долоре алтерум еу мел, вел ехплицари цонцлусионемяуе ат. Пондерум дигниссим реферрентур меа еа.</p>",
+  "slug": "kolenval",
+  "sku": "14567",
+  "partNumber": "346005F000",
+  "stock": "in-stock",
+  "price": 65,
+  "compareAtPrice": 78.0,
+  "badges": ["sale", "new", "hot"],
+  "rating": 5,
+  "reviews": 7,
+  "availability": "in-stock",
+  "compatibility": [1, 2],
+  "brand": {
+    "id": 1,
+    "name": "Mobis",
+    "slug": "mobis",
+    "image": null,
+    "country": "JP"
+  },
+  "type": {
+    "slug": "default",
+    "name": "Default",
+    "attributeGroups": [
+      {
+        "name": "General",
+        "slug": "general",
+        "attributes": [
+          "speed",
+          "power-source",
+          "battery-cell-type",
+          "voltage",
+          "battery-capacity",
+          "material",
+          "engine-type"
+        ]
+      },
+      {
+        "name": "Dimensions",
+        "slug": "dimensions",
+        "attributes": ["length", "width", "height"]
+      }
+    ]
+  },
+  "attributes": [
+    {
+      "name": "Speed",
+      "slug": "speed",
+      "featured": "true",
+      "values": [
+        {
+          "name": "750 RPM",
+          "slug": "750-rpm"
+        }
+      ]
+    },
+    {
+      "name": "Power Source",
+      "slug": "power-source",
+      "featured": "true",
+      "values": [
+        {
+          "name": "Cordless-Electric",
+          "slug": "cordless-electric"
+        }
+      ]
+    },
+    {
+      "name": "Battery Cell Type",
+      "slug": "battery-cell type",
+      "featured": "true",
+      "values": [
+        {
+          "name": "Lithium",
+          "slug": "lithium"
+        }
+      ]
+    },
+    {
+      "name": "Voltage",
+      "slug": "voltage",
+      "featured": "true",
+      "values": [
+        {
+          "name": "20 Volts",
+          "slug": "20-volts"
+        }
+      ]
+    },
+    {
+      "name": "Battery Capacity",
+      "slug": "battery-capacity",
+      "featured": "true",
+      "values": [
+        {
+          "name": "2 Ah",
+          "slug": "2-ah"
+        }
+      ]
+    },
+    {
+      "name": "Material",
+      "slug": "material",
+      "featured": "false",
+      "values": [
+        {
+          "name": "Aluminium",
+          "slug": "aluminium"
+        },
+        {
+          "name": "Plastic",
+          "slug": "plastic"
+        }
+      ]
+    },
+    {
+      "name": "Engine Type",
+      "slug": "engine-type",
+      "featured": "false",
+      "values": [
+        {
+          "name": "Brushless",
+          "slug": "brushless"
+        }
+      ]
+    },
+    {
+      "name": "Length",
+      "slug": "length",
+      "featured": "false",
+      "values": [
+        {
+          "name": "99 mm",
+          "slug": "99-mm"
+        }
+      ]
+    },
+    {
+      "name": "Width",
+      "slug": "width",
+      "featured": "false",
+      "values": [
+        {
+          "name": "207 mm",
+          "slug": "207-mm"
+        }
+      ]
+    },
+    {
+      "name": "Height",
+      "slug": "height",
+      "featured": "false",
+      "values": [
+        {
+          "name": "208 mm",
+          "slug": "208-mm"
+        }
+      ]
+    },
+    {
+      "name": "Color",
+      "slug": "color",
+      "featured": "false",
+      "values": [
+        {
+          "name": "White",
+          "slug": "white"
+        }
+      ]
+    }
+  ],
+  "options": [
+    {
+      "type": "default",
+      "slug": "material",
+      "name": "Material",
+      "values": [
+        {
+          "slug": "steel",
+          "name": "Steel"
+        },
+        {
+          "slug": "aluminium",
+          "name": "Aluminium"
+        },
+        {
+          "slug": "thorium",
+          "name": "Thorium"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "slug": "color",
+      "name": "Color",
+      "values": [
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#fff"
+        },
+        {
+          "slug": "yellow",
+          "name": "Yellow",
+          "color": "#ffd333"
+        },
+        {
+          "slug": "red",
+          "name": "Red",
+          "color": "#ff4040"
+        },
+        {
+          "slug": "blue",
+          "name": "Blue",
+          "color": "#4080ff"
+        }
+      ]
+    }
+  ],
+  "tags": ["Brake Kit", "Brandix", "Filter", "Bumper", "Transmission", "Hood"],
+  "categories": [
+    {
+      "id": 8,
+      "type": "shop",
+      "name": "Коленвал",
+      "slug": "kolenval",
+      "image": "http://localhost:8000/media/123/555_tf/IMG_4210.jpg",
+      "layout": "products",
+      "parent": {
+        "id": 7,
+        "type": "shop",
+        "name": "Поршневая",
+        "slug": "porshnevaja",
+        "image": "http://localhost:8000/media/123/555_tf/IMG_4210.jpg",
+        "layout": "products",
+        "parent": {
+          "id": 2,
+          "name": "Двигатель",
+          "type": "shop",
+          "layout": "products",
+          "slug": "dvigatel",
+          "lft": 1,
+          "rght": 36,
+          "tree_id": 2,
+          "level": 0,
+          "parent": null
+        },
+        "children": [
+          {
+            "id": 8,
+            "type": "shop",
+            "name": "Коленвал",
+            "slug": "kolenval",
+            "image": "http://localhost:8000/media/123/555_tf/IMG_4210.jpg",
+            "layout": "products",
+            "parent": {
+              "id": 7,
+              "name": "Поршневая",
+              "type": "shop",
+              "layout": "products",
+              "slug": "porshnevaja",
+              "lft": 8,
+              "rght": 15,
+              "tree_id": 2,
+              "level": 1,
+              "parent": {
+                "id": 2,
+                "name": "Двигатель",
+                "type": "shop",
+                "layout": "products",
+                "slug": "dvigatel",
+                "lft": 1,
+                "rght": 36,
+                "tree_id": 2,
+                "level": 0,
+                "parent": null
+              }
+            },
+            "children": []
+          },
+          {
+            "id": 9,
+            "type": "shop",
+            "name": "Поршни",
+            "slug": "porshni",
+            "image": "http://localhost:8000/media/123/555_tf/IMG_4210.jpg",
+            "layout": "products",
+            "parent": {
+              "id": 7,
+              "name": "Поршневая",
+              "type": "shop",
+              "layout": "products",
+              "slug": "porshnevaja",
+              "lft": 8,
+              "rght": 15,
+              "tree_id": 2,
+              "level": 1,
+              "parent": {
+                "id": 2,
+                "name": "Двигатель",
+                "type": "shop",
+                "layout": "products",
+                "slug": "dvigatel",
+                "lft": 1,
+                "rght": 36,
+                "tree_id": 2,
+                "level": 0,
+                "parent": null
+              }
+            },
+            "children": [
+              {
+                "id": 10,
+                "type": "shop",
+                "name": "Кольца поршневые",
+                "slug": "koltsa-porshnevye",
+                "image": "http://localhost:8000/media/123/555_tf/IMG_4210.jpg",
+                "layout": "products",
+                "parent": {
+                  "id": 9,
+                  "name": "Поршни",
+                  "type": "shop",
+                  "layout": "products",
+                  "slug": "porshni",
+                  "lft": 11,
+                  "rght": 14,
+                  "tree_id": 2,
+                  "level": 2,
+                  "parent": {
+                    "id": 7,
+                    "name": "Поршневая",
+                    "type": "shop",
+                    "layout": "products",
+                    "slug": "porshnevaja",
+                    "lft": 8,
+                    "rght": 15,
+                    "tree_id": 2,
+                    "level": 1,
+                    "parent": {
+                      "id": 2,
+                      "name": "Двигатель",
+                      "type": "shop",
+                      "layout": "products",
+                      "slug": "dvigatel",
+                      "lft": 1,
+                      "rght": 36,
+                      "tree_id": 2,
+                      "level": 0,
+                      "parent": null
+                    }
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "children": []
+    }
+  ]
+}
