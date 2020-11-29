@@ -65,7 +65,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar elevation={1} color="inherit" position="static">
+      <AppBar elevation={0} color="inherit" position="static">
         <Toolbar variant="dense">
           <Grid container>
             <Grid item xs={1}>

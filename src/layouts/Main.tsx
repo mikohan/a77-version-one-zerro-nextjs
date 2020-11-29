@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Divider, Grid } from '@material-ui/core';
 import Head from 'next/head';
 import AppBar from '~/components/header/AppBar';
 import AppBarDense from '~/components/header/AppBarDense';
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 50,
       backgroundColor: theme.palette.primary.main,
     },
+    divider: {
+      borderBottom: '1px solid #e8e8eb ',
+    },
   })
 );
 
@@ -41,6 +44,7 @@ export default function MainLayout(props: any) {
         <Grid className={classes.rootGrid} container direction="column">
           <Grid item xs={12}>
             <AppBarDense />
+            <div className={classes.divider} />
           </Grid>
           <Grid item xs={12}>
             <AppBar />
