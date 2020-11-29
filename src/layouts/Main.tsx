@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Head from 'next/head';
 import AppBar from '~/components/header/AppBar';
 import AppBarDense from '~/components/header/AppBarDense';
@@ -52,18 +52,18 @@ export default function MainLayout(props: any) {
           <Grid item container>
             <Grid container>
               <Grid item xs={false} sm={1} />
-              <Grid item xs={12} sm={10}>
+              <Grid item xs={12} sm={9}>
                 <Grid
                   className={classes.mainGrid}
                   container
                   item
                   xs={12}
-                  spacing={1}
+                  spacing={3}
                 >
-                  <Grid item xs={false} sm={2}>
+                  <Grid item xs={false} sm={3}>
                     <LeftSideComponent />
                   </Grid>
-                  <Grid item xs={12} sm={10}>
+                  <Grid item xs={12} sm={9}>
                     {props.children}
                   </Grid>
                 </Grid>

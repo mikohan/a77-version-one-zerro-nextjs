@@ -13,14 +13,24 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function LeftSideComponent() {
   const classes = useStyles();
 
-  const filterItems = ['brand one', 'bmw', 'stelox', 'other brand'];
+  const filterOptions = {
+    type: 'check',
+    slug: 'brand',
+    name: 'Brand',
+    items: [
+      { slug: 'bmw', name: 'BMW name', count: 5 },
+
+      { slug: 'fake', name: 'Fake', count: 3 },
+    ],
+    value: [],
+  };
 
   return (
     <Grid container>
       <Grid item xs={12}>
         <Paper className={classes.paper}>Here goes some content for side</Paper>
         <Paper className={classes.paper}>
-          <FilterCheck options={filterItems} />
+          <FilterCheck options={filterOptions} value={['bmw']} />
         </Paper>
       </Grid>
     </Grid>

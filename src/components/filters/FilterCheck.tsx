@@ -14,7 +14,7 @@ interface Props {
   }) => void;
 }
 
-function FilterCheck(props: Props) {
+function FilterCheck(props: any) {
   const { options, value, onChangeValue } = props;
 
   const updateValue = (newValue: ICheckFilterValue) => {
@@ -29,14 +29,14 @@ function FilterCheck(props: Props) {
       updateValue([...value, event.target.value]);
     }
     if (!event.target.checked && value.includes(event.target.value)) {
-      updateValue(value.filter((x) => x !== event.target.value));
+      updateValue(value.filter((x: any) => x !== event.target.value));
     }
   };
 
   return (
     <div className="filter-list">
       <div className="filter-list__list">
-        {options.items.map((item) => (
+        {options.items.map((item: any) => (
           <label key={item.slug}>
             <Checkbox
               value={item.slug}
