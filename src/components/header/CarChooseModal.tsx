@@ -82,7 +82,7 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   return (
     <div>
       <Button aria-describedby={id} type="button" onClick={handleClick}>
-        {currentCar ? currentCar : 'Выбрать машину'}
+        Выбрать машину
       </Button>
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (

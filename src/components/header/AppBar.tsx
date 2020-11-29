@@ -79,7 +79,7 @@ export default function ButtonAppBar() {
                 </Link>
               </Typography>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <Typography style={{ flex: 1 }} variant="h6">
                 <CarChooseModal currentCar={carModel} />
               </Typography>
