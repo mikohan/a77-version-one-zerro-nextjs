@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,6 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AppBarDense() {
   const classes = useStyles();
+
+  const router = useRouter();
+
+  const goTestPage = () => {
+    router.push({ pathname: '/testpage', query: { count: 1 } });
+  };
 
   return (
     <div className={classes.root}>
@@ -38,7 +45,9 @@ export default function AppBarDense() {
             <Link href="/">Главная</Link>
           </Typography>
           <Button color="inherit">Login</Button>
-          <Button color="inherit">Some Button</Button>
+          <Button onClick={goTestPage} color="inherit">
+            Test Page
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

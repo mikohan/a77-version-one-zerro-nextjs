@@ -15,9 +15,7 @@ import { changeCarModel } from '~/store/actions/categoriesAction';
 
 import CarChooseModal from '~/components/header/CarChooseModal';
 
-import { useToggle } from '~/hooks/useToggle';
 import { asString } from '~/helpers';
-import { MenuItem } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,9 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ButtonAppBar() {
   // use toggle test
-  const [toggle, setToggle] = useToggle(false);
-
-  console.log(toggle);
 
   // End of use toggle
 
@@ -54,7 +49,6 @@ export default function ButtonAppBar() {
   const storeCarModel = useSelector((state: any) => {
     return state.currentCar.carModel;
   });
-  console.log('Store car model', storeCarModel);
 
   useEffect(() => {
     if (carModel !== 'all') {
