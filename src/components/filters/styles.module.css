@@ -1,0 +1,16 @@
+.main {
+  margin-top: 1rem;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.text-center {
+  text-align: center;
+}
+.search-input {
+  display: block;
+  margin: auto;
+  width: 300px;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+}
