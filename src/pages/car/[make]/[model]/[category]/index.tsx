@@ -22,7 +22,7 @@ interface CategoryProps {
 }
 
 export default function Cagetory(props: CategoryProps) {
-  const dispatch = useDispatch();
+  /* const dispatch = useDispatch(); */
   /* const { categories } = useSelector((state: any) => { */
   /*   return state.getCategoriesReducer; */
   /* }); */
@@ -32,7 +32,8 @@ export default function Cagetory(props: CategoryProps) {
   /* }, []); */
 
   const { category, make, model, updated } = props;
-  const router = useRouter();
+  /* const router = u_next/data/ZjrG3tE8ELEIbskBTrOmp/car/hyundai/porter-2/raspredval.json 404 (Not Found)seRouter(); */
+  console.log(props);
 
   return (
     <div>
@@ -53,12 +54,11 @@ export default function Cagetory(props: CategoryProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
-  console.log(context.params);
-  if (!category) {
-    return {
-      notFound: true,
-    };
-  }
+  /* if (!category) { */
+  /*   return { */
+  /*     notFound: true, */
+  /*   }; */
+  /* } */
 
   return {
     props: {
@@ -81,7 +81,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const makeModel = vehicles.map((vehicle: ICar) => {
     return {
       make: vehicle.make,
-      model: vehicle.model,
+      model: vehicle.slug,
     };
   });
 
@@ -92,18 +92,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { make: string; model: string; category: string };
   }[] = [];
 
-  categories.forEach((cat: ICategory) => {
-    makeModel.forEach((val: { make: string; model: string }) => {
-      console.log(paths);
+  for (let cat of categories) {
+    for (let val of makeModel) {
       paths.push({
         params: { make: val.make, model: val.model, category: cat.slug },
       });
-    });
-  });
+    }
+  }
+  /* categories.forEach((cat: ICategory) => { */
+  /*   makeModel.forEach((val: { make: string; model: string }) => { */
+  /*     paths.push({ */
+  /*       params: { */
+  /*         make: val.make, */
+  /*         model: val.model, */
+  /*         category: cat.slug, */
+  /*       }, */
+  /*     }); */
+  /*   }); */
+  /* }); */
+  /* console.log(paths); */
 
   return {
-    fallback: false,
-
+    /* paths: paths, */
     paths: paths,
+    fallback: false,
   };
 };
