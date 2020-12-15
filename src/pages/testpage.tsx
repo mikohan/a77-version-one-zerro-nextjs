@@ -16,7 +16,7 @@ export default function TestPage() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     /* console.log(event.target.value, event.target.checked); */
-    const brands = urlBuilder(query.brand, event);
+    const brands = urlBuilder('mobis', event);
     router.push({ pathname: '', query: { brand: brands } }, undefined, {
       shallow: true,
     });

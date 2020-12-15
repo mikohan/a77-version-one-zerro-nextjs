@@ -40,7 +40,7 @@ export default function Cagetory(props: CategoryProps) {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Typography variant="h1">
-              {`${category} for ${make} ${model}`}{' '}
+              {`${category} for ${make} ${model}`}
             </Typography>
             <Typography variant="h4">{updated}</Typography>
           </Grid>
@@ -53,6 +53,7 @@ export default function Cagetory(props: CategoryProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
+  console.log(context.params);
   if (!category) {
     return {
       notFound: true,
@@ -67,7 +68,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       model: model,
       updated: Date.now(),
     },
-    revalidate: 60,
+    revalidate: 20,
   };
 };
 
@@ -87,10 +88,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const categoryPromise = await axios.get(categoriesUrl);
   const categories = await categoryPromise.data;
 
-  const paths: any = [];
+  const paths: {
+    params: { make: string; model: string; category: string };
+  }[] = [];
 
   categories.forEach((cat: ICategory) => {
     makeModel.forEach((val: { make: string; model: string }) => {
+      console.log(paths);
       paths.push({
         params: { make: val.make, model: val.model, category: cat.slug },
       });
@@ -98,7 +102,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
 
   return {
-    fallback: true,
+    fallback: false,
 
     paths: paths,
   };

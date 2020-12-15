@@ -14,6 +14,7 @@ import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
 import { IState } from '~/interfaces/IState';
 import { useRouter } from 'next/router';
+import { getModelsByMakeUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,9 +53,7 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   const [models, setModels] = React.useState([]);
 
   const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
-    const url = 'http://localhost:8000/testcategory/models/';
-
-    const getUrl = `${url}${event.target.value}/`;
+    const getUrl = `${getModelsByMakeUrl}${event.target.value}/`;
     const res = await axios.get(getUrl);
     const models = await res.data;
     setMake(event.target.value as string);
