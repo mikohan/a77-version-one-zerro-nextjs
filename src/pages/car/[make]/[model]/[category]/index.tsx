@@ -32,8 +32,6 @@ export default function Cagetory(props: CategoryProps) {
   /* }, []); */
 
   const { category, make, model, updated } = props;
-  /* const router = u_next/data/ZjrG3tE8ELEIbskBTrOmp/car/hyundai/porter-2/raspredval.json 404 (Not Found)seRouter(); */
-  console.log(props);
 
   return (
     <div>
@@ -54,11 +52,11 @@ export default function Cagetory(props: CategoryProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
-  /* if (!category) { */
-  /*   return { */
-  /*     notFound: true, */
-  /*   }; */
-  /* } */
+  if (!category) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
@@ -99,21 +97,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       });
     }
   }
-  /* categories.forEach((cat: ICategory) => { */
-  /*   makeModel.forEach((val: { make: string; model: string }) => { */
-  /*     paths.push({ */
-  /*       params: { */
-  /*         make: val.make, */
-  /*         model: val.model, */
-  /*         category: cat.slug, */
-  /*       }, */
-  /*     }); */
-  /*   }); */
-  /* }); */
-  /* console.log(paths); */
-
   return {
-    /* paths: paths, */
     paths: paths,
     fallback: false,
   };
