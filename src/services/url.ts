@@ -1,6 +1,7 @@
 import { IShopCategory } from '~/interfaces/category';
 import Link, { LinkProps } from 'next/link';
 import { IProduct } from '~/interfaces/product';
+import { ICategory } from '~/interfaces/category';
 
 type IAppLinkHref = string | LinkProps;
 
@@ -14,6 +15,13 @@ const url: { [key: string]: any } = {
       category.layout === 'products' ? '/products' : ''
     }`,
   }),
+  category: (category: ICategory): IAppLinkHref => {
+    if (category.type === 'shop') {
+      return url.shopCategory(category);
+    }
+
+    return '/';
+  },
   products: ({
     filters,
   }: { filters?: Record<string, string> } = {}): IAppLinkHref => {

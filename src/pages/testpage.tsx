@@ -9,10 +9,15 @@ import Box from '@material-ui/core/Box';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { urlBuilder } from '~/helpers';
+import FilterCategory from '~/components/filters/FilterCategory';
+import axios from 'axios';
+import { categoriesUrl } from '~/config';
+import { ICategory } from '~/interfaces/category';
 
-export default function TestPage() {
+export default function TestPage(props: any) {
   const router = useRouter();
   let query = router.query || {};
+  console.log(props);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     /* console.log(event.target.value, event.target.checked); */
@@ -55,7 +60,28 @@ export default function TestPage() {
             </Button>
           </form>
         </Box>
+        <Box>
+          <FilterCategory
+            options={{
+              type: 'category',
+              name: 'category',
+              slug: 'category',
+              value: 'dvigatel',
+              items: props.categories.slice(0, 5),
+            }}
+          />
+        </Box>
       </MainLayout>
     </div>
   );
 }
+
+export const getStaticProps = async () => {
+  const res = await axios.get<ICategory[]>(categoriesUrl);
+  const data = res.data;
+  return {
+    props: {
+      categories: data,
+    },
+  };
+};
