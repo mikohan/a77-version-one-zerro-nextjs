@@ -16,8 +16,6 @@ interface Props {
 function FilterCategory(props: Props) {
   const { options } = props;
 
-  console.log(url.products());
-
   return (
     <div>
       <ul>
@@ -37,13 +35,13 @@ function FilterCategory(props: Props) {
               <li key={parent.id}>
                 <span>Icon</span>
 
-                <Link href={url.category(parent)}>
+                <AppLink href={url.category(parent)}>
                   {parent.name + ' ' + 'Parent'}
-                </Link>
+                </AppLink>
               </li>
             ))}
             <li>
-              <Link href={url.category(item)}>{item.name}</Link>
+              <AppLink href={url.category(item)}>{item.name}</AppLink>
             </li>
             {item.count === 0
               ? ''
