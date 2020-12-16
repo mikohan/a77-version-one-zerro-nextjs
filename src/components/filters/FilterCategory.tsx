@@ -41,13 +41,17 @@ function FilterCategory(props: Props) {
               </li>
             ))}
             <li>
-              <AppLink href={url.category(item)}>{item.name}</AppLink>
+              <AppLink href={url.category(item)}>
+                {item.name + ' Currnet Category'}
+              </AppLink>
             </li>
             {item.count === 0
               ? ''
               : item.children?.map((child) => (
                   <li key={child.id}>
-                    <Link href={url.category(child)}>{child.name}</Link>
+                    <AppLink href={url.category(child)}>
+                      {child.name + ' Child Category'}
+                    </AppLink>
                   </li>
                 ))}
           </React.Fragment>

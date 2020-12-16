@@ -18,7 +18,7 @@ export default function TestPage(props: any) {
   const router = useRouter();
   let query = router.query || {};
 
-  const items = [];
+  const items: ICategory[] = [];
   items.push(props.categories);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

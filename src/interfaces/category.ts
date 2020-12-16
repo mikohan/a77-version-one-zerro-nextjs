@@ -5,7 +5,7 @@ export interface IMyCategory {
   name: string;
   slug: string;
   image: string;
-  layout: string;
+  layout?: string;
   parent: number;
 }
 
@@ -28,7 +28,7 @@ export type IShopCategoryLayout = 'categories' | 'products';
 
 export interface IShopCategory extends IBaseCategory {
   type: 'shop';
-  layout: IShopCategoryLayout;
+  layout?: IShopCategoryLayout;
 }
 
 export interface IBlogCategory extends IBaseCategory {
