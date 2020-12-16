@@ -12,13 +12,13 @@ import { urlBuilder } from '~/helpers';
 import FilterCategory from '~/components/filters/FilterCategory';
 import axios from 'axios';
 import { getCategoryBySlugUrl } from '~/config';
-import { ICategory } from '~/interfaces/category';
+import { ICategory, IShopCategory } from '~/interfaces/category';
 
 export default function TestPage(props: any) {
   const router = useRouter();
   let query = router.query || {};
 
-  const items: ICategory[] = [];
+  const items: IShopCategory[] = [];
   items.push(props.categories);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +82,6 @@ export const getStaticProps = async () => {
   const queryUrl = `${getCategoryBySlugUrl}${slug}/`;
   const res = await axios.get<ICategory[]>(queryUrl);
   const data = res.data;
-  console.log(data);
   return {
     props: {
       categories: data,

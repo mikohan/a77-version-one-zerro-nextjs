@@ -4,10 +4,12 @@ import React from 'react';
 import AppLink from '~/services/AppLink';
 // application
 import Link from 'next/link';
-
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import url from '~/services/url';
 import { getCategoryParents } from '~/services/utils';
 import { ICategoryFilter } from '~/interfaces/filters';
+import List from '@material-ui/core/List';
+import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 
 interface Props {
   options: ICategoryFilter;
@@ -18,7 +20,7 @@ function FilterCategory(props: Props) {
 
   return (
     <div>
-      <ul>
+      <List>
         {options.value && (
           <li>
             <div style={{ color: 'red', marginBottom: '19px' }}>
@@ -33,11 +35,11 @@ function FilterCategory(props: Props) {
           <React.Fragment key={item.id}>
             {getCategoryParents(item).map((parent) => (
               <li key={parent.id}>
-                <span>Icon</span>
-
-                <AppLink href={url.category(parent)}>
-                  {parent.name + ' ' + 'Parent'}
-                </AppLink>
+                <div style={{ fontWeight: 'bold' }}>
+                  <AppLink href={url.category(parent)}>
+                    <ArrowBackIosIcon /> {parent.name + ' ' + 'Parent'}
+                  </AppLink>
+                </div>
               </li>
             ))}
             <li>
@@ -49,14 +51,16 @@ function FilterCategory(props: Props) {
               ? ''
               : item.children?.map((child) => (
                   <li key={child.id}>
-                    <AppLink href={url.category(child)}>
-                      {child.name + ' Child Category'}
-                    </AppLink>
+                    <div style={{ marginLeft: '20px' }}>
+                      <AppLink href={url.category(child)}>
+                        {child.name + ' Child Category'}
+                      </AppLink>
+                    </div>
                   </li>
                 ))}
           </React.Fragment>
         ))}
-      </ul>
+      </List>
     </div>
   );
 }
