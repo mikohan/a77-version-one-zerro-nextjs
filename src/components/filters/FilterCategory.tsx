@@ -1,7 +1,7 @@
 // react
 import React from 'react';
 // third-party
-import classNames from 'classnames';
+import AppLink from '~/services/AppLink';
 // application
 import Link from 'next/link';
 
@@ -25,9 +25,9 @@ function FilterCategory(props: Props) {
           <li>
             <div style={{ color: 'red', marginBottom: '19px' }}>
               <span>Icon</span>
-              <Link href={url.products()}>
+              <AppLink href={url.products()}>
                 Herre goes name of products or categoreis
-              </Link>
+              </AppLink>
             </div>
           </li>
         )}

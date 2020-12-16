@@ -45,18 +45,18 @@ export function normalizeLinkHref(data: IAppLinkHref): INormalizedLinkProps {
   };
 }
 
-function addLocale(
-  url: INormalizedUrlObject,
-  locale: string
-): INormalizedUrlObject {
-  return {
-    ...url,
-    pathname:
-      !url.pathname || locale === getDefaultLocale()
-        ? url.pathname
-        : `/${locale}${url.pathname}`,
-  };
-}
+/* function addLocale( */
+/*   url: INormalizedUrlObject, */
+/*   locale: string */
+/* ): INormalizedUrlObject { */
+/*   return { */
+/*     ...url, */
+/*     pathname: */
+/*       !url.pathname || locale === getDefaultLocale() */
+/*         ? url.pathname */
+/*         : `/${locale}${url.pathname}`, */
+/*   }; */
+/* } */
 
 type AnchorProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>;
 
@@ -67,7 +67,7 @@ interface Props extends PropsWithChildren<AnchorProps> {
 
 function AppLink(props: Props) {
   const { href, children, anchor = false, ...anchorProps } = props;
-  const locale = useLocale();
+  /* const locale = useLocale(); */
   const data = normalizeLinkHref(href || '');
   const isExternal = !!data.href.hostname;
   const hasPath = !!data.href.pathname;
@@ -76,13 +76,13 @@ function AppLink(props: Props) {
   if (isExternal || anchor || onlyHash) {
     let anchorHref;
 
-    if (!isExternal && hasPath) {
-      data.href = addLocale(data.href, locale);
+    /* if (!isExternal && hasPath) { */
+    /*   data.href = addLocale(data.href, locale); */
 
-      anchorHref = baseUrl(formatUrl(data.href));
-    } else {
-      anchorHref = formatUrl(data.href);
-    }
+    /*   anchorHref = baseUrl(formatUrl(data.href)); */
+    /* } else { */
+    anchorHref = formatUrl(data.href);
+    /* } */
 
     return (
       <a href={anchorHref} {...anchorProps}>
@@ -93,10 +93,10 @@ function AppLink(props: Props) {
 
   data.href.query = {
     ...data.href.query,
-    lang: locale,
+    /* lang: locale, */
   };
 
-  data.as = addLocale(data.as, locale);
+  /* data.as = addLocale(data.as, locale); */
 
   return (
     <Link {...data}>
