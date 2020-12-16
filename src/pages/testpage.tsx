@@ -66,7 +66,7 @@ export default function TestPage(props: any) {
               type: 'category',
               name: 'category',
               slug: 'category',
-              value: 'dvigatel',
+              value: 'porshni',
               items: props.categories.slice(7, 12),
             }}
           />
