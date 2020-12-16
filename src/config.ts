@@ -13,3 +13,6 @@ export const makesUrl = 'http://localhost:8000/testcategory/testmakes/';
 
 export const cagegoriesUrl =
   'http://localhost:8000/testcategory/categories-for-testes/';
+
+export const getCategoryBySlugUrl =
+  'http://localhost:8000/testcategory/testcategory/';
