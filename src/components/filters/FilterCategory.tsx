@@ -16,17 +16,19 @@ interface Props {
 function FilterCategory(props: Props) {
   const { options } = props;
 
+  console.log(url.products());
+
   return (
     <div>
       <ul>
         {options.value && (
           <li>
-            <span>Icon</span>
-            <Link href={url.category()}>
-              <div style={{ color: 'red', marginBottom: '19px' }}>
+            <div style={{ color: 'red', marginBottom: '19px' }}>
+              <span>Icon</span>
+              <Link href={url.products()}>
                 Herre goes name of products or categoreis
-              </div>
-            </Link>
+              </Link>
+            </div>
           </li>
         )}
         {options.items.map((item) => (
