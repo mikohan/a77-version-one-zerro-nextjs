@@ -22,8 +22,10 @@ function FilterCategory(props: Props) {
         {options.value && (
           <li>
             <span>Icon</span>
-            <Link href={url.products()}>
-              Herre goes name of products or categoreis
+            <Link href={url.category()}>
+              <div style={{ color: 'red', marginBottom: '19px' }}>
+                Herre goes name of products or categoreis
+              </div>
             </Link>
           </li>
         )}
