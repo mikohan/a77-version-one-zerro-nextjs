@@ -5,7 +5,7 @@ import { AbstractFilterBuilder } from './abstract-filter-builder';
 import { ICategoryFilter } from '~/interfaces/filters';
 import { IProduct } from '~/interfaces/product';
 import { IShopCategory } from '~/interfaces/category';
-import { prepareCategory } from '~/fake-server/endpoints/categories';
+import { prepareCategory } from '~/endpoints/categories';
 
 // import { ICategories } from '~/store/blog/blogActions';
 // import { myCataFlat, shopCategoryLst } from '~/fake-server/tests/catFilter';
