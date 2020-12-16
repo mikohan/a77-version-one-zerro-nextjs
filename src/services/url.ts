@@ -25,7 +25,6 @@ const url: { [key: string]: any } = {
   products: ({
     filters,
   }: { filters?: Record<string, string> } = {}): IAppLinkHref => {
-    console.log(filters, 'in services/url.ts ');
     return {
       href: {
         // pathname: '/catalog/products',
