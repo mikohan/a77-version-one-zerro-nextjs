@@ -1,8 +1,8 @@
 import React from 'react';
 import '~/components/filters/styles.module.css';
-import useLanguages from '~/hooks/languagesHook';
-import useUserInput from '~/hooks/userInputHook';
-import useSearchable from '~/hooks/useSearchable';
+import useLanguages from '~/hooks/deleteHooks/languagesHook';
+import useUserInput from '~/hooks/deleteHooks/userInputHook';
+import useSearchable from '~/hooks/deleteHooks/useSearchable';
 
 const Filtering: React.FC = () => {
   const searchText = useUserInput('');
@@ -10,7 +10,7 @@ const Filtering: React.FC = () => {
   const searchableLanguages = useSearchable(
     languages,
     searchText.value,
-    (l) => [l.name]
+    (l: any) => [l.name]
   );
   return (
     <div className="main">

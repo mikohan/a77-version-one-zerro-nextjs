@@ -1,9 +1,10 @@
+import { useState, useEffect } from 'react';
+
 interface Language {
   id: string;
   name: string;
 }
 
-import { useState, useEffect } from 'react';
 const useLanguages = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const endpoint = 'https://api.npoint.io/33d57619ef599fc57a53';
