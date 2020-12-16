@@ -11,13 +11,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { urlBuilder } from '~/helpers';
 import FilterCategory from '~/components/filters/FilterCategory';
 import axios from 'axios';
-import { categoriesUrl } from '~/config';
+import { getCategoryBySlugUrl } from '~/config';
 import { ICategory } from '~/interfaces/category';
 
 export default function TestPage(props: any) {
   const router = useRouter();
   let query = router.query || {};
-  console.log(props);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     /* console.log(event.target.value, event.target.checked); */
@@ -26,7 +25,6 @@ export default function TestPage(props: any) {
       shallow: true,
     });
   };
-  console.log(query.brand);
 
   return (
     <div>
@@ -66,8 +64,8 @@ export default function TestPage(props: any) {
               type: 'category',
               name: 'category',
               slug: 'category',
-              value: 'porshni',
-              items: props.categories.slice(7, 12),
+              value: 'porshnevaja',
+              items: props.categories,
             }}
           />
         </Box>
@@ -77,8 +75,11 @@ export default function TestPage(props: any) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axios.get<ICategory[]>(categoriesUrl);
+  const slug = 'porshnevaja';
+  const queryUrl = `${getCategoryBySlugUrl}${slug}/`;
+  const res = await axios.get<ICategory[]>(queryUrl);
   const data = res.data;
+  console.log(data);
   return {
     props: {
       categories: data,
