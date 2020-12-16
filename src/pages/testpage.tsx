@@ -67,7 +67,7 @@ export default function TestPage(props: any) {
               name: 'category',
               slug: 'category',
               value: 'dvigatel',
-              items: props.categories.slice(0, 5),
+              items: props.categories.slice(7, 12),
             }}
           />
         </Box>

@@ -15,6 +15,7 @@ interface Props {
 
 function FilterCategory(props: Props) {
   const { options } = props;
+  console.log(options);
 
   return (
     <div className="filter-category">
@@ -34,6 +35,7 @@ function FilterCategory(props: Props) {
                 key={parent.id}
                 className="filter-category__item filter-category__item--parent"
               >
+                {console.log(parent)}
                 <span className="filter-category__arrow">Icon</span>
 
                 <Link href={url.category(parent)}>{parent.name}</Link>
