@@ -12,13 +12,27 @@ import List from '@material-ui/core/List';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 interface Props {
   options: ICategoryFilter;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    currentItemCategory: {
+      color: theme.palette.primary.main,
+    },
+    childrenItems: {
+      color: theme.palette.primary.light,
+      marginLeft: 20,
+    },
+  })
+);
+
 function FilterCategory(props: Props) {
   const { options } = props;
+  const classes = useStyles();
 
   return (
     <div>
@@ -57,12 +71,10 @@ function FilterCategory(props: Props) {
             {item.count === 0
               ? ''
               : item.children?.map((child) => (
-                  <ListItem key={child.id}>
-                    <div style={{ marginLeft: '20px' }}>
-                      <AppLink href={url.category(child)}>
-                        <Typography variant="body2">{child.name}</Typography>
-                      </AppLink>
-                    </div>
+                  <ListItem className={classes.childrenItems} key={child.id}>
+                    <AppLink href={url.category(child)}>
+                      <Typography variant="body2">{child.name}</Typography>
+                    </AppLink>
                   </ListItem>
                 ))}
           </React.Fragment>

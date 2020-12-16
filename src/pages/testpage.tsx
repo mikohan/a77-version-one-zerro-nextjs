@@ -13,10 +13,26 @@ import FilterCategory from '~/components/filters/FilterCategory';
 import axios from 'axios';
 import { getCategoryBySlugUrl } from '~/config';
 import { ICategory, IShopCategory } from '~/interfaces/category';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  })
+);
 
 export default function TestPage(props: any) {
+  const classes = useStyles();
   const router = useRouter();
+
   let query = router.query || {};
 
   const items: IShopCategory[] = [];
@@ -29,19 +45,6 @@ export default function TestPage(props: any) {
       shallow: true,
     });
   };
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      root: {
-        flexGrow: 1,
-      },
-      menuButton: {
-        marginRight: theme.spacing(2),
-      },
-      title: {
-        flexGrow: 1,
-      },
-    })
-  );
 
   return (
     <div>
