@@ -18,6 +18,9 @@ export default function TestPage(props: any) {
   const router = useRouter();
   let query = router.query || {};
 
+  const items = [];
+  items.push(props.categories);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     /* console.log(event.target.value, event.target.checked); */
     const brands = urlBuilder('mobis', event);
@@ -65,7 +68,7 @@ export default function TestPage(props: any) {
               name: 'category',
               slug: 'category',
               value: 'porshnevaja',
-              items: props.categories,
+              items: items,
             }}
           />
         </Box>
