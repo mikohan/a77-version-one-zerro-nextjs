@@ -15,14 +15,13 @@ interface Props {
 
 function FilterCategory(props: Props) {
   const { options } = props;
-  console.log(options);
 
   return (
-    <div className="filter-category">
-      <ul className="filter-category__list">
+    <div>
+      <ul>
         {options.value && (
-          <li className="filter-category__item filter-category__item--parent">
-            <span className="filter-category__arrow">Icon</span>
+          <li>
+            <span>Icon</span>
             <Link href={url.products()}>
               Herre goes name of products or categoreis
             </Link>
@@ -31,30 +30,21 @@ function FilterCategory(props: Props) {
         {options.items.map((item) => (
           <React.Fragment key={item.id}>
             {getCategoryParents(item).map((parent) => (
-              <li
-                key={parent.id}
-                className="filter-category__item filter-category__item--parent"
-              >
-                {console.log(parent)}
-                <span className="filter-category__arrow">Icon</span>
+              <li key={parent.id}>
+                <span>Icon</span>
 
-                <Link href={url.category(parent)}>{parent.name}</Link>
+                <Link href={url.category(parent)}>
+                  {parent.name + ' ' + 'Parent'}
+                </Link>
               </li>
             ))}
-            <li
-              className={classNames('filter-category__item', {
-                'filter-category__item--current': options.value,
-              })}
-            >
+            <li>
               <Link href={url.category(item)}>{item.name}</Link>
             </li>
             {item.count === 0
               ? ''
               : item.children?.map((child) => (
-                  <li
-                    key={child.id}
-                    className="filter-category__item filter-category__item--child"
-                  >
+                  <li key={child.id}>
                     <Link href={url.category(child)}>{child.name}</Link>
                   </li>
                 ))}
