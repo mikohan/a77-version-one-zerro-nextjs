@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.light,
       marginLeft: 20,
     },
+    arrowSize: {
+      fontSize: '1.2rem',
+    },
   })
 );
 
@@ -41,7 +44,7 @@ function FilterCategory(props: Props) {
           <ListItem>
             <AppLink href={url.products()}>
               <ListItemIcon>
-                <ArrowBackIosIcon />
+                <ArrowBackIosIcon className={classes.arrowSize} />
                 <Typography variant="body2">All Categories</Typography>
               </ListItemIcon>
             </AppLink>
@@ -54,7 +57,7 @@ function FilterCategory(props: Props) {
                 <div style={{ fontWeight: 'bold' }}>
                   <AppLink href={url.category(parent)}>
                     <ListItemIcon>
-                      <ArrowBackIosIcon />
+                      <ArrowBackIosIcon className={classes.arrowSize} />
                       <Typography variant="body2">
                         {parent.name + ' ' + 'Parent'}
                       </Typography>
