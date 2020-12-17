@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Grid, List, ListItem } from '@material-ui/core';
 import { categoriesUrl, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
-import { ICategory } from '~/interfaces/ICategory';
+import { ICategory } from '~/interfaces/category';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '~/store/actions/categoriesAction';
 import { useEffect } from 'react';

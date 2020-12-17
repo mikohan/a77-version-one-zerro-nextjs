@@ -1,4 +1,4 @@
-import { ICategory } from './ICategory';
+import { ICategory } from '~/interfaces/category';
 
 export interface IMake {
   id: number;
