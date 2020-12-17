@@ -19,22 +19,24 @@ interface IModelProps {
   model: ICar;
   categories: IShopCategory[];
 }
+export interface IBaseFilter<T extends string, V> {
+  type: T;
+  name: string;
+  slug: string;
+  value: V;
+}
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
   console.log(categories);
 
-  const filterCategory = (
-    <FilterCategory
-      options={{
-        type: 'category',
-        name: 'category',
-        slug: 'category',
-        value: '',
-        items: categories,
-      }}
-    />
-  );
+  const filterCategory: IFilter = {
+    type: 'category',
+    name: 'category',
+    slug: 'category',
+    value: '',
+    items: categories,
+  };
 
   const filters = [];
   filters.push(filterCategory);
