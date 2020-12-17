@@ -6,7 +6,7 @@ import AppBarDense from '~/components/header/AppBarDense';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
-import LeftSideComponent from '~/components/main/LeftSideComponent';
+import LeftSideComponent from '~/components/main/FilterWidget';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
