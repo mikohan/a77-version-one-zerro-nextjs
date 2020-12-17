@@ -1,70 +1,19 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import { Box } from '@material-ui/core';
 
 import styles from './styles.module.css';
+import { IFilter } from '~/interfaces/filters';
 
-class Filter extends React.Component {
-  render() {
-    const containerClasses = classnames('container', 'mb-1', styles.container);
-    const formClasses = classnames('form-horizontal', styles.form);
-
-    return (
-      <div className={containerClasses}>
-        <form className={formClasses} noValidate>
-          <p className="mb-1">Refine your results</p>
-          <div className="columns text-center">
-            <div className="column col-4 col-xs-12">
-              <div className="form-group">
-                <div className="col-3 col-sm-12">
-                  <label className="form-label" htmlFor="price-from">
-                    Price from
-                  </label>
-                </div>
-                <div className="col-9 col-sm-12">
-                  <input
-                    className="form-input"
-                    min="0"
-                    max="10000000"
-                    type="number"
-                    id="price-from"
-                    placeholder="£1,000,000"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="column col-4 col-xs-12">
-              <div className="form-group">
-                <div className="col-3 col-sm-12">
-                  <label className="form-label" htmlFor="postcode">
-                    Postcode
-                  </label>
-                </div>
-                <div className="col-9 col-sm-12">
-                  <select className="form-select" id="postcode">
-                    <option value="">Choose...</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="column col-4 col-xs-12">
-              <div className="form-group">
-                <div className="col-3 col-sm-12">
-                  <label className="form-label" htmlFor="sortorder">
-                    Sort Order
-                  </label>
-                </div>
-                <div className="col-9 col-sm-12">
-                  <select className="form-select" id="sortorder">
-                    <option value="">Choose...</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    );
-  }
+interface IProps {
+  filter: IFilter;
+  value: string;
 }
 
-export default Filter;
+export default function Filter({ filter, value }: IProps) {
+  return (
+    <Box>
+      <p>{filter.name}</p>
+      <p>{filter.type}</p>
+    </Box>
+  );
+}

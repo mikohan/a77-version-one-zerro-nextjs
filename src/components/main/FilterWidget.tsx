@@ -27,7 +27,7 @@ export default function FiltersWidget({ filters }: IProps) {
         <Paper className={classes.paper}>
           {filters ? (
             filters.map((filter: IFilter) => (
-              <Filter key={filter.name}>{filter}</Filter>
+              <Filter key={filter.name} filter={filter} value="" />
             ))
           ) : (
             <span>No filters passed out</span>
