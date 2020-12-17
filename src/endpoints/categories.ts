@@ -38,7 +38,7 @@ export function prepareCategory<T extends IBaseCategory>(
 }
 
 // Flatting cagegories
-export function flatTree<T extends ICategory>(categories: T[]): T[] {
+export function flatTree<T extends IShopCategory>(categories: T[]): T[] {
   let result: T[] = [];
 
   categories.forEach((category) => {
@@ -48,61 +48,58 @@ export function flatTree<T extends ICategory>(categories: T[]): T[] {
   return result;
 }
 
-// export async function getCategoryBySlug(
-//   slug: string,
-//   options?: IGetCategoryBySlugOptions
-// ): Promise<IShopCategory> {
-//   const optionsValue = options || {};
-//   const shopCategoriesTree: any = await makeCategoriesFromApi();
-//   const shopCategoriesList: any = await flatTree(shopCategoriesTree);
-//   // console.log(shopCategoriesTree);
+export async function getCategoryBySlug(
+  slug: string,
+  options?: IGetCategoryBySlugOptions
+): Promise<IShopCategory> {
+  const optionsValue = options || {};
+  const shopCategoriesTree: any = await makeCategoriesFromApi();
+  const shopCategoriesList: IShopCategory[] = flatTree(shopCategoriesTree);
 
-//   const category = shopCategoriesList.find((x: any) => x.slug === slug);
-//   // console.log('--------------------------');
-//   // console.log('Find category in list', category);
-//   console.log(slug, 'In getCategories by slug');
+  const category = shopCategoriesList.find((x: any) => x.slug === slug);
+  console.log(slug, 'In getCategories by slug');
 
-//   if (!category) {
-//     return error('Page Not Found Needs to find Where it is coling from');
-//   }
+  if (!category) {
+    return error('Page Not Found Needs to find Where it is coling from');
+  }
 
-//   return Promise.resolve(category);
-// }
+  return Promise.resolve(category);
+}
 
 export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   IShopCategory
 > {
   const res = async () => {
-    const promise = await axios.get(`${categoriesUrl}`);
+    const promise = await axios.get<T[]>(`${categoriesUrl}`);
 
     return promise.data;
   };
 
   const cats = await res();
   // filtering empty categories here
-  const filtredArray = cats.filter((item: any) => {
+  const filtredArray = cats.filter((item: T) => {
     return item.count !== 0;
   });
 
-  const list: any = filtredArray;
+  const list: T[] = filtredArray;
 
-  const tree: any = [];
+  const tree: T[] = [];
   const lookup: any = {};
 
-  list.forEach((o: any) => {
+  list.forEach((o: T) => {
     lookup[o.id] = o;
     lookup[o.id].children = [];
   });
 
-  list.forEach((o: any) => {
-    if (o.parent !== null) {
+  list.forEach((o: T) => {
+    if (o.parent && o.parent !== null) {
       lookup[o.parent.id].children.push(o);
     } else {
       tree.push(o);
     }
   });
 
-  return tree;
+  return Promise.resolve(clone(tree));
 }
 
 export async function getCategories(

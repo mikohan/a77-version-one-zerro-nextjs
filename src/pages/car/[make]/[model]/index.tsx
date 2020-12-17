@@ -93,16 +93,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categoriesPromise = await axios.get(url);
   const categories = await categoriesPromise.data;
   const anoterCats = await getCategories({ depth: 1 });
-  console.log(anoterCats);
-
-  const filtredCategories = categories.filter((cat: ICategory) => {
-    return cat.count !== 0;
-  });
 
   return {
     props: {
       model: vehicle,
-      categories: filtredCategories,
+      categories: anoterCats,
     },
   };
 };
