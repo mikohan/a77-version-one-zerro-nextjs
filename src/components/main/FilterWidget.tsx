@@ -1,8 +1,9 @@
 import { Grid, Paper } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { IFilter } from '~/interfaces/filters';
 
 interface IProps {
-  filters?: any;
+  filters?: IFilter[];
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,7 +25,7 @@ export default function FiltersWidget({ filters }: IProps) {
         <Paper className={classes.paper}>Some place for filter category</Paper>
         <Paper className={classes.paper}>
           {filters ? (
-            filters.map((filter: any) => filter)
+            filters.map((filter: IFilter) => filter)
           ) : (
             <span>No filters passed out</span>
           )}

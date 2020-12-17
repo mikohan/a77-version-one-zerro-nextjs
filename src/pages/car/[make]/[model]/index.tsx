@@ -7,19 +7,33 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
-import { ICategory } from '~/interfaces/category';
+import { ICategory, IShopCategory } from '~/interfaces/category';
 import { List, ListItem, Box } from '@material-ui/core';
 import Link from 'next/link';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
+import FilterCategory from '~/components/filters/FilterCategory';
 
 interface IModelProps {
   model: ICar;
-  categories: ICategory[];
+  categories: IShopCategory[];
 }
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
+  console.log(categories);
+
+  const filterCategory = (
+    <FilterCategory
+      options={{
+        type: 'category',
+        name: 'category',
+        slug: 'category',
+        value: '',
+        items: categories,
+      }}
+    />
+  );
 
   return (
     <div>
@@ -27,7 +41,8 @@ function Model(props: IModelProps) {
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
             <Box>
-              <FilterWidget />
+              <FilterWidget options={filterCategory} />
+              {filterCategory}
             </Box>
           </LeftSideBar>
         </Grid>
