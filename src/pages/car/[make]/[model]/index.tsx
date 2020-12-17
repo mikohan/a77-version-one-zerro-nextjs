@@ -14,6 +14,7 @@ import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterCategory from '~/components/filters/FilterCategory';
 import { IFilter } from '~/interfaces/filters';
+import { getCategories } from '~/endpoints/categories';
 
 interface IModelProps {
   model: ICar;
@@ -91,6 +92,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   //const url = `${categoriesUrl}`
   const categoriesPromise = await axios.get(url);
   const categories = await categoriesPromise.data;
+  const anoterCats = await getCategories({ depth: 1 });
+  console.log(anoterCats);
 
   const filtredCategories = categories.filter((cat: ICategory) => {
     return cat.count !== 0;

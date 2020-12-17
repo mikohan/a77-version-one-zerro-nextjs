@@ -73,7 +73,7 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   IShopCategory
 > {
   const res = async () => {
-    const promise = await axios.get(`${categoriesUrl}/`);
+    const promise = await axios.get(`${categoriesUrl}`);
 
     return promise.data;
   };
