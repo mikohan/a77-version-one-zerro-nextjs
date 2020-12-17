@@ -13,6 +13,7 @@ import Link from 'next/link';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterCategory from '~/components/filters/FilterCategory';
+import { IFilter } from '~/interfaces/filters';
 
 interface IModelProps {
   model: ICar;
@@ -35,14 +36,16 @@ function Model(props: IModelProps) {
     />
   );
 
+  const filters = [];
+  filters.push(filterCategory);
+
   return (
     <div>
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
             <Box>
-              <FilterWidget options={filterCategory} />
-              {filterCategory}
+              <FilterWidget filters={filters} />
             </Box>
           </LeftSideBar>
         </Grid>
