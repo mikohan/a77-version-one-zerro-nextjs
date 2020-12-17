@@ -28,7 +28,6 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
-  console.log(categories);
 
   const filterCategory: IFilter = {
     type: 'category',
