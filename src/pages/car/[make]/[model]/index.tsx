@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/category';
-import { List, ListItem } from '@material-ui/core';
+import { List, ListItem, Box } from '@material-ui/core';
 import Link from 'next/link';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
@@ -24,11 +24,15 @@ function Model(props: IModelProps) {
   return (
     <div>
       <MainLayout>
-        <Grid item xs={12} sm={3} style={{ backgroundColor: 'red' }}>
-          <LeftSideBar>some content</LeftSideBar>
+        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+          <LeftSideBar>
+            <Box>
+              <FilterWidget />
+            </Box>
+          </LeftSideBar>
         </Grid>
-        <Grid item xs={12} sm={9} style={{ backgroundColor: 'green' }}>
-          <Grid container spacing={2}>
+        <Grid item xs={12} sm={9} style={{ border: '1px solid green' }}>
+          <Grid container item>
             <Grid item xs={6}>
               <Typography variant="h1">{model.model}</Typography>
               <pre>{JSON.stringify(model, null, 4)}</pre>

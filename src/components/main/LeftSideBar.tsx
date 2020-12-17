@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Box } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -8,7 +8,10 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     filtersHeader: {
-      margin: '0 auto',
+      padding: theme.spacing(2),
+    },
+    filterHeaderDiv: {
+      marginTop: theme.spacing(2),
     },
   })
 );
@@ -22,12 +25,12 @@ export default function FiltersWidget({ children }: IProps): JSX.Element {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Typography className={classes.filtersHeader} variant="h6">
+      <Grid container item xs={12} justify="center">
+        <Typography className={classes.filterHeaderDiv} variant="h6">
           Filters
         </Typography>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item container xs={12} justify="center">
         {children}
       </Grid>
     </Grid>

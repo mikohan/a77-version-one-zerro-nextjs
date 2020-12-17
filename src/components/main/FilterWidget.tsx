@@ -23,7 +23,11 @@ export default function FiltersWidget({ filters }: IProps) {
       <Grid item xs={12}>
         <Paper className={classes.paper}>Some place for filter category</Paper>
         <Paper className={classes.paper}>
-          {filters.map((filter: any) => filter)}
+          {filters ? (
+            filters.map((filter: any) => filter)
+          ) : (
+            <span>No filters passed out</span>
+          )}
         </Paper>
       </Grid>
     </Grid>

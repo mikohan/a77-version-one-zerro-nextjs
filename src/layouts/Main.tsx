@@ -49,7 +49,7 @@ export default function MainLayout(props: any) {
           <Grid item xs={12}>
             <AppBar />
           </Grid>
-          <Grid item container>
+          <Grid item container xs={12}>
             {props.children}
           </Grid>
           <Grid className={classes.footerGrid} item container>
