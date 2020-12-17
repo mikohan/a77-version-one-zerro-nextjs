@@ -6,7 +6,7 @@ import AppBarDense from '~/components/header/AppBarDense';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
-import LeftSideComponent from '~/components/main/FilterWidget';
+import LeftSideBar from '~/components/main/LeftSideBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,7 +61,7 @@ export default function MainLayout(props: any) {
                   spacing={3}
                 >
                   <Grid item xs={false} sm={3}>
-                    <LeftSideComponent />
+                    <LeftSideBar />
                   </Grid>
                   <Grid item xs={12} sm={9}>
                     {props.children}
