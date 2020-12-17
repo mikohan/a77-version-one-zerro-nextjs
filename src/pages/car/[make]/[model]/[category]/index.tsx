@@ -1,17 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
-import { Grid, List, ListItem } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { categoriesUrl, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
-import { ICategory } from '~/interfaces/category';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '~/store/actions/categoriesAction';
-import { useEffect } from 'react';
-import { wrapper } from '../../../../../pages/_app';
 
 interface CategoryProps {
   category: string;
@@ -22,15 +16,6 @@ interface CategoryProps {
 }
 
 export default function Cagetory(props: CategoryProps) {
-  /* const dispatch = useDispatch(); */
-  /* const { categories } = useSelector((state: any) => { */
-  /*   return state.getCategoriesReducer; */
-  /* }); */
-
-  /* useEffect(() => { */
-  /*   dispatch(fetchCategories()); */
-  /* }, []); */
-
   const { category, make, model, updated } = props;
 
   return (
