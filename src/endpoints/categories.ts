@@ -3,13 +3,11 @@
 //   blogCategoriesTree,
 //   flatTree,
 // } from '~/fake-server/database/categories';
-// import { clone, error } from '~/fake-server/utils';
-import {
-  IBaseCategory,
-  IBlogCategory,
-  IShopCategory,
-  ICategory,
-} from '~/interfaces/category';
+import { clone } from '~/utils';
+import axios from 'axios';
+import { categoriesUrl } from '~/config';
+
+import { IBaseCategory, IShopCategory, ICategory } from '~/interfaces/category';
 // import {
 //   IGetBlogCategoriesOptions,
 //   IGetCategoriesOptions,
@@ -54,6 +52,17 @@ export function prepareCategory<T extends IBaseCategory>(
   return categoryToReturn;
 }
 
+// Flatting cagegories
+export function flatTree<T extends ICategory>(categories: T[]): T[] {
+  let result: T[] = [];
+
+  categories.forEach((category) => {
+    result = [...result, category, ...flatTree(category.children as T[])];
+  });
+
+  return result;
+}
+
 // export async function getCategoryBySlug(
 //   slug: string,
 //   options?: IGetCategoryBySlugOptions
@@ -75,36 +84,72 @@ export function prepareCategory<T extends IBaseCategory>(
 //   return Promise.resolve(category);
 // }
 
-// export async function getCategories(
-//   options?: IGetCategoriesOptions
-// ): Promise<IShopCategory[]> {
-//   const shopCategoriesTree: any = await makeCategoriesFromApi();
+export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
+  IShopCategory
+> {
+  const res = async () => {
+    const promise = await axios.get(`${categoriesUrl}/`);
 
-//   const shopCategoriesList: any = await flatTree(shopCategoriesTree);
+    return promise.data;
+  };
 
-//   let categories = await shopCategoriesTree.slice(0);
+  const cats = await res();
+  // filtering empty categories here
+  const filtredArray = cats.filter((item: any) => {
+    return item.count !== 0;
+  });
 
-//   const depth = options?.depth || 0;
-//   const optionParent = options?.parent;
-//   const optionSlugs = options?.slugs;
+  const list: any = filtredArray;
 
-//   if (optionParent) {
-//     const parent = shopCategoriesList.find(
-//       (x: any) => x.slug === optionParent.slug
-//     );
+  const tree: any = [];
+  const lookup: any = {};
 
-//     if (parent) {
-//       categories = parent.children || [];
-//     }
-//   } else if (optionSlugs) {
-//     categories = shopCategoriesList.filter((x: any) =>
-//       optionSlugs.includes(x.slug)
-//     );
-//   }
+  list.forEach((o: any) => {
+    lookup[o.id] = o;
+    lookup[o.id].children = [];
+  });
 
-//   categories = categories.map((x: any) => prepareCategory(x, depth));
-//   return Promise.resolve(clone(categories));
-// }
+  list.forEach((o: any) => {
+    if (o.parent !== null) {
+      lookup[o.parent.id].children.push(o);
+    } else {
+      tree.push(o);
+    }
+  });
+
+  return tree;
+}
+
+export async function getCategories(
+  options?: IGetCategoriesOptions
+): Promise<IShopCategory[]> {
+  const shopCategoriesTree: any = await makeCategoriesFromApi();
+
+  const shopCategoriesList: IShopCategory[] = flatTree(shopCategoriesTree);
+
+  let categories = await shopCategoriesTree.slice(0);
+
+  const depth = options?.depth || 0;
+  const optionParent = options?.parent;
+  const optionSlugs = options?.slugs;
+
+  if (optionParent) {
+    const parent = shopCategoriesList.find(
+      (x: any) => x.slug === optionParent.slug
+    );
+
+    if (parent) {
+      categories = parent.children || [];
+    }
+  } else if (optionSlugs) {
+    categories = shopCategoriesList.filter((x: any) =>
+      optionSlugs.includes(x.slug)
+    );
+  }
+
+  categories = categories.map((x: any) => prepareCategory(x, depth));
+  return Promise.resolve(clone(categories));
+}
 
 // export function getBlogCategories(
 //   options: IGetBlogCategoriesOptions
