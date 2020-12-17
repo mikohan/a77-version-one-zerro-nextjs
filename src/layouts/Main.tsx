@@ -50,26 +50,7 @@ export default function MainLayout(props: any) {
             <AppBar />
           </Grid>
           <Grid item container>
-            <Grid container>
-              <Grid item xs={false} sm={1} />
-              <Grid item xs={12} sm={9}>
-                <Grid
-                  className={classes.mainGrid}
-                  container
-                  item
-                  xs={12}
-                  spacing={3}
-                >
-                  <Grid item xs={false} sm={3}>
-                    <LeftSideBar />
-                  </Grid>
-                  <Grid item xs={12} sm={9}>
-                    {props.children}
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={false} sm={1} />
-            </Grid>
+            {props.children}
           </Grid>
           <Grid className={classes.footerGrid} item container>
             <Grid item xs={12}>
