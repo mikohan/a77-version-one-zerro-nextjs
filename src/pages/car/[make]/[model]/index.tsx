@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
-import { categoriesUrl, vehiclesUrl, getCategoryBySlugUrl } from '~/config';
+import { categoriesUrl, vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -87,24 +87,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
   const vehicle = await promise.data;
 
-  const slug1 = 'dvigatel';
-  const slug2 = 'generator';
-  const url1 = `${getCategoryBySlugUrl}${slug1}/`;
-  const url2 = `${getCategoryBySlugUrl}${slug2}/`;
+  const url = categoriesUrl;
   //const url = `${categoriesUrl}`
-  const categoriesPromise = await axios.get(url1);
+  const categoriesPromise = await axios.get(url);
   const categories = await categoriesPromise.data;
 
-  const categoriesPromise2 = await axios.get(url2);
-  const categories2 = await categoriesPromise2.data;
-  /* const filtredCategories = categories.filter((cat: ICategory) => { */
-  /*   return cat.count !== 0; */
-  /* }); */
+  const filtredCategories = categories.filter((cat: ICategory) => {
+    return cat.count !== 0;
+  });
 
   return {
     props: {
       model: vehicle,
-      categories: [categories, categories2],
+      categories: filtredCategories,
     },
   };
 };
