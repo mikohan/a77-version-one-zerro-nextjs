@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
-import { categoriesUrl, vehiclesUrl } from '~/config';
+import { categoriesUrl, vehiclesUrl, getCategoryBySlugUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -33,7 +33,7 @@ function Model(props: IModelProps) {
     type: 'category',
     name: 'category',
     slug: 'category',
-    value: '',
+    value: 'dvigatel',
     items: categories,
   };
 
@@ -58,17 +58,21 @@ function Model(props: IModelProps) {
             </Grid>
             <Grid item xs={6}>
               <List>
-                {categories.map((cat: ICategory) => {
-                  return (
-                    <ListItem key={cat.id}>
-                      <Link
-                        href={`/car/${model.make}/${model.slug}/${cat.slug}`}
-                      >
-                        <Typography variant="body2">{cat.name}</Typography>
-                      </Link>
-                    </ListItem>
-                  );
-                })}
+                {Array.isArray(categories) ? (
+                  categories.map((cat: ICategory) => {
+                    return (
+                      <ListItem key={cat.id}>
+                        <Link
+                          href={`/car/${model.make}/${model.slug}/${cat.slug}`}
+                        >
+                          <Typography variant="body2">{cat.name}</Typography>
+                        </Link>
+                      </ListItem>
+                    );
+                  })
+                ) : (
+                  <div>Not array</div>
+                )}
               </List>
             </Grid>
           </Grid>
@@ -83,17 +87,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
   const vehicle = await promise.data;
 
-  const categoriesPromise = await axios.get(`${categoriesUrl}`);
+  const slug1 = 'dvigatel';
+  const slug2 = 'generator';
+  const url1 = `${getCategoryBySlugUrl}${slug1}/`;
+  const url2 = `${getCategoryBySlugUrl}${slug2}/`;
+  //const url = `${categoriesUrl}`
+  const categoriesPromise = await axios.get(url1);
   const categories = await categoriesPromise.data;
 
-  const filtredCategories = categories.filter((cat: ICategory) => {
-    return cat.count !== 0;
-  });
+  const categoriesPromise2 = await axios.get(url2);
+  const categories2 = await categoriesPromise2.data;
+  /* const filtredCategories = categories.filter((cat: ICategory) => { */
+  /*   return cat.count !== 0; */
+  /* }); */
 
   return {
     props: {
       model: vehicle,
-      categories: filtredCategories,
+      categories: [categories, categories2],
     },
   };
 };
