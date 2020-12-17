@@ -1,13 +1,18 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
-import { categoriesUrl, vehiclesUrl } from '~/config';
+import {
+  categoriesUrl,
+  vehiclesUrl,
+  getModelsByMakeUrl,
+  makesUrl,
+} from '~/config';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
-import { ICategory } from '~/interfaces/ICategory';
+import { ICategory } from '~/interfaces/category';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 
@@ -18,34 +23,16 @@ interface IModelProps {
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
+  console.log(model);
+
   return (
     <div>
-      <MainLayout>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Typography variant="h1">{model.model}</Typography>
-            <pre>{JSON.stringify(model, null, 4)}</pre>
-          </Grid>
-          <Grid item xs={6}>
-            <List>
-              {categories.map((cat: ICategory) => {
-                return (
-                  <ListItem key={cat.id}>
-                    <Link href={`/car/${model.make}/${model.slug}/${cat.slug}`}>
-                      <Typography variant="body2">{cat.name}</Typography>
-                    </Link>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </Grid>
-        </Grid>
-      </MainLayout>
+      <MainLayout></MainLayout>
     </div>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model;
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
   const vehicle = await promise.data;
@@ -62,6 +49,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       model: vehicle,
       categories: filtredCategories,
     },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const modelUrl = `${makesUrl}`;
+  const url = `${getModelsByMakeUrl}hyundai/`;
+  console.log(url, ctx);
+
+  const res = await axios.get(url);
+
+  return {
+    fallback: true,
+    paths: [],
   };
 };
 
