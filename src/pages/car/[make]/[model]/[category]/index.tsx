@@ -3,12 +3,18 @@ import axios from 'axios';
 
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import { categoriesUrl, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
+import { getCategoryBySlug } from '~/endpoints/categories';
+import { asString } from '~/helpers';
+import LeftSideBar from '~/components/main/LeftSideBar';
+import FilterWidget from '~/components/main/FilterWidget';
+import { IFilter } from '~/interfaces/filters';
+import { IShopCategory } from '~/interfaces/category';
 
 interface CategoryProps {
-  category: string;
+  category: IShopCategory;
   categoryId?: number;
   make: string;
   model: string;
@@ -17,14 +23,33 @@ interface CategoryProps {
 
 export default function Cagetory(props: CategoryProps) {
   const { category, make, model, updated } = props;
+  const items: IShopCategory[] = [];
+  items.push(category);
+  const filterCategory: IFilter = {
+    type: 'category',
+    name: 'category',
+    slug: 'category',
+    value: 'dvigatel',
+    items: items,
+  };
+
+  const filters = [];
+  filters.push(filterCategory);
 
   return (
     <div>
       <MainLayout>
-        <Grid container spacing={2}>
+        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+          <LeftSideBar>
+            <Box>
+              <FilterWidget filters={filters} />
+            </Box>
+          </LeftSideBar>
+        </Grid>
+        <Grid item xs={12} sm={9}>
           <Grid item xs={6}>
             <Typography variant="h1">
-              {`${category} for ${make} ${model}`}
+              {`${category.name} for ${make} ${model}`}
             </Typography>
             <Typography variant="h4">{updated}</Typography>
           </Grid>
@@ -43,10 +68,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   }
 
+  const slug: string = asString(category);
+  const categories = await getCategoryBySlug(slug);
+
   return {
     props: {
       car: {},
-      category: category,
+      category: categories,
       make: make,
       model: model,
       updated: Date.now(),
