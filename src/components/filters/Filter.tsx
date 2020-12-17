@@ -14,8 +14,6 @@ export default function Filter({ filter, value }: IProps) {
   return (
     <Box>
       {filter.type === 'category' && <FilterCategory options={filter} />}
-      <p>{filter.name}</p>
-      <p>{filter.type}</p>
     </Box>
   );
 }
