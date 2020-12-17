@@ -1,9 +1,12 @@
-import { clone } from '~/utils';
+import { clone, error } from '~/utils';
 import axios from 'axios';
 import { categoriesUrl } from '~/config';
 
-import { IBaseCategory, IShopCategory, ICategory } from '~/interfaces/category';
-import { IGetCategoriesOptions } from '~/interfaces/api/shop.api';
+import { IBaseCategory, IShopCategory } from '~/interfaces/category';
+import {
+  IGetCategoriesOptions,
+  IGetCategoryBySlugOptions,
+} from '~/interfaces/api/shop.api';
 
 export function prepareCategory<T extends IBaseCategory>(
   category: T,
@@ -57,7 +60,6 @@ export async function getCategoryBySlug(
   const shopCategoriesList: IShopCategory[] = flatTree(shopCategoriesTree);
 
   const category = shopCategoriesList.find((x: any) => x.slug === slug);
-  console.log(slug, 'In getCategories by slug');
 
   if (!category) {
     return error('Page Not Found Needs to find Where it is coling from');
