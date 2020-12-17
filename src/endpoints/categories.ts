@@ -1,24 +1,9 @@
-// application
-// import {
-//   blogCategoriesTree,
-//   flatTree,
-// } from '~/fake-server/database/categories';
 import { clone } from '~/utils';
 import axios from 'axios';
 import { categoriesUrl } from '~/config';
 
 import { IBaseCategory, IShopCategory, ICategory } from '~/interfaces/category';
-// import {
-//   IGetBlogCategoriesOptions,
-//   IGetCategoriesOptions,
-//   IGetCategoryBySlugOptions,
-// } from '~/api/base';
-// import { makeCategoriesFromApi } from '~/fake-server/database/categories';
-// import {
-//   categoriesData,
-//   dataRecursive,
-// } from '~/fake-server/database/new_categores';
-// import { AnyAction } from 'redux';
+import { IGetCategoriesOptions } from '~/interfaces/api/shop.api';
 
 export function prepareCategory<T extends IBaseCategory>(
   category: T,
