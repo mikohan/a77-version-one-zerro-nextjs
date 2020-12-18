@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useCallback } from 'react';
+
 import { Box } from '@material-ui/core';
 import { ArrowRoundedDown12x7Svg } from '~/svg';
 
