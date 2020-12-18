@@ -31,6 +31,7 @@ function Filter(props: IProps) {
   //
   //
   //
+  //
 
   const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
     <div className="filter filter--opened" ref={setItemRef}>
