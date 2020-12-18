@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Box } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { ArrowRoundedDown12x7Svg } from '~/svg';
 
 import { IFilter } from '~/interfaces/filters';
@@ -17,22 +17,27 @@ type RenderFilterFn = ICollapseRenderFn<HTMLDivElement, HTMLDivElement>;
 function Filter(props: IProps) {
   const { filter, value } = props;
   //    const shopSetFilterValue = useShopSetFilterValueThunk();
+  /* const shopSetFilterValue = */
 
   /* const handleValueChange = useCallback(({ filter, value }: ChangeValueEvent) => { */
-  /*     shopSetFilterValue( */
-  /*         filter.slug, */
-  /*         isDefaultFilterValue(filter, value) ? null : serializeFilterValue(filter, value), */
-  /*     ).then(); */
+  /*   shopSetFilterValue( */
+  /*       filter.slug, */
+  /*       isDefaultFilterValue(filter, value) ? null : serializeFilterValue(filter, value), */
+  /*   ).then(); */
   /* }, [shopSetFilterValue]); */
+
+  //
 
   const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
     <div className="filter filter--opened" ref={setItemRef}>
-      <button type="button" className="filter__title" onClick={toggle}>
+      <Button
+        startIcon={<ArrowRoundedDown12x7Svg />}
+        type="button"
+        className="filter__title"
+        onClick={toggle}
+      >
         {filter.name}
-        <span className="filter__arrow">
-          <ArrowRoundedDown12x7Svg />
-        </span>
-      </button>
+      </Button>
       <div className="filter__body" ref={setContentRef}>
         <div className="filter__container">
           {filter.type === 'category' && <FilterCategory options={filter} />}
