@@ -4,24 +4,47 @@ import { ArrowRoundedDown12x7Svg } from '~/svg';
 
 import { IFilter } from '~/interfaces/filters';
 import FilterCategory from '~/components/filters/FilterCategory';
+import Collapse, { ICollapseRenderFn } from '~/components/shared/Collapse';
 
 interface IProps {
   filter: IFilter;
   value: string;
 }
 
-export default function Filter({ filter, value }: IProps) {
+type RenderFilterFn = ICollapseRenderFn<HTMLDivElement, HTMLDivElement>;
+
+function Filter(props: IProps) {
+  const { filter, value } = props;
+  //    const shopSetFilterValue = useShopSetFilterValueThunk();
+
+  /* const handleValueChange = useCallback(({ filter, value }: ChangeValueEvent) => { */
+  /*     shopSetFilterValue( */
+  /*         filter.slug, */
+  /*         isDefaultFilterValue(filter, value) ? null : serializeFilterValue(filter, value), */
+  /*     ).then(); */
+  /* }, [shopSetFilterValue]); */
+
+  const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
+    <div className="filter filter--opened" ref={setItemRef}>
+      <button type="button" className="filter__title" onClick={toggle}>
+        {filter.name}
+        <span className="filter__arrow">
+          <ArrowRoundedDown12x7Svg />
+        </span>
+      </button>
+      <div className="filter__body" ref={setContentRef}>
+        <div className="filter__container">
+          {filter.type === 'category' && <FilterCategory options={filter} />}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <Box>
-      <Box>
-        <button type="button" className="filter__title">
-          {filter.name}
-          <span className="filter__arrow">
-            <ArrowRoundedDown12x7Svg />
-          </span>
-        </button>
-      </Box>
-      {filter.type === 'category' && <FilterCategory options={filter} />}
-    </Box>
+    <div className="widget-filters__item">
+      <Collapse toggleClass="filter--opened" render={renderFn} />
+    </div>
   );
 }
+
+export default React.memo(Filter);
