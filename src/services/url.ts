@@ -22,13 +22,16 @@ const url: { [key: string]: any } = {
 
     return '/';
   },
-  products: ({
-    filters,
-  }: { filters?: Record<string, string> } = {}): IAppLinkHref => {
+  products: (
+    make?: string,
+    model?: string,
+    { filters }: { filters?: Record<string, string> } = {}
+  ): IAppLinkHref => {
     return {
       href: {
         // pathname: '/catalog/products',
-        pathname: '/demo/shop/category-columns-4-sidebar',
+        pathname: `/car/${make}/${model}`,
+
         query: {
           ...filters,
         },

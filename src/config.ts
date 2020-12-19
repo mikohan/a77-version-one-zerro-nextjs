@@ -4,6 +4,8 @@ export const vehiclesUrl = `${apiUrl}testproducts/vehicles/`;
 
 export const productUrl = `http://localhost:8000/testcategory/products/products/kolenval/`;
 
+// This url getting all categories from API in flat fashon only one level of parent present
+// Then category by slug will be taken from that url
 export const categoriesUrl = `http://localhost:8000/testcategory/testcategories/`;
 
 export const getModelsByMakeUrl =

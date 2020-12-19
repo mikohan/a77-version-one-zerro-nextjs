@@ -13,6 +13,7 @@ import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 
 interface Props {
   options: ICategoryFilter;
@@ -36,16 +37,22 @@ const useStyles = makeStyles((theme: Theme) =>
 function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
+  const router = useRouter();
+
+  const { make, model } = router.query;
 
   return (
     <div>
       <List>
         {options.value && (
           <ListItem>
-            <AppLink href={url.products()}>
+            <AppLink href={url.products(make, model)}>
               <ListItemIcon>
                 <ArrowBackIosIcon className={classes.arrowSize} />
                 <Typography variant="body2">All Categories</Typography>
+                <Typography variant="body2">
+                  {make} {model}
+                </Typography>
               </ListItemIcon>
             </AppLink>
           </ListItem>
