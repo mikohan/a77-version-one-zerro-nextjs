@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import axios from 'axios';
-import { getModelsByMakeUrl, vehiclesUrl } from '~/config';
+import { getModelsByMakeUrl, REVALIDATE, vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
@@ -50,6 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const models = promise.data;
 
   return {
+    revalidate: REVALIDATE,
     props: {
       models: models,
       make: make,

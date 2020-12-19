@@ -18,3 +18,5 @@ export const cagegoriesUrl =
 
 export const getCategoryBySlugUrl =
   'http://localhost:8000/testcategory/testcategory/';
+
+export const REVALIDATE: number = 20;

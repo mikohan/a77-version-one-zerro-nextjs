@@ -5,7 +5,7 @@ import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
-import { categoriesUrl, productUrl, vehiclesUrl } from '~/config';
+import { categoriesUrl, productUrl, REVALIDATE, vehiclesUrl } from '~/config';
 import { asString } from '~/helpers';
 import { IProduct } from '~/interfaces/product';
 
@@ -46,6 +46,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const res = await axios.get(url);
 
   return {
+    revalidate: REVALIDATE,
     props: {
       products: res.data,
     },

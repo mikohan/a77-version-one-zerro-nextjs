@@ -12,7 +12,7 @@ import { List, ListItem, Box } from '@material-ui/core';
 import Link from 'next/link';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
-import FilterCategory from '~/components/filters/FilterCategory';
+import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
 import { getCategories } from '~/endpoints/categories';
 
@@ -90,11 +90,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const url = categoriesUrl;
   //const url = `${categoriesUrl}`
-  const categoriesPromise = await axios.get(url);
-  const categories = await categoriesPromise.data;
   const anoterCats = await getCategories({ depth: 1 });
 
   return {
+    revalidate: REVALIDATE,
     props: {
       model: vehicle,
       categories: anoterCats,

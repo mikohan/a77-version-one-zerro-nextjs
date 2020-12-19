@@ -4,7 +4,7 @@ import axios from 'axios';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Box } from '@material-ui/core';
-import { categoriesUrl, vehiclesUrl } from '~/config';
+import { REVALIDATE, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
 import { getCategories, getCategoryBySlug } from '~/endpoints/categories';
 import { asString } from '~/helpers';
@@ -72,6 +72,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categories = await getCategoryBySlug(slug);
 
   return {
+    revalidate: REVALIDATE,
     props: {
       car: {},
       category: categories,
@@ -79,7 +80,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       model: model,
       updated: Date.now(),
     },
-    revalidate: 20,
   };
 };
 
