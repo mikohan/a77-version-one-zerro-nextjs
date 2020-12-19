@@ -14,10 +14,8 @@ const url: { [key: string]: any } = {
   ): IAppLinkHref => ({
     href: `/car/${make}/${model}/${category.slug}${
       category.layout === 'products' ? '/products' : ''
-    }?slug=${category.slug}`,
-    // as: `/catalog/${category.slug}${
-    //   category.layout === 'products' ? '/products' : ''
-    // }`,
+    }
+    `,
   }),
   category: (
     category: ICategory,
@@ -25,7 +23,7 @@ const url: { [key: string]: any } = {
     model?: string
   ): IAppLinkHref => {
     if (category.type === 'shop') {
-      return url.shopCategory(category);
+      return url.shopCategory(category, make, model);
     }
 
     return '/';
