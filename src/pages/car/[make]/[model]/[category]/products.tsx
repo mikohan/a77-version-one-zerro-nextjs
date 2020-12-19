@@ -8,18 +8,37 @@ import axios from 'axios';
 import { categoriesUrl, productUrl, REVALIDATE, vehiclesUrl } from '~/config';
 import { asString } from '~/helpers';
 import { IProduct } from '~/interfaces/product';
+import { getCategoryBySlug } from '~/endpoints/categories';
+import { IShopCategory } from '~/interfaces/category';
+import { IFilter } from '~/interfaces/filters';
 
 interface IProps {
   products: IProduct[];
+  categories: IShopCategory;
 }
 
-export default function Products({ products }: IProps) {
+export default function Products({ products, categories }: IProps) {
+  const items: IShopCategory[] = [];
+  items.push(categories);
+
+  const filterCategory: IFilter = {
+    type: 'category',
+    name: 'category',
+    slug: 'category',
+    value: 'golovka',
+    items: items,
+  };
+
+  const filters = [];
+  filters.push(filterCategory);
   return (
     <div>
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
-            <Box>here goes filter widget</Box>
+            <Box>
+              <FilterWidget filters={filters} />
+            </Box>
           </LeftSideBar>
         </Grid>
         <Grid item xs={12} sm={9}>
@@ -44,11 +63,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categorySlug = asString(context?.params?.category as string);
   const url = `${productUrl}?category=${categorySlug}`;
   const res = await axios.get(url);
+  const categories = await getCategoryBySlug(categorySlug);
 
   return {
     revalidate: REVALIDATE,
     props: {
       products: res.data,
+      categories,
     },
   };
 };

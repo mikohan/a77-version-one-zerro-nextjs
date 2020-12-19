@@ -62,7 +62,7 @@ function FilterCategory(props: Props) {
             {getCategoryParents(item).map((parent) => (
               <ListItem key={parent.id}>
                 <div style={{ fontWeight: 'bold' }}>
-                  <AppLink href={url.category(parent)}>
+                  <AppLink href={url.category(parent, make, model)}>
                     <ListItemIcon>
                       <ArrowBackIosIcon className={classes.arrowSize} />
                       <Typography variant="body2">
