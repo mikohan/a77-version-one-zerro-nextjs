@@ -14,7 +14,6 @@ interface IProps {
 }
 
 export default function Products({ products }: IProps) {
-  console.log(products);
   return (
     <div>
       <MainLayout>
@@ -30,7 +29,6 @@ export default function Products({ products }: IProps) {
               {products.map((product: IProduct, i: number) => (
                 <ListItem key={i}>
                   <Typography variant="body2">{product.name}</Typography>
-                  {console.log(product)}
                 </ListItem>
               ))}
             </List>
@@ -46,10 +44,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categorySlug = asString(context?.params?.category as string);
   const url = `${productUrl}?category=${categorySlug}`;
   const res = await axios.get(url);
-  /* const products: any = []; */
-  /* if (res.data.length !== 0) { */
-  /*   products.concat(res.data); */
-  /* } */
 
   return {
     props: {

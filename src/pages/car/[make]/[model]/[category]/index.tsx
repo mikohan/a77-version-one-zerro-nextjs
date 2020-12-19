@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Grid, Box } from '@material-ui/core';
 import { categoriesUrl, vehiclesUrl } from '~/config';
 import { ICar } from '~/interfaces/ICar';
-import { getCategoryBySlug } from '~/endpoints/categories';
+import { getCategories, getCategoryBySlug } from '~/endpoints/categories';
 import { asString } from '~/helpers';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
@@ -97,7 +97,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
 
   const categoryPromise = await axios.get(categoriesUrl);
-  const categories = await categoryPromise.data;
+  const categories = await getCategories();
+  /* const categories = await categoryPromise.data; */
 
   const paths: {
     params: { make: string; model: string; category: string };
