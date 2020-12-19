@@ -8,6 +8,13 @@ import {
   IGetCategoryBySlugOptions,
 } from '~/interfaces/api/shop.api';
 
+/*
+Whole file logic
+1. Get flat categories(with one level parnet in them) from api url is /testcategory/testcategories/
+2. Make Tree from that flat list 
+3. Category by slug finding in that list(logic from RedParts)
+*/
+
 export function prepareCategory<T extends IBaseCategory>(
   category: T,
   depth?: number

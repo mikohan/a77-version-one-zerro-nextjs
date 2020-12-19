@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
 function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
-  console.log(options.items);
 
   return (
     <div>
