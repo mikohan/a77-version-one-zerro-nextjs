@@ -14,6 +14,7 @@ interface IProps {
 }
 
 export default function Products({ products }: IProps) {
+  console.log(products);
   return (
     <div>
       <MainLayout>
@@ -26,10 +27,12 @@ export default function Products({ products }: IProps) {
           <Grid item xs={6}>
             <Typography variant="h6">Here some text</Typography>
             <List>
-              {products &&
-                products.map((product: IProduct) => (
-                  <ListItem key={product.id}>{product.name}</ListItem>
-                ))}
+              {products.map((product: IProduct, i: number) => (
+                <ListItem key={i}>
+                  <Typography variant="body2">{product.name}</Typography>
+                  {console.log(product)}
+                </ListItem>
+              ))}
             </List>
           </Grid>
           <Grid item xs={6}></Grid>
@@ -43,6 +46,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categorySlug = asString(context?.params?.category as string);
   const url = `${productUrl}?category=${categorySlug}`;
   const res = await axios.get(url);
+  /* const products: any = []; */
+  /* if (res.data.length !== 0) { */
+  /*   products.concat(res.data); */
+  /* } */
 
   return {
     props: {
@@ -59,14 +66,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [];
   for (let vehicle of makeRes.data) {
     for (let cat of catRes.data) {
-      const prodRes = await axios.get(`${productUrl}?category=${cat}`);
-      if (prodRes.data.length !== 0) {
+      if (cat.count > 0) {
         paths.push({
           params: {
             make: vehicle.make,
             model: vehicle.slug,
             category: cat.slug,
-            products: '/products',
           },
         });
       }
@@ -74,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 
   return {
-    fallback: true,
+    fallback: false,
     paths: paths,
   };
 };
