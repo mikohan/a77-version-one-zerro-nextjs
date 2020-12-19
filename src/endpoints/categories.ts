@@ -92,7 +92,6 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   const filtredArray = cats.filter((item: T) => {
     return item.count !== 0;
   });
-  console.log(filtredArray.length, 'In category endpoint');
 
   const list: T[] = filtredArray;
 

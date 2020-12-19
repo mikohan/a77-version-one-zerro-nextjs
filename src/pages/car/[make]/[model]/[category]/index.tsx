@@ -96,9 +96,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
   });
 
-  const categoryPromise = await axios.get(categoriesUrl);
+  // Getting NOT Empty categories from endpoint
   const categories = await getCategories();
-  /* const categories = await categoryPromise.data; */
 
   const paths: {
     params: { make: string; model: string; category: string };
