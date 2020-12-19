@@ -3,6 +3,10 @@ import MainLayout from '~/layouts/Main';
 import { Typography, Grid, Box } from '@material-ui/core';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import axios from 'axios';
+import { productUrl } from '~/config';
+import { asString } from '~/helpers';
 
 export default function Products() {
   return (
@@ -23,3 +27,23 @@ export default function Products() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const categorySlug = asString(context?.params?.category as string);
+  const url = `${productUrl}${categorySlug}/`;
+  const res = await axios.get(url);
+  console.log(res.data);
+
+  return {
+    props: {},
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  /* const res = await axios.get(a); */
+
+  return {
+    fallback: true,
+    paths: [],
+  };
+};
