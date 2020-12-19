@@ -25,10 +25,6 @@ function Filter(props: IProps) {
   /*       isDefaultFilterValue(filter, value) ? null : serializeFilterValue(filter, value), */
   /*   ).then(); */
   /* }, [shopSetFilterValue]); */
-  //
-  //
-  //
-  //
 
   const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
     <div className="filter filter--opened" ref={setItemRef}>
