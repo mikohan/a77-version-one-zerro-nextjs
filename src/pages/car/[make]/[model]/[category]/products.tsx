@@ -14,7 +14,6 @@ interface IProps {
 }
 
 export default function Products({ products }: IProps) {
-  console.log(products);
   return (
     <div>
       <MainLayout>
@@ -25,8 +24,12 @@ export default function Products({ products }: IProps) {
         </Grid>
         <Grid item xs={12} sm={9}>
           <Grid item xs={6}>
-            <Typography variant="h1">Here some text</Typography>
-            <List></List>
+            <Typography variant="h6">Here some text</Typography>
+            <List>
+              {products.map((product: IProduct) => (
+                <ListItem key={product.id}>{product.name}</ListItem>
+              ))}
+            </List>
           </Grid>
           <Grid item xs={6}></Grid>
         </Grid>
@@ -37,7 +40,7 @@ export default function Products({ products }: IProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const categorySlug = asString(context?.params?.category as string);
-  const url = `${productUrl}${categorySlug}/`;
+  const url = `${productUrl}?category=${categorySlug}`;
   const res = await axios.get(url);
 
   return {
