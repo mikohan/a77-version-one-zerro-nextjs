@@ -146,7 +146,9 @@ function Collapse<T extends HTMLElement, P extends HTMLElement>(
       return (
         <React.Fragment>
           {render({
-            toggle: handleToggle,
+            toggle: () => {
+              expand(true);
+            }, //handleToggle,
             setItemRef: itemRef,
             setContentRef: contentRef,
           })}

@@ -45,7 +45,7 @@ function Filter(props: IProps) {
   );
 
   return (
-    <div className="widget-filters__item">
+    <div>
       <Collapse toggleClass="filter--opened" render={renderFn} />
     </div>
   );

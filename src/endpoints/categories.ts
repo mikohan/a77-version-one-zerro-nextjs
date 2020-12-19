@@ -1,6 +1,6 @@
 import { clone, error } from '~/utils';
 import axios from 'axios';
-import { categoriesUrl } from '~/config';
+import { categoriesUrl, cagegoriesUrl } from '~/config';
 
 import { IBaseCategory, IShopCategory } from '~/interfaces/category';
 import {
