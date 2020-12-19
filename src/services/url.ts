@@ -6,14 +6,18 @@ import { ICategory } from '~/interfaces/category';
 type IAppLinkHref = string | LinkProps;
 
 const url: { [key: string]: any } = {
-  shop: () => '/catalog',
-  shopCategory: (category: IShopCategory): IAppLinkHref => ({
-    href: `/catalog/[slug]${
+  shop: (make?: string, model?: string) => `/car/${make}/${model}`,
+  shopCategory: (
+    category: IShopCategory,
+    make?: string,
+    model?: string
+  ): IAppLinkHref => ({
+    href: `/car/${make}/${model}/${category.slug}${
       category.layout === 'products' ? '/products' : ''
     }?slug=${category.slug}`,
-    as: `/catalog/${category.slug}${
-      category.layout === 'products' ? '/products' : ''
-    }`,
+    // as: `/catalog/${category.slug}${
+    //   category.layout === 'products' ? '/products' : ''
+    // }`,
   }),
   category: (
     category: ICategory,
