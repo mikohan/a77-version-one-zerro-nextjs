@@ -11,6 +11,7 @@ import { IProduct } from '~/interfaces/product';
 import { getCategoryBySlug } from '~/endpoints/categories';
 import { IShopCategory } from '~/interfaces/category';
 import { IFilter } from '~/interfaces/filters';
+import { useRouter } from 'next/router';
 
 interface IProps {
   products: IProduct[];
@@ -19,6 +20,8 @@ interface IProps {
 
 export default function Products({ products, categories }: IProps) {
   const items: IShopCategory[] = [];
+  const router = useRouter();
+  const { make, model, category } = router.query;
   items.push(categories);
 
   const filterCategory: IFilter = {
@@ -43,11 +46,11 @@ export default function Products({ products, categories }: IProps) {
         </Grid>
         <Grid item xs={12} sm={9}>
           <Grid item xs={6}>
-            <Typography variant="h6">Here some text</Typography>
+            <Typography variant="h1">{`${category} for ${make} ${model}`}</Typography>
             <List>
               {products.map((product: IProduct, i: number) => (
-                <ListItem key={i}>
-                  <Typography variant="body2">{product.name}</Typography>
+                <ListItem key={product.id}>
+                  <Typography variant="h6">{product.name}</Typography>
                 </ListItem>
               ))}
             </List>
