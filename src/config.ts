@@ -19,4 +19,6 @@ export const cagegoriesUrl =
 export const getCategoryBySlugUrl =
   'http://localhost:8000/testcategory/testcategory/';
 
-export const REVALIDATE: number = 20;
+export const REVALIDATE: number = 20; // Revalidate time for all pages in seconds
+
+export const durationPage: number = 0.5; // Animation between pages

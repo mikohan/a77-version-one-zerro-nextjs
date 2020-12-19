@@ -7,6 +7,8 @@ import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
 
 import { ICar } from '~/interfaces/ICar';
 
@@ -19,7 +21,12 @@ function Make(props: ICarProps) {
   let { make, models } = props;
 
   return (
-    <div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: durationPage }}
+    >
       <MainLayout>
         <h1>Car Single Make and Models List</h1>
         <List>
@@ -38,7 +45,7 @@ function Make(props: ICarProps) {
           ))}
         </List>
       </MainLayout>
-    </div>
+    </motion.div>
   );
 }
 

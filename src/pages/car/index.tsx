@@ -6,13 +6,20 @@ import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
 
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
 interface ICarProps {
   makes: string[];
 }
 
 function Car(props: ICarProps) {
   return (
-    <div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: durationPage }}
+    >
       <MainLayout>
         <h1>inside all cars list here</h1>
         <List>
@@ -25,7 +32,7 @@ function Car(props: ICarProps) {
           ))}
         </List>
       </MainLayout>
-    </div>
+    </motion.div>
   );
 }
 

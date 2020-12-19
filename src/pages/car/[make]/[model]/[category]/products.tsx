@@ -12,6 +12,8 @@ import { getCategoryBySlug } from '~/endpoints/categories';
 import { IShopCategory } from '~/interfaces/category';
 import { IFilter } from '~/interfaces/filters';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
 
 interface IProps {
   products: IProduct[];
@@ -35,7 +37,12 @@ export default function Products({ products, categories }: IProps) {
   const filters = [];
   filters.push(filterCategory);
   return (
-    <div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: durationPage }}
+    >
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
@@ -48,7 +55,7 @@ export default function Products({ products, categories }: IProps) {
           <Grid item xs={6}>
             <Typography variant="h1">{`${category} for ${make} ${model}`}</Typography>
             <List>
-              {products.map((product: IProduct, i: number) => (
+              {products.map((product: IProduct) => (
                 <ListItem key={product.id}>
                   <Typography variant="h6">{product.name}</Typography>
                 </ListItem>
@@ -58,7 +65,7 @@ export default function Products({ products, categories }: IProps) {
           <Grid item xs={6}></Grid>
         </Grid>
       </MainLayout>
-    </div>
+    </motion.div>
   );
 }
 

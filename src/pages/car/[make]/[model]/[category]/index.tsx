@@ -12,6 +12,8 @@ import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
 import { IFilter } from '~/interfaces/filters';
 import { IShopCategory } from '~/interfaces/category';
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -37,7 +39,12 @@ export default function Cagetory(props: CategoryProps) {
   filters.push(filterCategory);
 
   return (
-    <div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: durationPage }}
+    >
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
@@ -56,7 +63,7 @@ export default function Cagetory(props: CategoryProps) {
           <Grid item xs={6}></Grid>
         </Grid>
       </MainLayout>
-    </div>
+    </motion.div>
   );
 }
 

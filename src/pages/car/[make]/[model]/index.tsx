@@ -15,6 +15,8 @@ import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
 import { getCategories } from '~/endpoints/categories';
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
 
 interface IModelProps {
   model: ICar;
@@ -42,7 +44,12 @@ function Model(props: IModelProps) {
   filters.push(filterCategory);
 
   return (
-    <div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: durationPage }}
+    >
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
@@ -79,7 +86,7 @@ function Model(props: IModelProps) {
           </Grid>
         </Grid>
       </MainLayout>
-    </div>
+    </motion.div>
   );
 }
 
