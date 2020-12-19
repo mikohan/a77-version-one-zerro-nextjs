@@ -26,9 +26,10 @@ export default function Products({ products }: IProps) {
           <Grid item xs={6}>
             <Typography variant="h6">Here some text</Typography>
             <List>
-              {products.map((product: IProduct) => (
-                <ListItem key={product.id}>{product.name}</ListItem>
-              ))}
+              {products &&
+                products.map((product: IProduct) => (
+                  <ListItem key={product.id}>{product.name}</ListItem>
+                ))}
             </List>
           </Grid>
           <Grid item xs={6}></Grid>
@@ -58,19 +59,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [];
   for (let vehicle of makeRes.data) {
     for (let cat of catRes.data) {
-      paths.push({
-        params: {
-          make: vehicle.make,
-          model: vehicle.slug,
-          category: cat.slug,
-          product: '/product',
-        },
-      });
+      const prodRes = await axios.get(`${productUrl}?category=${cat}`);
+      if (prodRes.data.length !== 0) {
+        paths.push({
+          params: {
+            make: vehicle.make,
+            model: vehicle.slug,
+            category: cat.slug,
+            products: '/products',
+          },
+        });
+      }
     }
   }
 
   return {
-    fallback: false,
+    fallback: true,
     paths: paths,
   };
 };
