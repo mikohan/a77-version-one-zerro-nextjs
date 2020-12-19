@@ -15,7 +15,11 @@ const url: { [key: string]: any } = {
       category.layout === 'products' ? '/products' : ''
     }`,
   }),
-  category: (category: ICategory): IAppLinkHref => {
+  category: (
+    category: ICategory,
+    make?: string,
+    model?: string
+  ): IAppLinkHref => {
     if (category.type === 'shop') {
       return url.shopCategory(category);
     }

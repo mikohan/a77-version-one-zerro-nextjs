@@ -74,7 +74,7 @@ function FilterCategory(props: Props) {
               </ListItem>
             ))}
             <ListItem className={classes.currentItemCategory}>
-              <AppLink href={url.category(item)}>
+              <AppLink href={url.category(item, make, model)}>
                 <Typography variant="body2">{item.name}</Typography>
               </AppLink>
             </ListItem>
