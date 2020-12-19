@@ -82,7 +82,7 @@ function FilterCategory(props: Props) {
               ? ''
               : item.children?.map((child) => (
                   <ListItem className={classes.childrenItems} key={child.id}>
-                    <AppLink href={url.category(child)}>
+                    <AppLink href={url.category(child, make, model)}>
                       <Typography variant="body2">{child.name}</Typography>
                     </AppLink>
                   </ListItem>
