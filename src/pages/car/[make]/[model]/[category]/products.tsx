@@ -53,22 +53,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   /* const res = await axios.get(a); */
   const makeRes = await axios.get(vehiclesUrl);
-  const productsRes = await axios.get(productUrl);
   const catRes = await axios.get(categoriesUrl);
 
   const paths = [];
   for (let vehicle of makeRes.data) {
     for (let cat of catRes.data) {
-      for (let prod of productsRes.data) {
-        paths.push({
-          params: {
-            make: vehicle.make,
-            model: vehicle.slug,
-            category: cat.slug,
-            product: prod.slug,
-          },
-        });
-      }
+      paths.push({
+        params: {
+          make: vehicle.make,
+          model: vehicle.slug,
+          category: cat.slug,
+          product: '/product',
+        },
+      });
     }
   }
 
