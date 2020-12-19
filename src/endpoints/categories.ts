@@ -13,6 +13,9 @@ Whole file logic
 1. Get flat categories(with one level parnet in them) from api url is /testcategory/testcategories/
 2. Make Tree from that flat list 
 3. Category by slug finding in that list(logic from RedParts)
+ a. Functin takes all categories from Server
+ b. Then it is finding category by slug in that mess
+4. Next logic will be here
 */
 
 export function prepareCategory<T extends IBaseCategory>(
