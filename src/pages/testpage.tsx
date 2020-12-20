@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useRef } from 'react';
 import MainLayout from '~/layouts/Main';
 import { useState } from 'react';
 import { asString } from '~/helpers';
@@ -78,17 +78,7 @@ export default function TestPage(props: any) {
             </Button>
           </form>
         </Box>
-        <Box>
-          <FilterCategory
-            options={{
-              type: 'category',
-              name: 'category',
-              slug: 'category',
-              value: 'porshnevaja',
-              items: items,
-            }}
-          />
-        </Box>
+        <Box>Some content goes here</Box>
       </MainLayout>
     </div>
   );
