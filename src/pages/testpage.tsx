@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import MainLayout from '~/layouts/Main';
 import { useState } from 'react';
 import { asString } from '~/helpers';
@@ -39,14 +39,21 @@ export default function TestPage(props: any) {
   const classes = useStyles();
   const router = useRouter();
 
-  const inputEl = useRef<HTMLInputElement>(null);
-  const onButtonClick = () => {
-    if (inputEl.current) {
-      inputEl.current?.focus();
-      console.log(inputEl.current?.value);
-    }
-  };
+  // UseRef and UseCallback stuff
 
+  const inputEl = useRef<HTMLInputElement>(null);
+  const onButtonClick = useCallback(
+    (param: any) => {
+      console.log(param, 'In colabck param');
+      if (inputEl.current) {
+        inputEl.current?.focus();
+        console.log(inputEl.current?.value);
+      }
+    },
+    [inputEl]
+  );
+
+  //Router stuff
   let query = router.query || {};
 
   const items: IShopCategory[] = [];
