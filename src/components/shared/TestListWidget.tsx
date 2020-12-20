@@ -42,14 +42,16 @@ export default function NestedList({ categories }: IProps) {
   return (
     <List>
       {categories.map((category: IShopCategory) => (
-        <ListItem>
-          <Typography>{category.name}</Typography>
-          <List>
-            {category.children?.map((child: IShopCategory) => (
-              <ListItem>{child.name}</ListItem>
-            ))}
-            <ListItem>some item</ListItem>
-          </List>
+        <ListItem key={category.id}>
+          <Typography onClick={handleClick}>{category.name}</Typography>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div">
+              {category.children?.map((child: IShopCategory) => (
+                <ListItem key={child.id}>{child.name}</ListItem>
+              ))}
+              <ListItem>some item</ListItem>
+            </List>
+          </Collapse>
         </ListItem>
       ))}
     </List>

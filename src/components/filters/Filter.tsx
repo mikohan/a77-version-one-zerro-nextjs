@@ -17,10 +17,11 @@ import { ArrowRoundedDown12x7Svg } from '~/svg';
 
 import { IFilter } from '~/interfaces/filters';
 import FilterCategory from '~/components/filters/FilterCategory';
-import Collapse, { ICollapseRenderFn } from '~/components/shared/Collapse';
+import { ICollapseRenderFn } from '~/components/shared/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { Collapse } from '@material-ui/core';
 
 interface IProps {
   filter: IFilter;
@@ -31,6 +32,11 @@ type RenderFilterFn = ICollapseRenderFn<HTMLDivElement, HTMLDivElement>;
 
 function Filter(props: IProps) {
   const { filter, value } = props;
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
   //    const shopSetFilterValue = useShopSetFilterValueThunk();
   /* const shopSetFilterValue = */
 
@@ -70,9 +76,24 @@ function Filter(props: IProps) {
 
   return (
     <div>
-      <Collapse toggleClass="filter--opened" render={renderFn} />
+      <IconButton
+        onClick={handleClick}
+        color="primary"
+        aria-label="add to shopping cart"
+      >
+        <KeyboardArrowDownIcon />
+      </IconButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        {filter.type === 'category' && <FilterCategory options={filter} />}
+      </Collapse>
     </div>
   );
+
+  /* return ( */
+  /*   <div> */
+  /*     <Collapse toggleClass="filter--opened" render={renderFn} /> */
+  /*   </div> */
+  /* ); */
 }
 
 export default React.memo(Filter);
