@@ -20,8 +20,9 @@ import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
-import { getCategoryBySlug } from '~/endpoints/categories';
+import { getCategories } from '~/endpoints/categories';
 import { IFilter } from '~/interfaces/filters';
+import WidgetCategoriesList from '~/components/shared/WidgetCategoriesList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,9 +81,7 @@ export default function TestPage(props: any) {
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
-            <Box>
-              <FilterWidget filters={filters} />
-            </Box>
+            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
           </LeftSideBar>
         </Grid>
         <Grid item xs={12} sm={9}>
@@ -93,7 +92,9 @@ export default function TestPage(props: any) {
               <Button onClick={onButtonClick}>ClickMe</Button>
             </Typography>
           </Grid>
-          <Grid item xs={6}></Grid>
+          <Grid item xs={6}>
+            <WidgetCategoriesList categories={categories} />
+          </Grid>
         </Grid>
       </MainLayout>
     </motion.div>
@@ -102,7 +103,7 @@ export default function TestPage(props: any) {
 
 export const getStaticProps = async () => {
   const slug = 'dvigatel';
-  const categories = await getCategoryBySlug(slug);
+  const categories = await getCategories({ depth: 1 });
   return {
     props: {
       categories: categories,

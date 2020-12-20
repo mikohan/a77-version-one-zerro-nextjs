@@ -41,17 +41,25 @@ function Filter(props: IProps) {
   /*   ).then(); */
   /* }, [shopSetFilterValue]); */
 
-  const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
-    <div className="filter filter--opened" ref={setItemRef}>
-      {true ? (
-        <IconButton color="primary" aria-label="add to shopping cart">
-          <KeyboardArrowDownIcon />
-        </IconButton>
-      ) : (
+  const chevronFn = (collapsed: boolean) => {
+    if (collapsed) {
+      return (
         <IconButton color="primary" aria-label="add to shopping cart">
           <KeyboardArrowUpIcon />
         </IconButton>
-      )}
+      );
+    } else {
+      return (
+        <IconButton color="primary" aria-label="add to shopping cart">
+          <KeyboardArrowDownIcon />
+        </IconButton>
+      );
+    }
+  };
+
+  const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
+    <div className="filter filter--opened" ref={setItemRef}>
+      <span onClick={toggle}>{chevronFn(true)}</span>
       <div className="filter__body" ref={setContentRef}>
         <div className="filter__container">
           {filter.type === 'category' && <FilterCategory options={filter} />}
