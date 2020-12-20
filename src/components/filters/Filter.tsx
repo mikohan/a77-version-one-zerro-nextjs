@@ -1,3 +1,15 @@
+/*
+Plan for filters
+1. Needs to store filters values to store redux
+2. Needs to store filters to url parameters
+3. Restore filters and values from url paramters
+4. Handle somehow filters changing
+5. Add build filters logic to products, probably will maki it on server side Means API
+6. Category filter needs to be collapsed by 5 Items(dont know how to implement this)
+7. Add count to category filter items ? or not?
+Thats it for filtering
+ */
+
 import React, { useCallback } from 'react';
 
 import { Button } from '@material-ui/core';

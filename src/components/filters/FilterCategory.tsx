@@ -65,9 +65,7 @@ function FilterCategory(props: Props) {
                   <AppLink href={url.category(parent, make, model)}>
                     <ListItemIcon>
                       <ArrowBackIosIcon className={classes.arrowSize} />
-                      <Typography variant="body2">
-                        {parent.name + ' ' + 'Parent'}
-                      </Typography>
+                      <Typography variant="body2">{parent.name}</Typography>
                     </ListItemIcon>
                   </AppLink>
                 </div>
