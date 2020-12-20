@@ -46,7 +46,7 @@ export default function TestPage(props: any) {
     (param: any) => {
       console.log(param, 'In colabck param');
       if (inputEl.current) {
-        inputEl.current?.focus();
+        inputEl.current.style.height = '50px';
         console.log(inputEl.current?.value);
       }
     },
