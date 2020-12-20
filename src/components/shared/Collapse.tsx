@@ -38,6 +38,7 @@ function Collapse<T extends HTMLElement, P extends HTMLElement>(
     (immediate = false) => {
       const item = itemRef.current;
       const content = contentRef.current || item;
+      console.log(item, content);
 
       if (!item || !content) {
         return;

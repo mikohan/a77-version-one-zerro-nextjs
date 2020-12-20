@@ -1,5 +1,6 @@
 // react
 import React from 'react';
+import { useRouter } from 'next/router';
 // third-party
 import classNames from 'classnames';
 // application
@@ -18,6 +19,8 @@ interface Props {
 
 function WidgetCategoriesList(props: Props) {
   const { categories } = props;
+  const router = useRouter();
+  const { make, model } = { make: 'hyundai', model: 'porter-2' };
 
   const renderCategory: RenderFn = (
     { toggle, setItemRef, setContentRef },
@@ -34,7 +37,7 @@ function WidgetCategoriesList(props: Props) {
         })}
       >
         <AppLink
-          href={url.category(category)}
+          href={url.category(category, make, model)}
           className="widget-categories-list__root-link"
         >
           {
@@ -48,7 +51,7 @@ function WidgetCategoriesList(props: Props) {
             {subs.slice(0, subs.length > 6 ? 5 : 6).map((sub, subIdx) => (
               <li key={subIdx} className="widget-categories-list__child-item">
                 <AppLink
-                  href={url.category(sub)}
+                  href={url.category(sub, make, model)}
                   className="widget-categories-list__child-link"
                 >
                   {
@@ -66,7 +69,7 @@ function WidgetCategoriesList(props: Props) {
               {subs.slice(5).map((sub, subIdx) => (
                 <li key={subIdx} className="widget-categories-list__child-item">
                   <AppLink
-                    href={url.category(sub)}
+                    href={url.category(sub, make, model)}
                     className="widget-categories-list__child-link"
                   >
                     {
