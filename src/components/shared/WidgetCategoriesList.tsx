@@ -9,6 +9,7 @@ import Collapse, { ICollapseRenderFnData } from '~/components/shared/Collapse';
 import url from '~/services/url';
 import { ArrowDown9x6Svg } from '~/svg';
 import { ICategory } from '~/interfaces/category';
+import { List, ListItem } from '@material-ui/core';
 
 type RenderFnData = ICollapseRenderFnData<HTMLLIElement, HTMLUListElement>;
 type RenderFn = (data: RenderFnData, category: ICategory) => React.ReactNode;
@@ -29,17 +30,8 @@ function WidgetCategoriesList(props: Props) {
     const subs: ICategory[] = category.children || [];
 
     return (
-      <li
-        ref={setItemRef}
-        className={classNames('widget-categories-list__root-item', {
-          'widget-categories-list__root-item--has-children':
-            category.children?.length,
-        })}
-      >
-        <AppLink
-          href={url.category(category, make, model)}
-          className="widget-categories-list__root-link"
-        >
+      <ListItem ref={setItemRef}>
+        <AppLink href={url.category(category, make, model)}>
           {
             category.name
             // Big Category
@@ -47,63 +39,49 @@ function WidgetCategoriesList(props: Props) {
         </AppLink>
 
         {subs.length > 0 && (
-          <ul className="widget-categories-list__child">
+          <List>
             {subs.slice(0, subs.length > 6 ? 5 : 6).map((sub, subIdx) => (
-              <li key={subIdx} className="widget-categories-list__child-item">
-                <AppLink
-                  href={url.category(sub, make, model)}
-                  className="widget-categories-list__child-link"
-                >
+              <ListItem key={subIdx}>
+                <AppLink href={url.category(sub, make, model)}>
                   {
                     sub.name // Sub Category
                   }
                 </AppLink>
-              </li>
+              </ListItem>
             ))}
-          </ul>
+          </List>
         )}
 
         {subs.length > 6 && (
           <React.Fragment>
-            <ul className="widget-categories-list__child" ref={setContentRef}>
+            <List ref={setContentRef}>
               {subs.slice(5).map((sub, subIdx) => (
-                <li key={subIdx} className="widget-categories-list__child-item">
-                  <AppLink
-                    href={url.category(sub, make, model)}
-                    className="widget-categories-list__child-link"
-                  >
+                <ListItem key={subIdx}>
+                  <AppLink href={url.category(sub, make, model)}>
                     {
                       sub.name // Hidden Sub Category
                     }
                   </AppLink>
-                </li>
+                </ListItem>
               ))}
-            </ul>
-            <button
-              type="button"
-              className="widget-categories-list__show-more"
-              onClick={toggle}
-            >
-              <span className="widget-categories-list__show-more-expand-text">
-                Show More
-              </span>
-              <span className="widget-categories-list__show-more-collapse-text">
-                Show Less
-              </span>
-              <span className="widget-categories-list__show-more-arrow">
+            </List>
+            <button type="button" onClick={toggle}>
+              <span>Show More</span>
+              <span>Show Less</span>
+              <span>
                 <ArrowDown9x6Svg />
               </span>
             </button>
           </React.Fragment>
         )}
-      </li>
+      </ListItem>
     );
   };
 
   return (
-    <div className="card widget widget-categories-list">
-      <div className="widget-categories-list__body">
-        <ul className="widget-categories-list__root">
+    <div>
+      <div>
+        <List className="widget-categories-list__root">
           {categories.map((category, categoryIdx) => (
             <Collapse<HTMLLIElement, HTMLUListElement>
               key={categoryIdx}
@@ -111,7 +89,7 @@ function WidgetCategoriesList(props: Props) {
               render={(args) => renderCategory(args, category)}
             />
           ))}
-        </ul>
+        </List>
       </div>
     </div>
   );

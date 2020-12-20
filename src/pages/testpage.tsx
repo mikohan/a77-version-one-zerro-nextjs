@@ -23,6 +23,7 @@ import { durationPage } from '~/config';
 import { getCategories } from '~/endpoints/categories';
 import { IFilter } from '~/interfaces/filters';
 import WidgetCategoriesList from '~/components/shared/WidgetCategoriesList';
+import TestListWidget from '~/components/shared/TestListWidget';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,7 +94,7 @@ export default function TestPage(props: any) {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <WidgetCategoriesList categories={categories} />
+            <TestListWidget categories={categories} />
           </Grid>
         </Grid>
       </MainLayout>
