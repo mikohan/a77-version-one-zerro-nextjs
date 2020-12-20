@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function TestPage(props: any) {
   const { categories } = props;
   const classes = useStyles();
-  const router = useRouter();
 
   // UseRef and UseCallback stuff
 
@@ -57,15 +56,6 @@ export default function TestPage(props: any) {
   );
 
   //Router stuff
-  let query = router.query || {};
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    /* console.log(event.target.value, event.target.checked); */
-    const brands = urlBuilder('mobis', event);
-    router.push({ pathname: '', query: { brand: brands } }, undefined, {
-      shallow: true,
-    });
-  };
 
   const items: IShopCategory[] = [];
   items.push(categories);
@@ -111,7 +101,7 @@ export default function TestPage(props: any) {
 }
 
 export const getStaticProps = async () => {
-  const slug = 'porshnevaja';
+  const slug = 'dvigatel';
   const categories = await getCategoryBySlug(slug);
   return {
     props: {

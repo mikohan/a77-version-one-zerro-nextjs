@@ -18,6 +18,9 @@ import { ArrowRoundedDown12x7Svg } from '~/svg';
 import { IFilter } from '~/interfaces/filters';
 import FilterCategory from '~/components/filters/FilterCategory';
 import Collapse, { ICollapseRenderFn } from '~/components/shared/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 interface IProps {
   filter: IFilter;
@@ -40,14 +43,15 @@ function Filter(props: IProps) {
 
   const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
     <div className="filter filter--opened" ref={setItemRef}>
-      <Button
-        startIcon={<ArrowRoundedDown12x7Svg />}
-        type="button"
-        className="filter__title"
-        onClick={toggle}
-      >
-        {filter.name}
-      </Button>
+      {true ? (
+        <IconButton color="primary" aria-label="add to shopping cart">
+          <KeyboardArrowDownIcon />
+        </IconButton>
+      ) : (
+        <IconButton color="primary" aria-label="add to shopping cart">
+          <KeyboardArrowUpIcon />
+        </IconButton>
+      )}
       <div className="filter__body" ref={setContentRef}>
         <div className="filter__container">
           {filter.type === 'category' && <FilterCategory options={filter} />}
