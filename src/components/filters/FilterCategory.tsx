@@ -14,6 +14,7 @@ import { Typography, Box } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { asString } from '~/helpers';
 
 interface Props {
   options: ICategoryFilter;
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 20,
     },
     arrowSize: {
-      fontSize: '1.2rem',
+      fontSize: '1rem',
     },
   })
 );
@@ -47,6 +48,8 @@ function FilterCategory(props: Props) {
   });
 
   const { make, model } = router.query;
+  const carMake = asString(make);
+  const carModel = asString(model);
 
   return (
     <Box className={classes.root}>
@@ -57,7 +60,7 @@ function FilterCategory(props: Props) {
               <ListItemIcon>
                 <ArrowBackIosIcon className={classes.arrowSize} />
                 <Typography variant="body2">
-                  Все Категории для {currentCar.toUpperCase()}
+                  Все Категории {carModel && carModel.toUpperCase()}
                 </Typography>
               </ListItemIcon>
             </AppLink>
