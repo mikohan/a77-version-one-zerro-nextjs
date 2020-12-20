@@ -13,6 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Typography, Box } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 interface Props {
   options: ICategoryFilter;
@@ -41,6 +42,9 @@ function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
   const router = useRouter();
+  const currentCar = useSelector((state: any) => {
+    return state.currentCar.carModel;
+  });
 
   const { make, model } = router.query;
 
@@ -52,9 +56,8 @@ function FilterCategory(props: Props) {
             <AppLink href={url.products(make, model)}>
               <ListItemIcon>
                 <ArrowBackIosIcon className={classes.arrowSize} />
-                <Typography variant="body2">All Categories</Typography>
                 <Typography variant="body2">
-                  {make} {model}
+                  Все Категории для {currentCar.toUpperCase()}
                 </Typography>
               </ListItemIcon>
             </AppLink>
