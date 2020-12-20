@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    collapseButton: {
+      padding: 0,
+    },
   })
 );
 
@@ -50,6 +53,7 @@ function Filter(props: IProps) {
   return (
     <Box className={classes.root}>
       <IconButton
+        className={classes.collapseButton}
         onClick={handleClick}
         color="primary"
         aria-label="add to shopping cart"

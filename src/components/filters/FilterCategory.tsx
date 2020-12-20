@@ -48,8 +48,8 @@ function FilterCategory(props: Props) {
   });
 
   const { make, model } = router.query;
-  const carMake = asString(make);
-  const carModel = asString(model);
+  const carMake = asString(make as string);
+  const carModel = asString(model as string);
 
   return (
     <Box className={classes.root}>
