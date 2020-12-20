@@ -13,7 +13,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { IShopCategory } from '~/interfaces/category';
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,63 +40,55 @@ export default function NestedList({ categories }: IProps) {
     setOpen(!open);
   };
   return (
-    <List>
-      {categories.map((category: IShopCategory) => (
-        <ListItem key={category.id}>
-          <Typography onClick={handleClick}>{category.name}</Typography>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div">
-              {category.children?.map((child: IShopCategory) => (
-                <ListItem key={child.id}>{child.name}</ListItem>
-              ))}
-              <ListItem>some item</ListItem>
-            </List>
-          </Collapse>
-        </ListItem>
-      ))}
-    </List>
-  );
-
-  return (
-    <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Nested List Items
-        </ListSubheader>
-      }
-      className={classes.root}
-    >
-      <ListItem button>
-        <ListItemIcon>
-          <SendIcon />
-        </ListItemIcon>
-        <ListItemText primary="Sent mail" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <DraftsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Inbox" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
+    <React.Fragment>
+      <div>
+        <Button onClick={handleClick} variant="outlined">
+          Expand
+        </Button>
+        <Collapse collapsedHeight={150} in={open} timeout="auto">
+          <ul>
+            <li>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Accusantium at dignissimos, harum error officiis voluptatibus
+              distinctio dolor obcaecati iure, rem numquam. Vitae provident
+              iusto eligendi, dolorem temporibus rerum voluptas dolore!:
+            </li>
+            <li>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Accusantium at dignissimos, harum error officiis voluptatibus
+              distinctio dolor obcaecati iure, rem numquam. Vitae provident
+              iusto eligendi, dolorem temporibus rerum voluptas dolore!:
+            </li>
+            <li>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Accusantium at dignissimos, harum error officiis voluptatibus
+              distinctio dolor obcaecati iure, rem numquam. Vitae provident
+              iusto eligendi, dolorem temporibus rerum voluptas dolore!:
+            </li>
+            <li>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Accusantium at dignissimos, harum error officiis voluptatibus
+              distinctio dolor obcaecati iure, rem numquam. Vitae provident
+              iusto eligendi, dolorem temporibus rerum voluptas dolore!:
+            </li>
+          </ul>
+        </Collapse>
+      </div>
+      <List>
+        {categories.map((category: IShopCategory) => (
+          <ListItem key={category.id}>
+            <Typography onClick={handleClick}>{category.name}</Typography>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List component="div">
+                {category.children?.map((child: IShopCategory) => (
+                  <ListItem key={child.id}>{child.name}</ListItem>
+                ))}
+                <ListItem>some item</ListItem>
+              </List>
+            </Collapse>
           </ListItem>
-        </List>
-      </Collapse>
-    </List>
+        ))}
+      </List>
+    </React.Fragment>
   );
 }
