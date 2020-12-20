@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     filterHeaderDiv: {
       marginTop: theme.spacing(2),
     },
+    // Filters widht when collapse
     filtersWidth: {
       width: '80%',
     },
