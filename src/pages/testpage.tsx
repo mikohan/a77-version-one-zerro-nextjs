@@ -14,6 +14,12 @@ import axios from 'axios';
 import { getCategoryBySlugUrl } from '~/config';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Grid, Typography } from '@material-ui/core';
+
+import LeftSideBar from '~/components/main/LeftSideBar';
+import FilterWidget from '~/components/main/FilterWidget';
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,41 +52,32 @@ export default function TestPage(props: any) {
     });
   };
 
+  const filters: any = [];
+
   return (
-    <div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: durationPage }}
+    >
       <MainLayout>
-        <h1> Test Page</h1>
-        <Box>
-          <Link href="/">To home</Link>
-        </Box>
-        <Box>
-          <form method="get">
-            <Checkbox
-              onChange={handleChange}
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              value="pmc"
-              name="brand"
-            />
-            <Checkbox
-              onChange={handleChange}
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              value="mobis"
-              name="brand"
-            />
-            <FormControlLabel
-              control={<Checkbox onChange={handleChange} value="checkedH" />}
-              label="Custom icon"
-            />
-            <Button type="submit" variant="outlined" color="secondary">
-              Submit
-            </Button>
-          </form>
-        </Box>
-        <Box>Some content goes here</Box>
+        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+          <LeftSideBar>
+            <Box>
+              <FilterWidget filters={filters} />
+            </Box>
+          </LeftSideBar>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <Grid item xs={6}>
+            <Typography variant="h1">Some H1</Typography>
+            <Typography variant="h4">Some text</Typography>
+          </Grid>
+          <Grid item xs={6}></Grid>
+        </Grid>
       </MainLayout>
-    </div>
+    </motion.div>
   );
 }
 
