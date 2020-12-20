@@ -20,6 +20,8 @@ import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
+import { getCategoryBySlug } from '~/endpoints/categories';
+import { IFilter } from '~/interfaces/filters';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function TestPage(props: any) {
+  const { categories } = props;
   const classes = useStyles();
   const router = useRouter();
 
@@ -56,9 +59,6 @@ export default function TestPage(props: any) {
   //Router stuff
   let query = router.query || {};
 
-  const items: IShopCategory[] = [];
-  items.push(props.categories);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     /* console.log(event.target.value, event.target.checked); */
     const brands = urlBuilder('mobis', event);
@@ -67,7 +67,18 @@ export default function TestPage(props: any) {
     });
   };
 
-  const filters: any = [];
+  const items: IShopCategory[] = [];
+  items.push(categories);
+  const filterCategory: IFilter = {
+    type: 'category',
+    name: 'category',
+    slug: 'category',
+    value: 'dvigatel',
+    items: items,
+  };
+
+  const filters = [];
+  filters.push(filterCategory);
 
   return (
     <motion.div
@@ -101,12 +112,10 @@ export default function TestPage(props: any) {
 
 export const getStaticProps = async () => {
   const slug = 'porshnevaja';
-  const queryUrl = `${getCategoryBySlugUrl}${slug}/`;
-  const res = await axios.get<ICategory[]>(queryUrl);
-  const data = res.data;
+  const categories = await getCategoryBySlug(slug);
   return {
     props: {
-      categories: data,
+      categories: categories,
     },
   };
 };
