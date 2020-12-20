@@ -39,6 +39,14 @@ export default function TestPage(props: any) {
   const classes = useStyles();
   const router = useRouter();
 
+  const inputEl = useRef<HTMLInputElement>(null);
+  const onButtonClick = () => {
+    if (inputEl.current) {
+      inputEl.current?.focus();
+      console.log(inputEl.current?.value);
+    }
+  };
+
   let query = router.query || {};
 
   const items: IShopCategory[] = [];
@@ -72,7 +80,10 @@ export default function TestPage(props: any) {
         <Grid item xs={12} sm={9}>
           <Grid item xs={6}>
             <Typography variant="h1">Some H1</Typography>
-            <Typography variant="h4">Some text</Typography>
+            <Typography variant="h4">
+              <input ref={inputEl} type="text" />
+              <Button onClick={onButtonClick}>ClickMe</Button>
+            </Typography>
           </Grid>
           <Grid item xs={6}></Grid>
         </Grid>
