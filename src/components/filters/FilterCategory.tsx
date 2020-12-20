@@ -3,7 +3,6 @@ import React from 'react';
 // third-party
 import AppLink from '~/services/AppLink';
 // application
-import Link from 'next/link';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import url from '~/services/url';
 import { getCategoryParents } from '~/services/utils';
@@ -11,7 +10,7 @@ import { ICategoryFilter } from '~/interfaces/filters';
 import List from '@material-ui/core/List';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { Typography } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
@@ -21,6 +20,10 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      width: '100%',
+      backgroundColor: theme.palette.background.paper,
+    },
     currentItemCategory: {
       color: theme.palette.primary.main,
     },
@@ -42,7 +45,7 @@ function FilterCategory(props: Props) {
   const { make, model } = router.query;
 
   return (
-    <div>
+    <Box className={classes.root}>
       <List>
         {options.value && (
           <ListItem>
@@ -88,7 +91,7 @@ function FilterCategory(props: Props) {
           </React.Fragment>
         ))}
       </List>
-    </div>
+    </Box>
   );
 }
 

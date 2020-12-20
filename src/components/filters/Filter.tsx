@@ -10,90 +10,57 @@ Plan for filters
 Thats it for filtering
  */
 
-import React, { useCallback } from 'react';
-
-import { Button } from '@material-ui/core';
-import { ArrowRoundedDown12x7Svg } from '~/svg';
+import React from 'react';
 
 import { IFilter } from '~/interfaces/filters';
 import FilterCategory from '~/components/filters/FilterCategory';
-import { ICollapseRenderFn } from '~/components/shared/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { Collapse } from '@material-ui/core';
+import { Collapse, Box } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
+    },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
+  })
+);
 
 interface IProps {
   filter: IFilter;
   value: string;
 }
 
-type RenderFilterFn = ICollapseRenderFn<HTMLDivElement, HTMLDivElement>;
-
 function Filter(props: IProps) {
+  const classes = useStyles();
   const { filter, value } = props;
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
-  //    const shopSetFilterValue = useShopSetFilterValueThunk();
-  /* const shopSetFilterValue = */
-
-  /* const handleValueChange = useCallback(({ filter, value }: ChangeValueEvent) => { */
-  /*   shopSetFilterValue( */
-  /*       filter.slug, */
-  /*       isDefaultFilterValue(filter, value) ? null : serializeFilterValue(filter, value), */
-  /*   ).then(); */
-  /* }, [shopSetFilterValue]); */
-
-  const chevronFn = (collapsed: boolean) => {
-    if (collapsed) {
-      return (
-        <IconButton color="primary" aria-label="add to shopping cart">
-          <KeyboardArrowUpIcon />
-        </IconButton>
-      );
-    } else {
-      return (
-        <IconButton color="primary" aria-label="add to shopping cart">
-          <KeyboardArrowDownIcon />
-        </IconButton>
-      );
-    }
-  };
-
-  const renderFn: RenderFilterFn = ({ toggle, setItemRef, setContentRef }) => (
-    <div className="filter filter--opened" ref={setItemRef}>
-      <span onClick={toggle}>{chevronFn(true)}</span>
-      <div className="filter__body" ref={setContentRef}>
-        <div className="filter__container">
-          {filter.type === 'category' && <FilterCategory options={filter} />}
-        </div>
-      </div>
-    </div>
-  );
 
   return (
-    <div>
+    <Box className={classes.root}>
       <IconButton
         onClick={handleClick}
         color="primary"
         aria-label="add to shopping cart"
       >
-        <KeyboardArrowDownIcon />
+        {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
       </IconButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {filter.type === 'category' && <FilterCategory options={filter} />}
       </Collapse>
-    </div>
+    </Box>
   );
-
-  /* return ( */
-  /*   <div> */
-  /*     <Collapse toggleClass="filter--opened" render={renderFn} /> */
-  /*   </div> */
-  /* ); */
 }
 
 export default React.memo(Filter);

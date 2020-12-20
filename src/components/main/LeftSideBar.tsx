@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     filterHeaderDiv: {
       marginTop: theme.spacing(2),
     },
+    filtersWidth: {
+      width: '80%',
+    },
   })
 );
 
@@ -31,7 +34,7 @@ export default function FiltersWidget({ children }: IProps): JSX.Element {
         </Typography>
       </Grid>
       <Grid item container xs={12} justify="center">
-        {children}
+        <Box className={classes.filtersWidth}>{children}</Box>
       </Grid>
     </Grid>
   );

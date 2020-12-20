@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(2),
     },
+    root: {
+      width: '100%',
+    },
   })
 );
 
@@ -23,16 +26,20 @@ export default function FiltersWidget({ filters }: IProps) {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Paper className={classes.paper}>Some place for filter category</Paper>
-        <Paper className={classes.paper}>
-          {filters ? (
-            filters.map((filter: IFilter) => (
-              <Filter key={filter.name} filter={filter} value="" />
-            ))
-          ) : (
-            <span>No filters passed out</span>
-          )}
-        </Paper>
+        <Box className={classes.root}>
+          <Paper className={classes.paper}>
+            Some place for filter category
+          </Paper>
+          <Paper className={classes.paper}>
+            {filters ? (
+              filters.map((filter: IFilter) => (
+                <Filter key={filter.name} filter={filter} value="" />
+              ))
+            ) : (
+              <span>No filters passed out</span>
+            )}
+          </Paper>
+        </Box>
       </Grid>
     </Grid>
   );

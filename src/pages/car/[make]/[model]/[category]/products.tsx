@@ -46,9 +46,7 @@ export default function Products({ products, categories }: IProps) {
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
-            <Box>
-              <FilterWidget filters={filters} />
-            </Box>
+            <FilterWidget filters={filters} />
           </LeftSideBar>
         </Grid>
         <Grid item xs={12} sm={9}>
