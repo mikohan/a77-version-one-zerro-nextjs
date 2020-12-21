@@ -8,12 +8,9 @@ export interface IMake {
   country: number;
 }
 
-export interface IState {
-  shop: {
-    cars: ICar[];
-    currentCar: ICar;
-    makes: IMake[];
-    categories: ICategory[];
-  };
+export interface IShopState {
+  cars: ICar[];
   currentCar: ICar;
+  makes: IMake[];
+  categories: ICategory[];
 }

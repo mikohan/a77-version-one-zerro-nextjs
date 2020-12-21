@@ -46,9 +46,10 @@ export default function ButtonAppBar() {
     carHref = `/car/${carMake}/${carModel}`;
   }
   const dispatch = useDispatch();
-  const storeCarModel = useSelector((state: any) => {
-    return state.currentCar.carModel;
-  });
+  /* const storeCarModel = useSelector((state: any) => { */
+  /*   return state.currentCar.carModel; */
+  /* }); */
+  const storeCarModel = 'porter-2';
 
   useEffect(() => {
     if (carModel !== 'all') {
