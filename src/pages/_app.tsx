@@ -9,7 +9,7 @@ import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 import { Provider } from 'react-redux';
-import { useStore } from '~/store/store';
+import { initializeStore, useStore } from '~/store/store';
 
 import 'styles/globals.scss';
 
@@ -58,6 +58,11 @@ function MyApp(props: any) {
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
+};
+
+export const getServerSideProps = () => {
+  const reduxStore = initializeStore();
+  const { dispatch } = reduxStore;
 };
 
 export default MyApp;
