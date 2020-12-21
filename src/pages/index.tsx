@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ListForTesting from '~/components/ListForTesting';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { makesUrl, vehiclesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
 import axios from 'axios';
@@ -50,7 +50,8 @@ export default function Home(props: IHomeProps) {
     </MainLayout>
   );
 }
-export const getServerSideProps: GetServerSideProps = async () => {
+
+export const getStaticProps: GetStaticProps = async () => {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
