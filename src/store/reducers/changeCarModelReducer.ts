@@ -1,7 +1,21 @@
 import { IState } from '~/interfaces/IState';
+import { ICar } from '~/interfaces/ICar';
 import * as types from '~/store/types';
 
-export function changeCarModelReducer(state: IState, action: any) {
+const initialState: IState = {
+  shop: {
+    cars: [],
+    currentCar: <ICar>{},
+    makes: [],
+    categories: [],
+  },
+  currentCar: <ICar>{},
+};
+
+export function changeCarModelReducer(
+  state: IState = initialState,
+  action: any
+) {
   switch (action.type) {
     case types.CHANGE_CAR_MODEL:
       return {
