@@ -1,4 +1,4 @@
-import React, { Context } from 'react';
+import React, { Context, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -10,6 +10,11 @@ import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 import { Provider } from 'react-redux';
 import { initializeStore, useStore } from '~/store/store';
+import axios from 'axios';
+import { vehiclesUrl } from '~/config';
+
+import { GET_ALL_CARS } from '~/store/types';
+import App from 'next/app';
 
 import 'styles/globals.scss';
 
@@ -26,6 +31,16 @@ Router.events.on('routeChangeError', () => {
 function MyApp(props: any) {
   const { Component, pageProps } = props;
   const store = useStore(pageProps.initialReduxState);
+
+  useEffect(() => {
+    store.dispatch(
+      {
+        type: GET_ALL_CARS,
+        payload: props.cars,
+      },
+      []
+    );
+  });
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -58,6 +73,20 @@ function MyApp(props: any) {
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
+};
+
+MyApp.getInitialProps = async (context: any) => {
+  const reduxStore = await initializeStore({});
+  const { dispatch } = reduxStore;
+
+  const res = await axios.get(vehiclesUrl);
+  const cars = res.data;
+
+  return {
+    ...(await App.getInitialProps(context)),
+    cars,
+    initialReduxState: reduxStore.getState(),
+  };
 };
 
 export default MyApp;
