@@ -8,6 +8,9 @@ import { GetServerSideProps } from 'next';
 import { makesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getAllCarsAction } from '~/store/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +28,11 @@ export default function Home(props: IHomeProps) {
   const classes = useStyles();
 
   const { makes } = props;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCarsAction());
+  });
+
   return (
     <MainLayout>
       <Paper className={classes.paper}>

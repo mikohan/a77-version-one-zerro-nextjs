@@ -60,15 +60,16 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
     setModels(models);
   };
 
-  const carMakes = useSelector((state: any) => {
-    return state.cars.makes;
-  });
+  /* const carMakes = useSelector((state: IState) => { */
+  /*   return state.shop.cars.makes; */
+  /* }); */
+  const carMakes = ['hynundai', 'bmw'];
 
   const dispatch = useDispatch();
 
   const router = useRouter();
 
-  const stateModel = useSelector((state: IState) => state.currentCar.carModel);
+  const stateModel = useSelector((state: IState) => state.currentCar.slug);
 
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     dispatch(changeCarModel(event.target.value as string));
