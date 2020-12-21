@@ -2,11 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '~/theme';
-import axios from 'axios';
-import { vehiclesUrl } from '~/config';
 
-import { GET_ALL_CARS } from '~/store/types';
-import { initializeStore } from '~/store/store';
 export default class MyDocument extends Document {
   render() {
     return (
@@ -55,19 +51,6 @@ MyDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-
-  const reduxStore = await initializeStore({});
-  const { dispatch } = reduxStore;
-
-  const res = await axios.get(vehiclesUrl);
-  const cars = await res.data;
-
-  await dispatch({
-    type: GET_ALL_CARS,
-    payload: cars,
-  });
-  /* console.log(cars, 'in the _app'); */
-
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
@@ -79,7 +62,6 @@ MyDocument.getInitialProps = async (ctx) => {
   const initialProps = await Document.getInitialProps(ctx);
 
   return {
-    initialReduxState: reduxStore.getState(),
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [

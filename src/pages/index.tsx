@@ -59,5 +59,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const promise = await axios.get(makesUrl);
   const makes: IMake[] = await promise.data;
 
+  dispatch({
+    type: GET_ALL_CARS,
+    payload: cars,
+  });
+  console.log(cars, 'in the _app');
+
   return { props: { makes, initialReduxState: reduxStore.getState() } };
 };
