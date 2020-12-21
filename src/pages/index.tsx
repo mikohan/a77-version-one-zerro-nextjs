@@ -8,11 +8,6 @@ import { GetStaticProps } from 'next';
 import { makesUrl, vehiclesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getAllCarsAction } from '~/store/actions';
-import { initializeStore } from '~/store/store';
-import { GET_ALL_CARS } from '~/store/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
