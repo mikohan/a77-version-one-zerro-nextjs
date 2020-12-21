@@ -1,15 +1,7 @@
 import * as types from '~/store/types';
-import { IState } from '~/interfaces/IState';
+import { IShopState } from '~/interfaces/IState';
 
-const initialState: IState = {
-  cars: {
-    makes: [],
-    categories: [],
-  },
-  currentCar: {
-    carModel: '',
-  },
-};
+const initialState = {};
 
 export const getCategoriesReducer = (state = initialState, action: any) => {
   switch (action.type) {

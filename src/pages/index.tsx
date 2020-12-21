@@ -51,8 +51,13 @@ export default function Home(props: IHomeProps) {
   );
 }
 export const getServerSideProps: GetServerSideProps = async () => {
+  const reduxStore = initializeStore({});
+  const { dispatch } = reduxStore;
+
+  const res = await axios.get(vehiclesUrl);
+  const cars = res.data;
   const promise = await axios.get(makesUrl);
   const makes: IMake[] = await promise.data;
 
-  return { props: { makes } };
+  return { props: { makes, initialReduxState: reduxStore.getState() } };
 };

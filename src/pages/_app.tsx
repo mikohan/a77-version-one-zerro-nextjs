@@ -65,8 +65,7 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired,
 };
 
-MyApp.getInitialProps = async (appContext: any) => {
-  const appProps = await App.getInitialProps(appContext);
+MyApp.getInitialProps = async (context: any) => {
   const reduxStore = await initializeStore({});
   const { dispatch } = reduxStore;
 
@@ -79,7 +78,10 @@ MyApp.getInitialProps = async (appContext: any) => {
   });
   console.log(cars, 'in the _app');
 
-  return { props: { initialReduxState: reduxStore.getState() } };
+  return {
+    ...(await App.getInitialProps(context)),
+    props: { initialReduxState: reduxStore.getState() },
+  };
 };
 
 export default MyApp;
