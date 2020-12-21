@@ -1,6 +1,7 @@
+import { IState } from '~/interfaces/IState';
 import * as types from '~/store/types';
 
-export function changeCarModelReducer(state: string = 'all', action: any) {
+export function changeCarModelReducer(state: IState, action: any) {
   switch (action.type) {
     case types.CHANGE_CAR_MODEL:
       return {

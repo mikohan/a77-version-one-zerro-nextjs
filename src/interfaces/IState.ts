@@ -1,4 +1,5 @@
 import { ICategory } from '~/interfaces/category';
+import { ICar } from '~/interfaces/ICar';
 
 export interface IMake {
   id: number;
@@ -8,7 +9,11 @@ export interface IMake {
 }
 
 export interface IState {
-  cars: { makes: IMake[]; categories: ICategory[] };
-
-  currentCar: { carModel: string };
+  shop: {
+    cars: ICar[];
+    currentCar: ICar;
+    makes: IMake[];
+    categories: ICategory[];
+  };
+  currentCar: ICar;
 }
