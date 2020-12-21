@@ -3,11 +3,26 @@ import { Dispatch } from 'redux';
 import * as types from '~/store/types';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
+import { vehiclesUrl } from '~/config';
 
 export interface IGetAllCarsAction {
   type: typeof types.GET_ALL_CARS;
   payload: ICar[];
 }
+
+export type IActions = IGetAllCarsAction;
+
+export const getAllCarsAction = () => {
+  return async (dispatch: Dispatch) => {
+    const res = await axios.get(vehiclesUrl);
+    const cars = res.data;
+
+    dispatch({
+      type: types.GET_ALL_CARS,
+      payload: cars,
+    });
+  };
+};
 
 export const fetchCategories = (carModel: string) => async (
   dispatch: Dispatch
