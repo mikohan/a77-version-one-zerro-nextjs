@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Context } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -14,6 +14,7 @@ import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
+import App from 'next/app';
 
 import 'styles/globals.scss';
 
@@ -62,6 +63,23 @@ function MyApp(props: any) {
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
+};
+
+MyApp.getInitialProps = async (appContext: any) => {
+  const appProps = await App.getInitialProps(appContext);
+  const reduxStore = await initializeStore({});
+  const { dispatch } = reduxStore;
+
+  const res = await axios.get(vehiclesUrl);
+  const cars = res.data;
+
+  await dispatch({
+    type: GET_ALL_CARS,
+    payload: cars,
+  });
+  console.log(cars, 'in the _app');
+
+  return { props: { initialReduxState: reduxStore.getState() } };
 };
 
 export default MyApp;
