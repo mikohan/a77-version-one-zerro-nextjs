@@ -10,11 +10,6 @@ import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 import { Provider } from 'react-redux';
 import { initializeStore, useStore } from '~/store/store';
-import axios from 'axios';
-import { vehiclesUrl } from '~/config';
-
-import { GET_ALL_CARS } from '~/store/types';
-import App from 'next/app';
 
 import 'styles/globals.scss';
 
@@ -63,25 +58,6 @@ function MyApp(props: any) {
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
-};
-
-MyApp.getInitialProps = async (context: any) => {
-  const reduxStore = await initializeStore({});
-  const { dispatch } = reduxStore;
-
-  const res = await axios.get(vehiclesUrl);
-  const cars = res.data;
-
-  await dispatch({
-    type: GET_ALL_CARS,
-    payload: cars,
-  });
-  console.log(cars, 'in the _app');
-
-  return {
-    ...(await App.getInitialProps(context)),
-    props: { initialReduxState: reduxStore.getState() },
-  };
 };
 
 export default MyApp;
