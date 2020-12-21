@@ -9,8 +9,7 @@ import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 import { Provider } from 'react-redux';
-import { createWrapper } from 'next-redux-wrapper';
-import store from '~/store/store';
+import { useStore } from '~/store/store';
 
 import 'styles/globals.scss';
 
@@ -26,6 +25,7 @@ Router.events.on('routeChangeError', () => {
 
 function MyApp(props: any) {
   const { Component, pageProps } = props;
+  const store = useStore(pageProps.initialReduxState);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -60,7 +60,4 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired,
 };
 
-const makestore = () => store;
-export const wrapper = createWrapper(makestore);
-
-export default wrapper.withRedux(MyApp);
+export default MyApp;

@@ -31,7 +31,7 @@ export default function Home(props: IHomeProps) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCarsAction());
-  });
+  }, [dispatch]);
 
   return (
     <MainLayout>
