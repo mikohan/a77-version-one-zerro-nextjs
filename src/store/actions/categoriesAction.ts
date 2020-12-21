@@ -2,6 +2,12 @@ import { categoriesUrl, makesUrl } from '~/config';
 import { Dispatch } from 'redux';
 import * as types from '~/store/types';
 import axios from 'axios';
+import { ICar } from '~/interfaces/ICar';
+
+export interface IGetAllCarsAction {
+  type: typeof types.GET_ALL_CARS;
+  payload: ICar[];
+}
 
 export const fetchCategories = (carModel: string) => async (
   dispatch: Dispatch
