@@ -13,6 +13,8 @@ import { initializeStore, useStore } from '~/store/store';
 import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 
+import { GET_ALL_CARS } from '~/store/types';
+
 import 'styles/globals.scss';
 
 Router.events.on('routeChangeStart', () => {

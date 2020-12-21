@@ -28,10 +28,6 @@ export default function Home(props: IHomeProps) {
   const classes = useStyles();
 
   const { makes } = props;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCarsAction());
-  }, [dispatch]);
 
   return (
     <MainLayout>
