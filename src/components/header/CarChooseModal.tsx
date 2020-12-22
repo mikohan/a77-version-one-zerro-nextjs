@@ -41,7 +41,7 @@ interface CarChooseModalProps {
   currentCar?: string;
 }
 
-export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
+export default function CarChooseModal() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
