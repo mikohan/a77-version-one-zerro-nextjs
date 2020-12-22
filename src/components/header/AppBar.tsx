@@ -10,15 +10,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getMakes, makesAction } from '~/store/actions/categoriesAction';
+import { makesAction } from '~/store/actions/categoriesAction';
 import { changeCarModel } from '~/store/actions/categoriesAction';
 
 import CarChooseModal from '~/components/header/CarChooseModal';
 
 import { asString } from '~/helpers';
 import Grid from '@material-ui/core/Grid';
-import { ICar } from '~/interfaces/ICar';
-import { IMake } from '~/interfaces/IState';
+import { buildMakes } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,10 +50,6 @@ export default function ButtonAppBar() {
   const storeCarModel = useSelector((state: any) => {
     return state.shop.cars;
   });
-
-  const buildMakes = (array: ICar[]): string[] => {
-    return Array.from(new Set(array.map((item: ICar) => item.make)));
-  };
 
   useEffect(() => {
     if (carModel !== 'all') {
