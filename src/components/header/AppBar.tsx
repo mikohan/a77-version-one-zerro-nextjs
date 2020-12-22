@@ -46,10 +46,9 @@ export default function ButtonAppBar() {
     carHref = `/car/${carMake}/${carModel}`;
   }
   const dispatch = useDispatch();
-  /* const storeCarModel = useSelector((state: any) => { */
-  /*   return state.currentCar.carModel; */
-  /* }); */
-  const storeCarModel = 'porter-2';
+  const storeCarModel = useSelector((state: any) => {
+    return state.shop.cars;
+  });
 
   useEffect(() => {
     if (carModel !== 'all') {
@@ -68,7 +67,7 @@ export default function ButtonAppBar() {
                 <Link href={carHref}>
                   <a>
                     {storeCarModel
-                      ? storeCarModel.toUpperCase()
+                      ? storeCarModel.model.toUpperCase()
                       : carModel.toUpperCase()}
                   </a>
                 </Link>
