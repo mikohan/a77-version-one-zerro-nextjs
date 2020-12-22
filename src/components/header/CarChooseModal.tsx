@@ -12,9 +12,9 @@ import { changeCarModel } from '~/store/actions/categoriesAction';
 import { IMake } from '~/interfaces/IState';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
-import { IState } from '~/interfaces/IState';
 import { useRouter } from 'next/router';
 import { getModelsByMakeUrl } from '~/config';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,17 +60,9 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
     setModels(models);
   };
 
-  /* const carMakes = useSelector((state: IState) => { */
-  /*   return state.shop.cars.makes; */
-  /* }); */
-  const carMakes = [
-    {
-      id: 1,
-      slug: 'hyundai',
-      name: 'hyundai',
-      country: 2,
-    },
-  ];
+  const carMakes = useSelector((state: IState) => {
+    return state.shop.makes;
+  });
 
   const dispatch = useDispatch();
 

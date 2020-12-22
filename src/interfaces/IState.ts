@@ -14,3 +14,7 @@ export interface IShopState {
   makes: IMake[];
   categories: ICategory[];
 }
+
+export interface IState {
+  shop: IShopState;
+}
