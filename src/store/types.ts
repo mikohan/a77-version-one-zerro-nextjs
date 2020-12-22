@@ -6,3 +6,5 @@ export const SELECT_BRAND = 'SELECT_BRAND';
 export const GET_ALL_CARS = 'GET_ALL_CARS';
 
 export const SET_MAKES_ACTION = 'SET_MAKES_ACTION';
+
+export const SET_CURRENT_CAR = 'SET_CURRENT_CAR';
