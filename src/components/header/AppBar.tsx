@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { makesAction } from '~/store/actions/categoriesAction';
-import { changeCarModel } from '~/store/actions/categoriesAction';
 
 import CarChooseModal from '~/components/header/CarChooseModal';
 
@@ -53,9 +52,6 @@ export default function ButtonAppBar() {
   });
 
   useEffect(() => {
-    if (carModel !== 'all') {
-      dispatch(changeCarModel(carModel));
-    }
     dispatch(makesAction(buildMakes(storeCarModel)));
   }, [storeCarModel]);
 

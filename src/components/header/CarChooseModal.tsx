@@ -8,11 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeCarModel,
-  setCurrentCarAction,
-} from '~/store/actions/categoriesAction';
-import { IMake } from '~/interfaces/IState';
+import { setCurrentCarAction } from '~/store/actions/categoriesAction';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
 import { useRouter } from 'next/router';
@@ -37,9 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-interface CarChooseModalProps {
-  currentCar?: string;
-}
 
 export default function CarChooseModal() {
   const classes = useStyles();

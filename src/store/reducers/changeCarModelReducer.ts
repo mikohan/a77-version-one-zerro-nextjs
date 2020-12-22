@@ -14,11 +14,6 @@ export function changeCarModelReducer(
   action: any
 ) {
   switch (action.type) {
-    case types.CHANGE_CAR_MODEL:
-      return {
-        ...state,
-        carModel: action.payload,
-      };
     case types.GET_ALL_CARS:
       return {
         ...state,
