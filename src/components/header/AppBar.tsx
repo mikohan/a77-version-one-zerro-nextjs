@@ -17,6 +17,8 @@ import CarChooseModal from '~/components/header/CarChooseModal';
 
 import { asString } from '~/helpers';
 import Grid from '@material-ui/core/Grid';
+import { ICar } from '~/interfaces/ICar';
+import { IMake } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +51,12 @@ export default function ButtonAppBar() {
   const storeCarModel = useSelector((state: any) => {
     return state.shop.cars;
   });
-  console.log(storeCarModel);
+
+  const buildMakes = (array: ICar[]): string[] => {
+    return Array.from(new Set(array.map((item: ICar) => item.make)));
+  };
+
+  console.log(buildMakes(storeCarModel));
 
   useEffect(() => {
     if (carModel !== 'all') {

@@ -16,7 +16,6 @@ export const getAllCarsAction = () => {
   return async (dispatch: Dispatch) => {
     const res = await axios.get(vehiclesUrl);
     const cars = res.data;
-    console.log(cars, 'in cars get action');
 
     dispatch({
       type: types.GET_ALL_CARS,
