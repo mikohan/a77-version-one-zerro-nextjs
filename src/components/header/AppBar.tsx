@@ -49,6 +49,7 @@ export default function ButtonAppBar() {
   const storeCarModel = useSelector((state: any) => {
     return state.shop.cars;
   });
+  console.log(storeCarModel);
 
   useEffect(() => {
     if (carModel !== 'all') {
@@ -64,13 +65,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>
-                  <a>
-                    {storeCarModel
-                      ? storeCarModel.model.toUpperCase()
-                      : carModel.toUpperCase()}
-                  </a>
-                </Link>
+                <Link href={carHref}>Empty link</Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
