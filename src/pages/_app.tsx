@@ -33,14 +33,16 @@ function MyApp(props: any) {
   const store = useStore(pageProps.initialReduxState);
 
   useEffect(() => {
-    store.dispatch(
-      {
+    const fetchData = async () => {
+      const res = await axios.get(vehiclesUrl);
+      const cars = res.data;
+      store.dispatch({
         type: GET_ALL_CARS,
-        payload: props.cars,
-      },
-      []
-    );
-  });
+        payload: cars,
+      });
+    };
+    fetchData();
+  }, []);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -75,17 +77,17 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired,
 };
 
-MyApp.getInitialProps = async (context: any) => {
-  const reduxStore = await initializeStore({});
+/* MyApp.getInitialProps = async (context: any) => { */
+/*   const reduxStore = await initializeStore({}); */
 
-  const res = await axios.get(vehiclesUrl);
-  const cars = res.data;
+/*   const res = await axios.get(vehiclesUrl); */
+/*   const cars = res.data; */
 
-  return {
-    ...(await App.getInitialProps(context)),
-    cars,
-    initialReduxState: reduxStore.getState(),
-  };
-};
+/*   return { */
+/*     ...(await App.getInitialProps(context)), */
+/*     cars, */
+/*     initialReduxState: reduxStore.getState(), */
+/*   }; */
+/* }; */
 
 export default MyApp;
