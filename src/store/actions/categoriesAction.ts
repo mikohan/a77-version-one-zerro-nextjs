@@ -4,6 +4,7 @@ import * as types from '~/store/types';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
 import { vehiclesUrl } from '~/config';
+import { buildMakes } from '~/helpers';
 
 export interface IGetAllCarsAction {
   type: typeof types.GET_ALL_CARS;
@@ -21,6 +22,8 @@ export const getAllCarsAction = () => {
       type: types.GET_ALL_CARS,
       payload: cars,
     });
+
+    dispatch(makesAction(cars));
   };
 };
 

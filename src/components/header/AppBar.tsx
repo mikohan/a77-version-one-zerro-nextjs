@@ -56,8 +56,6 @@ export default function ButtonAppBar() {
     return Array.from(new Set(array.map((item: ICar) => item.make)));
   };
 
-  console.log(buildMakes(storeCarModel));
-
   useEffect(() => {
     if (carModel !== 'all') {
       dispatch(changeCarModel(carModel));

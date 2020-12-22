@@ -1,3 +1,5 @@
+import { ICar } from '~/interfaces/ICar';
+
 export function asString(query: string | string[]) {
   if (Array.isArray(query)) {
     return query[0];
@@ -27,4 +29,10 @@ export const urlBuilder = (
   }
 
   return brands;
+};
+
+// Makes distinct array of makes from all vehicles
+
+export const buildMakes = (array: ICar[]): string[] => {
+  return Array.from(new Set(array.map((item: ICar) => item.make)));
 };
