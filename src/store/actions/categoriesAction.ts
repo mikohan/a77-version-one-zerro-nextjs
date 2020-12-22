@@ -59,3 +59,10 @@ export const makesAction = (makes: string[]) => {
     payload: makes,
   };
 };
+
+export const setCurrentCarAction = (currentCar: ICar) => {
+  return {
+    type: types.SET_CURRENT_CAR,
+    payload: currentCar,
+  };
+};
