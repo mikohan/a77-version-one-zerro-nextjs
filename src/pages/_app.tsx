@@ -77,7 +77,6 @@ MyApp.propTypes = {
 
 MyApp.getInitialProps = async (context: any) => {
   const reduxStore = await initializeStore({});
-  const { dispatch } = reduxStore;
 
   const res = await axios.get(vehiclesUrl);
   const cars = res.data;

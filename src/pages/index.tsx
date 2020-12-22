@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ListForTesting from '~/components/ListForTesting';
 import { GetStaticProps } from 'next';
-import { makesUrl, vehiclesUrl } from '~/config';
+import { makesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
 import axios from 'axios';
 
