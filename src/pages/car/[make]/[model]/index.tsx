@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
 import { categoriesUrl, vehiclesUrl } from '~/config';
@@ -17,6 +18,7 @@ import { IFilter } from '~/interfaces/filters';
 import { getCategories } from '~/endpoints/categories';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
+import { setCurrentCarAction } from '~/store/actions';
 
 interface IModelProps {
   model: ICar;
@@ -31,6 +33,12 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCurrentCarAction(model));
+  }, [model]);
 
   const filterCategory: IFilter = {
     type: 'category',
@@ -108,6 +116,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
+//Get Static Paths
 export const getStaticPaths: GetStaticPaths = async () => {
   const url = `${vehiclesUrl}`;
 
