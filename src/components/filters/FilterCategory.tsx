@@ -15,6 +15,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { asString } from '~/helpers';
+import { IState } from '~/interfaces/IState';
 
 interface Props {
   options: ICategoryFilter;
@@ -43,8 +44,8 @@ function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
   const router = useRouter();
-  const currentCar = useSelector((state: any) => {
-    return state.currentCar.carModel;
+  const currentCar = useSelector((state: IState) => {
+    return state.shop.currentCar.slug;
   });
 
   const { make, model } = router.query;
