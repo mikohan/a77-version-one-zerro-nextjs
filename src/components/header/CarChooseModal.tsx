@@ -60,7 +60,7 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
     setModels(models);
   };
 
-  const carMakes = useSelector((state: IState) => {
+  const carMakes: string[] = useSelector((state: IState) => {
     return state.shop.makes;
   });
   console.log(carMakes);
@@ -69,14 +69,7 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
 
   const router = useRouter();
 
-  /* const stateModel = useSelector((state: IState) => state.currentCar.slug); */
-  const stateModel = {
-    id: 1,
-    slug: 'porter-1',
-    make: 'hyundai',
-    model: 'porer',
-    engine: 'some',
-  };
+  const stateModel = useSelector((state: IState) => state.shop.currentCar.slug);
 
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     dispatch(changeCarModel(event.target.value as string));
@@ -104,10 +97,10 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
                   onChange={handleChange}
                 >
                   <MenuItem value="all">Все Машины</MenuItem>
-                  {carMakes.map((make: IMake) => {
+                  {carMakes.map((make: string) => {
                     return (
-                      <MenuItem key={make.slug} value={make.slug}>
-                        {make.name.toUpperCase()}
+                      <MenuItem key={make} value={make}>
+                        {make.toUpperCase()}
                       </MenuItem>
                     );
                   })}
@@ -124,7 +117,7 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
                 >
                   {models.map((model: ICar) => (
                     <MenuItem key={model.id} value={model.slug}>
-                      {model.model} {model.year[0]} {model.year[1]}
+                      {model.model}
                     </MenuItem>
                   ))}
                 </Select>

@@ -57,7 +57,7 @@ export default function ButtonAppBar() {
       dispatch(changeCarModel(carModel));
     }
     dispatch(makesAction(buildMakes(storeCarModel)));
-  }, []);
+  }, [storeCarModel]);
 
   return (
     <div className={classes.root}>

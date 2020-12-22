@@ -11,7 +11,7 @@ export interface IMake {
 export interface IShopState {
   cars: ICar[];
   currentCar: ICar;
-  makes: IMake[];
+  makes: string[];
   categories: ICategory[];
 }
 
