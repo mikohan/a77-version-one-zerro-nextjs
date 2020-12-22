@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getMakes } from '~/store/actions/categoriesAction';
+import { getMakes, makesAction } from '~/store/actions/categoriesAction';
 import { changeCarModel } from '~/store/actions/categoriesAction';
 
 import CarChooseModal from '~/components/header/CarChooseModal';
@@ -62,7 +62,7 @@ export default function ButtonAppBar() {
     if (carModel !== 'all') {
       dispatch(changeCarModel(carModel));
     }
-    dispatch(getMakes());
+    dispatch(makesAction(buildMakes(storeCarModel)));
   }, []);
 
   return (

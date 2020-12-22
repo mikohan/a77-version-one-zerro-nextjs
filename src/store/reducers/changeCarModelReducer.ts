@@ -24,6 +24,11 @@ export function changeCarModelReducer(
         ...state,
         cars: action.payload,
       };
+    case types.SET_MAKES_ACTION:
+      return {
+        ...state,
+        makes: action.payload,
+      };
     default:
       return state;
   }
