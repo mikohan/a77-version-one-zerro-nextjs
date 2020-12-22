@@ -18,6 +18,7 @@ import CarChooseModal from '~/components/header/CarChooseModal';
 import { asString } from '~/helpers';
 import Grid from '@material-ui/core/Grid';
 import { buildMakes } from '~/helpers';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,7 +48,7 @@ export default function ButtonAppBar() {
     carHref = `/car/${carMake}/${carModel}`;
   }
   const dispatch = useDispatch();
-  const storeCarModel = useSelector((state: any) => {
+  const storeCarModel = useSelector((state: IState) => {
     return state.shop.cars;
   });
 

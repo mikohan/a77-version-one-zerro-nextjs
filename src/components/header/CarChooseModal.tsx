@@ -63,6 +63,7 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   const carMakes = useSelector((state: IState) => {
     return state.shop.makes;
   });
+  console.log(carMakes);
 
   const dispatch = useDispatch();
 
