@@ -72,7 +72,6 @@ export default function CarChooseModal() {
     const getModel = models.find(
       (model: ICar) => model.slug === event.target.value
     );
-    console.log(getModel);
     if (getModel) {
       dispatch(setCurrentCarAction(getModel));
     }
@@ -98,7 +97,6 @@ export default function CarChooseModal() {
                   value={make}
                   onChange={handleChange}
                 >
-                  <MenuItem value="all">Все Машины</MenuItem>
                   {carMakes.map((make: string) => {
                     return (
                       <MenuItem key={make} value={make}>
