@@ -52,3 +52,10 @@ export const getMakes = () => async (dispatch: Dispatch) => {
     payload: makes,
   });
 };
+
+export const makesAction = (makes: string[]) => {
+  return {
+    type: types.SET_MAKES_ACTION,
+    payload: makes,
+  };
+};
