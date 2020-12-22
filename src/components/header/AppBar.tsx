@@ -40,7 +40,7 @@ export default function ButtonAppBar() {
 
   const classes = useStyles();
   const router = useRouter();
-  const carModel = asString(router.query.model || 'all');
+  const carModel = asString(router.query.model || '');
   const carMake = router.query.make || '';
   let carHref = '/';
   if (carModel) {
