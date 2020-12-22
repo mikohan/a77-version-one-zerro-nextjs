@@ -8,7 +8,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCarModel } from '~/store/actions/categoriesAction';
+import {
+  changeCarModel,
+  setCurrentCarAction,
+} from '~/store/actions/categoriesAction';
 import { IMake } from '~/interfaces/IState';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
@@ -63,7 +66,6 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   const carMakes: string[] = useSelector((state: IState) => {
     return state.shop.makes;
   });
-  console.log(carMakes);
 
   const dispatch = useDispatch();
 
@@ -72,8 +74,15 @@ export default function CarChooseModal({ currentCar }: CarChooseModalProps) {
   const stateModel = useSelector((state: IState) => state.shop.currentCar.slug);
 
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    dispatch(changeCarModel(event.target.value as string));
+    /* dispatch(changeCarModel(event.target.value as string)); */
     // Closing car selector form
+    const getModel = models.find(
+      (model: ICar) => model.slug === event.target.value
+    );
+    console.log(getModel);
+    if (getModel) {
+      dispatch(setCurrentCarAction(getModel));
+    }
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;
     router.push(pushUrl);
