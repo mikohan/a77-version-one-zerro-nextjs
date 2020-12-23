@@ -77,6 +77,8 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired,
 };
 
+// It is for server side render of redux
+
 /* MyApp.getInitialProps = async (context: any) => { */
 /*   const reduxStore = await initializeStore({}); */
 
