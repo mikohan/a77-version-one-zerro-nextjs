@@ -15,6 +15,7 @@ import { asString } from '~/helpers';
 import Grid from '@material-ui/core/Grid';
 import { buildMakes } from '~/helpers';
 import { IState } from '~/interfaces/IState';
+import {ICar } from '~/interfaces/ICar'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,9 @@ export default function ButtonAppBar() {
   const classes = useStyles();
   const router = useRouter();
   const carModel = asString(router.query.model || '');
+  let currentCart: ICar;
+
+  if()
   const carMake = router.query.make || '';
   let carHref = '/';
   if (carModel) {
