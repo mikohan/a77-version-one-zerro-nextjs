@@ -71,7 +71,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>Empty link</Link>
+                <Link href={carHref}>{currentCar.model.toUpperCase()}</Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
