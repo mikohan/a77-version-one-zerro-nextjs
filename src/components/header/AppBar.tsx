@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
   // hook fo local storage
 
+  const [cookie, setCookie] = useCookies(['currentCar']);
   const classes = useStyles();
   const router = useRouter();
   const carModel = asString(router.query.model || '');

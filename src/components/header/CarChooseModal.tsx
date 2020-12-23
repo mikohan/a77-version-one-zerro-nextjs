@@ -14,7 +14,7 @@ import { ICar } from '~/interfaces/ICar';
 import { useRouter } from 'next/router';
 import { getModelsByMakeUrl } from '~/config';
 import { IState } from '~/interfaces/IState';
-import useLocalstorageState from '~/hooks/useLocalStorage';
+import { useCookies } from 'react-cookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
