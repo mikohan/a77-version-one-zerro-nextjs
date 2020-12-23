@@ -62,10 +62,7 @@ export default function CarChooseModal() {
   });
 
   // Save to local storage hook init
-  const [localstorage, setLocalstorage] = useLocalstorageState(
-    'currentCar',
-    {}
-  );
+  const [cookie, setCookie] = useCookies(['currentCar']);
 
   const dispatch = useDispatch();
 
@@ -81,7 +78,7 @@ export default function CarChooseModal() {
     );
     if (getModel) {
       dispatch(setCurrentCarAction(getModel));
-      setLocalstorage(getModel);
+      setCookie('currentCar', getModel);
     }
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;
