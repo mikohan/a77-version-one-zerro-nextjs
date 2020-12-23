@@ -17,6 +17,7 @@ import { buildMakes } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
 import useLocalStorage from '~/hooks/useLocalStorage';
+import { setCurrentCarAction } from '~/store/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +47,8 @@ export default function ButtonAppBar() {
   currentCar = localstorage;
   if (!currentCar) {
     currentCar = useSelector((state: IState) => state.shop.currentCar);
+  } else {
+    dispatch(setCurrentCarAction(currentCar));
   }
   const carMake = router.query.make || '';
   let carHref = '/';
