@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import { buildMakes } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
-import useLocalStorage from '~/hooks/useLocalStorage';
+import { useCookies } from 'react-cookie';
 import { setCurrentCarAction } from '~/store/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
