@@ -44,25 +44,23 @@ export default function ButtonAppBar() {
   //Ligic: lookup current car in localStorage, if not exist look in redux store
   // If in local storage dispatch it to redux
   const dispatch = useDispatch();
-  if (process.browser) {
-    const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
-    currentCar = localstorage;
-    if (Object.keys(currentCar).length === 0) {
-      currentCar = useSelector((state: IState) => state.shop.currentCar);
-    } else {
-      dispatch(setCurrentCarAction(currentCar));
-    }
-  } else {
-    currentCar = {
-      id: 1000,
-      model: 'Lamborgini',
-      make: 'Lambo',
-      engine: 'megaEngine',
-      slug: 'lambo',
-    };
-  }
-
-  console.log(currentCar, 'In appBar');
+  /* if (process.browser) { */
+  /*   const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {}); */
+  /*   currentCar = localstorage; */
+  /*   if (Object.keys(currentCar).length === 0) { */
+  /*     currentCar = useSelector((state: IState) => state.shop.currentCar); */
+  /*   } else { */
+  /*     dispatch(setCurrentCarAction(currentCar)); */
+  /*   } */
+  /* } else { */
+  /*   currentCar = { */
+  /*     id: 1000, */
+  /*     model: 'Lamborgini', */
+  /*     make: 'Lambo', */
+  /*     engine: 'megaEngine', */
+  /*     slug: 'lambo', */
+  /*   }; */
+  /* } */
 
   const carMake = router.query.make || '';
   let carHref = '/';
@@ -84,11 +82,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>
-                  {Object.keys(currentCar).length !== 0
-                    ? currentCar.model.toUpperCase()
-                    : 'Fucks up'}
-                </Link>
+                <Link href={carHref}>djdjdj</Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
