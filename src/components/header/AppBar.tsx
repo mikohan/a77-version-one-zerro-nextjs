@@ -46,12 +46,13 @@ export default function ButtonAppBar() {
   const dispatch = useDispatch();
   const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
   currentCar = localstorage;
-  console.log(localstorage);
   if (Object.keys(currentCar).length) {
     currentCar = useSelector((state: IState) => state.shop.currentCar);
   } else {
     dispatch(setCurrentCarAction(currentCar));
   }
+  console.log(currentCar, 'In appBar');
+
   const carMake = router.query.make || '';
   let carHref = '/';
   if (carModel) {
