@@ -43,6 +43,7 @@ export default function ButtonAppBar() {
 
   //Ligic: lookup current car in localStorage, if not exist look in redux store
   // If in local storage dispatch it to redux
+  const dispatch = useDispatch();
   const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
   currentCar = localstorage;
   if (!currentCar) {
@@ -55,7 +56,6 @@ export default function ButtonAppBar() {
   if (carModel) {
     carHref = `/car/${carMake}/${carModel}`;
   }
-  const dispatch = useDispatch();
   const storeCarModel = useSelector((state: IState) => {
     return state.shop.cars;
   });
