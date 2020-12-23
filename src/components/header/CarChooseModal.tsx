@@ -14,6 +14,7 @@ import { ICar } from '~/interfaces/ICar';
 import { useRouter } from 'next/router';
 import { getModelsByMakeUrl } from '~/config';
 import { IState } from '~/interfaces/IState';
+import useLocalstorageState from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,6 +61,12 @@ export default function CarChooseModal() {
     return state.shop.makes;
   });
 
+  // Save to local storage hook init
+  const [localstorage, setLocalstorage] = useLocalstorageState(
+    'currentCar',
+    {}
+  );
+
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -74,6 +81,7 @@ export default function CarChooseModal() {
     );
     if (getModel) {
       dispatch(setCurrentCarAction(getModel));
+      setLocalstorage(getModel);
     }
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;
