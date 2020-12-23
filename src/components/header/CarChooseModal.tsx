@@ -76,9 +76,11 @@ export default function CarChooseModal() {
     const getModel = models.find(
       (model: ICar) => model.slug === event.target.value
     );
+
+    // Setting cookie if user select a car
     if (getModel) {
       dispatch(setCurrentCarAction(getModel));
-      setCookie('currentCar', getModel);
+      setCookie('currentCar', JSON.stringify(getModel));
     }
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;

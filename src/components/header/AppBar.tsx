@@ -42,6 +42,10 @@ export default function ButtonAppBar() {
   const carModel = asString(router.query.model || '');
   let currentCar: ICar;
 
+  if (cookie.currentCar) {
+    console.log('There is currentCar in cookies');
+  }
+
   //Ligic: lookup current car in localStorage, if not exist look in redux store
   // If in local storage dispatch it to redux
   const dispatch = useDispatch();
