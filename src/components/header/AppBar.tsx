@@ -46,7 +46,8 @@ export default function ButtonAppBar() {
   const dispatch = useDispatch();
   const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
   currentCar = localstorage;
-  if (!currentCar) {
+  console.log(localstorage);
+  if (Object.keys(currentCar).length) {
     currentCar = useSelector((state: IState) => state.shop.currentCar);
   } else {
     dispatch(setCurrentCarAction(currentCar));
@@ -71,7 +72,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>{currentCar.model.toUpperCase()}</Link>
+                <Link href={carHref}>dldl</Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
