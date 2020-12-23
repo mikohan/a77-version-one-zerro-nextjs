@@ -15,7 +15,8 @@ import { asString } from '~/helpers';
 import Grid from '@material-ui/core/Grid';
 import { buildMakes } from '~/helpers';
 import { IState } from '~/interfaces/IState';
-import {ICar } from '~/interfaces/ICar'
+import { ICar } from '~/interfaces/ICar';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,16 +33,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ButtonAppBar() {
-  // use toggle test
-
-  // End of use toggle
+  // hook fo local storage
 
   const classes = useStyles();
   const router = useRouter();
   const carModel = asString(router.query.model || '');
-  let currentCart: ICar;
+  let currentCar: ICar;
 
-  if()
+  //Ligic: lookup current car in localStorage, if not exist look in redux store
+  // If in local storage dispatch it to redux
+  const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
+  currentCar = localstorage;
+  if (!currentCar) {
+    currentCar = useSelector((state: IState) => state.shop.currentCar);
+  }
   const carMake = router.query.make || '';
   let carHref = '/';
   if (carModel) {
