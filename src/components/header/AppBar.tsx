@@ -44,13 +44,24 @@ export default function ButtonAppBar() {
   //Ligic: lookup current car in localStorage, if not exist look in redux store
   // If in local storage dispatch it to redux
   const dispatch = useDispatch();
-  const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
-  currentCar = localstorage;
-  if (Object.keys(currentCar).length === 0) {
-    currentCar = useSelector((state: IState) => state.shop.currentCar);
+  if (process.browser) {
+    const [localstorage, setLocalstorage] = useLocalStorage('currentCar', {});
+    currentCar = localstorage;
+    if (Object.keys(currentCar).length === 0) {
+      currentCar = useSelector((state: IState) => state.shop.currentCar);
+    } else {
+      dispatch(setCurrentCarAction(currentCar));
+    }
   } else {
-    dispatch(setCurrentCarAction(currentCar));
+    currentCar = {
+      id: 1000,
+      model: 'Lamborgini',
+      make: 'Lambo',
+      engine: 'megaEngine',
+      slug: 'lambo',
+    };
   }
+
   console.log(currentCar, 'In appBar');
 
   const carMake = router.query.make || '';
