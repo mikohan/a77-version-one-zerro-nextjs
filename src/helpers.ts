@@ -36,3 +36,9 @@ export const urlBuilder = (
 export const buildMakes = (array: ICar[]): string[] => {
   return Array.from(new Set(array.map((item: ICar) => item.make)));
 };
+
+import cookie from 'cookie';
+
+export function parseCookies(req: any) {
+  return cookie.parse(req ? req.headers.cookie || '' : document.cookie);
+}

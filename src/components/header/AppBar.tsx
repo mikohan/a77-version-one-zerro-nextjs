@@ -18,6 +18,7 @@ import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
 import { useCookies } from 'react-cookie';
 import { setCurrentCarAction } from '~/store/actions';
+import { parseCookies } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,21 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
   // hook fo local storage
 
-  const [cookie, setCookie] = useCookies(['currentCar']);
   const classes = useStyles();
   const router = useRouter();
   const carModel = asString(router.query.model || '');
   const dispatch = useDispatch();
 
   let currentCar: ICar;
-
-  if (cookie.currentCar) {
-    console.log('There is currentCar in cookies');
-    currentCar = cookie.currentCar;
-    dispatch(setCurrentCarAction(currentCar));
-  } else {
-    console.log('There isnt cookies ');
-  }
 
   //Ligic: lookup current car in localStorage, if not exist look in redux store
   // If in local storage dispatch it to redux

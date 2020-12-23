@@ -14,7 +14,7 @@ import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
-import App from 'next/app';
+import { CookiesProvider } from 'react-cookie';
 
 import 'styles/globals.scss';
 
@@ -61,13 +61,15 @@ function MyApp(props: any) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </Provider>
+      <CookiesProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </Provider>
+      </CookiesProvider>
     </React.Fragment>
   );
 }
