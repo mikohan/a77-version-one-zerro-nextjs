@@ -16,6 +16,7 @@
 15. Make related post widget
 16. Make main page with widgets
 17. Make search widget
+18. Make search logic by car or all products or category with that products
 
  */
 
