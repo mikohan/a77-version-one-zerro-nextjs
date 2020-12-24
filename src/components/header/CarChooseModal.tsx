@@ -9,6 +9,8 @@
 8. Make product selector based on car and filters
 9. Make filters builder according to product properties
 10.Make related product widget
+11. Make analogs product widget
+12. Make category widget
  */
 
 import React from 'react';
