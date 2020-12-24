@@ -1,6 +1,6 @@
 /*
 1. Needs to realize how to use cookies on server side
-
+2. Save current car on choser
  */
 
 import React from 'react';
