@@ -12,6 +12,8 @@
 11. Make analogs product widget
 12. Make all categories on car page list
 13. Make related category widget
+14. Make blog
+15. Make related post widget
 
  */
 
