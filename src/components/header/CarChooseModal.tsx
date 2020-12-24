@@ -8,6 +8,7 @@
 7. Make JWT authorization for saving orders and so on
 8. Make product selector based on car and filters
 9. Make filters builder according to product properties
+10.Make related product widget
  */
 
 import React from 'react';
