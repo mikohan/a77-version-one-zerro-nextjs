@@ -18,6 +18,7 @@
 17. Make search widget
 18. Make search logic by car or all products or category with that products
 19. Make shopping cart widget
+20. Make rating widet
 
  */
 
