@@ -20,6 +20,7 @@
 19. Make shopping cart widget
 20. Make rating widet
 21. Make static pages
+22. Make rewiew logic and put under the products
 
  */
 
