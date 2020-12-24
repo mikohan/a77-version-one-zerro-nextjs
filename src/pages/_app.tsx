@@ -15,8 +15,11 @@ import { vehiclesUrl } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
 import { CookiesProvider } from 'react-cookie';
+import App from 'next/app';
+import { parseCookies } from '~/helpers';
 
 import 'styles/globals.scss';
+import { setCurrentCarAction } from '~/store/actions';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -29,8 +32,9 @@ Router.events.on('routeChangeError', () => {
 });
 
 function MyApp(props: any) {
-  const { Component, pageProps } = props;
+  const { Component, pageProps, allCookies } = props;
   const store = useStore(pageProps.initialReduxState);
+  console.log(allCookies.currentCar);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +44,8 @@ function MyApp(props: any) {
         type: GET_ALL_CARS,
         payload: cars,
       });
+      // Dispatching currentCar to redux
+      store.dispatch(setCurrentCarAction(allCookies.currentCar));
     };
     fetchData();
   }, []);
@@ -81,17 +87,19 @@ MyApp.propTypes = {
 
 // It is for server side render of redux
 
-/* MyApp.getInitialProps = async (context: any) => { */
-/*   const reduxStore = await initializeStore({}); */
+MyApp.getInitialProps = async (context: any) => {
+  const reduxStore = await initializeStore({});
 
-/*   const res = await axios.get(vehiclesUrl); */
-/*   const cars = res.data; */
+  const res = await axios.get(vehiclesUrl);
+  const cars = res.data;
+  const allCookies = parseCookies(context.ctx.req);
 
-/*   return { */
-/*     ...(await App.getInitialProps(context)), */
-/*     cars, */
-/*     initialReduxState: reduxStore.getState(), */
-/*   }; */
-/* }; */
+  return {
+    ...(await App.getInitialProps(context)),
+    cars,
+    initialReduxState: reduxStore.getState(),
+    allCookies: allCookies,
+  };
+};
 
 export default MyApp;

@@ -73,6 +73,7 @@ export default function CarChooseModal() {
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     /* dispatch(changeCarModel(event.target.value as string)); */
     // Closing car selector form
+    setCookie('currentCar', JSON.stringify(getModel));
     const getModel = models.find(
       (model: ICar) => model.slug === event.target.value
     );
@@ -80,7 +81,6 @@ export default function CarChooseModal() {
     // Setting cookie if user select a car
     if (getModel) {
       dispatch(setCurrentCarAction(getModel));
-      setCookie('currentCar', JSON.stringify(getModel));
     }
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;
