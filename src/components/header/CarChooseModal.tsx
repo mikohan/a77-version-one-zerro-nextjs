@@ -1,6 +1,7 @@
 /*
 1. Needs to realize how to use cookies on server side
 2. Save current car on choser
+3. Save user id and currentCar to server endpoint
  */
 
 import React from 'react';
