@@ -10,7 +10,8 @@
 9. Make filters builder according to product properties
 10.Make related product widget
 11. Make analogs product widget
-12. Make category widget
+12. Make all categories on car page list
+12. Make related category widget
  */
 
 import React from 'react';
