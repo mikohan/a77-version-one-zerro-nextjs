@@ -5,6 +5,7 @@
 4. Make garage of cars based on user id in cookies
 5. When wisiting car page suggest change car or not?
 6. Split car chooser to select from garage or from all cars
+7. Make JWT authorization for saving orders and so on
  */
 
 import React from 'react';
