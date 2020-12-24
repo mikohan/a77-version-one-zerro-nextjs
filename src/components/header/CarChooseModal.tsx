@@ -1,3 +1,8 @@
+/*
+1. Needs to realize how to use cookies on server side
+
+ */
+
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
