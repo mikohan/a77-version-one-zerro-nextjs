@@ -14,6 +14,7 @@
 13. Make related category widget
 14. Make blog
 15. Make related post widget
+16. Make main page with widgets
 
  */
 
