@@ -6,6 +6,7 @@
 5. When wisiting car page suggest change car or not?
 6. Split car chooser to select from garage or from all cars
 7. Make JWT authorization for saving orders and so on
+8. Make product selector based on car and filters
  */
 
 import React from 'react';
