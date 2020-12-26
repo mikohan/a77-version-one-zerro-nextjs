@@ -53,7 +53,7 @@ export const makesAction = (makes: string[]) => {
   };
 };
 
-export const setCurrentCarAction = (currentCar: ICar) => {
+export const setCurrentCarAction = (currentCar: ICar | undefined) => {
   return {
     type: types.SET_CURRENT_CAR,
     payload: currentCar,

@@ -20,6 +20,7 @@ import { parseCookies } from '~/helpers';
 
 import 'styles/globals.scss';
 import { setCurrentCarAction } from '~/store/actions';
+import { ICar } from '~/interfaces/ICar';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -45,7 +46,14 @@ function MyApp(props: any) {
         payload: cars,
       });
       // Dispatching currentCar to redux
-      store.dispatch(setCurrentCarAction(JSON.parse(allCookies.currentCar)));
+      let currentCarFromCookies: ICar | undefined;
+      if (allCookies.currentCar) {
+        currentCarFromCookies = JSON.parse(allCookies.currentCar);
+      } else {
+        currentCarFromCookies = undefined;
+      }
+
+      store.dispatch(setCurrentCarAction(currentCarFromCookies));
     };
     fetchData();
   }, []);
