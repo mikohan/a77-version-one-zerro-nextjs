@@ -14,7 +14,7 @@ import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
 import App from 'next/app';
 import { parseCookies } from '~/helpers';
 
@@ -38,6 +38,7 @@ function MyApp(props: any) {
   const { Component, pageProps, allCookies } = props;
   const store = useStore(pageProps.initialReduxState);
   console.log(allCookies.currentCar);
+  const [cookie, setCookie] = useCookies(['userUUID']);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,15 +63,12 @@ function MyApp(props: any) {
 
   let userUUID: string = '';
 
-  if (Object.hasOwnProperty('userUUID')) {
+  if (allCookies.hasOwnProperty('userUUID')) {
     userUUID = allCookies.userUUID;
   } else {
     userUUID = uuidv4();
+    setCookie('userUUID', userUUID);
   }
-
-  useEffect(() => {
-    console.log(uuidv4());
-  }, [userUUID]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.
