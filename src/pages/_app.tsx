@@ -58,7 +58,7 @@ function MyApp(props: any) {
     fetchData();
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
