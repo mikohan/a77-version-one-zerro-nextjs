@@ -22,6 +22,11 @@
 21. Make static pages
 22. Make rewiew logic and put under the products
 
+
+aa. Cookies making done, needs to be tested
+ab. UUID done also needs to be checked
+
+
  */
 
 import React from 'react';
