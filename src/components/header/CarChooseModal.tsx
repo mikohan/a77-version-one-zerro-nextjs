@@ -94,7 +94,7 @@ export default function CarChooseModal() {
 
   const router = useRouter();
 
-  const stateModel = useSelector((state: IState) => state.shop.currentCar.slug);
+  /* const stateModel = useSelector((state: IState) => state.shop.currentCar.slug); */
 
   const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     /* dispatch(changeCarModel(event.target.value as string)); */
@@ -145,7 +145,7 @@ export default function CarChooseModal() {
                 <Select
                   labelId="demo-simple-select-label"
                   id="model-select"
-                  value={stateModel}
+                  value={'stateModel'}
                   onChange={handleModelChange}
                   disabled={make ? false : true}
                 >
