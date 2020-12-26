@@ -60,6 +60,18 @@ function MyApp(props: any) {
     fetchData();
   }, []);
 
+  let userUUID: string = '';
+
+  if (Object.hasOwnProperty('userUUID')) {
+    userUUID = allCookies.userUUID;
+  } else {
+    userUUID = uuidv4();
+  }
+
+  useEffect(() => {
+    console.log(uuidv4());
+  }, [userUUID]);
+
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
