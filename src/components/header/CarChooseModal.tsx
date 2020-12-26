@@ -88,7 +88,7 @@ export default function CarChooseModal() {
   });
 
   // Save to local storage hook init
-  const [cookie, setCookie] = useCookies(['currentCar']);
+  const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
 
   const dispatch = useDispatch();
 
@@ -102,8 +102,11 @@ export default function CarChooseModal() {
     const getModel = models.find(
       (model: ICar) => model.slug === event.target.value
     );
+    console.log(getModel, 'In car Chooser cookies');
 
+    removeCookie('currentCar');
     setCookie('currentCar', JSON.stringify(getModel));
+    console.log(cookie, 'Show newly set cookies');
 
     // Setting cookie if user select a car
     if (getModel) {

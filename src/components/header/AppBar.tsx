@@ -88,9 +88,7 @@ export default function ButtonAppBar() {
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
                 <Link href={carHref}>
-                  {typeof currentCar.model !== 'undefined'
-                    ? currentCar?.model.toUpperCase()
-                    : 'Select car'}
+                  {!currentCar ? 'Yes car' : 'Select car'}
                 </Link>
               </Typography>
             </Grid>
