@@ -77,6 +77,7 @@ function MyApp(props: any) {
       jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
+  console.log(userUUID);
 
   return (
     <React.Fragment>
