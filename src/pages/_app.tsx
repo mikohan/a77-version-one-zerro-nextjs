@@ -45,7 +45,7 @@ function MyApp(props: any) {
         payload: cars,
       });
       // Dispatching currentCar to redux
-      store.dispatch(setCurrentCarAction(allCookies.currentCar));
+      store.dispatch(setCurrentCarAction(JSON.parse(allCookies.currentCar)));
     };
     fetchData();
   }, []);

@@ -87,9 +87,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>
-                  {!currentCar ? 'Yes car' : 'Select car'}
-                </Link>
+                <Link href={carHref}>link text</Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
@@ -97,7 +95,9 @@ export default function ButtonAppBar() {
                 <CarChooseModal />
               </Typography>
             </Grid>
-            <Grid item></Grid>
+            <Grid item>
+              {currentCar ? currentCar.model : 'Select car'} some text
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>

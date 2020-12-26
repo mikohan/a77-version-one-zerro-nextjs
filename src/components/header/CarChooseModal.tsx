@@ -105,7 +105,7 @@ export default function CarChooseModal() {
     console.log(getModel, 'In car Chooser cookies');
 
     removeCookie('currentCar');
-    setCookie('currentCar', JSON.stringify(getModel));
+    setCookie('currentCar', JSON.stringify(getModel), { path: '/' });
     console.log(cookie, 'Show newly set cookies');
 
     // Setting cookie if user select a car
