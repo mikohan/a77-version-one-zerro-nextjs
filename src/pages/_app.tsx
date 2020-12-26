@@ -67,7 +67,10 @@ function MyApp(props: any) {
     userUUID = allCookies.userUUID;
   } else {
     userUUID = uuidv4();
-    setCookie('userUUID', userUUID);
+    setCookie('userUUID', userUUID, {
+      path: '/',
+      maxAge: 36000000,
+    });
   }
 
   useEffect(() => {
