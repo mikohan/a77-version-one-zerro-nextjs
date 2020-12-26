@@ -42,7 +42,7 @@ export default function ButtonAppBar() {
   const carModel = asString(router.query.model || '');
   const dispatch = useDispatch();
 
-  let currentCar: ICar;
+  let currentCar: ICar | undefined;
 
   //Ligic: lookup current car in localStorage, if not exist look in redux store
   // If in local storage dispatch it to redux
@@ -64,6 +64,9 @@ export default function ButtonAppBar() {
   /*   }; */
   /* } */
 
+  currentCar =
+    useSelector((state: IState) => state.shop.currentCar) || undefined;
+
   const carMake = router.query.make || '';
   let carHref = '/';
   if (carModel) {
@@ -84,7 +87,9 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>djdjdj</Link>
+                <Link href={carHref}>
+                  {!!currentCar ? currentCar.model.toUpperCase() : 'Select car'}
+                </Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
