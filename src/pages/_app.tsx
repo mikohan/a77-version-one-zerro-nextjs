@@ -22,6 +22,8 @@ import 'styles/globals.scss';
 import { setCurrentCarAction } from '~/store/actions';
 import { ICar } from '~/interfaces/ICar';
 
+import { v4 as uuidv4 } from 'uuid';
+
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
 });
