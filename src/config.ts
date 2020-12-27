@@ -22,3 +22,8 @@ export const getCategoryBySlugUrl =
 export const REVALIDATE: number = 20; // Revalidate time for all pages in seconds
 
 export const durationPage: number = 0.5; // Animation between pages
+
+export const cookiesAge = {
+  cookieCurrentCarMaxAge: 3600000000,
+  cookierUserMaxAge: 3600000000,
+};

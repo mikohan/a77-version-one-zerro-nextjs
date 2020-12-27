@@ -11,7 +11,7 @@ import theme from '~/theme';
 import { Provider } from 'react-redux';
 import { initializeStore, useStore } from '~/store/store';
 import axios from 'axios';
-import { vehiclesUrl } from '~/config';
+import { vehiclesUrl, cookiesAge } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
 import { CookiesProvider, useCookies } from 'react-cookie';
@@ -69,7 +69,7 @@ function MyApp(props: any) {
       userUUID = uuidv4();
       setCookie('userUUID', userUUID, {
         path: '/',
-        maxAge: 3600000000,
+        maxAge: cookiesAge.cookierUserMaxAge,
       });
     }
   });

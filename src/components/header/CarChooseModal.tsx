@@ -44,7 +44,7 @@ import { setCurrentCarAction } from '~/store/actions/categoriesAction';
 import axios from 'axios';
 import { ICar } from '~/interfaces/ICar';
 import { useRouter } from 'next/router';
-import { getModelsByMakeUrl } from '~/config';
+import { cookiesAge, getModelsByMakeUrl } from '~/config';
 import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 
@@ -108,14 +108,12 @@ export default function CarChooseModal() {
     const getModel = models.find(
       (model: ICar) => model.slug === event.target.value
     );
-    console.log(getModel, 'In car Chooser cookies');
 
     removeCookie('currentCar');
     setCookie('currentCar', JSON.stringify(getModel), {
       path: '/',
-      maxAge: 36000000,
+      maxAge: cookiesAge.cookieCurrentCarMaxAge,
     });
-    console.log(cookie, 'Show newly set cookies');
 
     // Setting cookie if user select a car
     if (getModel) {
