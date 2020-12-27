@@ -120,6 +120,8 @@ MyApp.getInitialProps = async (context: any) => {
   const resp = await axios.get(vehiclesUrl);
   const cars = resp.data;
   const allCookies = parseCookies(context.ctx.req);
+  if (!('UUID' in allCookies)) {
+  }
 
   return {
     ...(await App.getInitialProps(context)),
