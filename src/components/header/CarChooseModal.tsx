@@ -47,10 +47,6 @@ export default function CarChooseModal() {
   );
   const [modelState, setModelState] = React.useState<string | undefined>('');
 
-  const mod = useSelector((state: IState) => {
-    return state.shop.currentCar;
-  });
-
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
   const dispatch = useDispatch();
 
@@ -110,7 +106,7 @@ export default function CarChooseModal() {
   return (
     <div>
       <Button aria-describedby={id} type="button" onClick={handleClick}>
-        Выбрать машину
+        ВЫБРАТЬ МОДЕЛЬ
       </Button>
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
