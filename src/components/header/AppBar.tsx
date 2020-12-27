@@ -65,11 +65,6 @@ export default function ButtonAppBar() {
     useSelector((state: IState) => state.shop.currentCar) || undefined;
 
   const carMake = router.query.make || '';
-  let carHref = '/';
-  if (currentCar) {
-    carHref = `/car/${currentCar.make}/${currentCar.slug}`;
-    console.log(carHref);
-  }
   const storeCarModel = useSelector((state: IState) => {
     return state.shop.cars;
   });
@@ -80,7 +75,12 @@ export default function ButtonAppBar() {
 
   let linkCar: string = 'My Car';
   if (currentCar) {
-    linkCar = currentCar.model.toUpperCase();
+    linkCar = currentCar.model;
+  }
+
+  let carHref = '/';
+  if (currentCar) {
+    carHref = `/car/${currentCar.make}/${currentCar.slug}`;
   }
 
   return (
@@ -90,7 +90,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href="/">
+                <Link href={carHref}>
                   <Typography>{linkCar}</Typography>
                 </Link>
               </Typography>
