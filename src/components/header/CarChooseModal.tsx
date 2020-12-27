@@ -1,35 +1,3 @@
-/*
-1. Needs to realize how to use cookies on server side
-2. Save current car on choser
-3. Save user id and currentCar to server endpoint
-4. Make garage of cars based on user id in cookies
-5. When wisiting car page suggest change car or not?
-6. Split car chooser to select from garage or from all cars
-7. Make JWT authorization for saving orders and so on
-8. Make product selector based on car and filters
-9. Make filters builder according to product properties
-10.Make related product widget
-11. Make analogs product widget
-12. Make all categories on car page list
-13. Make related category widget
-14. Make blog
-15. Make related post widget
-16. Make main page with widgets
-17. Make search widget
-18. Make search logic by car or all products or category with that products
-19. Make shopping cart widget
-20. Make rating widet
-21. Make static pages
-22. Make rewiew logic and put under the products
-
-
-aa. Cookies making done, needs to be tested
-ab. UUID done also needs to be checked
-ac. Needs make endpoint for UUID and post and get it from server
-
-
- */
-
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
