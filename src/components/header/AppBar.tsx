@@ -73,16 +73,6 @@ export default function ButtonAppBar() {
     dispatch(makesAction(buildMakes(storeCarModel)));
   }, [storeCarModel]);
 
-  let linkCar: string = 'My Car';
-  if (currentCar) {
-    linkCar = currentCar.model;
-  }
-
-  let carHref = '/';
-  if (currentCar) {
-    carHref = `/car/${currentCar.make}/${currentCar.slug}`;
-  }
-
   return (
     <div className={classes.root}>
       <AppBar elevation={0} color="inherit" position="static">
@@ -90,9 +80,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>
-                  <Typography>{linkCar}</Typography>
-                </Link>
+                Link to somewhere
               </Typography>
             </Grid>
             <Grid item xs={2}>
