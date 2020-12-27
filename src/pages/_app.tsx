@@ -1,4 +1,4 @@
-import React, { Context, useEffect } from 'react';
+import React, { /*Context*/ useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -15,8 +15,8 @@ import { vehiclesUrl } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
 import { CookiesProvider, useCookies } from 'react-cookie';
-import App from 'next/app';
-import { parseCookies } from '~/helpers';
+/* import App from 'next/app'; */
+/* import { parseCookies } from '~/helpers'; */
 
 import 'styles/globals.scss';
 import { setCurrentCarAction } from '~/store/actions';
@@ -35,7 +35,7 @@ Router.events.on('routeChangeError', () => {
 });
 
 function MyApp(props: any) {
-  const { Component, pageProps, allCookies } = props;
+  const { Component, pageProps } = props;
   const store = useStore(pageProps.initialReduxState);
   const [cookies, setCookie] = useCookies(['userUUID']);
 
@@ -69,7 +69,7 @@ function MyApp(props: any) {
       userUUID = uuidv4();
       setCookie('userUUID', userUUID, {
         path: '/',
-        maxAge: 36000000,
+        maxAge: 3600000000,
       });
     }
   });
@@ -112,24 +112,24 @@ MyApp.propTypes = {
 
 // It is for server side render of redux
 
-MyApp.getInitialProps = async (context: any) => {
-  const { req, res } = context.ctx;
-  const isServer = !!req;
-  const isBrowser = !req;
-  const reduxStore = await initializeStore({});
+/* MyApp.getInitialProps = async (context: any) => { */
+/*   const { req, res } = context.ctx; */
+/*   const isServer = !!req; */
+/*   const isBrowser = !req; */
+/*   const reduxStore = await initializeStore({}); */
 
-  const resp = await axios.get(vehiclesUrl);
-  const cars = resp.data;
-  //const allCookies = parseCookies(context.ctx.req);
-  //if (!('UUID' in allCookies)) {
-  //}
+/*   const resp = await axios.get(vehiclesUrl); */
+/*   const cars = resp.data; */
+/*   //const allCookies = parseCookies(context.ctx.req); */
+/*   //if (!('UUID' in allCookies)) { */
+/*   //} */
 
-  return {
-    ...(await App.getInitialProps(context)),
-    cars,
-    initialReduxState: reduxStore.getState(),
-    /* allCookies: allCookies, */
-  };
-};
+/*   return { */
+/*     ...(await App.getInitialProps(context)), */
+/*     cars, */
+/*     initialReduxState: reduxStore.getState(), */
+/*     /1* allCookies: allCookies, *1/ */
+/*   }; */
+/* }; */
 
 export default MyApp;
