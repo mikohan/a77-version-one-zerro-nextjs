@@ -107,8 +107,6 @@ export default function CarChooseModal() {
     setModelState(event.target.value as string);
   };
 
-  console.log(modelState);
-
   return (
     <div>
       <Button aria-describedby={id} type="button" onClick={handleClick}>
