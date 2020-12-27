@@ -45,21 +45,20 @@ export default function CarChooseModal() {
     'currentCar',
     undefined
   );
-  const [modelState, setModelState] = React.useState<string | undefined>(
-    undefined
-  );
+  const [modelState, setModelState] = React.useState<string | undefined>('');
+
+  const mod = useSelector((state: IState) => {
+    return state.shop.currentCar;
+  });
+
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
   const dispatch = useDispatch();
 
-  let carInEverywere: ICar | undefined = undefined;
-  carInEverywere = useSelector((state: IState) => state.shop.currentCar);
+  const router = useRouter();
 
   useEffect(() => {
-    setModelState(carInEverywere?.model);
-    console.log(carInEverywere);
+    setModelState(localstorage.model);
   }, []);
-
-  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -105,8 +104,9 @@ export default function CarChooseModal() {
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;
     router.push(pushUrl);
-    setModelState(getModel);
+    setModelState(event.target.value as string);
   };
+
   console.log(modelState);
 
   return (
