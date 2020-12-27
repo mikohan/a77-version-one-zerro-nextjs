@@ -37,8 +37,7 @@ Router.events.on('routeChangeError', () => {
 function MyApp(props: any) {
   const { Component, pageProps, allCookies } = props;
   const store = useStore(pageProps.initialReduxState);
-  console.log(allCookies.currentCar);
-  const [cookie, setCookie] = useCookies(['userUUID']);
+  const [cookies, setCookie] = useCookies(['userUUID']);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,8 +49,8 @@ function MyApp(props: any) {
       });
       // Dispatching currentCar to redux
       let currentCarFromCookies: ICar | undefined;
-      if (allCookies.currentCar) {
-        currentCarFromCookies = JSON.parse(allCookies.currentCar);
+      if (cookies.currentCar) {
+        currentCarFromCookies = cookies.currentCar;
       } else {
         currentCarFromCookies = undefined;
       }
@@ -63,15 +62,17 @@ function MyApp(props: any) {
 
   let userUUID: string = '';
 
-  if (allCookies.hasOwnProperty('userUUID')) {
-    userUUID = allCookies.userUUID;
-  } else {
-    userUUID = uuidv4();
-    setCookie('userUUID', userUUID, {
-      path: '/',
-      maxAge: 36000000,
-    });
-  }
+  useEffect(() => {
+    if (cookies.hasOwnProperty('userUUID')) {
+      userUUID = cookies.userUUID;
+    } else {
+      userUUID = uuidv4();
+      setCookie('userUUID', userUUID, {
+        path: '/',
+        maxAge: 36000000,
+      });
+    }
+  });
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -80,7 +81,7 @@ function MyApp(props: any) {
       jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
-  console.log(userUUID);
+  console.log(cookies.userUUID, 'In _app');
 
   return (
     <React.Fragment>
@@ -119,15 +120,15 @@ MyApp.getInitialProps = async (context: any) => {
 
   const resp = await axios.get(vehiclesUrl);
   const cars = resp.data;
-  const allCookies = parseCookies(context.ctx.req);
-  if (!('UUID' in allCookies)) {
-  }
+  //const allCookies = parseCookies(context.ctx.req);
+  //if (!('UUID' in allCookies)) {
+  //}
 
   return {
     ...(await App.getInitialProps(context)),
     cars,
     initialReduxState: reduxStore.getState(),
-    allCookies: allCookies,
+    /* allCookies: allCookies, */
   };
 };
 
