@@ -16,9 +16,6 @@ import Grid from '@material-ui/core/Grid';
 import { buildMakes } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
-import { useCookies } from 'react-cookie';
-import { setCurrentCarAction } from '~/store/actions';
-import { parseCookies } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,6 +77,8 @@ export default function ButtonAppBar() {
     dispatch(makesAction(buildMakes(storeCarModel)));
   }, [storeCarModel]);
 
+  console.log();
+
   return (
     <div className={classes.root}>
       <AppBar elevation={0} color="inherit" position="static">
@@ -87,7 +86,7 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>link text</Link>
+                <Link href={carHref}>sjdjdj</Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
