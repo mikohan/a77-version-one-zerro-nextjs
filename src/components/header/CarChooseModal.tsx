@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
@@ -45,8 +45,20 @@ export default function CarChooseModal() {
     'currentCar',
     undefined
   );
+  const [modelState, setModelState] = React.useState<string | undefined>(
+    undefined
+  );
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
   const dispatch = useDispatch();
+
+  let carInEverywere: ICar | undefined = undefined;
+  carInEverywere = useSelector((state: IState) => state.shop.currentCar);
+
+  useEffect(() => {
+    setModelState(carInEverywere?.model);
+    console.log(carInEverywere);
+  }, []);
+
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -93,7 +105,9 @@ export default function CarChooseModal() {
     setAnchorEl(null);
     const pushUrl = `/car/${make}/${event.target.value as string}`;
     router.push(pushUrl);
+    setModelState(getModel);
   };
+  console.log(modelState);
 
   return (
     <div>
@@ -126,7 +140,7 @@ export default function CarChooseModal() {
                 <Select
                   labelId="demo-simple-select-label"
                   id="model-select"
-                  value={'stateModel'}
+                  value={modelState}
                   onChange={handleModelChange}
                   disabled={make ? false : true}
                 >

@@ -27,7 +27,7 @@ aa. Cookies making done, needs to be tested
 ab. UUID done also needs to be checked
 ac. Needs make endpoint for UUID and post and get it from server
 
-
+ad. Needs to add to redux user id and suggest stuff by user id
  */
 
 import React, { /*Context*/ useEffect } from 'react';
