@@ -66,8 +66,9 @@ export default function ButtonAppBar() {
 
   const carMake = router.query.make || '';
   let carHref = '/';
-  if (carModel) {
-    carHref = `/car/${carMake}/${carModel}`;
+  if (currentCar) {
+    carHref = `/car/${currentCar.make}/${currentCar.slug}`;
+    console.log(carHref);
   }
   const storeCarModel = useSelector((state: IState) => {
     return state.shop.cars;
@@ -77,7 +78,10 @@ export default function ButtonAppBar() {
     dispatch(makesAction(buildMakes(storeCarModel)));
   }, [storeCarModel]);
 
-  console.log();
+  let linkCar: string = 'My Car';
+  if (currentCar) {
+    linkCar = currentCar.model.toUpperCase();
+  }
 
   return (
     <div className={classes.root}>
@@ -86,7 +90,9 @@ export default function ButtonAppBar() {
           <Grid container>
             <Grid item xs={1}>
               <Typography variant="h6" className={classes.title}>
-                <Link href={carHref}>sjdjdj</Link>
+                <Link href="/">
+                  <Typography>{linkCar}</Typography>
+                </Link>
               </Typography>
             </Grid>
             <Grid item xs={2}>
@@ -94,9 +100,7 @@ export default function ButtonAppBar() {
                 <CarChooseModal />
               </Typography>
             </Grid>
-            <Grid item>
-              {currentCar ? currentCar.model : 'Select car'} some text
-            </Grid>
+            <Grid item>{currentCar ? currentCar.model : 'Select car'}</Grid>
           </Grid>
         </Toolbar>
       </AppBar>
