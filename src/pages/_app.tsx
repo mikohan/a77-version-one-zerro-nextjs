@@ -112,10 +112,13 @@ MyApp.propTypes = {
 // It is for server side render of redux
 
 MyApp.getInitialProps = async (context: any) => {
+  const { req, res } = context.ctx;
+  const isServer = !!req;
+  const isBrowser = !req;
   const reduxStore = await initializeStore({});
 
-  const res = await axios.get(vehiclesUrl);
-  const cars = res.data;
+  const resp = await axios.get(vehiclesUrl);
+  const cars = resp.data;
   const allCookies = parseCookies(context.ctx.req);
 
   return {

@@ -45,7 +45,11 @@ function FilterCategory(props: Props) {
   const classes = useStyles();
   const router = useRouter();
   const currentCar = useSelector((state: IState) => {
-    return state.shop.currentCar.slug;
+    if (state.shop.currentCar) {
+      return state.shop.currentCar.slug;
+    } else {
+      return undefined;
+    }
   });
 
   const { make, model } = router.query;
