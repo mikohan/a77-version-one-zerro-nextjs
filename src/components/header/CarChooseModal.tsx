@@ -47,6 +47,7 @@ import { useRouter } from 'next/router';
 import { cookiesAge, getModelsByMakeUrl } from '~/config';
 import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,6 +71,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function CarChooseModal() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [make, setMake] = React.useState('');
+  const [models, setModels] = React.useState([]);
+  const [localstorage, setLocalStorage] = useLocalStorage(
+    'currentCar',
+    undefined
+  );
+  const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -77,9 +87,6 @@ export default function CarChooseModal() {
 
   const open = Boolean(anchorEl);
   const id = open ? 'transitions-popper' : undefined;
-
-  const [make, setMake] = React.useState('');
-  const [models, setModels] = React.useState([]);
 
   const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
     const getUrl = `${getModelsByMakeUrl}${event.target.value}/`;
@@ -94,11 +101,6 @@ export default function CarChooseModal() {
   });
 
   // Save to local storage hook init
-  const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
-
-  const dispatch = useDispatch();
-
-  const router = useRouter();
 
   /* const stateModel = useSelector((state: IState) => state.shop.currentCar.slug); */
 
@@ -114,6 +116,7 @@ export default function CarChooseModal() {
       path: '/',
       maxAge: cookiesAge.cookieCurrentCarMaxAge,
     });
+    setLocalStorage(getModel);
 
     // Setting cookie if user select a car
     if (getModel) {

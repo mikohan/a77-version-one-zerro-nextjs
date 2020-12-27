@@ -49,9 +49,16 @@ function MyApp(props: any) {
       });
       // Dispatching currentCar to redux
       let currentCarFromCookies: ICar | undefined;
-      if (cookies.currentCar) {
-        currentCarFromCookies = cookies.currentCar;
-      } else {
+      /* if (cookies.currentCar) { */
+      /*   currentCarFromCookies = cookies.currentCar; */
+      /* } else { */
+      /*   currentCarFromCookies = undefined; */
+      /* } */
+      try {
+        currentCarFromCookies = JSON.parse(
+          window.localStorage.getItem('currentCar') as string
+        );
+      } catch (e) {
         currentCarFromCookies = undefined;
       }
 
