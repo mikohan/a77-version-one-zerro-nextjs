@@ -21,6 +21,7 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import 'styles/globals.scss';
 import { setCurrentCarAction } from '~/store/actions';
 import { ICar } from '~/interfaces/ICar';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -38,6 +39,7 @@ function MyApp(props: any) {
   const { Component, pageProps } = props;
   const store = useStore(pageProps.initialReduxState);
   const [cookies, setCookie] = useCookies(['userUUID']);
+  const [localstorage, setLocalstorage] = useLocalStorage('userUUID', '');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,14 +72,24 @@ function MyApp(props: any) {
   let userUUID: string = '';
 
   useEffect(() => {
-    if (cookies.hasOwnProperty('userUUID')) {
-      userUUID = cookies.userUUID;
+    // Trying to get user Id from localstorage
+    // If not exists try to get from cookies
+    // if not exists - set new one
+    // Working tested
+    if (localstorage) {
+      userUUID = localstorage;
     } else {
-      userUUID = uuidv4();
-      setCookie('userUUID', userUUID, {
-        path: '/',
-        maxAge: cookiesAge.cookierUserMaxAge,
-      });
+      if (cookies.hasOwnProperty('userUUID')) {
+        userUUID = cookies.userUUID;
+        setLocalstorage(userUUID);
+      } else {
+        userUUID = uuidv4();
+        setCookie('userUUID', userUUID, {
+          path: '/',
+          maxAge: cookiesAge.cookierUserMaxAge,
+        });
+        setLocalstorage(userUUID);
+      }
     }
   });
 
