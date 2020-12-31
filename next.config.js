@@ -1,4 +1,5 @@
 module.exports = {
+  crossOrigin: 'anonymous',
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

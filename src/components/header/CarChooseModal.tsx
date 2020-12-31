@@ -53,7 +53,9 @@ export default function CarChooseModal() {
   const router = useRouter();
 
   useEffect(() => {
-    setModelState(localstorage.model);
+    if (localstorage) {
+      setModelState(localstorage.model);
+    }
   }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
