@@ -26,7 +26,6 @@ ac. Needs make endpoint for UUID and post and get it from server
 ad. Needs to add to redux user id and suggest stuff by user id
 some comment
  */
-
 import React, { /*Context*/ useEffect } from 'react';
 
 import PropTypes from 'prop-types';
