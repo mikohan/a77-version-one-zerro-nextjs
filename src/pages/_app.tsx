@@ -1,9 +1,9 @@
 /*
 1.Done Needs to realize how to use cookies on server side
 2. Done Save current car on choser
-3. Done Save user id and currentCar to server endpoint
+3. Save user id and currentCar to server endpoint
 4. Make garage of cars based on user id in cookies
-5. When wisiting car page suggest change car or not?
+5. When visiting car page suggest change car or not?
 6. Split car chooser to select from garage or from all cars
 7. Make JWT authorization for saving orders and so on
 8. Make product selector based on car and filters
@@ -26,6 +26,8 @@ ac. Needs make endpoint for UUID and post and get it from server
 ad. Needs to add to redux user id and suggest stuff by user id
 some comment
  */
+
+// In work - make products loading by car and category Probably big category will see
 
 import React, { /*Context*/ useEffect } from 'react';
 
