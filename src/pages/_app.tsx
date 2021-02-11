@@ -133,7 +133,7 @@ function MyApp(props: any) {
       jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
-  console.log(cookies.userUUID, 'In _app');
+  // console.log(cookies.userUUID, 'In _app');
 
   return (
     <React.Fragment>
