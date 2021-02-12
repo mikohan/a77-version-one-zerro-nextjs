@@ -16,6 +16,7 @@ import { cookiesAge, getModelsByMakeUrl } from '~/config';
 import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
+import { firstSlug } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -100,7 +101,7 @@ export default function CarChooseModal() {
       dispatch(setCurrentCarAction(getModel));
     }
     setAnchorEl(null);
-    const pushUrl = `/car/${make}/${event.target.value as string}`;
+    const pushUrl = `/${firstSlug}/${make}/${event.target.value as string}`;
     router.push(pushUrl);
     setModelState(event.target.value as string);
   };

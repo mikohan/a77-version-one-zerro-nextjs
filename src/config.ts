@@ -27,3 +27,5 @@ export const cookiesAge = {
   cookieCurrentCarMaxAge: 3600000000,
   cookierUserMaxAge: 3600000000,
 };
+
+export const firstSlug = 'car';
