@@ -11,7 +11,6 @@ import { GetStaticProps } from 'next';
 import { makesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
 import axios from 'axios';
-import { parseCookies } from '~/helpers';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
