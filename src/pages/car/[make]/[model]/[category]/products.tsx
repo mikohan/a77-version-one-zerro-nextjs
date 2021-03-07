@@ -24,6 +24,7 @@ export default function Products({ products, categories }: IProps) {
   const items: IShopCategory[] = [];
   const router = useRouter();
   const { make, model, category } = router.query;
+
   items.push(categories);
 
   const filterCategory: IFilter = {

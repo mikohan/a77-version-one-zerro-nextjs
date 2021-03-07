@@ -142,6 +142,7 @@ export async function getCategories(
   }
 
   categories = categories.map((x: any) => prepareCategory(x, depth));
+  console.log(categories, 'In endpoint');
   return Promise.resolve(clone(categories));
 }
 

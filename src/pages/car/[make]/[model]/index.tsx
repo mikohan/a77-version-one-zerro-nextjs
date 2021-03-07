@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
-import { categoriesUrl, vehiclesUrl } from '~/config';
+import { vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -33,6 +33,7 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const { model, categories } = props;
+  console.log(categories);
 
   const dispatch = useDispatch();
 
