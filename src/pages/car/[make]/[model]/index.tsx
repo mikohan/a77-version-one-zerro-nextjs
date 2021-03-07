@@ -103,7 +103,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
   const vehicle = await promise.data;
 
-  const url = categoriesUrl;
   //const url = `${categoriesUrl}`
   const anoterCats = await getCategories({ depth: 1 });
 
