@@ -84,6 +84,8 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   const res = async () => {
     const promise = await axios.get<T[]>(`${categoriesUrl}`);
 
+    console.log(promise.data);
+
     return promise.data;
   };
 
