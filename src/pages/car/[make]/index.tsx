@@ -32,16 +32,17 @@ function Make(props: ICarProps) {
         <h1>Car Single Make and Models List</h1>
         <List>
           {models.map((model: ICar) => (
-            <Link href={`/car/${make}/${model.slug}`} key={model.id}>
-              <ListItem>
-                <Box>
-                  <a>
+            <Link href={`/car/${make}/${model.model}`} key={model.id}>
+              <a>
+                <ListItem>
+                  <Box>
+                    <p>Slug - {model.slug}</p>
                     <Typography variant="h1">{model.model}</Typography>
                     <Typography variant="h3">{model.engine}</Typography>
                     <div>some text</div>
-                  </a>
-                </Box>
-              </ListItem>
+                  </Box>
+                </ListItem>
+              </a>
             </Link>
           ))}
         </List>
@@ -68,14 +69,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const vehicles = await getVehicles();
   let makes: string[] = [];
   for (let i = 0; i < vehicles.length; i++) {
-    if (!makes.includes(vehicles[i].make.replace(' ', ''))) {
-      makes.push(vehicles[i].make.replace(' ', ''));
+    if (!makes.includes(vehicles[i].make)) {
+      makes.push(vehicles[i].make);
     }
   }
   const paths = makes.map((make: any) => {
     return { params: { make: make } };
   });
-  console.log(paths);
 
   return {
     fallback: false,

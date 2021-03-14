@@ -39,37 +39,45 @@ export async function getVehicles() {
 }
 
 export async function getVehicle(slug: string) {
-  const promise = await client.query({
-    query: gql`
-      query {
-        vehicles(slug: ${slug}) {
-          id
-          model
-          year
-          engine
-          make
-          slug
-        }
+  const query = gql`
+    query vehicle($model: String!) {
+      vehicle(model: $model) {
+        id
+        model
+        year
+        engine
+        make
+        slug
       }
-    `,
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      model: slug,
+    },
   });
-  return await promise.data.vehicles;
+  return await promise.data.vehicle;
 }
 
-export async function getVehicleByModel(model: string) {
-  const promise = await client.query({
-    query: gql`
-      query {
-        vehiclesByMake(make: ${model} {
-          id
-          model
-          year
-          engine
-          make
-          slug
-        }
+export async function getVehicleByModel(make: string) {
+  const query = gql`
+    query vehiclesByMake($make: String!) {
+      vehiclesByMake(make: $make) {
+        id
+        model
+        year
+        engine
+        make
+        slug
       }
-    `,
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      make: make,
+    },
   });
-  return await promise.data.vehicles;
+  return await promise.data.vehiclesByMake;
 }

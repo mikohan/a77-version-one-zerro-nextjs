@@ -29,7 +29,7 @@ export default function SimpleList({ makes }: IListItemProps) {
     <div className={classes.root}>
       <List component="nav" aria-label="main mailbox folders">
         {makes.map((make: IMake) => (
-          <Link key={make.id} href={`/car/${make.name.replace(' ', '')}`}>
+          <Link key={make.id} href={`/car/${make.name}`}>
             <ListItem button>
               <ListItemIcon>
                 <InboxIcon />

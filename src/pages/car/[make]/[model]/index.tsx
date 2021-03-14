@@ -33,7 +33,7 @@ export interface IBaseFilter<T extends string, V> {
 }
 
 function Model(props: IModelProps) {
-  const { model, categories } = props;
+  const { model } = props;
 
   const dispatch = useDispatch();
 
@@ -46,11 +46,11 @@ function Model(props: IModelProps) {
     name: 'category',
     slug: 'category',
     value: 'dvigatel',
-    items: categories,
+    items: [],
   };
 
   const filters = [];
-  filters.push(filterCategory);
+  //filters.push(filterCategory);
 
   return (
     <motion.div
@@ -62,9 +62,7 @@ function Model(props: IModelProps) {
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
-            <Box>
-              <FilterWidget filters={filters} />
-            </Box>
+            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
           </LeftSideBar>
         </Grid>
         <Grid item xs={12} sm={9} style={{ border: '1px solid green' }}>
@@ -74,23 +72,23 @@ function Model(props: IModelProps) {
               <pre>{JSON.stringify(model, null, 4)}</pre>
             </Grid>
             <Grid item xs={6}>
-              <List>
-                {Array.isArray(categories) ? (
-                  categories.map((cat: ICategory) => {
-                    return (
-                      <ListItem key={cat.id}>
-                        <Link
-                          href={`/car/${model.make}/${model.slug}/${cat.slug}`}
-                        >
-                          <Typography variant="body2">{cat.name}</Typography>
-                        </Link>
-                      </ListItem>
-                    );
-                  })
-                ) : (
-                  <div>Not array</div>
-                )}
-              </List>
+              {/* <List> */}
+              {/*   {Array.isArray(categories) ? ( */}
+              {/*     categories.map((cat: ICategory) => { */}
+              {/*       return ( */}
+              {/*         <ListItem key={cat.id}> */}
+              {/*           <Link */}
+              {/*             href={`/car/${model.make}/${model.slug}/${cat.slug}`} */}
+              {/*           > */}
+              {/*             <Typography variant="body2">{cat.name}</Typography> */}
+              {/*           </Link> */}
+              {/*         </ListItem> */}
+              {/*       ); */}
+              {/*     }) */}
+              {/*   ) : ( */}
+              {/*     <div>Not array</div> */}
+              {/*   )} */}
+              {/* </List> */}
             </Grid>
           </Grid>
         </Grid>
@@ -101,16 +99,19 @@ function Model(props: IModelProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
+
   const vehicle = await getVehicle(modelSlug);
 
+  console.log(vehicle);
+
   //const url = `${categoriesUrl}`
-  const anoterCats = await getCategories({ depth: 1 });
+  //const anoterCats = await getCategories({ depth: 1 });
 
   return {
-    revalidate: REVALIDATE,
+    /* revalidate: REVALIDATE, */
     props: {
       model: vehicle,
-      categories: anoterCats,
+      /* categories: anoterCats, */
     },
   };
 };
@@ -123,7 +124,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths.push({
       params: {
         make: model.make,
-        model: model.slug,
+        model: model.model,
       },
     });
   }
