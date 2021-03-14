@@ -102,13 +102,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const vehicle = await getVehicle(modelSlug);
 
-  console.log(vehicle);
-
   //const url = `${categoriesUrl}`
   //const anoterCats = await getCategories({ depth: 1 });
 
   return {
-    /* revalidate: REVALIDATE, */
+    revalidate: REVALIDATE,
     props: {
       model: vehicle,
       /* categories: anoterCats, */
@@ -124,7 +122,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths.push({
       params: {
         make: model.make,
-        model: model.model,
+        model: model.slug,
       },
     });
   }

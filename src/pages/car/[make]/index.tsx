@@ -32,7 +32,7 @@ function Make(props: ICarProps) {
         <h1>Car Single Make and Models List</h1>
         <List>
           {models.map((model: ICar) => (
-            <Link href={`/car/${make}/${model.model}`} key={model.id}>
+            <Link href={`/car/${make}/${model.slug}`} key={model.id}>
               <a>
                 <ListItem>
                   <Box>
