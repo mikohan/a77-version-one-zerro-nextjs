@@ -19,6 +19,7 @@ import { getCategories } from '~/endpoints/categories';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { setCurrentCarAction } from '~/store/actions';
+import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 
 interface IModelProps {
   model: ICar;
@@ -99,9 +100,8 @@ function Model(props: IModelProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const modelSlug = context.params?.model;
-  const promise = await axios.get(`${vehiclesUrl}${modelSlug}/`);
-  const vehicle = await promise.data;
+  const modelSlug = context.params?.model as string;
+  const vehicle = await getVehicle(modelSlug);
 
   //const url = `${categoriesUrl}`
   const anoterCats = await getCategories({ depth: 1 });
@@ -117,11 +117,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 //Get Static Paths
 export const getStaticPaths: GetStaticPaths = async () => {
-  const url = `${vehiclesUrl}`;
-
   const paths = [];
-  const res = await axios.get(url);
-  for (let model of res.data) {
+  const models = await getVehicles();
+  for (let model of models) {
     paths.push({
       params: {
         make: model.make,

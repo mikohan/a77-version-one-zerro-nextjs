@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 
 import { ICar } from '~/interfaces/ICar';
+import { getVehicles, getVehicleByModel } from '~/endpoints/carsEndpoint';
 
 interface ICarProps {
   models: ICar[];
@@ -50,11 +51,9 @@ function Make(props: ICarProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const make = context.params?.make;
-  const encoded = encodeURI(`${getModelsByMakeUrl}${make}/`);
+  const make = context.params?.make as string;
 
-  const promise = await axios.get(encoded);
-  const models = promise.data;
+  const models = await getVehicleByModel(make);
 
   return {
     revalidate: REVALIDATE,
@@ -66,17 +65,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const prom = await axios.get(vehiclesUrl);
-  const vehicles = await prom.data;
+  const vehicles = await getVehicles();
   let makes: string[] = [];
   for (let i = 0; i < vehicles.length; i++) {
-    if (!makes.includes(vehicles[i].make)) {
-      makes.push(vehicles[i].make);
+    if (!makes.includes(vehicles[i].make.replace(' ', ''))) {
+      makes.push(vehicles[i].make.replace(' ', ''));
     }
   }
   const paths = makes.map((make: any) => {
     return { params: { make: make } };
   });
+  console.log(paths);
 
   return {
     fallback: false,

@@ -3,7 +3,7 @@ export interface ICar {
   year?: number[];
   make: string;
   model: string;
-  engine: string;
+  engine?: string[];
   slug: string;
 }
 

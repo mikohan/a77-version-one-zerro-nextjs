@@ -17,6 +17,7 @@ import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { firstSlug } from '~/config';
+import { getVehicles } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +42,7 @@ export default function CarChooseModal() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [make, setMake] = React.useState('');
-  const [models, setModels] = React.useState([]);
+  const [models, setModels] = React.useState<ICar[]>([]);
   const [localstorage, setLocalStorage] = useLocalStorage(
     'currentCar',
     undefined
@@ -68,8 +69,7 @@ export default function CarChooseModal() {
 
   const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
     const getUrl = `${getModelsByMakeUrl}${event.target.value}/`;
-    const res = await axios.get(getUrl);
-    const models = await res.data;
+    const models: ICar[] = await getVehicles();
     setMake(event.target.value as string);
     setModels(models);
   };

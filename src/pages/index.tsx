@@ -4,12 +4,12 @@ import MainLayout from '~/layouts/Main';
 import Link from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-/* import ListForTesting from '~/components/ListForTesting'; */
+import ListForTesting from '~/components/ListForTesting';
 import { GetStaticProps } from 'next';
 import { makesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
 import axios from 'axios';
-import { GetAllVehicles } from '~/endpoints/apolloClient';
+import { getMakes } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +33,7 @@ export default function Home(props: IHomeProps) {
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            {/* <ListForTesting makes={makes} /> */}
+            <ListForTesting makes={makes} />
           </Grid>
           <Grid item xs={4}>
             Text
@@ -50,10 +50,8 @@ export default function Home(props: IHomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   //const promise = await axios.get(makesUrl);
-  const promiseQl = await GetAllVehicles();
-  console.log(promiseQl);
   //const makes: IMake[] = await promise.data;
-  const makes: IMake[] = await promiseQl.data.vehicles;
+  const makes: IMake[] = await getMakes();
 
   return { props: { makes } };
 };

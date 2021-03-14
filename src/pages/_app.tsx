@@ -57,6 +57,7 @@ import { ICar } from '~/interfaces/ICar';
 import useLocalStorage from '~/hooks/useLocalStorage';
 
 import { v4 as uuidv4 } from 'uuid';
+import { getVehicles } from '~/endpoints/carsEndpoint';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -76,8 +77,8 @@ function MyApp(props: any) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(vehiclesUrl);
-      const cars = res.data;
+      const res = await getVehicles();
+      const cars = res;
       store.dispatch({
         type: GET_ALL_CARS,
         payload: cars,
