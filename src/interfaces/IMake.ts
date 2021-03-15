@@ -3,4 +3,5 @@ export interface IMake {
   slug: string;
   name: string;
   country: number;
+  priority?: number;
 }

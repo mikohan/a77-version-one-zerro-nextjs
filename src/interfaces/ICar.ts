@@ -1,7 +1,8 @@
+import { IMake } from './IMake';
 export interface ICar {
   id: number;
   year?: number[];
-  make: string;
+  make: IMake;
   model: string;
   engine?: string[];
   slug: string;
