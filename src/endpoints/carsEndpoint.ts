@@ -13,6 +13,7 @@ export async function getMakes() {
           name
           slug
           country
+          priority
         }
       }
     `,
@@ -29,7 +30,13 @@ export async function getVehicles() {
           model
           year
           engine
-          make
+          make {
+            id
+            name
+            country
+            priority
+            slug
+          }
           slug
         }
       }
@@ -46,7 +53,13 @@ export async function getVehicle(slug: string) {
         model
         year
         engine
-        make
+        make {
+          id
+          name
+          country
+          priority
+          slug
+        }
         slug
       }
     }
@@ -68,7 +81,13 @@ export async function getVehicleByModel(make: string) {
         model
         year
         engine
-        make
+        make {
+          id
+          name
+          country
+          priority
+          slug
+        }
         slug
       }
     }

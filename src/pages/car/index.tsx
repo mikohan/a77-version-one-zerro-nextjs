@@ -10,9 +10,11 @@ import MainLayout from '~/layouts/Main';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { getVehicles } from '~/endpoints/carsEndpoint';
+import { IMake } from '~/interfaces/IMake';
+import { getMakes } from '~/endpoints/carsEndpoint';
 
 interface ICarProps {
-  makes: string[];
+  makes: IMake[];
 }
 
 function Car(props: ICarProps) {
@@ -26,10 +28,10 @@ function Car(props: ICarProps) {
       <MainLayout>
         <h1>inside all cars list here</h1>
         <List>
-          {props.makes.map((make: string) => (
-            <Link href={`/car/${toLoverSpace(make)}`} key={make}>
+          {props.makes.map((make: IMake) => (
+            <Link href={`/car/${make.slug}`} key={make.id}>
               <a>
-                <ListItem>{make}</ListItem>
+                <ListItem>{make.name}</ListItem>
               </a>
             </Link>
           ))}
@@ -40,13 +42,14 @@ function Car(props: ICarProps) {
 }
 
 export const getStaticProps: GetServerSideProps = async () => {
-  const vehicles = await getVehicles();
-  let makes: string[] = [];
-  for (let i = 0; i < vehicles.length; i++) {
-    if (!makes.includes(vehicles[i].make)) {
-      makes.push(vehicles[i].make);
-    }
-  }
+  /* const vehicles = await getVehicles(); */
+  /* let makes: string[] = []; */
+  /* for (let i = 0; i < vehicles.length; i++) { */
+  /*   if (!makes.includes(vehicles[i].make)) { */
+  /*     makes.push(vehicles[i].make); */
+  /*   } */
+  /* } */
+  const makes: IMake[] = await getMakes();
 
   return {
     props: {
