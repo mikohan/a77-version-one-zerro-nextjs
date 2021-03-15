@@ -65,11 +65,8 @@ export interface IProduct {
   attributes: IProductAttribute[];
 
   stock: IProductStock;
-  price: number;
-  compareAtPrice: number | null;
   badges?: string[];
   reviews?: number;
-  availability?: string;
   tags?: string[];
 }
 
