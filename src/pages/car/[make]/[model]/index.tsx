@@ -20,6 +20,7 @@ import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { setCurrentCarAction } from '~/store/actions';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
+import { toLoverSpace } from '~/helpers';
 
 interface IModelProps {
   model: ICar;
@@ -121,8 +122,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   for (let model of models) {
     paths.push({
       params: {
-        make: model.make,
-        model: model.slug,
+        make: toLoverSpace(model.make),
+        model: toLoverSpace(model.slug),
       },
     });
   }

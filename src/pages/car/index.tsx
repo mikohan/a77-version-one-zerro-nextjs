@@ -4,10 +4,13 @@ import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
+import { toLoverSpace } from '~/helpers';
 import MainLayout from '~/layouts/Main';
 
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
+import { getVehicles } from '~/endpoints/carsEndpoint';
+
 interface ICarProps {
   makes: string[];
 }
@@ -24,7 +27,7 @@ function Car(props: ICarProps) {
         <h1>inside all cars list here</h1>
         <List>
           {props.makes.map((make: string) => (
-            <Link href={`/car/${make}`} key={make}>
+            <Link href={`/car/${toLoverSpace(make)}`} key={make}>
               <a>
                 <ListItem>{make}</ListItem>
               </a>
@@ -37,8 +40,7 @@ function Car(props: ICarProps) {
 }
 
 export const getStaticProps: GetServerSideProps = async () => {
-  const promise = await axios.get(vehiclesUrl);
-  const vehicles = await promise.data;
+  const vehicles = await getVehicles();
   let makes: string[] = [];
   for (let i = 0; i < vehicles.length; i++) {
     if (!makes.includes(vehicles[i].make)) {

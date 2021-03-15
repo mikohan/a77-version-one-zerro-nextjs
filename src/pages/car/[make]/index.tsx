@@ -12,6 +12,7 @@ import { durationPage } from '~/config';
 
 import { ICar } from '~/interfaces/ICar';
 import { getVehicles, getVehicleByModel } from '~/endpoints/carsEndpoint';
+import { toLoverSpace } from '~/helpers';
 
 interface ICarProps {
   models: ICar[];
@@ -32,7 +33,10 @@ function Make(props: ICarProps) {
         <h1>Car Single Make and Models List</h1>
         <List>
           {models.map((model: ICar) => (
-            <Link href={`/car/${make}/${model.slug}`} key={model.id}>
+            <Link
+              href={`/car/${toLoverSpace(make)}/${model.slug}`}
+              key={model.id}
+            >
               <a>
                 <ListItem>
                   <Box>
@@ -52,7 +56,7 @@ function Make(props: ICarProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const make = context.params?.make as string;
+  const make = toLoverSpace(context.params?.make as string);
 
   const models = await getVehicleByModel(make);
 
@@ -74,7 +78,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
   }
   const paths = makes.map((make: any) => {
-    return { params: { make: make } };
+    return { params: { make: toLoverSpace(make) } };
   });
 
   return {

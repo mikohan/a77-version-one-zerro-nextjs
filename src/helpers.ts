@@ -42,3 +42,7 @@ import cookie from 'cookie';
 export function parseCookies(req: any) {
   return cookie.parse(req ? req.headers.cookie || '' : document.cookie);
 }
+
+export function toLoverSpace(string: string): string {
+  return string.replace(' ', '').toLowerCase();
+}
