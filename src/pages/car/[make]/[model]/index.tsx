@@ -21,6 +21,7 @@ import { durationPage } from '~/config';
 import { setCurrentCarAction } from '~/store/actions';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { toLoverSpace } from '~/helpers';
+import { getProductsByCar } from '~/endpoints/productEndpoint';
 
 interface IModelProps {
   model: ICar;
@@ -100,8 +101,11 @@ function Model(props: IModelProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
-
   const vehicle: ICar = await getVehicle(modelSlug);
+
+  // Here will be categories fetcher
+  const categoreis = await getProductsByCar(vehicle.slug);
+  console.log(categoreis);
 
   return {
     revalidate: REVALIDATE,
