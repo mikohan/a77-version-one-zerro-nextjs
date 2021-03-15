@@ -42,13 +42,6 @@ function Car(props: ICarProps) {
 }
 
 export const getStaticProps: GetServerSideProps = async () => {
-  /* const vehicles = await getVehicles(); */
-  /* let makes: string[] = []; */
-  /* for (let i = 0; i < vehicles.length; i++) { */
-  /*   if (!makes.includes(vehicles[i].make)) { */
-  /*     makes.push(vehicles[i].make); */
-  /*   } */
-  /* } */
   const makes: IMake[] = await getMakes();
 
   return {

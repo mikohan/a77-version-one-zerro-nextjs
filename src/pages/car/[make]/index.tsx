@@ -11,12 +11,18 @@ import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 
 import { ICar } from '~/interfaces/ICar';
-import { getVehicles, getVehicleByModel } from '~/endpoints/carsEndpoint';
-import { toLoverSpace } from '~/helpers';
+import { IMake } from '~/interfaces/IMake';
+import {
+  getVehicles,
+  getVehicleByModel,
+  getMake,
+  getMakes,
+} from '~/endpoints/carsEndpoint';
+import { toLoverSpace, buildMakes } from '~/helpers';
 
 interface ICarProps {
   models: ICar[];
-  make: string;
+  make: IMake;
 }
 
 function Make(props: ICarProps) {
@@ -33,10 +39,7 @@ function Make(props: ICarProps) {
         <h1>Car Single Make and Models List</h1>
         <List>
           {models.map((model: ICar) => (
-            <Link
-              href={`/car/${toLoverSpace(make)}/${model.slug}`}
-              key={model.id}
-            >
+            <Link href={`/car/${make.slug}/${model.slug}`} key={model.id}>
               <a>
                 <ListItem>
                   <Box>
@@ -56,9 +59,10 @@ function Make(props: ICarProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const make = toLoverSpace(context.params?.make as string);
+  const slug: string = context.params?.make as string;
+  const make: IMake = await getMake(slug);
 
-  const models = await getVehicleByModel(make);
+  const models = await getVehicleByModel(make.slug);
 
   return {
     revalidate: REVALIDATE,
@@ -70,15 +74,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const vehicles = await getVehicles();
-  let makes: string[] = [];
-  for (let i = 0; i < vehicles.length; i++) {
-    if (!makes.includes(vehicles[i].make)) {
-      makes.push(vehicles[i].make);
-    }
-  }
+  const makes: IMake[] = await getMakes();
   const paths = makes.map((make: any) => {
-    return { params: { make: toLoverSpace(make) } };
+    return { params: { make: make.slug } };
   });
 
   return {

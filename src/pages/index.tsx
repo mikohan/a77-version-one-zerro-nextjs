@@ -49,8 +49,6 @@ export default function Home(props: IHomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  //const promise = await axios.get(makesUrl);
-  //const makes: IMake[] = await promise.data;
   const makes: IMake[] = await getMakes();
 
   return { props: { makes } };

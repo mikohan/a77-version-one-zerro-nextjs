@@ -4,6 +4,7 @@ export interface ICar {
   year?: number[];
   make: IMake;
   model: string;
+  runsname?: string;
   engine?: string[];
   slug: string;
 }

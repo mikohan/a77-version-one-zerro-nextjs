@@ -1,16 +1,40 @@
 import { gql } from '@apollo/client';
 import { IMake } from '~/interfaces/IMake';
+import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
 
 // const client = ...
+export async function getMake(slug: string): Promise<IMake> {
+  console.log(slug);
+  const query = gql`
+    query make($slug: String!) {
+      make(slug: $slug) {
+        id
+        name
+        rusname
+        slug
+        country
+        priority
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      slug: slug,
+    },
+  });
+  return await promise.data.make;
+}
 
-export async function getMakes() {
+export async function getMakes(): Promise<IMake[]> {
   const promise = await client.query({
     query: gql`
       query {
         makes {
           id
           name
+          rusname
           slug
           country
           priority
@@ -21,7 +45,7 @@ export async function getMakes() {
   return await promise.data.makes;
 }
 
-export async function getVehicles() {
+export async function getVehicles(): Promise<ICar[]> {
   const promise = await client.query({
     query: gql`
       query {
@@ -45,10 +69,10 @@ export async function getVehicles() {
   return await promise.data.vehicles;
 }
 
-export async function getVehicle(slug: string) {
+export async function getVehicle(slug: string): Promise<ICar> {
   const query = gql`
-    query vehicle($model: String!) {
-      vehicle(model: $model) {
+    query vehicle($slug: String!) {
+      vehicle(slug: $slug) {
         id
         model
         year
@@ -73,10 +97,10 @@ export async function getVehicle(slug: string) {
   return await promise.data.vehicle;
 }
 
-export async function getVehicleByModel(make: string) {
+export async function getVehicleByModel(slug: string): Promise<ICar> {
   const query = gql`
-    query vehiclesByMake($make: String!) {
-      vehiclesByMake(make: $make) {
+    query vehiclesByMake($slug: String!) {
+      vehiclesByMake(slug: $slug) {
         id
         model
         year
@@ -95,7 +119,7 @@ export async function getVehicleByModel(make: string) {
   const promise = await client.query({
     query: query,
     variables: {
-      make: make,
+      slug: slug,
     },
   });
   return await promise.data.vehiclesByMake;
