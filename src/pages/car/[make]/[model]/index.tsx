@@ -101,10 +101,7 @@ function Model(props: IModelProps) {
 export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
 
-  const vehicle = await getVehicle(modelSlug);
-
-  //const url = `${categoriesUrl}`
-  //const anoterCats = await getCategories({ depth: 1 });
+  const vehicle: ICar = await getVehicle(modelSlug);
 
   return {
     revalidate: REVALIDATE,
@@ -122,7 +119,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   for (let model of models) {
     paths.push({
       params: {
-        make: toLoverSpace(model.make),
+        make: toLoverSpace(model.make.slug),
         model: toLoverSpace(model.slug),
       },
     });

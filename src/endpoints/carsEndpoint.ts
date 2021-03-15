@@ -5,7 +5,6 @@ import { client } from './apolloClient';
 
 // const client = ...
 export async function getMake(slug: string): Promise<IMake> {
-  console.log(slug);
   const query = gql`
     query make($slug: String!) {
       make(slug: $slug) {
@@ -91,7 +90,7 @@ export async function getVehicle(slug: string): Promise<ICar> {
   const promise = await client.query({
     query: query,
     variables: {
-      model: slug,
+      slug: slug,
     },
   });
   return await promise.data.vehicle;
