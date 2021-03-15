@@ -1,7 +1,6 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import axios from 'axios';
-import { getModelsByMakeUrl, REVALIDATE, vehiclesUrl } from '~/config';
+import { REVALIDATE } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
@@ -12,13 +11,7 @@ import { durationPage } from '~/config';
 
 import { ICar } from '~/interfaces/ICar';
 import { IMake } from '~/interfaces/IMake';
-import {
-  getVehicles,
-  getVehicleByModel,
-  getMake,
-  getMakes,
-} from '~/endpoints/carsEndpoint';
-import { toLoverSpace, buildMakes } from '~/helpers';
+import { getVehicleByModel, getMake, getMakes } from '~/endpoints/carsEndpoint';
 
 interface ICarProps {
   models: ICar[];
