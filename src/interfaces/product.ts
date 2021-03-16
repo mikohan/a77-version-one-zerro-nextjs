@@ -38,6 +38,7 @@ export interface IProduct {
   sku?: string;
   active: boolean;
   unit: string;
+  // Next group
   cat_number: string;
   oem_number: string;
   partNumber: string;
@@ -46,7 +47,7 @@ export interface IProduct {
   related: string[]; // Array of related products ids
   // Next section
   category: ICategory[];
-  make: IMake;
+  make?: IMake;
   model: ICar[];
   engine?: IEngine[];
   // Section description
