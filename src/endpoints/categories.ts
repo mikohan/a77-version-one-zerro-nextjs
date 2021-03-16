@@ -80,34 +80,45 @@ export async function getCategoryBySlug(
 }
 
 // Refactor upper function makeCategoriesFromApi by car slug
-export async function getCategoriesByCar<T extends ICategory>(
-  slug: string
-): Promise<ICategory> {
+export async function getCategoriesByCar(slug: string) {
   const promise = await getProductsByCar(slug);
-  const cats: T[] = promise.aggregations.categories.buckets;
+  const cats: any = promise.aggregations.categories.buckets;
+  const products = promise.hits.hits;
   // filtering empty categories here
-  const filtredArray = cats.filter((item: T) => {
+  const filtredArray = cats.filter((item: any) => {
     return item.count !== 0;
   });
 
-  const list: T[] = filtredArray;
+  const list: any = filtredArray;
 
-  const tree: T[] = [];
+  const tree: any = [];
   const lookup: any = {};
 
-  list.forEach((o: T) => {
+  list.forEach((o: any) => {
     lookup[o.id] = o;
     lookup[o.id].children = [];
   });
 
-  list.forEach((o: T) => {
+  list.forEach((o: any) => {
     if (o.parent && o.parent !== null) {
-      lookup[o.parent].children.push(o);
+      try {
+        lookup[o.parent].children.push(o);
+      } catch (e) {
+        console.error(
+          o,
+          `Somethin fucks up in /endpoints/categories.ts line 108
+            seems to instance of category has no parent
+            check the database category id = ${o.id}!
+          `,
+          e
+        );
+      }
     } else {
       tree.push(o);
     }
   });
-  return Promise.resolve(clone(tree));
+  const new_tree = clone(tree);
+  return Promise.resolve({ categories: new_tree, products: products });
 }
 
 // Get all categories related stuff

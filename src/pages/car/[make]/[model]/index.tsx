@@ -30,6 +30,7 @@ import { IAggregationCategory } from '~/interfaces/aggregations';
 interface IModelProps {
   model: ICar;
   categories: ICategory[];
+  products: any[];
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -39,7 +40,7 @@ export interface IBaseFilter<T extends string, V> {
 }
 
 function Model(props: IModelProps) {
-  const { model, categories } = props;
+  const { model, categories, products } = props;
 
   categories.map((cat) => console.log(cat.name));
   const dispatch = useDispatch();
@@ -102,6 +103,17 @@ function Model(props: IModelProps) {
             </Grid>
           </Grid>
         </Grid>
+        <Grid container>
+          <Grid container item xs={12}>
+            {products.map((product: any) => {
+              return (
+                <Grid item xs={4} key={product.id}>
+                  {JSON.stringify(product)}
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Grid>
       </MainLayout>
     </motion.div>
   );
@@ -109,15 +121,19 @@ function Model(props: IModelProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
+  console.log(modelSlug);
   const vehicle: ICar = await getVehicle(modelSlug);
 
-  const categories: ICategory = await getCategoriesByCar(vehicle.slug);
+  const promise = await getCategoriesByCar(vehicle.slug);
+  const categories: ICategory = promise.categories;
+  const products = promise.products;
 
   return {
     revalidate: REVALIDATE,
     props: {
       model: vehicle,
       categories: categories,
+      products: products,
     },
   };
 };
