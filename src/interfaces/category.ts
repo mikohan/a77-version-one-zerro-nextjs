@@ -1,6 +1,5 @@
 export interface ICategory extends IBaseCategory {
   layout?: string;
-  children?: this[];
 }
 
 // application
@@ -15,7 +14,7 @@ export interface IBaseCategory {
   parent?: this | null;
   children?: this[];
   customFields?: any;
-  doc_count?: number;
+  count?: number;
 }
 
 export type IShopCategoryLayout = 'categories' | 'products';

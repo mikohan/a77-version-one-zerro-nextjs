@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Container } from '@material-ui/core';
 import Head from 'next/head';
-import AppBar from '~/components/header/AppBar';
+/* import AppBar from '~/components/header/AppBar'; */
 import AppBarDense from '~/components/header/AppBarDense';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
@@ -48,7 +48,7 @@ export default function MainLayout(props: any) {
               <div className={classes.divider} />
             </Grid>
             <Grid item xs={12}>
-              <AppBar />
+              {/* <AppBar /> */}
             </Grid>
             <Grid item container xs={12}>
               {props.children}

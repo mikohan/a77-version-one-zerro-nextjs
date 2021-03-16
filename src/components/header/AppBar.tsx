@@ -70,7 +70,7 @@ export default function ButtonAppBar() {
   });
 
   useEffect(() => {
-    dispatch(makesAction(buildMakes(storeCarModel)));
+    // dispatch(makesAction(buildMakes(storeCarModel)));
   }, [storeCarModel]);
 
   return (

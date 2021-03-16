@@ -91,7 +91,7 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   const cats = await res();
   // filtering empty categories here
   const filtredArray = cats.filter((item: T) => {
-    return item.doc_count !== 0;
+    return item.count !== 0;
   });
 
   const list: T[] = filtredArray;
@@ -123,7 +123,7 @@ export async function getCategoriesByCar<T extends ICategory>(
   const cats: T[] = promise.aggregations.categories.buckets;
   // filtering empty categories here
   const filtredArray = cats.filter((item: T) => {
-    return item.doc_count !== 0;
+    return item.count !== 0;
   });
 
   const list: T[] = filtredArray;

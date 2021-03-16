@@ -81,13 +81,13 @@ function Model(props: IModelProps) {
                   return (
                     <span key={cat.id}>
                       <Typography variant="h5">
-                        First Level - {cat.name}
+                        First Level - {cat.name} ({cat.count})
                       </Typography>
                       {cat.children?.map((subcat: ICategory) => {
                         return (
                           <div key={subcat.id} style={{ paddingLeft: '2rem' }}>
                             <Typography variant="body1">
-                              {subcat.name}
+                              {subcat.name} ({subcat.count})
                             </Typography>
                           </div>
                         );
