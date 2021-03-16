@@ -6,3 +6,7 @@ export async function getProductsByCar(slug: string): Promise<any> {
   );
   return prom.data;
 }
+export async function getProductsAll(): Promise<any> {
+  const prom = await axios(`http://localhost:8000/api/product/jsontest?q=all`);
+  return prom.data;
+}

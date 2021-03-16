@@ -1,7 +1,7 @@
 import { clone, error } from '~/utils';
-import axios from 'axios';
-import { categoriesUrl, cagegoriesUrl } from '~/config';
-import { getProductsByCar } from '~/endpoints/productEndpoint';
+import { getProductsByCar, getProductsAll } from '~/endpoints/productEndpoint';
+import { client } from './apolloClient';
+import { gql } from '@apollo/client';
 
 import { IBaseCategory, ICategory, IShopCategory } from '~/interfaces/category';
 import {
@@ -79,42 +79,6 @@ export async function getCategoryBySlug(
   return Promise.resolve(category);
 }
 
-export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
-  IShopCategory
-> {
-  const res = async () => {
-    const promise = await axios.get<T[]>(`${categoriesUrl}`);
-
-    return promise.data;
-  };
-
-  const cats = await res();
-  // filtering empty categories here
-  const filtredArray = cats.filter((item: T) => {
-    return item.count !== 0;
-  });
-
-  const list: T[] = filtredArray;
-
-  const tree: T[] = [];
-  const lookup: any = {};
-
-  list.forEach((o: T) => {
-    lookup[o.id] = o;
-    lookup[o.id].children = [];
-  });
-
-  list.forEach((o: T) => {
-    if (o.parent && o.parent !== null) {
-      lookup[o.parent.id].children.push(o);
-    } else {
-      tree.push(o);
-    }
-  });
-
-  return Promise.resolve(clone(tree));
-}
-
 // Refactor upper function makeCategoriesFromApi by car slug
 export async function getCategoriesByCar<T extends ICategory>(
   slug: string
@@ -143,6 +107,46 @@ export async function getCategoriesByCar<T extends ICategory>(
       tree.push(o);
     }
   });
+  return Promise.resolve(clone(tree));
+}
+
+// Get all categories related stuff
+export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
+  IShopCategory
+> {
+  const res = async () => {
+    //  const promise = await axios.get<T[]>(`${categoriesUrl}`);
+
+    const promise = await getProductsAll();
+    console.log(promise);
+    const cats: T[] = promise.aggregations.categories.buckets;
+    return cats;
+  };
+
+  const cats = await res();
+  // filtering empty categories here
+  const filtredArray = cats.filter((item: T) => {
+    return item.count !== 0;
+  });
+
+  const list: T[] = filtredArray;
+
+  const tree: T[] = [];
+  const lookup: any = {};
+
+  list.forEach((o: T) => {
+    lookup[o.id] = o;
+    lookup[o.id].children = [];
+  });
+
+  list.forEach((o: T) => {
+    if (o.parent && o.parent !== null) {
+      lookup[o.parent].children.push(o);
+    } else {
+      tree.push(o);
+    }
+  });
+
   return Promise.resolve(clone(tree));
 }
 
@@ -177,13 +181,41 @@ export async function getCategories(
   return Promise.resolve(clone(categories));
 }
 
-// export function getBlogCategories(
-//   options: IGetBlogCategoriesOptions
-// ): Promise<IBlogCategory[]> {
-//   let categories = blogCategoriesTree.slice(0);
-//   const depth = options.depth || 0;
-
-//   categories = categories.map((x) => prepareCategory(x, depth));
-
-//   return Promise.resolve(clone(categories));
-// }
+// const client = ...
+export async function getCategoryBySlugGQL(slug: string): Promise<ICategory> {
+  const query = gql`
+    query($slug: String!) {
+      categoryBySlug(slug: $slug) {
+        id
+        name
+        slug
+        parent
+        image
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      slug: slug,
+    },
+  });
+  return await promise.data.categoryBySlug;
+}
+export async function getCategoryAllGQL(): Promise<ICategory[]> {
+  const query = gql`
+    query {
+      categoryAll {
+        id
+        name
+        slug
+        parent
+        image
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+  });
+  return await promise.data.categoryAll;
+}

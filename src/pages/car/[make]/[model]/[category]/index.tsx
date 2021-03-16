@@ -1,19 +1,23 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import axios from 'axios';
 
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Box } from '@material-ui/core';
-import { REVALIDATE, vehiclesUrl } from '~/config';
+import { REVALIDATE } from '~/config';
 import { ICar } from '~/interfaces/ICar';
-import { getCategories, getCategoryBySlug } from '~/endpoints/categories';
+import {
+  getCategories,
+  getCategoryAllGQL,
+  getCategoryBySlugGQL,
+} from '~/endpoints/categories';
 import { asString } from '~/helpers';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
 import { IFilter } from '~/interfaces/filters';
-import { IShopCategory } from '~/interfaces/category';
+import { ICategory, IShopCategory } from '~/interfaces/category';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
+import { getVehicles } from '~/endpoints/carsEndpoint';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -48,15 +52,13 @@ export default function Cagetory(props: CategoryProps) {
       <MainLayout>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
-            <Box>
-              <FilterWidget filters={filters} />
-            </Box>
+            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
           </LeftSideBar>
         </Grid>
         <Grid item xs={12} sm={9}>
           <Grid item xs={6}>
             <Typography variant="h1">
-              {`${category.name} for ${make} ${model}`}
+              {/* {`${category.name} for ${make} ${model}`} */}
             </Typography>
             <Typography variant="h4">{updated}</Typography>
           </Grid>
@@ -76,13 +78,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const slug: string = asString(category);
-  const categories = await getCategoryBySlug(slug);
+  // const categories = await getCategoryBySlug(slug);
+
+  /* const categories: ICategory = await getCategoryBySlugGQL(slug); */
 
   return {
     revalidate: REVALIDATE,
     props: {
       car: {},
-      category: categories,
+      /* category: categories, */
       make: make,
       model: model,
       updated: Date.now(),
@@ -93,18 +97,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   // here is good place to add whole pages to be generated
 
-  const vehiclesPromise = await axios.get(vehiclesUrl);
-  const vehicles = await vehiclesPromise.data;
+  const vehicles = await getVehicles();
 
   const makeModel = vehicles.map((vehicle: ICar) => {
     return {
-      make: vehicle.make,
+      make: vehicle.make.slug,
       model: vehicle.slug,
     };
   });
 
   // Getting NOT Empty categories from endpoint
-  const categories = await getCategories();
+  const categories = await getCategoryAllGQL();
 
   const paths: {
     params: { make: string; model: string; category: string };

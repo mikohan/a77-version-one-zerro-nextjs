@@ -15,7 +15,10 @@ import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
-import { getCategoriesByCar } from '~/endpoints/categories';
+import {
+  getCategoriesByCar,
+  getCategoryBySlugGQL,
+} from '~/endpoints/categories';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { setCurrentCarAction } from '~/store/actions';
@@ -108,9 +111,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
   const vehicle: ICar = await getVehicle(modelSlug);
 
-  // Here will be categories fetcher
-  /* const promise = await getProductsByCar(vehicle.slug); */
-  /* const categories: ICategory[] = promise.aggregations.categories.buckets; */
   const categories: ICategory = await getCategoriesByCar(vehicle.slug);
 
   return {
