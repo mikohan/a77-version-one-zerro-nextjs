@@ -106,8 +106,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
   });
 
-  // Getting NOT Empty categories from endpoint
-  const categories = await getCategoryAllGQL();
+  // !!!! Getting NOT Empty categories from endpoint
+  /* const categories = await getCategoryAllGQL(); */
+  const categories = await getCategories();
 
   const paths: {
     params: { make: string; model: string; category: string };

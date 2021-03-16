@@ -118,7 +118,6 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
     //  const promise = await axios.get<T[]>(`${categoriesUrl}`);
 
     const promise = await getProductsAll();
-    console.log(promise);
     const cats: T[] = promise.aggregations.categories.buckets;
     return cats;
   };
@@ -150,7 +149,7 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   return Promise.resolve(clone(tree));
 }
 
-export async function getCategories(
+export async function getCategoriesOld(
   options?: IGetCategoriesOptions
 ): Promise<IShopCategory[]> {
   const shopCategoriesTree: any = await makeCategoriesFromApi();
@@ -179,6 +178,15 @@ export async function getCategories(
 
   categories = categories.map((x: any) => prepareCategory(x, depth));
   return Promise.resolve(clone(categories));
+}
+
+// Function returning all NON EMPTY Caterories !!!
+export async function getCategories<T extends ICategory>(): Promise<
+  ICategory[]
+> {
+  const promise = await getProductsAll();
+  const cats: T[] = promise.aggregations.categories.buckets;
+  return Promise.resolve(clone(cats));
 }
 
 // const client = ...
