@@ -1,12 +1,6 @@
-export interface IMyCategory {
-  id: number;
-  count: number;
-  type: string;
-  name: string;
-  slug: string;
-  image: string;
+export interface ICategory extends IBaseCategory {
   layout?: string;
-  parent: number;
+  children?: this[];
 }
 
 // application
@@ -21,7 +15,7 @@ export interface IBaseCategory {
   parent?: this | null;
   children?: this[];
   customFields?: any;
-  count?: number;
+  doc_count?: number;
 }
 
 export type IShopCategoryLayout = 'categories' | 'products';
@@ -34,5 +28,3 @@ export interface IShopCategory extends IBaseCategory {
 export interface IBlogCategory extends IBaseCategory {
   type: 'blog';
 }
-
-export type ICategory = IShopCategory | IBlogCategory;

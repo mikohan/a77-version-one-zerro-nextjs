@@ -8,24 +8,25 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
-import { ICategory, IShopCategory } from '~/interfaces/category';
+import { ICategory } from '~/interfaces/category';
 import { List, ListItem, Box } from '@material-ui/core';
 import Link from 'next/link';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
-import { getCategories } from '~/endpoints/categories';
+import { getCategoriesByCar } from '~/endpoints/categories';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { setCurrentCarAction } from '~/store/actions';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { toLoverSpace } from '~/helpers';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
+import { IAggregationCategory } from '~/interfaces/aggregations';
 
 interface IModelProps {
   model: ICar;
-  categories: IShopCategory[];
+  categories: ICategory[];
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -35,8 +36,9 @@ export interface IBaseFilter<T extends string, V> {
 }
 
 function Model(props: IModelProps) {
-  const { model } = props;
+  const { model, categories } = props;
 
+  categories.map((cat) => console.log(cat.name));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,23 +76,26 @@ function Model(props: IModelProps) {
               <pre>{JSON.stringify(model, null, 4)}</pre>
             </Grid>
             <Grid item xs={6}>
-              {/* <List> */}
-              {/*   {Array.isArray(categories) ? ( */}
-              {/*     categories.map((cat: ICategory) => { */}
-              {/*       return ( */}
-              {/*         <ListItem key={cat.id}> */}
-              {/*           <Link */}
-              {/*             href={`/car/${model.make}/${model.slug}/${cat.slug}`} */}
-              {/*           > */}
-              {/*             <Typography variant="body2">{cat.name}</Typography> */}
-              {/*           </Link> */}
-              {/*         </ListItem> */}
-              {/*       ); */}
-              {/*     }) */}
-              {/*   ) : ( */}
-              {/*     <div>Not array</div> */}
-              {/*   )} */}
-              {/* </List> */}
+              <Box>
+                {categories.map((cat: ICategory) => {
+                  return (
+                    <span key={cat.id}>
+                      <Typography variant="h5">
+                        First Level - {cat.name}
+                      </Typography>
+                      {cat.children?.map((subcat: ICategory) => {
+                        return (
+                          <div key={subcat.id} style={{ paddingLeft: '2rem' }}>
+                            <Typography variant="body1">
+                              {subcat.name}
+                            </Typography>
+                          </div>
+                        );
+                      })}
+                    </span>
+                  );
+                })}
+              </Box>
             </Grid>
           </Grid>
         </Grid>
@@ -104,14 +109,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const vehicle: ICar = await getVehicle(modelSlug);
 
   // Here will be categories fetcher
-  const categoreis = await getProductsByCar(vehicle.slug);
-  console.log(categoreis);
+  /* const promise = await getProductsByCar(vehicle.slug); */
+  /* const categories: ICategory[] = promise.aggregations.categories.buckets; */
+  const categories: ICategory = await getCategoriesByCar(vehicle.slug);
 
   return {
     revalidate: REVALIDATE,
     props: {
       model: vehicle,
-      /* categories: anoterCats, */
+      categories: categories,
     },
   };
 };

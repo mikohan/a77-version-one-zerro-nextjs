@@ -1,8 +1,9 @@
 import { clone, error } from '~/utils';
 import axios from 'axios';
 import { categoriesUrl, cagegoriesUrl } from '~/config';
+import { getProductsByCar } from '~/endpoints/productEndpoint';
 
-import { IBaseCategory, IShopCategory } from '~/interfaces/category';
+import { IBaseCategory, ICategory, IShopCategory } from '~/interfaces/category';
 import {
   IGetCategoriesOptions,
   IGetCategoryBySlugOptions,
@@ -84,15 +85,13 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
   const res = async () => {
     const promise = await axios.get<T[]>(`${categoriesUrl}`);
 
-    console.log(promise.data);
-
     return promise.data;
   };
 
   const cats = await res();
   // filtering empty categories here
   const filtredArray = cats.filter((item: T) => {
-    return item.count !== 0;
+    return item.doc_count !== 0;
   });
 
   const list: T[] = filtredArray;
@@ -113,6 +112,37 @@ export async function makeCategoriesFromApi<T extends IBaseCategory>(): Promise<
     }
   });
 
+  return Promise.resolve(clone(tree));
+}
+
+// Refactor upper function makeCategoriesFromApi by car slug
+export async function getCategoriesByCar<T extends ICategory>(
+  slug: string
+): Promise<ICategory> {
+  const promise = await getProductsByCar(slug);
+  const cats: T[] = promise.aggregations.categories.buckets;
+  // filtering empty categories here
+  const filtredArray = cats.filter((item: T) => {
+    return item.doc_count !== 0;
+  });
+
+  const list: T[] = filtredArray;
+
+  const tree: T[] = [];
+  const lookup: any = {};
+
+  list.forEach((o: T) => {
+    lookup[o.id] = o;
+    lookup[o.id].children = [];
+  });
+
+  list.forEach((o: T) => {
+    if (o.parent && o.parent !== null) {
+      lookup[o.parent].children.push(o);
+    } else {
+      tree.push(o);
+    }
+  });
   return Promise.resolve(clone(tree));
 }
 
