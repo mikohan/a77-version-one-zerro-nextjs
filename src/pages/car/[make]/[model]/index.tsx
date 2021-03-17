@@ -101,7 +101,9 @@ function Model(props: IModelProps) {
                                   subcat.slug
                                 )}
                               >
-                                {subcat.name} ({subcat.count})
+                                <a>
+                                  {subcat.name} ({subcat.count})
+                                </a>
                               </Link>
                             </Typography>
                           </div>
