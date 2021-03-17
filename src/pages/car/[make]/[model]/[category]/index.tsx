@@ -31,7 +31,7 @@ interface CategoryProps {
   category: IShopCategory;
   categoriesForFilter: ICategory[];
   categoryId?: number;
-  products: IProduct[];
+  products: IProductElasticHitsFirst;
   make: string;
   model: string;
   updated: Date;
