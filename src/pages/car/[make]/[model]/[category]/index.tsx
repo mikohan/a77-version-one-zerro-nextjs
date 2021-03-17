@@ -18,17 +18,27 @@ import { ICategory, IShopCategory } from '~/interfaces/category';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { getVehicles } from '~/endpoints/carsEndpoint';
+import { IAggregationCategory } from '~/interfaces/aggregations';
+import {
+  IProductElasticHitsFirst,
+  IProduct,
+  IProductElasticHitsSecond,
+} from '~/interfaces/product';
+import { getProductsByCar } from '~/endpoints/productEndpoint';
+import { makeTree } from '~/utils';
 
 interface CategoryProps {
   category: IShopCategory;
+  categoriesForFilter: ICategory[];
   categoryId?: number;
+  products: IProduct[];
   make: string;
   model: string;
   updated: Date;
 }
 
 export default function Cagetory(props: CategoryProps) {
-  const { category, make, model, updated } = props;
+  const { category, make, model, updated, products } = props;
   const items: IShopCategory[] = [];
   items.push(category);
   const filterCategory: IFilter = {
@@ -50,19 +60,30 @@ export default function Cagetory(props: CategoryProps) {
       transition={{ duration: durationPage }}
     >
       <MainLayout>
-        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
-          <LeftSideBar>
-            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
-          </LeftSideBar>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <Grid item xs={6}>
-            <Typography variant="h1">
-              {/* {`${category.name} for ${make} ${model}`} */}
-            </Typography>
-            <Typography variant="h4">{updated}</Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+            <LeftSideBar>
+              <Box>{/* <FilterWidget filters={filters} /> */}</Box>
+            </LeftSideBar>
           </Grid>
-          <Grid item xs={6}></Grid>
+          <Grid item xs={12} sm={9}>
+            <Grid item xs={6}>
+              <Typography variant="h4">
+                Time for ISG checking: {updated}
+              </Typography>
+              <Typography variant="h1">
+                {`${category.name} for ${make} ${model}`}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}></Grid>
+          </Grid>
+          <Grid item container xs={12}>
+            {products.hits.map((product: IProductElasticHitsSecond) => (
+              <Grid item xs={4} key={product._id}>
+                {JSON.stringify(product, null, 2)}
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </MainLayout>
     </motion.div>
@@ -71,6 +92,7 @@ export default function Cagetory(props: CategoryProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category, make, model } = context.params!;
+  const modelSlug: string = model as string;
   if (!category) {
     return {
       notFound: true,
@@ -80,13 +102,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug: string = asString(category);
   // const categories = await getCategoryBySlug(slug);
 
-  /* const categories: ICategory = await getCategoryBySlugGQL(slug); */
+  const cat: ICategory = await getCategoryBySlugGQL(slug);
+  const promise = await getProductsByCar(modelSlug, cat.slug);
+  const categories: IAggregationCategory[] =
+    promise.aggregations.categories.buckets;
+  const products: IProductElasticHitsFirst = promise.hits;
 
   return {
     revalidate: REVALIDATE,
     props: {
       car: {},
-      /* category: categories, */
+      category: cat,
+      categoriesForFilter: makeTree(categories),
+      products: products,
       make: make,
       model: model,
       updated: Date.now(),
@@ -108,6 +136,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   // !!!! Getting NOT Empty categories from endpoint
   /* const categories = await getCategoryAllGQL(); */
+  // Here is all not empty categories from elastic need to be refactored
   const categories = await getCategories();
 
   const paths: {
