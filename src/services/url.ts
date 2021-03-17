@@ -7,26 +7,12 @@ type IAppLinkHref = string | LinkProps;
 
 const url: { [key: string]: any } = {
   shop: (make?: string, model?: string) => `/car/${make}/${model}`,
-  shopCategory: (
-    category: ICategory,
-    make?: string,
-    model?: string
-  ): IAppLinkHref => ({
-    href: `/car/${make}/${model}/${category.slug}${
-      category.layout === 'products' ? '/products' : ''
-    }
-    `,
-  }),
   category: (
-    category: ICategory,
-    make?: string,
-    model?: string
+    make: string,
+    model: string,
+    categorySlug: string
   ): IAppLinkHref => {
-    if (category.type === 'shop') {
-      return url.shopCategory(category, make, model);
-    }
-
-    return '/';
+    return `/car/${make}/${model}/${categorySlug}`;
   },
   products: (
     make?: string,

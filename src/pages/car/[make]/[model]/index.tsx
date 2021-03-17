@@ -27,6 +27,7 @@ import {
   IProductElasticHitsSecond,
 } from '~/interfaces/product';
 import { makeTree } from '~/utils';
+import url from '~/services/url';
 
 interface IModelProps {
   model: ICar;
@@ -42,6 +43,8 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const { model, categories, hits } = props;
+  const makeSlug: string = model.make.slug;
+  const modelSlug: string = model.slug;
 
   const dispatch = useDispatch();
 
@@ -91,7 +94,15 @@ function Model(props: IModelProps) {
                         return (
                           <div key={subcat.id} style={{ paddingLeft: '2rem' }}>
                             <Typography variant="body1">
-                              {subcat.name} ({subcat.count})
+                              <Link
+                                href={url.category(
+                                  makeSlug,
+                                  modelSlug,
+                                  subcat.slug
+                                )}
+                              >
+                                {subcat.name} ({subcat.count})
+                              </Link>
                             </Typography>
                           </div>
                         );
