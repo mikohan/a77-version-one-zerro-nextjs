@@ -8,7 +8,7 @@ type IAppLinkHref = string | LinkProps;
 const url: { [key: string]: any } = {
   shop: (make?: string, model?: string) => `/car/${make}/${model}`,
   shopCategory: (
-    category: IShopCategory,
+    category: ICategory,
     make?: string,
     model?: string
   ): IAppLinkHref => ({
