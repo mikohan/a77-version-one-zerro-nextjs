@@ -42,7 +42,6 @@ export interface IBaseFilter<T extends string, V> {
 function Model(props: IModelProps) {
   const { model, categories, products } = props;
 
-  categories.map((cat) => console.log(cat.name));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -121,7 +120,6 @@ function Model(props: IModelProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
-  console.log(modelSlug);
   const vehicle: ICar = await getVehicle(modelSlug);
 
   const promise = await getCategoriesByCar(vehicle.slug);
