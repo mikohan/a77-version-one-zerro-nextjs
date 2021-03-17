@@ -1,14 +1,22 @@
-export interface IAggregationBase {
+export interface IAggregationBucket extends IAggregationCategory {
   key: string;
   doc_count: number;
 }
 
+export interface IAggregationAgg {
+  doc_count_error_upper_bound: number;
+  sum_other_doc_count: 908;
+  buckets: IAggregationBucket[];
+}
+
 export interface IAggregationCategory {
-  key: string | number;
-  doc_count: number;
-  id: string | number;
-  name: string;
-  parent: string | number;
+  id?: string | number;
+  name?: string;
+  parent?: string | number;
   layout?: string;
   type?: string;
+}
+
+export interface IAgregations {
+  [key: string]: IAggregationAgg;
 }

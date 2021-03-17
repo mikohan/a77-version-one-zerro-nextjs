@@ -15,10 +15,6 @@ import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
-import {
-  getCategoriesByCar,
-  getCategoryBySlugGQL,
-} from '~/endpoints/categories';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
 import { setCurrentCarAction } from '~/store/actions';
@@ -26,11 +22,16 @@ import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { toLoverSpace } from '~/helpers';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
+import {
+  IProductElasticHitsFirst,
+  IProductElasticHitsSecond,
+} from '~/interfaces/product';
+import { makeTree } from '~/utils';
 
 interface IModelProps {
   model: ICar;
   categories: ICategory[];
-  products: any[];
+  hits: IProductElasticHitsFirst;
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -40,7 +41,7 @@ export interface IBaseFilter<T extends string, V> {
 }
 
 function Model(props: IModelProps) {
-  const { model, categories, products } = props;
+  const { model, categories, hits } = props;
 
   const dispatch = useDispatch();
 
@@ -104,10 +105,10 @@ function Model(props: IModelProps) {
         </Grid>
         <Grid container>
           <Grid container item xs={12}>
-            {products.map((product: any) => {
+            {hits.hits.map((product: IProductElasticHitsSecond) => {
               return (
-                <Grid item xs={4} key={product.id}>
-                  {JSON.stringify(product)}
+                <Grid item xs={4} key={product._id}>
+                  {JSON.stringify(product, null, 2)}
                 </Grid>
               );
             })}
@@ -122,16 +123,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
   const vehicle: ICar = await getVehicle(modelSlug);
 
-  const promise = await getCategoriesByCar(vehicle.slug);
-  const categories: ICategory = promise.categories;
-  const products = promise.products;
+  const promise = await getProductsByCar(vehicle.slug);
+  const categories: IAggregationCategory[] =
+    promise.aggregations.categories.buckets;
+  const hits = promise.hits;
 
   return {
     revalidate: REVALIDATE,
     props: {
       model: vehicle,
-      categories: categories,
-      products: products,
+      categories: makeTree(categories),
+      hits: hits,
     },
   };
 };

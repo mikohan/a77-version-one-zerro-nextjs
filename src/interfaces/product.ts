@@ -6,6 +6,7 @@ import { ICategory } from './category';
 import { IMake } from './IMake';
 import { ICar } from './ICar';
 import { IImage } from './IImage';
+import { IAgregations } from './aggregations';
 
 export interface IProductAttribute {
   attribute_name: string;
@@ -73,3 +74,40 @@ export interface IProduct {
 
 export type IProductsList = IPaginatedList<IProduct> &
   IFilterableList<IProduct>;
+
+// Total top level interface
+export interface IProductElasticBase {
+  took?: number;
+  timed_out: boolean;
+  _shards: IShards;
+  hits: IProductElasticHitsFirst;
+  aggregations: IAgregations;
+}
+
+interface IShard {
+  total: number;
+  successful: number;
+  skiped: number;
+  failed: number;
+}
+
+export interface IShards {
+  _shards: IShard;
+}
+
+export interface IProductElasticHitsFirst {
+  total: {
+    value: number;
+    relation: string;
+  };
+  max_score: number;
+  hits: IProductElasticHitsSecond[];
+}
+
+export interface IProductElasticHitsSecond {
+  _index: string;
+  _type: string;
+  _id: string;
+  _score: number;
+  _source: IProduct;
+}

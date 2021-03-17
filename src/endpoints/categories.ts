@@ -8,6 +8,11 @@ import {
   IGetCategoriesOptions,
   IGetCategoryBySlugOptions,
 } from '~/interfaces/api/shop.api';
+import {
+  IAggregationAgg,
+  IAggregationCategory,
+} from '~/interfaces/aggregations';
+import { IProductElasticBase } from '~/interfaces/product';
 
 /*
 Whole file logic
@@ -80,45 +85,45 @@ export async function getCategoryBySlug(
 }
 
 // Refactor upper function makeCategoriesFromApi by car slug
-export async function getCategoriesByCar(slug: string) {
-  const promise = await getProductsByCar(slug);
-  const cats: any = promise.aggregations.categories.buckets;
-  const products = promise.hits.hits;
+export async function getProductsCategoriesFlatByCar(
+  slug: string
+): Promise<IProductElasticBase> {
+  const promise: IProductElasticBase = await getProductsByCar(slug);
   // filtering empty categories here
-  const filtredArray = cats.filter((item: any) => {
-    return item.count !== 0;
-  });
+  // const filtredArray = cats.filter((item: any) => {
+  //   return item.count !== 0;
+  // });
 
-  const list: any = filtredArray;
+  // const list: any = filtredArray;
 
-  const tree: any = [];
-  const lookup: any = {};
+  // const tree: any = [];
+  // const lookup: any = {};
 
-  list.forEach((o: any) => {
-    lookup[o.id] = o;
-    lookup[o.id].children = [];
-  });
+  // list.forEach((o: any) => {
+  //   lookup[o.id] = o;
+  //   lookup[o.id].children = [];
+  // });
 
-  list.forEach((o: any) => {
-    if (o.parent && o.parent !== null) {
-      try {
-        lookup[o.parent].children.push(o);
-      } catch (e) {
-        console.error(
-          o,
-          `Somethin fucks up in /endpoints/categories.ts line 108
-            seems to instance of category has no parent
-            check the database category id = ${o.id}!
-          `,
-          e
-        );
-      }
-    } else {
-      tree.push(o);
-    }
-  });
-  const new_tree = clone(tree);
-  return Promise.resolve({ categories: new_tree, products: products });
+  // list.forEach((o: any) => {
+  //   if (o.parent && o.parent !== null) {
+  //     try {
+  //       lookup[o.parent].children.push(o);
+  //     } catch (e) {
+  //       console.error(
+  //         o,
+  //         `Somethin fucks up in /endpoints/categories.ts line 108
+  //           seems to instance of category has no parent
+  //           check the database category id = ${o.id}!
+  //         `,
+  //         e
+  //       );
+  //     }
+  //   } else {
+  //     tree.push(o);
+  //   }
+  // });
+  // const new_tree = clone(tree);
+  return Promise.resolve(promise);
 }
 
 // Get all categories related stuff
