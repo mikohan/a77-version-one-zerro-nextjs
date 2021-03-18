@@ -40,7 +40,7 @@ export default function MainLayout(props: any) {
       <Head>
         <title>A77 new life</title>
       </Head>
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Grid className={classes.rootGrid} container direction="column">
           <Grid item xs={12}>
             <AppBarDense />

@@ -62,7 +62,7 @@ export default function Cagetory(props: CategoryProps) {
       transition={{ duration: durationPage }}
     >
       <MainLayout>
-        <Grid container spacing={3}>
+        <Grid container spacing={0}>
           <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
             <LeftSideBar>
               <Box>{/* <FilterWidget filters={filters} /> */}</Box>
