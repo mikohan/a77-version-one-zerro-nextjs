@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
     },
     media: {
+      marginTop: theme.spacing(2),
       height: 0,
       paddingTop: '56.25%', // 16:9
     },
@@ -65,6 +66,11 @@ export default function ProductCard({ product }: IProps) {
   return (
     <Grid container spacing={1} item xs={4} sm={3} className={classes.cardGrid}>
       <Card className={classes.root}>
+        <CardMedia
+          className={classes.media}
+          image={prod.images[0].img245}
+          title="Paella dish"
+        />
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -78,11 +84,6 @@ export default function ProductCard({ product }: IProps) {
           }
           title={product._source.name}
           subheader={prod.cat_number}
-        />
-        <CardMedia
-          className={classes.media}
-          image={prod.images[0].img245}
-          title="Paella dish"
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">

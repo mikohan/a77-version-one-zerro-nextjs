@@ -26,8 +26,8 @@ import {
 } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
-import ProductCard from '~/components/product/ProductCard';
 import { distinctArray } from '~/services/utils';
+import ProductCard from '~/components/product/ProductCard2';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -68,7 +68,7 @@ export default function Cagetory(props: CategoryProps) {
               <Box>{/* <FilterWidget filters={filters} /> */}</Box>
             </LeftSideBar>
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid container item xs={12} sm={9}>
             <Grid item xs={12}>
               <Typography variant="h4">
                 Time for ISG checking: {updated}
@@ -80,17 +80,10 @@ export default function Cagetory(props: CategoryProps) {
                 {`${category.name} for ${make} ${model}`}
               </Typography>
             </Grid>
-            <Grid item container xs={12} spacing={2}>
-              <Box display="flex" flexDirection="row" flexWrap="wrap">
-                {products.hits.map((product: IProductElasticHitsSecond) => (
-                  <Box
-                    key={product._id}
-                    style={{ width: '48%', padding: '5px' }}
-                  >
-                    <ProductCard product={product} />
-                  </Box>
-                ))}
-              </Box>
+            <Grid item container xs={12}>
+              {products.hits.map((product: IProductElasticHitsSecond) => (
+                <ProductCard product={product} />
+              ))}
             </Grid>
           </Grid>
         </Grid>

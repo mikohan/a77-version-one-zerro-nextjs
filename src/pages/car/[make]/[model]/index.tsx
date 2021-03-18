@@ -34,6 +34,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Card from '@material-ui/core/Card';
+import PageHeader from '~/components/product/PageHeader';
 
 interface IModelProps {
   model: ICar;
@@ -89,10 +90,11 @@ function Model(props: IModelProps) {
             style={{ border: '1px solid green' }}
           >
             <Grid item xs={12}>
-              <Typography variant="h6">
-                Total parts: {products.total.value}
-              </Typography>
-              <Typography variant="h1">{model.model}</Typography>
+              <PageHeader
+                categories={categories}
+                model={model}
+                totalParts={products.total.value}
+              />
             </Grid>
             <Grid item xs={12}>
               <Grid
