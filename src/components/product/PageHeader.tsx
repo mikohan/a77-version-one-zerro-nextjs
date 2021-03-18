@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  categories: ICategory[];
+  categories?: ICategory[];
   model: ICar;
   totalParts: number;
 }
@@ -39,7 +39,7 @@ export default function PageHeader({ categories, model, totalParts }: IProps) {
         </Typography>
       </Box>
       <Box m={4}>
-        {categories.map((cat: ICategory) => {
+        {categories?.map((cat: ICategory) => {
           return (
             <span key={cat.id}>
               <Typography variant="h5">

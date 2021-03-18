@@ -17,7 +17,7 @@ import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
-import { getVehicles } from '~/endpoints/carsEndpoint';
+import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
 import {
   IProductElasticHitsFirst,
@@ -28,6 +28,11 @@ import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
 import { distinctArray } from '~/services/utils';
 import ProductCard from '~/components/product/ProductCard2';
+import PageHeader from '~/components/product/PageHeader';
+import { red, green, blue } from '@material-ui/core/colors';
+
+const redColor = red[500];
+const greenColor = green[600];
 
 interface CategoryProps {
   category: IShopCategory;
@@ -35,7 +40,7 @@ interface CategoryProps {
   categoryId?: number;
   products: IProductElasticHitsFirst;
   make: string;
-  model: string;
+  model: ICar;
   updated: Date;
 }
 
@@ -70,14 +75,11 @@ export default function Cagetory(props: CategoryProps) {
           </Grid>
           <Grid container item xs={12} sm={9}>
             <Grid item xs={12}>
-              <Typography variant="h4">
+              <PageHeader model={model} totalParts={products.total.value} />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="body1" style={{ color: redColor }}>
                 Time for ISG checking: {updated}
-              </Typography>
-              <Typography variant="h4" style={{ color: 'green' }}>
-                Total products count {products.total.value}
-              </Typography>
-              <Typography variant="h1">
-                {`${category.name} for ${make} ${model}`}
               </Typography>
             </Grid>
             <Grid item container xs={12}>
@@ -100,6 +102,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     };
   }
+  const mod: ICar = await getVehicle(modelSlug);
 
   const slug: string = asString(category);
 
@@ -121,7 +124,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       categoriesForFilter: makeTree(categories),
       products: products,
       make: make,
-      model: model,
+      model: mod,
       updated: Date.now(),
     },
   };
