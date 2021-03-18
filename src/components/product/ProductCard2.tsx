@@ -64,7 +64,7 @@ export default function ProductCard({ product }: IProps) {
   };
 
   return (
-    <Grid container spacing={1} item xs={4} sm={3} className={classes.cardGrid}>
+    <Grid container item xs={4} sm={3} className={classes.cardGrid}>
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}
