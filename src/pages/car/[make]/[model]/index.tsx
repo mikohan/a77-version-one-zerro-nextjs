@@ -28,7 +28,7 @@ import {
 } from '~/interfaces/product';
 import { makeTree } from '~/utils';
 import url from '~/services/url';
-import ProductCard from '~/components/product/ProductCard';
+import ProductCard from '~/components/product/ProductCard2';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -49,8 +49,6 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const { model, categories, products } = props;
-  const makeSlug: string = model.make.slug;
-  const modelSlug: string = model.slug;
 
   const dispatch = useDispatch();
 
@@ -77,75 +75,38 @@ function Model(props: IModelProps) {
       transition={{ duration: durationPage }}
     >
       <MainLayout>
-        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
-          <LeftSideBar>
-            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
-          </LeftSideBar>
-        </Grid>
-        <Grid item xs={12} sm={9} style={{ border: '1px solid green' }}>
-          <Grid container item>
-            <Grid item xs={6}>
+        <Grid container>
+          <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+            <LeftSideBar>
+              <Box>{/* <FilterWidget filters={filters} /> */}</Box>
+            </LeftSideBar>
+          </Grid>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={9}
+            style={{ border: '1px solid green' }}
+          >
+            <Grid item xs={12}>
               <Typography variant="h6">
                 Total parts: {products.total.value}
               </Typography>
               <Typography variant="h1">{model.model}</Typography>
             </Grid>
-            <Grid item xs={6}>
-              <Box>
-                {categories.map((cat: ICategory) => {
-                  return (
-                    <span key={cat.id}>
-                      <Typography variant="h5">
-                        First Level - {cat.name} ({cat.count})
-                      </Typography>
-                      {cat.children?.map((subcat: ICategory) => {
-                        return (
-                          <div key={subcat.id} style={{ paddingLeft: '2rem' }}>
-                            <Typography variant="body1">
-                              <Link
-                                href={url.category(
-                                  makeSlug,
-                                  modelSlug,
-                                  subcat.slug
-                                )}
-                              >
-                                <a>
-                                  {subcat.name} ({subcat.count})
-                                </a>
-                              </Link>
-                            </Typography>
-                          </div>
-                        );
-                      })}
-                    </span>
-                  );
+            <Grid item xs={12}>
+              <Grid
+                container
+                item
+                xs={12}
+                alignItems="stretch"
+                justify="space-evenly"
+              >
+                {products.hits.map((product: IProductElasticHitsSecond) => {
+                  return <ProductCard product={product} />;
                 })}
-              </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid container item xs={12}>
-            {products.hits.map((product: IProductElasticHitsSecond) => {
-              return (
-                <Grid container alignItems="stretch">
-                  <Grid item component={Card} xs>
-                    <CardContent>// Card A content</CardContent>
-                    <CardActions>// Card A actions</CardActions>
-                  </Grid>
-
-                  <Grid item component={Card} xs>
-                    <CardContent>// Card B content</CardContent>
-                    <CardActions>// Card B actions</CardActions>
-                  </Grid>
-
-                  <Grid item component={Card} xs>
-                    <CardContent>// Card B content</CardContent>
-                    <CardActions>// Card B actions</CardActions>
-                  </Grid>
-                </Grid>
-              );
-            })}
           </Grid>
         </Grid>
       </MainLayout>
