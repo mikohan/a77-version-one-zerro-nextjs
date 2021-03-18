@@ -5,11 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Grid, Box } from '@material-ui/core';
 import { REVALIDATE } from '~/config';
 import { ICar } from '~/interfaces/ICar';
-import {
-  getCategories,
-  getCategoryAllGQL,
-  getCategoryBySlugGQL,
-} from '~/endpoints/categories';
+import { getCategories, getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
@@ -26,7 +22,6 @@ import {
 } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
-import { distinctArray } from '~/services/utils';
 import ProductCard from '~/components/product/ProductCard2';
 import PageHeader from '~/components/product/PageHeader';
 import { red, green, blue } from '@material-ui/core/colors';
