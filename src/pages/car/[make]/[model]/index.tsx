@@ -28,11 +28,17 @@ import {
 } from '~/interfaces/product';
 import { makeTree } from '~/utils';
 import url from '~/services/url';
+import ProductCard from '~/components/product/ProductCard';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Card from '@material-ui/core/Card';
 
 interface IModelProps {
   model: ICar;
   categories: ICategory[];
-  hits: IProductElasticHitsFirst;
+  products: IProductElasticHitsFirst;
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -42,7 +48,7 @@ export interface IBaseFilter<T extends string, V> {
 }
 
 function Model(props: IModelProps) {
-  const { model, categories, hits } = props;
+  const { model, categories, products } = props;
   const makeSlug: string = model.make.slug;
   const modelSlug: string = model.slug;
 
@@ -79,8 +85,10 @@ function Model(props: IModelProps) {
         <Grid item xs={12} sm={9} style={{ border: '1px solid green' }}>
           <Grid container item>
             <Grid item xs={6}>
+              <Typography variant="h6">
+                Total parts: {products.total.value}
+              </Typography>
               <Typography variant="h1">{model.model}</Typography>
-              <pre>{JSON.stringify(model, null, 4)}</pre>
             </Grid>
             <Grid item xs={6}>
               <Box>
@@ -118,10 +126,23 @@ function Model(props: IModelProps) {
         </Grid>
         <Grid container>
           <Grid container item xs={12}>
-            {hits.hits.map((product: IProductElasticHitsSecond) => {
+            {products.hits.map((product: IProductElasticHitsSecond) => {
               return (
-                <Grid item xs={4} key={product._id}>
-                  {JSON.stringify(product, null, 2)}
+                <Grid container alignItems="stretch">
+                  <Grid item component={Card} xs>
+                    <CardContent>// Card A content</CardContent>
+                    <CardActions>// Card A actions</CardActions>
+                  </Grid>
+
+                  <Grid item component={Card} xs>
+                    <CardContent>// Card B content</CardContent>
+                    <CardActions>// Card B actions</CardActions>
+                  </Grid>
+
+                  <Grid item component={Card} xs>
+                    <CardContent>// Card B content</CardContent>
+                    <CardActions>// Card B actions</CardActions>
+                  </Grid>
                 </Grid>
               );
             })}
@@ -139,14 +160,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promise = await getProductsByCar(vehicle.slug);
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
-  const hits = promise.hits;
+  const products = promise.hits;
 
   return {
     revalidate: REVALIDATE,
     props: {
       model: vehicle,
       categories: makeTree(categories),
-      hits: hits,
+      products: products,
     },
   };
 };
