@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/category';
-import { List, ListItem, Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
