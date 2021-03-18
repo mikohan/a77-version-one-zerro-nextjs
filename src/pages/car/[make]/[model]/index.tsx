@@ -87,7 +87,7 @@ function Model(props: IModelProps) {
               />
             </Grid>
             <Grid item container xs={12}>
-              <Grid container item xs={12} justify="space-evenly" spacing={6}>
+              <Grid container item xs={12} justify="space-evenly">
                 {products.hits.map((product: IProductElasticHitsSecond) => {
                   return <ProductCard product={product} />;
                 })}
