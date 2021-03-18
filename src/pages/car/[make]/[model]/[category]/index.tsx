@@ -26,6 +26,7 @@ import {
 } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
+import ProductCard from '~/components/product/ProductCard';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -67,22 +68,29 @@ export default function Cagetory(props: CategoryProps) {
             </LeftSideBar>
           </Grid>
           <Grid item xs={12} sm={9}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Typography variant="h4">
                 Time for ISG checking: {updated}
+              </Typography>
+              <Typography variant="h4" style={{ color: 'green' }}>
+                Total products count {products.total.value}
               </Typography>
               <Typography variant="h1">
                 {`${category.name} for ${make} ${model}`}
               </Typography>
             </Grid>
-            <Grid item xs={6}></Grid>
-          </Grid>
-          <Grid item container xs={12}>
-            {products.hits.map((product: IProductElasticHitsSecond) => (
-              <Grid item xs={4} key={product._id}>
-                {JSON.stringify(product, null, 2)}
-              </Grid>
-            ))}
+            <Grid item container xs={12} spacing={2}>
+              <Box display="flex" flexDirection="row" flexWrap="wrap">
+                {products.hits.map((product: IProductElasticHitsSecond) => (
+                  <Box
+                    key={product._id}
+                    style={{ width: '48%', padding: '5px' }}
+                  >
+                    <ProductCard product={product} />
+                  </Box>
+                ))}
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
       </MainLayout>
@@ -100,13 +108,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const slug: string = asString(category);
-  // const categories = await getCategoryBySlug(slug);
 
+  // Comment out for building next time here and in static paths
   const cat: ICategory = await getCategoryBySlugGQL(slug);
   const promise = await getProductsByCar(modelSlug, cat.slug);
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   const products: IProductElasticHitsFirst = promise.hits;
+  console.log('product tota value', products.total.value);
 
   return {
     revalidate: REVALIDATE,

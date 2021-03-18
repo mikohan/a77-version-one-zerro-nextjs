@@ -36,3 +36,9 @@ export function isArrayOfNumbers(value: any): value is number[] {
 
   return !value.map((x) => typeof x !== 'number').includes(true);
 }
+
+export function distinctArray(arr: any[], key) {
+  const unique: any[] = [
+    ...new Map(arr.map((item: T) => [item[key], item])).values(),
+  ];
+}
