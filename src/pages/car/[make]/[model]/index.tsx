@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
 import Grid from '@material-ui/core/Grid';
