@@ -4,7 +4,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
 import { vehiclesUrl } from '~/config';
 import MainLayout from '~/layouts/Main';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
