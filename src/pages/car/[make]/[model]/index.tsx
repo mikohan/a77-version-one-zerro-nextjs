@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/category';
 import { List, ListItem, Box } from '@material-ui/core';
-import Link from 'next/link';
 import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
@@ -27,13 +26,7 @@ import {
   IProductElasticHitsSecond,
 } from '~/interfaces/product';
 import { makeTree } from '~/utils';
-import url from '~/services/url';
 import ProductCard from '~/components/product/ProductCard2';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Card from '@material-ui/core/Card';
 import PageHeader from '~/components/product/PageHeader';
 
 interface IModelProps {
