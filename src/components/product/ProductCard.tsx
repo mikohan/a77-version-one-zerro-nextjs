@@ -45,7 +45,11 @@ export default function ComplexGrid({ product }: IProp) {
               <img
                 className={classes.img}
                 alt="complex"
-                src={product._source.images[0].img150}
+                src={
+                  product._source.images.length !== 0
+                    ? product._source.images[0].img150
+                    : ''
+                }
               />
             </ButtonBase>
           </Grid>

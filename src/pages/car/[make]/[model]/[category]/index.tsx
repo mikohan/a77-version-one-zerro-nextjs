@@ -27,6 +27,7 @@ import {
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
 import ProductCard from '~/components/product/ProductCard';
+import { distinctArray } from '~/services/utils';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -114,8 +115,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promise = await getProductsByCar(modelSlug, cat.slug);
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
-  const products: IProductElasticHitsFirst = promise.hits;
-  console.log('product tota value', products.total.value);
+  let products: IProductElasticHitsFirst = promise.hits;
+  /* const uniqueProducts = distinctArray(products.hits); */
+  /* products.hits = uniqueProducts; */
+  /* console.log(uniqueProducts); */
 
   return {
     revalidate: REVALIDATE,

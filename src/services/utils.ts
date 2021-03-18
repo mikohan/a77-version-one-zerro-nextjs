@@ -37,8 +37,16 @@ export function isArrayOfNumbers(value: any): value is number[] {
   return !value.map((x) => typeof x !== 'number').includes(true);
 }
 
-export function distinctArray(arr: any[], key) {
-  const unique: any[] = [
-    ...new Map(arr.map((item: T) => [item[key], item])).values(),
-  ];
+export function distinctArray(arr: any[], key = 'id') {
+  const start = new Date().valueOf();
+  let resArr: any[] = [];
+  arr.forEach(function (item) {
+    var i = resArr.findIndex((x) => x._source.id === item._source.id);
+    if (i <= -1) {
+      resArr.push(item);
+    }
+  });
+  let time = new Date().valueOf() - start;
+  console.log('Console.log in services.utils.ts. Unicalization takes : ', time);
+  return resArr;
 }
