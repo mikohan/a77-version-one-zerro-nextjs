@@ -23,32 +23,21 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
-    media: {
-      marginTop: theme.spacing(2),
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-    cardGrid: {
-      padding: theme.spacing(1),
-    },
-    gridPaper: {
-      padding: theme.spacing(5),
-    },
-    gridItem: {
-      border: '1px solid grey',
+    wrapper: {
+      '& > div': {
+        background: '#ddd',
+        padding: theme.spacing(5),
+      },
+      '& > div:nth-child(odd)': {
+        background: '#eee',
+      },
+      display: 'grid',
+      gridTemplateColumns: '1fr 4fr',
+      gridAutoRows: '100px',
+      gridGap: theme.spacing(1),
+      [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: '1fr 1fr',
+      },
     },
   })
 );
@@ -62,33 +51,13 @@ export default function ProductCard({ product }: IProps) {
 
   return (
     <div className={classes.root}>
-      <Grid container direction="column">
-        <Grid container spacing={0}>
-          <Grid item xs className={classes.gridItem}>
-            <Paper className={classes.gridPaper}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,
-              alias!
-            </Paper>
-          </Grid>
-          <Grid item xs className={classes.gridItem}>
-            <Paper className={classes.gridPaper}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,
-              alias!
-            </Paper>
-          </Grid>
-          <Grid item xs className={classes.gridItem}>
-            <Paper className={classes.gridPaper}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,
-              alias!
-            </Paper>
-          </Grid>
-        </Grid>
-        <Grid container item xs style={{ marginTop: '1em' }}>
-          <Paper className={classes.gridPaper}>
-            Lorem ipsum dolor sit amet.
-          </Paper>
-        </Grid>
-      </Grid>
+      <div className={classes.wrapper}>
+        <div>Lorem ipsum dolor sit amet.</div>
+        <div>Lorem ipsum dolor sit amet.</div>
+        <div>Lorem ipsum dolor sit amet.</div>
+        <div>Lorem ipsum dolor sit amet.</div>
+        <div>Lorem ipsum dolor sit amet.</div>
+      </div>
     </div>
   );
 }
