@@ -68,7 +68,7 @@ export default function ProductCard({ product }: IProps) {
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}
-          image={prod.images[0].img245}
+          image={prod.images.length !== 0 ? prod.images[0].img245 : ''}
           title="Paella dish"
         />
         <CardHeader
