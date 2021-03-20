@@ -31,8 +31,8 @@ export default function AppBarDense() {
 
   const router = useRouter();
 
-  const goTestPage = () => {
-    router.push({ pathname: '/testpage', query: { count: 1 } });
+  const goGrid = () => {
+    router.push({ pathname: '/grid', query: { count: 1 } });
   };
   const [value, setValue] = React.useState(0);
 
@@ -62,6 +62,8 @@ export default function AppBarDense() {
             <Tab label="Item One" />
             <Tab label="Item Two" />
             <Tab label="Item Three" />
+            <Tab label="Item Three" />
+            <Tab label="Grid Testes" onClick={goGrid} />
           </Tabs>
         </Toolbar>
       </AppBar>
