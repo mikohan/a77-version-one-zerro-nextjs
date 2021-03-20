@@ -12,7 +12,7 @@ import { makesAction } from '~/store/actions/categoriesAction';
 import CarChooseModal from '~/components/header/CarChooseModal';
 
 import { asString } from '~/helpers';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Tab, Tabs } from '@material-ui/core';
 import { buildMakes } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
@@ -74,24 +74,26 @@ export default function ButtonAppBar() {
   }, [storeCarModel]);
 
   return (
-    <div className={classes.root}>
-      <AppBar elevation={0} color="inherit" position="static">
-        <Toolbar variant="dense">
-          <Grid container>
-            <Grid item xs={1}>
-              <Typography variant="h6" className={classes.title}>
-                Link to somewhere
-              </Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Typography style={{ flex: 1 }} variant="h6">
-                <CarChooseModal />
-              </Typography>
-            </Grid>
-            <Grid item>{currentCar ? currentCar.model : 'Select car'}</Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <React.Fragment>
+      <div className={classes.root}>
+        <AppBar elevation={0} color="inherit" position="static">
+          <Toolbar variant="dense">
+            <Tabs
+              value=""
+              onChange={() => {}}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+              <Tab label="Item One" />
+              <Tab label="Item Two" />
+              <Tab label="Item Three" />
+            </Tabs>
+          </Toolbar>
+        </AppBar>
+      </div>
+    </React.Fragment>
   );
 }
+
+// clurrentCar ? currentCar.model : 'Select car'
