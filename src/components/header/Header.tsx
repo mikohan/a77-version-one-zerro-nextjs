@@ -55,6 +55,10 @@ export default function AppBarDense() {
   useEffect(() => {
     if (pathname === '/' && value !== 0) {
       setValue(0);
+    } else if (pathname === '/cars' && value !== 1) {
+      setValue(1);
+    } else if (pathname === '/contacts' && value !== 2) {
+      setValue(2);
     } else if (pathname === '/about' && value !== 3) {
       setValue(3);
     } else if (pathname === '/grid' && value !== 4) {
@@ -65,8 +69,8 @@ export default function AppBarDense() {
   const goHome = () => {
     router.push({ pathname: '/' });
   };
-  const goMake = () => {
-    router.push({ pathname: '/' });
+  const goCars = () => {
+    router.push({ pathname: '/car' });
   };
   const goAbout = () => {
     router.push({ pathname: '/about' });
@@ -110,7 +114,7 @@ export default function AppBarDense() {
         centered
       >
         <Tab label="Home" onClick={goHome} />
-        <Tab label="Item Two" onClick={goMake} />
+        <Tab label="Cars" onClick={goCars} />
         <Tab label="Item Three" />
         <Tab label="About" onClick={goAbout} />
         <Tab label="Grid Testes" onClick={goGrid} />
