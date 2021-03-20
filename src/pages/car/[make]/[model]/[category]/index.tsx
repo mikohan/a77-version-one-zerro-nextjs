@@ -55,37 +55,30 @@ export default function Cagetory(props: CategoryProps) {
   filters.push(filterCategory);
 
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: durationPage }}
-    >
-      <MainLayout>
-        <Grid container spacing={0}>
-          <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
-            <LeftSideBar>
-              <Box>{/* <FilterWidget filters={filters} /> */}</Box>
-            </LeftSideBar>
+    <div>
+      <Grid container spacing={0}>
+        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+          <LeftSideBar>
+            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
+          </LeftSideBar>
+        </Grid>
+        <Grid container item xs={12} sm={9}>
+          <Grid item xs={12}>
+            <PageHeader model={model} totalParts={products.total.value} />
           </Grid>
-          <Grid container item xs={12} sm={9}>
-            <Grid item xs={12}>
-              <PageHeader model={model} totalParts={products.total.value} />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="body1" style={{ color: redColor }}>
-                Time for ISG checking: {updated}
-              </Typography>
-            </Grid>
-            <Grid item container xs={12}>
-              {products.hits.map((product: IProductElasticHitsSecond) => (
-                <ProductCard product={product} />
-              ))}
-            </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" style={{ color: redColor }}>
+              Time for ISG checking: {updated}
+            </Typography>
+          </Grid>
+          <Grid item container xs={12}>
+            {products.hits.map((product: IProductElasticHitsSecond) => (
+              <ProductCard product={product} />
+            ))}
           </Grid>
         </Grid>
-      </MainLayout>
-    </motion.div>
+      </Grid>
+    </div>
   );
 }
 

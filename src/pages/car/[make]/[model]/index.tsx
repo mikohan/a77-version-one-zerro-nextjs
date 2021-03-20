@@ -59,44 +59,37 @@ function Model(props: IModelProps) {
   //filters.push(filterCategory);
 
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: durationPage }}
-    >
-      <MainLayout>
-        <Grid container>
-          <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
-            <LeftSideBar>
-              <Box>{/* <FilterWidget filters={filters} /> */}</Box>
-            </LeftSideBar>
+    <div>
+      <Grid container>
+        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
+          <LeftSideBar>
+            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
+          </LeftSideBar>
+        </Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={9}
+          style={{ border: '1px solid green' }}
+        >
+          <Grid item xs={12}>
+            <PageHeader
+              categories={categories}
+              model={model}
+              totalParts={products.total.value}
+            />
           </Grid>
-          <Grid
-            container
-            item
-            xs={12}
-            sm={9}
-            style={{ border: '1px solid green' }}
-          >
-            <Grid item xs={12}>
-              <PageHeader
-                categories={categories}
-                model={model}
-                totalParts={products.total.value}
-              />
-            </Grid>
-            <Grid item container xs={12}>
-              <Grid container item xs={12} justify="space-evenly">
-                {products.hits.map((product: IProductElasticHitsSecond) => {
-                  return <ProductCard product={product} />;
-                })}
-              </Grid>
+          <Grid item container xs={12}>
+            <Grid container item xs={12} justify="space-evenly">
+              {products.hits.map((product: IProductElasticHitsSecond) => {
+                return <ProductCard product={product} />;
+              })}
             </Grid>
           </Grid>
         </Grid>
-      </MainLayout>
-    </motion.div>
+      </Grid>
+    </div>
   );
 }
 
