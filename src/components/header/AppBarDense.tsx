@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
+import { Tabs, Tab } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,6 +17,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
+    },
+    tab: {
+      ...theme.typography.tab,
+      minWidth: 10,
+      marginLeft: '25px',
     },
   })
 );
@@ -27,6 +33,11 @@ export default function AppBarDense() {
 
   const goTestPage = () => {
     router.push({ pathname: '/testpage', query: { count: 1 } });
+  };
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
   };
 
   return (
@@ -41,13 +52,17 @@ export default function AppBarDense() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit">
-            <Link href="/">Главная</Link>
-          </Typography>
-          <Button color="inherit">Login</Button>
-          <Button onClick={goTestPage} color="inherit">
-            Test Page
-          </Button>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+          >
+            <Tab label="Item One" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+          </Tabs>
         </Toolbar>
       </AppBar>
     </div>
