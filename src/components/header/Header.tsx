@@ -14,7 +14,13 @@ import {
   useTheme,
   useMediaQuery,
   SwipeableDrawer,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from '@material-ui/core';
+import { InboxTwoTone } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     appbar: {
       minHeight: '3rem',
+    },
+    list: {
+      width: 250,
     },
     tab: {
       ...(theme.mixins.toolbar.tab as object),
@@ -61,22 +70,32 @@ export default function AppBarDense() {
       setValue(2);
     } else if (pathname === '/about' && value !== 3) {
       setValue(3);
-    } else if (pathname === '/grid' && value !== 4) {
+    } else if (pathname === '/contacts' && value !== 4) {
       setValue(4);
+    } else if (pathname === '/grid' && value !== 5) {
+      setValue(5);
     }
   }, []);
 
   const goHome = () => {
     router.push({ pathname: '/' });
+    setDrawerOpen(false);
   };
   const goCars = () => {
     router.push({ pathname: '/car' });
+    setDrawerOpen(false);
   };
   const goAbout = () => {
     router.push({ pathname: '/about' });
+    setDrawerOpen(false);
+  };
+  const goContacts = () => {
+    router.push({ pathname: '/contacts' });
+    setDrawerOpen(false);
   };
   const goGrid = () => {
-    router.push({ pathname: '/grid', query: { count: 1 } });
+    router.push({ pathname: '/grid' });
+    setDrawerOpen(false);
   };
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -90,7 +109,21 @@ export default function AppBarDense() {
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
       >
-        DRAWER
+        <List className={classes.list}>
+          <ListItem button onClick={goHome}>
+            <ListItemIcon>
+              <InboxTwoTone />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem button onClick={goContacts}>
+            <ListItemIcon>
+              <InboxTwoTone />
+            </ListItemIcon>
+            <ListItemText>Contacts</ListItemText>
+          </ListItem>
+        </List>
       </SwipeableDrawer>
       <IconButton
         edge="start"
