@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import { Grid, Box } from '@material-ui/core';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,7 +69,11 @@ export default function ProductCard({ product }: IProps) {
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}
-          image={prod.images.length !== 0 ? prod.images[0].img245 : ''}
+          image={
+            prod.images.length !== 0
+              ? prod.images[0].img245
+              : '/public/defaultPart245.jpg'
+          }
           title="Paella dish"
         />
         <CardHeader
