@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     tab: {
-      ...theme.mixins.toolbar,
+      ...(theme.mixins.toolbar.tab as object),
       minWidth: 10,
       marginLeft: '25px',
     },
