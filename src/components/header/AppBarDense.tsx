@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     tab: {
-      ...theme.typography.tab,
+      ...theme.mixins.toolbar,
       minWidth: 10,
       marginLeft: '25px',
     },
@@ -31,6 +31,9 @@ export default function AppBarDense() {
 
   const router = useRouter();
 
+  const goHome = () => {
+    router.push({ pathname: '/' });
+  };
   const goGrid = () => {
     router.push({ pathname: '/grid', query: { count: 1 } });
   };
@@ -59,7 +62,7 @@ export default function AppBarDense() {
             textColor="primary"
             centered
           >
-            <Tab label="Item One" />
+            <Tab className={classes.tab} label="Home" onClick={goHome} />
             <Tab label="Item Two" />
             <Tab label="Item Three" />
             <Tab label="Item Three" />

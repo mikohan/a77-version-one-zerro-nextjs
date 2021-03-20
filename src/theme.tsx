@@ -5,6 +5,13 @@ const theme = createMuiTheme({
   palette: {
     type: 'light',
   },
+  mixins: {
+    toolbar: {
+      tab: {
+        color: 'red',
+      },
+    },
+  },
   typography: {
     fontSize: 12,
     h1: {
