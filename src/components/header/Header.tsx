@@ -37,9 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
     list: {
       width: 250,
     },
-    listItem: {
-      fontSize: '2rem',
-    },
+    listItem: {},
     tab: {
       ...(theme.mixins.toolbar.tab as object),
       minWidth: 10,
