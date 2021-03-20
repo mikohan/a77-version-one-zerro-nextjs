@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,7 +8,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
-import { Tabs, Tab, useTheme, useMediaQuery } from '@material-ui/core';
+import {
+  Tabs,
+  Tab,
+  useTheme,
+  useMediaQuery,
+  SwipeableDrawer,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
+    },
+    appbar: {
+      minHeight: '3rem',
     },
     tab: {
       ...(theme.mixins.toolbar.tab as object),
@@ -29,11 +38,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AppBarDense() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
+  };
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
   const router = useRouter();
@@ -63,31 +77,51 @@ export default function AppBarDense() {
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+  const drawer = (
+    <React.Fragment>
+      <SwipeableDrawer
+        open={drawerOpen}
+        onClose={toggleDrawer}
+        onOpen={toggleDrawer}
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+      >
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleDrawer}
+        >
+          <MenuIcon />
+        </IconButton>
+      </SwipeableDrawer>
+    </React.Fragment>
+  );
+
+  const tabs = (
+    <React.Fragment>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab label="Home" onClick={goHome} />
+        <Tab label="Item Two" onClick={goMake} />
+        <Tab label="Item Three" />
+        <Tab label="About" onClick={goAbout} />
+        <Tab label="Grid Testes" onClick={goGrid} />
+      </Tabs>
+    </React.Fragment>
+  );
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar variant="regular">
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab label="Home" onClick={goHome} />
-            <Tab label="Item Two" onClick={goMake} />
-            <Tab label="Item Three" />
-            <Tab label="About" onClick={goAbout} />
-            <Tab label="Grid Testes" onClick={goGrid} />
-          </Tabs>
+        <Toolbar className={classes.appbar} variant="regular">
+          {matches ? drawer : tabs}
         </Toolbar>
       </AppBar>
     </div>
