@@ -20,7 +20,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { InboxTwoTone } from '@material-ui/icons';
+
+import { InboxTwoTone, HomeOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     list: {
       width: 250,
+    },
+    listItem: {
+      fontSize: '2rem',
     },
     tab: {
       ...(theme.mixins.toolbar.tab as object),
@@ -74,7 +78,6 @@ export default function AppBarDense() {
       setValue(4);
     }
   }, []);
-  console.log(value);
 
   const goHome = () => {
     router.push({ pathname: '/' });
@@ -112,9 +115,14 @@ export default function AppBarDense() {
         disableDiscovery={iOS}
       >
         <List className={classes.list}>
-          <ListItem button onClick={goHome} selected={value === 0}>
+          <ListItem
+            button
+            onClick={goHome}
+            selected={value === 0}
+            className={classes.listItem}
+          >
             <ListItemIcon>
-              <InboxTwoTone />
+              <HomeOutlined />
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </ListItem>
