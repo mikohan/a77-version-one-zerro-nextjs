@@ -72,7 +72,7 @@ export default function ProductCard({ product }: IProps) {
           image={
             prod.images.length !== 0
               ? prod.images[0].img245
-              : '/public/defaultPart245.jpg'
+              : '/images/local/defaultParts245.jpg'
           }
           title="Paella dish"
         />
