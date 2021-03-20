@@ -86,16 +86,17 @@ export default function AppBarDense() {
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
       >
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-          onClick={toggleDrawer}
-        >
-          <MenuIcon />
-        </IconButton>
+        DRAWER
       </SwipeableDrawer>
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="menu"
+        onClick={toggleDrawer}
+      >
+        <MenuIcon />
+      </IconButton>
     </React.Fragment>
   );
 
