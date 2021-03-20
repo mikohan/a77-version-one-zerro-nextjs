@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      fontSize: '2rem',
     },
     appbar: {
-      minHeight: '3rem',
+      minHeight: '4rem',
     },
     list: {
       width: 250,
@@ -66,20 +66,20 @@ export default function AppBarDense() {
       setValue(0);
     } else if (pathname === '/cars' && value !== 1) {
       setValue(1);
-    } else if (pathname === '/contacts' && value !== 2) {
+    } else if (pathname === '/about' && value !== 2) {
       setValue(2);
-    } else if (pathname === '/about' && value !== 3) {
+    } else if (pathname === '/contacts' && value !== 3) {
       setValue(3);
-    } else if (pathname === '/contacts' && value !== 4) {
+    } else if (pathname === '/grid' && value !== 4) {
       setValue(4);
-    } else if (pathname === '/grid' && value !== 5) {
-      setValue(5);
     }
   }, []);
+  console.log(value);
 
   const goHome = () => {
     router.push({ pathname: '/' });
     setDrawerOpen(false);
+    setValue(0);
   };
   const goCars = () => {
     router.push({ pathname: '/car' });
@@ -91,7 +91,9 @@ export default function AppBarDense() {
   };
   const goContacts = () => {
     router.push({ pathname: '/contacts' });
+    console.log('here');
     setDrawerOpen(false);
+    setValue(3);
   };
   const goGrid = () => {
     router.push({ pathname: '/grid' });
@@ -110,14 +112,14 @@ export default function AppBarDense() {
         disableDiscovery={iOS}
       >
         <List className={classes.list}>
-          <ListItem button onClick={goHome}>
+          <ListItem button onClick={goHome} selected={value === 0}>
             <ListItemIcon>
               <InboxTwoTone />
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button onClick={goContacts}>
+          <ListItem button onClick={goContacts} selected={value === 3}>
             <ListItemIcon>
               <InboxTwoTone />
             </ListItemIcon>
@@ -127,12 +129,11 @@ export default function AppBarDense() {
       </SwipeableDrawer>
       <IconButton
         edge="start"
-        className={classes.menuButton}
         color="inherit"
         aria-label="menu"
         onClick={toggleDrawer}
       >
-        <MenuIcon />
+        <MenuIcon className={classes.menuButton} />
       </IconButton>
     </React.Fragment>
   );
@@ -148,8 +149,8 @@ export default function AppBarDense() {
       >
         <Tab label="Home" onClick={goHome} />
         <Tab label="Cars" onClick={goCars} />
-        <Tab label="Item Three" />
         <Tab label="About" onClick={goAbout} />
+        <Tab label="Contacts" onClick={goContacts} />
         <Tab label="Grid Testes" onClick={goGrid} />
       </Tabs>
     </React.Fragment>
