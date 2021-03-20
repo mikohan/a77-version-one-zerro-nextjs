@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,9 +28,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AppBarDense() {
   const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
 
   const router = useRouter();
-  console.log(router.query);
+  const { pathname } = router;
+  useEffect(() => {
+    console.log(value);
+    if (pathname === '/' && value !== 0) {
+      setValue(0);
+    } else if (pathname === '/about' && value !== 3) {
+      setValue(3);
+    } else if (pathname === '/grid' && value !== 4) {
+      setValue(4);
+    }
+  }, []);
 
   const goHome = () => {
     router.push({ pathname: '/' });
@@ -38,13 +53,11 @@ export default function AppBarDense() {
   const goMake = () => {
     router.push({ pathname: '/' });
   };
+  const goAbout = () => {
+    router.push({ pathname: '/about' });
+  };
   const goGrid = () => {
     router.push({ pathname: '/grid', query: { count: 1 } });
-  };
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
   };
 
   return (
@@ -69,7 +82,7 @@ export default function AppBarDense() {
             <Tab className={classes.tab} label="Home" onClick={goHome} />
             <Tab label="Item Two" onClick={goMake} />
             <Tab label="Item Three" />
-            <Tab label="Item Three" />
+            <Tab label="About" onClick={goAbout} />
             <Tab label="Grid Testes" onClick={goGrid} />
           </Tabs>
         </Toolbar>

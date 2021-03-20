@@ -11,8 +11,7 @@ import LeftSideBar from '~/components/main/LeftSideBar';
 import FilterWidget from '~/components/main/FilterWidget';
 import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
-import { motion } from 'framer-motion';
-import { durationPage } from '~/config';
+import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
 import {
@@ -55,7 +54,7 @@ export default function Cagetory(props: CategoryProps) {
   filters.push(filterCategory);
 
   return (
-    <div>
+    <AnimationPage>
       <Grid container spacing={0}>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
@@ -78,7 +77,7 @@ export default function Cagetory(props: CategoryProps) {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </AnimationPage>
   );
 }
 

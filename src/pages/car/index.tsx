@@ -1,14 +1,9 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import axios from 'axios';
-import { vehiclesUrl } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
-import { toLoverSpace } from '~/helpers';
-import MainLayout from '~/layouts/Main';
 
-import { motion } from 'framer-motion';
-import { durationPage } from '~/config';
+import Animation from '~/components/common/AnimationPage';
 import { getVehicles } from '~/endpoints/carsEndpoint';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
@@ -19,7 +14,7 @@ interface ICarProps {
 
 function Car(props: ICarProps) {
   return (
-    <div>
+    <Animation>
       <List>
         {props.makes.map((make: IMake) => (
           <Link href={`/car/${make.slug}`} key={make.id}>
@@ -29,7 +24,7 @@ function Car(props: ICarProps) {
           </Link>
         ))}
       </List>
-    </div>
+    </Animation>
   );
 }
 

@@ -11,8 +11,7 @@ import FilterWidget from '~/components/main/FilterWidget';
 import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
-import { motion } from 'framer-motion';
-import { durationPage } from '~/config';
+import AnimationPage from '~/components/common/AnimationPage';
 import { setCurrentCarAction } from '~/store/actions';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { toLoverSpace } from '~/helpers';
@@ -59,7 +58,7 @@ function Model(props: IModelProps) {
   //filters.push(filterCategory);
 
   return (
-    <div>
+    <AnimationPage>
       <Grid container>
         <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
           <LeftSideBar>
@@ -89,7 +88,7 @@ function Model(props: IModelProps) {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </AnimationPage>
   );
 }
 

@@ -121,16 +121,9 @@ function MyApp(props: any) {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <motion.div
-              exit={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              transition={{ duration: durationPage }}
-            >
-              <MainLayout>
-                <Component {...pageProps} />
-              </MainLayout>
-            </motion.div>
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
           </ThemeProvider>
         </Provider>
       </CookiesProvider>

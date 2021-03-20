@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Animation from '~/components/common/AnimationPage';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -50,14 +51,16 @@ export default function ProductCard({ product }: IProps) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
-        <div>Lorem ipsum dolor sit amet.</div>
-        <div>Lorem ipsum dolor sit amet.</div>
-        <div>Lorem ipsum dolor sit amet.</div>
-        <div>Lorem ipsum dolor sit amet.</div>
-        <div>Lorem ipsum dolor sit amet.</div>
+    <Animation>
+      <div className={classes.root}>
+        <div className={classes.wrapper}>
+          <div>Lorem ipsum dolor sit amet.</div>
+          <div>Lorem ipsum dolor sit amet.</div>
+          <div>Lorem ipsum dolor sit amet.</div>
+          <div>Lorem ipsum dolor sit amet.</div>
+          <div>Lorem ipsum dolor sit amet.</div>
+        </div>
       </div>
-    </div>
+    </Animation>
   );
 }

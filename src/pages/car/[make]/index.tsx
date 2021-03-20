@@ -6,8 +6,7 @@ import Link from 'next/link';
 import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { motion } from 'framer-motion';
-import { durationPage } from '~/config';
+import Animation from '~/components/common/AnimationPage';
 
 import { ICar } from '~/interfaces/ICar';
 import { IMake } from '~/interfaces/IMake';
@@ -22,7 +21,7 @@ function Make(props: ICarProps) {
   let { make, models } = props;
 
   return (
-    <div>
+    <Animation>
       <List>
         {models.map((model: ICar) => (
           <Link href={`/car/${make.slug}/${model.slug}`} key={model.id}>
@@ -39,7 +38,7 @@ function Make(props: ICarProps) {
           </Link>
         ))}
       </List>
-    </div>
+    </Animation>
   );
 }
 
