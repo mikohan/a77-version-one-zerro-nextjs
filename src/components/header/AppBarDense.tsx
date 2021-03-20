@@ -30,8 +30,12 @@ export default function AppBarDense() {
   const classes = useStyles();
 
   const router = useRouter();
+  console.log(router.query);
 
   const goHome = () => {
+    router.push({ pathname: '/' });
+  };
+  const goMake = () => {
     router.push({ pathname: '/' });
   };
   const goGrid = () => {
@@ -63,7 +67,7 @@ export default function AppBarDense() {
             centered
           >
             <Tab className={classes.tab} label="Home" onClick={goHome} />
-            <Tab label="Item Two" />
+            <Tab label="Item Two" onClick={goMake} />
             <Tab label="Item Three" />
             <Tab label="Item Three" />
             <Tab label="Grid Testes" onClick={goGrid} />

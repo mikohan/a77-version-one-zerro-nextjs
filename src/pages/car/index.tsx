@@ -19,25 +19,17 @@ interface ICarProps {
 
 function Car(props: ICarProps) {
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: durationPage }}
-    >
-      <MainLayout>
-        <h1>inside all cars list here</h1>
-        <List>
-          {props.makes.map((make: IMake) => (
-            <Link href={`/car/${make.slug}`} key={make.id}>
-              <a>
-                <ListItem>{make.name}</ListItem>
-              </a>
-            </Link>
-          ))}
-        </List>
-      </MainLayout>
-    </motion.div>
+    <div>
+      <List>
+        {props.makes.map((make: IMake) => (
+          <Link href={`/car/${make.slug}`} key={make.id}>
+            <a>
+              <ListItem>{make.name}</ListItem>
+            </a>
+          </Link>
+        ))}
+      </List>
+    </div>
   );
 }
 

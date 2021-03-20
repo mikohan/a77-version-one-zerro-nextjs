@@ -1,35 +1,3 @@
-/*
-1.Done Needs to realize how to use cookies on server side
-2. Done Save current car on choser
-3. Save user id and currentCar to server endpoint
-4. Make garage of cars based on user id in cookies
-5. When visiting car page suggest change car or not?
-6. Split car chooser to select from garage or from all cars
-7. Make JWT authorization for saving orders and so on
-8. Make product selector based on car and filters
-9. Make filters builder according to product properties
-10.Make related product widget
-11. Make analogs product widget
-12. Make all categories on car page list
-13. Make related category widget
-14. Make blog
-15. Make related post widget
-16. Make main page with widgets
-17. Make search widget
-18. Make search logic by car or all products or category with that products
-19. Make shopping cart widget
-20. Make rating widet
-21. Make static pages
-22. Make rewiew logic and put under the products
-
-ac. Needs make endpoint for UUID and post and get it from server
-ad. Needs to add to redux user id and suggest stuff by user id
-some comment
- */
-
-// In work - make products loading by car and category Probably big category will see
-// For git hub commit
-
 import React, { /*Context*/ useEffect } from 'react';
 
 import PropTypes from 'prop-types';
@@ -58,6 +26,9 @@ import useLocalStorage from '~/hooks/useLocalStorage';
 
 import { v4 as uuidv4 } from 'uuid';
 import { getVehicles } from '~/endpoints/carsEndpoint';
+import { motion } from 'framer-motion';
+import { durationPage } from '~/config';
+import MainLayout from '~/layouts/Main';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -150,7 +121,16 @@ function MyApp(props: any) {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Component {...pageProps} />
+            <motion.div
+              exit={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              transition={{ duration: durationPage }}
+            >
+              <MainLayout>
+                <Component {...pageProps} />
+              </MainLayout>
+            </motion.div>
           </ThemeProvider>
         </Provider>
       </CookiesProvider>
