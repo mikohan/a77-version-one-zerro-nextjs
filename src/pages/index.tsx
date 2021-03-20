@@ -29,22 +29,20 @@ export default function Home(props: IHomeProps) {
   const { makes } = props;
 
   return (
-    <MainLayout>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <ListForTesting makes={makes} />
-          </Grid>
-          <Grid item xs={4}>
-            Text
-          </Grid>
-          <Grid item xs={4}>
-            Text
-          </Grid>
-          <Link href="/testpage">To Test Page</Link>
+    <Paper className={classes.paper}>
+      <Grid container spacing={2}>
+        <Grid item xs={4}>
+          <ListForTesting makes={makes} />
         </Grid>
-      </Paper>
-    </MainLayout>
+        <Grid item xs={4}>
+          Text
+        </Grid>
+        <Grid item xs={4}>
+          Text
+        </Grid>
+        <Link href="/testpage">To Test Page</Link>
+      </Grid>
+    </Paper>
   );
 }
 

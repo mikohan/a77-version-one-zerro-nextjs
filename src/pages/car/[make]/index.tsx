@@ -22,32 +22,24 @@ function Make(props: ICarProps) {
   let { make, models } = props;
 
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: durationPage }}
-    >
-      <MainLayout>
-        <h1>Car Single Make and Models List</h1>
-        <List>
-          {models.map((model: ICar) => (
-            <Link href={`/car/${make.slug}/${model.slug}`} key={model.id}>
-              <a>
-                <ListItem>
-                  <Box>
-                    <p>Slug - {model.slug}</p>
-                    <Typography variant="h1">{model.model}</Typography>
-                    <Typography variant="h3">{model.engine}</Typography>
-                    <div>some text</div>
-                  </Box>
-                </ListItem>
-              </a>
-            </Link>
-          ))}
-        </List>
-      </MainLayout>
-    </motion.div>
+    <div>
+      <List>
+        {models.map((model: ICar) => (
+          <Link href={`/car/${make.slug}/${model.slug}`} key={model.id}>
+            <a>
+              <ListItem>
+                <Box>
+                  <p>Slug - {model.slug}</p>
+                  <Typography variant="h1">{model.model}</Typography>
+                  <Typography variant="h3">{model.engine}</Typography>
+                  <div>some text</div>
+                </Box>
+              </ListItem>
+            </a>
+          </Link>
+        ))}
+      </List>
+    </div>
   );
 }
 
