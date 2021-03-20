@@ -8,14 +8,20 @@ const theme = createMuiTheme({
   mixins: {
     toolbar: {
       tab: {
-        color: 'red',
+        color: 'inherit',
       },
     },
   },
   typography: {
     fontSize: 12,
     h1: {
-      fontSize: 17,
+      fontSize: '2rem',
+    },
+    h2: {
+      fontSize: '1.75rem',
+    },
+    h3: {
+      fontSize: '1.5rem',
     },
   },
 });

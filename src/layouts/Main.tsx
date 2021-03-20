@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Container } from '@material-ui/core';
 import Head from 'next/head';
 /* import AppBar from '~/components/header/AppBar'; */
-import AppBarDense from '~/components/header/AppBarDense';
+import AppBarDense from '~/components/header/Header';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';

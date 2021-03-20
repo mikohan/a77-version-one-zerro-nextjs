@@ -72,7 +72,7 @@ export default function Cagetory(props: CategoryProps) {
           </Grid>
           <Grid item container xs={12}>
             {products.hits.map((product: IProductElasticHitsSecond) => (
-              <ProductCard product={product} />
+              <ProductCard key={product._id} product={product} />
             ))}
           </Grid>
         </Grid>

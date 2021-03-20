@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
-import { Tabs, Tab } from '@material-ui/core';
+import { Tabs, Tab, useTheme, useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AppBarDense() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -37,7 +39,6 @@ export default function AppBarDense() {
   const router = useRouter();
   const { pathname } = router;
   useEffect(() => {
-    console.log(value);
     if (pathname === '/' && value !== 0) {
       setValue(0);
     } else if (pathname === '/about' && value !== 3) {
@@ -60,10 +61,12 @@ export default function AppBarDense() {
     router.push({ pathname: '/grid', query: { count: 1 } });
   };
 
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="inherit">
-        <Toolbar variant="dense">
+      <AppBar position="static" color="transparent" elevation={0}>
+        <Toolbar variant="regular">
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -79,7 +82,7 @@ export default function AppBarDense() {
             textColor="primary"
             centered
           >
-            <Tab className={classes.tab} label="Home" onClick={goHome} />
+            <Tab label="Home" onClick={goHome} />
             <Tab label="Item Two" onClick={goMake} />
             <Tab label="Item Three" />
             <Tab label="About" onClick={goAbout} />
