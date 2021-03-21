@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 import {
   Tabs,
   Tab,
@@ -127,7 +128,7 @@ export default function AppBarDense() {
           <Divider />
           <ListItem button onClick={goContacts} selected={value === 3}>
             <ListItemIcon>
-              <InboxTwoTone />
+              <ContactMailIcon />
             </ListItemIcon>
             <ListItemText>Contacts</ListItemText>
           </ListItem>
