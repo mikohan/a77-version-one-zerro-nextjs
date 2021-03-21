@@ -53,9 +53,23 @@ export default function StickyFooter() {
               <Grid item>Home</Grid>
             </Grid>
           </Grid>
+          <Grid item>
+            <Grid container direction="column">
+              <Grid item>Contacts</Grid>
+              <Grid item>About</Grid>
+              <Grid item>Policy</Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid container direction="column">
+              <Grid item>Some page</Grid>
+              <Grid item>Some other page</Grid>
+              <Grid item>Some yet anoter page</Grid>
+            </Grid>
+          </Grid>
         </Grid>
-        <Copyright />
       </footer>
+      <Copyright />
     </div>
   );
 }
