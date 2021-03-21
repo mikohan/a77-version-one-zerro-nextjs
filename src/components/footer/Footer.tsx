@@ -25,18 +25,12 @@ const useStyles = makeStyles((theme) => ({
   /*   marginTop: theme.spacing(8), */
   /*   marginBottom: theme.spacing(2), */
   /* }, */
-  footer: {
-    /* display: 'flex', */
-    /* justifyContent: 'center', */
-    /* padding: theme.spacing(3, 2), */
-    /* marginTop: 'auto', */
-    /* backgroundColor: */
-    /*   theme.palette.type === 'light' */
-    /*     ? theme.palette.grey[200] */
-    /*     : theme.palette.grey[800], */
-  },
+  footer: {},
   mainGridContainer: {
     position: 'absolute',
+  },
+  gridItem: {
+    margin: '3rem',
   },
 }));
 
@@ -48,23 +42,30 @@ export default function StickyFooter() {
       <CssBaseline />
       <footer className={classes.footer}>
         <Grid container justify="center" className={classes.mainGridContainer}>
-          <Grid item>
-            <Grid container direction="column">
+          <Grid item className={classes.gridItem}>
+            <Grid container direction="column" spacing={2}>
               <Grid item>Home</Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Grid container direction="column">
+          <Grid item className={classes.gridItem}>
+            <Grid container direction="column" spacing={2}>
               <Grid item>Contacts</Grid>
               <Grid item>About</Grid>
               <Grid item>Policy</Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Grid container direction="column">
+          <Grid item className={classes.gridItem}>
+            <Grid container direction="column" spacing={2}>
               <Grid item>Some page</Grid>
               <Grid item>Some other page</Grid>
               <Grid item>Some yet anoter page</Grid>
+            </Grid>
+          </Grid>
+          <Grid item className={classes.gridItem}>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>About Us</Grid>
+              <Grid item>Team</Grid>
+              <Grid item>Contact Us</Grid>
             </Grid>
           </Grid>
         </Grid>

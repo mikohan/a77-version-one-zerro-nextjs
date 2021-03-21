@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 0,
       bottom: 0,
       minHeight: 50,
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.text.disabled,
     },
     divider: {
       borderBottom: '1px solid #e8e8eb ',
