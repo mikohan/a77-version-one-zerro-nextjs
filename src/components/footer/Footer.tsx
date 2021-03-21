@@ -48,7 +48,9 @@ export default function StickyFooter() {
       <CssBaseline />
       <footer className={classes.footer}>
         <Grid container justify="center" className={classes.mainGridContainer}>
-          <Grid item>HOme</Grid>
+          <Grid item>
+            <Grid container direction="column"></Grid>
+          </Grid>
         </Grid>
         <Copyright />
       </footer>
