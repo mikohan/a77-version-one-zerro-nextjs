@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       left: 0,
       bottom: 0,
-      minHeight: 50,
+      minHeight: '10rem',
       backgroundColor: theme.palette.text.disabled,
     },
     divider: {
@@ -52,11 +52,9 @@ export default function MainLayout(props: any) {
           <Grid item container xs={12}>
             {props.children}
           </Grid>
-          <Grid className={classes.footerGrid} item container>
-            <Grid item xs={12}>
-              <Footer />
-            </Grid>
-          </Grid>
+          <div>
+            <Footer />
+          </div>
         </Grid>
       </Container>
     </React.Fragment>
