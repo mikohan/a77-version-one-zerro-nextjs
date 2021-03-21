@@ -8,3 +8,5 @@ export const GET_ALL_CARS = 'GET_ALL_CARS';
 export const SET_MAKES_ACTION = 'SET_MAKES_ACTION';
 
 export const SET_CURRENT_CAR = 'SET_CURRENT_CAR';
+
+export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
