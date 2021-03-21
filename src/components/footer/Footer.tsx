@@ -20,20 +20,20 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
-  },
+  root: { minHeight: '8rem' },
+  /* main: { */
+  /*   marginTop: theme.spacing(8), */
+  /*   marginBottom: theme.spacing(2), */
+  /* }, */
   footer: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    backgroundColor:
-      theme.palette.type === 'light'
-        ? theme.palette.grey[200]
-        : theme.palette.grey[800],
+    /* display: 'flex', */
+    /* justifyContent: 'center', */
+    /* padding: theme.spacing(3, 2), */
+    /* marginTop: 'auto', */
+    /* backgroundColor: */
+    /*   theme.palette.type === 'light' */
+    /*     ? theme.palette.grey[200] */
+    /*     : theme.palette.grey[800], */
   },
   mainGridContainer: {
     position: 'absolute',
@@ -69,7 +69,6 @@ export default function StickyFooter() {
           </Grid>
         </Grid>
       </footer>
-      <Copyright />
     </div>
   );
 }
