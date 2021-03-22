@@ -12,6 +12,7 @@ import { IState } from '~/interfaces/IState';
 import { Hidden } from '@material-ui/core';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import Image from 'next/image';
+import gray from '@material-ui/core/colors/grey';
 
 function Copyright() {
   return (
@@ -33,18 +34,19 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   mainGridContainer: {
-    background: theme.palette.primary.light,
+    background: theme.palette.grey[700],
     minHeight: '10rem',
   },
   socialContainer: {},
   gridItem: {
+    paddingLeft: '5rem',
+    border: '1px solid blue',
     minHeight: '100%',
-    border: '1px solid black',
-    marginLeft: '6rem',
-    marginRight: '6rem',
   },
   link: {
     '& a': {
+      color: theme.palette.grey[50],
+      fontWeight: 700,
       margin: '0.5rem 0 0.5rem 0',
     },
   },
@@ -71,14 +73,14 @@ export default function StickyFooter() {
           alignItems="center"
           className={classes.mainGridContainer}
         >
-          <Grid item className={classes.gridItem}>
-            <Grid container direction="column">
+          <Grid item className={classes.gridItem} sm={4}>
+            <Grid className={classes.link} container direction="column">
               <Grid item component={Link} href="/">
                 Home
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={classes.gridItem}>
+          <Grid item className={classes.gridItem} sm={2}>
             <Grid className={classes.link} container direction="column">
               <Grid item component={Link} href="/contacts">
                 Contacts
@@ -96,7 +98,7 @@ export default function StickyFooter() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={classes.gridItem}>
+          <Grid item className={classes.gridItem} sm={2}>
             <Grid className={classes.link} container direction="column">
               <Grid item component={Link} href="/contacts">
                 Contacts
@@ -109,7 +111,7 @@ export default function StickyFooter() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={classes.gridItem}>
+          <Grid item className={classes.gridItem} sm={4}>
             <Grid className={classes.link} container direction="column">
               <Grid item component={Link} href="/contacts">
                 Contacts
