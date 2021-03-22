@@ -156,11 +156,10 @@ export default function StickyFooter() {
                 variant="h5"
               >{`\{INFORMATION\} `}</Typography>
               <List>
-                <ListItem>ABOUT US</ListItem>
-                <ListItem>PRIVATE POLICY</ListItem>
-                <ListItem>ORDER</ListItem>
                 <ListItem>DELIVERY</ListItem>
+                <ListItem>ORDER</ListItem>
                 <ListItem>RETURNS</ListItem>
+                <ListItem>PRIVATE POLICY</ListItem>
                 <ListItem>SITE MAP</ListItem>
               </List>
             </div>
@@ -170,12 +169,26 @@ export default function StickyFooter() {
                 variant="h5"
               >{`\{INFORMATION\} `}</Typography>
               <List>
-                <ListItem>ABOUT US</ListItem>
-                <ListItem>PRIVATE POLICY</ListItem>
-                <ListItem>ORDER</ListItem>
-                <ListItem>DELIVERY</ListItem>
-                <ListItem>RETURNS</ListItem>
-                <ListItem>SITE MAP</ListItem>
+                <Link href="/about">
+                  <ListItem>
+                    <a>ABOUT US</a>
+                  </ListItem>
+                </Link>
+                <Link href="/contacts">
+                  <ListItem>
+                    <a>CONTACTS</a>
+                  </ListItem>
+                </Link>
+                <Link href="/car">
+                  <ListItem>
+                    <a>CARS</a>
+                  </ListItem>
+                </Link>
+                <Link href="/grid">
+                  <ListItem>
+                    <a>MAKES</a>
+                  </ListItem>
+                </Link>
               </List>
             </div>
             <div>
