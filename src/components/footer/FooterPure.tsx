@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     footer: {
       color: theme.palette.grey[50],
       minHeight: '20rem',
-      background: theme.palette.grey[700],
+      background: theme.palette.grey[800],
       '& dt, & dd': {
         fontStyle: 'normal',
         margin: 0,
@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     wrapper: {
       '& > div': {
-        background: 'rgba(250,250,250,.3)',
+        /* background: 'rgba(250,250,250,.3)', */
         padding: theme.spacing(5),
       },
       '& > div:nth-child(odd)': {
-        background: 'rgba(221,221,221,.3)',
+        /* background: 'rgba(221,221,221,.3)', */
       },
       display: 'grid',
       gridTemplateColumns: '3fr 1fr 1fr 2fr',
@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '1rem 0 1rem 0',
     },
     bottomLine: {
+      background: theme.palette.grey[900],
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-end',
@@ -79,8 +80,8 @@ const useStyles = makeStyles((theme: Theme) =>
     payments: {
       '& img': {
         marginRight: theme.spacing(1),
-        width: theme.spacing(8),
-        height: theme.spacing(8),
+        width: theme.spacing(6),
+        height: theme.spacing(6),
       },
     },
   })
