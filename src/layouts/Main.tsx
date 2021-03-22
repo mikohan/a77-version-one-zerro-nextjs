@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     rootGrid: {
       position: 'relative',
-      minHeight: '100vh',
+      minHeight: '80vh',
     },
     mainGrid: {
       marginTop: theme.spacing(2),
