@@ -40,23 +40,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StickyFooter() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const activePage = useSelector((state: IState) => state.uiState.activePage);
-  const handleActivePage = (activePage: number | string) => {
-    dispatch({ type: SET_ACTIVE_PAGE, payload: activePage });
-  };
-  console.log(activePage);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <footer className={classes.footer}>
-        <div onClick={() => handleActivePage(4)}>some stuff</div>
         <Grid container justify="center" className={classes.mainGridContainer}>
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
               <Grid item component={Link} href="/">
-                <span onClick={() => handleActivePage(0)}> Home</span>
+                Home
               </Grid>
             </Grid>
           </Grid>

@@ -1,6 +1,6 @@
 import * as types from '~/store/types';
 
-const initialState = {};
+const initialState = { activePage: 0 };
 
 export interface ISetActivePage {
   type: typeof types.SET_ACTIVE_PAGE;

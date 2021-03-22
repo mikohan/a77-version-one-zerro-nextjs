@@ -34,6 +34,9 @@ const url: { [key: string]: any } = {
     href: `/products/[slug]?slug=${product.slug}`,
     as: `/products/${product.slug}`,
   }),
+  about: () => ({
+    href: `/about`,
+  }),
 };
 
 export default url;

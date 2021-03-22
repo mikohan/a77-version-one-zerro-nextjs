@@ -52,44 +52,36 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AppBarDense() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
-  const activePage = useSelector((state: IState) => state.uiState.activePage);
+  const activePage = useSelector(
+    (state: IState) => state.uiState.activePage
+  ) as number;
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     // setValue(newValue);
-    dispatch({ type: SET_ACTIVE_PAGE, payload: activePage });
+    dispatch({ type: SET_ACTIVE_PAGE, payload: newValue });
   };
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const pages: string[] = ['/', '/car', '/about', '/contacts', '/grid'];
 
   const router = useRouter();
   const { pathname } = router;
-  useEffect(() => {
-    setValue(activePage as number);
 
-    /* if (pathname === '/' && value !== 0) { */
-    /*   setValue(0); */
-    /* } else if (pathname === '/cars' && value !== 1) { */
-    /*   setValue(1); */
-    /* } else if (pathname === '/about' && value !== 2) { */
-    /*   setValue(2); */
-    /* } else if (pathname === '/contacts' && value !== 3) { */
-    /*   setValue(3); */
-    /* } else if (pathname === '/grid' && value !== 4) { */
-    /*   setValue(4); */
-    /* } */
+  const cur = pages.findIndex((item: string) => item === pathname);
+  useEffect(() => {
+    dispatch({ type: SET_ACTIVE_PAGE, payload: cur });
   }, [activePage, pathname]);
 
   const goHome = () => {
     router.push({ pathname: '/' });
     setDrawerOpen(false);
-    setValue(0);
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 0 });
   };
   const goCars = () => {
     router.push({ pathname: '/car' });
@@ -101,13 +93,12 @@ export default function AppBarDense() {
   };
   const goContacts = () => {
     router.push({ pathname: '/contacts' });
-    console.log('here');
     setDrawerOpen(false);
-    setValue(3);
   };
   const goGrid = () => {
     router.push({ pathname: '/grid' });
     setDrawerOpen(false);
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 4 });
   };
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -125,7 +116,7 @@ export default function AppBarDense() {
           <ListItem
             button
             onClick={goHome}
-            selected={value === 0}
+            selected={activePage === 0}
             className={classes.listItem}
           >
             <ListItemIcon>
@@ -134,7 +125,7 @@ export default function AppBarDense() {
             <ListItemText>Home</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button onClick={goContacts} selected={value === 3}>
+          <ListItem button onClick={goContacts} selected={activePage === 3}>
             <ListItemIcon>
               <ContactMailIcon />
             </ListItemIcon>
@@ -156,7 +147,7 @@ export default function AppBarDense() {
   const tabs = (
     <React.Fragment>
       <Tabs
-        value={value}
+        value={activePage}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
