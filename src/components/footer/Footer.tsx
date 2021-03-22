@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     margin: '6rem',
   },
   icon: {
-    fontSize: '6rem',
+    width: '4rem',
+    hight: '4rem',
   },
 }));
 
@@ -113,7 +114,11 @@ export default function StickyFooter() {
             rel="noopener noreferrer"
             target="_blank"
           >
-            VK
+            <img
+              className={classes.icon}
+              src="/images/local/vk.svg"
+              alt="VKontakte"
+            />
           </Grid>
           <Grid
             item
@@ -122,11 +127,10 @@ export default function StickyFooter() {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Image
+            <img
+              className={classes.icon}
               src="/images/local/vk.svg"
               alt="VKontakte"
-              width="50px"
-              height="50px"
             />
           </Grid>
           <Grid
@@ -136,7 +140,11 @@ export default function StickyFooter() {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <YouTubeIcon className={classes.icon} />
+            <img
+              src="/images/local/yt.svg"
+              alt="youtube link"
+              className={classes.icon}
+            />
           </Grid>
         </Grid>
       </footer>
