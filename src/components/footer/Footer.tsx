@@ -123,18 +123,19 @@ export default function StickyFooter() {
         <div className={classes.wrapper}>
           <div>
             <address className={classes.address}>
-              <Typography
-                className={classes.sectionHeader}
-                variant="h5"
-              >{`\{CONTACT US\} `}</Typography>
+              <Typography className={classes.sectionHeader} variant="h5">
+                КОНТАКТЫ
+              </Typography>
               <Typography className={classes.sectionSubheader} variant="body1">
                 Hi, we are always open for cooperation and suggestions, contact
                 us in one of the ways below:
               </Typography>
               <div className={classes.cellGrid}>
                 <dl>
-                  <dt>PHONE NUMBER</dt>
-                  <dd>{data.SHOP_PHONE}</dd>
+                  <dt>ТЕЛЕФОН</dt>
+                  <dd>
+                    <a href="tel:74956469953">{data.SHOP_PHONE}</a>
+                  </dd>
                 </dl>
                 <dl>
                   <dt>OUR LOCATION</dt>
@@ -142,7 +143,15 @@ export default function StickyFooter() {
                 </dl>
                 <dl>
                   <dt>EMAIL ADDRESS</dt>
-                  <dd>{data.SHOP_EMAIL}</dd>
+                  <dd>
+                    <a
+                      href="mailto:angara77@gmail.com"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {data.SHOP_EMAIL}
+                    </a>
+                  </dd>
                 </dl>
                 <dl>
                   <dt>WORKING HOURS</dt>
