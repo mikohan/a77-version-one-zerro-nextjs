@@ -7,6 +7,7 @@ import { List, ListItem } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN } from '~/config';
+import data from '~/data/footerData';
 interface IPropsCopyright {
   className?: string;
 }
@@ -133,19 +134,19 @@ export default function StickyFooter() {
               <div className={classes.cellGrid}>
                 <dl>
                   <dt>PHONE NUMBER</dt>
-                  <dd>{`\{CHANGE TO DB CONTENT\}`}</dd>
+                  <dd>{data.SHOP_PHONE}</dd>
                 </dl>
                 <dl>
                   <dt>OUR LOCATION</dt>
-                  <dd>{`\{CHANGE TO DB CONTENT\}`}</dd>
+                  <dd>{data.SHOP_ADDRESS}</dd>
                 </dl>
                 <dl>
                   <dt>EMAIL ADDRESS</dt>
-                  <dd>{`\{CHANGE TO DB CONTENT\}`}</dd>
+                  <dd>{data.SHOP_EMAIL}</dd>
                 </dl>
                 <dl>
                   <dt>WORKING HOURS</dt>
-                  <dd>{`\{CHANGE TO DB CONTENT\}`}</dd>
+                  <dd>{data.SHOP_WORKING_HOURS}</dd>
                 </dl>
               </div>
             </address>
