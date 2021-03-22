@@ -41,10 +41,8 @@ const useStyles = makeStyles((theme: Theme) =>
       '& > div': {
         padding: theme.spacing(5),
       },
-      '& > div:nth-child(odd)': {},
       display: 'grid',
       gridTemplateColumns: '3fr 1fr 1fr 2fr',
-      gridAutoRows: '100%',
       gridGap: theme.spacing(1),
       [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: '1fr',
