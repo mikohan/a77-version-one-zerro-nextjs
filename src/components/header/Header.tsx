@@ -9,6 +9,8 @@ import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_ACTIVE_PAGE } from '~/store/types';
 import {
   Tabs,
   Tab,
@@ -23,6 +25,7 @@ import {
 } from '@material-ui/core';
 
 import { InboxTwoTone, HomeOutlined } from '@material-ui/icons';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,9 +56,12 @@ export default function AppBarDense() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const dispatch = useDispatch();
+  const activePage = useSelector((state: IState) => state.uiState.activePage);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+    // setValue(newValue);
+    dispatch({ type: SET_ACTIVE_PAGE, payload: activePage });
   };
 
   const toggleDrawer = () => {
@@ -65,17 +71,19 @@ export default function AppBarDense() {
   const router = useRouter();
   const { pathname } = router;
   useEffect(() => {
-    if (pathname === '/' && value !== 0) {
-      setValue(0);
-    } else if (pathname === '/cars' && value !== 1) {
-      setValue(1);
-    } else if (pathname === '/about' && value !== 2) {
-      setValue(2);
-    } else if (pathname === '/contacts' && value !== 3) {
-      setValue(3);
-    } else if (pathname === '/grid' && value !== 4) {
-      setValue(4);
-    }
+    setValue(activePage as number);
+
+    /* if (pathname === '/' && value !== 0) { */
+    /*   setValue(0); */
+    /* } else if (pathname === '/cars' && value !== 1) { */
+    /*   setValue(1); */
+    /* } else if (pathname === '/about' && value !== 2) { */
+    /*   setValue(2); */
+    /* } else if (pathname === '/contacts' && value !== 3) { */
+    /*   setValue(3); */
+    /* } else if (pathname === '/grid' && value !== 4) { */
+    /*   setValue(4); */
+    /* } */
   }, []);
 
   const goHome = () => {
