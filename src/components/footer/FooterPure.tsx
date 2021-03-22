@@ -105,8 +105,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       '& > a >img': {
         marginRight: theme.spacing(1),
-        width: theme.spacing(6),
-        height: theme.spacing(6),
+        width: theme.spacing(5),
+        height: theme.spacing(5),
       },
     },
   })
