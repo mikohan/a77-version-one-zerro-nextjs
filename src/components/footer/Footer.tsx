@@ -127,8 +127,7 @@ export default function StickyFooter() {
                 КОНТАКТЫ
               </Typography>
               <Typography className={classes.sectionSubheader} variant="body1">
-                Hi, we are always open for cooperation and suggestions, contact
-                us in one of the ways below:
+                {data.SHOP_CONTACT_TEXT}
               </Typography>
               <div className={classes.cellGrid}>
                 <dl>
@@ -138,7 +137,7 @@ export default function StickyFooter() {
                   </dd>
                 </dl>
                 <dl>
-                  <dt>OUR LOCATION</dt>
+                  <dt>АДРЕС</dt>
                   <dd>{data.SHOP_ADDRESS}</dd>
                 </dl>
                 <dl>
@@ -154,7 +153,7 @@ export default function StickyFooter() {
                   </dd>
                 </dl>
                 <dl>
-                  <dt>WORKING HOURS</dt>
+                  <dt>ГРАФИК РАБОТЫ</dt>
                   <dd>{data.SHOP_WORKING_HOURS}</dd>
                 </dl>
               </div>
@@ -163,10 +162,9 @@ export default function StickyFooter() {
           <Hidden smDown>
             <Hidden mdDown>
               <div>
-                <Typography
-                  className={classes.sectionHeader}
-                  variant="h5"
-                >{`\{INFORMATION\} `}</Typography>
+                <Typography className={classes.sectionHeader} variant="h5">
+                  ИНФОРМАЦИЯ
+                </Typography>
                 <List>
                   <ListItem>DELIVERY</ListItem>
                   <ListItem>ORDER</ListItem>
