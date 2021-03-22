@@ -11,6 +11,7 @@ import { SET_ACTIVE_PAGE } from '~/store/types';
 import { IState } from '~/interfaces/IState';
 import { Hidden } from '@material-ui/core';
 import YouTubeIcon from '@material-ui/icons/YouTube';
+import Image from 'next/image';
 
 function Copyright() {
   return (
@@ -101,7 +102,7 @@ export default function StickyFooter() {
             </Grid>
           </Grid>
         </Hidden>
-        <Grid container>
+        <Grid container justify="flex-end">
           <Grid
             item
             component={'a'}
@@ -118,7 +119,12 @@ export default function StickyFooter() {
             rel="noopener noreferrer"
             target="_blank"
           >
-            VK
+            <Image
+              src="/images/local/vk.svg"
+              alt="VKontakte"
+              width="100px"
+              height="100px"
+            />
           </Grid>
           <Grid
             item
