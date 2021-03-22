@@ -84,7 +84,7 @@ export default function AppBarDense() {
     /* } else if (pathname === '/grid' && value !== 4) { */
     /*   setValue(4); */
     /* } */
-  }, []);
+  }, [activePage, pathname]);
 
   const goHome = () => {
     router.push({ pathname: '/' });

@@ -91,7 +91,7 @@ export default function StickyFooter() {
               <Grid item component={Link} href="/about">
                 About Us
               </Grid>
-              <Grid item component={Link} href="/team">
+              <Grid item component={Link} href="/grid">
                 Team
               </Grid>
               <Grid item component={Link} href="/contacts">
