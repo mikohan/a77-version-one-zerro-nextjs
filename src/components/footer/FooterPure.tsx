@@ -22,7 +22,7 @@ function Copyright({ className }: IPropsCopyright) {
     <Typography className={className} variant="body2" color="textSecondary">
       {'Copyright © '}
       <MLink color="inherit" href="/">
-        {config.SITE_DOMAIN}
+        {SITE_DOMAIN}
       </MLink>{' '}
       {new Date().getFullYear()}
       {'.'}
