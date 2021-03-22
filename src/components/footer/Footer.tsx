@@ -56,9 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('md')]: {
         gridTemplateColumns: '1fr',
       },
-      gridGap: theme.spacing(1),
+      gridRowGapGap: theme.spacing(3),
       '& >div': {
         border: '1px solid black',
+      },
+      '& > dl': {
+        paddingRight: '2rem',
       },
     },
     address: {
@@ -150,19 +153,21 @@ export default function StickyFooter() {
             </address>
           </div>
           <Hidden smDown>
-            <div>
-              <Typography
-                className={classes.sectionHeader}
-                variant="h5"
-              >{`\{INFORMATION\} `}</Typography>
-              <List>
-                <ListItem>DELIVERY</ListItem>
-                <ListItem>ORDER</ListItem>
-                <ListItem>RETURNS</ListItem>
-                <ListItem>PRIVATE POLICY</ListItem>
-                <ListItem>SITE MAP</ListItem>
-              </List>
-            </div>
+            <Hidden mdDown>
+              <div>
+                <Typography
+                  className={classes.sectionHeader}
+                  variant="h5"
+                >{`\{INFORMATION\} `}</Typography>
+                <List>
+                  <ListItem>DELIVERY</ListItem>
+                  <ListItem>ORDER</ListItem>
+                  <ListItem>RETURNS</ListItem>
+                  <ListItem>PRIVATE POLICY</ListItem>
+                  <ListItem>SITE MAP</ListItem>
+                </List>
+              </div>
+            </Hidden>
             <div>
               <Typography
                 className={classes.sectionHeader}
