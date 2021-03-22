@@ -27,28 +27,34 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: { minHeight: '8rem', position: 'relative' },
+  root: {},
   /* main: { */
   /*   marginTop: theme.spacing(8), */
   /*   marginBottom: theme.spacing(2), */
   /* }, */
-  footer: {},
-  mainGridContainer: {
-    // position: 'absolute',
+  commonGrid: {
+    minHeight: '10rem',
   },
-  socialContainer: {
-    position: 'absolute',
-    right: '1.5em',
+  footer: {
+    width: '100%',
+    /* position: 'absolute', */
+    /* bottom: 0, */
+    background: theme.palette.primary.light,
   },
+  mainGridContainer: {},
+  socialContainer: {},
   gridItem: {
-    margin: '6rem',
+    border: '1px solid black',
+    marginLeft: '6rem',
+    marginRight: '6rem',
   },
+  link: {},
   icon: {
-    width: '3rem',
-    hight: '3rem',
+    width: '2rem',
+    hight: '2rem',
     [theme.breakpoints.down('sm')]: {
-      width: '2rem',
-      hight: '2rem',
+      width: '1.5rem',
+      hight: '1.5rem',
     },
   },
 }));
@@ -57,24 +63,25 @@ export default function StickyFooter() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <footer className={classes.footer}>
+    <footer className={classes.footer}>
+      <Grid container className={classes.commonGrid}>
         <Hidden smDown>
           <Grid
             container
+            item
             justify="center"
+            alignItems="center"
             className={classes.mainGridContainer}
           >
             <Grid item className={classes.gridItem}>
-              <Grid container direction="column" spacing={2}>
+              <Grid container direction="column">
                 <Grid item component={Link} href="/">
                   Home
                 </Grid>
               </Grid>
             </Grid>
             <Grid item className={classes.gridItem}>
-              <Grid container direction="column" spacing={2}>
+              <Grid container direction="column">
                 <Grid item component={Link} href="/contacts">
                   Contacts
                 </Grid>
@@ -87,7 +94,7 @@ export default function StickyFooter() {
               </Grid>
             </Grid>
             <Grid item className={classes.gridItem}>
-              <Grid container direction="column" spacing={2}>
+              <Grid container direction="column">
                 <Grid item component={Link} href="/">
                   Some page
                 </Grid>
@@ -100,8 +107,13 @@ export default function StickyFooter() {
               </Grid>
             </Grid>
             <Grid item className={classes.gridItem}>
-              <Grid container direction="column" spacing={2}>
-                <Grid item component={Link} href="/about">
+              <Grid container direction="column">
+                <Grid
+                  className={classes.link}
+                  item
+                  component={Link}
+                  href="/about"
+                >
                   About Us
                 </Grid>
                 <Grid item component={Link} href="/grid">
@@ -117,7 +129,7 @@ export default function StickyFooter() {
         <Grid
           className={classes.socialContainer}
           container
-          spacing={2}
+          item
           justify="flex-end"
         >
           <Grid
@@ -160,7 +172,7 @@ export default function StickyFooter() {
             />
           </Grid>
         </Grid>
-      </footer>
-    </div>
+      </Grid>
+    </footer>
   );
 }

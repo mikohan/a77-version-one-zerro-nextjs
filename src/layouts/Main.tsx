@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       borderBottom: '1px solid #e8e8eb ',
     },
+    footerDiv: {},
   })
 );
 
@@ -52,11 +53,11 @@ export default function MainLayout(props: any) {
           <Grid item container xs={12}>
             {props.children}
           </Grid>
-          <div>
-            <Footer />
-          </div>
         </Grid>
       </Container>
+      <div className={classes.footerDiv}>
+        <Footer />
+      </div>
     </React.Fragment>
   );
 }
