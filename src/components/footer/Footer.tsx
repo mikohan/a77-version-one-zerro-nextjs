@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainGridContainer: {
     background: theme.palette.grey[700],
-    minHeight: '10rem',
+    minHeight: '20rem',
   },
   socialContainer: {},
   gridItem: {
@@ -43,11 +43,16 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid blue',
     minHeight: '100%',
   },
+  rowGrid: {
+    /* marginTop: '1rem', */
+    /* marginBottom: '1rem', */
+    color: theme.palette.grey[50],
+    fontWeight: 700,
+  },
   link: {
     '& a': {
       color: theme.palette.grey[50],
       fontWeight: 700,
-      margin: '0.5rem 0 0.5rem 0',
     },
   },
   icon: {
@@ -72,54 +77,73 @@ export default function StickyFooter() {
           justify="center"
           alignItems="center"
           className={classes.mainGridContainer}
+          spacing={0}
         >
-          <Grid item className={classes.gridItem} sm={4}>
-            <Grid className={classes.link} container direction="column">
-              <Grid item component={Link} href="/">
+          <Grid item className={classes.gridItem} sm={3}>
+            <Grid
+              className={classes.link}
+              container
+              direction="column"
+              spacing={6}
+            >
+              <Grid className={classes.rowGrid} item>
+                Home
+              </Grid>
+              <Grid className={classes.rowGrid} container item direction="row">
+                <Grid item xs>
+                  Stuff
+                </Grid>
+                <Grid item xs>
+                  Stuff
+                </Grid>
+              </Grid>
+              <Grid className={classes.rowGrid} item>
                 Home
               </Grid>
             </Grid>
           </Grid>
           <Grid item className={classes.gridItem} sm={2}>
-            <Grid className={classes.link} container direction="column">
-              <Grid item component={Link} href="/contacts">
-                Contacts
+            <Grid
+              className={classes.link}
+              container
+              direction="column"
+              spacing={6}
+            >
+              <Grid className={classes.rowGrid} item>
+                <Link href="/contacts">Contacts</Link>
               </Grid>
-              <Grid
-                className={classes.link}
-                item
-                component={Link}
-                href="/about"
-              >
+              <Grid className={classes.rowGrid} item>
                 About
               </Grid>
-              <Grid className={classes.link} item component={Link} href="/grid">
-                Grid
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item className={classes.gridItem} sm={2}>
-            <Grid className={classes.link} container direction="column">
-              <Grid item component={Link} href="/contacts">
-                Contacts
-              </Grid>
-              <Grid className={classes.link} item component={Link} href="/">
-                About
-              </Grid>
-              <Grid className={classes.link} item component={Link} href="/">
+              <Grid className={classes.rowGrid} item>
                 Policy
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={classes.gridItem} sm={4}>
-            <Grid className={classes.link} container direction="column">
-              <Grid item component={Link} href="/contacts">
-                Contacts
+          <Grid item className={classes.gridItem} sm={2}>
+            <Grid container direction="column">
+              <Grid container direction="column" spacing={6}>
+                <Grid className={classes.rowGrid} item>
+                  <Link href="/contacts">Contacts</Link>
+                </Grid>
+                <Grid className={classes.rowGrid} item>
+                  About
+                </Grid>
+                <Grid className={classes.rowGrid} item>
+                  Policy
+                </Grid>
               </Grid>
-              <Grid className={classes.link} item component={Link} href="/">
+            </Grid>
+          </Grid>
+          <Grid item className={classes.gridItem} sm={3}>
+            <Grid container direction="column" spacing={6}>
+              <Grid className={classes.rowGrid} item>
+                <Link href="/contacts">Contacts</Link>
+              </Grid>
+              <Grid className={classes.rowGrid} item>
                 About
               </Grid>
-              <Grid className={classes.link} item component={Link} href="/">
+              <Grid className={classes.rowGrid} item>
                 Policy
               </Grid>
             </Grid>
