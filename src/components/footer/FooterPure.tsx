@@ -185,7 +185,7 @@ export default function StickyFooter() {
               <Typography
                 className={classes.sectionHeader}
                 variant="h5"
-              >{`\{INFORMATION\} `}</Typography>
+              >{`\{FOLLOW US\} `}</Typography>
               <Typography className={classes.sectionSubheader} variant="body1">
                 Hi, we are always open for cooperation and suggestions, contact
                 us in one of the ways below:
