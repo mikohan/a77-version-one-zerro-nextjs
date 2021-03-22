@@ -5,7 +5,7 @@ import Head from 'next/head';
 import AppBarDense from '~/components/header/Header';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
-import Footer from '~/components/footer/FooterPure';
+import Footer from '~/components/footer/Footer';
 import LeftSideBar from '~/components/main/LeftSideBar';
 
 const useStyles = makeStyles((theme: Theme) =>
