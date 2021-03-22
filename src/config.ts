@@ -33,3 +33,5 @@ export const cookiesAge = {
 };
 
 export const firstSlug = 'car';
+
+export const SITE_DOMAIN = 'ANGARA77.COM';

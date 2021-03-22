@@ -12,7 +12,23 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 import Image from 'next/image';
 import gray from '@material-ui/core/colors/grey';
 import { createStyles, Theme } from '@material-ui/core/styles';
+import { SITE_DOMAIN } from '~/config';
+interface IPropsCopyright {
+  className?: string;
+}
 
+function Copyright({ className }: IPropsCopyright) {
+  return (
+    <Typography className={className} variant="body2" color="textSecondary">
+      {'Copyright © '}
+      <MLink color="inherit" href="/">
+        {config.SITE_DOMAIN}
+      </MLink>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     footer: {
@@ -71,11 +87,12 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '1rem 0 1rem 0',
     },
     bottomLine: {
-      background: theme.palette.grey[900],
+      background: '#2b2b2b',
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       paddingRight: '3rem',
+      paddingLeft: '3rem',
     },
     payments: {
       '& img': {
@@ -83,6 +100,12 @@ const useStyles = makeStyles((theme: Theme) =>
         width: theme.spacing(6),
         height: theme.spacing(6),
       },
+    },
+    copyright: {
+      alignSelf: 'center',
+    },
+    copyColor: {
+      color: theme.palette.grey[500],
     },
   })
 );
@@ -166,6 +189,9 @@ export default function StickyFooter() {
           </Hidden>
         </div>
         <div className={classes.bottomLine}>
+          <div className={classes.copyright}>
+            <Copyright className={classes.copyColor} />
+          </div>
           <div className={classes.payments}>
             <img src="/images/local/visa.svg" alt="MasterCard" />
             <img src="/images/local/mastercard.svg" alt="MasterCard" />
