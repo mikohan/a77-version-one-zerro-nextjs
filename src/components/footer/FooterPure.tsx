@@ -4,13 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import MLink from '@material-ui/core/Link';
 import { List, ListItem } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_ACTIVE_PAGE } from '~/store/types';
-import { IState } from '~/interfaces/IState';
 import { Hidden } from '@material-ui/core';
-import YouTubeIcon from '@material-ui/icons/YouTube';
-import Image from 'next/image';
-import gray from '@material-ui/core/colors/grey';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN } from '~/config';
 interface IPropsCopyright {
@@ -62,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
     cellGrid: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
+      [theme.breakpoints.down('xs')]: {
+        gridTemplateColumns: '1fr',
+      },
       gridGap: theme.spacing(1),
       '& >div': {
         border: '1px solid black',
@@ -226,20 +223,22 @@ export default function StickyFooter() {
             </div>
           </Hidden>
         </div>
-        <div className={classes.bottomLine}>
-          <div className={classes.copyright}>
-            <Copyright className={classes.copyColor} />
+        <Hidden smDown>
+          <div className={classes.bottomLine}>
+            <div className={classes.copyright}>
+              <Copyright className={classes.copyColor} />
+            </div>
+            <div className={classes.payments}>
+              <img src="/images/local/visa.svg" alt="visa icon" />
+              <img src="/images/local/mastercard.svg" alt="Mastercard icon" />
+              <img
+                src="/images/local/generic.svg"
+                alt="Generic credit card icon"
+              />
+              <img src="/images/local/mir.svg" alt="Mir icon" />
+            </div>
           </div>
-          <div className={classes.payments}>
-            <img src="/images/local/visa.svg" alt="visa icon" />
-            <img src="/images/local/mastercard.svg" alt="Mastercard icon" />
-            <img
-              src="/images/local/generic.svg"
-              alt="Generic credit card icon"
-            />
-            <img src="/images/local/mir.svg" alt="Mir icon" />
-          </div>
-        </div>
+        </Hidden>
       </div>
     </footer>
   );
