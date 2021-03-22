@@ -39,12 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     wrapper: {
       '& > div': {
-        /* background: 'rgba(250,250,250,.3)', */
         padding: theme.spacing(5),
       },
-      '& > div:nth-child(odd)': {
-        /* background: 'rgba(221,221,221,.3)', */
-      },
+      '& > div:nth-child(odd)': {},
       display: 'grid',
       gridTemplateColumns: '3fr 1fr 1fr 2fr',
       gridAutoRows: '100%',
@@ -56,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
     cellGrid: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('md')]: {
         gridTemplateColumns: '1fr',
       },
       gridGap: theme.spacing(1),
