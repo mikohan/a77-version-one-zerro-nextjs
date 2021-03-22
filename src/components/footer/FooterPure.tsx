@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     socialMedia: {
       display: 'flex',
-      '& > img': {
+      '& > a >img': {
         marginRight: theme.spacing(1),
         width: theme.spacing(6),
         height: theme.spacing(6),
@@ -201,10 +201,26 @@ export default function StickyFooter() {
                   Follow us on social media
                 </Typography>
                 <div className={classes.socialMedia}>
-                  <img src="/images/local/yt.svg" alt="YouTube icon" />
-                  <img src="/images/local/vk.svg" alt="V kontacte icon" />
-                  <img src="/images/local/ok.svg" alt="Odnoklasniki icon" />
-                  <img src="/images/local/twitter.svg" alt="Twitter icon" />
+                  <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/yt.svg" alt="YouTube icon" />
+                    </a>
+                  </Link>
+                  <Link href="https://vk.com/angara772018">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/vk.svg" alt="V kontacte icon" />
+                    </a>
+                  </Link>
+                  <Link href="https://ok.ru/group/52962919973041">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/ok.svg" alt="Odnoklasniki icon" />
+                    </a>
+                  </Link>
+                  <Link href="https://www.facebook.com/groups/angara77/">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/fb.svg" alt="Facebook icon" />
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
