@@ -15,6 +15,11 @@ export interface IShopState {
   categories: ICategory[];
 }
 
+interface IActivePage {
+  activePage: string | number;
+}
+
 export interface IState {
   shop: IShopState;
+  uiState: IActivePage;
 }

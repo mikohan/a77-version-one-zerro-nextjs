@@ -6,7 +6,7 @@ export interface ISetActivePage {
   type: typeof types.SET_ACTIVE_PAGE;
   payload: string;
 }
-export const getCategoriesReducer = (
+export const activePageReducer = (
   state = initialState,
   action: ISetActivePage
 ) => {

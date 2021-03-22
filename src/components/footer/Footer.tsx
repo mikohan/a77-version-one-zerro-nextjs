@@ -6,6 +6,9 @@ import Container from '@material-ui/core/Container';
 import Link from 'next/link';
 import MLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_ACTIVE_PAGE } from '~/store/types';
+import { IState } from '~/interfaces/IState';
 
 function Copyright() {
   return (
@@ -37,22 +40,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StickyFooter() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const activePage = useSelector((state: IState) => state.uiState.activePage);
+  const handleActivePage = (activePage: number | string) => {
+    dispatch({ type: SET_ACTIVE_PAGE, payload: activePage });
+  };
+  console.log(activePage);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <footer className={classes.footer}>
+        <div onClick={() => handleActivePage(4)}>some stuff</div>
         <Grid container justify="center" className={classes.mainGridContainer}>
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
               <Grid item component={Link} href="/">
-                Home
+                <span onClick={() => handleActivePage(0)}> Home</span>
               </Grid>
             </Grid>
           </Grid>
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
-              <Grid item component={Link} href="/">
+              <Grid item component={Link} href="/contacts">
                 Contacts
               </Grid>
               <Grid item component={Link} href="/">
