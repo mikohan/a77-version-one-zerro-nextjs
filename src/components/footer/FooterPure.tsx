@@ -107,6 +107,14 @@ const useStyles = makeStyles((theme: Theme) =>
     copyColor: {
       color: theme.palette.grey[500],
     },
+    socialMedia: {
+      display: 'flex',
+      '& > img': {
+        marginRight: theme.spacing(1),
+        width: theme.spacing(6),
+        height: theme.spacing(6),
+      },
+    },
   })
 );
 
@@ -185,6 +193,20 @@ export default function StickyFooter() {
                 Hi, we are always open for cooperation and suggestions, contact
                 us in one of the ways below:
               </Typography>
+              <div>
+                <Typography
+                  className={classes.sectionSubheader}
+                  variant="body1"
+                >
+                  Follow us on social media
+                </Typography>
+                <div className={classes.socialMedia}>
+                  <img src="/images/local/yt.svg" alt="YouTube icon" />
+                  <img src="/images/local/vk.svg" alt="V kontacte icon" />
+                  <img src="/images/local/ok.svg" alt="Odnoklasniki icon" />
+                  <img src="/images/local/twitter.svg" alt="Twitter icon" />
+                </div>
+              </div>
             </div>
           </Hidden>
         </div>
@@ -193,13 +215,54 @@ export default function StickyFooter() {
             <Copyright className={classes.copyColor} />
           </div>
           <div className={classes.payments}>
-            <img src="/images/local/visa.svg" alt="MasterCard" />
-            <img src="/images/local/mastercard.svg" alt="MasterCard" />
-            <img src="/images/local/generic.svg" alt="MasterCard" />
-            <img src="/images/local/mir.svg" alt="MasterCard" />
+            <img src="/images/local/visa.svg" alt="visa icon" />
+            <img src="/images/local/mastercard.svg" alt="Mastercard icon" />
+            <img
+              src="/images/local/generic.svg"
+              alt="Generic credit card icon"
+            />
+            <img src="/images/local/mir.svg" alt="Mir icon" />
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
+/* <Grid className={classes.socialContainer} container item justify="flex-end"> */
+/*   <Grid */
+/*     item */
+/*     component={'a'} */
+/*     href="https://vk.com/angara772018" */
+/*     rel="noopener noreferrer" */
+/*     target="_blank" */
+/*   > */
+/*     <img className={classes.icon} src="/images/local/vk.svg" alt="VKontakte" /> */
+/*   </Grid> */
+/*   <Grid */
+/*     item */
+/*     component={'a'} */
+/*     href="https://ok.ru/group/52962919973041" */
+/*     rel="noopener noreferrer" */
+/*     target="_blank" */
+/*   > */
+/*     <img */
+/*       className={classes.icon} */
+/*       src="/images/local/ok.svg" */
+/*       alt="Odnoklasniki" */
+/*     /> */
+/*   </Grid> */
+/*   <Grid */
+/*     item */
+/*     component={'a'} */
+/*     href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw" */
+/*     rel="noopener noreferrer" */
+/*     target="_blank" */
+/*   > */
+/*     <img */
+/*       src="/images/local/yt.svg" */
+/*       alt="youtube link" */
+/*       className={classes.icon} */
+/*     /> */
+/*   </Grid> */
+/* </Grid>; */
