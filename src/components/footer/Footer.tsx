@@ -36,12 +36,20 @@ const useStyles = makeStyles((theme) => ({
   mainGridContainer: {
     // position: 'absolute',
   },
+  socialContainer: {
+    position: 'absolute',
+    right: '1.5em',
+  },
   gridItem: {
     margin: '6rem',
   },
   icon: {
-    width: '4rem',
-    hight: '4rem',
+    width: '3rem',
+    hight: '3rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '2rem',
+      hight: '2rem',
+    },
   },
 }));
 
@@ -106,7 +114,12 @@ export default function StickyFooter() {
             </Grid>
           </Grid>
         </Hidden>
-        <Grid container justify="flex-end">
+        <Grid
+          className={classes.socialContainer}
+          container
+          spacing={2}
+          justify="flex-end"
+        >
           <Grid
             item
             component={'a'}
@@ -123,20 +136,20 @@ export default function StickyFooter() {
           <Grid
             item
             component={'a'}
-            href="http://ok.ru"
+            href="https://ok.ru/group/52962919973041"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
               className={classes.icon}
-              src="/images/local/vk.svg"
-              alt="VKontakte"
+              src="/images/local/ok.svg"
+              alt="Odnoklasniki"
             />
           </Grid>
           <Grid
             item
             component={'a'}
-            href="http://youtube.com"
+            href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw"
             rel="noopener noreferrer"
             target="_blank"
           >
