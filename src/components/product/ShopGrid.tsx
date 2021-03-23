@@ -9,16 +9,12 @@ import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      maxWidth: 345,
-      height: '100%',
-    },
     cards: {
       margin: '0 auto',
       padding: theme.spacing(2),
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fill, minmax(300px, 1fr))`,
-      gridGap: theme.spacing(3), // padding for cards in the content area
+      gridTemplateColumns: `repeat(auto-fill, minmax(260px, 1fr))`,
+      gridGap: theme.spacing(4), // padding for cards in the content area
       marginBottom: theme.spacing(5),
     },
     card: {
@@ -26,13 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardImage: {
       width: '100%',
-      display: 'block',
+      minHeight: '300px',
+      objectFit: 'cover',
     },
     cardContent: {
-      minHeight: '10rem',
+      minHeight: '8rem',
       lineHeight: '1.5',
       padding: theme.spacing(3),
-      background: '#ddd',
     },
     cardInfo: {
       paddingLeft: theme.spacing(5),
@@ -42,8 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      background: '#eee',
-      borderBottom: '1px solid #c0c0c0',
+      /* background: theme.palette.grey[200], */
     },
     shoppingCartIcon: {
       fontSize: '2rem',
@@ -68,7 +63,7 @@ export default function ShopGrid({ products }: IProps) {
           <div key={item._id} className={classes.card}>
             <img src={imgPath} className={classes.cardImage} alt="Some image" />
             <div className={classes.cardContent}>
-              <Typography variant="h5">{item._source.name}</Typography>
+              <Typography variant="h6">{item._source.name}</Typography>
             </div>
             <div className={classes.cardInfo}>
               <Typography variant="h6">$ 450.00</Typography>
