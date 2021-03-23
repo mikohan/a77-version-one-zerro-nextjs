@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import React from 'react';
 
+import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Box } from '@material-ui/core';
 import { REVALIDATE } from '~/config';
