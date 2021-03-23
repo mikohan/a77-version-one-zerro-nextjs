@@ -138,13 +138,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { make: string; model: string; category: string };
   }[] = [];
 
-  /* for (let cat of categories) { */
-  /*   for (let val of makeModel) { */
-  /*     paths.push({ */
-  /*       params: { make: val.make, model: val.model, category: cat.slug }, */
-  /*     }); */
-  /*   } */
-  /* } */
   for (let model of makeModel) {
     const promise = await getProductsByCar(model.model);
     const categories: IAggregationCategory[] =
