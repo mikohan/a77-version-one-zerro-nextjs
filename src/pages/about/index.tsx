@@ -1,18 +1,25 @@
-import { motion } from 'framer-motion';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { durationPage } from '~/config';
-import { SET_ACTIVE_PAGE } from '~/store/types';
+import React from 'react';
+import Head from 'next/head';
+import AnimationPage from '~/components/common/AnimationPage';
+import data from '~/data/shopData';
 
 export default function About() {
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: durationPage }}
-    >
-      <h1>About Page</h1>;
-    </motion.div>
+    <React.Fragment>
+      <Head>
+        <title key="title">About US - History & Team | Angara Parts</title>
+        <meta
+          key="description"
+          name="description"
+          content={`Angara 77 | ${data.SHOP_PHONE} Information about our
+          company and history of establishment. We are open our dors in 2001 first time`}
+        />
+      </Head>
+      <AnimationPage>
+        <div>
+          <h1>About Page</h1>;
+        </div>
+      </AnimationPage>
+    </React.Fragment>
   );
 }
