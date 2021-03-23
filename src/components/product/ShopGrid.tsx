@@ -1,5 +1,8 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { IProductElasticHitsSecond } from '~/interfaces/product';
+import {
+  IProductElasticHitsSecond,
+  IProductElasticHitsFirst,
+} from '~/interfaces/product';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Typography } from '@material-ui/core';
 
@@ -47,36 +50,41 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  products: IProductElasticHitsSecond[];
+  products: IProductElasticHitsFirst;
 }
 
-export default function ShopGrid({}: IProps) {
+export default function ShopGrid({ products }: IProps) {
+  console.log(products);
   const classes = useStyles();
   return (
     <div className={classes.cards}>
-      <div className={classes.card}>
-        <img
-          src="https://via.placeholder.com/300/09f/fff.png"
-          className={classes.cardImage}
-          alt="Some image"
-        />
-        <div className={classes.cardContent}>
-          <Typography variant="h3">
-            Lorem ipsum dolor sit amet consectetur
-          </Typography>
-          <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab facilis
-            magnam debitis vero, molestiae quod nesciunt soluta voluptatibus
-            necessitatibus explicabo!
-          </Typography>
-        </div>
-        <div className={classes.cardInfo}>
-          <Typography variant="h6">$ 450.00</Typography>
-          <div>
-            <ShoppingCartIcon className={classes.shoppingCartIcon} />
+      {products.hits.map((item: IProductElasticHitsSecond) => {
+        return (
+          <div className={classes.card}>
+            <img
+              src="https://via.placeholder.com/300/09f/fff.png"
+              className={classes.cardImage}
+              alt="Some image"
+            />
+            <div className={classes.cardContent}>
+              <Typography variant="h3">
+                Lorem ipsum dolor sit amet consectetur
+              </Typography>
+              <Typography variant="body2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
+                facilis magnam debitis vero, molestiae quod nesciunt soluta
+                voluptatibus necessitatibus explicabo!
+              </Typography>
+            </div>
+            <div className={classes.cardInfo}>
+              <Typography variant="h6">$ 450.00</Typography>
+              <div>
+                <ShoppingCartIcon className={classes.shoppingCartIcon} />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 }
