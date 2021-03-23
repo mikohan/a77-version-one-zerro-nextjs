@@ -3,7 +3,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { REVALIDATE } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
-import MainLayout from '~/layouts/Main';
+import ShopCarGrid from '~/components/product/ShopMakeGrid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Animation from '~/components/common/AnimationPage';
@@ -22,22 +22,9 @@ function Make(props: ICarProps) {
 
   return (
     <Animation>
-      <List>
-        {models.map((model: ICar) => (
-          <Link href={`/car/${make.slug}/${model.slug}`} key={model.id}>
-            <a>
-              <ListItem>
-                <Box>
-                  <p>Slug - {model.slug}</p>
-                  <Typography variant="h1">{model.model}</Typography>
-                  <Typography variant="h3">{model.engine}</Typography>
-                  <div>some text</div>
-                </Box>
-              </ListItem>
-            </a>
-          </Link>
-        ))}
-      </List>
+      <div>
+        <ShopCarGrid cars={models} />
+      </div>
     </Animation>
   );
 }

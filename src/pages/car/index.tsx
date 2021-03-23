@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import ShopCarGrid from '~/components/product/ShopCarGrid';
+import ShopCarGrid from '~/components/product/ShopMakeGrid';
 
 import { List, ListItem, Grid, Hidden, Typography } from '@material-ui/core';
 import Link from 'next/link';
