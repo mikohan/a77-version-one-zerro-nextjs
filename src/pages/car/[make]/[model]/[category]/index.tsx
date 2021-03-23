@@ -1,6 +1,6 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, Head } from 'next';
+import React from 'react';
 
-import MainLayout from '~/layouts/Main';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Box } from '@material-ui/core';
 import { REVALIDATE } from '~/config';
@@ -24,6 +24,7 @@ import { makeTree } from '~/utils';
 import ProductCard from '~/components/product/ProductCard2';
 import PageHeader from '~/components/product/PageHeader';
 import { red, green, blue } from '@material-ui/core/colors';
+import ShopGrid from '~/components/product/ShopGrid';
 
 const redColor = red[500];
 const greenColor = green[600];
@@ -54,30 +55,57 @@ export default function Cagetory(props: CategoryProps) {
   filters.push(filterCategory);
 
   return (
-    <AnimationPage>
-      <Grid container spacing={0}>
-        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
-          <LeftSideBar>
-            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
-          </LeftSideBar>
+    <React.Fragment>
+      <Head>
+        <title key="title">About US - History & Team | Angara Parts</title>
+        <meta
+          key="description"
+          name="description"
+          content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
+          company and history of establishment. We are open our dors in 2001 first time`}
+        />
+        <meta
+          key="og:title"
+          property="og:title"
+          content="Get your car in perfect health | Angara Parts | About Us"
+        />
+        <meta
+          key="og:url"
+          property="og:url"
+          content={`${SITE_DOMAIN_FULL}/about`}
+        />
+        <meta key="og:image" property="og:image" content="/favicon.png" />
+        <meta
+          key="og:image:type"
+          property="og:image:type"
+          content="image/png"
+        />
+        <meta key="og:image:width" property="og:image:width" content="1200" />
+        <meta key="og:image:hight" property="og:image:hight" content="630" />
+
+        <meta
+          key="og:image:alt"
+          property="og:image:alt"
+          content="Angara 77 logo"
+        />
+        <link
+          rel="canonical"
+          key="canonical"
+          href={`${SITE_DOMAIN_FULL}/about`}
+        />
+      </Head>
+      <AnimationPage>
+        <Grid container>
+          <Grid item xs={3} style={{ border: '1px solid green' }}>
+            LEFT SIDE PANE
+          </Grid>
+          <Grid style={{ border: '1px solid green' }} item xs={9}>
+            <Typography variant="h1">About Page</Typography>
+            <ShopGrid products={products} />
+          </Grid>
         </Grid>
-        <Grid container item xs={12} sm={9}>
-          <Grid item xs={12}>
-            <PageHeader model={model} totalParts={products.total.value} />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1" style={{ color: redColor }}>
-              Time for ISG checking: {updated}
-            </Typography>
-          </Grid>
-          <Grid item container xs={12}>
-            {products.hits.map((product: IProductElasticHitsSecond) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
-    </AnimationPage>
+      </AnimationPage>
+    </React.Fragment>
   );
 }
 
