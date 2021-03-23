@@ -7,7 +7,7 @@ import { List, ListItem } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN } from '~/config';
-import data from '~/data/shopData';
+import { footerData as data } from '~/config';
 interface IPropsCopyright {
   className?: string;
 }

@@ -1,3 +1,5 @@
+export * from '~/data/shopData';
+
 export const apiUrl = 'http://localhost:8000/testcategory/';
 
 export const vehiclesUrl = `${apiUrl}testproducts/vehicles/`;
@@ -35,3 +37,4 @@ export const cookiesAge = {
 export const firstSlug = 'car';
 
 export const SITE_DOMAIN = 'ANGARA77.COM';
+export const SITE_DOMAIN_FULL = 'https://angara77.com';
