@@ -4,14 +4,12 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import ShopGrid from '~/components/product/ShopGrid';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
-import {
-  IProductElasticHitsFirst,
-  IProductElasticHitsSecond,
-} from '~/interfaces/product';
+import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { GetStaticPropsContext } from 'next';
+import { Grid, Typography } from '@material-ui/core';
 
 interface IProps {
-  products: IProductElasticHitsSecond[];
+  products: IProductElasticHitsFirst;
 }
 
 export default function About({ products }: IProps) {
@@ -56,10 +54,10 @@ export default function About({ products }: IProps) {
         />
       </Head>
       <AnimationPage>
-        <div>
-          <h1>About Page</h1>
+        <Grid container item>
+          <Typography variant="h1">About Page</Typography>
           <ShopGrid products={products} />
-        </div>
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );

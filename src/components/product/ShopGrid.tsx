@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     cards: {
       margin: '0 auto',
       display: 'grid',
-      gridTemplateColumns: `repeat(3, 1fr)`,
+      gridTemplateColumns: `repeat(auto-fill, minmax(200px, 1fr))`,
       gridGap: theme.spacing(3),
       marginBottom: theme.spacing(5),
     },
@@ -54,13 +54,12 @@ interface IProps {
 }
 
 export default function ShopGrid({ products }: IProps) {
-  console.log(products);
   const classes = useStyles();
   return (
     <div className={classes.cards}>
       {products.hits.map((item: IProductElasticHitsSecond) => {
         return (
-          <div className={classes.card}>
+          <div key={item._id} className={classes.card}>
             <img
               src="https://via.placeholder.com/300/09f/fff.png"
               className={classes.cardImage}

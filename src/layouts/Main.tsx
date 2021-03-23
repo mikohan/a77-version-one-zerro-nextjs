@@ -13,12 +13,19 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
+    container: {
+      border: '3px solid blue',
+    },
     rootGrid: {
       position: 'relative',
       minHeight: '80vh',
+      border: '2px solid blue',
     },
     mainGrid: {
       marginTop: theme.spacing(2),
+    },
+    contentGrid: {
+      border: '5px solid pink',
     },
     footerGrid: {
       position: 'absolute',
@@ -39,18 +46,15 @@ export default function MainLayout(props: any) {
   return (
     <React.Fragment>
       <Head>
-        <title>A77 new life</title>
+        <title>Angara && | The Best Spares Shop</title>
       </Head>
-      <Container maxWidth="lg">
+      <Container className={classes.container} maxWidth="xl">
         <Grid className={classes.rootGrid} container direction="column">
           <Grid item xs={12}>
             <AppBarDense />
             <div className={classes.divider} />
           </Grid>
-          <Grid item xs={12}>
-            {/* <AppBar /> */}
-          </Grid>
-          <Grid item container xs={12}>
+          <Grid className={classes.contentGrid} item container xs={12}>
             {props.children}
           </Grid>
         </Grid>
