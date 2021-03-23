@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       position: 'relative',
       display: 'block',
-      boxShadow: '3px 1px 10px 5px rgba(0, 0, 0, 0.1)',
+      boxShadow: '1px 1px 3px 1px rgba(0, 0, 0, 0.1)',
+      borderRadius: '1px',
     },
     cardImage: {
       display: 'block',
