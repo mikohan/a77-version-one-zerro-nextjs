@@ -14,11 +14,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     container: {
+      display: 'grid',
       border: '3px solid blue',
     },
     rootGrid: {
-      position: 'relative',
-      minHeight: '80vh',
       border: '2px solid blue',
     },
     mainGrid: {
@@ -49,15 +48,13 @@ export default function MainLayout(props: any) {
         <title>Angara && | The Best Spares Shop</title>
       </Head>
       <Container className={classes.container} maxWidth="xl">
-        <Grid className={classes.rootGrid} container direction="column">
-          <Grid item xs={12}>
+        <div className={classes.rootGrid}>
+          <div>
             <AppBarDense />
             <div className={classes.divider} />
-          </Grid>
-          <Grid className={classes.contentGrid} item container xs={12}>
-            {props.children}
-          </Grid>
-        </Grid>
+          </div>
+          <div className={classes.contentGrid}>{props.children}</div>
+        </div>
       </Container>
       <div className={classes.footerDiv}>
         <Footer />

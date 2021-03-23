@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     cards: {
       margin: '0 auto',
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fill, minmax(200px, 1fr))`,
+      gridTemplateColumns: `repeat(auto-fill, minmax(225px, 1fr))`,
       gridGap: theme.spacing(3),
       marginBottom: theme.spacing(5),
     },

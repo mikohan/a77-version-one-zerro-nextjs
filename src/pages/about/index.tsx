@@ -54,9 +54,14 @@ export default function About({ products }: IProps) {
         />
       </Head>
       <AnimationPage>
-        <Grid container item>
-          <Typography variant="h1">About Page</Typography>
-          <ShopGrid products={products} />
+        <Grid container>
+          <Grid item xs={2} style={{ border: '1px solid green' }}>
+            some cotent
+          </Grid>
+          <Grid style={{ border: '1px solid green' }} item xs={10}>
+            <Typography variant="h1">About Page</Typography>
+            <ShopGrid products={products} />
+          </Grid>
         </Grid>
       </AnimationPage>
     </React.Fragment>
