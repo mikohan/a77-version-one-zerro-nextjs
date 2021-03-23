@@ -74,7 +74,7 @@ export default function AppBarDense() {
   const { pathname } = router;
 
   const cur = pages.findIndex((item: string) => item === pathname);
-  console.log(cur);
+  // Needs to be refactored later
   if (cur < 0) {
     dispatch({ type: SET_ACTIVE_PAGE, payload: 0 });
   }
