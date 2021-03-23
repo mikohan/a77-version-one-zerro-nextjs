@@ -18,12 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(5),
     },
     card: {
+      position: 'relative',
+      display: 'block',
       boxShadow: '3px 1px 10px 5px rgba(0, 0, 0, 0.1)',
     },
     cardImage: {
+      display: 'block',
+      position: 'absolute',
       width: '100%',
-      minHeight: '300px',
-      objectFit: 'cover',
+      height: '100%',
+      objectFit: 'cover', // contain maki it small, cover make it big
     },
     cardContent: {
       minHeight: '8rem',
@@ -44,6 +48,12 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2rem',
       color: theme.palette.grey[600],
     },
+    cardImageLink: {
+      display: 'block',
+      position: 'relative',
+      width: '100%',
+      paddingBottom: '100%',
+    },
   })
 );
 
@@ -61,7 +71,13 @@ export default function ShopGrid({ products }: IProps) {
           : '/images/local/defaultParts245.jpg';
         return (
           <div key={item._id} className={classes.card}>
-            <img src={imgPath} className={classes.cardImage} alt="Some image" />
+            <a className={classes.cardImageLink}>
+              <img
+                src={imgPath}
+                className={classes.cardImage}
+                alt="Some image"
+              />
+            </a>
             <div className={classes.cardContent}>
               <Typography variant="h6">{item._source.name}</Typography>
             </div>

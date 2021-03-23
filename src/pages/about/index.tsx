@@ -69,7 +69,7 @@ export default function About({ products }: IProps) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const promise = await getProductsByCar('dukato');
+  const promise = await getProductsByCar('e90');
   const products: IProductElasticHitsFirst = promise.hits;
   return {
     props: {
