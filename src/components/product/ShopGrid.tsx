@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0 auto',
       padding: theme.spacing(2),
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fill, minmax(260px, 1fr))`,
+      gridTemplateColumns: `repeat(auto-fill, minmax(225px, 1fr))`,
       gridGap: theme.spacing(4), // padding for cards in the content area
       marginBottom: theme.spacing(5),
     },
@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(3),
     },
     cardInfo: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       display: 'flex',
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.grey[700],
     },
     productSku: {
-      paddingLeft: theme.spacing(3),
+      paddingLeft: theme.spacing(2),
       color: theme.palette.grey[500],
     },
   })

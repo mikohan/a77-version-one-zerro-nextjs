@@ -74,6 +74,10 @@ export default function AppBarDense() {
   const { pathname } = router;
 
   const cur = pages.findIndex((item: string) => item === pathname);
+  console.log(cur);
+  if (cur < 0) {
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 0 });
+  }
   useEffect(() => {
     dispatch({ type: SET_ACTIVE_PAGE, payload: cur });
   }, [activePage, pathname]);

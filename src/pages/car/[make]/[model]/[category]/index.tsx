@@ -27,6 +27,7 @@ import ProductCard from '~/components/product/ProductCard2';
 import PageHeader from '~/components/product/PageHeader';
 import { red, green, blue } from '@material-ui/core/colors';
 import ShopGrid from '~/components/product/ShopGrid';
+import { Hidden } from '@material-ui/core';
 
 const redColor = red[500];
 const greenColor = green[600];
@@ -98,11 +99,13 @@ export default function Cagetory(props: CategoryProps) {
       </Head>
       <AnimationPage>
         <Grid container>
-          <Grid item xs={3} style={{ border: '1px solid green' }}>
-            LEFT SIDE PANE
-          </Grid>
-          <Grid style={{ border: '1px solid green' }} item xs={9}>
-            <Typography variant="h1">About Page</Typography>
+          <Hidden smDown>
+            <Grid item xs={2} style={{ border: '1px solid green' }}>
+              LEFT SIDE PANE
+            </Grid>
+          </Hidden>
+          <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
+            <Typography variant="h1">H1 Goes Here</Typography>
             <ShopGrid products={products} />
           </Grid>
         </Grid>
