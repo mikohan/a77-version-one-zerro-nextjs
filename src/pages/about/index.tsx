@@ -2,8 +2,19 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import ShopGrid from '~/components/product/ShopGrid';
+import { getProductsByCar } from '~/endpoints/productEndpoint';
+import {
+  IProductElasticHitsFirst,
+  IProductElasticHitsSecond,
+} from '~/interfaces/product';
+import { GetStaticPropsContext } from 'next';
 
-export default function About() {
+interface IProps {
+  products: IProductElasticHitsSecond[];
+}
+
+export default function About({ products }: IProps) {
   return (
     <React.Fragment>
       <Head>
@@ -47,8 +58,19 @@ export default function About() {
       <AnimationPage>
         <div>
           <h1>About Page</h1>
+          <ShopGrid products={products} />
         </div>
       </AnimationPage>
     </React.Fragment>
   );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const promise = await getProductsByCar('dukato');
+  const products: IProductElasticHitsFirst = promise.hits;
+  return {
+    props: {
+      products: products,
+    },
+  };
 }
