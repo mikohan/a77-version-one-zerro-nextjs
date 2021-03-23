@@ -19,8 +19,14 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       position: 'relative',
       display: 'block',
-      boxShadow: '1px 1px 3px 1px rgba(0, 0, 0, 0.1)',
-      borderRadius: '1px',
+      boxShadow: '1px 1px 7px 1px rgba(0, 0, 0, 0.1)',
+      borderRadius: '2px',
+      background: 'white',
+      transition: '0.5s',
+      '&:hover $shoppingCartIcon': {
+        color: theme.palette.secondary.main,
+        cursor: 'pointer',
+      },
     },
     cardImage: {
       display: 'block',
@@ -47,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
     shoppingCartIcon: {
       fontSize: '2rem',
       color: theme.palette.grey[600],
+      transition: '0.5s',
     },
     cardImageLink: {
       display: 'block',
