@@ -3,7 +3,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { REVALIDATE } from '~/config';
 import { List, ListItem } from '@material-ui/core';
 import Link from 'next/link';
-import ShopCarGrid from '~/components/product/ShopMakeGrid';
+import ShopModelGrid from '~/components/product/ShopModelGrid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Animation from '~/components/common/AnimationPage';
@@ -23,7 +23,7 @@ function Make(props: ICarProps) {
   return (
     <Animation>
       <div>
-        <ShopCarGrid cars={models} />
+        <ShopModelGrid cars={models} />
       </div>
     </Animation>
   );

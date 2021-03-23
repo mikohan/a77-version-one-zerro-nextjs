@@ -47,7 +47,7 @@ export default function ShopCarGrid({ cars }: IProps) {
       {cars.map((item: ICar) => {
         return (
           <div key={item.id} className={classes.card}>
-            <Link href={`/car/${item.slug}`}>
+            <Link href={`/car/${item.make.slug}/${item.slug}`}>
               <a className={classes.cardImageLink}>
                 <div className={classes.cardContent}>
                   <Typography className={classes.productName} variant="h6">
