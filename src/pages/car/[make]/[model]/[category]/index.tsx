@@ -132,19 +132,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // !!!! Getting NOT Empty categories from endpoint
   /* const categories = await getCategoryAllGQL(); */
   // Here is all not empty categories from elastic need to be refactored
-  const categories = await getCategories();
+  // const categories = await getCategories();
 
   const paths: {
     params: { make: string; model: string; category: string };
   }[] = [];
 
-  for (let cat of categories) {
-    for (let val of makeModel) {
+  /* for (let cat of categories) { */
+  /*   for (let val of makeModel) { */
+  /*     paths.push({ */
+  /*       params: { make: val.make, model: val.model, category: cat.slug }, */
+  /*     }); */
+  /*   } */
+  /* } */
+  for (let model of makeModel) {
+    const promise = await getProductsByCar(model.model);
+    const categories: IAggregationCategory[] =
+      promise.aggregations.categories.buckets;
+    for (let cat of categories) {
       paths.push({
-        params: { make: val.make, model: val.model, category: cat.slug },
+        params: { make: model.make, model: model.model, category: cat.slug },
       });
     }
   }
+
   return {
     paths: paths,
     fallback: false,

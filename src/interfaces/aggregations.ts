@@ -15,6 +15,7 @@ export interface IAggregationCategory {
   parent?: string | number;
   layout?: string;
   type?: string;
+  slug: string;
 }
 
 export interface IAgregations {
