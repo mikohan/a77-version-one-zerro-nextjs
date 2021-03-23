@@ -5,7 +5,6 @@ import {
 } from '~/interfaces/product';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Typography } from '@material-ui/core';
-import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,6 +53,14 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       paddingBottom: '100%',
     },
+    productName: {
+      fontSize: '1.1rem',
+      color: theme.palette.grey[700],
+    },
+    productSku: {
+      paddingLeft: theme.spacing(3),
+      color: theme.palette.grey[500],
+    },
   })
 );
 
@@ -68,7 +75,7 @@ export default function ShopGrid({ products }: IProps) {
       {products.hits.map((item: IProductElasticHitsSecond) => {
         const imgPath: string = item._source.images.length
           ? (item._source.images[0].img500 as string)
-          : '/images/local/defaultParts245.jpg';
+          : '/images/local/defaultParts500.jpg';
         return (
           <div key={item._id} className={classes.card}>
             <a className={classes.cardImageLink}>
@@ -79,7 +86,14 @@ export default function ShopGrid({ products }: IProps) {
               />
             </a>
             <div className={classes.cardContent}>
-              <Typography variant="h6">{item._source.name}</Typography>
+              <Typography className={classes.productName} variant="h6">
+                {item._source.name}
+              </Typography>
+            </div>
+            <div className={classes.productSku}>
+              <Typography variant="body2">
+                SKU: {item._source.cat_number}
+              </Typography>
             </div>
             <div className={classes.cardInfo}>
               <Typography variant="h6">$ 450.00</Typography>
