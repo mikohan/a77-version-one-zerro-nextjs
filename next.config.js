@@ -1,4 +1,7 @@
 module.exports = {
+  images: {
+    domains: ['localhost'],
+  },
   crossOrigin: 'anonymous',
   webpack(config) {
     config.module.rules.push({

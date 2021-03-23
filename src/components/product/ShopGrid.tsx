@@ -5,6 +5,7 @@ import {
 } from '~/interfaces/product';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Typography } from '@material-ui/core';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,9 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cards: {
       margin: '0 auto',
+      padding: theme.spacing(2),
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fill, minmax(225px, 1fr))`,
-      gridGap: theme.spacing(3),
+      gridTemplateColumns: `repeat(auto-fill, minmax(300px, 1fr))`,
+      gridGap: theme.spacing(3), // padding for cards in the content area
       marginBottom: theme.spacing(5),
     },
     card: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
     },
     cardContent: {
+      minHeight: '10rem',
       lineHeight: '1.5',
       padding: theme.spacing(3),
       background: '#ddd',
@@ -58,22 +61,14 @@ export default function ShopGrid({ products }: IProps) {
   return (
     <div className={classes.cards}>
       {products.hits.map((item: IProductElasticHitsSecond) => {
+        const imgPath: string = item._source.images.length
+          ? (item._source.images[0].img500 as string)
+          : '/images/local/defaultParts245.jpg';
         return (
           <div key={item._id} className={classes.card}>
-            <img
-              src="https://via.placeholder.com/300/09f/fff.png"
-              className={classes.cardImage}
-              alt="Some image"
-            />
+            <img src={imgPath} className={classes.cardImage} alt="Some image" />
             <div className={classes.cardContent}>
-              <Typography variant="h3">
-                Lorem ipsum dolor sit amet consectetur
-              </Typography>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-                facilis magnam debitis vero, molestiae quod nesciunt soluta
-                voluptatibus necessitatibus explicabo!
-              </Typography>
+              <Typography variant="h5">{item._source.name}</Typography>
             </div>
             <div className={classes.cardInfo}>
               <Typography variant="h6">$ 450.00</Typography>
