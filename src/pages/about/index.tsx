@@ -55,10 +55,10 @@ export default function About({ products }: IProps) {
       </Head>
       <AnimationPage>
         <Grid container>
-          <Grid item xs={2} style={{ border: '1px solid green' }}>
-            some cotent
+          <Grid item xs={3} style={{ border: '1px solid green' }}>
+            LEFT SIDE PANE
           </Grid>
-          <Grid style={{ border: '1px solid green' }} item xs={10}>
+          <Grid style={{ border: '1px solid green' }} item xs={9}>
             <Typography variant="h1">About Page</Typography>
             <ShopGrid products={products} />
           </Grid>
