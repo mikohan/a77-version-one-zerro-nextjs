@@ -22,12 +22,14 @@ import { Typography, Hidden } from '@material-ui/core';
 import CarChoiser from '~/components/common/CarChoiser';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CarModelHead from '~/components/heads/carModelHead';
+import { IBread } from '~/interfaces';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     pageHeader: {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
       paddingLeft: theme.spacing(2),
     },
     productCount: {
@@ -53,6 +55,11 @@ function Model(props: IModelProps) {
   const { model, categories, products } = props;
   const carName = capitalize(model.model);
   const carModelName = capitalize(model.make.name);
+  const breads: IBread[] = [
+    { name: 'Ангара77', slug: '/' },
+    { name: model.make.name, slug: model.make.slug },
+    { name: model.model, slug: model.slug },
+  ];
 
   const dispatch = useDispatch();
 
@@ -76,19 +83,18 @@ function Model(props: IModelProps) {
       <CarModelHead model={model} />
       <AnimationPage>
         <Grid container>
-          <Grid item xs={12}>
-            <Box className={classes.pageHeader} height={100}>
-              <Typography variant="h1">
-                Запчасти для {carModelName} {carName}{' '}
-                <Typography
-                  className={classes.productCount}
-                  component="span"
-                  variant="body2"
-                >
-                  (1 456 products)
-                </Typography>
+          <Grid className={classes.pageHeader} item xs={12}>
+            <Typography variant="h1">
+              Запчасти для {carModelName} {carName}{' '}
+              <Typography
+                className={classes.productCount}
+                component="span"
+                variant="body2"
+              >
+                (1 456 products)
               </Typography>
-            </Box>
+            </Typography>
+            <BreadCrumbs breadCrumbs={breads} />
           </Grid>
           <Hidden smDown>
             <Grid item xs={2} style={{ border: '1px solid green' }}>
