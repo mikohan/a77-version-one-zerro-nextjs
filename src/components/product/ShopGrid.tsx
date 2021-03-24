@@ -10,6 +10,9 @@ import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useState } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import { SET_SORT_VALUE } from '~/store/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,7 +109,9 @@ interface IProps {
 
 export default function ShopGrid({ products }: IProps) {
   const classes = useStyles();
-  const [sort, setSort] = useState('default');
+  /* const [sort, setSort] = useState('default'); */
+  const dispatch = useDispatch();
+  const sort = useSelector((state: IState) => state.uiState.sortPage);
   const values = [
     { value: 1, label: 'по умолчанию' },
     { value: 2, label: 'цена: сначала дешевые' },
@@ -116,7 +121,7 @@ export default function ShopGrid({ products }: IProps) {
   ];
 
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSort(event.target.value);
+    dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
   };
 
   const Select = () => (
