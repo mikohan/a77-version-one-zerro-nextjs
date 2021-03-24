@@ -6,6 +6,8 @@ import {
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { prodCardSize } from '~/config';
+import AppsIcon from '@material-ui/icons/Apps';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,11 +74,15 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.grey[500],
     },
     pageBarContainer: {
-      minHeight: '4rem',
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     pageBarBox: {
-      border: '2px solid blue',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(3),
       background: '#fff',
+      boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
     },
   })
 );
@@ -90,7 +96,10 @@ export default function ShopGrid({ products }: IProps) {
   return (
     <Grid container>
       <Grid className={classes.pageBarContainer} item xs={12}>
-        <Box className={classes.pageBarBox}>page sorting bar</Box>
+        <Box className={classes.pageBarBox}>
+          <AppsIcon />
+          <MenuIcon />
+        </Box>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.cards}>
