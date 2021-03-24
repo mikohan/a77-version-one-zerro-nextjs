@@ -8,6 +8,7 @@ import { Box, Grid, Typography, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,15 +81,20 @@ const useStyles = makeStyles((theme: Theme) =>
     pageBarBox: {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
       background: '#fff',
       boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
     },
     iconItem: {
       fontSize: '1.8rem',
       marginRight: theme.spacing(2),
+    },
+    selectForm: {
+      minWidth: '15rem',
     },
   })
 );
@@ -99,21 +105,34 @@ interface IProps {
 
 export default function ShopGrid({ products }: IProps) {
   const classes = useStyles();
+  const [sort, setSort] = useState('default');
+  const values = [
+    { value: 1, label: 'по умолчанию' },
+    { value: 2, label: 'цена: сначала дешевые' },
+    { value: 3, label: 'цена: сначала дорогие' },
+    { value: 4, label: 'название: А - Я' },
+    { value: 5, label: 'название: Я - А' },
+  ];
 
-  const select = (
+  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSort(event.target.value);
+  };
+
+  const Select = () => (
     <TextField
       id="outlined-select-currency-native"
       select
-      label="Native select"
-      value={currency}
-      onChange={handleChange}
+      label="сортировать"
+      value={sort}
+      onChange={handleSortChange}
       SelectProps={{
         native: true,
       }}
-      helperText="Please select your currency"
       variant="outlined"
+      size="small"
+      fullWidth
     >
-      {currencies.map((option) => (
+      {values.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>
@@ -129,7 +148,9 @@ export default function ShopGrid({ products }: IProps) {
             <AppsIcon className={classes.iconItem} />
             <MenuIcon className={classes.iconItem} />
           </Box>
-          <Typography component="span"> some contant</Typography>
+          <Box className={classes.selectForm}>
+            <Select />
+          </Box>
         </Box>
       </Grid>
       <Grid item xs={12}>
