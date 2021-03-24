@@ -12,6 +12,8 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { SET_SORT_VALUE } from '~/store/types';
+import { compareByNameAsc, compareByNameDesc } from '~/utils';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -111,6 +113,32 @@ export default function ShopGrid({ products }: IProps) {
   /* const [sort, setSort] = useState('default'); */
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
+
+  useEffect(() => {
+    let productsSorted;
+    switch (sort) {
+      case '1':
+        productsSorted = products.hits;
+        break;
+      case '2':
+        /* productsSorted = products.hits.sort(compareByPriceDesc); */
+        break;
+      case '3':
+        /* productsSorted = products.hits.sort(compareByPriceAsc); */
+        break;
+      case '4':
+        productsSorted = products.hits.sort(compareByNameAsc);
+        break;
+      case '5':
+        productsSorted = products.hits.sort(compareByNameDesc);
+        break;
+      default:
+        productsSorted = products.hits;
+        break;
+    }
+    console.log(productsSorted);
+  }, [sort]);
+
   const values = [
     { value: 1, label: 'по умолчанию' },
     { value: 2, label: 'цена: сначала дешевые' },

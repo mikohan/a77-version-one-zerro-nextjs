@@ -54,20 +54,20 @@ export const capitalize = (s: string): string => {
 
 // Sorting array by
 
-export function compareByNameDesc(
+export function compareByNameAsc(
   a: IProductElasticHitsSecond,
   b: IProductElasticHitsSecond
 ) {
   if (a._source.name < b._source.name) {
-    return -1;
+    return 1;
   }
   if (a._source.name > b._source.name) {
-    return 1;
+    return -1;
   }
   return 0;
 }
 
-export function compareByNameAsc(
+export function compareByNameDesc(
   a: IProductElasticHitsSecond,
   b: IProductElasticHitsSecond
 ) {

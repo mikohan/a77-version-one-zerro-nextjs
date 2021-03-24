@@ -17,7 +17,7 @@ export interface IShopState {
 
 interface IUIstate {
   activePage: string | number;
-  sortPage: number;
+  sortPage: number | string;
 }
 
 export interface IState {
