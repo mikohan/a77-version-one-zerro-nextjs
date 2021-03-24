@@ -12,3 +12,5 @@ export const SET_CURRENT_CAR = 'SET_CURRENT_CAR';
 export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 
 export const SET_SORT_VALUE = 'SET_SORT_VALUE';
+
+export const SET_SHOP_GRID = 'SET_SHOP_GRID';

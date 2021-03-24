@@ -113,6 +113,7 @@ export default function ShopGrid({ products }: IProps) {
   /* const [sort, setSort] = useState('default'); */
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
+  const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
 
   useEffect(() => {
     let productsSorted;
@@ -136,7 +137,6 @@ export default function ShopGrid({ products }: IProps) {
         productsSorted = products.hits;
         break;
     }
-    console.log(productsSorted);
   }, [sort]);
 
   const values = [

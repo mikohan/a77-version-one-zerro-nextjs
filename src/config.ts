@@ -40,3 +40,4 @@ export const SITE_DOMAIN = 'ANGARA77.COM';
 export const SITE_DOMAIN_FULL = 'https://angara77.com';
 // Changes product card size in the products grid
 export const prodCardSize = 195;
+export const defaultShopPageLayout = 'grid';

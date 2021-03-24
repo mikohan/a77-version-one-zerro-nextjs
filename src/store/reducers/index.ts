@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 
 import { getCategoriesReducer } from './getCategoriesReducer';
 import { changeCarModelReducer } from './changeCarModelReducer';
-import { activePageReducer } from '~/store/reducers/activePageReducer';
+import { UIReducer } from '~/store/reducers/UIReducer';
 
 export default combineReducers({
   llhop: getCategoriesReducer,
   shop: changeCarModelReducer,
-  uiState: activePageReducer,
+  uiState: UIReducer,
 });

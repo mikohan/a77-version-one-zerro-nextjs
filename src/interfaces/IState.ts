@@ -18,6 +18,7 @@ export interface IShopState {
 interface IUIstate {
   activePage: string | number;
   sortPage: number | string;
+  shopGrid: string;
 }
 
 export interface IState {

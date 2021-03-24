@@ -24,4 +24,16 @@ export const setSortPage = (value: number): ISetSort => {
   };
 };
 
-export type actionTypes = ISetSort | ISetActivePage;
+interface IShopGrid {
+  type: typeof types.SET_SHOP_GRID;
+  payload: string;
+}
+
+export const setShopGrid = (value: number): ISetSort => {
+  return {
+    type: types.SET_SORT_VALUE,
+    payload: value,
+  };
+};
+
+export type actionTypes = ISetSort | ISetActivePage | IShopGrid;
