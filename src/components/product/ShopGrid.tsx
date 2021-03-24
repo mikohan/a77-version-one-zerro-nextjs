@@ -4,6 +4,7 @@ import {
   IProductElasticHitsFirst,
 } from '~/interfaces/product';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { Typography } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 
@@ -54,8 +55,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     shoppingCartIcon: {
       fontSize: '2rem',
-      color: theme.palette.grey[600],
-      transition: '0.3s',
+      color: theme.palette.grey[500],
+      transition: '0.2s',
     },
     cardImageLink: {
       display: 'block',
@@ -108,7 +109,9 @@ export default function ShopGrid({ products }: IProps) {
             <div className={classes.cardInfo}>
               <Typography variant="h6">$ 450.00</Typography>
               <div>
-                <ShoppingCartIcon className={classes.shoppingCartIcon} />
+                <ShoppingCartOutlinedIcon
+                  className={classes.shoppingCartIcon}
+                />
               </div>
             </div>
           </div>
