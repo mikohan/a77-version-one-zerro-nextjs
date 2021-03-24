@@ -1,3 +1,4 @@
+// Needs to add Schema.org and refactor og
 import Head from 'next/head';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { ICar } from '~/interfaces/ICar';
