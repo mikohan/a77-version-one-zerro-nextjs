@@ -78,11 +78,11 @@ function Model(props: IModelProps) {
         <Grid container>
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
-            <Grid item xs={3} style={{ border: '1px solid green' }}>
+            <Grid item xs={3} style={{ border: '1px solid pink' }}>
               LEFT SIDE PANE
             </Grid>
           </Hidden>
-          <Grid style={{ border: '1px solid green' }} item xs={12} md={9}>
+          <Grid style={{ border: '1px solid blue' }} item xs={12} md={9}>
             <Grid item xs={12}>
               <CarChoiser />
             </Grid>

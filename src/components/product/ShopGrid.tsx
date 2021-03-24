@@ -5,6 +5,7 @@ import {
 } from '~/interfaces/product';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Typography } from '@material-ui/core';
+import { prodCardSize } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0 auto',
       padding: theme.spacing(2),
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fill, minmax(225px, 1fr))`,
+      gridTemplateColumns: `repeat(auto-fill, minmax(${prodCardSize}px, 1fr))`,
       gridGap: theme.spacing(4), // padding for cards in the content area
       marginBottom: theme.spacing(5),
     },
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
       background: 'white',
       transition: '0.5s',
       '&:hover $shoppingCartIcon': {
-        color: theme.palette.secondary.main,
+        transform: `scale(1.3)`,
+        color: theme.palette.success.main,
         cursor: 'pointer',
       },
     },
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
     shoppingCartIcon: {
       fontSize: '2rem',
       color: theme.palette.grey[600],
-      transition: '0.5s',
+      transition: '0.3s',
     },
     cardImageLink: {
       display: 'block',
