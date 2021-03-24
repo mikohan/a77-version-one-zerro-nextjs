@@ -82,7 +82,7 @@ function Model(props: IModelProps) {
               LEFT SIDE PANE
             </Grid>
           </Hidden>
-          <Grid style={{ border: '1px solid blue' }} item xs={12} md={9}>
+          <Grid item xs={12} md={9}>
             <Grid item xs={12}>
               <ShopGrid products={products} />
             </Grid>
