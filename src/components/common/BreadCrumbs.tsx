@@ -42,7 +42,7 @@ export default function BreadCrumbs({ breadCrumbs }: IProps) {
     <React.Fragment>
       <Box className={classes.container} display="flex" justifyContent="start">
         {breadCrumbs.map((item: IBread, i: number) => (
-          <React.Fragment>
+          <React.Fragment key={item.path}>
             <Box component="span">
               <Link href={item.path}>
                 <a>
