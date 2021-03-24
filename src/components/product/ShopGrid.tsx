@@ -3,9 +3,8 @@ import {
   IProductElasticHitsSecond,
   IProductElasticHitsFirst,
 } from '~/interfaces/product';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: '0.5s',
       '&:hover $shoppingCartIcon': {
         transform: `scale(1.3)`,
-        color: theme.palette.success.main,
+        color: theme.palette.primary.main,
         cursor: 'pointer',
       },
     },
@@ -72,6 +71,13 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
       color: theme.palette.grey[500],
     },
+    pageBarContainer: {
+      minHeight: '4rem',
+    },
+    pageBarBox: {
+      border: '2px solid blue',
+      background: '#fff',
+    },
   })
 );
 
@@ -82,41 +88,48 @@ interface IProps {
 export default function ShopGrid({ products }: IProps) {
   const classes = useStyles();
   return (
-    <div className={classes.cards}>
-      {products.hits.map((item: IProductElasticHitsSecond) => {
-        const imgPath: string = item._source.images.length
-          ? (item._source.images[0].img500 as string)
-          : '/images/local/defaultParts500.jpg';
-        return (
-          <div key={item._id} className={classes.card}>
-            <a className={classes.cardImageLink}>
-              <img
-                src={imgPath}
-                className={classes.cardImage}
-                alt="Some image"
-              />
-            </a>
-            <div className={classes.cardContent}>
-              <Typography className={classes.productName} variant="h6">
-                {item._source.name}
-              </Typography>
-            </div>
-            <div className={classes.productSku}>
-              <Typography variant="body2">
-                SKU: {item._source.cat_number}
-              </Typography>
-            </div>
-            <div className={classes.cardInfo}>
-              <Typography variant="h6">$ 450.00</Typography>
-              <div>
-                <ShoppingCartOutlinedIcon
-                  className={classes.shoppingCartIcon}
-                />
+    <Grid container>
+      <Grid className={classes.pageBarContainer} item xs={12}>
+        <Box className={classes.pageBarBox}>page sorting bar</Box>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.cards}>
+          {products.hits.map((item: IProductElasticHitsSecond) => {
+            const imgPath: string = item._source.images.length
+              ? (item._source.images[0].img500 as string)
+              : '/images/local/defaultParts500.jpg';
+            return (
+              <div key={item._id} className={classes.card}>
+                <a className={classes.cardImageLink}>
+                  <img
+                    src={imgPath}
+                    className={classes.cardImage}
+                    alt="Some image"
+                  />
+                </a>
+                <div className={classes.cardContent}>
+                  <Typography className={classes.productName} variant="h6">
+                    {item._source.name}
+                  </Typography>
+                </div>
+                <div className={classes.productSku}>
+                  <Typography variant="body2">
+                    SKU: {item._source.cat_number}
+                  </Typography>
+                </div>
+                <div className={classes.cardInfo}>
+                  <Typography variant="h6">$ 450.00</Typography>
+                  <div>
+                    <ShoppingCartOutlinedIcon
+                      className={classes.shoppingCartIcon}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+            );
+          })}
+        </div>
+      </Grid>
+    </Grid>
   );
 }
