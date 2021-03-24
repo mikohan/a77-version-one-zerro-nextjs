@@ -10,3 +10,5 @@ export const SET_MAKES_ACTION = 'SET_MAKES_ACTION';
 export const SET_CURRENT_CAR = 'SET_CURRENT_CAR';
 
 export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
+
+export const SET_SORT_VALUE = 'SET_SORT_VALUE';

@@ -15,11 +15,12 @@ export interface IShopState {
   categories: ICategory[];
 }
 
-interface IActivePage {
+interface IUIstate {
   activePage: string | number;
+  sortPage: number;
 }
 
 export interface IState {
   shop: IShopState;
-  uiState: IActivePage;
+  uiState: IUIstate;
 }
