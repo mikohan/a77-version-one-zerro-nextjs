@@ -11,9 +11,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Pagination from '@material-ui/lab/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import { SET_SORT_VALUE } from '~/store/types';
+import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/types';
 import { compareByNameAsc, compareByNameDesc } from '~/utils';
 import { useEffect } from 'react';
+import { useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -114,9 +115,28 @@ export default function ShopGrid({ products }: IProps) {
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
+  const theme = useTheme();
+
+  let activeStyle = {};
 
   useEffect(() => {
-    let productsSorted;
+    if (shopGrid === 'grid') {
+      activeStyle = {
+        color: theme.palette.primary.main,
+      };
+    } else if (shopGrid === 'list') {
+      activeStyle = {
+        color: theme.palette.primary.main,
+      };
+    } else {
+      activeStyle = {
+        color: theme.palette.grey[500],
+      };
+    }
+  }, [shopGrid]);
+
+  let productsSorted;
+  useEffect(() => {
     switch (sort) {
       case '1':
         productsSorted = products.hits;
@@ -151,6 +171,12 @@ export default function ShopGrid({ products }: IProps) {
     dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
   };
 
+  const handleGrid = () => {
+    dispatch({ type: SET_SHOP_GRID, payload: 'grid' });
+  };
+  const handleList = () => {
+    dispatch({ type: SET_SHOP_GRID, payload: 'list' });
+  };
   const Select = () => (
     <TextField
       id="outlined-select-currency-native"
@@ -178,8 +204,12 @@ export default function ShopGrid({ products }: IProps) {
       <Grid className={classes.pageBarContainer} item xs={12}>
         <Box className={classes.pageBarBox}>
           <Box>
-            <AppsIcon className={classes.iconItem} />
-            <MenuIcon className={classes.iconItem} />
+            <Box component="span" style={activeStyle}>
+              <AppsIcon className={classes.iconItem} onClick={handleGrid} />
+            </Box>
+            <Box component="span" style={activeStyle}>
+              <MenuIcon className={classes.iconItem} onClick={handleList} />
+            </Box>
           </Box>
           <Box className={classes.selectForm}>
             <Select />
