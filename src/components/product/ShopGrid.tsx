@@ -1,4 +1,5 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
 import {
   IProductElasticHitsSecond,
   IProductElasticHitsFirst,
@@ -111,29 +112,11 @@ interface IProps {
 
 export default function ShopGrid({ products }: IProps) {
   const classes = useStyles();
-  /* const [sort, setSort] = useState('default'); */
+
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
   const theme = useTheme();
-
-  let activeStyle = {};
-
-  useEffect(() => {
-    if (shopGrid === 'grid') {
-      activeStyle = {
-        color: theme.palette.primary.main,
-      };
-    } else if (shopGrid === 'list') {
-      activeStyle = {
-        color: theme.palette.primary.main,
-      };
-    } else {
-      activeStyle = {
-        color: theme.palette.grey[500],
-      };
-    }
-  }, [shopGrid]);
 
   let productsSorted;
   useEffect(() => {
@@ -204,10 +187,24 @@ export default function ShopGrid({ products }: IProps) {
       <Grid className={classes.pageBarContainer} item xs={12}>
         <Box className={classes.pageBarBox}>
           <Box>
-            <Box component="span" style={activeStyle}>
+            <Box
+              component="span"
+              style={
+                shopGrid === 'grid'
+                  ? { color: theme.palette.primary.main }
+                  : { color: 'inherit' }
+              }
+            >
               <AppsIcon className={classes.iconItem} onClick={handleGrid} />
             </Box>
-            <Box component="span" style={activeStyle}>
+            <Box
+              component="span"
+              style={
+                shopGrid === 'list'
+                  ? { color: theme.palette.primary.main }
+                  : { color: 'inherit' }
+              }
+            >
               <MenuIcon className={classes.iconItem} onClick={handleList} />
             </Box>
           </Box>
