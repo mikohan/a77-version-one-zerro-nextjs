@@ -34,7 +34,7 @@ export default function ShopGrid({ products }: IProps) {
         gridTemplateColumns:
           shopGrid === 'grid'
             ? `repeat(auto-fill, minmax(${prodCardSize}px, 1fr))`
-            : `repeat(auto-fill, 1fr )`,
+            : `1fr `,
         gridGap: theme.spacing(4), // padding for cards in the content area
         marginBottom: theme.spacing(5),
       },

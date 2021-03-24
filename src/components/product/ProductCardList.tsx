@@ -15,9 +15,10 @@ export default function ComplexGrid({ product }: IProp) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       card: {
+        padding: theme.spacing(3),
         position: 'relative',
         display: 'flex',
-        justifyContent: 'start',
+        justifyContent: 'flex-start',
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
         background: 'white',
@@ -28,36 +29,48 @@ export default function ComplexGrid({ product }: IProp) {
           cursor: 'pointer',
         },
       },
-      cardImage: {
-        width: '200px',
-        height: '200px',
-        /* objectFit: 'cover', // contain maki it small, cover make it big */
+      imageDiv: {
+        maxWidth: '30%',
+        border: '2px solid green',
       },
-      cardContent: {},
+      cardImageLink: {
+        maxWidth: '30%',
+        display: 'block',
+        position: 'relative',
+        paddingBottom: '100%',
+      },
+      productName: {
+        fontSize: '1.1rem',
+        color: theme.palette.grey[700],
+      },
+      cardImage: {
+        display: 'block',
+        position: 'absolute',
+        widt: '100%',
+        height: '100%',
+        objectFit: 'contain', // contain maki it small, cover make it big
+      },
+      cardContent: {
+        border: '2px solid green',
+        minWidth: '30%',
+        height: '100%',
+      },
       cardInfo: {
+        minWidth: '25%',
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(2),
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         /* background: theme.palette.grey[200], */
       },
       shoppingCartIcon: {
         fontSize: '2rem',
         color: theme.palette.grey[500],
         transition: '0.2s',
-      },
-      cardImageLink: {
-        display: 'block',
-        position: 'relative',
-        width: '100%',
-        paddingBottom: '100%',
-      },
-      productName: {
-        fontSize: '1.1rem',
-        color: theme.palette.grey[700],
       },
       productSku: {
         paddingLeft: theme.spacing(2),
@@ -69,7 +82,7 @@ export default function ComplexGrid({ product }: IProp) {
 
   return (
     <div key={product._id} className={classes.card}>
-      <div>
+      <div className={classes.imageDiv}>
         <a className={classes.cardImageLink}>
           <img src={imgPath} className={classes.cardImage} alt="Some image" />
         </a>
