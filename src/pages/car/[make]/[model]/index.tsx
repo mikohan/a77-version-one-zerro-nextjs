@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import MainLayout from '~/layouts/Main';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
@@ -17,14 +16,8 @@ import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { toLoverSpace } from '~/helpers';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
-import {
-  IProductElasticHitsFirst,
-  IProductElasticHitsSecond,
-} from '~/interfaces/product';
-import { makeTree } from '~/utils';
-import ProductCard from '~/components/product/ProductCard2';
-import PageHeader from '~/components/product/PageHeader';
-import Head from 'next/head';
+import { IProductElasticHitsFirst } from '~/interfaces/product';
+import { capitalize, makeTree } from '~/utils';
 import { Typography, Hidden } from '@material-ui/core';
 import CarChoiser from '~/components/common/CarChoiser';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -33,7 +26,12 @@ import CarModelHead from '~/components/heads/carModelHead';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     pageHeader: {
-      minHeight: '8rem',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+    },
+    productCount: {
+      color: theme.palette.grey[500],
     },
   })
 );
@@ -53,6 +51,8 @@ export interface IBaseFilter<T extends string, V> {
 function Model(props: IModelProps) {
   const classes = useStyles();
   const { model, categories, products } = props;
+  const carName = capitalize(model.model);
+  const carModelName = capitalize(model.make.name);
 
   const dispatch = useDispatch();
 
@@ -79,7 +79,14 @@ function Model(props: IModelProps) {
           <Grid item xs={12}>
             <Box className={classes.pageHeader} height={100}>
               <Typography variant="h1">
-                Запчасти для {model.make.name} {model.model}
+                Запчасти для {carModelName} {carName}{' '}
+                <Typography
+                  className={classes.productCount}
+                  component="span"
+                  variant="body2"
+                >
+                  (1 456 products)
+                </Typography>
               </Typography>
             </Box>
           </Grid>
@@ -89,7 +96,6 @@ function Model(props: IModelProps) {
             </Grid>
           </Hidden>
           <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
-            <Typography variant="h1">H1 Goes Here</Typography>
             <CarChoiser />
           </Grid>
         </Grid>

@@ -33,37 +33,6 @@ export default function PageHeader({ categories, model, totalParts }: IProps) {
           {model.make.name} {model.model}
         </Typography>
       </Box>
-      <Box>
-        <Typography variant="h6" align="center">
-          Total parts: {totalParts}
-        </Typography>
-      </Box>
-      <Box m={4}>
-        {categories?.map((cat: ICategory) => {
-          return (
-            <span key={cat.id}>
-              <Typography variant="h5">
-                First Level - {cat.name} ({cat.count})
-              </Typography>
-              {cat.children?.map((subcat: ICategory) => {
-                return (
-                  <div key={subcat.id} style={{ paddingLeft: '2rem' }}>
-                    <Typography variant="body1">
-                      <Link
-                        href={url.category(makeSlug, modelSlug, subcat.slug)}
-                      >
-                        <a>
-                          {subcat.name} ({subcat.count})
-                        </a>
-                      </Link>
-                    </Typography>
-                  </div>
-                );
-              })}
-            </span>
-          );
-        })}
-      </Box>
     </React.Fragment>
   );
 }
