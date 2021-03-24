@@ -1,38 +1,47 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Grid, Box, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Link from 'next/link';
-import { ICategory } from '~/interfaces/category';
-import { ICar } from '~/interfaces/ICar';
-import url from '~/services/url';
+import { IBread } from '~/interfaces';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    headerOne: {
-      fontSize: '3rem',
+    pageHeader: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+      paddingLeft: theme.spacing(2),
+    },
+    productCount: {
+      marginLeft: theme.spacing(2),
+      color: theme.palette.grey[500],
     },
   })
 );
 
 interface IProps {
-  categories?: ICategory[];
-  model: ICar;
-  totalParts: number;
+  header: string;
+  breads: IBread[];
+  count: string | number;
 }
 
-export default function PageHeader({ categories, model, totalParts }: IProps) {
+export default function PageHeader({ header, breads, count }: IProps) {
   const classes = useStyles();
-  const makeSlug: string = model.make.slug;
-  const modelSlug: string = model.slug;
 
   return (
     <React.Fragment>
-      <Box display="flex" justifyContent="center" m={4}>
-        <Typography variant="h1" className={classes.headerOne}>
-          Запчатсти на
-          {model.make.name} {model.model}
+      <Grid className={classes.pageHeader} item xs={12}>
+        <Typography variant="h1">
+          {header}
+          <Typography
+            className={classes.productCount}
+            component="span"
+            variant="body2"
+          >
+            ({count} Запчастей на складе)
+          </Typography>
         </Typography>
-      </Box>
+        <BreadCrumbs breadCrumbs={breads} />
+      </Grid>
     </React.Fragment>
   );
 }

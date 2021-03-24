@@ -24,19 +24,9 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CarModelHead from '~/components/heads/carModelHead';
 import { IBread } from '~/interfaces';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
+import PageHeader from '~/components/product/PageHeader';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    pageHeader: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-      paddingLeft: theme.spacing(2),
-    },
-    productCount: {
-      color: theme.palette.grey[500],
-    },
-  })
-);
+const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
 interface IModelProps {
   model: ICar;
@@ -53,8 +43,9 @@ export interface IBaseFilter<T extends string, V> {
 function Model(props: IModelProps) {
   const classes = useStyles();
   const { model, categories, products } = props;
-  const carName = capitalize(model.model);
-  const carModelName = capitalize(model.make.name);
+  const makeName = capitalize(model.model);
+  const modelName = capitalize(model.make.name);
+  const header = `Запчасти для ${makeName} ${modelName}`;
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
     { name: model.make.name, path: `/car/${model.make.slug}` },
@@ -83,19 +74,7 @@ function Model(props: IModelProps) {
       <CarModelHead model={model} />
       <AnimationPage>
         <Grid container>
-          <Grid className={classes.pageHeader} item xs={12}>
-            <Typography variant="h1">
-              Запчасти для {carModelName} {carName}{' '}
-              <Typography
-                className={classes.productCount}
-                component="span"
-                variant="body2"
-              >
-                (1 456 products)
-              </Typography>
-            </Typography>
-            <BreadCrumbs breadCrumbs={breads} />
-          </Grid>
+          <PageHeader header={header} breads={breads} count={4500} />
           <Hidden smDown>
             <Grid item xs={2} style={{ border: '1px solid green' }}>
               LEFT SIDE PANE
