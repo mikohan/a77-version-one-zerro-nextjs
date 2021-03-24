@@ -43,3 +43,10 @@ export function makeTree(cats: any): Promise<ICategory[]> {
   const new_tree = clone(tree);
   return new_tree;
 }
+
+// First letter capitalizer
+export const capitalize = (s: string): string => {
+  if (typeof s !== 'string') return '';
+  const str = s.toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};

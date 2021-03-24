@@ -24,6 +24,19 @@ import {
 import { makeTree } from '~/utils';
 import ProductCard from '~/components/product/ProductCard2';
 import PageHeader from '~/components/product/PageHeader';
+import Head from 'next/head';
+import { Typography, Hidden } from '@material-ui/core';
+import CarChoiser from '~/components/common/CarChoiser';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import CarModelHead from '~/components/heads/carModelHead';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    pageHeader: {
+      minHeight: '8rem',
+    },
+  })
+);
 
 interface IModelProps {
   model: ICar;
@@ -38,6 +51,7 @@ export interface IBaseFilter<T extends string, V> {
 }
 
 function Model(props: IModelProps) {
+  const classes = useStyles();
   const { model, categories, products } = props;
 
   const dispatch = useDispatch();
@@ -58,37 +72,29 @@ function Model(props: IModelProps) {
   //filters.push(filterCategory);
 
   return (
-    <AnimationPage>
-      <Grid container>
-        <Grid item xs={12} sm={3} style={{ border: '1px solid grey' }}>
-          <LeftSideBar>
-            <Box>{/* <FilterWidget filters={filters} /> */}</Box>
-          </LeftSideBar>
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          sm={9}
-          style={{ border: '1px solid green' }}
-        >
+    <React.Fragment>
+      <CarModelHead model={model} />
+      <AnimationPage>
+        <Grid container>
           <Grid item xs={12}>
-            <PageHeader
-              categories={categories}
-              model={model}
-              totalParts={products.total.value}
-            />
+            <Box className={classes.pageHeader} height={100}>
+              <Typography variant="h1">
+                Запчасти для {model.make.name} {model.model}
+              </Typography>
+            </Box>
           </Grid>
-          <Grid item container xs={12}>
-            <Grid container item xs={12} justify="space-evenly">
-              {products.hits.map((product: IProductElasticHitsSecond) => {
-                return <ProductCard key={product._id} product={product} />;
-              })}
+          <Hidden smDown>
+            <Grid item xs={2} style={{ border: '1px solid green' }}>
+              LEFT SIDE PANE
             </Grid>
+          </Hidden>
+          <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
+            <Typography variant="h1">H1 Goes Here</Typography>
+            <CarChoiser />
           </Grid>
         </Grid>
-      </Grid>
-    </AnimationPage>
+      </AnimationPage>
+    </React.Fragment>
   );
 }
 
