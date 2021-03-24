@@ -9,6 +9,7 @@ import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useState } from 'react';
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
     },
     iconItem: {
-      fontSize: '1.8rem',
+      fontSize: '2rem',
       marginRight: theme.spacing(2),
     },
     selectForm: {
@@ -150,6 +151,9 @@ export default function ShopGrid({ products }: IProps) {
           </Box>
           <Box className={classes.selectForm}>
             <Select />
+          </Box>
+          <Box>
+            <Pagination count={50} color="primary" />
           </Box>
         </Box>
       </Grid>
