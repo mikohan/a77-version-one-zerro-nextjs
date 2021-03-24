@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Link from 'next/link';
-import url from '~/services/url';
 import { IBread } from '~/interfaces';
 import { capitalize } from '~/utils';
 
@@ -45,7 +44,7 @@ export default function BreadCrumbs({ breadCrumbs }: IProps) {
         {breadCrumbs.map((item: IBread, i: number) => (
           <React.Fragment>
             <Box component="span">
-              <Link href={item.slug}>
+              <Link href={item.path}>
                 <a>
                   <Typography className={classes.item} variant="body2">
                     {capitalize(item.name)}

@@ -56,9 +56,9 @@ function Model(props: IModelProps) {
   const carName = capitalize(model.model);
   const carModelName = capitalize(model.make.name);
   const breads: IBread[] = [
-    { name: 'Ангара77', slug: '/' },
-    { name: model.make.name, slug: model.make.slug },
-    { name: model.model, slug: model.slug },
+    { name: 'Ангара77', path: '/' },
+    { name: model.make.name, path: `/car/${model.make.slug}` },
+    { name: model.model, path: `/car/${model.make.slug}/${model.slug}` },
   ];
 
   const dispatch = useDispatch();
