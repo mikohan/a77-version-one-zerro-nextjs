@@ -1,3 +1,4 @@
+import { IProductElasticHitsSecond } from '~/interfaces';
 import { ICategory } from '~/interfaces/category';
 // Function for cloning objects and arrays
 export function clone(data: any): any {
@@ -50,3 +51,31 @@ export const capitalize = (s: string): string => {
   const str = s.toLowerCase();
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// Sorting array by
+
+export function compareByNameDesc(
+  a: IProductElasticHitsSecond,
+  b: IProductElasticHitsSecond
+) {
+  if (a._source.name < b._source.name) {
+    return -1;
+  }
+  if (a._source.name > b._source.name) {
+    return 1;
+  }
+  return 0;
+}
+
+export function compareByNameAsc(
+  a: IProductElasticHitsSecond,
+  b: IProductElasticHitsSecond
+) {
+  if (a._source.name < b._source.name) {
+    return -1;
+  }
+  if (a._source.name > b._source.name) {
+    return 1;
+  }
+  return 0;
+}
