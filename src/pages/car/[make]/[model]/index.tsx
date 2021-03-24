@@ -46,6 +46,7 @@ function Model(props: IModelProps) {
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
   const header = `Запчасти для ${makeName} ${modelName}`;
+  const count: number = products.total.value;
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
     { name: model.make.name, path: `/car/${model.make.slug}` },
@@ -74,7 +75,7 @@ function Model(props: IModelProps) {
       <CarModelHead model={model} />
       <AnimationPage>
         <Grid container>
-          <PageHeader header={header} breads={breads} count={4500} />
+          <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
             <Grid item xs={2} style={{ border: '1px solid green' }}>
               LEFT SIDE PANE

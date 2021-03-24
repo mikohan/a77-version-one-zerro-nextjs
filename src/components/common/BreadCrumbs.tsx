@@ -12,11 +12,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(1),
     },
     item: {
-      padding: '0.2rem',
-      background: theme.palette.grey[100],
-      borderRadius: '1px',
+      padding: '0.2rem 0.5rem',
+      background: theme.palette.grey[200],
+      borderRadius: '2px',
       color: theme.palette.grey[500],
-      fontSize: '90%',
       transition: '0.5s',
       '&:hover': {
         backgiwund: theme.palette.grey[200],

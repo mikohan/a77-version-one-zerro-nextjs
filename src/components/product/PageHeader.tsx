@@ -35,7 +35,7 @@ export default function PageHeader({ header, breads, count }: IProps) {
           <Typography
             className={classes.productCount}
             component="span"
-            variant="body2"
+            variant="body1"
           >
             ({count} Запчастей на складе)
           </Typography>
