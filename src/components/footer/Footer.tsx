@@ -11,7 +11,6 @@ import { footerData as data } from '~/config';
 interface IPropsCopyright {
   className?: string;
 }
-import { fade } from '@material-ui/core/styles/colorManipulator';
 
 function Copyright({ className }: IPropsCopyright) {
   return (
@@ -123,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
         background: 'none',
         transition: '0.3s',
         '&:hover': {
-          background: fade(theme.palette.grey[900], 0.5),
+          background: theme.palette.action.active,
         },
       },
     },
