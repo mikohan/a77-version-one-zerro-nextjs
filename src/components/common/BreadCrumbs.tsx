@@ -21,12 +21,13 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgiwund: theme.palette.grey[200],
         color: theme.palette.grey[600],
+        fontWeight: 500,
       },
     },
     slash: {
       marginRight: theme.spacing(1),
       marginLeft: theme.spacing(1),
-      color: theme.palette.grey[500],
+      color: theme.palette.grey[400],
     },
   })
 );

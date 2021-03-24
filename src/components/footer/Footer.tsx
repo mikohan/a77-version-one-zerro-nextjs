@@ -11,6 +11,7 @@ import { footerData as data } from '~/config';
 interface IPropsCopyright {
   className?: string;
 }
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 function Copyright({ className }: IPropsCopyright) {
   return (
@@ -105,10 +106,25 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     socialMedia: {
       display: 'flex',
-      '& > a >img': {
+      '& > a > img': {
         marginRight: theme.spacing(1),
         width: theme.spacing(5),
         height: theme.spacing(5),
+      },
+      '& > a': {
+        position: 'relative',
+      },
+      '& > a > div': {
+        position: 'absolute',
+        top: 0,
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+        borderRadius: '50%',
+        background: 'none',
+        transition: '0.3s',
+        '&:hover': {
+          background: fade(theme.palette.grey[900], 0.5),
+        },
       },
     },
   })
@@ -222,21 +238,25 @@ export default function StickyFooter() {
                   <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
                     <a rel="noopener noreferrer" target="_blank">
                       <img src="/images/local/yt.svg" alt="YouTube icon" />
+                      <div></div>
                     </a>
                   </Link>
                   <Link href="https://vk.com/angara772018">
                     <a rel="noopener noreferrer" target="_blank">
                       <img src="/images/local/vk.svg" alt="V kontacte icon" />
+                      <div></div>
                     </a>
                   </Link>
                   <Link href="https://ok.ru/group/52962919973041">
                     <a rel="noopener noreferrer" target="_blank">
                       <img src="/images/local/ok.svg" alt="Odnoklasniki icon" />
+                      <div></div>
                     </a>
                   </Link>
                   <Link href="https://www.facebook.com/groups/angara77/">
                     <a rel="noopener noreferrer" target="_blank">
                       <img src="/images/local/fb.svg" alt="Facebook icon" />
+                      <div></div>
                     </a>
                   </Link>
                 </div>

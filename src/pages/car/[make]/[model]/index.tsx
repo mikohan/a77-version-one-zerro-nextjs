@@ -43,8 +43,8 @@ export interface IBaseFilter<T extends string, V> {
 function Model(props: IModelProps) {
   const classes = useStyles();
   const { model, categories, products } = props;
-  const makeName = capitalize(model.model);
-  const modelName = capitalize(model.make.name);
+  const modelName = capitalize(model.model);
+  const makeName = capitalize(model.make.name);
   const header = `Запчасти для ${makeName} ${modelName}`;
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
