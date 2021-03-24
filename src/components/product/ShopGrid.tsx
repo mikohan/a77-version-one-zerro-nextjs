@@ -1,10 +1,8 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { useState } from 'react';
 import {
   IProductElasticHitsSecond,
   IProductElasticHitsFirst,
 } from '~/interfaces/product';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { Box, Grid, Typography, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
@@ -14,9 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/types';
 import { compareByNameAsc, compareByNameDesc } from '~/utils';
-import { useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import ProductCardGrid from './ProductCardGrid';
+import ProductCardList from './ProductCardList';
 
 interface IProps {
   products: IProductElasticHitsFirst;
@@ -166,7 +164,14 @@ export default function ShopGrid({ products }: IProps) {
       <Grid item xs={12}>
         <div className={classes.cards}>
           {products.hits.map((item: IProductElasticHitsSecond) => {
-            return <ProductCardGrid key={item._id} product={item} />;
+            const elem =
+              shopGrid === 'grid' ? (
+                <ProductCardGrid key={item._id} product={item} />
+              ) : (
+                <ProductCardList key={item._id} product={item} />
+              );
+
+            return elem;
           })}
         </div>
       </Grid>

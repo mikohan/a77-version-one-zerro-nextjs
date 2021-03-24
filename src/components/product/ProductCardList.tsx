@@ -16,7 +16,8 @@ export default function ComplexGrid({ product }: IProp) {
     createStyles({
       card: {
         position: 'relative',
-        display: 'block',
+        display: 'flex',
+        justifyContent: 'start',
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
         background: 'white',
@@ -28,17 +29,11 @@ export default function ComplexGrid({ product }: IProp) {
         },
       },
       cardImage: {
-        display: 'block',
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover', // contain maki it small, cover make it big
+        width: '200px',
+        height: '200px',
+        /* objectFit: 'cover', // contain maki it small, cover make it big */
       },
-      cardContent: {
-        minHeight: '8rem',
-        lineHeight: '1.5',
-        padding: theme.spacing(3),
-      },
+      cardContent: {},
       cardInfo: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
@@ -74,9 +69,11 @@ export default function ComplexGrid({ product }: IProp) {
 
   return (
     <div key={product._id} className={classes.card}>
-      <a className={classes.cardImageLink}>
-        <img src={imgPath} className={classes.cardImage} alt="Some image" />
-      </a>
+      <div>
+        <a className={classes.cardImageLink}>
+          <img src={imgPath} className={classes.cardImage} alt="Some image" />
+        </a>
+      </div>
       <div className={classes.cardContent}>
         <Typography className={classes.productName} variant="h6">
           {product._source.name}
