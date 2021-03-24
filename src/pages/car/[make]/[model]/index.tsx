@@ -25,6 +25,7 @@ import CarModelHead from '~/components/heads/carModelHead';
 import { IBread } from '~/interfaces';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 import PageHeader from '~/components/product/PageHeader';
+import ShopGrid from '~/components/product/ShopGrid';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -77,12 +78,17 @@ function Model(props: IModelProps) {
         <Grid container>
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
-            <Grid item xs={2} style={{ border: '1px solid green' }}>
+            <Grid item xs={3} style={{ border: '1px solid green' }}>
               LEFT SIDE PANE
             </Grid>
           </Hidden>
-          <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
-            <CarChoiser />
+          <Grid style={{ border: '1px solid green' }} item xs={12} md={9}>
+            <Grid item xs={12}>
+              <CarChoiser />
+            </Grid>
+            <Grid item xs={12}>
+              <ShopGrid products={products} />
+            </Grid>
           </Grid>
         </Grid>
       </AnimationPage>
