@@ -4,7 +4,7 @@ import {
   IProductElasticHitsFirst,
 } from '~/interfaces/product';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid, Typography, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -78,11 +78,17 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(2),
     },
     pageBarBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       paddingLeft: theme.spacing(3),
       background: '#fff',
       boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+    },
+    iconItem: {
+      fontSize: '1.8rem',
+      marginRight: theme.spacing(2),
     },
   })
 );
@@ -93,12 +99,37 @@ interface IProps {
 
 export default function ShopGrid({ products }: IProps) {
   const classes = useStyles();
+
+  const select = (
+    <TextField
+      id="outlined-select-currency-native"
+      select
+      label="Native select"
+      value={currency}
+      onChange={handleChange}
+      SelectProps={{
+        native: true,
+      }}
+      helperText="Please select your currency"
+      variant="outlined"
+    >
+      {currencies.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </TextField>
+  );
+
   return (
     <Grid container>
       <Grid className={classes.pageBarContainer} item xs={12}>
         <Box className={classes.pageBarBox}>
-          <AppsIcon />
-          <MenuIcon />
+          <Box>
+            <AppsIcon className={classes.iconItem} />
+            <MenuIcon className={classes.iconItem} />
+          </Box>
+          <Typography component="span"> some contant</Typography>
         </Box>
       </Grid>
       <Grid item xs={12}>
