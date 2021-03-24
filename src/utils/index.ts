@@ -52,7 +52,9 @@ export const capitalize = (s: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-// Sorting array by
+// Sorting array by name
+// Sorting by price needs to be added
+// probably i have to refactor it for sorting on server side ?????
 
 export function compareByNameAsc(
   a: IProductElasticHitsSecond,
