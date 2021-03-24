@@ -17,130 +17,144 @@ import { compareByNameAsc, compareByNameDesc } from '~/utils';
 import { useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    cards: {
-      margin: '0 auto',
-      padding: theme.spacing(2),
-      display: 'grid',
-      gridTemplateColumns: `repeat(auto-fill, minmax(${prodCardSize}px, 1fr))`,
-      gridGap: theme.spacing(4), // padding for cards in the content area
-      marginBottom: theme.spacing(5),
-    },
-    card: {
-      position: 'relative',
-      display: 'block',
-      boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
-      borderRadius: '2px',
-      background: 'white',
-      transition: '0.5s',
-      '&:hover $shoppingCartIcon': {
-        transform: `scale(1.3)`,
-        color: theme.palette.primary.main,
-        cursor: 'pointer',
-      },
-    },
-    cardImage: {
-      display: 'block',
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover', // contain maki it small, cover make it big
-    },
-    cardContent: {
-      minHeight: '8rem',
-      lineHeight: '1.5',
-      padding: theme.spacing(3),
-    },
-    cardInfo: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      /* background: theme.palette.grey[200], */
-    },
-    shoppingCartIcon: {
-      fontSize: '2rem',
-      color: theme.palette.grey[500],
-      transition: '0.2s',
-    },
-    cardImageLink: {
-      display: 'block',
-      position: 'relative',
-      width: '100%',
-      paddingBottom: '100%',
-    },
-    productName: {
-      fontSize: '1.1rem',
-      color: theme.palette.grey[700],
-    },
-    productSku: {
-      paddingLeft: theme.spacing(2),
-      color: theme.palette.grey[500],
-    },
-    pageBarContainer: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-    pageBarBox: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingTop: theme.spacing(1.5),
-      paddingBottom: theme.spacing(1.5),
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-      background: '#fff',
-      boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
-    },
-    iconItem: {
-      fontSize: '2rem',
-      marginRight: theme.spacing(2),
-    },
-    selectForm: {
-      minWidth: '15rem',
-    },
-  })
-);
-
 interface IProps {
   products: IProductElasticHitsFirst;
 }
 
 export default function ShopGrid({ products }: IProps) {
-  const classes = useStyles();
-
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
   const theme = useTheme();
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      cards: {
+        margin: '0 auto',
+        padding: theme.spacing(2),
+        display: 'grid',
+        gridTemplateColumns:
+          shopGrid === 'grid'
+            ? `repeat(auto-fill, minmax(${prodCardSize}px, 1fr))`
+            : `repeat(auto-fill, 1fr )`,
+        gridGap: theme.spacing(4), // padding for cards in the content area
+        marginBottom: theme.spacing(5),
+      },
+      card: {
+        position: 'relative',
+        display: 'block',
+        boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+        borderRadius: '2px',
+        background: 'white',
+        transition: '0.5s',
+        '&:hover $shoppingCartIcon': {
+          transform: `scale(1.3)`,
+          color: theme.palette.primary.main,
+          cursor: 'pointer',
+        },
+      },
+      cardImage: {
+        display: 'block',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover', // contain maki it small, cover make it big
+      },
+      cardContent: {
+        minHeight: '8rem',
+        lineHeight: '1.5',
+        padding: theme.spacing(3),
+      },
+      cardInfo: {
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        /* background: theme.palette.grey[200], */
+      },
+      shoppingCartIcon: {
+        fontSize: '2rem',
+        color: theme.palette.grey[500],
+        transition: '0.2s',
+      },
+      cardImageLink: {
+        display: 'block',
+        position: 'relative',
+        width: '100%',
+        paddingBottom: '100%',
+      },
+      productName: {
+        fontSize: '1.1rem',
+        color: theme.palette.grey[700],
+      },
+      productSku: {
+        paddingLeft: theme.spacing(2),
+        color: theme.palette.grey[500],
+      },
+      pageBarContainer: {
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+      },
+      pageBarBox: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5),
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+        background: '#fff',
+        boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+      },
+      iconItem: {
+        fontSize: '2rem',
+        marginRight: theme.spacing(2),
+        cursor: 'pointer',
+      },
+      iconGrid: {
+        color:
+          shopGrid === 'grid'
+            ? theme.palette.primary.main
+            : theme.palette.grey[500],
+      },
+      iconList: {
+        color:
+          shopGrid === 'list'
+            ? theme.palette.primary.main
+            : theme.palette.grey[500],
+      },
+
+      selectForm: {
+        minWidth: '15rem',
+      },
+    })
+  );
+
+  const classes = useStyles();
 
   let productsSorted;
-  useEffect(() => {
-    switch (sort) {
-      case '1':
-        productsSorted = products.hits;
-        break;
-      case '2':
-        /* productsSorted = products.hits.sort(compareByPriceDesc); */
-        break;
-      case '3':
-        /* productsSorted = products.hits.sort(compareByPriceAsc); */
-        break;
-      case '4':
-        productsSorted = products.hits.sort(compareByNameAsc);
-        break;
-      case '5':
-        productsSorted = products.hits.sort(compareByNameDesc);
-        break;
-      default:
-        productsSorted = products.hits;
-        break;
-    }
-  }, [sort]);
+  switch (sort) {
+    case '1':
+      productsSorted = products.hits;
+      break;
+    case '2':
+      /* productsSorted = products.hits.sort(compareByPriceDesc); */
+      break;
+    case '3':
+      /* productsSorted = products.hits.sort(compareByPriceAsc); */
+      break;
+    case '4':
+      productsSorted = products.hits.sort(compareByNameAsc);
+      break;
+    case '5':
+      productsSorted = products.hits.sort(compareByNameDesc);
+      break;
+    default:
+      productsSorted = products.hits;
+      break;
+  }
 
   const values = [
     { value: 1, label: 'по умолчанию' },
@@ -187,24 +201,10 @@ export default function ShopGrid({ products }: IProps) {
       <Grid className={classes.pageBarContainer} item xs={12}>
         <Box className={classes.pageBarBox}>
           <Box>
-            <Box
-              component="span"
-              style={
-                shopGrid === 'grid'
-                  ? { color: theme.palette.primary.main }
-                  : { color: 'inherit' }
-              }
-            >
+            <Box component="span" className={classes.iconGrid}>
               <AppsIcon className={classes.iconItem} onClick={handleGrid} />
             </Box>
-            <Box
-              component="span"
-              style={
-                shopGrid === 'list'
-                  ? { color: theme.palette.primary.main }
-                  : { color: 'inherit' }
-              }
-            >
+            <Box component="span" className={classes.iconList}>
               <MenuIcon className={classes.iconItem} onClick={handleList} />
             </Box>
           </Box>
