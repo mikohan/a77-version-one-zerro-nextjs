@@ -3,7 +3,7 @@ import {
   IProductElasticHitsSecond,
   IProductElasticHitsFirst,
 } from '~/interfaces/product';
-import { Hidden, Box, Grid, Typography, TextField } from '@material-ui/core';
+import { Hidden, Box, Grid, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
