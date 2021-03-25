@@ -24,6 +24,12 @@ interface IProps {
 }
 
 export default function ShopGrid({ products }: IProps) {
+  // Drawer stuff
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+  // End drawer stuff
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
@@ -176,13 +182,14 @@ export default function ShopGrid({ products }: IProps) {
 
   return (
     <React.Fragment>
-      <FilterDrawer />
+      <FilterDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
       <Grid container>
         <Grid className={classes.pageBarContainer} item xs={12}>
           <Box className={classes.pageBarBox}>
             <Box className={classes.iconsBoxContainer}>
               <Hidden mdUp>
                 <Button
+                  onClick={toggleDrawer}
                   variant="outlined"
                   color="primary"
                   className={classes.filterButton}

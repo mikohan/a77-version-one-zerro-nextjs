@@ -13,31 +13,35 @@ import MailIcon from '@material-ui/icons/Mail';
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 350,
   },
   fullList: {
     width: 'auto',
   },
 });
 
-export default function SwipeableTemporaryDrawer() {
-  const classes = useStyles();
-  const [openDrawer, setOpenDrawer] = React.useState(true);
+interface IProps {
+  openDrawer: boolean;
+  toggleDrawer(): void;
+}
 
-  const toggleDrawer = () => (event: React.MouseEvent) => {
-    setOpenDrawer(!openDrawer);
-  };
+export default function SwipeableTemporaryDrawer({
+  openDrawer,
+  toggleDrawer,
+}: IProps) {
+  const classes = useStyles();
 
   return (
     <div>
       <React.Fragment>
-        <Button onClick={toggleDrawer}>Opne</Button>
         <SwipeableDrawer
           open={openDrawer}
           onClose={toggleDrawer}
           onOpen={toggleDrawer}
         >
-          some list
+          <List className={classes.list}>
+            <ListItem>some content </ListItem>
+          </List>
         </SwipeableDrawer>
       </React.Fragment>
     </div>
