@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Grid, Typography, Box } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import ModelsList from './ModelsList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

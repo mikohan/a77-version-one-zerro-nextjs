@@ -13,13 +13,17 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      height: 600,
+      height: 650,
       maxWidth: '100%',
       backgroundColor: theme.palette.background.paper,
     },
+    listHeader: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
     count: {
       fontSize: '.8rem',
-      color: theme.palette.grey[500],
+      color: theme.palette.text.disabled,
     },
   })
 );
@@ -30,7 +34,7 @@ interface IProps {
 
 export default function ModelsList({ models }: IProps) {
   const classes = useStyles();
-  console.log(models[0]);
+  const make = models[0].make.name.toUpperCase();
 
   function renderRow(props: ListChildComponentProps) {
     const { index, style } = props;
@@ -50,20 +54,30 @@ export default function ModelsList({ models }: IProps) {
     );
   }
 
+  function InnerList({ models }: IProps) {
+    return (
+      <div className={classes.root}>
+        <AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              height={600}
+              width={width}
+              itemSize={30}
+              itemCount={models.length}
+            >
+              {renderRow}
+            </FixedSizeList>
+          )}
+        </AutoSizer>
+      </div>
+    );
+  }
   return (
-    <div className={classes.root}>
-      <AutoSizer>
-        {({ height, width }) => (
-          <FixedSizeList
-            height={600}
-            width={width}
-            itemSize={30}
-            itemCount={models.length}
-          >
-            {renderRow}
-          </FixedSizeList>
-        )}
-      </AutoSizer>
-    </div>
+    <React.Fragment>
+      <Box className={classes.listHeader}>МОДЕЛИ {make}</Box>
+      <Box>
+        <InnerList models={models} />
+      </Box>
+    </React.Fragment>
   );
 }
