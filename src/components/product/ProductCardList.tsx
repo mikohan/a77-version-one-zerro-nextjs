@@ -23,13 +23,13 @@ export default function ComplexGrid({ product }: IProp) {
         display: 'grid',
 
         [theme.breakpoints.down('sm')]: {
-          gridTemplateColumns: `repeat(auto-fill, minmax(300px, 1fr))`,
+          gridTemplateColumns: `repeat(auto-fill, minmax(200px, 1fr))`,
           /* gridAutoRows: `minmax(50px, 100px)`, */
           justifyContent: 'center',
         },
         [theme.breakpoints.up('sm')]: {
           gridTemplateColumns: `1fr 2fr 1fr`,
-          gridAutoRows: `minmax(150px, 200px)`,
+          /* gridAutoRows: `minmax(150px, 200px)`, */
         },
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',

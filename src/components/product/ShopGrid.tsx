@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/types';
 import { compareByNameAsc, compareByNameDesc } from '~/utils';
-import { useTheme } from '@material-ui/core/styles';
 import ProductCardGrid from './ProductCardGrid';
 import ProductCardList from './ProductCardList';
 
@@ -24,7 +23,6 @@ export default function ShopGrid({ products }: IProps) {
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
-  const theme = useTheme();
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       cards: {
@@ -72,7 +70,12 @@ export default function ShopGrid({ products }: IProps) {
       },
 
       selectForm: {
-        minWidth: '15rem',
+        [theme.breakpoints.down('sm')]: {
+          maxWidth: '15rem',
+        },
+        [theme.breakpoints.up('sm')]: {
+          maxWidth: '15rem',
+        },
       },
     })
   );
@@ -143,26 +146,26 @@ export default function ShopGrid({ products }: IProps) {
 
   return (
     <Grid container>
-      <Hidden smDown>
-        <Grid className={classes.pageBarContainer} item xs={12}>
-          <Box className={classes.pageBarBox}>
-            <Box>
-              <Box component="span" className={classes.iconGrid}>
-                <AppsIcon className={classes.iconItem} onClick={handleGrid} />
-              </Box>
-              <Box component="span" className={classes.iconList}>
-                <MenuIcon className={classes.iconItem} onClick={handleList} />
-              </Box>
+      <Grid className={classes.pageBarContainer} item xs={12}>
+        <Box className={classes.pageBarBox}>
+          <Box>
+            <Box component="span" className={classes.iconGrid}>
+              <AppsIcon className={classes.iconItem} onClick={handleGrid} />
             </Box>
-            <Box className={classes.selectForm}>
-              <Select />
+            <Box component="span" className={classes.iconList}>
+              <MenuIcon className={classes.iconItem} onClick={handleList} />
             </Box>
+          </Box>
+          <Box className={classes.selectForm}>
+            <Select />
+          </Box>
+          <Hidden smDown>
             <Box>
               <Pagination count={50} color="primary" />
             </Box>
-          </Box>
-        </Grid>
-      </Hidden>
+          </Hidden>
+        </Box>
+      </Grid>
       <Grid item xs={12}>
         <div className={classes.cards}>
           {products.hits.map((item: IProductElasticHitsSecond) => {
