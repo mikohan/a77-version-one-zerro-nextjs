@@ -4,12 +4,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { ICar } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      height: 400,
+      height: 600,
       maxWidth: '100%',
       backgroundColor: theme.palette.background.paper,
     },
@@ -26,7 +27,11 @@ function renderRow(props: ListChildComponentProps) {
   );
 }
 
-export default function ModelsList() {
+interface IProps {
+  models: ICar[];
+}
+
+export default function ModelsList({ models }: IProps) {
   const classes = useStyles();
 
   return (
@@ -34,7 +39,7 @@ export default function ModelsList() {
       <AutoSizer>
         {({ height, width }) => (
           <FixedSizeList
-            height={400}
+            height={600}
             width={width}
             itemSize={30}
             itemCount={200}
