@@ -45,7 +45,6 @@ export default function ComplexGrid({ product }: IProp) {
         maxHeight: '100%',
         display: 'flex',
         alignItems: 'center',
-        border: '2px solid grey',
       },
       productName: {
         [theme.breakpoints.down('sm')]: {
@@ -63,7 +62,6 @@ export default function ComplexGrid({ product }: IProp) {
           maxHeight: '200px',
         },
         [theme.breakpoints.down('sm')]: {
-          padding: theme.spacing(5),
           maxWidth: '100%',
           height: 'auto',
         },
