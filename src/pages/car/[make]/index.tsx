@@ -1,16 +1,21 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { REVALIDATE } from '~/config';
-import { List, ListItem } from '@material-ui/core';
+import { List, ListItem, Grid, Hidden } from '@material-ui/core';
 import Link from 'next/link';
 import ShopModelGrid from '~/components/product/ShopModelGrid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Animation from '~/components/common/AnimationPage';
+import AnimationPage from '~/components/common/AnimationPage';
+import CarMakeHead from '~/components/heads/carMakeHead';
+import PageHeader from '~/components/product/PageHeader';
 
 import { ICar } from '~/interfaces/ICar';
 import { IMake } from '~/interfaces/IMake';
 import { getVehicleByModel, getMake, getMakes } from '~/endpoints/carsEndpoint';
+import ShopGrid from '~/components/product/ShopGrid';
+import { IBread } from '~/interfaces/IBread';
+import { capitalize } from '~/utils';
 
 interface ICarProps {
   models: ICar[];
@@ -19,13 +24,33 @@ interface ICarProps {
 
 function Make(props: ICarProps) {
   let { make, models } = props;
+  const breads: IBread[] = [
+    { name: 'Ангара77', path: '/' },
+    { name: make.name, path: `/car/${make.slug}` },
+  ];
+  const makeName = capitalize(make.name);
+  const header = `Запчасти для ${makeName}`;
+  const count = 300;
 
   return (
-    <Animation>
-      <div>
-        <ShopModelGrid cars={models} />
-      </div>
-    </Animation>
+    <React.Fragment>
+      <CarMakeHead make={make} />
+      <AnimationPage>
+        <Grid container>
+          <PageHeader header={header} breads={breads} count={count} />
+          <Hidden smDown>
+            <Grid item xs={3} style={{ border: '1px solid pink' }}>
+              LEFT SIDE PANE
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} md={9}>
+            <Grid item xs={12}>
+              {/* <ShopGrid products={products} /> */}
+            </Grid>
+          </Grid>
+        </Grid>
+      </AnimationPage>
+    </React.Fragment>
   );
 }
 
