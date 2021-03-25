@@ -17,8 +17,10 @@ export default function ComplexGrid({ product }: IProp) {
       card: {
         padding: theme.spacing(3),
         position: 'relative',
-        display: 'flex',
-        justifyContent: 'flex-start',
+        display: 'grid',
+
+        gridTemplateColumns: `1fr 2fr 1fr`,
+        gridAutoRows: `minmax(200px, 250px)`,
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
         background: 'white',
@@ -29,26 +31,20 @@ export default function ComplexGrid({ product }: IProp) {
           cursor: 'pointer',
         },
       },
-      imageDiv: {
-        maxWidth: '30%',
-        border: '2px solid green',
-      },
       cardImageLink: {
-        maxWidth: '30%',
-        display: 'block',
-        position: 'relative',
-        paddingBottom: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        border: '2px solid grey',
       },
       productName: {
         fontSize: '1.1rem',
         color: theme.palette.grey[700],
       },
       cardImage: {
-        display: 'block',
-        position: 'absolute',
-        widt: '100%',
-        height: '100%',
-        objectFit: 'contain', // contain maki it small, cover make it big
+        border: '2px solid red',
+        maxWidth: '100%',
+        height: 'auto',
+        objectFit: 'scale-down', // contain maki it small, cover make it big
       },
       cardContent: {
         border: '2px solid green',
@@ -82,20 +78,18 @@ export default function ComplexGrid({ product }: IProp) {
 
   return (
     <div key={product._id} className={classes.card}>
-      <div className={classes.imageDiv}>
-        <a className={classes.cardImageLink}>
-          <img src={imgPath} className={classes.cardImage} alt="Some image" />
-        </a>
-      </div>
+      <a className={classes.cardImageLink}>
+        <img src={imgPath} className={classes.cardImage} alt="Some image" />
+      </a>
       <div className={classes.cardContent}>
         <Typography className={classes.productName} variant="h6">
           {product._source.name}
         </Typography>
-      </div>
-      <div className={classes.productSku}>
-        <Typography variant="body2">
-          SKU: {product._source.cat_number}
-        </Typography>
+        <div className={classes.productSku}>
+          <Typography variant="body2">
+            SKU: {product._source.cat_number}
+          </Typography>
+        </div>
       </div>
       <div className={classes.cardInfo}>
         <Typography variant="h6">$ 450.00</Typography>
