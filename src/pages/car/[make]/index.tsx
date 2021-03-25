@@ -14,6 +14,7 @@ import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
 import { getProductsByMake } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces';
+import LeftSidebar from '~/components/product/LeftSideBar';
 
 interface ICarProps {
   models: ICar[];
@@ -40,7 +41,7 @@ function Make(props: ICarProps) {
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
             <Grid item xs={3} style={{ border: '1px solid pink' }}>
-              LEFT SIDE PANE
+              <LeftSidebar />
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
