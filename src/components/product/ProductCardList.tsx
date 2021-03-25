@@ -3,6 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import IconButton from '@material-ui/core/IconButton';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -23,7 +25,7 @@ export default function ComplexGrid({ product }: IProp) {
         display: 'grid',
 
         [theme.breakpoints.down('sm')]: {
-          gridTemplateColumns: `repeat(auto-fill, minmax(200px, 1fr))`,
+          gridTemplateColumns: `repeat(auto-fill, minmax(215px, 1fr))`,
           /* gridAutoRows: `minmax(50px, 100px)`, */
           justifyContent: 'center',
         },
@@ -36,8 +38,8 @@ export default function ComplexGrid({ product }: IProp) {
         background: 'white',
         transition: '0.5s',
         '&:hover $shoppingCartIcon': {
-          transform: `scale(1.3)`,
-          color: theme.palette.primary.main,
+          transform: `scale(1.1)`,
+          color: theme.palette.primary.dark,
           cursor: 'pointer',
         },
       },
@@ -79,7 +81,7 @@ export default function ComplexGrid({ product }: IProp) {
         [theme.breakpoints.down('sm')]: {
           flexDirection: 'row',
           justifyContent: 'space-between',
-          alignItems: 'flex-end',
+          alignItems: 'center',
         },
         [theme.breakpoints.up('sm')]: {
           flexDirection: 'column',
@@ -94,8 +96,17 @@ export default function ComplexGrid({ product }: IProp) {
         /* background: theme.palette.grey[200], */
       },
       shoppingCartIcon: {
-        fontSize: '2rem',
-        color: theme.palette.grey[500],
+        [theme.breakpoints.down('sm')]: {
+          fontSize: '2rem',
+        },
+        [theme.breakpoints.up('sm')]: {
+          fontSize: '2.5rem',
+        },
+        [theme.breakpoints.up('lg')]: {
+          fontSize: '3rem',
+        },
+
+        color: theme.palette.primary.main,
         transition: '0.2s',
       },
       productSku: {
@@ -119,9 +130,11 @@ export default function ComplexGrid({ product }: IProp) {
         </Typography>
       </div>
       <div className={classes.cardInfo}>
-        <Typography variant="h6">$ 450.00</Typography>
+        <Typography variant="h6">&#8381; 450</Typography>
         <div>
-          <ShoppingCartOutlinedIcon className={classes.shoppingCartIcon} />
+          <IconButton color="primary" aria-label="add to shopping cart">
+            <AddShoppingCartIcon className={classes.shoppingCartIcon} />
+          </IconButton>
         </div>
       </div>
     </div>
