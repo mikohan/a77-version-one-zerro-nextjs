@@ -12,9 +12,7 @@ export function makeTree(cats: any): Promise<ICategory[]> {
   const filtredArray = cats.filter((item: any) => {
     return item.count !== 0;
   });
-
   const list: any = filtredArray;
-
   const tree: any = [];
   const lookup: any = {};
 

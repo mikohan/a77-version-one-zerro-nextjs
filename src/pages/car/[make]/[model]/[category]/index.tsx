@@ -17,9 +17,10 @@ import { IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
-import { red, green } from '@material-ui/core/colors';
 import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
+import FilterWidget from '~/components/product/FilterWidget';
+import LeftSideBar from '~/components/product/LeftSideBar';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -89,11 +90,13 @@ export default function Cagetory(props: CategoryProps) {
       <AnimationPage>
         <Grid container>
           <Hidden smDown>
-            <Grid item xs={2} style={{ border: '1px solid green' }}>
-              LEFT SIDE PANE
+            <Grid item xs={3} style={{ border: '1px solid green' }}>
+              <LeftSideBar>
+                <FilterWidget filters={filters} />
+              </LeftSideBar>
             </Grid>
           </Hidden>
-          <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
+          <Grid style={{ border: '1px solid green' }} item xs={12} md={9}>
             <Typography variant="h1">H1 Goes Here</Typography>
             <ShopGrid products={products} />
           </Grid>
