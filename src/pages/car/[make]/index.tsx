@@ -16,6 +16,8 @@ import { getVehicleByModel, getMake, getMakes } from '~/endpoints/carsEndpoint';
 import ShopGrid from '~/components/product/ShopGrid';
 import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
+import { getProductsByCar } from '~/endpoints/productEndpoint';
+import { IProductElasticHitsFirst } from '~/interfaces';
 
 interface ICarProps {
   models: ICar[];
@@ -59,12 +61,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const make: IMake = await getMake(slug);
 
   const models = await getVehicleByModel(make.slug);
+  const promise = await getProductsByCar(slug);
+  const products: IProductElasticHitsFirst = promise.hits;
 
   return {
     revalidate: REVALIDATE,
     props: {
       models: models,
       make: make,
+      products: products,
     },
   };
 };

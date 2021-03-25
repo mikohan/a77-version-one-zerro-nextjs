@@ -18,3 +18,13 @@ export async function getProductsAll(): Promise<any> {
 
   return prom.data;
 }
+
+export async function getProductsByMake(
+  makeSlug: string
+): Promise<IProductElasticBase> {
+  const prom = await axios(
+    `http://localhost:8000/api/product/jsontest?makeSlug=${makeSlug}`
+  );
+
+  return prom.data;
+}
