@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 export default function SwipeableTemporaryDrawer() {
   const classes = useStyles();
-  const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [openDrawer, setOpenDrawer] = React.useState(true);
 
   const toggleDrawer = () => (event: React.MouseEvent) => {
     setOpenDrawer(!openDrawer);

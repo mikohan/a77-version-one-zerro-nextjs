@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
   IProductElasticHitsSecond,
@@ -16,7 +17,7 @@ import ProductCardGrid from './ProductCardGrid';
 import ProductCardList from './ProductCardList';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 import Button from '@material-ui/core/Button';
-import { Drawer, List, ListItem } from '@material-ui/core';
+import FilterDrawer from '~/components/product/FilterDrawer';
 
 interface IProps {
   products: IProductElasticHitsFirst;
@@ -174,56 +175,59 @@ export default function ShopGrid({ products }: IProps) {
   );
 
   return (
-    <Grid container>
-      <Grid className={classes.pageBarContainer} item xs={12}>
-        <Box className={classes.pageBarBox}>
-          <Box className={classes.iconsBoxContainer}>
-            <Hidden mdUp>
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.filterButton}
-                startIcon={<FilterIcon color="primary" fontSize="large" />}
-              >
-                ФИЛЬТРЫ
-              </Button>
+    <React.Fragment>
+      <FilterDrawer />
+      <Grid container>
+        <Grid className={classes.pageBarContainer} item xs={12}>
+          <Box className={classes.pageBarBox}>
+            <Box className={classes.iconsBoxContainer}>
+              <Hidden mdUp>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.filterButton}
+                  startIcon={<FilterIcon color="primary" fontSize="large" />}
+                >
+                  ФИЛЬТРЫ
+                </Button>
+              </Hidden>
+              <Box component="span" className={classes.iconGrid}>
+                <AppsIcon className={classes.iconItem} onClick={handleGrid} />
+              </Box>
+              <Box component="span" className={classes.iconList}>
+                <MenuIcon className={classes.iconItem} onClick={handleList} />
+              </Box>
+            </Box>
+            <Box className={classes.selectForm}>
+              <Select />
+            </Box>
+            <Hidden mdDown>
+              <Box>
+                <Pagination count={50} color="primary" />
+              </Box>
             </Hidden>
-            <Box component="span" className={classes.iconGrid}>
-              <AppsIcon className={classes.iconItem} onClick={handleGrid} />
-            </Box>
-            <Box component="span" className={classes.iconList}>
-              <MenuIcon className={classes.iconItem} onClick={handleList} />
-            </Box>
           </Box>
-          <Box className={classes.selectForm}>
-            <Select />
-          </Box>
-          <Hidden mdDown>
-            <Box>
-              <Pagination count={50} color="primary" />
-            </Box>
-          </Hidden>
-        </Box>
-      </Grid>
-      <Grid item xs={12}>
-        <div className={classes.cards}>
-          {products.hits.map((item: IProductElasticHitsSecond) => {
-            const elem =
-              shopGrid === 'grid' ? (
-                <ProductCardGrid key={item._id} product={item} />
-              ) : (
-                <ProductCardList key={item._id} product={item} />
-              );
+        </Grid>
+        <Grid item xs={12}>
+          <div className={classes.cards}>
+            {products.hits.map((item: IProductElasticHitsSecond) => {
+              const elem =
+                shopGrid === 'grid' ? (
+                  <ProductCardGrid key={item._id} product={item} />
+                ) : (
+                  <ProductCardList key={item._id} product={item} />
+                );
 
-            return elem;
-          })}
-        </div>
+              return elem;
+            })}
+          </div>
+        </Grid>
+        <Grid className={classes.paginationBottom} xs={12}>
+          <Box className={classes.pageBottomPaginationBox}>
+            <Pagination count={50} color="primary" />
+          </Box>
+        </Grid>
       </Grid>
-      <Grid className={classes.paginationBottom} xs={12}>
-        <Box className={classes.pageBottomPaginationBox}>
-          <Pagination count={50} color="primary" />
-        </Box>
-      </Grid>
-    </Grid>
+    </React.Fragment>
   );
 }
