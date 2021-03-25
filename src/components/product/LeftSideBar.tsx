@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Grid, Typography, Box } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import ModelsList from './ModelsList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +31,9 @@ export default function FiltersWidget({ children }: IProps): JSX.Element {
       <Box className={classes.whiteBox}>
         <Grid item xs={12}>
           <Typography variant="h6">Filters</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <ModelsList />
         </Grid>
         <Grid item xs={12} justify="center">
           <Box className={classes.children}>{children}</Box>
