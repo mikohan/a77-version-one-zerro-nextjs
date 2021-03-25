@@ -77,6 +77,20 @@ export default function ShopGrid({ products }: IProps) {
           maxWidth: '15rem',
         },
       },
+      paginationBottom: {
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        paddingBottom: theme.spacing(5),
+      },
+      pageBottomPaginationBox: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5),
+        background: '#fff',
+        boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+      },
     })
   );
 
@@ -179,6 +193,11 @@ export default function ShopGrid({ products }: IProps) {
             return elem;
           })}
         </div>
+      </Grid>
+      <Grid className={classes.paginationBottom} xs={12}>
+        <Box className={classes.pageBottomPaginationBox}>
+          <Pagination count={50} color="primary" />
+        </Box>
       </Grid>
     </Grid>
   );
