@@ -31,9 +31,18 @@ export default function ModelsList() {
 
   return (
     <div className={classes.root}>
-      <FixedSizeList height={400} width={270} itemSize={30} itemCount={200}>
-        {renderRow}
-      </FixedSizeList>
+      <AutoSizer>
+        {({ height, width }) => (
+          <FixedSizeList
+            height={400}
+            width={width}
+            itemSize={30}
+            itemCount={200}
+          >
+            {renderRow}
+          </FixedSizeList>
+        )}
+      </AutoSizer>
     </div>
   );
 }
