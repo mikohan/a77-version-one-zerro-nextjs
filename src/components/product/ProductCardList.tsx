@@ -23,8 +23,8 @@ export default function ComplexGrid({ product }: IProp) {
         display: 'grid',
 
         [theme.breakpoints.down('sm')]: {
-          gridTemplateColumns: `1fr 1fr`,
-          gridAutoRows: `minmax(50px, 100px)`,
+          gridTemplateColumns: `repeat(auto-fill, minmax(300px, 1fr))`,
+          /* gridAutoRows: `minmax(50px, 100px)`, */
           justifyContent: 'center',
         },
         [theme.breakpoints.up('sm')]: {
@@ -42,25 +42,32 @@ export default function ComplexGrid({ product }: IProp) {
         },
       },
       cardImageLink: {
+        maxHeight: '100%',
         display: 'flex',
         alignItems: 'center',
         border: '2px solid grey',
       },
       productName: {
         [theme.breakpoints.down('sm')]: {
-          fontSize: '.9rem',
+          fontSize: '1rem',
         },
-        fontSize: '1.1rem',
+        [theme.breakpoints.up('sm')]: {
+          fontSize: '1.1rem',
+        },
         color: theme.palette.grey[700],
       },
       cardImage: {
         maxWidth: '100%',
         height: 'auto',
-        maxHeight: '200px',
-        [theme.breakpoints.down('sm')]: {
-          maxHeight: '100px',
+        [theme.breakpoints.up('sm')]: {
+          maxHeight: '200px',
         },
-        border: '2px solid red',
+        [theme.breakpoints.down('sm')]: {
+          padding: theme.spacing(5),
+          maxWidth: '100%',
+          height: 'auto',
+        },
+        /* border: '2px solid red', */
         objectFit: 'contain', // contain maki it small, cover make it big
       },
       cardContent: {
@@ -68,21 +75,24 @@ export default function ComplexGrid({ product }: IProp) {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: theme.spacing(3),
-        border: '2px solid green',
+        /* border: '2px solid green', */
       },
       cardInfo: {
         [theme.breakpoints.down('sm')]: {
           flexDirection: 'row',
           justifyContent: 'space-between',
+          alignItems: 'flex-end',
+        },
+        [theme.breakpoints.up('sm')]: {
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
         },
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(2),
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
         /* background: theme.palette.grey[200], */
       },
       shoppingCartIcon: {
