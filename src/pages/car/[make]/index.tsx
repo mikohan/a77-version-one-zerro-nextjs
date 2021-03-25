@@ -1,11 +1,7 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { REVALIDATE } from '~/config';
-import { List, ListItem, Grid, Hidden } from '@material-ui/core';
-import Link from 'next/link';
-import ShopModelGrid from '~/components/product/ShopModelGrid';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
 import PageHeader from '~/components/product/PageHeader';
@@ -16,23 +12,25 @@ import { getVehicleByModel, getMake, getMakes } from '~/endpoints/carsEndpoint';
 import ShopGrid from '~/components/product/ShopGrid';
 import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
-import { getProductsByCar } from '~/endpoints/productEndpoint';
+import { getProductsByMake } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces';
 
 interface ICarProps {
   models: ICar[];
   make: IMake;
+  products: IProductElasticHitsFirst;
 }
 
 function Make(props: ICarProps) {
-  let { make, models } = props;
+  const { make, models, products } = props;
+  const count = products.total.value;
+
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
     { name: make.name, path: `/car/${make.slug}` },
   ];
   const makeName = capitalize(make.name);
   const header = `Запчасти для ${makeName}`;
-  const count = 300;
 
   return (
     <React.Fragment>
@@ -47,7 +45,7 @@ function Make(props: ICarProps) {
           </Hidden>
           <Grid item xs={12} md={9}>
             <Grid item xs={12}>
-              {/* <ShopGrid products={products} /> */}
+              {<ShopGrid products={products} />}
             </Grid>
           </Grid>
         </Grid>
@@ -60,8 +58,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug: string = context.params?.make as string;
   const make: IMake = await getMake(slug);
 
-  const models = await getVehicleByModel(make.slug);
-  const promise = await getProductsByCar(slug);
+  const models = await getVehicleByModel(make.slug.toLowerCase());
+  const promise = await getProductsByMake(slug);
   const products: IProductElasticHitsFirst = promise.hits;
 
   return {
