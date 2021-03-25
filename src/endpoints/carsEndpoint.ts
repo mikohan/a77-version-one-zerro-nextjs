@@ -93,10 +93,11 @@ export async function getVehicle(slug: string): Promise<ICar> {
       slug: slug,
     },
   });
-  return await promise.data.vehicle;
+  const data = await promise.data.vehicle;
+  return data;
 }
 
-export async function getVehicleByModel(slug: string): Promise<ICar> {
+export async function getVehiclesByMake(slug: string): Promise<ICar> {
   const query = gql`
     query vehiclesByMake($slug: String!) {
       vehiclesByMake(slug: $slug) {
@@ -104,6 +105,7 @@ export async function getVehicleByModel(slug: string): Promise<ICar> {
         model
         year
         engine
+        count
         make {
           id
           name
@@ -121,5 +123,6 @@ export async function getVehicleByModel(slug: string): Promise<ICar> {
       slug: slug,
     },
   });
-  return await promise.data.vehiclesByMake;
+  const data = await promise.data.vehiclesByMake;
+  return data;
 }

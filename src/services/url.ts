@@ -6,7 +6,8 @@ import { ICategory } from '~/interfaces/category';
 type IAppLinkHref = string | LinkProps;
 
 const url: { [key: string]: any } = {
-  shop: (make?: string, model?: string) => `/car/${make}/${model}`,
+  model: (make: string, model: string) => `/car/${make}/${model}`,
+  make: (make: string) => `/car/${make}`,
   category: (
     make: string,
     model: string,

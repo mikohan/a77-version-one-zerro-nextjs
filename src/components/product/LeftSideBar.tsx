@@ -33,7 +33,7 @@ export default function FiltersWidget({ children }: IProps): JSX.Element {
           <Typography variant="h6">Filters</Typography>
         </Grid>
         <Grid item xs={12}></Grid>
-        <Grid item xs={12} justify="center">
+        <Grid item xs={12}>
           <Box className={classes.children}>{children}</Box>
         </Grid>
       </Box>

@@ -8,7 +8,7 @@ import PageHeader from '~/components/product/PageHeader';
 
 import { ICar } from '~/interfaces/ICar';
 import { IMake } from '~/interfaces/IMake';
-import { getVehicleByModel, getMake, getMakes } from '~/endpoints/carsEndpoint';
+import { getVehiclesByMake, getMake, getMakes } from '~/endpoints/carsEndpoint';
 import ShopGrid from '~/components/product/ShopGrid';
 import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug: string = context.params?.make as string;
   const make: IMake = await getMake(slug);
 
-  const models = await getVehicleByModel(make.slug.toLowerCase());
+  const models = await getVehiclesByMake(make.slug.toLowerCase());
   const promise = await getProductsByMake(slug);
   const products: IProductElasticHitsFirst = promise.hits;
 
