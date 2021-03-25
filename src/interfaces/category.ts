@@ -1,5 +1,6 @@
 export interface ICategory extends IBaseCategory {
   layout?: string;
+  type: 'shop';
 }
 
 // application

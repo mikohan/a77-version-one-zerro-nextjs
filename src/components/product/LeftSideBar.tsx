@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
-      border: '1px solid blue',
+      /* border: '1px solid blue', */
     },
     whiteBox: {
       padding: theme.spacing(2),

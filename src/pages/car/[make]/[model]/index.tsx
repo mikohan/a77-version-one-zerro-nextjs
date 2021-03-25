@@ -21,12 +21,15 @@ import CarModelHead from '~/components/heads/carModelHead';
 import { IBread } from '~/interfaces';
 import PageHeader from '~/components/product/PageHeader';
 import ShopGrid from '~/components/product/ShopGrid';
+import FilterWidget from '~/components/product/FilterWidget';
+import LeftSideBar from '~/components/product/LeftSideBar';
+import { IShopCategory } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
 interface IModelProps {
   model: ICar;
-  categories: ICategory[];
+  categories: IShopCategory[];
   products: IProductElasticHitsFirst;
 }
 export interface IBaseFilter<T extends string, V> {
@@ -50,7 +53,7 @@ function Model(props: IModelProps) {
   ];
 
   const dispatch = useDispatch();
-
+  const items: ICategory[] = [];
   useEffect(() => {
     dispatch(setCurrentCarAction(model));
   }, [model]);
@@ -60,11 +63,11 @@ function Model(props: IModelProps) {
     name: 'category',
     slug: 'category',
     value: 'dvigatel',
-    items: [],
+    items: categories,
   };
 
   const filters = [];
-  //filters.push(filterCategory);
+  filters.push(filterCategory);
 
   return (
     <React.Fragment>
@@ -74,7 +77,9 @@ function Model(props: IModelProps) {
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
             <Grid item xs={3} style={{ border: '1px solid pink' }}>
-              LEFT SIDE PANE
+              <LeftSideBar>
+                <FilterWidget filters={filters} />
+              </LeftSideBar>
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
