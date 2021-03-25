@@ -5,9 +5,6 @@ import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
 import { ICategory } from '~/interfaces/category';
-import { Box } from '@material-ui/core';
-import FilterWidget from '~/components/main/FilterWidget';
-import LeftSideBar from '~/components/main/LeftSideBar';
 import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
 import AnimationPage from '~/components/common/AnimationPage';
@@ -18,12 +15,10 @@ import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { capitalize, makeTree } from '~/utils';
-import { Typography, Hidden } from '@material-ui/core';
-import CarChoiser from '~/components/common/CarChoiser';
+import { Hidden } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CarModelHead from '~/components/heads/carModelHead';
 import { IBread } from '~/interfaces';
-import BreadCrumbs from '~/components/common/BreadCrumbs';
 import PageHeader from '~/components/product/PageHeader';
 import ShopGrid from '~/components/product/ShopGrid';
 

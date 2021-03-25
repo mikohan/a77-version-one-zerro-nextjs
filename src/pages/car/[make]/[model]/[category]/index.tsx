@@ -4,33 +4,22 @@ import React from 'react';
 
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { REVALIDATE } from '~/config';
 import { ICar } from '~/interfaces/ICar';
-import { getCategories, getCategoryBySlugGQL } from '~/endpoints/categories';
+import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
-import LeftSideBar from '~/components/main/LeftSideBar';
-import FilterWidget from '~/components/main/FilterWidget';
 import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
-import {
-  IProductElasticHitsFirst,
-  IProduct,
-  IProductElasticHitsSecond,
-} from '~/interfaces/product';
+import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree } from '~/utils';
-import ProductCard from '~/components/product/ProductCard2';
-import PageHeader from '~/components/product/PageHeader';
-import { red, green, blue } from '@material-ui/core/colors';
+import { red, green } from '@material-ui/core/colors';
 import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
-
-const redColor = red[500];
-const greenColor = green[600];
 
 interface CategoryProps {
   category: IShopCategory;
