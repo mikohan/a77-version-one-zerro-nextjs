@@ -3,7 +3,7 @@ import {
   IProductElasticHitsSecond,
   IProductElasticHitsFirst,
 } from '~/interfaces/product';
-import { Box, Grid, Typography, TextField } from '@material-ui/core';
+import { Hidden, Box, Grid, Typography, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -143,24 +143,26 @@ export default function ShopGrid({ products }: IProps) {
 
   return (
     <Grid container>
-      <Grid className={classes.pageBarContainer} item xs={12}>
-        <Box className={classes.pageBarBox}>
-          <Box>
-            <Box component="span" className={classes.iconGrid}>
-              <AppsIcon className={classes.iconItem} onClick={handleGrid} />
+      <Hidden smDown>
+        <Grid className={classes.pageBarContainer} item xs={12}>
+          <Box className={classes.pageBarBox}>
+            <Box>
+              <Box component="span" className={classes.iconGrid}>
+                <AppsIcon className={classes.iconItem} onClick={handleGrid} />
+              </Box>
+              <Box component="span" className={classes.iconList}>
+                <MenuIcon className={classes.iconItem} onClick={handleList} />
+              </Box>
             </Box>
-            <Box component="span" className={classes.iconList}>
-              <MenuIcon className={classes.iconItem} onClick={handleList} />
+            <Box className={classes.selectForm}>
+              <Select />
+            </Box>
+            <Box>
+              <Pagination count={50} color="primary" />
             </Box>
           </Box>
-          <Box className={classes.selectForm}>
-            <Select />
-          </Box>
-          <Box>
-            <Pagination count={50} color="primary" />
-          </Box>
-        </Box>
-      </Grid>
+        </Grid>
+      </Hidden>
       <Grid item xs={12}>
         <div className={classes.cards}>
           {products.hits.map((item: IProductElasticHitsSecond) => {

@@ -15,12 +15,22 @@ export default function ComplexGrid({ product }: IProp) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       card: {
+        [theme.breakpoints.down('sm')]: {
+          padding: theme.spacing(1),
+        },
         padding: theme.spacing(3),
         position: 'relative',
         display: 'grid',
 
-        gridTemplateColumns: `1fr 2fr 1fr`,
-        gridAutoRows: `minmax(200px, 250px)`,
+        [theme.breakpoints.down('sm')]: {
+          gridTemplateColumns: `1fr 1fr`,
+          gridAutoRows: `minmax(50px, 100px)`,
+          justifyContent: 'center',
+        },
+        [theme.breakpoints.up('sm')]: {
+          gridTemplateColumns: `1fr 2fr 1fr`,
+          gridAutoRows: `minmax(150px, 200px)`,
+        },
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
         background: 'white',
@@ -37,22 +47,34 @@ export default function ComplexGrid({ product }: IProp) {
         border: '2px solid grey',
       },
       productName: {
+        [theme.breakpoints.down('sm')]: {
+          fontSize: '.9rem',
+        },
         fontSize: '1.1rem',
         color: theme.palette.grey[700],
       },
       cardImage: {
-        border: '2px solid red',
         maxWidth: '100%',
         height: 'auto',
-        objectFit: 'scale-down', // contain maki it small, cover make it big
+        maxHeight: '200px',
+        [theme.breakpoints.down('sm')]: {
+          maxHeight: '100px',
+        },
+        border: '2px solid red',
+        objectFit: 'contain', // contain maki it small, cover make it big
       },
       cardContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: theme.spacing(3),
         border: '2px solid green',
-        minWidth: '30%',
-        height: '100%',
       },
       cardInfo: {
-        minWidth: '25%',
+        [theme.breakpoints.down('sm')]: {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        },
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
         paddingTop: theme.spacing(2),
@@ -69,7 +91,6 @@ export default function ComplexGrid({ product }: IProp) {
         transition: '0.2s',
       },
       productSku: {
-        paddingLeft: theme.spacing(2),
         color: theme.palette.grey[500],
       },
     })
@@ -85,11 +106,9 @@ export default function ComplexGrid({ product }: IProp) {
         <Typography className={classes.productName} variant="h6">
           {product._source.name}
         </Typography>
-        <div className={classes.productSku}>
-          <Typography variant="body2">
-            SKU: {product._source.cat_number}
-          </Typography>
-        </div>
+        <Typography className={classes.productSku} variant="body2">
+          SKU: {product._source.cat_number}
+        </Typography>
       </div>
       <div className={classes.cardInfo}>
         <Typography variant="h6">$ 450.00</Typography>
