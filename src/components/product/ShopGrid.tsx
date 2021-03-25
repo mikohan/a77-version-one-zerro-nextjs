@@ -193,7 +193,7 @@ export default function ShopGrid({ products }: IProps) {
                   variant="outlined"
                   color="primary"
                   className={classes.filterButton}
-                  startIcon={<FilterIcon color="primary" fontSize="large" />}
+                  startIcon={<FilterIcon color="primary" />}
                 >
                   ФИЛЬТРЫ
                 </Button>
@@ -229,7 +229,7 @@ export default function ShopGrid({ products }: IProps) {
             })}
           </div>
         </Grid>
-        <Grid className={classes.paginationBottom} xs={12}>
+        <Grid className={classes.paginationBottom} item xs={12}>
           <Box className={classes.pageBottomPaginationBox}>
             <Pagination count={50} color="primary" />
           </Box>

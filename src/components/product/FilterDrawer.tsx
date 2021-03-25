@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     closeIcon: {
       fontSize: '2rem',
+      cursor: 'pointer',
     },
   })
 );
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   openDrawer: boolean;
   toggleDrawer(): void;
+  filters?: any; //IFilters[];
 }
 
 export default function SwipeableTemporaryDrawer({
@@ -51,11 +53,14 @@ export default function SwipeableTemporaryDrawer({
           onOpen={toggleDrawer}
         >
           <Box className={classes.closeBox}>
-            <HighlightOffIcon className={classes.closeIcon} />
+            <HighlightOffIcon
+              className={classes.closeIcon}
+              onClick={toggleDrawer}
+            />
           </Box>
           <List className={classes.list}>
             <ListItem>
-              <ListItemText>TEXT</ListItemText>
+              <ListItemText>Here will go filtes</ListItemText>
             </ListItem>
           </List>
         </SwipeableDrawer>
