@@ -55,6 +55,7 @@ function FilterCategory(props: Props) {
   const { make, model } = router.query;
   const carMake = asString(make as string);
   const carModel = asString(model as string);
+  console.log(options.items[0]);
 
   return (
     <Box className={classes.root}>
@@ -86,7 +87,7 @@ function FilterCategory(props: Props) {
               </ListItem>
             ))}
             <ListItem className={classes.currentItemCategory}>
-              <AppLink href={url.category(item, make, model)}>
+              <AppLink href={url.category(make, model, item.slug)}>
                 <Typography variant="body2">{item.name}</Typography>
               </AppLink>
             </ListItem>
@@ -94,7 +95,7 @@ function FilterCategory(props: Props) {
               ? ''
               : item.children?.map((child) => (
                   <ListItem className={classes.childrenItems} key={child.id}>
-                    <AppLink href={url.category(child, make, model)}>
+                    <AppLink href={url.category(make, model, child.slug)}>
                       <Typography variant="body2">{child.name}</Typography>
                     </AppLink>
                   </ListItem>
