@@ -22,7 +22,7 @@ export default function ComplexGrid({ product }: IProp) {
         background: 'white',
         transition: '0.5s',
         '&:hover $shoppingCartIcon': {
-          transform: `scale(1.3)`,
+          transform: `scale(1.1)`,
           color: theme.palette.primary.main,
           cursor: 'pointer',
         },

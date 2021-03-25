@@ -14,6 +14,9 @@ import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/types';
 import { compareByNameAsc, compareByNameDesc } from '~/utils';
 import ProductCardGrid from './ProductCardGrid';
 import ProductCardList from './ProductCardList';
+import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
+import Button from '@material-ui/core/Button';
+import { Drawer, List, ListItem } from '@material-ui/core';
 
 interface IProps {
   products: IProductElasticHitsFirst;
@@ -50,6 +53,10 @@ export default function ShopGrid({ products }: IProps) {
         paddingRight: theme.spacing(3),
         background: '#fff',
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+      },
+      iconsBoxContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
       },
       iconItem: {
         fontSize: '2rem',
@@ -90,6 +97,9 @@ export default function ShopGrid({ products }: IProps) {
         paddingBottom: theme.spacing(1.5),
         background: '#fff',
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+      },
+      filterButton: {
+        marginRight: theme.spacing(2),
       },
     })
   );
@@ -157,12 +167,27 @@ export default function ShopGrid({ products }: IProps) {
       ))}
     </TextField>
   );
+  const FilterIcon = (props: SvgIconProps) => (
+    <SvgIcon {...props}>
+      <path d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12H14z" />
+    </SvgIcon>
+  );
 
   return (
     <Grid container>
       <Grid className={classes.pageBarContainer} item xs={12}>
         <Box className={classes.pageBarBox}>
-          <Box>
+          <Box className={classes.iconsBoxContainer}>
+            <Hidden mdUp>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.filterButton}
+                startIcon={<FilterIcon color="primary" fontSize="large" />}
+              >
+                ФИЛЬТРЫ
+              </Button>
+            </Hidden>
             <Box component="span" className={classes.iconGrid}>
               <AppsIcon className={classes.iconItem} onClick={handleGrid} />
             </Box>
@@ -173,7 +198,7 @@ export default function ShopGrid({ products }: IProps) {
           <Box className={classes.selectForm}>
             <Select />
           </Box>
-          <Hidden smDown>
+          <Hidden mdDown>
             <Box>
               <Pagination count={50} color="primary" />
             </Box>
