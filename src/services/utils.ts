@@ -81,6 +81,17 @@ export function getCatPath(
   return pathArr;
 }
 
+export function getParentCategory(
+  category: ICategory,
+  categories: ICategory[]
+) {
+  const parent = categories.find(
+    (element: ICategory) => element.id == category.id
+  );
+
+  return parent;
+}
+
 // const cat = categories.find((el: ICategory) => el.id === 2769);
 // const path = getCatPath(cat, categories);
 // console.log(path);

@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { asString } from '~/helpers';
 import { IState } from '~/interfaces/IState';
+import { getParentCategory } from '~/services/utils';
 
 interface Props {
   options: ICategoryFilter;

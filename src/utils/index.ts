@@ -28,7 +28,7 @@ export function makeTree(cats: any): Promise<ICategory[]> {
       } catch (e) {
         console.error(
           o,
-          `Somethin fucks up in /endpoints/categories.ts line 108
+          `Somethin fucks up in /utils makeTree on line 27
             seems to instance of category has no parent
             check the database category id = ${o.id}!
           `,

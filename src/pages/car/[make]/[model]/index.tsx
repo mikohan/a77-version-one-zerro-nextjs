@@ -53,7 +53,6 @@ function Model(props: IModelProps) {
   ];
 
   const dispatch = useDispatch();
-  const items: ICategory[] = [];
   useEffect(() => {
     dispatch(setCurrentCarAction(model));
   }, [model]);

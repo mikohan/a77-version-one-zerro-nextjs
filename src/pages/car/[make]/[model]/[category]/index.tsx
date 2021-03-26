@@ -25,6 +25,7 @@ import { IBread } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
+import { categories as allCats } from '~/fakeData/allNonEmptyCats';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -35,10 +36,19 @@ interface CategoryProps {
   model: ICar;
   updated: Date;
   catPath: ICategory[];
+  categories: ICategory[];
 }
 
 export default function Cagetory(props: CategoryProps) {
-  const { category, make, model, updated, products, catPath } = props;
+  const {
+    category,
+    categories,
+    make,
+    model,
+    updated,
+    products,
+    catPath,
+  } = props;
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
@@ -66,7 +76,7 @@ export default function Cagetory(props: CategoryProps) {
     name: 'category',
     slug: 'category',
     value: 'dvigatel',
-    items: items,
+    items: categories,
   };
 
   const filters = [];
@@ -103,6 +113,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     };
   }
+  // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+  function searchTree(element: any, matchingTitle: any): any {
+    if (element.slug == matchingTitle) {
+      return element;
+    } else if (element.children != null) {
+      var i;
+      var result = null;
+      for (i = 0; result == null && i < element.children.length; i++) {
+        result = searchTree(element.children[i], matchingTitle);
+      }
+      return result;
+    }
+    return null;
+  }
+  // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   const mod: ICar = await getVehicle(modelSlug);
 
   const slug: string = asString(category);
@@ -116,12 +141,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const catPath = getCatPath(cat, categories);
 
+  const cts = makeTree(allCats);
+  /* const cttt = searchTree(cts[0], slug); */
+  /* console.log(cttt); */
   return {
     revalidate: REVALIDATE,
     props: {
       car: {},
       category: cat,
-      categoriesForFilter: makeTree(categories),
+      categories: cts,
       products: products,
       make: make,
       model: mod,
