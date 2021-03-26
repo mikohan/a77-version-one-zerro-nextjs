@@ -73,18 +73,21 @@ function FilterCategory(props: Props) {
         )}
         {options.items.map((item) => (
           <React.Fragment key={item.id}>
-            {getCategoryParents(item).map((parent) => (
-              <ListItem key={parent.id}>
-                <div style={{ fontWeight: 'bold' }}>
-                  <AppLink href={url.category(parent, make, model)}>
-                    <ListItemIcon>
-                      <ArrowBackIosIcon className={classes.arrowSize} />
-                      <Typography variant="body2">{parent.name}</Typography>
-                    </ListItemIcon>
-                  </AppLink>
-                </div>
-              </ListItem>
-            ))}
+            {getCategoryParents(item).map((parent, i) => {
+              console.log('Parent in filter', parent);
+              return (
+                <ListItem key={i}>
+                  <div style={{ fontWeight: 'bold' }}>
+                    <AppLink href={url.category(parent, make, model)}>
+                      <ListItemIcon>
+                        <ArrowBackIosIcon className={classes.arrowSize} />
+                        <Typography variant="body2">{parent.name}</Typography>
+                      </ListItemIcon>
+                    </AppLink>
+                  </div>
+                </ListItem>
+              );
+            })}
             <ListItem className={classes.currentItemCategory}>
               <AppLink href={url.category(make, model, item.slug)}>
                 <Typography variant="body2">{item.name}</Typography>
