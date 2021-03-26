@@ -89,14 +89,13 @@ export default function Cagetory(props: CategoryProps) {
         <Grid container>
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
-            <Grid item xs={3} style={{ border: '1px solid green' }}>
+            <Grid item xs={3}>
               <LeftSideBar>
                 <FilterWidget filters={filters} />
               </LeftSideBar>
             </Grid>
           </Hidden>
-          <Grid style={{ border: '1px solid green' }} item xs={12} md={9}>
-            <Typography variant="h1">H1 Goes Here</Typography>
+          <Grid item xs={12} md={9}>
             <ShopGrid products={products} />
           </Grid>
         </Grid>

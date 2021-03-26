@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
     arrowSize: {
       fontSize: '1rem',
     },
+    count: {
+      fontSize: '0.9rem',
+      color: theme.palette.text.disabled,
+    },
   })
 );
 
@@ -65,7 +69,7 @@ function FilterCategory(props: Props) {
             <AppLink href={url.products(make, model)}>
               <ListItemIcon>
                 <ArrowBackIosIcon className={classes.arrowSize} />
-                <Typography variant="body2">
+                <Typography variant="body1">
                   Все Категории {carModel && carModel.toUpperCase()}
                 </Typography>
               </ListItemIcon>
@@ -75,14 +79,13 @@ function FilterCategory(props: Props) {
         {options.items.map((item) => (
           <React.Fragment key={item.id}>
             {getCategoryParents(item).map((parent, i) => {
-              console.log('Parent in filter', parent);
               return (
                 <ListItem key={i}>
                   <div style={{ fontWeight: 'bold' }}>
                     <AppLink href={url.category(parent, make, model)}>
                       <ListItemIcon>
                         <ArrowBackIosIcon className={classes.arrowSize} />
-                        <Typography variant="body2">{parent.name}</Typography>
+                        <Typography variant="body1">{parent.name}</Typography>
                       </ListItemIcon>
                     </AppLink>
                   </div>
@@ -91,7 +94,12 @@ function FilterCategory(props: Props) {
             })}
             <ListItem className={classes.currentItemCategory}>
               <AppLink href={url.category(make, model, item.slug)}>
-                <Typography variant="body2">{item.name}</Typography>
+                <Typography variant="body1">
+                  {item.name}{' '}
+                  <Box className={classes.count} component="span">
+                    ({item.count})
+                  </Box>
+                </Typography>
               </AppLink>
             </ListItem>
             {item.count === 0
@@ -99,7 +107,12 @@ function FilterCategory(props: Props) {
               : item.children?.map((child) => (
                   <ListItem className={classes.childrenItems} key={child.id}>
                     <AppLink href={url.category(make, model, child.slug)}>
-                      <Typography variant="body2">{child.name}</Typography>
+                      <Typography variant="body1">
+                        {child.name}{' '}
+                        <Box className={classes.count} component="span">
+                          ({child.count})
+                        </Box>
+                      </Typography>
                     </AppLink>
                   </ListItem>
                 ))}

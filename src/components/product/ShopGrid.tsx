@@ -54,8 +54,8 @@ export default function ShopGrid({ products }: IProps) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: theme.spacing(1.5),
-        paddingBottom: theme.spacing(1.5),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
         background: '#fff',
@@ -64,23 +64,30 @@ export default function ShopGrid({ products }: IProps) {
       iconsBoxContainer: {
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
       },
       iconItem: {
-        fontSize: '2rem',
+        fontSize: '1.7rem',
         marginRight: theme.spacing(2),
         cursor: 'pointer',
       },
       iconGrid: {
+        fontSize: '1.7rem',
+        marginRight: theme.spacing(2),
+        cursor: 'pointer',
         color:
           shopGrid === 'grid'
             ? theme.palette.primary.main
-            : theme.palette.grey[500],
+            : theme.palette.action.disabled,
       },
       iconList: {
+        fontSize: '1.7rem',
+        marginRight: theme.spacing(2),
+        cursor: 'pointer',
         color:
           shopGrid === 'list'
             ? theme.palette.primary.main
-            : theme.palette.grey[500],
+            : theme.palette.action.disabled,
       },
 
       selectForm: {
@@ -91,6 +98,10 @@ export default function ShopGrid({ products }: IProps) {
           maxWidth: '15rem',
         },
       },
+      resize: {
+        color: theme.palette.text.disabled,
+      },
+      label: {},
       paginationBottom: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
@@ -163,6 +174,16 @@ export default function ShopGrid({ products }: IProps) {
       SelectProps={{
         native: true,
       }}
+      InputProps={{
+        classes: {
+          input: classes.resize,
+        },
+      }}
+      InputLabelProps={{
+        classes: {
+          root: classes.label,
+        },
+      }}
       variant="outlined"
       size="small"
       fullWidth
@@ -198,12 +219,8 @@ export default function ShopGrid({ products }: IProps) {
                   ФИЛЬТРЫ
                 </Button>
               </Hidden>
-              <Box component="span" className={classes.iconGrid}>
-                <AppsIcon className={classes.iconItem} onClick={handleGrid} />
-              </Box>
-              <Box component="span" className={classes.iconList}>
-                <MenuIcon className={classes.iconItem} onClick={handleList} />
-              </Box>
+              <AppsIcon className={classes.iconGrid} onClick={handleGrid} />
+              <MenuIcon className={classes.iconList} onClick={handleList} />
             </Box>
             <Box className={classes.selectForm}>
               <Select />
