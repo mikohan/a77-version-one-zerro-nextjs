@@ -48,7 +48,7 @@ export default function Cagetory(props: CategoryProps) {
 
   return (
     <React.Fragment>
-      <CategoryHead />
+      <CategoryHead model={model} category={category} />
       <AnimationPage>
         <Grid container>
           <Hidden smDown>
@@ -86,9 +86,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
-  /* const uniqueProducts = distinctArray(products.hits); */
-  /* products.hits = uniqueProducts; */
-  /* console.log(uniqueProducts); */
+
+  console.log(categories);
 
   return {
     revalidate: REVALIDATE,
