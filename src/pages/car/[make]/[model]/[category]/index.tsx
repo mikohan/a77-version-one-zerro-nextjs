@@ -70,25 +70,25 @@ export default function Cagetory(props: CategoryProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { categorySlug, make, model } = context.params!;
+  const { category, make, model } = context.params!;
   const modelSlug: string = model as string;
-  if (!categorySlug) {
+  if (!category) {
     return {
       notFound: true,
     };
   }
   const mod: ICar = await getVehicle(modelSlug);
 
-  const catSlug: string = asString(categorySlug);
+  const slug: string = asString(category);
 
   // Comment out for building next time here and in static paths
-  const cat: ICategory = await getCategoryBySlugGQL(catSlug);
+  const cat: ICategory = await getCategoryBySlugGQL(slug);
   const promise = await getProductsByCar(modelSlug, cat.slug);
-  const categories: ICategory[] = promise.aggregations.categories.buckets;
+  const categories: IAggregationCategory[] =
+    promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
-  const catPath: ICategory[] = getCatPath(cat, categories);
 
-  console.log(catPath);
+  const catPath = getCatPath(cat, categories);
 
   return {
     revalidate: REVALIDATE,
@@ -100,6 +100,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       make: make,
       model: mod,
       updated: Date.now(),
+      catPath: catPath,
     },
   };
 };
