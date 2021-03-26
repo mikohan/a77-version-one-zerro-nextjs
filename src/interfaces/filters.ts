@@ -1,5 +1,5 @@
 // application
-import { IShopCategory } from './category';
+import { ICategory } from './category';
 import { IVehicle } from './ICar';
 
 export interface IBaseFilter<T extends string, V> {
@@ -31,7 +31,7 @@ export type IRatingFilterValue = number[];
 export type IColorFilterValue = string[];
 
 export type ICategoryFilter = IBaseFilter<'category', ICategoryFilterValue> & {
-  items: IShopCategory[];
+  items: ICategory[];
 };
 export type IVehicleFilter = IBaseFilter<'vehicle', IVehicleFilterValue> & {
   vehicle: IVehicle | null;

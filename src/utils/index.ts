@@ -8,7 +8,7 @@ export function error<T>(message: string): Promise<T> {
   return Promise.reject<T>(new Error(message));
 }
 
-export function makeTree(cats: any): Promise<ICategory[]> {
+export function makeTree(cats: any): ICategory[] {
   const filtredArray = cats.filter((item: any) => {
     return item.count !== 0;
   });
