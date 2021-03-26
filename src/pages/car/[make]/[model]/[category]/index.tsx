@@ -23,6 +23,8 @@ import CategoryHead from '~/components/heads/CategoryHead';
 import { getCatPath } from '~/services/utils';
 import { IBread } from '~/interfaces';
 import url from '~/services/url';
+import { capitalize } from '~/utils';
+import PageHeader from '~/components/product/PageHeader';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -38,6 +40,13 @@ interface CategoryProps {
 export default function Cagetory(props: CategoryProps) {
   const { category, make, model, updated, products, catPath } = props;
 
+  const modelName = capitalize(model.model);
+  const makeName = capitalize(model.make.name);
+  const catName = capitalize(category.name);
+  const header = `${catName} на  ${makeName} ${modelName}`;
+
+  const count = products.total.value;
+
   const catBreads: IBread[] = catPath?.map((item: ICategory) => ({
     name: item.name,
     path: url.category(model.make.slug, model.slug, item.slug),
@@ -47,9 +56,8 @@ export default function Cagetory(props: CategoryProps) {
     { name: 'Ангара77', path: '/' },
     { name: model.make.name, path: url.make(model.make.slug) },
     { name: model.model, path: url.model(model.slug) },
-    ...catBreads,
+    ...catBreads.reverse(),
   ];
-  console.log(breads);
 
   const items: IShopCategory[] = [];
   items.push(category);
@@ -69,6 +77,7 @@ export default function Cagetory(props: CategoryProps) {
       <CategoryHead model={model} category={category} />
       <AnimationPage>
         <Grid container>
+          <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
             <Grid item xs={3} style={{ border: '1px solid green' }}>
               <LeftSideBar>

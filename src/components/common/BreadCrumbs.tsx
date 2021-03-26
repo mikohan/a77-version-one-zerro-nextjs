@@ -12,20 +12,19 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(1),
     },
     item: {
-      padding: '0.2rem 0.5rem',
-      background: theme.palette.grey[200],
-      borderRadius: '2px',
-      color: theme.palette.grey[500],
+      padding: '0 0.5rem',
+      background: theme.palette.action.hover,
+      borderRadius: '0.1rem',
+      color: theme.palette.text.secondary,
+      fontSize: '0.8rem',
       transition: '0.5s',
       '&:hover': {
-        backgiwund: theme.palette.grey[200],
-        color: theme.palette.grey[600],
-        fontWeight: 500,
+        background: theme.palette.action.selected,
       },
     },
     slash: {
-      marginRight: theme.spacing(1),
-      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(0.5),
+      marginLeft: theme.spacing(0.5),
       color: theme.palette.grey[400],
     },
   })
