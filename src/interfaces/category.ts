@@ -1,13 +1,13 @@
 export interface ICategory extends IBaseCategory {
   layout?: string;
-  type: 'shop';
+  type?: string;
 }
 
 // application
 
 export interface IBaseCategory {
   id: number;
-  type: string;
+  type?: string;
   name: string;
   slug: string;
   image: string | null;

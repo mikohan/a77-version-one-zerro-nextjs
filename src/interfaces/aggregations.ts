@@ -1,3 +1,5 @@
+import { ICategory } from './category';
+
 export interface IAggregationBucket extends IAggregationCategory {
   key: string;
   doc_count: number;
@@ -9,14 +11,7 @@ export interface IAggregationAgg {
   buckets: IAggregationBucket[];
 }
 
-export interface IAggregationCategory {
-  id?: string | number;
-  name?: string;
-  parent?: string | number;
-  layout?: string;
-  type?: string;
-  slug: string;
-}
+export interface IAggregationCategory extends ICategory {}
 
 export interface IAgregations {
   [key: string]: IAggregationAgg;

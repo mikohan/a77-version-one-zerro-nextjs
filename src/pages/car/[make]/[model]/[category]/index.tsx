@@ -20,6 +20,7 @@ import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import CategoryHead from '~/components/heads/CategoryHead';
+import { getCatPath } from '~/services/utils';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -69,25 +70,25 @@ export default function Cagetory(props: CategoryProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { category, make, model } = context.params!;
+  const { categorySlug, make, model } = context.params!;
   const modelSlug: string = model as string;
-  if (!category) {
+  if (!categorySlug) {
     return {
       notFound: true,
     };
   }
   const mod: ICar = await getVehicle(modelSlug);
 
-  const slug: string = asString(category);
+  const catSlug: string = asString(categorySlug);
 
   // Comment out for building next time here and in static paths
-  const cat: ICategory = await getCategoryBySlugGQL(slug);
+  const cat: ICategory = await getCategoryBySlugGQL(catSlug);
   const promise = await getProductsByCar(modelSlug, cat.slug);
-  const categories: IAggregationCategory[] =
-    promise.aggregations.categories.buckets;
+  const categories: ICategory[] = promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
+  const catPath: ICategory[] = getCatPath(cat, categories);
 
-  console.log(categories);
+  console.log(catPath);
 
   return {
     revalidate: REVALIDATE,
