@@ -14,6 +14,7 @@ import React from 'react';
 
 import { IFilter } from '~/interfaces/filters';
 import FilterCategory from '~/components/filters/FilterCategory';
+import FilterCategoryTest from '~/components/filters/FilterCategoryTest';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -61,7 +62,7 @@ function Filter(props: IProps) {
         {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
       </IconButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        {filter.type === 'category' && <FilterCategory options={filter} />}
+        {filter.type === 'category' && <FilterCategoryTest options={filter} />}
       </Collapse>
     </Box>
   );

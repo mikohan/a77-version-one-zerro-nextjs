@@ -14,7 +14,7 @@ import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
-import { makeTree } from '~/utils';
+import { makeTree, OrderBreads } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
@@ -57,7 +57,8 @@ export default function Cagetory(props: CategoryProps) {
 
   const count = products.total.value;
 
-  const catBreads: IBread[] = catPath?.map((item: ICategory) => ({
+  const orderedCatBreads = catPath.sort(OrderBreads);
+  const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({
     name: item.name,
     path: url.category(model.make.slug, model.slug, item.slug),
   }));
@@ -66,7 +67,7 @@ export default function Cagetory(props: CategoryProps) {
     { name: 'Ангара77', path: '/' },
     { name: model.make.name, path: url.make(model.make.slug) },
     { name: model.model, path: url.model(model.slug) },
-    ...catBreads.reverse(),
+    ...catBreads,
   ];
 
   const items: IShopCategory[] = [];
@@ -141,14 +142,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const catPath = getCatPath(cat, categories);
 
   const cts = makeTree(allCats);
-  /* const cttt = searchTree(cts[0], slug); */
-  /* console.log(cttt); */
+  const cttt = searchTree(cts[0], slug);
+  const catRet = cttt.children.length ? cttt.children : [cttt];
   return {
     revalidate: REVALIDATE,
     props: {
       car: {},
       category: cat,
-      categories: cts,
+      categories: catRet,
       products: products,
       make: make,
       model: mod,

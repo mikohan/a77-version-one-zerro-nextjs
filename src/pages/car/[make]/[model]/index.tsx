@@ -75,7 +75,7 @@ function Model(props: IModelProps) {
         <Grid container>
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
-            <Grid item xs={3} style={{ border: '1px solid pink' }}>
+            <Grid item xs={3}>
               <LeftSideBar>
                 <FilterWidget filters={filters} />
               </LeftSideBar>

@@ -63,7 +63,7 @@ function FilterCategory(props: Props) {
 
   return (
     <Box className={classes.root}>
-      <List>
+      <List dense>
         {options.value && (
           <ListItem>
             <AppLink href={url.products(make, model)}>

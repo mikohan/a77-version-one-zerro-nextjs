@@ -79,3 +79,13 @@ export function compareByNameDesc(
   }
   return 0;
 }
+
+export function OrderBreads(a: ICategory, b: ICategory) {
+  if (a.id < b.id) {
+    return -1;
+  }
+  if (a.id > b.id) {
+    return 1;
+  }
+  return 0;
+}
