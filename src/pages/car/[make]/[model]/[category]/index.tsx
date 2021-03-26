@@ -142,8 +142,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const catPath = getCatPath(cat, categories);
 
   const localCatTree: ICategory[] = makeTree(categories);
-  const cttt = searchTree(localCatTree[0], slug);
-  const catRet = cttt.children.length ? cttt.children : [cttt];
+  let catRet;
+  try {
+    const cttt = searchTree(localCatTree[0], slug);
+    catRet = cttt.children.length ? cttt.children : [cttt];
+  } catch (e) {
+    catRet = null;
+    console.log('Fucks up in ', e);
+  }
   return {
     revalidate: REVALIDATE,
     props: {
