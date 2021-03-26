@@ -21,6 +21,8 @@ import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import CategoryHead from '~/components/heads/CategoryHead';
 import { getCatPath } from '~/services/utils';
+import { IBread } from '~/interfaces';
+import url from '~/services/url';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -30,10 +32,25 @@ interface CategoryProps {
   make: string;
   model: ICar;
   updated: Date;
+  catPath: ICategory[];
 }
 
 export default function Cagetory(props: CategoryProps) {
-  const { category, make, model, updated, products } = props;
+  const { category, make, model, updated, products, catPath } = props;
+
+  const catBreads: IBread[] = catPath?.map((item: ICategory) => ({
+    name: item.name,
+    path: url.category(model.make.slug, model.slug, item.slug),
+  }));
+
+  const breads: IBread[] = [
+    { name: 'Ангара77', path: '/' },
+    { name: model.make.name, path: url.make(model.make.slug) },
+    { name: model.model, path: url.model(model.slug) },
+    ...catBreads,
+  ];
+  console.log(breads);
+
   const items: IShopCategory[] = [];
   items.push(category);
   const filterCategory: IFilter = {
