@@ -1,8 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import React from 'react';
 
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
 import { REVALIDATE } from '~/config';
@@ -21,7 +19,7 @@ import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
-import CategoryHeader from '~/components/heads/CategoryHead';
+import CategoryHead from '~/components/heads/CategoryHead';
 
 interface CategoryProps {
   category: IShopCategory;
