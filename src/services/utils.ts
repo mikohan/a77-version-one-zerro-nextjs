@@ -50,3 +50,37 @@ export function distinctArray(arr: any[], key = 'id') {
   console.log('Console.log in services.utils.ts. Unicalization takes : ', time);
   return resArr;
 }
+
+// Function for finding whole path to given category
+export function getCatPath(
+  category: ICategory,
+  categories: ICategory[]
+): ICategory[] {
+  let mainCat;
+  function getCategoryPath(
+    category: ICategory,
+    categories: ICategory[]
+  ): ICategory[] {
+    let parent = getParent(category.parent);
+    if (category.parent === null) {
+      mainCat = category;
+    }
+    return parent ? [...getCategoryPath(parent, categories), category] : [];
+  }
+
+  function getParent(parentId: any) {
+    const parent = categories.find((element) => element.id == parentId);
+
+    return parent;
+  }
+
+  const pathArr = getCategoryPath(category, categories);
+  if (mainCat) {
+    pathArr.push(mainCat);
+  }
+  return pathArr;
+}
+
+// const cat = categories.find((el: ICategory) => el.id === 2769);
+// const path = getCatPath(cat, categories);
+// console.log(path);
