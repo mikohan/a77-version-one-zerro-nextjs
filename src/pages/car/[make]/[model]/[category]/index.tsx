@@ -138,11 +138,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
-  const localCatTree = makeTree(categories);
 
   const catPath = getCatPath(cat, categories);
 
-  const cts: ICategory[] = makeTree(allCats);
+  const localCatTree: ICategory[] = makeTree(categories);
   const cttt = searchTree(localCatTree[0], slug);
   const catRet = cttt.children.length ? cttt.children : [cttt];
   return {
