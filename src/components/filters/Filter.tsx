@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: '100%',
       maxWidth: '100%',
+      borderTop: `1px solid ${theme.palette.divider}`,
     },
     filterName: {
       fontWeight: 600,
