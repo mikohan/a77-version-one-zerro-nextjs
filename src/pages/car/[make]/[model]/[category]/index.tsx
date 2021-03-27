@@ -83,12 +83,17 @@ export default function Cagetory(props: CategoryProps) {
     type: 'check',
     name: 'Бренды',
     slug: 'brands',
-    value: 'mobis',
-    items: [],
+    value: ['mobis', 'ypr'],
+    items: [
+      { name: 'some Name', count: 39 },
+      { name: 'Some other', count: 90 },
+      { name: 'mobis', count: 39 },
+      { name: 'ypr', count: 39 },
+    ],
   };
 
   const filters = [];
-  filters.push(filterCategory);
+  filters.push(filterCategory, filterBrands);
 
   return (
     <React.Fragment>

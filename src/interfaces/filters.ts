@@ -9,7 +9,7 @@ export interface IBaseFilter<T extends string, V> {
   value: V;
 }
 export interface IBaseFilterItem {
-  slug: string;
+  slug?: string;
   name: string;
   count: number;
 }

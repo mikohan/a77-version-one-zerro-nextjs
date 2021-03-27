@@ -13,7 +13,6 @@ Thats it for filtering
 import React from 'react';
 
 import { IFilter } from '~/interfaces/filters';
-import FilterCategory from '~/components/filters/FilterCategory';
 import FilterCategoryTest from '~/components/filters/FilterCategoryTest';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -21,6 +20,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { Collapse, Box, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
+import FilterCheck from '~/components/filters/FilterCheck';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,30 +49,36 @@ function Filter(props: IProps) {
   const classes = useStyles();
   const { filter, value } = props;
   const [open, setOpen] = React.useState(true);
+  const handleValueChange = () => {};
 
   const handleClick = () => {
     setOpen(!open);
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.iconBox}>
-        <Typography className={classes.filterName} variant="body1">
-          {capitalize(filter.name)}
-        </Typography>
-        <IconButton
-          className={classes.collapseButton}
-          onClick={handleClick}
-          color="primary"
-          aria-label="add to shopping cart"
-        >
-          {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-        </IconButton>
+    <React.Fragment>
+      <Box className={classes.root}>
+        <Box className={classes.iconBox}>
+          <Typography className={classes.filterName} variant="body1">
+            {capitalize(filter.name)}
+          </Typography>
+          <IconButton
+            className={classes.collapseButton}
+            onClick={handleClick}
+            color="primary"
+            aria-label="add to shopping cart"
+          >
+            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+          </IconButton>
+        </Box>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          {filter.type === 'category' && (
+            <FilterCategoryTest options={filter} />
+          )}
+          {filter.type === 'check' && <FilterCheck options={filter} />}
+        </Collapse>
       </Box>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        {filter.type === 'category' && <FilterCategoryTest options={filter} />}
-      </Collapse>
-    </Box>
+    </React.Fragment>
   );
 }
 

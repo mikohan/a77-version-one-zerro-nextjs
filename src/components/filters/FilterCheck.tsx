@@ -2,38 +2,54 @@ import React from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Box from '@material-ui/core/Box';
 
-export default function CheckboxLabels() {
-  const [state, setState] = React.useState({
-    checkedB: false,
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+interface IProps {
+  options: {
+    items: any[];
   };
+}
 
-  const brands = [
-    { id: 1, name: 'Ssang Shing', slug: 'ssang-shing' },
-    { id: 2, name: 'YPR', slug: 'ypr' },
-    { id: 3, name: 'Stellox', slug: 'stellox' },
-  ];
+export default function CheckboxLabels({ options }: IProps) {
+  const initState: { [key: string]: boolean } = {};
+  const [state, setState] = React.useState(initState);
+
+  const handleChange = (itemName: string) => {
+    setState({ ...state, [itemName]: !state[itemName] });
+  };
+  console.log(state);
+
+  /* const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => { */
+  /*   if (event.target.checked && !value.includes(event.target.value)) { */
+  /*     updateValue([...value, event.target.value]); */
+  /*   } */
+  /*   if (!event.target.checked && value.includes(event.target.value)) { */
+  /*     updateValue(value.filter((x) => x !== event.target.value)); */
+  /*   } */
+  /* }; */
+
+  const items = options.items;
 
   return (
     <FormGroup row>
-      {brands.map((brand: any) => (
-        <FormControlLabel
-          key={brand.id}
-          control={
-            <Checkbox
-              checked={state.checkedB}
-              onChange={handleChange}
-              name="checkedB"
-              color="primary"
+      {items.map((item: any) => {
+        return (
+          <Box key={item.name}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state[item.name] || false}
+                  onChange={() => handleChange(item.name)}
+                  name={item.name}
+                  color="primary"
+                />
+              }
+              label={item.name}
             />
-          }
-          label="Primary"
-        />
-      ))}
+            <br />
+          </Box>
+        );
+      })}
     </FormGroup>
   );
 }
