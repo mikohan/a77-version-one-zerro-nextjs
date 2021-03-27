@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { asString } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { getParentCategory } from '~/services/utils';
-import Link from 'next/link';
+import { ICategory } from '~/interfaces';
 
 interface Props {
   options: ICategoryFilter;
@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
+    listItemParent: {},
+    listItemIcon: {
+      minWidth: '1.5rem',
+    },
     currentItemCategory: {
       color: theme.palette.primary.main,
     },
@@ -38,6 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     arrowSize: {
       fontSize: '1rem',
+    },
+    arrowBack: {
+      fontSize: '1em',
     },
     count: {
       fontSize: '0.9rem',
@@ -50,13 +57,6 @@ function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
   const router = useRouter();
-  const currentCar = useSelector((state: IState) => {
-    if (state.shop.currentCar) {
-      return state.shop.currentCar.slug;
-    } else {
-      return undefined;
-    }
-  });
 
   const { make, model } = router.query;
   const carMake = asString(make as string);
@@ -66,9 +66,14 @@ function FilterCategory(props: Props) {
     <Box className={classes.root}>
       <List dense>
         {options.path?.map((item: ICategory) => (
-          <Link href={item.path}>
-            <ListItem key={item.id}>{item.name}</ListItem>
-          </Link>
+          <AppLink href={url.category(carMake, carModel, item.slug)}>
+            <ListItem className={classes.listItemParent} key={item.id}>
+              <ListItemIcon className={classes.listItemIcon}>
+                <ArrowBackIosIcon className={classes.arrowBack} />
+              </ListItemIcon>
+              {item.name}
+            </ListItem>
+          </AppLink>
         ))}
       </List>
       <List dense>
