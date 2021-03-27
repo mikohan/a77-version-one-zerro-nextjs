@@ -5,6 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { capitalize } from '~/utils';
 
 interface IProps {
   options: {
@@ -19,11 +20,29 @@ export default function CheckboxLabels({ options }: IProps) {
         display: 'flex',
         flexDirection: 'column',
       },
-      box: {},
+      box: {
+        '& > label, & > label span:nth-child(2)': {
+          width: '100%',
+        },
+      },
       checkbox: {
         transform: `scale(0.85)`,
       },
-      label: {},
+      name: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+      },
+      itemName: {},
+      itemCount: {
+        color: theme.palette.text.secondary,
+        fontSize: '0.75rem',
+      },
+      input: {
+        height: '2rem',
+        width: '2rem',
+        boxSizing: 'border-box',
+      },
     })
   );
   const classes = useStyles();
@@ -44,6 +63,7 @@ export default function CheckboxLabels({ options }: IProps) {
   /* }; */
 
   const items = options.items;
+  const count = 39;
 
   return (
     <FormGroup className={classes.container}>
@@ -51,9 +71,9 @@ export default function CheckboxLabels({ options }: IProps) {
         return (
           <Box className={classes.box} key={item.name}>
             <FormControlLabel
-              className={classes.label}
               control={
                 <Checkbox
+                  classes={{ root: classes.input }}
                   className={classes.checkbox}
                   checked={state[item.name] || false}
                   onChange={() => handleChange(item.name)}
@@ -61,7 +81,16 @@ export default function CheckboxLabels({ options }: IProps) {
                   color="primary"
                 />
               }
-              label={<Typography variant="body2">{item.name}</Typography>}
+              label={
+                <Box className={classes.name}>
+                  <Typography variant="body2" className={classes.itemName}>
+                    {capitalize(item.name)}
+                  </Typography>
+                  <Typography variant="body2" className={classes.itemCount}>
+                    {count}
+                  </Typography>
+                </Box>
+              }
             />
           </Box>
         );

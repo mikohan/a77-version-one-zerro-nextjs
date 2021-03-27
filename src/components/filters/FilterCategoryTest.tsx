@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     listItemParent: {},
     catList: {
-      paddingLeft: '1rem',
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(1),
     },
     listItemIcon: {
       minWidth: '1.5rem',
@@ -39,14 +40,19 @@ const useStyles = makeStyles((theme: Theme) =>
     arrowBack: {
       fontSize: '.9em',
     },
+    nameCount: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
     categoryName: {
       '&:hover': {
         color: theme.palette.primary.main,
       },
     },
     count: {
-      fontSize: '0.9rem',
-      color: theme.palette.text.disabled,
+      color: theme.palette.text.secondary,
+      fontSize: '0.75rem',
     },
   })
 );
@@ -95,13 +101,16 @@ function FilterCategory(props: Props) {
       </List>
       <List dense className={classes.catList}>
         {options.items.map((item: any) => (
-          <ListItem key={item.id}>
-            <AppLink href={url.category(make, model, item.slug)}>
+          <ListItem disableGutters key={item.id}>
+            <AppLink
+              className={classes.nameCount}
+              href={url.category(make, model, item.slug)}
+            >
               <Typography className={classes.categoryName} variant="body2">
-                {capitalize(item.name)}{' '}
-                <Box className={classes.count} component="span">
-                  ({item.count})
-                </Box>
+                {capitalize(item.name)}
+              </Typography>
+              <Typography variant="body2" className={classes.count}>
+                {item.count}
               </Typography>
             </AppLink>
           </ListItem>
