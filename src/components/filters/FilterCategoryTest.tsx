@@ -27,24 +27,22 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
     },
     listItemParent: {},
+    catList: {
+      paddingLeft: '1rem',
+    },
     listItemIcon: {
       minWidth: '1.5rem',
-    },
-    currentItemCategory: {
-      color: theme.palette.primary.main,
-    },
-    childrenItems: {
-      color: theme.palette.primary.light,
-      marginLeft: 20,
-    },
-    arrowSize: {
-      fontSize: '1rem',
     },
     activeCat: {
       fontWeight: 600,
     },
     arrowBack: {
-      fontSize: '1em',
+      fontSize: '.9em',
+    },
+    categoryName: {
+      '&:hover': {
+        color: theme.palette.primary.main,
+      },
     },
     count: {
       fontSize: '0.9rem',
@@ -83,22 +81,24 @@ function FilterCategory(props: Props) {
               <ListItemIcon className={classes.listItemIcon}>
                 <ArrowBackIosIcon className={classes.arrowBack} />
               </ListItemIcon>
-              <Typography variant="body1">{item.name}</Typography>
+              <Typography className={classes.categoryName} variant="body2">
+                {item.name}
+              </Typography>
             </ListItem>
           </AppLink>
         ))}
         <ListItem>
-          <Typography variant="body1" className={classes.activeCat}>
+          <Typography variant="body2" className={classes.activeCat}>
             {capitalize(lastCat?.name)}
           </Typography>
         </ListItem>
       </List>
-      <List dense>
+      <List dense className={classes.catList}>
         {options.items.map((item: any) => (
-          <ListItem key={item.id} className={classes.currentItemCategory}>
+          <ListItem key={item.id}>
             <AppLink href={url.category(make, model, item.slug)}>
-              <Typography variant="body1">
-                {item.name}{' '}
+              <Typography className={classes.categoryName} variant="body2">
+                {capitalize(item.name)}{' '}
                 <Box className={classes.count} component="span">
                   ({item.count})
                 </Box>

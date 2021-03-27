@@ -146,7 +146,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let catRet;
   try {
     const cttt = searchTree(localCatTree[0], slug);
-    catRet = cttt.children.length ? cttt.children : [cttt];
+    catRet = cttt.children.length ? cttt.children : [];
   } catch (e) {
     catRet = null;
     console.log('Fucks up in ', e);
