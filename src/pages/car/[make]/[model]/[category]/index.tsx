@@ -25,7 +25,6 @@ import { IBread } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
-import { categories as allCats } from '~/fakeData/allNonEmptyCats';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -79,6 +78,13 @@ export default function Cagetory(props: CategoryProps) {
     value: 'dvigatel',
     path: orderedCatBreads,
     items: categories,
+  };
+  const filterBrands: IFilter = {
+    type: 'check',
+    name: 'Бренды',
+    slug: 'brands',
+    value: 'mobis',
+    items: [],
   };
 
   const filters = [];

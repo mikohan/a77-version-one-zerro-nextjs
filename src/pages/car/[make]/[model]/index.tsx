@@ -24,6 +24,7 @@ import ShopGrid from '~/components/product/ShopGrid';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import { IShopCategory } from '~/interfaces';
+import useLocalstorageState from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -53,8 +54,13 @@ function Model(props: IModelProps) {
   ];
 
   const dispatch = useDispatch();
+  const [curCarLocalStorage, setCurCarLocalStorage] = useLocalstorageState(
+    'currentCar',
+    {}
+  );
   useEffect(() => {
     dispatch(setCurrentCarAction(model));
+    /* setCurCarLocalStorage(model); */
   }, [model]);
 
   const filterCategory: IFilter = {

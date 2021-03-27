@@ -4,6 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import ChipBox from '~/components/common/ChipBox';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -43,6 +46,7 @@ export default function ComplexGrid({ product }: IProp) {
         },
       },
       cardImageLink: {
+        position: 'relative',
         maxHeight: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -114,10 +118,15 @@ export default function ComplexGrid({ product }: IProp) {
     })
   );
   const classes = useStyles();
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  const compatable = product._source.model.some(
+    (item: any) => item.slug.toLowerCase() === currentCar?.slug
+  );
 
   return (
     <div key={product._id} className={classes.card}>
       <a className={classes.cardImageLink}>
+        {compatable && <ChipBox car={currentCar?.model} />}
         <img src={imgPath} className={classes.cardImage} alt="Some image" />
       </a>
       <div className={classes.cardContent}>

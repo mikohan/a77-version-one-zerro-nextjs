@@ -10,9 +10,8 @@ import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
 import theme from '~/theme';
 import { Provider } from 'react-redux';
-import { initializeStore, useStore } from '~/store/store';
-import axios from 'axios';
-import { vehiclesUrl, cookiesAge } from '~/config';
+import { useStore } from '~/store/store';
+import { cookiesAge } from '~/config';
 
 import { GET_ALL_CARS } from '~/store/types';
 import { CookiesProvider, useCookies } from 'react-cookie';
@@ -26,8 +25,6 @@ import useLocalStorage from '~/hooks/useLocalStorage';
 
 import { v4 as uuidv4 } from 'uuid';
 import { getVehicles } from '~/endpoints/carsEndpoint';
-import { motion } from 'framer-motion';
-import { durationPage } from '~/config';
 import MainLayout from '~/layouts/Main';
 
 Router.events.on('routeChangeStart', () => {

@@ -99,7 +99,7 @@ export default function ShopGrid({ products }: IProps) {
         },
       },
       resize: {
-        color: theme.palette.text.disabled,
+        color: theme.palette.text.secondary,
         padding: '.4rem 14px',
         fontSize: '0.9rem',
       },

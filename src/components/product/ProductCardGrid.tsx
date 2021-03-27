@@ -3,12 +3,17 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import { capitalize } from '~/utils';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import ChipContainer from '../common/ChipBox';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
 
 interface IProp {
   product: IProductElasticHitsSecond;
 }
 
-export default function ComplexGrid({ product }: IProp) {
+export default function ProductCardGrid({ product }: IProp) {
   const imgPath: string = product._source.images.length
     ? (product._source.images[0].img500 as string)
     : '/images/local/defaultParts500.jpg';
@@ -19,7 +24,7 @@ export default function ComplexGrid({ product }: IProp) {
         display: 'block',
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
-        background: 'white',
+        background: theme.palette.background.paper,
         transition: '0.5s',
         '&:hover $shoppingCartIcon': {
           transform: `scale(1.1)`,
@@ -61,16 +66,20 @@ export default function ComplexGrid({ product }: IProp) {
         paddingBottom: '100%',
       },
       productName: {
-        fontSize: '1.1rem',
-        color: theme.palette.grey[700],
+        wordBreak: 'break-word',
       },
       productSku: {
         paddingLeft: theme.spacing(2),
-        color: theme.palette.grey[500],
+        color: theme.palette.text.disabled,
       },
     })
   );
   const classes = useStyles();
+
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  const compatable = product._source.model.some(
+    (item: any) => item.slug.toLowerCase() === currentCar?.slug
+  );
 
   return (
     <div key={product._id} className={classes.card}>
@@ -78,10 +87,11 @@ export default function ComplexGrid({ product }: IProp) {
         <img src={imgPath} className={classes.cardImage} alt="Some image" />
       </a>
       <div className={classes.cardContent}>
-        <Typography className={classes.productName} variant="h6">
-          {product._source.name}
+        <Typography className={classes.productName} variant="body1">
+          {capitalize(product._source.name)}
         </Typography>
       </div>
+      {compatable && <ChipContainer car={currentCar?.model} />}
       <div className={classes.productSku}>
         <Typography variant="body2">
           SKU: {product._source.cat_number}
