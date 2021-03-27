@@ -54,8 +54,8 @@ export default function ShopGrid({ products }: IProps) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: theme.spacing(1),
-        paddingBottom: theme.spacing(1),
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5),
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
         background: '#fff',
@@ -100,6 +100,8 @@ export default function ShopGrid({ products }: IProps) {
       },
       resize: {
         color: theme.palette.text.disabled,
+        padding: '.4rem 14px',
+        fontSize: '0.9rem',
       },
       label: {},
       paginationBottom: {
