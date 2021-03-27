@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { asString } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { getParentCategory } from '~/services/utils';
+import Link from 'next/link';
 
 interface Props {
   options: ICategoryFilter;
@@ -63,6 +64,13 @@ function FilterCategory(props: Props) {
 
   return (
     <Box className={classes.root}>
+      <List dense>
+        {options.path?.map((item: ICategory) => (
+          <Link href={item.path}>
+            <ListItem key={item.id}>{item.name}</ListItem>
+          </Link>
+        ))}
+      </List>
       <List dense>
         {options.items.map((item: any) => (
           <ListItem key={item.id} className={classes.currentItemCategory}>

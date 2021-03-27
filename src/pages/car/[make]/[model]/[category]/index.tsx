@@ -49,6 +49,7 @@ export default function Cagetory(props: CategoryProps) {
     products,
     catPath,
   } = props;
+  console.log(catPath);
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
@@ -66,7 +67,7 @@ export default function Cagetory(props: CategoryProps) {
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
     { name: model.make.name, path: url.make(model.make.slug) },
-    { name: model.model, path: url.model(model.slug) },
+    { name: model.model, path: url.model(model.make.slug, model.slug) },
     ...catBreads,
   ];
 
@@ -77,6 +78,7 @@ export default function Cagetory(props: CategoryProps) {
     name: 'category',
     slug: 'category',
     value: 'dvigatel',
+    path: orderedCatBreads,
     items: categories,
   };
 

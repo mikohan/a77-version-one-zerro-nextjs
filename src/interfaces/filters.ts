@@ -31,6 +31,7 @@ export type IRatingFilterValue = number[];
 export type IColorFilterValue = string[];
 
 export type ICategoryFilter = IBaseFilter<'category', ICategoryFilterValue> & {
+  path?: ICategory[];
   items: ICategory[];
 };
 export type IVehicleFilter = IBaseFilter<'vehicle', IVehicleFilterValue> & {
