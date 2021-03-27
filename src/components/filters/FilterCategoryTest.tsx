@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
     },
     categoryName: {
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.5rem',
+      },
       '&:hover': {
         color: theme.palette.primary.main,
       },
