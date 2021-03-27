@@ -17,7 +17,6 @@ export default function CheckboxLabels({ options }: IProps) {
   const handleChange = (itemName: string) => {
     setState({ ...state, [itemName]: !state[itemName] });
   };
-  console.log(state);
 
   /* const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => { */
   /*   if (event.target.checked && !value.includes(event.target.value)) { */
