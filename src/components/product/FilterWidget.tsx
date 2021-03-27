@@ -1,4 +1,4 @@
-import { Grid, Paper, Box } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { IFilter } from '~/interfaces/filters';
 import Filter from '~/components/filters/Filter';

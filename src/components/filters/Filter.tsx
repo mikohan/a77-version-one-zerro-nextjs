@@ -25,14 +25,19 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
+      maxWidth: '100%',
     },
-    nested: {
-      paddingLeft: theme.spacing(4),
+    nested: {},
+    iconBox: {
+      display: 'flex',
+      justifyItems 'end',
+      border: '1px solid grey',
+      position: 'relative',
+      right: 10,
     },
     collapseButton: {
-      padding: 0,
+      height: '0.8rem',
+      paddingTop: theme.spacing(1),
     },
   })
 );
@@ -53,14 +58,16 @@ function Filter(props: IProps) {
 
   return (
     <Box className={classes.root}>
-      <IconButton
-        className={classes.collapseButton}
-        onClick={handleClick}
-        color="primary"
-        aria-label="add to shopping cart"
-      >
-        {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-      </IconButton>
+      <Box className={classes.iconBox}>
+        <IconButton
+          className={classes.collapseButton}
+          onClick={handleClick}
+          color="primary"
+          aria-label="add to shopping cart"
+        >
+          {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+        </IconButton>
+      </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {filter.type === 'category' && <FilterCategoryTest options={filter} />}
       </Collapse>
