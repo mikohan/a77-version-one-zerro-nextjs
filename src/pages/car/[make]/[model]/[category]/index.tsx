@@ -49,7 +49,6 @@ export default function Cagetory(props: CategoryProps) {
     products,
     catPath,
   } = props;
-  console.log(catPath);
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);

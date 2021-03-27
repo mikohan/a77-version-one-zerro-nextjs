@@ -18,8 +18,9 @@ import FilterCategoryTest from '~/components/filters/FilterCategoryTest';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { Collapse, Box } from '@material-ui/core';
+import { Collapse, Box, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,18 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       maxWidth: '100%',
     },
-    nested: {},
+    filterName: {
+      fontWeight: 600,
+    },
     iconBox: {
       display: 'flex',
-      justifyItems 'end',
-      border: '1px solid grey',
-      position: 'relative',
-      right: 10,
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
-    collapseButton: {
-      height: '0.8rem',
-      paddingTop: theme.spacing(1),
-    },
+    collapseButton: {},
   })
 );
 
@@ -59,6 +57,9 @@ function Filter(props: IProps) {
   return (
     <Box className={classes.root}>
       <Box className={classes.iconBox}>
+        <Typography className={classes.filterName} variant="body1">
+          {capitalize(filter.name)}
+        </Typography>
         <IconButton
           className={classes.collapseButton}
           onClick={handleClick}
