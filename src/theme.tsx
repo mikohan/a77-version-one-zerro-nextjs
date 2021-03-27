@@ -13,11 +13,11 @@ declare module '@material-ui/core/styles/createBreakpoints' {
 
 // Create a theme instance.
 const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      xxl: 2560,
-    },
-  },
+  /* breakpoints: { */
+  /*   values: { */
+  /*     xxl: 2560, */
+  /*   }, */
+  /* }, */
   palette: {
     type: 'light',
   },
