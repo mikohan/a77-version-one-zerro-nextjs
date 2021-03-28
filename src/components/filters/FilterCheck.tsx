@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
 import { ICheckFilterValue } from '~/interfaces/filters';
+import { useRouter } from 'next/router';
 
 interface IProps {
   options: {
@@ -57,9 +58,17 @@ export default function CheckboxLabels({ options, value }: IProps) {
   }
 
   const [state, setState] = React.useState(initialValues);
+  const router = useRouter();
+  console.log(router.query);
 
   const handleChange = (itemName: string) => {
     setState({ ...state, [itemName]: !state[itemName] });
+    router.push({
+      pathname: '/car/hyundai/porter1/zapchasti',
+      query: {
+        filter_brand: ['angara', 'mobis'],
+      },
+    });
   };
 
   const items = options.items;
