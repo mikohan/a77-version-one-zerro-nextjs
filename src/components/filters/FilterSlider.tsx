@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-start',
       paddingBottom: theme.spacing(1),
     },
+    label: {
+      fontSize: '0.65rem',
+      fontWeight: 500,
+    },
   })
 );
 interface IProps {
@@ -42,6 +46,7 @@ export default function RangeSlider({ options, value, onChangeValue }: IProps) {
   return (
     <div className={classes.root}>
       <Slider
+        classes={{ valueLabel: classes.label }}
         min={options.min}
         max={options.max}
         value={localValue}
