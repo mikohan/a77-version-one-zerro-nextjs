@@ -53,15 +53,6 @@ export default function CheckboxLabels({ options }: IProps) {
     setState({ ...state, [itemName]: !state[itemName] });
   };
 
-  /* const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => { */
-  /*   if (event.target.checked && !value.includes(event.target.value)) { */
-  /*     updateValue([...value, event.target.value]); */
-  /*   } */
-  /*   if (!event.target.checked && value.includes(event.target.value)) { */
-  /*     updateValue(value.filter((x) => x !== event.target.value)); */
-  /*   } */
-  /* }; */
-
   const items = options.items;
   const count = 39;
 

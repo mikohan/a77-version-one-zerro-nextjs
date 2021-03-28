@@ -21,6 +21,7 @@ import { Collapse, Box, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
 import FilterCheck from '~/components/filters/FilterCheck';
+import FilterSlider from '~/components/filters/FilterSlider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,6 +78,7 @@ function Filter(props: IProps) {
             <FilterCategoryTest options={filter} />
           )}
           {filter.type === 'check' && <FilterCheck options={filter} />}
+          {filter.type === 'range' && <FilterSlider options={filter} />}
         </Collapse>
       </Box>
     </React.Fragment>
