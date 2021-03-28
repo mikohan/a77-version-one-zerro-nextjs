@@ -46,6 +46,7 @@ const theme = createMuiTheme({
   },
 });
 
+// Complitely owerrides properties
 theme.typography.h1 = {
   [theme.breakpoints.down('xl')]: {
     fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
