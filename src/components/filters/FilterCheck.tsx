@@ -59,7 +59,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
 
   const [state, setState] = React.useState(initialValues);
   const router = useRouter();
-  console.log(router.query);
 
   const handleChange = (itemName: string) => {
     setState({ ...state, [itemName]: !state[itemName] });

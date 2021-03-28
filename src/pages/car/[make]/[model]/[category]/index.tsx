@@ -56,7 +56,6 @@ export default function Cagetory(props: CategoryProps) {
     aggregations,
   } = props;
   const router = useRouter();
-  console.log(router.query);
 
   const filterBrand = router.query.filter_brand || [];
   let brandVals: string[] = [];
