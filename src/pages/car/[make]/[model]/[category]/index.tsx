@@ -11,7 +11,11 @@ import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
-import { IAggregationCategory } from '~/interfaces/aggregations';
+import {
+  IAgregations,
+  IAggregationCategory,
+  IAggregationBucket,
+} from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree, OrderBreads } from '~/utils';
@@ -36,6 +40,7 @@ interface CategoryProps {
   updated: Date;
   catPath: ICategory[];
   categories: ICategory[];
+  aggregations: IAgregations;
 }
 
 export default function Cagetory(props: CategoryProps) {
@@ -47,6 +52,7 @@ export default function Cagetory(props: CategoryProps) {
     updated,
     products,
     catPath,
+    aggregations,
   } = props;
 
   const modelName = capitalize(model.model);
@@ -69,6 +75,11 @@ export default function Cagetory(props: CategoryProps) {
     ...catBreads,
   ];
 
+  // Make array for brands filter
+  const brands = aggregations.brands.buckets.map(
+    (item: IAggregationBucket) => ({ name: item.key, count: item.doc_count })
+  );
+
   const filterCategory: IFilter = {
     type: 'category',
     name: 'category',
@@ -82,12 +93,7 @@ export default function Cagetory(props: CategoryProps) {
     name: 'Бренды',
     slug: 'brands',
     value: ['mobis', 'ypr'],
-    items: [
-      { name: 'some Name', count: 39 },
-      { name: 'Some other', count: 90 },
-      { name: 'mobis', count: 39 },
-      { name: 'ypr', count: 39 },
-    ],
+    items: brands,
   };
   const filterRange: IFilter = {
     type: 'range',
@@ -168,6 +174,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
 
+  const aggregations: IAgregations = promise.aggregations;
+
   const catPath = getCatPath(cat, categories);
 
   const localCatTree: ICategory[] = makeTree(categories);
@@ -190,6 +198,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       model: mod,
       updated: Date.now(),
       catPath: catPath,
+      aggregations,
     },
   };
 };

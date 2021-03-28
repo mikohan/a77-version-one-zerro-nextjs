@@ -54,7 +54,6 @@ export default function CheckboxLabels({ options }: IProps) {
   };
 
   const items = options.items;
-  const count = 39;
 
   return (
     <FormGroup className={classes.container}>
@@ -78,7 +77,7 @@ export default function CheckboxLabels({ options }: IProps) {
                     {capitalize(item.name)}
                   </Typography>
                   <Typography variant="body2" className={classes.itemCount}>
-                    {count}
+                    {item.count}
                   </Typography>
                 </Box>
               }
