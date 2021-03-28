@@ -1,48 +1,60 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { IAggregationBucket } from '~/interfaces';
+import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filters';
+import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles({
-  root: {
-    width: 300,
-  },
-});
-
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+    },
+    numbersContainer: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      paddingBottom: theme.spacing(1),
+    },
+  })
+);
 interface IProps {
-  options: {
-    min: number;
-    max: number;
-  };
+  options: IRangeFilter;
+  value: IRangeFilterValue;
+  onChangeValue?: (event: {
+    filter: IRangeFilter;
+    value: IRangeFilterValue;
+  }) => void;
 }
 
 function valuetext(value: number) {
   return `${value}°C`;
 }
 
-export default function RangeSlider({ options }: IProps) {
+export default function RangeSlider({ options, value, onChangeValue }: IProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState<number[]>([20, 37]);
+  console.log(options.value);
+  const [localValue, setLocalValue] = React.useState<number[]>(options.value);
 
   const handleChange = (event: any, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+    setLocalValue(newValue as number[]);
   };
-
-  console.log(options);
 
   return (
     <div className={classes.root}>
-      <Typography id="range-slider" gutterBottom>
-        Temperature range
-      </Typography>
       <Slider
-        value={value}
+        min={options.min}
+        max={options.max}
+        value={localValue}
         onChange={handleChange}
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"
         getAriaValueText={valuetext}
       />
+      <Box className={classes.numbersContainer}>
+        <Typography variant="body2">
+          &#8381; {options.min} - &#8381; {options.max}
+        </Typography>
+      </Box>
     </div>
   );
 }

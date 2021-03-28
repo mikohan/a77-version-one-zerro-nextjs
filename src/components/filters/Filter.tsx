@@ -78,7 +78,9 @@ function Filter(props: IProps) {
             <FilterCategoryTest options={filter} />
           )}
           {filter.type === 'check' && <FilterCheck options={filter} />}
-          {filter.type === 'range' && <FilterSlider options={filter} />}
+          {filter.type === 'range' && (
+            <FilterSlider value={[400, 5000]} options={filter} />
+          )}
         </Collapse>
       </Box>
     </React.Fragment>

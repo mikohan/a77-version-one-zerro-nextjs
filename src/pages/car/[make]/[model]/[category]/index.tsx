@@ -69,8 +69,6 @@ export default function Cagetory(props: CategoryProps) {
     ...catBreads,
   ];
 
-  const items: IShopCategory[] = [];
-  items.push(category);
   const filterCategory: IFilter = {
     type: 'category',
     name: 'category',
@@ -91,9 +89,28 @@ export default function Cagetory(props: CategoryProps) {
       { name: 'ypr', count: 39 },
     ],
   };
+  const filterRange: IFilter = {
+    type: 'range',
+    name: 'Цена',
+    slug: 'price',
+    value: [2000, 5000],
+    min: 1300,
+    max: 10000,
+  };
+
+  const filterBages: IFilter = {
+    type: 'check',
+    name: 'Бейдж',
+    slug: 'bages',
+    value: ['sale', 'new'],
+    items: [
+      { name: 'NEW', count: 39 },
+      { name: 'SALE', count: 90 },
+    ],
+  };
 
   const filters = [];
-  filters.push(filterCategory, filterBrands);
+  filters.push(filterCategory, filterBrands, filterRange, filterBages);
 
   return (
     <React.Fragment>
