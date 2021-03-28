@@ -1,16 +1,22 @@
-import { IActiveFilterCheck } from '~/interfaces/filters';
 import * as types from '~/store/types';
 
-export interface ISetActivePage {
-  type: typeof types.SET_ACTIVE_FILTER;
-  payload: string;
-  value: any;
+interface IFilter {
+  [filterName: string]: string[];
 }
 
-export const filtersAction = (filter: any, value: any): IActiveFilterCheck => {
+export interface ISetActiveFilter {
+  type: typeof types.SET_ACTIVE_FILTER;
+  payload: IFilter;
+}
+
+export const filtersAction = (
+  filterName: string,
+  value: string[]
+): ISetActiveFilter => {
   return {
     type: types.SET_ACTIVE_FILTER,
-    payload: filter,
-    value: value,
+    payload: { [filterName]: value },
   };
 };
+
+export type FilterActions = ISetActiveFilter;

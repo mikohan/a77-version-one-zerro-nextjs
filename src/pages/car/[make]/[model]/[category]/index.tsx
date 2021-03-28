@@ -30,6 +30,7 @@ import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -63,7 +64,6 @@ export default function Cagetory(props: CategoryProps) {
   const changedRouter = Object.keys(router.query).map((item: string) =>
     item.match(regFilter)
   );
-  console.log(changedRouter);
 
   let brandVals: string[] = [];
 

@@ -13,6 +13,7 @@ export interface IShopState {
   currentCar: ICar | undefined;
   makes: string[];
   categories: ICategory[];
+  activeFilters: string[];
 }
 
 interface IUIstate {
@@ -21,7 +22,14 @@ interface IUIstate {
   shopGrid: string;
 }
 
+interface IFilter {
+  filters: {
+    [key: string]: string[];
+  };
+}
+
 export interface IState {
+  activeFilters: IFilter;
   shop: IShopState;
   uiState: IUIstate;
 }

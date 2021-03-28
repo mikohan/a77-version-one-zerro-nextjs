@@ -8,10 +8,16 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
 import { ICheckFilterValue } from '~/interfaces/filters';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { filtersAction } from '~/store/actions/filtersActions';
+import { urlBuilder } from '~/helpers';
+import { IState } from '~/interfaces/IState';
 
 interface IProps {
   options: {
     items: any[];
+    slug: string;
+    name: string;
   };
   value: ICheckFilterValue;
 }
@@ -58,16 +64,36 @@ export default function CheckboxLabels({ options, value }: IProps) {
   }
 
   const [state, setState] = React.useState(initialValues);
+  const fArr = useSelector((state: IState) => state.activeFilters.filters);
   const router = useRouter();
+  const dispatch = useDispatch();
+  console.log(fArr);
 
-  const handleChange = (itemName: string) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    itemName: string
+  ) => {
     setState({ ...state, [itemName]: !state[itemName] });
-    router.push({
-      pathname: '/car/hyundai/porter1/zapchasti',
-      query: {
-        filter_brand: ['angara', 'mobis'],
-      },
-    });
+
+    if (fArr.hasOwnProperty(itemName)) const arr: string[] = [];
+
+    /* if (e.target.checked) { */
+    /*   fArr[itemName].push(itemName); */
+    /* } */
+    /* if (!e.target.checked) { */
+    /*   const index = fArr[itemName].indexOf(itemName); */
+    /*   fArr[itemName].splice(index, 1); */
+    /* } */
+    dispatch(filtersAction(options.slug, ['angara']));
+
+    /* const url = urlBuilder(, e); */
+    /* router.push({ */
+    /*   pathname: '/car/hyundai/porter1/zapchasti', */
+    /*   query: { */
+    /*     filter_brand: ['angara', 'mobis'], */
+    /*   }, */
+    /* }); */
+    console.log(arr);
   };
 
   const items = options.items;
@@ -83,7 +109,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
                   classes={{ root: classes.input }}
                   className={classes.checkbox}
                   checked={state[item.name] || false}
-                  onChange={() => handleChange(item.name)}
+                  onChange={(e) => handleChange(e, item.name)}
                   name={item.name}
                   color="primary"
                 />
