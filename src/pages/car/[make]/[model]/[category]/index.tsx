@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
@@ -128,6 +128,17 @@ export default function Cagetory(props: CategoryProps) {
 
   const filters = [];
   filters.push(filterCategory, filterBrands, filterRange, filterBages);
+  const [stateProducts, setStateProducts] = useState(products);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const promise = await getProductsByCar(model.slug, category.slug);
+      let products: IProductElasticHitsFirst = promise.hits;
+
+      setStateProducts(products);
+    }
+    fetchProducts();
+  }, [products]);
 
   return (
     <React.Fragment>
@@ -143,7 +154,7 @@ export default function Cagetory(props: CategoryProps) {
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
-            <ShopGrid products={products} />
+            <ShopGrid products={stateProducts} />
           </Grid>
         </Grid>
       </AnimationPage>

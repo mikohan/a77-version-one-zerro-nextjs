@@ -52,7 +52,6 @@ function Filter(props: IProps) {
   const { filter, value } = props;
   const [open, setOpen] = React.useState(true);
   const handleValueChange = () => {};
-  console.log(filter.value);
 
   const handleClick = () => {
     setOpen(!open);
