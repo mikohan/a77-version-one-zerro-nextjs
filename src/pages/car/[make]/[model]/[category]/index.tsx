@@ -58,6 +58,13 @@ export default function Cagetory(props: CategoryProps) {
   const router = useRouter();
 
   const filterBrand = router.query.filter_brand || [];
+  const regFilter = /filter_.+/;
+
+  const changedRouter = Object.keys(router.query).map((item: string) =>
+    item.match(regFilter)
+  );
+  console.log(changedRouter);
+
   let brandVals: string[] = [];
 
   if (typeof filterBrand === 'string') {
@@ -138,7 +145,7 @@ export default function Cagetory(props: CategoryProps) {
       setStateProducts(products);
     }
     fetchProducts();
-  }, [products]);
+  }, []);
 
   return (
     <React.Fragment>
