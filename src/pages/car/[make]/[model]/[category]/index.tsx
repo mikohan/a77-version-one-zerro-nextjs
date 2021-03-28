@@ -29,6 +29,7 @@ import { IBread } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
+import { useRouter } from 'next/router';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -54,6 +55,17 @@ export default function Cagetory(props: CategoryProps) {
     catPath,
     aggregations,
   } = props;
+  const router = useRouter();
+  console.log(router.query);
+
+  const filterBrand = router.query.filter_brand || [];
+  let brandVals: string[] = [];
+
+  if (typeof filterBrand === 'string') {
+    brandVals.push(filterBrand);
+  } else if (Array.isArray(filterBrand)) {
+    brandVals = [...filterBrand];
+  }
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
@@ -92,7 +104,7 @@ export default function Cagetory(props: CategoryProps) {
     type: 'check',
     name: 'Бренды',
     slug: 'brands',
-    value: ['mobis', 'ypr'],
+    value: brandVals,
     items: brands,
   };
   const filterRange: IFilter = {

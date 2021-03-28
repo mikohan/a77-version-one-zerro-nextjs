@@ -52,6 +52,7 @@ function Filter(props: IProps) {
   const { filter, value } = props;
   const [open, setOpen] = React.useState(true);
   const handleValueChange = () => {};
+  console.log(filter.value);
 
   const handleClick = () => {
     setOpen(!open);
@@ -77,7 +78,9 @@ function Filter(props: IProps) {
           {filter.type === 'category' && (
             <FilterCategoryTest options={filter} />
           )}
-          {filter.type === 'check' && <FilterCheck options={filter} />}
+          {filter.type === 'check' && (
+            <FilterCheck value={filter.value} options={filter} />
+          )}
           {filter.type === 'range' && (
             <FilterSlider value={[400, 5000]} options={filter} />
           )}

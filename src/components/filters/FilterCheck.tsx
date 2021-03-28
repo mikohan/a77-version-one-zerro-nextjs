@@ -6,14 +6,16 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
+import { ICheckFilterValue } from '~/interfaces/filters';
 
 interface IProps {
   options: {
     items: any[];
   };
+  value: ICheckFilterValue;
 }
 
-export default function CheckboxLabels({ options }: IProps) {
+export default function CheckboxLabels({ options, value }: IProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       container: {
@@ -46,8 +48,15 @@ export default function CheckboxLabels({ options }: IProps) {
     })
   );
   const classes = useStyles();
-  const initState: { [key: string]: boolean } = {};
-  const [state, setState] = React.useState(initState);
+
+  const initialValues: { [key: string]: boolean } = {};
+  if (value.length) {
+    for (const key of value) {
+      initialValues[key] = true;
+    }
+  }
+
+  const [state, setState] = React.useState(initialValues);
 
   const handleChange = (itemName: string) => {
     setState({ ...state, [itemName]: !state[itemName] });
