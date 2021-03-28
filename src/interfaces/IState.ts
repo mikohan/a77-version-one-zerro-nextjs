@@ -22,10 +22,13 @@ interface IUIstate {
   shopGrid: string;
 }
 
-interface IFilter {
+export interface IFilters {
   filters: {
     [key: string]: string[];
   };
+}
+export interface IFilter {
+  [key: string]: string[];
 }
 
 export interface IState {

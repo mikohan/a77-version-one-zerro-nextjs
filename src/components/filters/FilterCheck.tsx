@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filtersAction } from '~/store/actions/filtersActions';
 import { urlBuilder } from '~/helpers';
 import { IState } from '~/interfaces/IState';
+import { IFilter } from '~/interfaces/IState';
 
 interface IProps {
   options: {
@@ -64,7 +65,8 @@ export default function CheckboxLabels({ options, value }: IProps) {
   }
 
   const [state, setState] = React.useState(initialValues);
-  const fArr = useSelector((state: IState) => state.activeFilters.filters);
+  const fArr: any = useSelector((state: IState) => state.activeFilters.filters);
+
   const router = useRouter();
   const dispatch = useDispatch();
   console.log(fArr);
@@ -75,16 +77,19 @@ export default function CheckboxLabels({ options, value }: IProps) {
   ) => {
     setState({ ...state, [itemName]: !state[itemName] });
 
-    if (fArr.hasOwnProperty(itemName)) const arr: string[] = [];
+    if (fArr.hasOwnProperty(itemName)) {
+      if (e.target.checked) {
+        fArr[options.slug].push(itemName);
+      }
+      if (!e.target.checked) {
+        const index = fArr[itemName].indexOf(itemName);
+        fArr[options.slug].splice(index, 1);
+      }
+    } else {
+      fArr[options.slug] = new Array(itemName);
+    }
 
-    /* if (e.target.checked) { */
-    /*   fArr[itemName].push(itemName); */
-    /* } */
-    /* if (!e.target.checked) { */
-    /*   const index = fArr[itemName].indexOf(itemName); */
-    /*   fArr[itemName].splice(index, 1); */
-    /* } */
-    dispatch(filtersAction(options.slug, ['angara']));
+    dispatch(filtersAction(fArr));
 
     /* const url = urlBuilder(, e); */
     /* router.push({ */
@@ -93,7 +98,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
     /*     filter_brand: ['angara', 'mobis'], */
     /*   }, */
     /* }); */
-    console.log(arr);
   };
 
   const items = options.items;
