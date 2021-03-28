@@ -36,7 +36,6 @@ function valuetext(value: number) {
 
 export default function RangeSlider({ options, value, onChangeValue }: IProps) {
   const classes = useStyles();
-  console.log(options.value);
   const [localValue, setLocalValue] = React.useState<number[]>(options.value);
 
   const handleChange = (event: any, newValue: number | number[]) => {
@@ -57,7 +56,7 @@ export default function RangeSlider({ options, value, onChangeValue }: IProps) {
       />
       <Box className={classes.numbersContainer}>
         <Typography variant="body2">
-          &#8381; {options.min} - &#8381; {options.max}
+          &#8381; {localValue[0]} - &#8381; {localValue[1]}
         </Typography>
       </Box>
     </div>
