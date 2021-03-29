@@ -20,6 +20,7 @@ import {
   IProduct,
   IProductElasticHitsFirst,
   IProductElasticHitsSecond,
+  IProductElasticBase,
 } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree, OrderBreads } from '~/utils';
@@ -144,11 +145,12 @@ export default function Cagetory(props: CategoryProps) {
   useEffect(() => {
     async function fetchProducts() {
       const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
-      const promise = await getProductsByFilters(
-        model.slug,
-        category.slug,
-        brands
-      );
+      let promise = {} as IProductElasticBase;
+      if (brands === '') {
+        promise = await getProductsByCar(model.slug, category.slug);
+      } else {
+        promise = await getProductsByFilters(model.slug, category.slug, brands);
+      }
       let products: IProductElasticHitsFirst = promise.hits;
       setStateProducts(products.hits);
       setStateCount(products.total.value);
@@ -173,7 +175,7 @@ export default function Cagetory(props: CategoryProps) {
     /*   setStateProducts(filteredProducts); */
     /* } else setStateProducts(products.hits); */
     /* console.log(filteredProducts); */
-  }, [fils, products]);
+  }, [fils]);
 
   return (
     <React.Fragment>
