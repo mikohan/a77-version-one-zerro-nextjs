@@ -139,15 +139,15 @@ export default function Cagetory(props: CategoryProps) {
   const [stateProducts, setStateProducts] = useState(products);
   const fils = useSelector((state: IState) => state.shopNew.filters);
 
-  useEffect(() => {
-    async function fetchProducts() {
-      const promise = await getProductsByCar(model.slug, category.slug);
-      let products: IProductElasticHitsFirst = promise.hits;
+  /* useEffect(() => { */
+  /*   async function fetchProducts() { */
+  /*     const promise = await getProductsByCar(model.slug, category.slug); */
+  /*     let products: IProductElasticHitsFirst = promise.hits; */
 
-      setStateProducts(products);
-    }
-    fetchProducts();
-  }, []);
+  /*     setStateProducts(products); */
+  /*   } */
+  /*   fetchProducts(); */
+  /* }, []); */
 
   return (
     <React.Fragment>
