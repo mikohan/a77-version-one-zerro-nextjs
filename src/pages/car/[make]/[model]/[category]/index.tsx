@@ -66,10 +66,6 @@ export default function Cagetory(props: CategoryProps) {
   const filterBrand = router.query.filter_brand || [];
   const regFilter = /filter_.+/;
 
-  const changedRouter = Object.keys(router.query).map((item: string) =>
-    item.match(regFilter)
-  );
-
   let brandVals: string[] = [];
 
   if (typeof filterBrand === 'string') {
@@ -140,23 +136,25 @@ export default function Cagetory(props: CategoryProps) {
 
   const filters = [];
   filters.push(filterCategory, filterBrands, filterRange, filterBages);
-  const [stateProducts, setStateProducts] = useState(products);
+  const [stateProducts, setStateProducts] = useState(products.hits);
   const fils = useSelector((state: IState) => state.shopNew.filters);
 
   useEffect(() => {
     /* async function fetchProducts() { */
     /*   const promise = await getProductsByCar(model.slug, category.slug); */
     /*   let products: IProductElasticHitsFirst = promise.hits; */
-    /*   setStateProducts(products); */
     /* } */
     /* fetchProducts(); */
-    const filteredProducts = stateProducts.hits.filter(
+    const filteredProducts = stateProducts.filter(
       (product: IProductElasticHitsSecond) => {
         console.log(fils.brands);
-        return fils.brands.includes(product._source.brand.name);
+        return fils.hasOwnProperty('brands')
+          ? fils.brands.includes(product._source.brand.name)
+          : false;
       }
     );
     console.log(filteredProducts);
+    setStateProducts(filteredProducts);
   }, [fils, products]);
 
   return (

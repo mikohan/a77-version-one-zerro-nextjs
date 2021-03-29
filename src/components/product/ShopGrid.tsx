@@ -20,7 +20,7 @@ import Button from '@material-ui/core/Button';
 import FilterDrawer from '~/components/product/FilterDrawer';
 
 interface IProps {
-  products: IProductElasticHitsFirst;
+  products: IProductElasticHitsSecond[];
 }
 
 export default function ShopGrid({ products }: IProps) {
@@ -129,7 +129,7 @@ export default function ShopGrid({ products }: IProps) {
   let productsSorted;
   switch (sort) {
     case '1':
-      productsSorted = products.hits;
+      productsSorted = products;
       break;
     case '2':
       /* productsSorted = products.hits.sort(compareByPriceDesc); */
@@ -138,13 +138,13 @@ export default function ShopGrid({ products }: IProps) {
       /* productsSorted = products.hits.sort(compareByPriceAsc); */
       break;
     case '4':
-      productsSorted = products.hits.sort(compareByNameAsc);
+      productsSorted = products.sort(compareByNameAsc);
       break;
     case '5':
-      productsSorted = products.hits.sort(compareByNameDesc);
+      productsSorted = products.sort(compareByNameDesc);
       break;
     default:
-      productsSorted = products.hits;
+      productsSorted = products;
       break;
   }
 
@@ -236,7 +236,7 @@ export default function ShopGrid({ products }: IProps) {
         </Grid>
         <Grid item xs={12}>
           <div className={classes.cards}>
-            {products.hits.map((item: IProductElasticHitsSecond) => {
+            {products.map((item: IProductElasticHitsSecond) => {
               const elem =
                 shopGrid === 'grid' ? (
                   <ProductCardGrid key={item._id} product={item} />
