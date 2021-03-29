@@ -1,17 +1,35 @@
-import * as types from '~/store/types';
+import { IActiveFilter } from '~/interfaces/filters';
+import {
+  SHOP_SET_FILTER_VALUE,
+  SHOP_RESET_FILTER,
+  SHOP_RESET_FILTERS,
+  ShopSetFilterValueAction,
+  ShopResetFilterAction,
+  ShopResetFiltersAction,
+} from '~/store/types';
 
-import { IFilter } from '~/interfaces/IState';
-
-export interface ISetActiveFilter {
-  type: typeof types.SET_ACTIVE_FILTER;
-  payload: IFilter;
+export function shopSetFilterVlue(
+  filter: string,
+  value: string | null
+): ShopSetFilterValueAction {
+  return {
+    type: SHOP_SET_FILTER_VALUE,
+    filter: filter,
+    value: value,
+  };
 }
 
-export const filtersAction = (value: IFilter): ISetActiveFilter => {
+export function shopResetFilter(
+  activeFilter: IActiveFilter
+): ShopResetFilterAction {
   return {
-    type: types.SET_ACTIVE_FILTER,
-    payload: value,
+    type: SHOP_RESET_FILTER,
+    activeFilter,
   };
-};
+}
 
-export type FilterActions = ISetActiveFilter;
+export function shopResetFilters(): ShopResetFiltersAction {
+  return {
+    type: SHOP_RESET_FILTERS,
+  };
+}

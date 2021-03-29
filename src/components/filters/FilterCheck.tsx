@@ -9,7 +9,6 @@ import { capitalize } from '~/utils';
 import { ICheckFilterValue } from '~/interfaces/filters';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtersAction } from '~/store/actions/filtersActions';
 import { urlBuilder } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { IFilter } from '~/interfaces/IState';
@@ -89,7 +88,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
       fArr[options.slug] = new Array(itemName);
     }
 
-    dispatch(filtersAction(fArr));
+    /* dispatch(filtersAction(fArr)); */
 
     /* const url = urlBuilder(, e); */
     /* router.push({ */

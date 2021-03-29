@@ -72,16 +72,21 @@ export interface IActiveFilterBase<T extends IFilter> {
 export type IActiveFilterVehicle = IActiveFilterBase<IVehicleFilter> & {
   original: IVehicleFilter;
 };
+
 export type IActiveFilterRange = IActiveFilterBase<IRangeFilter>;
+
 export type IActiveFilterCheck = IActiveFilterBase<ICheckFilter> & {
   item: IBaseFilterItem;
 };
+
 export type IActiveFilterRadio = IActiveFilterBase<IRadioFilter> & {
   item: IBaseFilterItem;
 };
+
 export type IActiveFilterRating = IActiveFilterBase<IRatingFilter> & {
   item: IRatingFilterItem;
 };
+
 export type IActiveFilterColor = IActiveFilterBase<IColorFilter> & {
   item: IColorFilterItem;
 };
