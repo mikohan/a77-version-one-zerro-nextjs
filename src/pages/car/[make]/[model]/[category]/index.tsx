@@ -147,7 +147,7 @@ export default function Cagetory(props: CategoryProps) {
       setStateProducts(products);
     }
     fetchProducts();
-  }, [fils]);
+  }, []);
 
   return (
     <React.Fragment>
