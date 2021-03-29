@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { urlBuilder } from '~/helpers';
 import { IState } from '~/interfaces/IState';
 import { IFilter } from '~/interfaces/IState';
+import { shopSetFilterVlue } from '~/store/shop/shopActions';
 
 interface IProps {
   options: {
@@ -88,7 +89,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
       fArr[options.slug] = new Array(itemName);
     }
 
-    /* dispatch(filtersAction(fArr)); */
+    dispatch(shopSetFilterVlue('brands', 'angara'));
 
     /* const url = urlBuilder(, e); */
     /* router.push({ */

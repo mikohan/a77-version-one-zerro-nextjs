@@ -6,7 +6,7 @@ import {
   ShopSetFilterValueAction,
   ShopResetFilterAction,
   ShopResetFiltersAction,
-} from '~/store/types';
+} from '~/store/shop/shopTypes';
 
 export function shopSetFilterVlue(
   filter: string,
