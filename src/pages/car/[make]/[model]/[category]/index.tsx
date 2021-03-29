@@ -30,7 +30,8 @@ import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -136,6 +137,7 @@ export default function Cagetory(props: CategoryProps) {
   const filters = [];
   filters.push(filterCategory, filterBrands, filterRange, filterBages);
   const [stateProducts, setStateProducts] = useState(products);
+  const fils = useSelector((state: IState) => state.shopNew.filters);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -145,7 +147,7 @@ export default function Cagetory(props: CategoryProps) {
       setStateProducts(products);
     }
     fetchProducts();
-  }, []);
+  }, [fils]);
 
   return (
     <React.Fragment>

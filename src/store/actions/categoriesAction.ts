@@ -1,5 +1,4 @@
 import { ICar } from '~/interfaces';
-import { FilterActions } from '~/store/actions/filtersActions';
 import * as types from '~/store/types';
 
 interface IMakesAction {
@@ -28,7 +27,4 @@ export const setCurrentCarAction = (
   };
 };
 
-export type OldShopActions =
-  | IMakesAction
-  | ISetCurrnetCarAction
-  | FilterActions;
+export type OldShopActions = IMakesAction | ISetCurrnetCarAction;
