@@ -89,3 +89,19 @@ export function OrderBreads(a: ICategory, b: ICategory) {
   }
   return 0;
 }
+
+// Function makes query string frmom active filters
+
+interface IFilterQueryString {
+  [filterSlug: string]: string;
+}
+
+function makeFiltersQueryString(filters: IFilterQueryString): string {
+  let string = '';
+  const mp = Object.entries(filters);
+  mp.forEach(([key, value], i) => {
+    const amp = mp.length - 1 === i ? '' : '&';
+    string += 'filter_' + key + '=' + value.toLowerCase() + amp;
+  });
+  return string;
+}

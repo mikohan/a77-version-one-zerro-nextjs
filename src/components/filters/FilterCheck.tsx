@@ -9,10 +9,10 @@ import { capitalize } from '~/utils';
 import { ICheckFilterValue } from '~/interfaces/filters';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { urlBuilder } from '~/helpers';
 import { IState } from '~/interfaces/IState';
-import { IFilter } from '~/interfaces/IState';
 import { shopSetFilterVlue } from '~/store/shop/shopActions';
+
+// Helper functions need to refactor
 
 interface IProps {
   options: {
@@ -65,11 +65,13 @@ export default function CheckboxLabels({ options, value }: IProps) {
   }
 
   const [state, setState] = React.useState(initialValues);
-  const fArr: any = useSelector((state: IState) => state.activeFilters.filters);
+  const filters: any = useSelector((state: IState) => state.shopNew.filters);
+  const filSlug = options.slug;
+
+  const des = filters[filSlug] ? filters[filSlug].split(',') : [];
 
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(fArr);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -77,27 +79,26 @@ export default function CheckboxLabels({ options, value }: IProps) {
   ) => {
     setState({ ...state, [itemName]: !state[itemName] });
 
-    if (fArr.hasOwnProperty(itemName)) {
-      if (e.target.checked) {
-        fArr[options.slug].push(itemName);
-      }
-      if (!e.target.checked) {
-        const index = fArr[itemName].indexOf(itemName);
-        fArr[options.slug].splice(index, 1);
-      }
+    if (des.includes(itemName)) {
+      // delete from des
+      const idx = des.indexOf(itemName);
+      des.splice(idx, 1);
     } else {
-      fArr[options.slug] = new Array(itemName);
+      // add to des
+      des.push(itemName);
     }
+    // serialize des and dispatch
+    const newFilterValues = des.join(',');
 
-    dispatch(shopSetFilterVlue('brands', 'angara'));
-
-    /* const url = urlBuilder(, e); */
+    dispatch(shopSetFilterVlue(options.slug, newFilterValues));
     /* router.push({ */
     /*   pathname: '/car/hyundai/porter1/zapchasti', */
     /*   query: { */
-    /*     filter_brand: ['angara', 'mobis'], */
+    /*     ...filters, */
     /*   }, */
     /* }); */
+
+    /* const url = urlBuilder(, e); */
   };
 
   const items = options.items;

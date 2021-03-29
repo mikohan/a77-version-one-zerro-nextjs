@@ -6,7 +6,7 @@ import {
   ShopSetFilterValueAction,
   SHOP_SET_FILTER_VALUE,
   ShopAction,
-} from '../types';
+} from '~/store/shop/shopTypes';
 
 // Initial shop state
 const initialState: IShopState = {

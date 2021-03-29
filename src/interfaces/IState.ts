@@ -1,5 +1,6 @@
 import { ICategory } from '~/interfaces/category';
 import { ICar } from '~/interfaces/ICar';
+import { IShopState as INewShopState } from '~/store/shop/shopTypes';
 
 export interface IMake {
   id: number;
@@ -21,17 +22,8 @@ interface IUIstate {
   shopGrid: string;
 }
 
-export interface IFilters {
-  filters: {
-    [key: string]: string[];
-  };
-}
-export interface IFilter {
-  [key: string]: string[];
-}
-
 export interface IState {
-  activeFilters: IFilter;
   shop: IShopState;
+  shopNew: INewShopState;
   uiState: IUIstate;
 }
