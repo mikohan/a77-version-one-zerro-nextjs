@@ -175,7 +175,7 @@ export default function Cagetory(props: CategoryProps) {
     /*   setStateProducts(filteredProducts); */
     /* } else setStateProducts(products.hits); */
     /* console.log(filteredProducts); */
-  }, [fils]);
+  }, [fils, products]);
 
   return (
     <React.Fragment>
