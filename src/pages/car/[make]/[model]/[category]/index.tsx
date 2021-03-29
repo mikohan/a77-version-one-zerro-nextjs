@@ -153,8 +153,10 @@ export default function Cagetory(props: CategoryProps) {
           : false;
       }
     );
+    if (Object.keys(fils).length !== 0 && fils.brands !== '') {
+      setStateProducts(filteredProducts);
+    } else setStateProducts(products.hits);
     console.log(filteredProducts);
-    setStateProducts(filteredProducts);
   }, [fils, products]);
 
   return (
