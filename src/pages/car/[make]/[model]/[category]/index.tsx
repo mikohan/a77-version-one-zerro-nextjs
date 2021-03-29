@@ -138,6 +138,7 @@ export default function Cagetory(props: CategoryProps) {
   const filters = [];
   filters.push(filterCategory, filterBrands, filterRange, filterBages);
   const [stateProducts, setStateProducts] = useState(products.hits);
+  const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
 
   useEffect(() => {
@@ -150,6 +151,7 @@ export default function Cagetory(props: CategoryProps) {
       );
       let products: IProductElasticHitsFirst = promise.hits;
       setStateProducts(products.hits);
+      setStateCount(products.total.value);
     }
     fetchProducts();
     /* const filteredProducts = stateProducts.filter( */
@@ -178,7 +180,7 @@ export default function Cagetory(props: CategoryProps) {
       <CategoryHead model={model} category={category} />
       <AnimationPage>
         <Grid container>
-          <PageHeader header={header} breads={breads} count={count} />
+          <PageHeader header={header} breads={breads} count={stateCount} />
           <Hidden smDown>
             <Grid item xs={3}>
               <LeftSideBar>
