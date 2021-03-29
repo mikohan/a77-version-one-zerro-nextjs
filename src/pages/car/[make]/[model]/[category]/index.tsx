@@ -156,25 +156,6 @@ export default function Cagetory(props: CategoryProps) {
       setStateCount(products.total.value);
     }
     fetchProducts();
-    /* const filteredProducts = stateProducts.filter( */
-    /*   (product: IProductElasticHitsSecond) => { */
-    /*     console.log(fils.brands); */
-    /*     if (fils.hasOwnProperty('brands')) { */
-    /*       const filArr = fils.brands.split(','); */
-    /*       for (let filter of filArr) { */
-    /*         if (filter === product._source.brand.name) { */
-    /*           return true; */
-    /*         } else { */
-    /*           return false; */
-    /*         } */
-    /*       } */
-    /*     } */
-    /*   } */
-    /* ); */
-    /* if (Object.keys(fils).length !== 0 && fils.brands !== '') { */
-    /*   setStateProducts(filteredProducts); */
-    /* } else setStateProducts(products.hits); */
-    /* console.log(filteredProducts); */
   }, [fils, products]);
 
   return (
