@@ -149,7 +149,9 @@ export default function Cagetory(props: CategoryProps) {
       (product: IProductElasticHitsSecond) => {
         console.log(fils.brands);
         return fils.hasOwnProperty('brands')
-          ? fils.brands.includes(product._source.brand.name)
+          ? fils.brands
+              .split(',')
+              .some((item: string) => item === product._source.brand.name)
           : false;
       }
     );

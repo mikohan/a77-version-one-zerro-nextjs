@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import ShopGrid from '~/components/product/ShopGrid';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { GetStaticPropsContext } from 'next';
@@ -60,7 +59,6 @@ export default function About({ products }: IProps) {
           </Grid>
           <Grid style={{ border: '1px solid green' }} item xs={9}>
             <Typography variant="h1">About Page</Typography>
-            <ShopGrid products={products} />
           </Grid>
         </Grid>
       </AnimationPage>

@@ -49,7 +49,7 @@ function Make(props: ICarProps) {
           </Hidden>
           <Grid item xs={12} md={9}>
             <Grid item xs={12}>
-              {<ShopGrid products={products} />}
+              {<ShopGrid products={products.hits} />}
             </Grid>
           </Grid>
         </Grid>
