@@ -36,6 +36,7 @@ import PageHeader from '~/components/product/PageHeader';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import { getProductsByFilters } from '~/endpoints/productEndpoint';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -140,25 +141,36 @@ export default function Cagetory(props: CategoryProps) {
   const fils = useSelector((state: IState) => state.shopNew.filters);
 
   useEffect(() => {
-    /* async function fetchProducts() { */
-    /*   const promise = await getProductsByCar(model.slug, category.slug); */
-    /*   let products: IProductElasticHitsFirst = promise.hits; */
-    /* } */
-    /* fetchProducts(); */
-    const filteredProducts = stateProducts.filter(
-      (product: IProductElasticHitsSecond) => {
-        console.log(fils.brands);
-        return fils.hasOwnProperty('brands')
-          ? fils.brands
-              .split(',')
-              .some((item: string) => item === product._source.brand.name)
-          : false;
-      }
-    );
-    if (Object.keys(fils).length !== 0 && fils.brands !== '') {
-      setStateProducts(filteredProducts);
-    } else setStateProducts(products.hits);
-    console.log(filteredProducts);
+    async function fetchProducts() {
+      const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
+      const promise = await getProductsByFilters(
+        model.slug,
+        category.slug,
+        brands
+      );
+      let products: IProductElasticHitsFirst = promise.hits;
+      setStateProducts(products.hits);
+    }
+    fetchProducts();
+    /* const filteredProducts = stateProducts.filter( */
+    /*   (product: IProductElasticHitsSecond) => { */
+    /*     console.log(fils.brands); */
+    /*     if (fils.hasOwnProperty('brands')) { */
+    /*       const filArr = fils.brands.split(','); */
+    /*       for (let filter of filArr) { */
+    /*         if (filter === product._source.brand.name) { */
+    /*           return true; */
+    /*         } else { */
+    /*           return false; */
+    /*         } */
+    /*       } */
+    /*     } */
+    /*   } */
+    /* ); */
+    /* if (Object.keys(fils).length !== 0 && fils.brands !== '') { */
+    /*   setStateProducts(filteredProducts); */
+    /* } else setStateProducts(products.hits); */
+    /* console.log(filteredProducts); */
   }, [fils, products]);
 
   return (
