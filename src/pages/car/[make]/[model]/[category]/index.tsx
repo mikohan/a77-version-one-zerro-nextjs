@@ -16,7 +16,11 @@ import {
   IAggregationCategory,
   IAggregationBucket,
 } from '~/interfaces/aggregations';
-import { IProductElasticHitsFirst } from '~/interfaces/product';
+import {
+  IProduct,
+  IProductElasticHitsFirst,
+  IProductElasticHitsSecond,
+} from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree, OrderBreads } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
@@ -139,15 +143,21 @@ export default function Cagetory(props: CategoryProps) {
   const [stateProducts, setStateProducts] = useState(products);
   const fils = useSelector((state: IState) => state.shopNew.filters);
 
-  /* useEffect(() => { */
-  /*   async function fetchProducts() { */
-  /*     const promise = await getProductsByCar(model.slug, category.slug); */
-  /*     let products: IProductElasticHitsFirst = promise.hits; */
-
-  /*     setStateProducts(products); */
-  /*   } */
-  /*   fetchProducts(); */
-  /* }, []); */
+  useEffect(() => {
+    /* async function fetchProducts() { */
+    /*   const promise = await getProductsByCar(model.slug, category.slug); */
+    /*   let products: IProductElasticHitsFirst = promise.hits; */
+    /*   setStateProducts(products); */
+    /* } */
+    /* fetchProducts(); */
+    const filteredProducts = stateProducts.hits.filter(
+      (product: IProductElasticHitsSecond) => {
+        console.log(fils.brands);
+        return fils.brands.includes(product._source.brand.name);
+      }
+    );
+    console.log(filteredProducts);
+  }, [fils, products]);
 
   return (
     <React.Fragment>
