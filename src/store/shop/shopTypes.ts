@@ -6,6 +6,7 @@ export const SHOP_NAMESPACE = 'shop';
 export interface IShopState {
   init: boolean;
   filters: IFilterValues;
+  productsLoading: boolean;
 
   /**
    * All active filters.
@@ -28,6 +29,8 @@ export const SHOP_RESET_FILTERS = 'SHOP_RESET_FILTERS';
 
 export const SHOP_SET_FILTER_VALUE = 'SHOP_SET_FILTER_VALUE';
 
+export const SHOP_PRODUCTS_LIST_LOADING = 'SHOP_PRODUCTS_LIST_LOADING';
+
 export interface ShopSetFilterValueAction {
   type: typeof SHOP_SET_FILTER_VALUE;
   filter: string;
@@ -42,8 +45,13 @@ export interface ShopResetFilterAction {
   type: typeof SHOP_RESET_FILTER;
   activeFilter: IActiveFilter;
 }
+export interface ShopProductLoadingAction {
+  type: typeof SHOP_PRODUCTS_LIST_LOADING;
+  loading: boolean;
+}
 
 export type ShopAction =
   | ShopSetFilterValueAction
   | ShopResetFilterAction
-  | ShopResetFiltersAction;
+  | ShopResetFiltersAction
+  | ShopProductLoadingAction;

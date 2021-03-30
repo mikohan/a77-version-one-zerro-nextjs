@@ -6,6 +6,8 @@ import {
   ShopSetFilterValueAction,
   ShopResetFilterAction,
   ShopResetFiltersAction,
+  ShopProductLoadingAction,
+  SHOP_PRODUCTS_LIST_LOADING,
 } from '~/store/shop/shopTypes';
 
 export function shopSetFilterVlue(
@@ -31,5 +33,12 @@ export function shopResetFilter(
 export function shopResetFilters(): ShopResetFiltersAction {
   return {
     type: SHOP_RESET_FILTERS,
+  };
+}
+
+export function shopProductLoading(loading: boolean): ShopProductLoadingAction {
+  return {
+    type: SHOP_PRODUCTS_LIST_LOADING,
+    loading: loading,
   };
 }

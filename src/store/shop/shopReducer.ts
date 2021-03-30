@@ -1,5 +1,9 @@
 import { IActiveFilter } from '~/interfaces/filters';
-import { IShopState } from '~/store/shop/shopTypes';
+import {
+  IShopState,
+  ShopProductLoadingAction,
+  SHOP_PRODUCTS_LIST_LOADING,
+} from '~/store/shop/shopTypes';
 import { IFilterValues } from '~/interfaces/list';
 import {
   ShopResetFilterAction,
@@ -11,6 +15,7 @@ import {
 // Initial shop state
 const initialState: IShopState = {
   init: false,
+  productsLoading: false,
   filters: {},
   activeFilters: [],
   removedFilters: [],
@@ -48,6 +53,16 @@ function shopReducerResetFilter(
   };
 }
 
+function shopProductLoadingReducer(
+  state: IShopState,
+  action: ShopProductLoadingAction
+): IShopState {
+  return {
+    ...state,
+    productsLoading: action.loading,
+  };
+}
+
 export function shopReducer(
   state = initialState,
   action: ShopAction
@@ -55,6 +70,8 @@ export function shopReducer(
   switch (action.type) {
     case SHOP_SET_FILTER_VALUE:
       return shopReducerSetFilterValue(state, action);
+    case SHOP_PRODUCTS_LIST_LOADING:
+      return shopProductLoadingReducer(state, action);
     default:
       return state;
   }
