@@ -8,7 +8,7 @@ export async function getProductsByCar(
   let url = `http://localhost:8000/api/product/jsontest?model=${carSlug}`;
 
   if (catSlug) {
-    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&cat=${catSlug}`;
+    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}`;
   }
   const prom = await axios(url);
   return prom.data;
@@ -42,7 +42,7 @@ export async function getProductsByFilters(
       str += '&brand=' + brand;
     });
   }
-  const url = `http://localhost:8000/api/product/jsontest?model=${modelSlug}&cat=${catSlug}${str}`;
+  const url = `http://localhost:8000/api/product/jsontest?model=${modelSlug}&category=${catSlug}${str}`;
   console.log(url);
   const prom = await axios(url);
 

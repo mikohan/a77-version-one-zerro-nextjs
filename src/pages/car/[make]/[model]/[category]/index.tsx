@@ -154,7 +154,7 @@ export default function Cagetory(props: CategoryProps) {
   const engines: IFilter = {
     type: 'check',
     name: 'Двигатель',
-    slug: 'car_model',
+    slug: 'engines',
     value: ['d4dd', 'd4db'],
     items: engs,
   };
@@ -174,6 +174,7 @@ export default function Cagetory(props: CategoryProps) {
   const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
+  console.log(fils);
 
   useEffect(() => {
     async function fetchProducts() {
