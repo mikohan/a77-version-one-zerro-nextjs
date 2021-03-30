@@ -99,9 +99,14 @@ export default function Cagetory(props: CategoryProps) {
   ];
 
   // Make array for brands filter
-  const brands = aggregations.brands.buckets.map(
+  const fBrands = aggregations.brands.buckets.map(
     (item: IAggregationBucket) => ({ name: item.key, count: item.doc_count })
   );
+
+  const engs = aggregations.engines.buckets.map((item: IAggregationBucket) => ({
+    name: item.key,
+    count: item.doc_count,
+  }));
   let minPrice: number = 0;
 
   let maxPrice: number = 0;
@@ -112,7 +117,7 @@ export default function Cagetory(props: CategoryProps) {
     minPrice = aggregations.min_price.value as number;
     maxPrice = aggregations.max_price.value as number;
   }
-  const filterCategory: IFilter = {
+  const categoriesFilter: IFilter = {
     type: 'category',
     name: 'category',
     slug: 'category',
@@ -120,14 +125,14 @@ export default function Cagetory(props: CategoryProps) {
     path: orderedCatBreads,
     items: categories,
   };
-  const filterBrands: IFilter = {
+  const brands: IFilter = {
     type: 'check',
     name: 'Бренды',
     slug: 'brands',
     value: brandVals,
-    items: brands,
+    items: fBrands,
   };
-  const filterRange: IFilter = {
+  const price: IFilter = {
     type: 'range',
     name: 'Цена',
     slug: 'price',
@@ -136,7 +141,7 @@ export default function Cagetory(props: CategoryProps) {
     max: maxPrice,
   };
 
-  const filterBages: IFilter = {
+  const bages: IFilter = {
     type: 'check',
     name: 'Бейдж',
     slug: 'bages',
@@ -146,9 +151,25 @@ export default function Cagetory(props: CategoryProps) {
       { name: 'SALE', count: 90 },
     ],
   };
+  const engines: IFilter = {
+    type: 'check',
+    name: 'Двигатель',
+    slug: 'car_model',
+    value: ['d4dd', 'd4db'],
+    items: engs,
+  };
+  const bucketsFilters: any = { brands, bages, engines };
+  const filters = [categoriesFilter, price];
 
-  const filters = [];
-  filters.push(filterCategory, filterBrands, filterRange, filterBages);
+  for (const [key, value] of Object.entries(aggregations)) {
+    if (value.hasOwnProperty('buckets') && value.buckets.length > 0) {
+      if (bucketsFilters[key]) {
+        filters.push(bucketsFilters[key]);
+      }
+    }
+  }
+
+  filters.push();
   const [stateProducts, setStateProducts] = useState(products.hits);
   const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
