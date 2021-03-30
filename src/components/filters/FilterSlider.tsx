@@ -4,6 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filters';
 import Box from '@material-ui/core/Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import { shopSetFilterVlue } from '~/store/shop/shopActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +40,14 @@ function valuetext(value: number) {
 export default function RangeSlider({ options, value, onChangeValue }: IProps) {
   const classes = useStyles();
   const [localValue, setLocalValue] = React.useState<number[]>(options.value);
+  const filters: any = useSelector((state: IState) => state.shopNew.filters);
+  const dispatch = useDispatch();
+
+  const handleDispatch = (event: any, newValue: number[]) => {
+    const nv = newValue as number[];
+    const string = nv.join(',');
+    dispatch(shopSetFilterVlue('price', string));
+  };
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setLocalValue(newValue as number[]);
@@ -50,6 +61,7 @@ export default function RangeSlider({ options, value, onChangeValue }: IProps) {
         max={options.max}
         value={localValue}
         onChange={handleChange}
+        onChangeCommitted={handleDispatch}
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"
         getAriaValueText={valuetext}
