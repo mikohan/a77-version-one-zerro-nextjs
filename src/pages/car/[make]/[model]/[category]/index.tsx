@@ -38,6 +38,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
+import { shopProductLoading } from '~/store/shop/shopActions';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -141,9 +142,11 @@ export default function Cagetory(props: CategoryProps) {
   const [stateProducts, setStateProducts] = useState(products.hits);
   const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchProducts() {
+      dispatch(shopProductLoading(true));
       const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
       let promise = {} as IProductElasticBase;
       if (brands === '') {
@@ -154,6 +157,7 @@ export default function Cagetory(props: CategoryProps) {
       let products: IProductElasticHitsFirst = promise.hits;
       setStateProducts(products.hits);
       setStateCount(products.total.value);
+      dispatch(shopProductLoading(false));
     }
     fetchProducts();
   }, [fils, products]);

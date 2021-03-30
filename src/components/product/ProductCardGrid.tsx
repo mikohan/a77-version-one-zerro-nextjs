@@ -8,6 +8,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import ChipContainer from '../common/ChipBox';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -75,6 +76,9 @@ export default function ProductCardGrid({ product }: IProp) {
     })
   );
   const classes = useStyles();
+  const productsLoading = useSelector(
+    (state: IState) => state.shopNew.productsLoading
+  );
 
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const compatable = product._source.model.some(
@@ -84,7 +88,14 @@ export default function ProductCardGrid({ product }: IProp) {
   return (
     <div key={product._id} className={classes.card}>
       <a className={classes.cardImageLink}>
-        <img src={imgPath} className={classes.cardImage} alt="Some image" />
+        {productsLoading && (
+          <Skeleton variant="rect" className={classes.cardImage} />
+        )}
+        <img
+          src={imgPath}
+          className={classes.cardImage}
+          alt={product._source.full_name}
+        />
       </a>
       <div className={classes.cardContent}>
         <Typography className={classes.productName} variant="body1">
