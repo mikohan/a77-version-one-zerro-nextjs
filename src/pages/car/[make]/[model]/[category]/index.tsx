@@ -174,7 +174,6 @@ export default function Cagetory(props: CategoryProps) {
   const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
-  console.log(fils);
 
   useEffect(() => {
     async function fetchProducts() {
