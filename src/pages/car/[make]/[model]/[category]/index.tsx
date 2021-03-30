@@ -15,6 +15,7 @@ import {
   IAgregations,
   IAggregationCategory,
   IAggregationBucket,
+  IAggregationAgg,
 } from '~/interfaces/aggregations';
 import {
   IProduct,
@@ -101,7 +102,16 @@ export default function Cagetory(props: CategoryProps) {
   const brands = aggregations.brands.buckets.map(
     (item: IAggregationBucket) => ({ name: item.key, count: item.doc_count })
   );
+  let minPrice: number = 0;
 
+  let maxPrice: number = 0;
+  if (
+    aggregations.hasOwnProperty('min_price') &&
+    aggregations.hasOwnProperty('max_price')
+  ) {
+    minPrice = aggregations.min_price.value as number;
+    maxPrice = aggregations.max_price.value as number;
+  }
   const filterCategory: IFilter = {
     type: 'category',
     name: 'category',
@@ -121,7 +131,7 @@ export default function Cagetory(props: CategoryProps) {
     type: 'range',
     name: 'Цена',
     slug: 'price',
-    value: [2000, 5000],
+    value: [minPrice, maxPrice],
     min: 1300,
     max: 10000,
   };
