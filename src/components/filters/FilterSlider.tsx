@@ -43,7 +43,7 @@ export default function RangeSlider({ options, value, onChangeValue }: IProps) {
   const filters: any = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
 
-  const handleDispatch = (event: any, newValue: number[]) => {
+  const handleDispatch = (event: any, newValue: number | number[]) => {
     const nv = newValue as number[];
     const string = nv.join(',');
     dispatch(shopSetFilterVlue('price', string));
