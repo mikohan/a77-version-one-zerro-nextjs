@@ -122,7 +122,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
               label={
                 <Box className={classes.name}>
                   <Typography variant="body2" className={classes.itemName}>
-                    {capitalize(item.name)}
+                    {item.name.toUpperCase()}
                   </Typography>
                   <Typography variant="body2" className={classes.itemCount}>
                     {item.count}

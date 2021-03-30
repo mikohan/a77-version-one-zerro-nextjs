@@ -136,7 +136,7 @@ export default function Cagetory(props: CategoryProps) {
     type: 'range',
     name: 'Цена',
     slug: 'price',
-    value: [3000, 5999],
+    value: [minPrice, maxPrice],
     min: minPrice,
     max: maxPrice,
   };
