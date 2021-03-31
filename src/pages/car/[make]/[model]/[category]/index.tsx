@@ -68,17 +68,6 @@ export default function Cagetory(props: CategoryProps) {
   } = props;
   const router = useRouter();
 
-  const filterBrand = router.query.filter_brand || [];
-  const regFilter = /filter_.+/;
-
-  let brandVals: string[] = [];
-
-  if (typeof filterBrand === 'string') {
-    brandVals.push(filterBrand);
-  } else if (Array.isArray(filterBrand)) {
-    brandVals = [...filterBrand];
-  }
-
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
   const catName = capitalize(category.name);
@@ -100,9 +89,6 @@ export default function Cagetory(props: CategoryProps) {
   ];
 
   // Make array for brands filter
-  const fBrands = aggregations.brands.buckets.map(
-    (item: IAggregationBucket) => ({ name: item.key, count: item.doc_count })
-  );
 
   const engs = aggregations.engines.buckets.map((item: IAggregationBucket) => ({
     name: item.key,
@@ -152,23 +138,40 @@ export default function Cagetory(props: CategoryProps) {
       { name: 'SALE', count: 90 },
     ],
   };
-  const engines: IFilter = {
-    type: 'check',
-    name: 'Двигатель',
-    slug: 'engines',
-    value: ['d4dd', 'd4db'],
-    items: engs,
-  };
+  /* const engines: IFilter = { */
+  /*   type: 'check', */
+  /*   name: 'Двигатель', */
+  /*   slug: 'engines', */
+  /*   value: ['d4dd', 'd4db'], */
+  /*   items: engs, */
+  /* }; */
 
   // filters builder ////////////////////////////////////////
+  const filterBrand = router.query.filter_brand || [];
+
+  let brandVals: string[] = [];
+
+  if (typeof filterBrand === 'string') {
+    brandVals.push(filterBrand);
+  } else if (Array.isArray(filterBrand)) {
+    brandVals = [...filterBrand];
+  }
   const brandsClass = new CheckFilterBulder(
     'Бренды',
     'brands',
-    aggregations.brands.buckets
+    aggregations.brands.buckets,
+    brandVals
   );
   const brands = brandsClass.buildFilter();
-  console.log(brands);
   // llllllllllllllllllllllllll
+  const filterEngine = new CheckFilterBulder(
+    'Двигатель',
+    'engines',
+    aggregations.engines.buckets,
+    ['d4bf']
+  );
+  const engines = filterEngine.buildFilter();
+  //////////////////////////////////////////
 
   const bucketsFilters: any = { brands, bages, engines };
   const filters = [categoriesFilter, price];
@@ -190,6 +193,7 @@ export default function Cagetory(props: CategoryProps) {
   useEffect(() => {
     async function fetchProducts() {
       dispatch(shopProductLoading(true));
+      console.log(fils);
       const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
       let promise = {} as IProductElasticBase;
       if (brands === '') {

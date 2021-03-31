@@ -6,13 +6,13 @@ import { IAggregationBucket } from '~/interfaces';
 
 export class CheckFilterBulder extends AbstractFilterBuilder {
   private items: IBaseFilterItem[] = [];
-  private value: string[] = [];
   constructor(
     public name: string,
     public slug: string,
-    public aggBuckets: IAggregationBucket[]
+    public aggBuckets: IAggregationBucket[],
+    public value: string[]
   ) {
-    super(name, slug, aggBuckets);
+    super(name, slug, aggBuckets, value);
   }
 
   buildFilter(): IFilter {

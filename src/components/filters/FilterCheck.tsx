@@ -91,10 +91,11 @@ export default function CheckboxLabels({ options, value }: IProps) {
     const newFilterValues = des.join(',');
 
     dispatch(shopSetFilterVlue(options.slug, newFilterValues));
+
     /* router.push({ */
-    /*   pathname: '/car/hyundai/porter1/zapchasti', */
+    /*   pathname: currentUrl, */
     /*   query: { */
-    /*     ...filters, */
+    /*     brands: 'mobis,ypr', */
     /*   }, */
     /* }); */
 
