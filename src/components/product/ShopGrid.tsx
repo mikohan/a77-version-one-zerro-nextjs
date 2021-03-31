@@ -38,7 +38,7 @@ export default function ShopGrid({ products }: IProps) {
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
   const filters = useSelector((state: IState) => state.shopNew.filters);
   const filtersBarOpen = Object.keys(filters).length ? true : false;
-  const loading = true;
+  const loading = useSelector((state: IState) => state.shopNew.productsLoading);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({

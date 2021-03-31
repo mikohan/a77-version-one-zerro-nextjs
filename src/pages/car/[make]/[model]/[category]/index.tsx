@@ -190,13 +190,6 @@ export default function Cagetory(props: CategoryProps) {
   }, [fils, products]);
   // Handling reset filters
 
-  function handleDeleteFilter(filterSlug: string): void {
-    dispatch(shopResetFilter(filterSlug));
-  }
-  function handleClearAll() {
-    dispatch(shopResetFilters());
-  }
-
   return (
     <React.Fragment>
       <CategoryHead model={model} category={category} />
