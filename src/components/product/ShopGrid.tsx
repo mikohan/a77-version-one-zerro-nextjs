@@ -19,6 +19,8 @@ import Chip from '@material-ui/core/Chip';
 import { capitalize } from '~/utils';
 import Typography from '@material-ui/core/Typography';
 import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
+import ProductCardGridSkeleton from './ProductCardGridSkeleton';
+import ProductCardListSkeleton from './ProductCardListSkeleton';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
@@ -36,6 +38,7 @@ export default function ShopGrid({ products }: IProps) {
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
   const filters = useSelector((state: IState) => state.shopNew.filters);
   const filtersBarOpen = Object.keys(filters).length ? true : false;
+  const loading = true;
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -321,8 +324,14 @@ export default function ShopGrid({ products }: IProps) {
                 ) : (
                   <ProductCardList key={item._id} product={item} />
                 );
+              const skel =
+                shopGrid === 'grid' ? (
+                  <ProductCardGridSkeleton key={item._id} />
+                ) : (
+                  <ProductCardListSkeleton key={item._id} />
+                );
 
-              return elem;
+              return !loading ? elem : skel;
             })}
           </div>
         </Grid>

@@ -8,7 +8,7 @@ import url from '~/services/url';
 import { getCategoryParents } from '~/services/utils';
 import { ICategoryFilter } from '~/interfaces/filters';
 import List from '@material-ui/core/List';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Typography, Box } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -16,7 +16,6 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { asString } from '~/helpers';
 import { IState } from '~/interfaces/IState';
-import { getParentCategory } from '~/services/utils';
 
 interface Props {
   options: ICategoryFilter;
@@ -49,16 +48,8 @@ function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
   const router = useRouter();
-  const currentCar = useSelector((state: IState) => {
-    if (state.shop.currentCar) {
-      return state.shop.currentCar.slug;
-    } else {
-      return undefined;
-    }
-  });
 
   const { make, model } = router.query;
-  const carMake = asString(make as string);
   const carModel = asString(model as string);
 
   return (
