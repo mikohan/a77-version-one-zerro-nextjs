@@ -43,7 +43,7 @@ export interface ShopResetFiltersAction {
 
 export interface ShopResetFilterAction {
   type: typeof SHOP_RESET_FILTER;
-  activeFilter: IActiveFilter;
+  filterSlug: string;
 }
 export interface ShopProductLoadingAction {
   type: typeof SHOP_PRODUCTS_LIST_LOADING;

@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { capitalize } from '~/utils';
 import { ICheckFilterValue } from '~/interfaces/filters';
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { shopSetFilterVlue } from '~/store/shop/shopActions';
@@ -65,7 +63,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
     }
   }
 
-  const [state, setState] = React.useState(initialValues);
   const filters: any = useSelector((state: IState) => state.shopNew.filters);
   const filSlug = options.slug;
 
@@ -77,8 +74,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
     e: React.ChangeEvent<HTMLInputElement>,
     itemName: string
   ) => {
-    setState({ ...state, [itemName]: !state[itemName] });
-
     if (des.includes(itemName)) {
       // delete from des
       const idx = des.indexOf(itemName);
@@ -91,15 +86,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
     const newFilterValues = des.join(',');
 
     dispatch(shopSetFilterVlue(options.slug, newFilterValues));
-
-    /* router.push({ */
-    /*   pathname: currentUrl, */
-    /*   query: { */
-    /*     brands: 'mobis,ypr', */
-    /*   }, */
-    /* }); */
-
-    /* const url = urlBuilder(, e); */
   };
 
   const items = options.items;
@@ -108,6 +94,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
     <FormGroup className={classes.container}>
       {items.map((item: any) => {
         const iName = item.name.toLowerCase();
+        console.log(initialValues[iName]);
         return (
           <Box className={classes.box} key={item.name}>
             <FormControlLabel
@@ -115,7 +102,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
                 <Checkbox
                   classes={{ root: classes.input }}
                   className={classes.checkbox}
-                  checked={state[iName] || false}
+                  checked={initialValues[iName] || false}
                   onChange={(e) => handleChange(e, iName)}
                   name={iName}
                   color="primary"

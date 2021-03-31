@@ -3,6 +3,7 @@ import {
   IShopState,
   ShopProductLoadingAction,
   SHOP_PRODUCTS_LIST_LOADING,
+  SHOP_RESET_FILTER,
 } from '~/store/shop/shopTypes';
 import { IFilterValues } from '~/interfaces/list';
 import {
@@ -47,9 +48,11 @@ function shopReducerResetFilter(
   action: ShopResetFilterAction
 ): IShopState {
   const { filters } = state;
+  delete filters[action.filterSlug];
+  const newFilters = Object.assign({}, filters);
   return {
     ...state,
-    filters,
+    filters: newFilters,
   };
 }
 
@@ -72,6 +75,8 @@ export function shopReducer(
       return shopReducerSetFilterValue(state, action);
     case SHOP_PRODUCTS_LIST_LOADING:
       return shopProductLoadingReducer(state, action);
+    case SHOP_RESET_FILTER:
+      return shopReducerResetFilter(state, action);
     default:
       return state;
   }

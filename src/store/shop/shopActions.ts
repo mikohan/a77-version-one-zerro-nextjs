@@ -1,4 +1,3 @@
-import { IActiveFilter } from '~/interfaces/filters';
 import {
   SHOP_SET_FILTER_VALUE,
   SHOP_RESET_FILTER,
@@ -21,12 +20,10 @@ export function shopSetFilterVlue(
   };
 }
 
-export function shopResetFilter(
-  activeFilter: IActiveFilter
-): ShopResetFilterAction {
+export function shopResetFilter(filterSlug: string): ShopResetFilterAction {
   return {
     type: SHOP_RESET_FILTER,
-    activeFilter,
+    filterSlug,
   };
 }
 
