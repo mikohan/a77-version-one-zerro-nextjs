@@ -98,7 +98,7 @@ export function makeFiltersQueryString(filters: IFilterQueryString): string {
   const mp = Object.entries(filters);
   mp.forEach(([key, value], i) => {
     const amp = mp.length - 1 === i ? '' : '&';
-    string += 'filter_' + key + '=' + value.toLowerCase() + amp;
+    string += key + '=' + value.toLowerCase() + amp;
   });
   return string;
 }

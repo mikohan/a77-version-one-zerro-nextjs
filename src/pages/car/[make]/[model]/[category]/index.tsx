@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React, { useEffect, useState } from 'react';
+import { makeFiltersQueryString } from '~/utils';
 
-import Box from '@material-ui/core/Box';
 import { Grid } from '@material-ui/core';
 import { REVALIDATE } from '~/config';
 import { ICar } from '~/interfaces/ICar';
@@ -11,16 +11,9 @@ import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
+import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import {
-  IAgregations,
-  IAggregationCategory,
-  IAggregationBucket,
-  IAggregationAgg,
-} from '~/interfaces/aggregations';
-import {
-  IProduct,
   IProductElasticHitsFirst,
-  IProductElasticHitsSecond,
   IProductElasticBase,
 } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
@@ -39,14 +32,8 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
-import {
-  shopProductLoading,
-  shopResetFilter,
-  shopResetFilters,
-  shopSetFilterVlue,
-} from '~/store/shop/shopActions';
+import { shopProductLoading } from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
-import { IFilterQueryString } from '~/interfaces/filters';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -82,8 +69,6 @@ export default function Cagetory(props: CategoryProps) {
   const makeName = capitalize(model.make.name);
   const catName = capitalize(category.name);
   const header = `${catName} на  ${makeName} ${modelName}`;
-
-  const count = products.total.value;
 
   const orderedCatBreads = catPath.sort(OrderBreads);
   const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({
@@ -169,6 +154,12 @@ export default function Cagetory(props: CategoryProps) {
   }
   filters.push();
   // ************************** End filters *********************
+
+  // Makes url for filters and other stuff
+  const strurl = makeFiltersQueryString(fils);
+  const filtersUrl = url.category(model.make.slug, model.slug, category.slug);
+
+  console.log(filtersUrl + '?' + strurl);
 
   useEffect(() => {
     async function fetchProducts() {
