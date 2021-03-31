@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -94,7 +94,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
     <FormGroup className={classes.container}>
       {items.map((item: any) => {
         const iName = item.name.toLowerCase();
-        console.log(initialValues[iName]);
         return (
           <Box className={classes.box} key={item.name}>
             <FormControlLabel
