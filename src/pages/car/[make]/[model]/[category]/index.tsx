@@ -40,6 +40,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { shopProductLoading } from '~/store/shop/shopActions';
+import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -125,13 +126,13 @@ export default function Cagetory(props: CategoryProps) {
     path: orderedCatBreads,
     items: categories,
   };
-  const brands: IFilter = {
-    type: 'check',
-    name: 'Бренды',
-    slug: 'brands',
-    value: brandVals,
-    items: fBrands,
-  };
+  /* const brands: IFilter = { */
+  /*   type: 'check', */
+  /*   name: 'Бренды', */
+  /*   slug: 'brands', */
+  /*   value: brandVals, */
+  /*   items: fBrands, */
+  /* }; */
   const price: IFilter = {
     type: 'range',
     name: 'Цена',
@@ -158,6 +159,17 @@ export default function Cagetory(props: CategoryProps) {
     value: ['d4dd', 'd4db'],
     items: engs,
   };
+
+  // filters builder ////////////////////////////////////////
+  const brandsClass = new CheckFilterBulder(
+    'Бренды',
+    'brands',
+    aggregations.brands.buckets
+  );
+  const brands = brandsClass.buildFilter();
+  console.log(brands);
+  // llllllllllllllllllllllllll
+
   const bucketsFilters: any = { brands, bages, engines };
   const filters = [categoriesFilter, price];
 
