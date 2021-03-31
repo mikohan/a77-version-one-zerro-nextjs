@@ -98,16 +98,8 @@ export default function Cagetory(props: CategoryProps) {
 
   // Make array for brands filter
 
-  let minPrice: number = 0;
+  //************************ Filters Section Starts here**********************************************
 
-  let maxPrice: number = 0;
-  if (
-    aggregations.hasOwnProperty('min_price') &&
-    aggregations.hasOwnProperty('max_price')
-  ) {
-    minPrice = aggregations.min_price.value as number;
-    maxPrice = aggregations.max_price.value as number;
-  }
   const categoriesFilter: IFilter = {
     type: 'category',
     name: 'category',
@@ -116,13 +108,44 @@ export default function Cagetory(props: CategoryProps) {
     path: orderedCatBreads,
     items: categories,
   };
-  /* const brands: IFilter = { */
-  /*   type: 'check', */
-  /*   name: 'Бренды', */
-  /*   slug: 'brands', */
-  /*   value: brandVals, */
-  /*   items: fBrands, */
-  /* }; */
+  function getInitVals(filterSlug: string): string {
+    return (router.query[filterSlug] as string) || fils[filterSlug];
+  }
+
+  const brandsClass = new CheckFilterBulder(
+    'Бренды',
+    'brands',
+    aggregations.brands.buckets,
+    getInitVals('brands')
+  );
+  const brands = brandsClass.buildFilter();
+  // llllllllllllllllllllllllll
+
+  const filterEngine = new CheckFilterBulder(
+    'Двигатель',
+    'engines',
+    aggregations.engines.buckets,
+    getInitVals('engines')
+  );
+  const engines = filterEngine.buildFilter();
+  //////////////////////////////////////////
+  const bages = new CheckFilterBulder(
+    'Теги',
+    'bages',
+    aggregations.engines.buckets,
+    getInitVals('bages')
+  );
+  // ************************** Price filters *********************
+  let minPrice: number = 0;
+  let maxPrice: number = 0;
+  if (
+    aggregations.hasOwnProperty('min_price') &&
+    aggregations.hasOwnProperty('max_price')
+  ) {
+    minPrice = aggregations.min_price.value as number;
+    maxPrice = aggregations.max_price.value as number;
+  }
+
   const price: IFilter = {
     type: 'range',
     name: 'Цена',
@@ -131,55 +154,6 @@ export default function Cagetory(props: CategoryProps) {
     min: minPrice,
     max: maxPrice,
   };
-
-  const bages: IFilter = {
-    type: 'check',
-    name: 'Бейдж',
-    slug: 'bages',
-    value: ['sale', 'new'],
-    items: [
-      { name: 'NEW', count: 39 },
-      { name: 'SALE', count: 90 },
-    ],
-  };
-
-  // filters builder ////////////////////////////////////////
-  const filterBrand = router.query.brands || fils.brands;
-  let brandVals: string[] = [];
-  if (typeof filterBrand === 'string') {
-    const split = filterBrand.split(',');
-    for (const item of split) {
-      brandVals.push(item);
-    }
-  }
-  const brandsClass = new CheckFilterBulder(
-    'Бренды',
-    'brands',
-    aggregations.brands.buckets,
-    brandVals
-  );
-  const brands = brandsClass.buildFilter();
-  // llllllllllllllllllllllllll
-  const filterEngs: string = (router.query.engines as string) || fils.engines;
-
-  function getValues(filterVals: string) {
-    let valArr: string[] = [];
-    if (typeof filterVals === 'string') {
-      const split = filterVals.split(',');
-      for (const item of split) {
-        valArr.push(item);
-      }
-    }
-    return valArr;
-  }
-  const filterEngine = new CheckFilterBulder(
-    'Двигатель',
-    'engines',
-    aggregations.engines.buckets,
-    getValues(filterEngs)
-  );
-  const engines = filterEngine.buildFilter();
-  //////////////////////////////////////////
 
   const bucketsFilters: any = { brands, bages, engines };
   const filters = [categoriesFilter, price];
@@ -193,6 +167,7 @@ export default function Cagetory(props: CategoryProps) {
   }
 
   filters.push();
+  // ************************** End filters *********************
 
   useEffect(() => {
     async function fetchProducts() {
