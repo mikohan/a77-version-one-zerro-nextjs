@@ -1,8 +1,12 @@
+import { IAggregationBucket } from '~/interfaces';
 import { IFilter } from '~/interfaces/filters';
 
 export abstract class AbstractFilterBuilder {
-  constructor(public slug: string, public name: string) {}
+  constructor(
+    public slug: string,
+    public name: string,
+    public aggBuckets: IAggregationBucket[]
+  ) {}
 
-  abstract makeItems(someData: any): void;
   abstract buildFilter(): IFilter;
 }
