@@ -1,6 +1,8 @@
 import { IProductElasticHitsSecond } from '~/interfaces';
 import { ICategory } from '~/interfaces/category';
 import { IFilterQueryString } from '~/interfaces/filters';
+import url from '~/services/url';
+
 // Function for cloning objects and arrays
 export function clone(data: any): any {
   return JSON.parse(JSON.stringify(data));
@@ -93,12 +95,19 @@ export function OrderBreads(a: ICategory, b: ICategory) {
 
 // Function makes query string frmom active filters
 
-export function makeFiltersQueryString(filters: IFilterQueryString): string {
+export function makeFiltersQueryString(
+  filters: IFilterQueryString,
+  make: string,
+  model: string,
+  category: string
+): string {
+  const filtersUrl = `?model=${model}&category=${category}&`;
   let string = '';
   const mp = Object.entries(filters);
   mp.forEach(([key, value], i) => {
     const amp = mp.length - 1 === i ? '' : '&';
     string += key + '=' + value.toLowerCase() + amp;
   });
-  return string;
+  const finalUrl = filtersUrl + string;
+  return finalUrl;
 }

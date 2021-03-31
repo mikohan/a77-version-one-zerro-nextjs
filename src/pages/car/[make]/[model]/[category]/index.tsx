@@ -156,10 +156,14 @@ export default function Cagetory(props: CategoryProps) {
   // ************************** End filters *********************
 
   // Makes url for filters and other stuff
-  const strurl = makeFiltersQueryString(fils);
-  const filtersUrl = url.category(model.make.slug, model.slug, category.slug);
+  const finalUrl = makeFiltersQueryString(
+    fils,
+    model.make.slug,
+    model.slug,
+    category.slug
+  );
 
-  console.log(filtersUrl + '?' + strurl);
+  /* console.log(finalUrl); */
 
   useEffect(() => {
     async function fetchProducts() {
