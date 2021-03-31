@@ -42,6 +42,7 @@ import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import {
   shopProductLoading,
   shopResetFilter,
+  shopResetFilters,
   shopSetFilterVlue,
 } from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
@@ -193,6 +194,9 @@ export default function Cagetory(props: CategoryProps) {
     dispatch(shopResetFilter(filterSlug));
     console.log('In handle delete');
   }
+  function handleClearAll() {
+    dispatch(shopResetFilters());
+  }
 
   return (
     <React.Fragment>
@@ -213,6 +217,7 @@ export default function Cagetory(props: CategoryProps) {
                   </Box>
                 );
               })}
+              <Box onClick={handleClearAll}>Clear all X</Box>
             </Box>
           </Grid>
           <Hidden smDown>

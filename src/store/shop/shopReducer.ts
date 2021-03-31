@@ -4,10 +4,12 @@ import {
   ShopProductLoadingAction,
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_RESET_FILTER,
+  SHOP_RESET_FILTERS,
 } from '~/store/shop/shopTypes';
 import { IFilterValues } from '~/interfaces/list';
 import {
   ShopResetFilterAction,
+  ShopResetFiltersAction,
   ShopSetFilterValueAction,
   SHOP_SET_FILTER_VALUE,
   ShopAction,
@@ -55,6 +57,12 @@ function shopReducerResetFilter(
     filters: newFilters,
   };
 }
+function shopReducerResetFilters(state: IShopState): IShopState {
+  return {
+    ...state,
+    filters: {},
+  };
+}
 
 function shopProductLoadingReducer(
   state: IShopState,
@@ -77,6 +85,8 @@ export function shopReducer(
       return shopProductLoadingReducer(state, action);
     case SHOP_RESET_FILTER:
       return shopReducerResetFilter(state, action);
+    case SHOP_RESET_FILTERS:
+      return shopReducerResetFilters(state);
     default:
       return state;
   }
