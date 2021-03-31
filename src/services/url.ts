@@ -18,12 +18,13 @@ const url: { [key: string]: any } = {
   products: (
     make?: string,
     model?: string,
+    category?: string,
     { filters }: { filters?: Record<string, string> } = {}
   ): IAppLinkHref => {
     return {
       href: {
         // pathname: '/catalog/products',
-        pathname: `/car/${make}/${model}`,
+        pathname: `/car/${make}/${model}/${category}`,
 
         query: {
           ...filters,

@@ -92,6 +92,8 @@ export default function CheckboxLabels({ options, value }: IProps) {
 
     dispatch(shopSetFilterVlue(options.slug, newFilterValues));
 
+    const currentUrl = `http://localhost:3245/car/hyundai/hd72/dvigatel-golovka-prokladka`;
+
     /* router.push({ */
     /*   pathname: currentUrl, */
     /*   query: { */

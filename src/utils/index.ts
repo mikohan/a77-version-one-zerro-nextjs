@@ -96,7 +96,7 @@ interface IFilterQueryString {
   [filterSlug: string]: string;
 }
 
-function makeFiltersQueryString(filters: IFilterQueryString): string {
+export function makeFiltersQueryString(filters: IFilterQueryString): string {
   let string = '';
   const mp = Object.entries(filters);
   mp.forEach(([key, value], i) => {

@@ -90,10 +90,6 @@ export default function Cagetory(props: CategoryProps) {
 
   // Make array for brands filter
 
-  const engs = aggregations.engines.buckets.map((item: IAggregationBucket) => ({
-    name: item.key,
-    count: item.doc_count,
-  }));
   let minPrice: number = 0;
 
   let maxPrice: number = 0;
@@ -138,13 +134,6 @@ export default function Cagetory(props: CategoryProps) {
       { name: 'SALE', count: 90 },
     ],
   };
-  /* const engines: IFilter = { */
-  /*   type: 'check', */
-  /*   name: 'Двигатель', */
-  /*   slug: 'engines', */
-  /*   value: ['d4dd', 'd4db'], */
-  /*   items: engs, */
-  /* }; */
 
   // filters builder ////////////////////////////////////////
   const filterBrand = router.query.filter_brand || [];
@@ -190,6 +179,34 @@ export default function Cagetory(props: CategoryProps) {
   const fils = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
 
+  function makeFiltersQueryString(filters: any): string {
+    let string = '';
+    const mp = Object.entries(filters);
+    mp.forEach(([key, value], i) => {
+      const amp = mp.length - 1 === i ? '' : '&';
+      string += 'filter_' + key + '=' + value.toLowerCase() + amp;
+    });
+    return string;
+  }
+
+  useEffect(() => {
+    const currentUrl = `http://localhost:3245/car/hyundai/hd72/dvigatel-golovka-prokladka`;
+
+    const some = url.products(
+      model.make.slug,
+      model.slug,
+      category.slug,
+      filters
+    );
+
+    router.push({
+      pathname: currentUrl,
+      query: {
+        brands: 'mobis,ypr',
+      },
+    });
+  }, [fils]);
+
   useEffect(() => {
     async function fetchProducts() {
       dispatch(shopProductLoading(true));
@@ -204,6 +221,7 @@ export default function Cagetory(props: CategoryProps) {
       let products: IProductElasticHitsFirst = promise.hits;
       setStateProducts(products.hits);
       setStateCount(products.total.value);
+
       dispatch(shopProductLoading(false));
     }
     fetchProducts();
