@@ -145,10 +145,7 @@ export default function Cagetory(props: CategoryProps) {
 
   // filters builder ////////////////////////////////////////
   const filterBrand = router.query.brands || fils.brands;
-  /* const filterBrand = fils.brands; */
-
   let brandVals: string[] = [];
-
   if (typeof filterBrand === 'string') {
     const split = filterBrand.split(',');
     for (const item of split) {
@@ -159,15 +156,27 @@ export default function Cagetory(props: CategoryProps) {
     'Бренды',
     'brands',
     aggregations.brands.buckets,
-    ['rhee jin', 'dyc']
+    brandVals
   );
   const brands = brandsClass.buildFilter();
   // llllllllllllllllllllllllll
+  const filterEngs: string = (router.query.engines as string) || fils.engines;
+
+  function getValues(filterVals: string) {
+    let valArr: string[] = [];
+    if (typeof filterVals === 'string') {
+      const split = filterVals.split(',');
+      for (const item of split) {
+        valArr.push(item);
+      }
+    }
+    return valArr;
+  }
   const filterEngine = new CheckFilterBulder(
     'Двигатель',
     'engines',
     aggregations.engines.buckets,
-    ['d4al']
+    getValues(filterEngs)
   );
   const engines = filterEngine.buildFilter();
   //////////////////////////////////////////

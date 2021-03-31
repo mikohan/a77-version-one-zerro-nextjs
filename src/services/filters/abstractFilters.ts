@@ -6,8 +6,9 @@ export abstract class AbstractFilterBuilder {
     public slug: string,
     public name: string,
     public aggBuckets: IAggregationBucket[],
-    public value: string[]
+    public values: string
   ) {}
 
   abstract buildFilter(): IFilter;
+  abstract getValues(): string[];
 }

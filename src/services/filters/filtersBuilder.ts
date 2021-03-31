@@ -1,7 +1,6 @@
 import { AbstractFilterBuilder } from '~/services/filters/abstractFilters';
 import { IBaseFilterItem, ICheckFilter, IFilter } from '~/interfaces/filters';
 
-import { IProductElasticHitsSecond } from '~/interfaces/product';
 import { IAggregationBucket } from '~/interfaces';
 
 export class CheckFilterBulder extends AbstractFilterBuilder {
@@ -10,9 +9,9 @@ export class CheckFilterBulder extends AbstractFilterBuilder {
     public name: string,
     public slug: string,
     public aggBuckets: IAggregationBucket[],
-    public value: string[]
+    public values: string
   ) {
-    super(name, slug, aggBuckets, value);
+    super(name, slug, aggBuckets, values);
   }
 
   buildFilter(): IFilter {
@@ -24,10 +23,21 @@ export class CheckFilterBulder extends AbstractFilterBuilder {
       type: 'check',
       name: this.name,
       slug: this.slug,
-      value: this.value,
+      value: this.getValues(),
       items: this.items,
     };
 
     return filter;
+  }
+
+  getValues() {
+    let valArr: string[] = [];
+    if (typeof this.values === 'string') {
+      const split = this.values.split(',');
+      for (const item of split) {
+        valArr.push(item);
+      }
+    }
+    return valArr;
   }
 }
