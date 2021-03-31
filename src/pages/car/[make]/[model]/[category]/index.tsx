@@ -192,7 +192,6 @@ export default function Cagetory(props: CategoryProps) {
 
   function handleDeleteFilter(filterSlug: string): void {
     dispatch(shopResetFilter(filterSlug));
-    console.log('In handle delete');
   }
   function handleClearAll() {
     dispatch(shopResetFilters());
@@ -217,7 +216,7 @@ export default function Cagetory(props: CategoryProps) {
                   </Box>
                 );
               })}
-              <Box onClick={handleClearAll}>Clear all X</Box>
+              <Box onClick={handleClearAll}>Clear all X if exists</Box>
             </Box>
           </Grid>
           <Hidden smDown>

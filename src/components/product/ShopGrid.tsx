@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import {
-  IProductElasticHitsSecond,
-  IProductElasticHitsFirst,
-} from '~/interfaces/product';
+import { IProductElasticHitsSecond } from '~/interfaces/product';
 import { Hidden, Box, Grid, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
@@ -18,6 +15,10 @@ import ProductCardList from './ProductCardList';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 import Button from '@material-ui/core/Button';
 import FilterDrawer from '~/components/product/FilterDrawer';
+import Chip from '@material-ui/core/Chip';
+import { capitalize } from '~/utils';
+import Typography from '@material-ui/core/Typography';
+import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
@@ -33,6 +34,9 @@ export default function ShopGrid({ products }: IProps) {
   const dispatch = useDispatch();
   const sort = useSelector((state: IState) => state.uiState.sortPage);
   const shopGrid = useSelector((state: IState) => state.uiState.shopGrid);
+  const filters = useSelector((state: IState) => state.shopNew.filters);
+  const filtersBarOpen = Object.keys(filters).length ? true : false;
+
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       cards: {
@@ -49,6 +53,7 @@ export default function ShopGrid({ products }: IProps) {
       pageBarContainer: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
+        position: 'relative',
       },
       pageBarBox: {
         display: 'flex',
@@ -58,7 +63,7 @@ export default function ShopGrid({ products }: IProps) {
         paddingBottom: theme.spacing(1.5),
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
-        background: '#fff',
+        background: theme.palette.background.paper,
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
       },
       iconsBoxContainer: {
@@ -115,11 +120,42 @@ export default function ShopGrid({ products }: IProps) {
         alignItems: 'center',
         paddingTop: theme.spacing(1.5),
         paddingBottom: theme.spacing(1.5),
-        background: '#fff',
+        background: theme.palette.background.paper,
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
       },
       filterButton: {
         marginRight: theme.spacing(2),
+      },
+      filtersBox: {
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5),
+        background: theme.palette.background.paper,
+        boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+        display: 'flex',
+        flexWrap: 'wrap',
+        borderTop: '1px solid',
+        borderColor: theme.palette.divider,
+      },
+      deleteChip: {
+        marginRight: theme.spacing(1),
+      },
+      dividerBox: {
+        position: 'absolute',
+        left: '50%',
+        top: '-0.5rem',
+        transform: `translateX(-50%)`,
+        paddingRight: '1rem',
+        paddingLeft: '1rem',
+        background: theme.palette.background.paper,
+        color: theme.palette.text.disabled,
+        [theme.breakpoints.down('xl')]: {
+          fontSize: '0.75rem',
+        },
+        [theme.breakpoints.up('xxl')]: {
+          fontSize: '0.85rem',
+        },
       },
     })
   );
@@ -166,6 +202,12 @@ export default function ShopGrid({ products }: IProps) {
   const handleList = () => {
     dispatch({ type: SET_SHOP_GRID, payload: 'list' });
   };
+  const handleDeleteFilter = (filterSlug: string) => {
+    dispatch(shopResetFilter(filterSlug));
+  };
+  const handleDeleteFilters = () => {
+    dispatch(shopResetFilters());
+  };
   const Select = () => (
     <TextField
       id="outlined-select-currency-native"
@@ -207,32 +249,68 @@ export default function ShopGrid({ products }: IProps) {
     <React.Fragment>
       <FilterDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
       <Grid container>
-        <Grid className={classes.pageBarContainer} item xs={12}>
-          <Box className={classes.pageBarBox}>
-            <Box className={classes.iconsBoxContainer}>
-              <Hidden mdUp>
-                <Button
-                  onClick={toggleDrawer}
-                  variant="outlined"
-                  color="primary"
-                  className={classes.filterButton}
-                  startIcon={<FilterIcon color="primary" />}
-                >
-                  ФИЛЬТРЫ
-                </Button>
-              </Hidden>
-              <AppsIcon className={classes.iconGrid} onClick={handleGrid} />
-              <MenuIcon className={classes.iconList} onClick={handleList} />
-            </Box>
-            <Box className={classes.selectForm}>
-              <Select />
-            </Box>
-            <Hidden mdDown>
-              <Box>
-                <Pagination count={50} color="primary" />
+        <Grid item container xs={12}>
+          <Grid className={classes.pageBarContainer} item xs={12}>
+            <Box className={classes.pageBarBox}>
+              <Box className={classes.iconsBoxContainer}>
+                <Hidden mdUp>
+                  <Button
+                    onClick={toggleDrawer}
+                    variant="outlined"
+                    color="primary"
+                    className={classes.filterButton}
+                    startIcon={<FilterIcon color="primary" />}
+                  >
+                    ФИЛЬТРЫ
+                  </Button>
+                </Hidden>
+                <AppsIcon className={classes.iconGrid} onClick={handleGrid} />
+                <MenuIcon className={classes.iconList} onClick={handleList} />
               </Box>
-            </Hidden>
-          </Box>
+              <Box className={classes.selectForm}>
+                <Select />
+              </Box>
+              <Hidden mdDown>
+                <Box>
+                  <Pagination count={50} color="primary" />
+                </Box>
+              </Hidden>
+            </Box>
+          </Grid>
+          {filtersBarOpen && (
+            <Grid className={classes.pageBarContainer} item xs={12}>
+              <Typography className={classes.dividerBox} variant="body2">
+                АКТИВНЫЕ ФИЛЬТРЫ
+              </Typography>
+              <Box className={classes.filtersBox}>
+                {Object.entries(filters).map((fil: any) => {
+                  return (
+                    <Chip
+                      key={fil[0]}
+                      className={classes.deleteChip}
+                      variant="outlined"
+                      size="small"
+                      label={capitalize(fil[0])}
+                      onDelete={() => {
+                        handleDeleteFilter(fil[0]);
+                      }}
+                      onClick={() => {
+                        handleDeleteFilter(fil[0]);
+                      }}
+                    />
+                  );
+                })}
+                <Chip
+                  className={classes.deleteChip}
+                  variant="outlined"
+                  size="small"
+                  label="Очистить Все"
+                  onDelete={handleDeleteFilters}
+                  onClick={handleDeleteFilters}
+                />
+              </Box>
+            </Grid>
+          )}
         </Grid>
         <Grid item xs={12}>
           <div className={classes.cards}>
