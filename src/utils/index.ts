@@ -1,5 +1,6 @@
 import { IProductElasticHitsSecond } from '~/interfaces';
 import { ICategory } from '~/interfaces/category';
+import { IFilterQueryString } from '~/interfaces/filters';
 // Function for cloning objects and arrays
 export function clone(data: any): any {
   return JSON.parse(JSON.stringify(data));
@@ -91,10 +92,6 @@ export function OrderBreads(a: ICategory, b: ICategory) {
 }
 
 // Function makes query string frmom active filters
-
-interface IFilterQueryString {
-  [filterSlug: string]: string;
-}
 
 export function makeFiltersQueryString(filters: IFilterQueryString): string {
   let string = '';

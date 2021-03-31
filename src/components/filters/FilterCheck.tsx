@@ -19,6 +19,7 @@ interface IProps {
     items: any[];
     slug: string;
     name: string;
+    value?: string[];
   };
   value: ICheckFilterValue;
 }
@@ -58,7 +59,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
   const classes = useStyles();
 
   const initialValues: { [key: string]: boolean } = {};
-  if (value.length) {
+  if (options.value?.length) {
     for (const key of value) {
       initialValues[key] = true;
     }
@@ -70,7 +71,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
 
   const des = filters[filSlug] ? filters[filSlug].split(',') : [];
 
-  const router = useRouter();
   const dispatch = useDispatch();
 
   const handleChange = (
@@ -92,8 +92,6 @@ export default function CheckboxLabels({ options, value }: IProps) {
 
     dispatch(shopSetFilterVlue(options.slug, newFilterValues));
 
-    const currentUrl = `http://localhost:3245/car/hyundai/hd72/dvigatel-golovka-prokladka`;
-
     /* router.push({ */
     /*   pathname: currentUrl, */
     /*   query: { */
@@ -109,6 +107,7 @@ export default function CheckboxLabels({ options, value }: IProps) {
   return (
     <FormGroup className={classes.container}>
       {items.map((item: any) => {
+        const iName = item.name.toLowerCase();
         return (
           <Box className={classes.box} key={item.name}>
             <FormControlLabel
@@ -116,9 +115,9 @@ export default function CheckboxLabels({ options, value }: IProps) {
                 <Checkbox
                   classes={{ root: classes.input }}
                   className={classes.checkbox}
-                  checked={state[item.name] || false}
-                  onChange={(e) => handleChange(e, item.name)}
-                  name={item.name}
+                  checked={state[iName] || false}
+                  onChange={(e) => handleChange(e, iName)}
+                  name={iName}
                   color="primary"
                 />
               }

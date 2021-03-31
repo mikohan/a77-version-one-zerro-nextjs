@@ -19,7 +19,7 @@ const url: { [key: string]: any } = {
     make?: string,
     model?: string,
     category?: string,
-    { filters }: { filters?: Record<string, string> } = {}
+    filters: Record<string, string> = {}
   ): IAppLinkHref => {
     return {
       href: {

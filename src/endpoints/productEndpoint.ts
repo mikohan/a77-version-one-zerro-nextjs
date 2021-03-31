@@ -43,7 +43,7 @@ export async function getProductsByFilters(
     });
   }
   const url = `http://localhost:8000/api/product/jsontest?model=${modelSlug}&category=${catSlug}${str}`;
-  console.log(url);
+  //  console.log(url);
   const prom = await axios(url);
 
   return prom.data;

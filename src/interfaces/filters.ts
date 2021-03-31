@@ -91,6 +91,10 @@ export type IActiveFilterColor = IActiveFilterBase<IColorFilter> & {
   item: IColorFilterItem;
 };
 
+export interface IFilterQueryString {
+  [filterSlug: string]: string;
+}
+
 export type IActiveFilter =
   | IActiveFilterVehicle
   | IActiveFilterRange

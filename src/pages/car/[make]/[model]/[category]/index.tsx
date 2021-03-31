@@ -39,8 +39,12 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
-import { shopProductLoading } from '~/store/shop/shopActions';
+import {
+  shopProductLoading,
+  shopSetFilterVlue,
+} from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
+import { IFilterQueryString } from '~/interfaces/filters';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -67,6 +71,10 @@ export default function Cagetory(props: CategoryProps) {
     aggregations,
   } = props;
   const router = useRouter();
+  const [stateProducts, setStateProducts] = useState(products.hits);
+  const [stateCount, setStateCount] = useState(products.total.value);
+  const fils = useSelector((state: IState) => state.shopNew.filters);
+  const dispatch = useDispatch();
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
@@ -136,20 +144,22 @@ export default function Cagetory(props: CategoryProps) {
   };
 
   // filters builder ////////////////////////////////////////
-  const filterBrand = router.query.filter_brand || [];
+  const filterBrand = router.query.brands || fils.brands;
+  /* const filterBrand = fils.brands; */
 
   let brandVals: string[] = [];
 
   if (typeof filterBrand === 'string') {
-    brandVals.push(filterBrand);
-  } else if (Array.isArray(filterBrand)) {
-    brandVals = [...filterBrand];
+    const split = filterBrand.split(',');
+    for (const item of split) {
+      brandVals.push(item);
+    }
   }
   const brandsClass = new CheckFilterBulder(
     'Бренды',
     'brands',
     aggregations.brands.buckets,
-    brandVals
+    ['rhee jin', 'dyc']
   );
   const brands = brandsClass.buildFilter();
   // llllllllllllllllllllllllll
@@ -157,7 +167,7 @@ export default function Cagetory(props: CategoryProps) {
     'Двигатель',
     'engines',
     aggregations.engines.buckets,
-    ['d4bf']
+    ['d4al']
   );
   const engines = filterEngine.buildFilter();
   //////////////////////////////////////////
@@ -174,43 +184,10 @@ export default function Cagetory(props: CategoryProps) {
   }
 
   filters.push();
-  const [stateProducts, setStateProducts] = useState(products.hits);
-  const [stateCount, setStateCount] = useState(products.total.value);
-  const fils = useSelector((state: IState) => state.shopNew.filters);
-  const dispatch = useDispatch();
-
-  function makeFiltersQueryString(filters: any): string {
-    let string = '';
-    const mp = Object.entries(filters);
-    mp.forEach(([key, value], i) => {
-      const amp = mp.length - 1 === i ? '' : '&';
-      string += 'filter_' + key + '=' + value.toLowerCase() + amp;
-    });
-    return string;
-  }
-
-  useEffect(() => {
-    const currentUrl = `http://localhost:3245/car/hyundai/hd72/dvigatel-golovka-prokladka`;
-
-    const some = url.products(
-      model.make.slug,
-      model.slug,
-      category.slug,
-      filters
-    );
-
-    router.push({
-      pathname: currentUrl,
-      query: {
-        brands: 'mobis,ypr',
-      },
-    });
-  }, [fils]);
 
   useEffect(() => {
     async function fetchProducts() {
       dispatch(shopProductLoading(true));
-      console.log(fils);
       const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
       let promise = {} as IProductElasticBase;
       if (brands === '') {
