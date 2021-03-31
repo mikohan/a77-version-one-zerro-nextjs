@@ -203,22 +203,6 @@ export default function Cagetory(props: CategoryProps) {
       <AnimationPage>
         <Grid container>
           <PageHeader header={header} breads={breads} count={stateCount} />
-          <Grid item xs={12} style={{ padding: '2rem' }}>
-            <Box display="flex" justifyContent="start">
-              {Object.entries(fils).map((fil: any) => {
-                return (
-                  <Box
-                    key={fil[0]}
-                    onClick={() => handleDeleteFilter(fil[0])}
-                    style={{ margin: '0 1rem' }}
-                  >
-                    {fil[0]}
-                  </Box>
-                );
-              })}
-              <Box onClick={handleClearAll}>Clear all X if exists</Box>
-            </Box>
-          </Grid>
           <Hidden smDown>
             <Grid item xs={3}>
               <LeftSideBar>
