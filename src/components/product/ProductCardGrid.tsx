@@ -105,6 +105,14 @@ export default function ProductCardGrid({ product }: IProp) {
       {compatable && <ChipContainer car={currentCar?.model} />}
       <div className={classes.productSku}>
         <Typography variant="body2">
+          BRAND: {product._source.brand.name}
+        </Typography>
+        {product._source.engine?.map((item: any) => (
+          <Typography variant="body2" key={item.id}>
+            {item.name}
+          </Typography>
+        ))}
+        <Typography variant="body2">
           SKU: {product._source.cat_number}
         </Typography>
       </div>
