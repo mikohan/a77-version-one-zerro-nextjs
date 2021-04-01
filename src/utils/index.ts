@@ -97,11 +97,14 @@ export function OrderBreads(a: ICategory, b: ICategory) {
 
 export function makeFiltersQueryString(
   filters: IFilterQueryString,
-  make: string,
   model: string,
   category: string
 ): string {
-  const filtersUrl = `?model=${model}&category=${category}&`;
+  let amp = '';
+  if (Object.keys(filters).length > 0) {
+    amp = '&';
+  }
+  const filtersUrl = `?model=${model}&category=${category}${amp}`;
   let string = '';
   const mp = Object.entries(filters);
   mp.forEach(([key, value], i) => {

@@ -101,18 +101,18 @@ export default function Cagetory(props: CategoryProps) {
 
   const brandsClass = new CheckFilterBulder(
     'Бренды',
-    'brands',
+    'brand',
     aggregations.brands.buckets,
-    getInitVals('brands')
+    getInitVals('brand')
   );
   const brands = brandsClass.buildFilter();
   // llllllllllllllllllllllllll
 
   const filterEngine = new CheckFilterBulder(
     'Двигатель',
-    'engines',
+    'engine',
     aggregations.engines.buckets,
-    getInitVals('engines')
+    getInitVals('engine')
   );
   const engines = filterEngine.buildFilter();
   //////////////////////////////////////////
@@ -156,25 +156,16 @@ export default function Cagetory(props: CategoryProps) {
   // ************************** End filters *********************
 
   // Makes url for filters and other stuff
-  const finalUrl = makeFiltersQueryString(
-    fils,
-    model.make.slug,
-    model.slug,
-    category.slug
-  );
+  const finalUrl = makeFiltersQueryString(fils, model.slug, category.slug);
 
-  /* console.log(finalUrl); */
+  console.log(finalUrl);
 
   useEffect(() => {
     async function fetchProducts() {
       dispatch(shopProductLoading(true));
       const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
       let promise = {} as IProductElasticBase;
-      if (brands === '') {
-        promise = await getProductsByCar(model.slug, category.slug);
-      } else {
-        promise = await getProductsByFilters(model.slug, category.slug, brands);
-      }
+      promise = await getProductsByFilters(finalUrl);
       let products: IProductElasticHitsFirst = promise.hits;
       setStateProducts(products.hits);
       setStateCount(products.total.value);
