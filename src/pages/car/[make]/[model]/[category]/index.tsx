@@ -237,7 +237,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   // Comment out for building next time here and in static paths
   const cat: ICategory = await getCategoryBySlugGQL(slug);
-  const promise = await getProductsByCar(modelSlug, cat.slug);
+  //pagination part
+  const page: number = parseInt(context.params?.page as string) || 1;
+  const page_size = 10;
+  const from = page_size * (page - 1);
+  console.log(page_size, from);
+  const promise = await getProductsByCar(modelSlug, from, page_size, cat.slug);
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
