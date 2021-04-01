@@ -32,7 +32,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
-import { shopProductLoading } from '~/store/shop/shopActions';
+import { shopProductLoading, shopResetFilter } from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 
 interface CategoryProps {
@@ -61,6 +61,9 @@ export default function Cagetory(props: CategoryProps) {
   } = props;
   const router = useRouter();
   const [stateProducts, setStateProducts] = useState(products.hits);
+
+  const [stateAggregations, setStateAggragations] = useState(aggregations);
+
   const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
@@ -102,7 +105,7 @@ export default function Cagetory(props: CategoryProps) {
   const brandsClass = new CheckFilterBulder(
     'Бренды',
     'brand',
-    aggregations.brands.buckets,
+    stateAggregations.brands.buckets,
     getInitVals('brand')
   );
   const brands = brandsClass.buildFilter();
@@ -111,7 +114,7 @@ export default function Cagetory(props: CategoryProps) {
   const filterEngine = new CheckFilterBulder(
     'Двигатель',
     'engine',
-    aggregations.engines.buckets,
+    stateAggregations.engines.buckets,
     getInitVals('engine')
   );
   const engines = filterEngine.buildFilter();
@@ -119,18 +122,18 @@ export default function Cagetory(props: CategoryProps) {
   const bages = new CheckFilterBulder(
     'Теги',
     'bages',
-    aggregations.engines.buckets,
+    stateAggregations.engines.buckets,
     getInitVals('bages')
   );
   // ************************** Price filters *********************
   let minPrice: number = 0;
   let maxPrice: number = 0;
   if (
-    aggregations.hasOwnProperty('min_price') &&
-    aggregations.hasOwnProperty('max_price')
+    stateAggregations.hasOwnProperty('min_price') &&
+    stateAggregations.hasOwnProperty('max_price')
   ) {
-    minPrice = aggregations.min_price.value as number;
-    maxPrice = aggregations.max_price.value as number;
+    minPrice = stateAggregations.min_price.value as number;
+    maxPrice = stateAggregations.max_price.value as number;
   }
 
   const price: IFilter = {
@@ -157,17 +160,21 @@ export default function Cagetory(props: CategoryProps) {
 
   // Makes url for filters and other stuff
   const finalUrl = makeFiltersQueryString(fils, model.slug, category.slug);
-
-  console.log(finalUrl);
+  for (const [key, value] of Object.entries(fils)) {
+    if (value === '') {
+      dispatch(shopResetFilter(key));
+    }
+  }
+  console.log(fils);
 
   useEffect(() => {
     async function fetchProducts() {
       dispatch(shopProductLoading(true));
-      const brands = fils.hasOwnProperty('brands') ? fils.brands : '';
       let promise = {} as IProductElasticBase;
       promise = await getProductsByFilters(finalUrl);
       let products: IProductElasticHitsFirst = promise.hits;
       setStateProducts(products.hits);
+      setStateAggragations(promise.aggregations);
       setStateCount(products.total.value);
 
       dispatch(shopProductLoading(false));

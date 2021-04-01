@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { elasticApiUrl } from '~/config';
 import { IProductElasticBase } from '~/interfaces/product';
 
 export async function getProductsByCar(
@@ -31,19 +32,9 @@ export async function getProductsByMake(
   return prom.data;
 }
 export async function getProductsByFilters(
-  modelSlug: string,
-  catSlug: string,
-  brandSlug: string
+  finalUrl: string
 ): Promise<IProductElasticBase> {
-  let str = '';
-  if (brandSlug) {
-    const arr = brandSlug.split(',');
-    arr.forEach((brand: string) => {
-      str += '&brand=' + brand;
-    });
-  }
-  const url = `http://localhost:8000/api/product/jsontest?model=${modelSlug}&category=${catSlug}${str}`;
-  //  console.log(url);
+  const url = `${elasticApiUrl}${finalUrl}`;
   const prom = await axios(url);
 
   return prom.data;
