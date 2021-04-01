@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import { Hidden, Box, Grid, TextField } from '@material-ui/core';
@@ -21,6 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
 import ProductCardGridSkeleton from './ProductCardGridSkeleton';
 import ProductCardListSkeleton from './ProductCardListSkeleton';
+import { useRouter } from 'next/router';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
@@ -248,6 +249,21 @@ export default function ShopGrid({ products }: IProps) {
     </SvgIcon>
   );
 
+  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const { make, model, category } = router.query;
+
+  function paginationHandler(e: object, page: number) {
+    console.log('Current page is:', page);
+    setPage(page);
+    router.push({
+      pathname: `/car/${make}/${model}/${category}`,
+      query: {
+        page: page,
+      },
+    });
+  }
+
   return (
     <React.Fragment>
       <FilterDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
@@ -275,7 +291,12 @@ export default function ShopGrid({ products }: IProps) {
               </Box>
               <Hidden mdDown>
                 <Box>
-                  <Pagination count={50} color="primary" />
+                  <Pagination
+                    onChange={paginationHandler}
+                    count={50}
+                    page={page}
+                    color="primary"
+                  />
                 </Box>
               </Hidden>
             </Box>

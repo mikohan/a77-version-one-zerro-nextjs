@@ -105,7 +105,7 @@ export default function Cagetory(props: CategoryProps) {
   const brandsClass = new CheckFilterBulder(
     'Бренды',
     'brand',
-    aggregations.brands.buckets,
+    stateAggregations.brands.buckets,
     getInitVals('brand')
   );
   const brands = brandsClass.buildFilter();
@@ -114,7 +114,7 @@ export default function Cagetory(props: CategoryProps) {
   const filterEngine = new CheckFilterBulder(
     'Двигатель',
     'engine',
-    aggregations.engines.buckets,
+    stateAggregations.engines.buckets,
     getInitVals('engine')
   );
   const engines = filterEngine.buildFilter();
@@ -160,14 +160,14 @@ export default function Cagetory(props: CategoryProps) {
 
   // Makes url for filters and other stuff
   const finalUrl = makeFiltersQueryString(fils, model.slug, category.slug);
-  /* useEffect(() => { */
-  /*   for (const [key, value] of Object.entries(fils)) { */
-  /*     if (value === '') { */
-  /*       /// this causet to error */
-  /*       dispatch(shopResetFilter(key)); */
-  /*     } */
-  /*   } */
-  /* }, [fils]); */
+  useEffect(() => {
+    for (const [key, value] of Object.entries(fils)) {
+      if (value === '') {
+        /// this causet to error
+        dispatch(shopResetFilter(key));
+      }
+    }
+  }, [fils]);
   console.log(fils);
 
   useEffect(() => {
