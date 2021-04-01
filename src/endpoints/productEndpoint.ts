@@ -4,14 +4,12 @@ import { IProductElasticBase } from '~/interfaces/product';
 
 export async function getProductsByCar(
   carSlug: string,
-  fromPage: number,
-  pageSize: number,
   catSlug?: string
 ): Promise<IProductElasticBase> {
   let url = `http://localhost:8000/api/product/jsontest?model=${carSlug}`;
 
   if (catSlug) {
-    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}&from_page=${fromPage}&page_size=${pageSize}`;
+    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}&page_from=${1}&page_size=${10}`;
   }
   const prom = await axios(url);
   return prom.data;
