@@ -13,7 +13,7 @@ const url: { [key: string]: any } = {
     model: string,
     categorySlug: string
   ): IAppLinkHref => {
-    return `/car/${make}/${model}/${categorySlug}`;
+    return `/car/${make}/${model}/${categorySlug}/1`;
   },
   products: (
     make?: string,

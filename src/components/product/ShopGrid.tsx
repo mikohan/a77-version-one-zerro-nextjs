@@ -249,18 +249,15 @@ export default function ShopGrid({ products }: IProps) {
     </SvgIcon>
   );
 
-  const [page, setPage] = useState(1);
+  const [pagPage, setPagPage] = useState(1);
   const router = useRouter();
-  const { make, model, category } = router.query;
+  const { make, model, category, page } = router.query;
 
   function paginationHandler(e: object, page: number) {
     console.log('Current page is:', page);
-    setPage(page);
+    setPagPage(page);
     router.push({
-      pathname: `/car/${make}/${model}/${category}`,
-      query: {
-        page: page,
-      },
+      pathname: `/car/${make}/${model}/${category}/${page}`,
     });
   }
 
@@ -294,7 +291,7 @@ export default function ShopGrid({ products }: IProps) {
                   <Pagination
                     onChange={paginationHandler}
                     count={50}
-                    page={page}
+                    page={pagPage}
                     color="primary"
                   />
                 </Box>
