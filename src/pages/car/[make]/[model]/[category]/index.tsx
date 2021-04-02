@@ -1,4 +1,9 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetStaticPaths,
+  GetStaticProps,
+} from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { makeFiltersQueryString } from '~/utils';
 
@@ -48,6 +53,7 @@ interface CategoryProps {
   catPath: ICategory[];
   categories: ICategory[];
   aggregations: IAgregations;
+  totalPages: number;
 }
 
 export default function Cagetory(props: CategoryProps) {
@@ -60,6 +66,7 @@ export default function Cagetory(props: CategoryProps) {
     products,
     catPath,
     aggregations,
+    totalPages,
   } = props;
   const router = useRouter();
   const [stateProducts, setStateProducts] = useState(products.hits);
@@ -205,7 +212,7 @@ export default function Cagetory(props: CategoryProps) {
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
-            <ShopGrid products={stateProducts} />
+            <ShopGrid products={stateProducts} totalPages={totalPages} />
           </Grid>
         </Grid>
       </AnimationPage>
@@ -213,7 +220,9 @@ export default function Cagetory(props: CategoryProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const { category, make, model } = context.params!;
   const modelSlug: string = model as string;
   if (!category) {
@@ -244,13 +253,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const cat: ICategory = await getCategoryBySlugGQL(slug);
   //pagination part
   const page: number = parseInt(context.params?.page as string) || 1;
-  const page_size = pageSize;
-  const page_from = page_size * (page - 1);
+
+  const page_from = pageSize * (page - 1);
 
   const promise = await getProductsByCar(
     modelSlug,
     page_from,
-    page_size,
+    pageSize,
     cat.slug
   );
   const categories: IAggregationCategory[] =
@@ -270,8 +279,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     catRet = null;
     console.log('Fucks up in ', e);
   }
+
+  if (!promise) {
+    return {
+      notFound: true,
+    };
+  }
   return {
-    revalidate: REVALIDATE,
     props: {
       car: {},
       category: cat,
@@ -283,43 +297,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
       catPath: catPath,
       aggregations,
     },
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  // here is good place to add whole pages to be generated
-
-  const vehicles = await getVehicles();
-
-  const makeModel = vehicles.map((vehicle: ICar) => {
-    return {
-      make: vehicle.make.slug,
-      model: vehicle.slug,
-    };
-  });
-
-  // !!!! Getting NOT Empty categories from endpoint
-  /* const categories = await getCategoryAllGQL(); */
-  // Here is all not empty categories from elastic need to be refactored
-  // const categories = await getCategories();
-
-  const paths: {
-    params: { make: string; model: string; category: string };
-  }[] = [];
-
-  for (let model of makeModel) {
-    const promise = await getProductsByCarModel(model.model);
-    const categories: IAggregationCategory[] =
-      promise.aggregations.categories.buckets;
-    for (let cat of categories) {
-      paths.push({
-        params: { make: model.make, model: model.model, category: cat.slug },
-      });
-    }
-  }
-
-  return {
-    paths: paths,
-    fallback: false,
   };
 };

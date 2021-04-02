@@ -1,21 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetStaticPaths,
-  GetStaticProps,
-} from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
-import { ICategory } from '~/interfaces/category';
-import { REVALIDATE } from '~/config';
 import { IFilter } from '~/interfaces/filters';
 import AnimationPage from '~/components/common/AnimationPage';
 import { setCurrentCarAction } from '~/store/actions';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
-import { toLoverSpace } from '~/helpers';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
