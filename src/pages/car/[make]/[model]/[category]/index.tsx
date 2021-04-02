@@ -69,7 +69,6 @@ export default function Cagetory(props: CategoryProps) {
     totalPages,
   } = props;
   const router = useRouter();
-  const [stateProducts, setStateProducts] = useState(products.hits);
 
   const [stateAggregations, setStateAggragations] = useState(aggregations);
 
@@ -178,25 +177,6 @@ export default function Cagetory(props: CategoryProps) {
     }
   }, [fils]);
   /* console.log(fils); */
-  const getAll = useCallback(() => {
-    /* console.log('%c Triggered useCallback fetchProducts', 'color: #002984'); */
-  }, [fils]);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      /* console.log('%c Triggered useEffect fetchProducts', 'color: #bada55'); */
-      /* dispatch(shopProductLoading(true)); */
-      /* let promise = {} as IProductElasticBase; */
-      /* promise = await getProductsByFilters(finalUrl); */
-      /* let products: IProductElasticHitsFirst = promise.hits; */
-      /* setStateProducts(products.hits); */
-      /* setStateAggragations(promise.aggregations); */
-      /* setStateCount(products.total.value); */
-      /* dispatch(shopProductLoading(false)); */
-    }
-    fetchProducts();
-  }, [fils]);
-  // Handling reset filters
 
   return (
     <React.Fragment>
@@ -212,7 +192,7 @@ export default function Cagetory(props: CategoryProps) {
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
-            <ShopGrid products={stateProducts} totalPages={totalPages} />
+            <ShopGrid products={products.hits} totalPages={totalPages} />
           </Grid>
         </Grid>
       </AnimationPage>
