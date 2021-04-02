@@ -185,7 +185,6 @@ export default function Cagetory(props: CategoryProps) {
     filterName: string,
     itemName: string
   ) => {
-    console.log(filterName, itemName);
     router.push(urlPush);
     /* if (des.includes(itemName)) { */
     /*   // delete from des */
@@ -200,7 +199,6 @@ export default function Cagetory(props: CategoryProps) {
 
     /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
   };
-  console.log(router.query);
 
   function parseUrlFilters(query: object) {
     // here tomorrow will assemble filters and dispatch to state
