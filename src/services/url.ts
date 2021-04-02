@@ -1,7 +1,5 @@
-import { IShopCategory } from '~/interfaces/category';
-import Link, { LinkProps } from 'next/link';
+import { LinkProps } from 'next/link';
 import { IProduct } from '~/interfaces/product';
-import { ICategory } from '~/interfaces/category';
 
 type IAppLinkHref = string | LinkProps;
 
@@ -13,7 +11,7 @@ const url: { [key: string]: any } = {
     model: string,
     categorySlug: string
   ): IAppLinkHref => {
-    return `/car/${make}/${model}/${categorySlug}/1`;
+    return `/car/${make}/${model}/${categorySlug}`;
   },
   products: (
     make?: string,
