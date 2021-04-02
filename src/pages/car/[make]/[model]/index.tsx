@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetStaticPaths,
+  GetStaticProps,
+} from 'next';
 import Grid from '@material-ui/core/Grid';
 
 import { ICar } from '~/interfaces/ICar';
@@ -99,7 +103,7 @@ function Model(props: IModelProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const modelSlug = context.params?.model as string;
   const vehicle: ICar = await getVehicle(modelSlug);
 
@@ -113,32 +117,54 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const products = promise.hits;
 
   return {
-    revalidate: REVALIDATE,
     props: {
       model: vehicle,
       categories: makeTree(categories),
       products: products,
     },
   };
-};
+}
 
-//Get Static Paths
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = [];
-  const models = await getVehicles();
-  for (let model of models) {
-    paths.push({
-      params: {
-        make: toLoverSpace(model.make.slug),
-        model: toLoverSpace(model.slug),
-      },
-    });
-  }
+/* export const getStaticProps: GetStaticProps = async (context) => { */
+/*   const modelSlug = context.params?.model as string; */
+/*   const vehicle: ICar = await getVehicle(modelSlug); */
 
-  return {
-    fallback: false,
-    paths: paths,
-  };
-};
+/*   const page: number = parseInt(context.params?.page as string) || 1; */
+/*   const page_size = pageSize; */
+/*   const page_from = page_size * (page - 1); */
+
+/*   const promise = await getProductsByCar(vehicle.slug, page_from, page_size); */
+/*   const categories: IAggregationCategory[] = */
+/*     promise.aggregations.categories.buckets; */
+/*   const products = promise.hits; */
+
+/*   return { */
+/*     revalidate: REVALIDATE, */
+/*     props: { */
+/*       model: vehicle, */
+/*       categories: makeTree(categories), */
+/*       products: products, */
+/*     }, */
+/*   }; */
+/* }; */
+
+/* //Get Static Paths */
+/* export const getStaticPaths: GetStaticPaths = async () => { */
+/*   const paths = []; */
+/*   const models = await getVehicles(); */
+/*   for (let model of models) { */
+/*     paths.push({ */
+/*       params: { */
+/*         make: toLoverSpace(model.make.slug), */
+/*         model: toLoverSpace(model.slug), */
+/*       }, */
+/*     }); */
+/*   } */
+
+/*   return { */
+/*     fallback: false, */
+/*     paths: paths, */
+/*   }; */
+/* }; */
 
 export default Model;
