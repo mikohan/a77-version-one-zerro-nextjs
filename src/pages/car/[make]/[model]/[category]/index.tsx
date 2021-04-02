@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { makeFiltersQueryString } from '~/utils';
 
 import { Grid } from '@material-ui/core';
@@ -171,6 +171,9 @@ export default function Cagetory(props: CategoryProps) {
     }
   }, [fils]);
   console.log(fils);
+  const getAll = useCallback(() => {
+    console.log('%c Triggered useCallback fetchProducts', 'color: #002984');
+  }, [fils]);
 
   useEffect(() => {
     async function fetchProducts() {
