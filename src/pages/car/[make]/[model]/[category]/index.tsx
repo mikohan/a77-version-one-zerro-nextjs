@@ -232,7 +232,8 @@ export const getServerSideProps: GetServerSideProps = async (
   // Comment out for building next time here and in static paths
   const cat: ICategory = await getCategoryBySlugGQL(slug);
   //pagination part
-  const page: number = parseInt(context.params?.page as string) || 1;
+  const str: string = asString(context.query.page as string);
+  const page: number = parseInt(str) || 1;
 
   const page_from = pageSize * (page - 1);
 
