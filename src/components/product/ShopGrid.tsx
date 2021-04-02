@@ -22,6 +22,8 @@ import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
 import ProductCardGridSkeleton from './ProductCardGridSkeleton';
 import ProductCardListSkeleton from './ProductCardListSkeleton';
 import { useRouter } from 'next/router';
+import url from '~/services/url';
+import { asString } from '~/helpers';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
@@ -250,15 +252,33 @@ export default function ShopGrid({ products, totalPages = 15 }: IProps) {
     </SvgIcon>
   );
 
-  const [pagPage, setPagPage] = useState(1);
   const router = useRouter();
-  const { make, model, category, page } = router.query;
+  const { make, model, category } = router.query;
+  const str: string = asString(router.query.page as string);
+  const page: number = parseInt(str) || 1;
+
+  let pathname: string;
+  if (
+    router.query.hasOwnProperty('make') &&
+    router.query.hasOwnProperty('model') &&
+    router.query.hasOwnProperty('category')
+  ) {
+    pathname = url.category(make, model, category);
+  } else if (
+    router.query.hasOwnProperty('make') &&
+    router.query.hasOwnProperty('model')
+  ) {
+    pathname = url.model(make, model, category);
+  } else if (router.query.hasOwnProperty('make')) {
+    pathname = url.make(make, model, category);
+  }
 
   function paginationHandler(e: object, page: number) {
-    console.log('Current page is:', page);
-    setPagPage(page);
     router.push({
-      pathname: `/car/${make}/${model}/${category}/${page}`,
+      pathname,
+      query: {
+        page: page,
+      },
     });
   }
 
@@ -292,7 +312,7 @@ export default function ShopGrid({ products, totalPages = 15 }: IProps) {
                   <Pagination
                     onChange={paginationHandler}
                     count={totalPages}
-                    page={pagPage}
+                    page={page}
                     color="primary"
                   />
                 </Box>
