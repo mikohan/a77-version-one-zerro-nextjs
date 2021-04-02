@@ -265,6 +265,9 @@ export const getServerSideProps: GetServerSideProps = async (
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
+  const prodCount: number = products.total.value;
+
+  const totalPages = Math.ceil(prodCount / pageSize);
 
   const aggregations: IAgregations = promise.aggregations;
 
@@ -296,6 +299,7 @@ export const getServerSideProps: GetServerSideProps = async (
       updated: Date.now(),
       catPath: catPath,
       aggregations,
+      totalPages,
     },
   };
 };
