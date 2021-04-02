@@ -36,17 +36,18 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   filter: IFilter;
   value: string;
+  handleChange(e: object, itemName: string): void;
 }
 
 function Filter(props: IProps) {
   const classes = useStyles();
-  const { filter, value } = props;
+  const { filter, value, handleChange } = props;
   const [open, setOpen] = React.useState(true);
-  const handleChange = () => {};
 
   const handleClick = () => {
     setOpen(!open);
   };
+
   // Start messing around here
 
   return (

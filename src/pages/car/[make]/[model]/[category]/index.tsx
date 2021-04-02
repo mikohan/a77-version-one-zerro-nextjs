@@ -178,6 +178,35 @@ export default function Cagetory(props: CategoryProps) {
   }, [fils]);
   /* console.log(fils); */
 
+  /* const filSlug = options.slug; */
+
+  /* const des = filters[filSlug] ? filters[filSlug].split(',') : []; */
+
+  const urlPush = {
+    pathname: `/car/${model.make.slug}/${model.slug}/${category.slug}`,
+    query: { ...router.query },
+  };
+
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    itemName: string
+  ) => {
+    console.log(itemName);
+    router.push(urlPush);
+    /* if (des.includes(itemName)) { */
+    /*   // delete from des */
+    /*   const idx = des.indexOf(itemName); */
+    /*   des.splice(idx, 1); */
+    /* } else { */
+    /*   // add to des */
+    /*   des.push(itemName); */
+    /* } */
+    /* // serialize des and dispatch */
+    /* const newFilterValues = des.join(','); */
+
+    /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
+  };
+
   return (
     <React.Fragment>
       <CategoryHead model={model} category={category} />
@@ -187,7 +216,10 @@ export default function Cagetory(props: CategoryProps) {
           <Hidden smDown>
             <Grid item xs={3}>
               <LeftSideBar>
-                <FilterWidget filters={filters} />
+                <FilterWidget
+                  filters={filters}
+                  handleChange={handleFilterChange}
+                />
               </LeftSideBar>
             </Grid>
           </Hidden>
