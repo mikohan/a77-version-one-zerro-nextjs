@@ -6,9 +6,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ICheckFilterValue } from '~/interfaces/filters';
-import { useDispatch, useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
-import { shopSetFilterVlue } from '~/store/shop/shopActions';
 
 // Helper functions need to refactor
 
@@ -19,7 +16,7 @@ interface IProps {
     name: string;
     value?: string[];
   };
-  handleChange(e: object, iName: string): void;
+  handleChange(e: object, filterName: string, itemName: string): void;
   value: ICheckFilterValue;
 }
 
@@ -68,32 +65,7 @@ export default function CheckboxLabels({
     }
   }
 
-  const filters: any = useSelector((state: IState) => state.shopNew.filters);
-  const filSlug = options.slug;
-
-  const des = filters[filSlug] ? filters[filSlug].split(',') : [];
-
-  const dispatch = useDispatch();
-
-  /* const handleChange = ( */
-  /*   e: React.ChangeEvent<HTMLInputElement>, */
-  /*   itemName: string */
-  /* ) => { */
-  /*   if (des.includes(itemName)) { */
-  /*     // delete from des */
-  /*     const idx = des.indexOf(itemName); */
-  /*     des.splice(idx, 1); */
-  /*   } else { */
-  /*     // add to des */
-  /*     des.push(itemName); */
-  /*   } */
-  /*   // serialize des and dispatch */
-  /*   const newFilterValues = des.join(','); */
-  /*   console.log(newFilterValues); */
-
-  /*   dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
-  /* }; */
-
+  const fName = options.slug;
   const items = options.items;
 
   return (
@@ -108,7 +80,7 @@ export default function CheckboxLabels({
                   classes={{ root: classes.input }}
                   className={classes.checkbox}
                   checked={initialValues[iName] || false}
-                  onChange={(e) => handleChange(e, iName)}
+                  onChange={(e) => handleChange(e, fName, iName)}
                   name={iName}
                   color="primary"
                 />

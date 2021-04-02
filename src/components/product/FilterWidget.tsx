@@ -5,7 +5,7 @@ import Filter from '~/components/filters/Filter';
 
 interface IProps {
   filters?: IFilter[];
-  handleChange(e: object, itemName: string): void;
+  handleChange(e: object, fName: string, itemName: string): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>

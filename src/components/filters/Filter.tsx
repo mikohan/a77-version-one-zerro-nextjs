@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   filter: IFilter;
   value: string;
-  handleChange(e: object, itemName: string): void;
+  handleChange(e: object, filterName: string, itemName: string): void;
 }
 
 function Filter(props: IProps) {

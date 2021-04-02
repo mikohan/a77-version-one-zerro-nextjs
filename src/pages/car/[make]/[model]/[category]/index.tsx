@@ -1,14 +1,8 @@
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetStaticPaths,
-  GetStaticProps,
-} from 'next';
-import React, { useCallback, useEffect, useState } from 'react';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import React, { useEffect, useState } from 'react';
 import { makeFiltersQueryString } from '~/utils';
 
 import { Grid } from '@material-ui/core';
-import { REVALIDATE } from '~/config';
 import { ICar } from '~/interfaces/ICar';
 import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
@@ -17,10 +11,7 @@ import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
-import {
-  IProductElasticHitsFirst,
-  IProductElasticBase,
-} from '~/interfaces/product';
+import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree, OrderBreads } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
@@ -54,6 +45,7 @@ interface CategoryProps {
   categories: ICategory[];
   aggregations: IAgregations;
   totalPages: number;
+  routerQuery: object;
 }
 
 export default function Cagetory(props: CategoryProps) {
@@ -67,6 +59,7 @@ export default function Cagetory(props: CategoryProps) {
     catPath,
     aggregations,
     totalPages,
+    routerQuery,
   } = props;
   const router = useRouter();
 
@@ -189,9 +182,10 @@ export default function Cagetory(props: CategoryProps) {
 
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
+    filterName: string,
     itemName: string
   ) => {
-    console.log(itemName);
+    console.log(filterName, itemName);
     router.push(urlPush);
     /* if (des.includes(itemName)) { */
     /*   // delete from des */
@@ -206,6 +200,13 @@ export default function Cagetory(props: CategoryProps) {
 
     /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
   };
+  console.log(router.query);
+
+  function parseUrlFilters(query: object) {
+    // here tomorrow will assemble filters and dispatch to state
+    /* console.log(query); */
+  }
+  parseUrlFilters(routerQuery);
 
   return (
     <React.Fragment>
@@ -235,6 +236,7 @@ export default function Cagetory(props: CategoryProps) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+  const routerQuery = context.query;
   const { category, make, model } = context.params!;
   const modelSlug: string = model as string;
   if (!category) {
@@ -313,6 +315,7 @@ export const getServerSideProps: GetServerSideProps = async (
       catPath: catPath,
       aggregations,
       totalPages,
+      routerQuery,
     },
   };
 };
