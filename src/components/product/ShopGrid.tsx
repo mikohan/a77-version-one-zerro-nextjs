@@ -25,10 +25,9 @@ import { useRouter } from 'next/router';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
-  totalPages: number;
 }
 
-export default function ShopGrid({ products, totalPages }: IProps) {
+export default function ShopGrid({ products }: IProps) {
   // Drawer stuff
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const toggleDrawer = () => {
@@ -291,7 +290,7 @@ export default function ShopGrid({ products, totalPages }: IProps) {
                 <Box>
                   <Pagination
                     onChange={paginationHandler}
-                    count={totalPages}
+                    count={50}
                     page={pagPage}
                     color="primary"
                   />
