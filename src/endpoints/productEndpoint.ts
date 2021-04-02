@@ -14,7 +14,6 @@ export async function getProductsByCar(
     url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
   }
   const prom = await axios(url);
-  console.log(url);
   return prom.data;
 }
 export async function getProductsAll(): Promise<any> {

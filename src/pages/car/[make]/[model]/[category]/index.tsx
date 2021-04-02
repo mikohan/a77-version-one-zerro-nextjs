@@ -170,14 +170,14 @@ export default function Cagetory(props: CategoryProps) {
       }
     }
   }, [fils]);
-  console.log(fils);
+  /* console.log(fils); */
   const getAll = useCallback(() => {
-    console.log('%c Triggered useCallback fetchProducts', 'color: #002984');
+    /* console.log('%c Triggered useCallback fetchProducts', 'color: #002984'); */
   }, [fils]);
 
   useEffect(() => {
     async function fetchProducts() {
-      console.log('%c Triggered useEffect fetchProducts', 'color: #bada55');
+      /* console.log('%c Triggered useEffect fetchProducts', 'color: #bada55'); */
       /* dispatch(shopProductLoading(true)); */
       /* let promise = {} as IProductElasticBase; */
       /* promise = await getProductsByFilters(finalUrl); */

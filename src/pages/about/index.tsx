@@ -2,16 +2,14 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
-import { GetStaticPropsContext } from 'next';
 import { Grid, Typography } from '@material-ui/core';
 
 interface IProps {
   products: IProductElasticHitsFirst;
 }
 
-export default function About({ products }: IProps) {
+export default function About() {
   return (
     <React.Fragment>
       <Head>
@@ -64,14 +62,4 @@ export default function About({ products }: IProps) {
       </AnimationPage>
     </React.Fragment>
   );
-}
-
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const promise = await getProductsByCar('e90');
-  const products: IProductElasticHitsFirst = promise.hits;
-  return {
-    props: {
-      products: products,
-    },
-  };
 }
