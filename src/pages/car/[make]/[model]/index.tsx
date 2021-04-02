@@ -25,6 +25,7 @@ import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import { IShopCategory } from '~/interfaces';
 import useLocalstorageState from '~/hooks/useLocalStorage';
+import { pageSize } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -102,7 +103,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const modelSlug = context.params?.model as string;
   const vehicle: ICar = await getVehicle(modelSlug);
 
-  const promise = await getProductsByCar(vehicle.slug);
+  const page: number = parseInt(context.params?.page as string) || 1;
+  const page_size = pageSize;
+  const page_from = page_size * (page - 1);
+
+  const promise = await getProductsByCar(vehicle.slug, page_from, page_size);
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   const products = promise.hits;

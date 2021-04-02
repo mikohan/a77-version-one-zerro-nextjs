@@ -34,6 +34,8 @@ import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { shopProductLoading, shopResetFilter } from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
+import { getProductsByCarModel } from '~/endpoints/productEndpoint';
+import { pageSize } from '~/config';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -172,18 +174,18 @@ export default function Cagetory(props: CategoryProps) {
 
   useEffect(() => {
     async function fetchProducts() {
-      dispatch(shopProductLoading(true));
-      let promise = {} as IProductElasticBase;
-      promise = await getProductsByFilters(finalUrl);
-      let products: IProductElasticHitsFirst = promise.hits;
-      setStateProducts(products.hits);
-      setStateAggragations(promise.aggregations);
-      setStateCount(products.total.value);
-
-      dispatch(shopProductLoading(false));
+      console.log('%c Triggered useEffect fetchProducts', 'color: #bada55');
+      /* dispatch(shopProductLoading(true)); */
+      /* let promise = {} as IProductElasticBase; */
+      /* promise = await getProductsByFilters(finalUrl); */
+      /* let products: IProductElasticHitsFirst = promise.hits; */
+      /* setStateProducts(products.hits); */
+      /* setStateAggragations(promise.aggregations); */
+      /* setStateCount(products.total.value); */
+      /* dispatch(shopProductLoading(false)); */
     }
     fetchProducts();
-  }, [fils, products]);
+  }, [fils]);
   // Handling reset filters
 
   return (
@@ -239,9 +241,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const cat: ICategory = await getCategoryBySlugGQL(slug);
   //pagination part
   const page: number = parseInt(context.params?.page as string) || 1;
-  const page_size = 10;
-  const from = page_size * (page - 1);
-  const promise = await getProductsByCar(modelSlug, cat.slug);
+  const page_size = pageSize;
+  const page_from = page_size * (page - 1);
+
+  const promise = await getProductsByCar(
+    modelSlug,
+    page_from,
+    page_size,
+    cat.slug
+  );
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
@@ -297,7 +305,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }[] = [];
 
   for (let model of makeModel) {
-    const promise = await getProductsByCar(model.model);
+    const promise = await getProductsByCarModel(model.model);
     const categories: IAggregationCategory[] =
       promise.aggregations.categories.buckets;
     for (let cat of categories) {

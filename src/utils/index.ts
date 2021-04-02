@@ -104,7 +104,7 @@ export function makeFiltersQueryString(
   if (Object.keys(filters).length > 0) {
     amp = '&';
   }
-  const filtersUrl = `?model=${model}&category=${category}${amp}`;
+  const filtersUrl = `?&model=${model}&category=${category}&filters_chk=1${amp}`;
   let string = '';
   const mp = Object.entries(filters);
   mp.forEach(([key, value], i) => {

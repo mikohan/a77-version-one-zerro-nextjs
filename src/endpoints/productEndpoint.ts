@@ -4,14 +4,17 @@ import { IProductElasticBase } from '~/interfaces/product';
 
 export async function getProductsByCar(
   carSlug: string,
+  pageFrom: number,
+  pageSize: number,
   catSlug?: string
 ): Promise<IProductElasticBase> {
-  let url = `http://localhost:8000/api/product/jsontest?model=${carSlug}`;
+  let url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
 
   if (catSlug) {
-    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}&page_from=${1}&page_size=${10}`;
+    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
   }
   const prom = await axios(url);
+  console.log(url);
   return prom.data;
 }
 export async function getProductsAll(): Promise<any> {
@@ -31,6 +34,17 @@ export async function getProductsByMake(
 
   return prom.data;
 }
+
+export async function getProductsByCarModel(
+  modelSlug: string
+): Promise<IProductElasticBase> {
+  const prom = await axios(
+    `http://localhost:8000/api/product/jsontest?model=${modelSlug}`
+  );
+
+  return prom.data;
+}
+
 export async function getProductsByFilters(
   finalUrl: string
 ): Promise<IProductElasticBase> {
