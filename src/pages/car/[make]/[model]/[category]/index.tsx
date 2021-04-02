@@ -177,7 +177,7 @@ export default function Cagetory(props: CategoryProps) {
 
   const urlPush = {
     pathname: `/car/${model.make.slug}/${model.slug}/${category.slug}`,
-    query: { ...router.query },
+    query: { brand: 'mobis,angara,mando', engine: 'd4dd,d4db' },
   };
 
   const handleFilterChange = (
