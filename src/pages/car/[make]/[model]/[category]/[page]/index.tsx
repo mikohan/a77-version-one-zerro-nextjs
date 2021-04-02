@@ -48,6 +48,7 @@ interface CategoryProps {
   catPath: ICategory[];
   categories: ICategory[];
   aggregations: IAgregations;
+  totalPages: number;
 }
 
 export default function Cagetory(props: CategoryProps) {
@@ -60,6 +61,7 @@ export default function Cagetory(props: CategoryProps) {
     products,
     catPath,
     aggregations,
+    totalPages,
   } = props;
   const router = useRouter();
   const [stateProducts, setStateProducts] = useState(products.hits);
@@ -205,7 +207,7 @@ export default function Cagetory(props: CategoryProps) {
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
-            <ShopGrid products={stateProducts} />
+            <ShopGrid products={stateProducts} totalPages={totalPages} />
           </Grid>
         </Grid>
       </AnimationPage>
@@ -256,10 +258,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
+  const prodCount: number = products.total.value;
 
   const aggregations: IAgregations = promise.aggregations;
 
   const catPath = getCatPath(cat, categories);
+  // Pages stuff
+
+  const totalPages = Math.ceil(prodCount / pageSize);
 
   const localCatTree: ICategory[] = makeTree(categories);
   let catRet;
@@ -282,6 +288,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       updated: Date.now(),
       catPath: catPath,
       aggregations,
+      totalPages,
     },
   };
 };
