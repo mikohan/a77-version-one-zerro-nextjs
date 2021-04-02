@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+  GetServerSideProps,
   GetServerSidePropsContext,
   GetStaticPaths,
   GetStaticProps,
@@ -37,6 +38,7 @@ interface IModelProps {
   model: ICar;
   categories: IShopCategory[];
   products: IProductElasticHitsFirst;
+  totalPages: number;
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -47,7 +49,7 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const classes = useStyles();
-  const { model, categories, products } = props;
+  const { model, categories, products, totalPages } = props;
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
   const header = `Запчасти для ${makeName} ${modelName}`;
@@ -94,7 +96,7 @@ function Model(props: IModelProps) {
           </Hidden>
           <Grid item xs={12} md={9}>
             <Grid item xs={12}>
-              <ShopGrid products={products.hits} />
+              <ShopGrid products={products.hits} totalPages={totalPages} />
             </Grid>
           </Grid>
         </Grid>
@@ -103,68 +105,38 @@ function Model(props: IModelProps) {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  console.log(context.query);
+  const page: number = parseInt(context.params?.page as string) || 1;
   const modelSlug = context.params?.model as string;
   const vehicle: ICar = await getVehicle(modelSlug);
 
-  const page: number = parseInt(context.params?.page as string) || 1;
-  const page_size = pageSize;
-  const page_from = page_size * (page - 1);
+  const page_from = pageSize * (page - 1);
 
-  const promise = await getProductsByCar(vehicle.slug, page_from, page_size);
+  const promise = await getProductsByCar(vehicle.slug, page_from, pageSize);
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   const products = promise.hits;
+
+  const prodCount: number = products.total.value;
+  const totalPages = Math.ceil(prodCount / pageSize);
+
+  if (!promise) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
       model: vehicle,
       categories: makeTree(categories),
       products: products,
+      totalPages: totalPages,
     },
   };
-}
-
-/* export const getStaticProps: GetStaticProps = async (context) => { */
-/*   const modelSlug = context.params?.model as string; */
-/*   const vehicle: ICar = await getVehicle(modelSlug); */
-
-/*   const page: number = parseInt(context.params?.page as string) || 1; */
-/*   const page_size = pageSize; */
-/*   const page_from = page_size * (page - 1); */
-
-/*   const promise = await getProductsByCar(vehicle.slug, page_from, page_size); */
-/*   const categories: IAggregationCategory[] = */
-/*     promise.aggregations.categories.buckets; */
-/*   const products = promise.hits; */
-
-/*   return { */
-/*     revalidate: REVALIDATE, */
-/*     props: { */
-/*       model: vehicle, */
-/*       categories: makeTree(categories), */
-/*       products: products, */
-/*     }, */
-/*   }; */
-/* }; */
-
-/* //Get Static Paths */
-/* export const getStaticPaths: GetStaticPaths = async () => { */
-/*   const paths = []; */
-/*   const models = await getVehicles(); */
-/*   for (let model of models) { */
-/*     paths.push({ */
-/*       params: { */
-/*         make: toLoverSpace(model.make.slug), */
-/*         model: toLoverSpace(model.slug), */
-/*       }, */
-/*     }); */
-/*   } */
-
-/*   return { */
-/*     fallback: false, */
-/*     paths: paths, */
-/*   }; */
-/* }; */
+};
 
 export default Model;
