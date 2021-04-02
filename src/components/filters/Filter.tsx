@@ -1,15 +1,3 @@
-/*
-Plan for filters
-1. Needs to store filters values to store redux
-2. Needs to store filters to url parameters
-3. Restore filters and values from url paramters
-4. Handle somehow filters changing
-5. Add build filters logic to products, probably will maki it on server side Means API
-6. Category filter needs to be collapsed by 5 Items(dont know how to implement this)
-7. Add count to category filter items ? or not?
-Thats it for filtering
- */
-
 import React from 'react';
 
 import { IFilter } from '~/interfaces/filters';
@@ -22,6 +10,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
 import FilterCheck from '~/components/filters/FilterCheck';
 import FilterSlider from '~/components/filters/FilterSlider';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,11 +42,12 @@ function Filter(props: IProps) {
   const classes = useStyles();
   const { filter, value } = props;
   const [open, setOpen] = React.useState(true);
-  const handleValueChange = () => {};
+  const handleChange = () => {};
 
   const handleClick = () => {
     setOpen(!open);
   };
+  // Start messing around here
 
   return (
     <React.Fragment>
@@ -78,7 +70,11 @@ function Filter(props: IProps) {
             <FilterCategoryTest options={filter} />
           )}
           {filter.type === 'check' && (
-            <FilterCheck value={filter.value} options={filter} />
+            <FilterCheck
+              value={filter.value}
+              options={filter}
+              handleChange={handleChange}
+            />
           )}
           {filter.type === 'range' && (
             <FilterSlider value={[400, 5000]} options={filter} />

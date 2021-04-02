@@ -19,10 +19,15 @@ interface IProps {
     name: string;
     value?: string[];
   };
+  handleChange(e: object, iName: string): void;
   value: ICheckFilterValue;
 }
 
-export default function CheckboxLabels({ options, value }: IProps) {
+export default function CheckboxLabels({
+  options,
+  value,
+  handleChange,
+}: IProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       container: {
@@ -70,23 +75,24 @@ export default function CheckboxLabels({ options, value }: IProps) {
 
   const dispatch = useDispatch();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    itemName: string
-  ) => {
-    if (des.includes(itemName)) {
-      // delete from des
-      const idx = des.indexOf(itemName);
-      des.splice(idx, 1);
-    } else {
-      // add to des
-      des.push(itemName);
-    }
-    // serialize des and dispatch
-    const newFilterValues = des.join(',');
+  /* const handleChange = ( */
+  /*   e: React.ChangeEvent<HTMLInputElement>, */
+  /*   itemName: string */
+  /* ) => { */
+  /*   if (des.includes(itemName)) { */
+  /*     // delete from des */
+  /*     const idx = des.indexOf(itemName); */
+  /*     des.splice(idx, 1); */
+  /*   } else { */
+  /*     // add to des */
+  /*     des.push(itemName); */
+  /*   } */
+  /*   // serialize des and dispatch */
+  /*   const newFilterValues = des.join(','); */
+  /*   console.log(newFilterValues); */
 
-    dispatch(shopSetFilterVlue(options.slug, newFilterValues));
-  };
+  /*   dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
+  /* }; */
 
   const items = options.items;
 
