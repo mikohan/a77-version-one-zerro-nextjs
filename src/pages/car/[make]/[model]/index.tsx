@@ -100,7 +100,6 @@ function Model(props: IModelProps) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  console.log(context.query);
   const page: number = parseInt(context.params?.page as string) || 1;
   const modelSlug = context.params?.model as string;
   const vehicle: ICar = await getVehicle(modelSlug);
