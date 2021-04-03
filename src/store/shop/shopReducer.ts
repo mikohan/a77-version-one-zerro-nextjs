@@ -30,7 +30,6 @@ export function shopReducerSetFilterValue(
   action: ShopSetFilterValueAction
 ): IShopState {
   const currentFilters = { ...state.filters };
-  console.log(currentFilters, action.value);
   let filters: IFilterValues;
 
   if (action.value != null) {

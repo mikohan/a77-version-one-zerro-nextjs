@@ -24,10 +24,11 @@ import { IBread } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
+import { IActiveFilterMy } from '~/interfaces';
 import {
   shopDeleteFilter,
   shopProductLoading,
@@ -37,7 +38,8 @@ import {
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 import { getProductsByCarModel } from '~/endpoints/productEndpoint';
 import { pageSize } from '~/config';
-import NextError from 'next/error';
+import { shopResetFilters } from '~/store/shop/shopActions';
+import { makePushUrl } from '~/services/filters/filterHandler';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -167,11 +169,6 @@ export default function Cagetory(props: CategoryProps) {
   filters.push();
   // ************************** End filters *********************
 
-  interface IActiveFilter {
-    filterSlug: string;
-    filterValues: string[];
-  }
-
   const possibleFilters: string[] = filters.map((item: IFilter) => item.slug);
 
   // Getting filters from state redux
@@ -179,7 +176,7 @@ export default function Cagetory(props: CategoryProps) {
     (state: IState) => state.shopNew.filters
   );
 
-  let activeFilters: IActiveFilter[] = [];
+  let activeFilters: IActiveFilterMy[] = [];
   if (Object.keys(filtersFromStore).length) {
     for (const [key, value] of Object.entries(filtersFromStore)) {
       activeFilters.push({
@@ -224,6 +221,8 @@ export default function Cagetory(props: CategoryProps) {
     }
   }, []);
 
+  // Function for redirection
+
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     filterName: string,
@@ -234,7 +233,7 @@ export default function Cagetory(props: CategoryProps) {
       activeFilters.filter((item) => item.filterSlug === filterName).length > 0
     ) {
       const clickedFilter = activeFilters?.findIndex(
-        (filter: IActiveFilter) => filter.filterSlug === filterName
+        (filter: IActiveFilterMy) => filter.filterSlug === filterName
       );
       const activeFilter = activeFilters[clickedFilter];
       if (activeFilter.filterValues.includes(itemName)) {
@@ -252,33 +251,26 @@ export default function Cagetory(props: CategoryProps) {
         filterValues: [itemName],
       });
     }
+    // Call redirect
+    makePushUrl(router, dispatch, model, category, activeFilters);
+  };
 
-    const mainUrl = url.category(model.make.slug, model.slug, category.slug);
+  const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
+    dispatch(shopResetFilter(filterSlug, filterValue));
+    const idx = activeFilters.findIndex(
+      (item: IActiveFilterMy) => item.filterSlug === filterSlug
+    );
+    const filVals = activeFilters[idx].filterValues;
+    const idxv = filVals.indexOf(filterValue);
+    filVals.splice(idxv, 1);
+    activeFilters[idx].filterValues = filVals;
 
-    const params = {} as IFilterQueryString;
-    for (const [key, value] of Object.entries(activeFilters)) {
-      if (value.filterValues.length > 0) {
-        params[value.filterSlug] = value.filterValues.join(',');
-      }
-    }
-
-    for (const item of activeFilters) {
-      if (item.filterValues.length) {
-        dispatch(
-          shopSetFilterVlue(item.filterSlug, item.filterValues.join(','))
-        );
-      } else {
-        console.log('here is empty string', item.filterValues);
-        dispatch(shopDeleteFilter(item.filterSlug));
-      }
-    }
-    const urlPush = {
-      pathname: mainUrl,
-      query: {
-        ...params,
-      },
-    };
-    router.push(urlPush);
+    const newFilters = [...activeFilters];
+    makePushUrl(router, dispatch, model, category, newFilters);
+  };
+  const handleDeleteFilters = () => {
+    dispatch(shopResetFilters());
+    makePushUrl(router, dispatch, model, category, []);
   };
 
   return (
@@ -301,7 +293,11 @@ export default function Cagetory(props: CategoryProps) {
             </Grid>
           </Hidden>
           <Grid item xs={12} md={9}>
-            <ShopGrid products={products.hits} totalPages={totalPages} />
+            <ShopGrid
+              products={products.hits}
+              totalPages={totalPages}
+              filtersResetHandlers={{ handleDeleteFilter, handleDeleteFilters }}
+            />
           </Grid>
         </Grid>
       </AnimationPage>

@@ -94,6 +94,10 @@ export type IActiveFilterColor = IActiveFilterBase<IColorFilter> & {
 export interface IFilterQueryString {
   [filterSlug: string]: string;
 }
+export interface IActiveFilterMy {
+  filterSlug: string;
+  filterValues: string[];
+}
 
 export type IActiveFilter =
   | IActiveFilterVehicle
@@ -101,4 +105,5 @@ export type IActiveFilter =
   | IActiveFilterCheck
   | IActiveFilterRadio
   | IActiveFilterRating
-  | IActiveFilterColor;
+  | IActiveFilterColor
+  | IActiveFilterMy;

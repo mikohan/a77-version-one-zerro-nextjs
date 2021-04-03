@@ -39,9 +39,17 @@ const transFilter: ITransFilter = {
 interface IProps {
   products: IProductElasticHitsSecond[];
   totalPages?: number;
+  filtersResetHandlers: {
+    handleDeleteFilter(filter: string, value: string): void;
+    handleDeleteFilters(): void;
+  };
 }
 
-export default function ShopGrid({ products, totalPages = 15 }: IProps) {
+export default function ShopGrid({
+  products,
+  filtersResetHandlers,
+  totalPages = 15,
+}: IProps) {
   // Drawer stuff
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const toggleDrawer = () => {
@@ -222,12 +230,9 @@ export default function ShopGrid({ products, totalPages = 15 }: IProps) {
   const handleList = () => {
     dispatch({ type: SET_SHOP_GRID, payload: 'list' });
   };
-  const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
-    dispatch(shopResetFilter(filterSlug, filterValue));
-  };
-  const handleDeleteFilters = () => {
-    dispatch(shopResetFilters());
-  };
+  const handleDeleteFilter = filtersResetHandlers.handleDeleteFilter;
+  const handleDeleteFilters = filtersResetHandlers.handleDeleteFilters;
+
   const Select = () => (
     <TextField
       id="outlined-select-currency-native"
