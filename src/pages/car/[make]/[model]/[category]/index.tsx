@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
 import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
-import { IFilter } from '~/interfaces/filters';
+import { IFilter, IFilterQueryString } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
@@ -28,10 +28,15 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
-import { shopProductLoading, shopResetFilter } from '~/store/shop/shopActions';
+import {
+  shopProductLoading,
+  shopResetFilter,
+  shopSetFilterVlue,
+} from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 import { getProductsByCarModel } from '~/endpoints/productEndpoint';
 import { pageSize } from '~/config';
+import NextError from 'next/error';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -149,7 +154,7 @@ export default function Cagetory(props: CategoryProps) {
   };
 
   const bucketsFilters: any = { brands, bages, engines };
-  const filters = [categoriesFilter, price];
+  const filters: IFilter[] = [categoriesFilter, price];
 
   for (const [key, value] of Object.entries(aggregations)) {
     if (value.hasOwnProperty('buckets') && value.buckets.length > 0) {
@@ -177,32 +182,53 @@ export default function Cagetory(props: CategoryProps) {
 
   /* const des = filters[filSlug] ? filters[filSlug].split(',') : []; */
 
-  const urlPush = {
-    pathname: `/car/${model.make.slug}/${model.slug}/${category.slug}`,
-    query: { filters_chk: 1, brand: 'mobis,angara,mando', engine: 'd4dd,d4db' },
-  };
-
   interface IActiveFilter {
     filterSlug: string;
     filterValues: string[];
   }
 
+  const possibleFilters: string[] = filters.map((item: IFilter) => item.slug);
+
   const activeFilters: IActiveFilter[] = [];
   for (const [key, value] of Object.entries(routerQuery)) {
     if (!routerParams.hasOwnProperty(key)) {
-      activeFilters.push({
-        filterSlug: key,
-        filterValues: value.split(','),
-      });
+      console.log(key);
+      if (
+        possibleFilters.includes(key) ||
+        key === 'filters_chk' ||
+        key === 'page'
+      ) {
+        if (key === 'page') {
+          continue;
+        }
+        activeFilters.push({
+          filterSlug: key,
+          filterValues: value.split(','),
+        });
+      } else {
+        const e = new Error(
+          'Some bullshit in query strint here the point to make redirect to 404'
+        );
+        throw e;
+      }
     }
   }
   console.log(activeFilters);
+  useEffect(() => {
+    for (const filter of activeFilters) {
+      dispatch(
+        shopSetFilterVlue(filter.filterSlug, filter.filterValues.join(','))
+      );
+    }
+  }, []);
 
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     filterName: string,
     itemName: string
   ) => {
+    dispatch(shopSetFilterVlue(filterName, itemName));
+
     if (
       activeFilters.length &&
       activeFilters.filter((item) => item.filterSlug === filterName).length > 0
@@ -227,23 +253,23 @@ export default function Cagetory(props: CategoryProps) {
       });
     }
 
-    console.log(activeFilters);
-    const string = activeFilters.map(
-      (item) => `${item.filterSlug}=${item.filterValues.join(',')}&`
-    );
-    console.log(string);
-    /* router.push(urlPush); */
-    /* if (des.includes(itemName)) { */
-    /*   // delete from des */
-    /*   const idx = des.indexOf(itemName); */
-    /*   des.splice(idx, 1); */
-    /* } else { */
-    /*   // add to des */
-    /*   des.push(itemName); */
-    /* } */
-    /* // serialize des and dispatch */
-    /* const newFilterValues = des.join(','); */
-    /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
+    const mainUrl = url.category(model.make.slug, model.slug, category.slug);
+
+    const params = {} as IFilterQueryString;
+    for (const [key, value] of Object.entries(activeFilters)) {
+      if (value.filterValues.length > 0) {
+        params[value.filterSlug] = value.filterValues.join(',');
+      }
+    }
+
+    const urlPush = {
+      pathname: mainUrl,
+      query: {
+        ...params,
+      },
+    };
+    console.log(urlPush);
+    router.push(urlPush);
   };
 
   return (
