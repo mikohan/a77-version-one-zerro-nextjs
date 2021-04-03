@@ -1,15 +1,14 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect, useState } from 'react';
-import { makeFiltersQueryString } from '~/utils';
 
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
 import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
-import { IFilter, IFilterQueryString } from '~/interfaces/filters';
+import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
-import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
+import { getVehicle } from '~/endpoints/carsEndpoint';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { getProductsByCar } from '~/endpoints/productEndpoint';
@@ -24,17 +23,12 @@ import { IBread } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
-import { NextRouter, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { IActiveFilterMy } from '~/interfaces';
-import {
-  shopDeleteFilter,
-  shopProductLoading,
-  shopResetFilter,
-  shopSetFilterVlue,
-} from '~/store/shop/shopActions';
+import { shopResetFilter, shopSetFilterVlue } from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 import { getProductsByCarModel } from '~/endpoints/productEndpoint';
 import { pageSize } from '~/config';
