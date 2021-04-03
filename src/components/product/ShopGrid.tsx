@@ -18,7 +18,6 @@ import FilterDrawer from '~/components/product/FilterDrawer';
 import Chip from '@material-ui/core/Chip';
 import { capitalize } from '~/utils';
 import Typography from '@material-ui/core/Typography';
-import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
 import ProductCardGridSkeleton from './ProductCardGridSkeleton';
 import ProductCardListSkeleton from './ProductCardListSkeleton';
 import { useRouter } from 'next/router';
