@@ -289,11 +289,16 @@ export default function ShopGrid({
   } else if (router.query.hasOwnProperty('make')) {
     pathname = url.make(make, model, category);
   }
+  const currentUrl = Object.assign({}, router.query);
+  delete currentUrl.make;
+  delete currentUrl.model;
+  delete currentUrl.category;
 
   function paginationHandler(e: object, page: number) {
     router.push({
       pathname,
       query: {
+        ...currentUrl,
         page: page,
       },
     });
