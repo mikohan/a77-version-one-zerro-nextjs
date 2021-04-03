@@ -252,7 +252,7 @@ export default function Cagetory(props: CategoryProps) {
       });
     }
     // Call redirect
-    makePushUrl(router, dispatch, model, category, activeFilters);
+    makePushUrl(router, dispatch, activeFilters, model, category);
   };
 
   const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
@@ -266,11 +266,11 @@ export default function Cagetory(props: CategoryProps) {
     activeFilters[idx].filterValues = filVals;
 
     const newFilters = [...activeFilters];
-    makePushUrl(router, dispatch, model, category, newFilters);
+    makePushUrl(router, dispatch, newFilters, model, category);
   };
   const handleDeleteFilters = () => {
     dispatch(shopResetFilters());
-    makePushUrl(router, dispatch, model, category, []);
+    makePushUrl(router, dispatch, [], model, category);
   };
 
   return (

@@ -31,11 +31,16 @@ export const handleFilterChange = (
 export function makePushUrl(
   router: NextRouter,
   dispatch: any,
+  activeFilters: IActiveFilterMy[],
   model: ICar,
-  category: ICategory,
-  activeFilters: IActiveFilterMy[]
+  category?: ICategory
 ) {
-  const mainUrl = url.category(model.make.slug, model.slug, category.slug);
+  let mainUrl: string = '';
+  if (category) {
+    mainUrl = url.category(model.make.slug, model.slug, category.slug);
+  } else {
+    mainUrl = url.model(model.make.slug, model.slug);
+  }
 
   const params = {} as IFilterQueryString;
   for (const [key, value] of Object.entries(activeFilters)) {
