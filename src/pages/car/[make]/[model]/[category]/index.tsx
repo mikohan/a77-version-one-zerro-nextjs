@@ -46,6 +46,7 @@ interface CategoryProps {
   aggregations: IAgregations;
   totalPages: number;
   routerQuery: object;
+  routerParams: object;
 }
 
 export default function Cagetory(props: CategoryProps) {
@@ -60,6 +61,7 @@ export default function Cagetory(props: CategoryProps) {
     aggregations,
     totalPages,
     routerQuery,
+    routerParams,
   } = props;
   const router = useRouter();
 
@@ -106,7 +108,7 @@ export default function Cagetory(props: CategoryProps) {
   const brandsClass = new CheckFilterBulder(
     'Бренды',
     'brand',
-    stateAggregations.brands.buckets,
+    aggregations.brands.buckets,
     getInitVals('brand')
   );
   const brands = brandsClass.buildFilter();
@@ -115,7 +117,7 @@ export default function Cagetory(props: CategoryProps) {
   const filterEngine = new CheckFilterBulder(
     'Двигатель',
     'engine',
-    stateAggregations.engines.buckets,
+    aggregations.engines.buckets,
     getInitVals('engine')
   );
   const engines = filterEngine.buildFilter();
@@ -177,15 +179,60 @@ export default function Cagetory(props: CategoryProps) {
 
   const urlPush = {
     pathname: `/car/${model.make.slug}/${model.slug}/${category.slug}`,
-    query: { brand: 'mobis,angara,mando', engine: 'd4dd,d4db' },
+    query: { filters_chk: 1, brand: 'mobis,angara,mando', engine: 'd4dd,d4db' },
   };
+
+  interface IActiveFilter {
+    filterSlug: string;
+    filterValues: string[];
+  }
+
+  const activeFilters: IActiveFilter[] = [];
+  for (const [key, value] of Object.entries(routerQuery)) {
+    if (!routerParams.hasOwnProperty(key)) {
+      activeFilters.push({
+        filterSlug: key,
+        filterValues: value.split(','),
+      });
+    }
+  }
+  console.log(activeFilters);
 
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     filterName: string,
     itemName: string
   ) => {
-    router.push(urlPush);
+    if (
+      activeFilters.length &&
+      activeFilters.filter((item) => item.filterSlug === filterName).length > 0
+    ) {
+      const clickedFilter = activeFilters?.findIndex(
+        (filter: IActiveFilter) => filter.filterSlug === filterName
+      );
+      const activeFilter = activeFilters[clickedFilter];
+      if (activeFilter.filterValues.includes(itemName)) {
+        // delete from des
+        const idx = activeFilter.filterValues.indexOf(itemName);
+        activeFilter.filterValues.splice(idx, 1);
+      } else {
+        // add to des
+        activeFilter.filterValues.push(itemName);
+      }
+      activeFilters[clickedFilter] = activeFilter;
+    } else {
+      activeFilters.push({
+        filterSlug: filterName,
+        filterValues: [itemName],
+      });
+    }
+
+    console.log(activeFilters);
+    const string = activeFilters.map(
+      (item) => `${item.filterSlug}=${item.filterValues.join(',')}&`
+    );
+    console.log(string);
+    /* router.push(urlPush); */
     /* if (des.includes(itemName)) { */
     /*   // delete from des */
     /*   const idx = des.indexOf(itemName); */
@@ -196,15 +243,8 @@ export default function Cagetory(props: CategoryProps) {
     /* } */
     /* // serialize des and dispatch */
     /* const newFilterValues = des.join(','); */
-
     /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
   };
-
-  function parseUrlFilters(query: object) {
-    // here tomorrow will assemble filters and dispatch to state
-    /* console.log(query); */
-  }
-  parseUrlFilters(routerQuery);
 
   return (
     <React.Fragment>
@@ -234,6 +274,7 @@ export default function Cagetory(props: CategoryProps) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+  const routerParams = context.params;
   const routerQuery = context.query;
   const { category, make, model } = context.params!;
   const modelSlug: string = model as string;
@@ -314,6 +355,7 @@ export const getServerSideProps: GetServerSideProps = async (
       aggregations,
       totalPages,
       routerQuery,
+      routerParams,
     },
   };
 };

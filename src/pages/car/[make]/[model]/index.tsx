@@ -23,6 +23,7 @@ import LeftSideBar from '~/components/product/LeftSideBar';
 import { IShopCategory } from '~/interfaces';
 import useLocalstorageState from '~/hooks/useLocalStorage';
 import { pageSize } from '~/config';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -72,6 +73,31 @@ function Model(props: IModelProps) {
 
   const filters = [];
   filters.push(filterCategory);
+  const router = useRouter();
+  const urlPush = {
+    pathname: `/car/${model.make.slug}/${model.slug}`,
+    query: { filters_chk: 1, brand: 'mobis,angara,mando', engine: 'd4dd,d4db' },
+  };
+
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    filterName: string,
+    itemName: string
+  ) => {
+    router.push(urlPush);
+    /* if (des.includes(itemName)) { */
+    /*   // delete from des */
+    /*   const idx = des.indexOf(itemName); */
+    /*   des.splice(idx, 1); */
+    /* } else { */
+    /*   // add to des */
+    /*   des.push(itemName); */
+    /* } */
+    /* // serialize des and dispatch */
+    /* const newFilterValues = des.join(','); */
+
+    /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
+  };
 
   return (
     <React.Fragment>
@@ -82,7 +108,10 @@ function Model(props: IModelProps) {
           <Hidden smDown>
             <Grid item xs={3}>
               <LeftSideBar>
-                <FilterWidget filters={filters} />
+                <FilterWidget
+                  filters={filters}
+                  handleChange={handleFilterChange}
+                />
               </LeftSideBar>
             </Grid>
           </Hidden>
