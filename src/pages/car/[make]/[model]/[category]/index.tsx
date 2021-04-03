@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import {
+  shopDeleteFilter,
   shopProductLoading,
   shopResetFilter,
   shopSetFilterVlue,
@@ -166,22 +167,6 @@ export default function Cagetory(props: CategoryProps) {
   filters.push();
   // ************************** End filters *********************
 
-  // Makes url for filters and other stuff
-  const finalUrl = makeFiltersQueryString(fils, model.slug, category.slug);
-  useEffect(() => {
-    for (const [key, value] of Object.entries(fils)) {
-      if (value === '') {
-        /// this causet to error
-        dispatch(shopResetFilter(key));
-      }
-    }
-  }, [fils]);
-  /* console.log(fils); */
-
-  /* const filSlug = options.slug; */
-
-  /* const des = filters[filSlug] ? filters[filSlug].split(',') : []; */
-
   interface IActiveFilter {
     filterSlug: string;
     filterValues: string[];
@@ -189,36 +174,53 @@ export default function Cagetory(props: CategoryProps) {
 
   const possibleFilters: string[] = filters.map((item: IFilter) => item.slug);
 
-  const activeFilters: IActiveFilter[] = [];
-  for (const [key, value] of Object.entries(routerQuery)) {
-    if (!routerParams.hasOwnProperty(key)) {
-      console.log(key);
-      if (
-        possibleFilters.includes(key) ||
-        key === 'filters_chk' ||
-        key === 'page'
-      ) {
-        if (key === 'page') {
-          continue;
+  // Getting filters from state redux
+  const filtersFromStore = useSelector(
+    (state: IState) => state.shopNew.filters
+  );
+
+  let activeFilters: IActiveFilter[] = [];
+  if (Object.keys(filtersFromStore).length) {
+    for (const [key, value] of Object.entries(filtersFromStore)) {
+      activeFilters.push({
+        filterSlug: key,
+        filterValues: value.split(','),
+      });
+    }
+  } else {
+    for (const [key, value] of Object.entries(routerQuery)) {
+      if (!routerParams.hasOwnProperty(key)) {
+        if (
+          possibleFilters.includes(key) ||
+          key === 'filters_chk' ||
+          key === 'page'
+        ) {
+          if (key === 'page') {
+            continue;
+          }
+          if (value !== '') {
+            activeFilters.push({
+              filterSlug: key,
+              filterValues: value.split(','),
+            });
+          }
+        } else {
+          const e = new Error(
+            'Some bullshit in query strint here the point to make redirect to 404'
+          );
+          throw e;
         }
-        activeFilters.push({
-          filterSlug: key,
-          filterValues: value.split(','),
-        });
-      } else {
-        const e = new Error(
-          'Some bullshit in query strint here the point to make redirect to 404'
-        );
-        throw e;
       }
     }
   }
-  console.log(activeFilters);
+
+  // Putting filters from url to store
   useEffect(() => {
-    for (const filter of activeFilters) {
-      dispatch(
-        shopSetFilterVlue(filter.filterSlug, filter.filterValues.join(','))
-      );
+    if (!Object.keys(filtersFromStore).length) {
+      for (const filter of activeFilters) {
+        const fvalues = filter.filterValues.join(',');
+        dispatch(shopSetFilterVlue(filter.filterSlug, fvalues));
+      }
     }
   }, []);
 
@@ -227,8 +229,6 @@ export default function Cagetory(props: CategoryProps) {
     filterName: string,
     itemName: string
   ) => {
-    dispatch(shopSetFilterVlue(filterName, itemName));
-
     if (
       activeFilters.length &&
       activeFilters.filter((item) => item.filterSlug === filterName).length > 0
@@ -262,13 +262,22 @@ export default function Cagetory(props: CategoryProps) {
       }
     }
 
+    for (const item of activeFilters) {
+      if (item.filterValues.length) {
+        dispatch(
+          shopSetFilterVlue(item.filterSlug, item.filterValues.join(','))
+        );
+      } else {
+        console.log('here is empty string', item.filterValues);
+        dispatch(shopDeleteFilter(item.filterSlug));
+      }
+    }
     const urlPush = {
       pathname: mainUrl,
       query: {
         ...params,
       },
     };
-    console.log(urlPush);
     router.push(urlPush);
   };
 
@@ -277,6 +286,9 @@ export default function Cagetory(props: CategoryProps) {
       <CategoryHead model={model} category={category} />
       <AnimationPage>
         <Grid container>
+          <div onClick={() => dispatch(shopResetFilter('brand', 'pos'))}>
+            click
+          </div>
           <PageHeader header={header} breads={breads} count={stateCount} />
           <Hidden smDown>
             <Grid item xs={3}>

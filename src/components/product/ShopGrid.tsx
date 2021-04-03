@@ -25,6 +25,17 @@ import { useRouter } from 'next/router';
 import url from '~/services/url';
 import { asString } from '~/helpers';
 
+interface ITransFilter {
+  [key: string]: string;
+}
+
+const transFilter: ITransFilter = {
+  engine: 'Двигатель',
+  brand: 'Бренд',
+  price: 'Цена',
+  badge: 'Бейдж',
+};
+
 interface IProps {
   products: IProductElasticHitsSecond[];
   totalPages?: number;
@@ -147,6 +158,8 @@ export default function ShopGrid({ products, totalPages = 15 }: IProps) {
       },
       deleteChip: {
         marginRight: theme.spacing(1),
+        marginTop: theme.spacing(0.25),
+        marginBottom: theme.spacing(0.25),
       },
       dividerBox: {
         position: 'absolute',
@@ -209,8 +222,8 @@ export default function ShopGrid({ products, totalPages = 15 }: IProps) {
   const handleList = () => {
     dispatch({ type: SET_SHOP_GRID, payload: 'list' });
   };
-  const handleDeleteFilter = (filterSlug: string) => {
-    dispatch(shopResetFilter(filterSlug));
+  const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
+    dispatch(shopResetFilter(filterSlug, filterValue));
   };
   const handleDeleteFilters = () => {
     dispatch(shopResetFilters());
@@ -326,26 +339,32 @@ export default function ShopGrid({ products, totalPages = 15 }: IProps) {
               </Typography>
               <Box className={classes.filtersBox}>
                 {Object.entries(filters).map((fil: any) => {
-                  return (
-                    <Chip
-                      key={fil[0]}
-                      className={classes.deleteChip}
-                      variant="outlined"
-                      size="small"
-                      label={capitalize(fil[0])}
-                      onDelete={() => {
-                        handleDeleteFilter(fil[0]);
-                      }}
-                      onClick={() => {
-                        handleDeleteFilter(fil[0]);
-                      }}
-                    />
-                  );
+                  return fil[1].split(',').map((elem: string) => {
+                    return (
+                      <Chip
+                        key={elem}
+                        className={classes.deleteChip}
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                        label={`${capitalize(
+                          transFilter[fil[0]]
+                        )}: ${capitalize(elem)}`}
+                        onDelete={() => {
+                          handleDeleteFilter(fil[0], elem);
+                        }}
+                        onClick={() => {
+                          handleDeleteFilter(fil[0], elem);
+                        }}
+                      />
+                    );
+                  });
                 })}
                 <Chip
                   className={classes.deleteChip}
                   variant="outlined"
                   size="small"
+                  color="secondary"
                   label="Очистить Все"
                   onDelete={handleDeleteFilters}
                   onClick={handleDeleteFilters}

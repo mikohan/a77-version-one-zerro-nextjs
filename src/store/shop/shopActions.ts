@@ -2,11 +2,13 @@ import {
   SHOP_SET_FILTER_VALUE,
   SHOP_RESET_FILTER,
   SHOP_RESET_FILTERS,
+  SHOP_PRODUCTS_LIST_LOADING,
+  SHOP_DELETE_FILTER,
   ShopSetFilterValueAction,
   ShopResetFilterAction,
   ShopResetFiltersAction,
+  ShopDeleteFilterAction,
   ShopProductLoadingAction,
-  SHOP_PRODUCTS_LIST_LOADING,
 } from '~/store/shop/shopTypes';
 
 export function shopSetFilterVlue(
@@ -20,9 +22,19 @@ export function shopSetFilterVlue(
   };
 }
 
-export function shopResetFilter(filterSlug: string): ShopResetFilterAction {
+export function shopResetFilter(
+  filterSlug: string,
+  filterValue: string
+): ShopResetFilterAction {
   return {
     type: SHOP_RESET_FILTER,
+    filterSlug,
+    filterValue,
+  };
+}
+export function shopDeleteFilter(filterSlug: string): ShopDeleteFilterAction {
+  return {
+    type: SHOP_DELETE_FILTER,
     filterSlug,
   };
 }

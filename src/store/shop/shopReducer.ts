@@ -1,7 +1,7 @@
-import { IActiveFilter } from '~/interfaces/filters';
 import {
   IShopState,
   ShopProductLoadingAction,
+  SHOP_DELETE_FILTER,
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_RESET_FILTER,
   SHOP_RESET_FILTERS,
@@ -9,7 +9,7 @@ import {
 import { IFilterValues } from '~/interfaces/list';
 import {
   ShopResetFilterAction,
-  ShopResetFiltersAction,
+  ShopDeleteFilterAction,
   ShopSetFilterValueAction,
   SHOP_SET_FILTER_VALUE,
   ShopAction,
@@ -30,6 +30,7 @@ export function shopReducerSetFilterValue(
   action: ShopSetFilterValueAction
 ): IShopState {
   const currentFilters = { ...state.filters };
+  console.log(currentFilters, action.value);
   let filters: IFilterValues;
 
   if (action.value != null) {
@@ -45,9 +46,9 @@ export function shopReducerSetFilterValue(
   };
 }
 
-function shopReducerResetFilter(
+function shopReducerDeleteFilter(
   state: IShopState,
-  action: ShopResetFilterAction
+  action: ShopDeleteFilterAction
 ): IShopState {
   const { filters } = state;
   delete filters[action.filterSlug];
@@ -57,6 +58,33 @@ function shopReducerResetFilter(
     filters: newFilters,
   };
 }
+
+function shopReducerResetFilter(
+  state: IShopState,
+  action: ShopResetFilterAction
+): IShopState {
+  const { filters } = state;
+  const filter = filters[action.filterSlug];
+  const fArr = filter.split(',');
+  if (fArr.length) {
+    const idx = fArr.indexOf(action.filterValue);
+    fArr.splice(idx, 1);
+    // make filter again
+    if (fArr.length > 0) {
+      filters[action.filterSlug] = fArr.join(',');
+    } else {
+      delete filters[action.filterSlug];
+    }
+  } else {
+    delete filters[action.filterSlug];
+  }
+  const newFilters = Object.assign({}, filters);
+  return {
+    ...state,
+    filters: newFilters,
+  };
+}
+
 function shopReducerResetFilters(state: IShopState): IShopState {
   return {
     ...state,
@@ -87,6 +115,8 @@ export function shopReducer(
       return shopReducerResetFilter(state, action);
     case SHOP_RESET_FILTERS:
       return shopReducerResetFilters(state);
+    case SHOP_DELETE_FILTER:
+      return shopReducerDeleteFilter(state, action);
     default:
       return state;
   }
