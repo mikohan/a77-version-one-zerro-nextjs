@@ -15,6 +15,8 @@ import { useRouter } from 'next/router';
 import { asString } from '~/helpers';
 import { ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
+import { useDispatch } from 'react-redux';
+import { shopResetFilters } from '~/store/shop/shopActions';
 
 interface Props {
   options: ICategoryFilter;
@@ -61,6 +63,7 @@ function FilterCategory(props: Props) {
   const { options } = props;
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { make, model } = router.query;
   const carMake = asString(make as string);
@@ -74,6 +77,9 @@ function FilterCategory(props: Props) {
     if (i === parents.length - 2) {
       break;
     }
+  }
+  function handleClearFilters() {
+    dispatch(shopResetFilters());
   }
   return (
     <Box className={classes.root}>
@@ -103,6 +109,7 @@ function FilterCategory(props: Props) {
         {options.items.map((item: any) => (
           <ListItem disableGutters key={item.id}>
             <AppLink
+              onClick={handleClearFilters}
               className={classes.nameCount}
               href={url.category(make, model, item.slug)}
             >

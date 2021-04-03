@@ -99,6 +99,11 @@ function Model(props: IModelProps) {
     /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
   };
 
+  const filtersResetHandlers = {
+    handleDeleteFilter: (filter: string, value: string): void => {},
+    handleDeleteFilters: (): void => {},
+  };
+
   return (
     <React.Fragment>
       <CarModelHead model={model} />
@@ -117,7 +122,11 @@ function Model(props: IModelProps) {
           </Hidden>
           <Grid item xs={12} md={9}>
             <Grid item xs={12}>
-              <ShopGrid products={products.hits} totalPages={totalPages} />
+              <ShopGrid
+                products={products.hits}
+                totalPages={totalPages}
+                filtersResetHandlers={filtersResetHandlers}
+              />
             </Grid>
           </Grid>
         </Grid>

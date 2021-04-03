@@ -33,6 +33,10 @@ function Make(props: ICarProps) {
   ];
   const makeName = capitalize(make.name);
   const header = `Запчасти для ${makeName}`;
+  const filtersResetHandlers = {
+    handleDeleteFilter: (filter: string, value: string): void => {},
+    handleDeleteFilters: (): void => {},
+  };
 
   return (
     <React.Fragment>
@@ -49,7 +53,12 @@ function Make(props: ICarProps) {
           </Hidden>
           <Grid item xs={12} md={9}>
             <Grid item xs={12}>
-              {<ShopGrid products={products.hits} />}
+              {
+                <ShopGrid
+                  products={products.hits}
+                  filtersResetHandlers={filtersResetHandlers}
+                />
+              }
             </Grid>
           </Grid>
         </Grid>
