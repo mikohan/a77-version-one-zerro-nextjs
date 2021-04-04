@@ -108,5 +108,4 @@ export type IActiveFilter =
   | IActiveFilterCheck
   | IActiveFilterRadio
   | IActiveFilterRating
-  | IActiveFilterColor
-  | IActiveFilterMy;
+  | IActiveFilterColor;

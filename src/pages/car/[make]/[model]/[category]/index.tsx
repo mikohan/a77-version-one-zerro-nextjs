@@ -163,7 +163,7 @@ export default function Cagetory(props: CategoryProps) {
       }
     }
   }
-  const sortedFilters = orderFilters(filters, filtersConf);
+  const sortedFilters: IFilter[] = orderFilters(filters, filtersConf);
   /* filters.push(); */
   // ************************** End filters *********************
 

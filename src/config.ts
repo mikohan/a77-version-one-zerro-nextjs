@@ -46,6 +46,7 @@ export const prodCardSize = 225;
 export const defaultShopPageLayout = 'grid';
 export const pageSize = 20;
 
+// Define order of rendering filters on page
 export const filtersConf = ['category', 'price', 'brand', 'engine', 'bages'];
 
 export const transFilter: ITransFilter = {

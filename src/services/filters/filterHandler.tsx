@@ -67,11 +67,20 @@ export function makePushUrl(
   router.push(urlPush);
 }
 
-export function orderFilters(filters: IFilter[], filtersConf: string[]) {
-  const newFilters = [];
+export function orderFilters(
+  filters: IFilter[],
+  filtersConf: string[]
+): IFilter[] {
+  let newFilters: IFilter[] = [];
   for (const item of filtersConf) {
     const find = filters.find((i: IFilter) => i.slug === item);
-    newFilters.push(find);
+    if (find) {
+      newFilters.push(find);
+    }
   }
-  return newFilters;
+  if (newFilters.length > 0) {
+    return newFilters;
+  } else {
+    return filters;
+  }
 }
