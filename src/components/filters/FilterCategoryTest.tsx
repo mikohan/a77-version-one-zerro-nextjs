@@ -84,10 +84,24 @@ function FilterCategory(props: Props) {
   return (
     <Box className={classes.root}>
       <List dense>
+        <AppLink
+          href={url.model(carMake, carModel)}
+          onClick={handleClearFilters}
+        >
+          <ListItem className={classes.listItemParent}>
+            <ListItemIcon className={classes.listItemIcon}>
+              <ArrowBackIosIcon className={classes.arrowBack} />
+            </ListItemIcon>
+            <Typography className={classes.categoryName} variant="body2">
+              {capitalize(carMake)} {capitalize(carModel)}
+            </Typography>
+          </ListItem>
+        </AppLink>
         {exceptLast.map((item: ICategory) => (
           <AppLink
             key={item.id}
             href={url.category(carMake, carModel, item.slug)}
+            onClick={handleClearFilters}
           >
             <ListItem className={classes.listItemParent} key={item.id}>
               <ListItemIcon className={classes.listItemIcon}>
