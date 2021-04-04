@@ -4,9 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filters';
 import Box from '@material-ui/core/Box';
-import { useDispatch, useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
-import { shopSetFilterVlue } from '~/store/shop/shopActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,26 +28,30 @@ interface IProps {
     filter: IRangeFilter;
     value: IRangeFilterValue;
   }) => void;
+  handleChange(e: object, filterName: string, filterItem: string): void;
 }
 
 function valuetext(value: number) {
   return `${value}°C`;
 }
 
-export default function RangeSlider({ options, value, onChangeValue }: IProps) {
+export default function RangeSlider({ options, handleChange }: IProps) {
   const classes = useStyles();
   const [localValue, setLocalValue] = React.useState<number[]>(options.value);
-  const filters: any = useSelector((state: IState) => state.shopNew.filters);
-  const dispatch = useDispatch();
 
-  const handleDispatch = (event: any, newValue: number | number[]) => {
-    const nv = newValue as number[];
-    const string = nv.join(',');
-    dispatch(shopSetFilterVlue('price', string));
-  };
-
-  const handleChange = (event: any, newValue: number | number[]) => {
+  const handleLocalChange = (event: any, newValue: number | number[]) => {
     setLocalValue(newValue as number[]);
+  };
+  const handleRemoteChange = (
+    event: object,
+    newValue: number | number[]
+  ): void => {
+    // some stuff(e, newValue) =>
+    console.log(newValue);
+    if (Array.isArray(newValue)) {
+      const newV = newValue.join('-');
+      handleChange(event, options.slug, newV);
+    }
   };
 
   return (
@@ -60,8 +61,8 @@ export default function RangeSlider({ options, value, onChangeValue }: IProps) {
         min={options.min}
         max={options.max}
         value={localValue}
-        onChange={handleChange}
-        onChangeCommitted={handleDispatch}
+        onChange={handleLocalChange}
+        onChangeCommitted={(e, newValue) => handleRemoteChange(e, newValue)}
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"
         getAriaValueText={valuetext}

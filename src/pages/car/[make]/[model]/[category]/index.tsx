@@ -226,28 +226,40 @@ export default function Cagetory(props: CategoryProps) {
     filterName: string,
     itemName: string
   ) => {
-    if (
-      activeFilters.length &&
-      activeFilters.filter((item) => item.filterSlug === filterName).length > 0
-    ) {
-      const clickedFilter = activeFilters?.findIndex(
-        (filter: IActiveFilterMy) => filter.filterSlug === filterName
+    if (filterName === 'price') {
+      const idx = activeFilters.findIndex(
+        (item: IActiveFilterMy) => item.filterSlug === 'price'
       );
-      const activeFilter = activeFilters[clickedFilter];
-      if (activeFilter.filterValues.includes(itemName)) {
-        // delete from des
-        const idx = activeFilter.filterValues.indexOf(itemName);
-        activeFilter.filterValues.splice(idx, 1);
+      if (idx === -1) {
+        activeFilters.push({ filterSlug: 'price', filterValues: [itemName] });
       } else {
-        // add to des
-        activeFilter.filterValues.push(itemName);
+        activeFilters[idx].filterValues = [itemName];
       }
-      activeFilters[clickedFilter] = activeFilter;
     } else {
-      activeFilters.push({
-        filterSlug: filterName,
-        filterValues: [itemName],
-      });
+      if (
+        activeFilters.length &&
+        activeFilters.filter((item) => item.filterSlug === filterName).length >
+          0
+      ) {
+        const clickedFilter = activeFilters?.findIndex(
+          (filter: IActiveFilterMy) => filter.filterSlug === filterName
+        );
+        const activeFilter = activeFilters[clickedFilter];
+        if (activeFilter.filterValues.includes(itemName)) {
+          // delete from des
+          const idx = activeFilter.filterValues.indexOf(itemName);
+          activeFilter.filterValues.splice(idx, 1);
+        } else {
+          // add to des
+          activeFilter.filterValues.push(itemName);
+        }
+        activeFilters[clickedFilter] = activeFilter;
+      } else {
+        activeFilters.push({
+          filterSlug: filterName,
+          filterValues: [itemName],
+        });
+      }
     }
     // Call redirect
     makePushUrl(router, dispatch, activeFilters, model, category);

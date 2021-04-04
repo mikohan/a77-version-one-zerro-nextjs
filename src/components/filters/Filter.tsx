@@ -78,7 +78,11 @@ function Filter(props: IProps) {
             />
           )}
           {filter.type === 'range' && (
-            <FilterSlider value={[400, 5000]} options={filter} />
+            <FilterSlider
+              value={[400, 5000]}
+              options={filter}
+              handleChange={handleChange}
+            />
           )}
         </Collapse>
       </Box>
