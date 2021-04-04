@@ -8,6 +8,7 @@ import { Hidden } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN } from '~/config';
 import { footerData as data } from '~/config';
+import Container from '@material-ui/core/Container';
 interface IPropsCopyright {
   className?: string;
 }
@@ -35,12 +36,24 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: 0,
       },
     },
+    contentBox: {
+      border: '1px solid pink',
+      [theme.breakpoints.down('lg')]: {
+        paddingLeft: theme.spacing(10),
+        paddingRight: theme.spacing(10),
+      },
+      [theme.breakpoints.up('xl')]: {
+        paddingLeft: theme.spacing(20),
+        paddingRight: theme.spacing(20),
+      },
+    },
     root: {
       flexGrow: 1,
     },
     wrapper: {
       '& > div': {
-        padding: theme.spacing(5),
+        paddingTop: theme.spacing(5),
+        paddingBottom: theme.spacing(5),
       },
       display: 'grid',
       gridTemplateColumns: '3fr 1fr 1fr 2fr',
@@ -135,133 +148,144 @@ export default function StickyFooter() {
   return (
     <footer className={classes.footer}>
       <div className={classes.root}>
-        <div className={classes.wrapper}>
-          <div>
-            <address className={classes.address}>
-              <Typography className={classes.sectionHeader} variant="h5">
-                КОНТАКТЫ
-              </Typography>
-              <Typography className={classes.sectionSubheader} variant="body1">
-                {data.SHOP_CONTACT_TEXT}
-              </Typography>
-              <div className={classes.cellGrid}>
-                <dl>
-                  <dt>ТЕЛЕФОН</dt>
-                  <dd>
-                    <a href="tel:74956469953">{data.SHOP_PHONE}</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>АДРЕС</dt>
-                  <dd>{data.SHOP_ADDRESS}</dd>
-                </dl>
-                <dl>
-                  <dt>EMAIL ADDRESS</dt>
-                  <dd>
-                    <a
-                      href="mailto:angara77@gmail.com"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {data.SHOP_EMAIL}
-                    </a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>ГРАФИК РАБОТЫ</dt>
-                  <dd>{data.SHOP_WORKING_HOURS}</dd>
-                </dl>
-              </div>
-            </address>
-          </div>
-          <Hidden smDown>
-            <Hidden mdDown>
-              <div>
+        <div className={classes.contentBox}>
+          <div className={classes.wrapper}>
+            <div>
+              <address className={classes.address}>
                 <Typography className={classes.sectionHeader} variant="h5">
-                  ИНФОРМАЦИЯ
+                  КОНТАКТЫ
                 </Typography>
-                <List>
-                  <ListItem>DELIVERY</ListItem>
-                  <ListItem>ORDER</ListItem>
-                  <ListItem>RETURNS</ListItem>
-                  <ListItem>PRIVATE POLICY</ListItem>
-                  <ListItem>SITE MAP</ListItem>
-                </List>
-              </div>
-            </Hidden>
-            <div>
-              <Typography
-                className={classes.sectionHeader}
-                variant="h5"
-              >{`\{INFORMATION\} `}</Typography>
-              <List>
-                <Link href="/about">
-                  <ListItem>
-                    <a>ABOUT US</a>
-                  </ListItem>
-                </Link>
-                <Link href="/contacts">
-                  <ListItem>
-                    <a>CONTACTS</a>
-                  </ListItem>
-                </Link>
-                <Link href="/car">
-                  <ListItem>
-                    <a>CARS</a>
-                  </ListItem>
-                </Link>
-                <Link href="/grid">
-                  <ListItem>
-                    <a>MAKES</a>
-                  </ListItem>
-                </Link>
-              </List>
-            </div>
-            <div>
-              <Typography
-                className={classes.sectionHeader}
-                variant="h5"
-              >{`\{FOLLOW US\} `}</Typography>
-              <Typography className={classes.sectionSubheader} variant="body1">
-                Hi, we are always open for cooperation and suggestions, contact
-                us in one of the ways below:
-              </Typography>
-              <div>
                 <Typography
                   className={classes.sectionSubheader}
                   variant="body1"
                 >
-                  Follow us on social media
+                  {data.SHOP_CONTACT_TEXT}
                 </Typography>
-                <div className={classes.socialMedia}>
-                  <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
-                    <a rel="noopener noreferrer" target="_blank">
-                      <img src="/images/local/yt.svg" alt="YouTube icon" />
-                      <div></div>
-                    </a>
+                <div className={classes.cellGrid}>
+                  <dl>
+                    <dt>ТЕЛЕФОН</dt>
+                    <dd>
+                      <a href="tel:74956469953">{data.SHOP_PHONE}</a>
+                    </dd>
+                  </dl>
+                  <dl>
+                    <dt>АДРЕС</dt>
+                    <dd>{data.SHOP_ADDRESS}</dd>
+                  </dl>
+                  <dl>
+                    <dt>EMAIL ADDRESS</dt>
+                    <dd>
+                      <a
+                        href="mailto:angara77@gmail.com"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        {data.SHOP_EMAIL}
+                      </a>
+                    </dd>
+                  </dl>
+                  <dl>
+                    <dt>ГРАФИК РАБОТЫ</dt>
+                    <dd>{data.SHOP_WORKING_HOURS}</dd>
+                  </dl>
+                </div>
+              </address>
+            </div>
+            <Hidden smDown>
+              <Hidden mdDown>
+                <div>
+                  <Typography className={classes.sectionHeader} variant="h5">
+                    ИНФОРМАЦИЯ
+                  </Typography>
+                  <List>
+                    <ListItem>DELIVERY</ListItem>
+                    <ListItem>ORDER</ListItem>
+                    <ListItem>RETURNS</ListItem>
+                    <ListItem>PRIVATE POLICY</ListItem>
+                    <ListItem>SITE MAP</ListItem>
+                  </List>
+                </div>
+              </Hidden>
+              <div>
+                <Typography
+                  className={classes.sectionHeader}
+                  variant="h5"
+                >{`\{INFORMATION\} `}</Typography>
+                <List>
+                  <Link href="/about">
+                    <ListItem>
+                      <a>ABOUT US</a>
+                    </ListItem>
                   </Link>
-                  <Link href="https://vk.com/angara772018">
-                    <a rel="noopener noreferrer" target="_blank">
-                      <img src="/images/local/vk.svg" alt="V kontacte icon" />
-                      <div></div>
-                    </a>
+                  <Link href="/contacts">
+                    <ListItem>
+                      <a>CONTACTS</a>
+                    </ListItem>
                   </Link>
-                  <Link href="https://ok.ru/group/52962919973041">
-                    <a rel="noopener noreferrer" target="_blank">
-                      <img src="/images/local/ok.svg" alt="Odnoklasniki icon" />
-                      <div></div>
-                    </a>
+                  <Link href="/car">
+                    <ListItem>
+                      <a>CARS</a>
+                    </ListItem>
                   </Link>
-                  <Link href="https://www.facebook.com/groups/angara77/">
-                    <a rel="noopener noreferrer" target="_blank">
-                      <img src="/images/local/fb.svg" alt="Facebook icon" />
-                      <div></div>
-                    </a>
+                  <Link href="/grid">
+                    <ListItem>
+                      <a>MAKES</a>
+                    </ListItem>
                   </Link>
+                </List>
+              </div>
+              <div>
+                <Typography
+                  className={classes.sectionHeader}
+                  variant="h5"
+                >{`\{FOLLOW US\} `}</Typography>
+                <Typography
+                  className={classes.sectionSubheader}
+                  variant="body1"
+                >
+                  Hi, we are always open for cooperation and suggestions,
+                  contact us in one of the ways below:
+                </Typography>
+                <div>
+                  <Typography
+                    className={classes.sectionSubheader}
+                    variant="body1"
+                  >
+                    Follow us on social media
+                  </Typography>
+                  <div className={classes.socialMedia}>
+                    <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
+                      <a rel="noopener noreferrer" target="_blank">
+                        <img src="/images/local/yt.svg" alt="YouTube icon" />
+                        <div></div>
+                      </a>
+                    </Link>
+                    <Link href="https://vk.com/angara772018">
+                      <a rel="noopener noreferrer" target="_blank">
+                        <img src="/images/local/vk.svg" alt="V kontacte icon" />
+                        <div></div>
+                      </a>
+                    </Link>
+                    <Link href="https://ok.ru/group/52962919973041">
+                      <a rel="noopener noreferrer" target="_blank">
+                        <img
+                          src="/images/local/ok.svg"
+                          alt="Odnoklasniki icon"
+                        />
+                        <div></div>
+                      </a>
+                    </Link>
+                    <Link href="https://www.facebook.com/groups/angara77/">
+                      <a rel="noopener noreferrer" target="_blank">
+                        <img src="/images/local/fb.svg" alt="Facebook icon" />
+                        <div></div>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Hidden>
+            </Hidden>
+          </div>
         </div>
         <Hidden smDown>
           <div className={classes.bottomLine}>

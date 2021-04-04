@@ -69,8 +69,6 @@ export default function Cagetory(props: CategoryProps) {
   } = props;
   const router = useRouter();
 
-  const [stateAggregations, setStateAggragations] = useState(aggregations);
-
   const fils = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
 
@@ -137,11 +135,11 @@ export default function Cagetory(props: CategoryProps) {
   let minPrice: number = 0;
   let maxPrice: number = 0;
   if (
-    stateAggregations.hasOwnProperty('min_price') &&
-    stateAggregations.hasOwnProperty('max_price')
+    aggregations.hasOwnProperty('min_price') &&
+    aggregations.hasOwnProperty('max_price')
   ) {
-    minPrice = stateAggregations.min_price.value as number;
-    maxPrice = stateAggregations.max_price.value as number;
+    minPrice = aggregations.min_price.value as number;
+    maxPrice = aggregations.max_price.value as number;
   }
 
   const price: IFilter = {
