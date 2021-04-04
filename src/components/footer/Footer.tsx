@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     contentBox: {
-      border: '1px solid pink',
       [theme.breakpoints.down('lg')]: {
         paddingLeft: theme.spacing(10),
         paddingRight: theme.spacing(10),
