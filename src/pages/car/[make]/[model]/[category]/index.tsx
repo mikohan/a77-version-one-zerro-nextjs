@@ -71,7 +71,6 @@ export default function Cagetory(props: CategoryProps) {
 
   const [stateAggregations, setStateAggragations] = useState(aggregations);
 
-  const [stateCount, setStateCount] = useState(products.total.value);
   const fils = useSelector((state: IState) => state.shopNew.filters);
   const dispatch = useDispatch();
 
@@ -79,6 +78,7 @@ export default function Cagetory(props: CategoryProps) {
   const makeName = capitalize(model.make.name);
   const catName = capitalize(category.name);
   const header = `${catName} на  ${makeName} ${modelName}`;
+  const count = products.total.value;
 
   const orderedCatBreads = catPath.sort(OrderBreads);
   const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({
@@ -291,7 +291,7 @@ export default function Cagetory(props: CategoryProps) {
           <div onClick={() => dispatch(shopResetFilter('brand', 'pos'))}>
             click
           </div>
-          <PageHeader header={header} breads={breads} count={stateCount} />
+          <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
             <Grid item xs={3}>
               <LeftSideBar>
@@ -385,11 +385,10 @@ export const getServerSideProps: GetServerSideProps = async (
       }
       filUrl += `${filter}=${value}${amp}`;
     });
-    url = `?make=${make}&model=${model}&category=${category}&${filUrl}?&page_from=${page_from}&page_size=${pageSize}`;
+    url = `?model=${model}&category=${category}&${filUrl}&page_from=${page_from}&page_size=${pageSize}`;
   } else {
-    url = `?make=${make}&model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
+    url = `?model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
-  console.log(url);
   const promise = await getProductsByFilters(url);
 
   /* const promise = await getProductsByCar( */
