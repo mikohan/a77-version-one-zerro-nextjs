@@ -115,6 +115,13 @@ export default function Cagetory(props: CategoryProps) {
   );
   const brands = brandsClass.buildFilter();
   // llllllllllllllllllllllllll
+  const photoClass = new CheckFilterBulder(
+    'Фото',
+    'has_photo',
+    aggregations.has_photo.buckets,
+    getInitVals('has_photo')
+  );
+  const has_photo = photoClass.buildFilter();
 
   const filterEngine = new CheckFilterBulder(
     'Двигатель',
@@ -151,7 +158,12 @@ export default function Cagetory(props: CategoryProps) {
     max: maxPrice,
   };
 
-  const bucketsFilters: { [key: string]: IFilter } = { brands, engines, bages };
+  const bucketsFilters: { [key: string]: IFilter } = {
+    brands,
+    engines,
+    bages,
+    has_photo,
+  };
   const filters: IFilter[] = [categoriesFilter, price];
 
   for (const [key, value] of Object.entries(aggregations)) {
@@ -162,6 +174,7 @@ export default function Cagetory(props: CategoryProps) {
     }
   }
   const sortedFilters: IFilter[] = orderFilters(filters, filtersConf);
+  console.log(sortedFilters);
   /* filters.push(); */
   // ************************** End filters *********************
 

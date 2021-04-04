@@ -47,11 +47,19 @@ export const defaultShopPageLayout = 'grid';
 export const pageSize = 20;
 
 // Define order of rendering filters on page
-export const filtersConf = ['category', 'price', 'brand', 'engine', 'bages'];
+export const filtersConf = [
+  'category',
+  'price',
+  'brand',
+  'engine',
+  'has_photo',
+  'bages',
+];
 
 export const transFilter: ITransFilter = {
   engine: 'Двигатель',
   brand: 'Бренд',
   price: 'Цена',
   bages: 'Теги',
+  has_photo: 'Фото',
 };

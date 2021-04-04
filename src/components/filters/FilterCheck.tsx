@@ -71,7 +71,21 @@ export default function CheckboxLabels({
   return (
     <FormGroup className={classes.container}>
       {items.map((item: any) => {
-        const iName = item.name.toLowerCase();
+        let iName = '';
+        let lName = '';
+        if (typeof item.name !== 'string') {
+          iName = item.name.toString();
+          if (options.slug === 'has_photo') {
+            if (iName === '1') {
+              lName = 'Есть';
+            } else {
+              lName = 'Нет';
+            }
+          }
+        } else {
+          iName = item.name.toLowerCase();
+          lName = iName;
+        }
         return (
           <Box className={classes.box} key={item.name}>
             <FormControlLabel
@@ -88,7 +102,7 @@ export default function CheckboxLabels({
               label={
                 <Box className={classes.name}>
                   <Typography variant="body2" className={classes.itemName}>
-                    {item.name.toUpperCase()}
+                    {lName.toUpperCase()}
                   </Typography>
                   <Typography variant="body2" className={classes.itemCount}>
                     {item.count}
