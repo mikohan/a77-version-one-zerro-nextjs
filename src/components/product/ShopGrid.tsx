@@ -23,17 +23,7 @@ import ProductCardListSkeleton from './ProductCardListSkeleton';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
 import { asString } from '~/helpers';
-
-interface ITransFilter {
-  [key: string]: string;
-}
-
-const transFilter: ITransFilter = {
-  engine: 'Двигатель',
-  brand: 'Бренд',
-  price: 'Цена',
-  badge: 'Бейдж',
-};
+import { transFilter } from '~/config';
 
 interface IProps {
   products: IProductElasticHitsSecond[];

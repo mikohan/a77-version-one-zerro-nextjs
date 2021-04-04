@@ -1,3 +1,4 @@
+import { ITransFilter } from '~/interfaces';
 export * from '~/data/shopData';
 
 export const apiUrl = 'http://localhost:8000/testcategory/';
@@ -44,3 +45,10 @@ export const SITE_DOMAIN_FULL = 'https://angara77.com';
 export const prodCardSize = 225;
 export const defaultShopPageLayout = 'grid';
 export const pageSize = 20;
+
+export const transFilter: ITransFilter = {
+  engine: 'Двигатель',
+  brand: 'Бренд',
+  price: 'Цена',
+  bages: 'Теги',
+};

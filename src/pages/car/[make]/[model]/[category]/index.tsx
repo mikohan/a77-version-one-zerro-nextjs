@@ -124,12 +124,14 @@ export default function Cagetory(props: CategoryProps) {
   );
   const engines = filterEngine.buildFilter();
   //////////////////////////////////////////
-  const bages = new CheckFilterBulder(
+  console.log(aggregations.bages.buckets);
+  const filterBages = new CheckFilterBulder(
     'Теги',
     'bages',
-    stateAggregations.engines.buckets,
-    getInitVals('bages')
+    aggregations.bages.buckets,
+    getInitVals('hot')
   );
+  const bages = filterBages.buildFilter();
   // ************************** Price filters *********************
   let minPrice: number = 0;
   let maxPrice: number = 0;
@@ -150,7 +152,7 @@ export default function Cagetory(props: CategoryProps) {
     max: maxPrice,
   };
 
-  const bucketsFilters: any = { brands, bages, engines };
+  const bucketsFilters: any = { brands, engines, bages };
   const filters: IFilter[] = [categoriesFilter, price];
 
   for (const [key, value] of Object.entries(aggregations)) {
@@ -160,7 +162,7 @@ export default function Cagetory(props: CategoryProps) {
       }
     }
   }
-  filters.push();
+  /* filters.push(); */
   // ************************** End filters *********************
 
   const possibleFilters: string[] = filters.map((item: IFilter) => item.slug);

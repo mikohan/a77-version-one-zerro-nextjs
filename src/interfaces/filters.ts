@@ -99,6 +99,9 @@ export interface IActiveFilterMy {
   filterValues: string[];
 }
 
+export interface ITransFilter {
+  [key: string]: string;
+}
 export type IActiveFilter =
   | IActiveFilterVehicle
   | IActiveFilterRange
