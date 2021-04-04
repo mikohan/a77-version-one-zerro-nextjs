@@ -404,7 +404,12 @@ export default function ShopGrid({
         </Grid>
         <Grid className={classes.paginationBottom} item xs={12}>
           <Box className={classes.pageBottomPaginationBox}>
-            <Pagination count={50} color="primary" />
+            <Pagination
+              onChange={paginationHandler}
+              count={totalPages}
+              page={page}
+              color="primary"
+            />
           </Box>
         </Grid>
       </Grid>
