@@ -46,8 +46,6 @@ export default function RangeSlider({ options, handleChange }: IProps) {
     event: object,
     newValue: number | number[]
   ): void => {
-    // some stuff(e, newValue) =>
-    console.log(newValue);
     if (Array.isArray(newValue)) {
       const newV = newValue.join('-');
       handleChange(event, options.slug, newV);
