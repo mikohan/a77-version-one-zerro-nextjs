@@ -30,9 +30,6 @@ export function makePushUrl(
       params[value.filterSlug] = value.filterValues.join(',');
     }
   }
-  if (Object.keys(params).length > 0) {
-    params.filters_chk = '1';
-  }
 
   for (const item of activeFilters) {
     if (item.filterValues.length) {
