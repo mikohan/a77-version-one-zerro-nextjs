@@ -320,6 +320,26 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const routerParams = context.params;
   const routerQuery = context.query;
+  interface IQuery {
+    [key: string]: string;
+  }
+
+  // Probably needs to go ouside this file
+  function clearParams(routerQuery: IQuery, routerParams: IQuery): IQuery {
+    let retQuery = {} as IQuery;
+    for (const [key, value] of Object.entries(routerQuery)) {
+      if (!routerParams.hasOwnProperty(key) && key !== 'page') {
+        retQuery[key] = value;
+      }
+    }
+    return retQuery;
+  }
+
+  // Cleaning filters from pages and main url params
+  const filtersQuery = clearParams(
+    routerQuery as IQuery,
+    routerParams as IQuery
+  );
   const { category, make, model } = context.params!;
   const modelSlug: string = model as string;
   if (!category) {
@@ -354,12 +374,30 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const page_from = pageSize * (page - 1);
 
-  const promise = await getProductsByCar(
-    modelSlug,
-    page_from,
-    pageSize,
-    cat.slug
-  );
+  let url = '';
+
+  if (Object.entries(filtersQuery).length > 0) {
+    let filUrl = '';
+    let amp = '&';
+    Object.entries(filtersQuery).forEach(([filter, value], i) => {
+      if (i === Object.entries(filtersQuery).length - 1) {
+        amp = '';
+      }
+      filUrl += `${filter}=${value}${amp}`;
+    });
+    url = `?make=${make}&model=${model}&category=${category}&${filUrl}?&page_from=${page_from}&page_size=${pageSize}`;
+  } else {
+    url = `?make=${make}&model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
+  }
+  console.log(url);
+  const promise = await getProductsByFilters(url);
+
+  /* const promise = await getProductsByCar( */
+  /*   modelSlug, */
+  /*   page_from, */
+  /*   pageSize, */
+  /*   cat.slug */
+  /* ); */
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
