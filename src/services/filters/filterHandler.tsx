@@ -4,6 +4,7 @@ import {
   ICategory,
   IActiveFilterMy,
   IFilterQueryString,
+  IFilter,
 } from '~/interfaces';
 import { shopSetFilterVlue, shopDeleteFilter } from '~/store/shop/shopActions';
 import url from '~/services/url';
@@ -64,4 +65,13 @@ export function makePushUrl(
     },
   };
   router.push(urlPush);
+}
+
+export function orderFilters(filters: IFilter[], filtersConf: string[]) {
+  const newFilters = [];
+  for (const item of filtersConf) {
+    const find = filters.find((i: IFilter) => i.slug === item);
+    newFilters.push(find);
+  }
+  return newFilters;
 }

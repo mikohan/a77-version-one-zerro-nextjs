@@ -34,6 +34,8 @@ import { getProductsByCarModel } from '~/endpoints/productEndpoint';
 import { pageSize } from '~/config';
 import { shopResetFilters } from '~/store/shop/shopActions';
 import { makePushUrl } from '~/services/filters/filterHandler';
+import { filtersConf } from '~/config';
+import { orderFilters } from '~/services/filters/filterHandler';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -151,7 +153,7 @@ export default function Cagetory(props: CategoryProps) {
     max: maxPrice,
   };
 
-  const bucketsFilters: any = { brands, engines, bages };
+  const bucketsFilters: { [key: string]: IFilter } = { brands, engines, bages };
   const filters: IFilter[] = [categoriesFilter, price];
 
   for (const [key, value] of Object.entries(aggregations)) {
@@ -161,6 +163,7 @@ export default function Cagetory(props: CategoryProps) {
       }
     }
   }
+  const sortedFilters = orderFilters(filters, filtersConf);
   /* filters.push(); */
   // ************************** End filters *********************
 
@@ -281,7 +284,7 @@ export default function Cagetory(props: CategoryProps) {
             <Grid item xs={3}>
               <LeftSideBar>
                 <FilterWidget
-                  filters={filters}
+                  filters={sortedFilters}
                   handleChange={handleFilterChange}
                 />
               </LeftSideBar>
