@@ -122,6 +122,8 @@ export default function ComplexGrid({ product }: IProp) {
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
+  const stock = product._source.stocks.find((item: any) => item.store.id === 3);
+  const price = stock?.price;
 
   return (
     <div key={product._id} className={classes.card}>
@@ -138,7 +140,7 @@ export default function ComplexGrid({ product }: IProp) {
         </Typography>
       </div>
       <div className={classes.cardInfo}>
-        <Typography variant="h6">&#8381; 450</Typography>
+        <Typography variant="h6">&#8381; {price}</Typography>
         <div>
           <IconButton color="primary" aria-label="add to shopping cart">
             <AddShoppingCartIcon className={classes.shoppingCartIcon} />

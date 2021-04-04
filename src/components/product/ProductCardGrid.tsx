@@ -84,7 +84,6 @@ export default function ProductCardGrid({ product }: IProp) {
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
-  console.log(product._source.stocks);
   const stock = product._source.stocks.find((item: any) => item.store.id === 3);
   const price = stock?.price;
 
