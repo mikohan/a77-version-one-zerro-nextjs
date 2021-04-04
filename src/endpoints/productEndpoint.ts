@@ -49,7 +49,6 @@ export async function getProductsByFilters(
 ): Promise<IProductElasticBase> {
   const url = `${elasticApiUrl}${finalUrl}`;
   const prom = await axios(url);
-  console.log(url);
 
   return prom.data;
 }
