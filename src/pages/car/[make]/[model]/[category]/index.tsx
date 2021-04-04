@@ -124,12 +124,11 @@ export default function Cagetory(props: CategoryProps) {
   );
   const engines = filterEngine.buildFilter();
   //////////////////////////////////////////
-  console.log(aggregations.bages.buckets);
   const filterBages = new CheckFilterBulder(
     'Теги',
     'bages',
     aggregations.bages.buckets,
-    getInitVals('hot')
+    getInitVals('bages')
   );
   const bages = filterBages.buildFilter();
   // ************************** Price filters *********************
