@@ -47,7 +47,7 @@ export async function getProductsByCarModel(
 export async function getProductsByFilters(
   finalUrl: string
 ): Promise<IProductElasticBase> {
-  const url = `${elasticApiUrl}${finalUrl}`;
+  const url = encodeURI(`${elasticApiUrl}${finalUrl}`);
   const prom = await axios(url);
 
   return prom.data;
