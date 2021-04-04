@@ -28,7 +28,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { IActiveFilterMy } from '~/interfaces';
-import { shopResetFilter, shopSetFilterVlue } from '~/store/shop/shopActions';
+import { Router } from 'next/dist/client/router';
+import {
+  shopProductLoading,
+  shopResetFilter,
+  shopSetFilterVlue,
+} from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 import { getProductsByCarModel } from '~/endpoints/productEndpoint';
 import { pageSize } from '~/config';
@@ -67,10 +72,19 @@ export default function Cagetory(props: CategoryProps) {
     routerQuery,
     routerParams,
   } = props;
-  const router = useRouter();
 
   const fils = useSelector((state: IState) => state.shopNew.filters);
+  const isLoding = useSelector(
+    (state: IState) => state.shopNew.productsLoading
+  );
   const dispatch = useDispatch();
+  const router = useRouter();
+  Router.events.on('routeChangeStart', () => {
+    dispatch(shopProductLoading(true));
+  });
+  Router.events.on('routeChangeComplete', () => {
+    dispatch(shopProductLoading(false));
+  });
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
@@ -316,7 +330,10 @@ export default function Cagetory(props: CategoryProps) {
             <ShopGrid
               products={products.hits}
               totalPages={totalPages}
-              filtersResetHandlers={{ handleDeleteFilter, handleDeleteFilters }}
+              filtersResetHandlers={{
+                handleDeleteFilter,
+                handleDeleteFilters,
+              }}
             />
           </Grid>
         </Grid>
