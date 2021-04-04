@@ -84,6 +84,9 @@ export default function ProductCardGrid({ product }: IProp) {
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
+  console.log(product._source.stocks);
+  const stock = product._source.stocks.find((item: any) => item.store.id === 3);
+  const price = stock?.price;
 
   return (
     <div key={product._id} className={classes.card}>
@@ -117,7 +120,7 @@ export default function ProductCardGrid({ product }: IProp) {
         </Typography>
       </div>
       <div className={classes.cardInfo}>
-        <Typography variant="h6">$ 450.00</Typography>
+        <Typography variant="h6">&#8381; {price} </Typography>
         <div>
           <ShoppingCartOutlinedIcon className={classes.shoppingCartIcon} />
         </div>

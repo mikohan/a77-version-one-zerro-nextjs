@@ -66,7 +66,7 @@ export interface IProduct {
   video: string[];
   attributes: IProductAttribute[];
 
-  stock: IProductStock;
+  stocks: IProductStock[];
   badges?: string[];
   reviews?: number;
   tags?: string[];
