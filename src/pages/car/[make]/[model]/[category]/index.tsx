@@ -174,7 +174,6 @@ export default function Cagetory(props: CategoryProps) {
     }
   }
   const sortedFilters: IFilter[] = orderFilters(filters, filtersConf);
-  console.log(sortedFilters);
   /* filters.push(); */
   // ************************** End filters *********************
 

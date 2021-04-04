@@ -59,3 +59,12 @@ export function extractor(vehicles: ICar[]): IMake[] {
   }
   return makes;
 }
+
+export function booleanToRus(name: string): string {
+  if (name === '1') {
+    name = 'Есть';
+  } else {
+    name = 'Нет';
+  }
+  return name;
+}

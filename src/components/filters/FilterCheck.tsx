@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ICheckFilterValue } from '~/interfaces/filters';
+import { booleanToRus } from '~/helpers';
 
 // Helper functions need to refactor
 
@@ -76,11 +77,7 @@ export default function CheckboxLabels({
         if (typeof item.name !== 'string') {
           iName = item.name.toString();
           if (options.slug === 'has_photo') {
-            if (iName === '1') {
-              lName = 'Есть';
-            } else {
-              lName = 'Нет';
-            }
+            lName = booleanToRus(iName);
           }
         } else {
           iName = item.name.toLowerCase();

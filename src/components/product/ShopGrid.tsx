@@ -24,6 +24,7 @@ import { useRouter } from 'next/router';
 import url from '~/services/url';
 import { asString } from '~/helpers';
 import { transFilter } from '~/config';
+import { booleanToRus } from '~/helpers';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
@@ -339,6 +340,9 @@ export default function ShopGrid({
               <Box className={classes.filtersBox}>
                 {Object.entries(filters).map((fil: any) => {
                   return fil[1].split(',').map((elem: string) => {
+                    if (fil[0] === 'has_photo') {
+                      elem = booleanToRus(elem);
+                    }
                     return (
                       <Chip
                         key={elem}
