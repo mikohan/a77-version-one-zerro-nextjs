@@ -1,8 +1,5 @@
-import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { durationPage } from '~/config';
-import { SET_ACTIVE_PAGE } from '~/store/types';
-import { useEffect } from 'react';
 
 export default function Contacts() {
   return (
