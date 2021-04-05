@@ -12,6 +12,19 @@ import { shopSetFilterVlue, shopDeleteFilter } from '~/store/shop/shopActions';
 import url from '~/services/url';
 import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
 
+// function return cleared parms after ?
+export function clearParams(
+  routerQuery: IRouterStuff,
+  routerParams: IRouterStuff
+): IRouterStuff {
+  let retQuery = {} as IRouterStuff;
+  for (const [key, value] of Object.entries(routerQuery)) {
+    if (!routerParams.hasOwnProperty(key) && key !== 'page') {
+      retQuery[key] = value;
+    }
+  }
+  return retQuery;
+}
 // Function for redirection
 export function makePushUrl(
   router: NextRouter,
@@ -117,7 +130,7 @@ export function makeHandleFilterChange(
   router: NextRouter,
   dispatch: any,
   model: ICar,
-  category: ICategory
+  category?: ICategory
 ): (
   e: React.ChangeEvent<HTMLInputElement>,
   filterName: string,
@@ -174,7 +187,7 @@ export function makeHandleDeleteFilter(
   dispatch: any,
   activeFilters: IActiveFilterMy[],
   model: ICar,
-  category: ICategory
+  category?: ICategory
 ) {
   const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
     dispatch(shopResetFilter(filterSlug, filterValue));
@@ -195,7 +208,7 @@ export function makeHandleDeleteFilters(
   router: NextRouter,
   dispatch: any,
   model: ICar,
-  category: ICategory
+  category?: ICategory
 ) {
   const handleDeleteFilters = () => {
     dispatch(shopResetFilters());

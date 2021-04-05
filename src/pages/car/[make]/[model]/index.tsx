@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Grid from '@material-ui/core/Grid';
 
@@ -7,23 +7,39 @@ import { ICar } from '~/interfaces/ICar';
 import { IFilter } from '~/interfaces/filters';
 import AnimationPage from '~/components/common/AnimationPage';
 import { setCurrentCarAction } from '~/store/actions';
-import { getVehicle, getVehicles } from '~/endpoints/carsEndpoint';
-import { getProductsByCar } from '~/endpoints/productEndpoint';
-import { IAggregationCategory } from '~/interfaces/aggregations';
+import { getVehicle } from '~/endpoints/carsEndpoint';
+import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { capitalize, makeTree } from '~/utils';
 import { Hidden } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CarModelHead from '~/components/heads/carModelHead';
-import { IBread } from '~/interfaces';
+import { IBread, IRouterStuff } from '~/interfaces';
 import PageHeader from '~/components/product/PageHeader';
 import ShopGrid from '~/components/product/ShopGrid';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
-import { IShopCategory } from '~/interfaces';
+import { IShopCategory, IActiveFilterMy } from '~/interfaces';
+import { IState } from '~/interfaces/IState';
 import useLocalstorageState from '~/hooks/useLocalStorage';
 import { pageSize } from '~/config';
 import { useRouter } from 'next/router';
+import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
+import { createCheckFilters } from '~/services/filters/filterCreater';
+import {
+  getActiveFilters,
+  makeHandleFilterChange,
+  makeHandleDeleteFilter,
+  makeHandleDeleteFilters,
+  clearParams,
+} from '~/services/filters/filterHandler';
+import { Router } from 'next/dist/client/router';
+import {
+  shopProductLoading,
+  shopSetFilterVlue,
+  shopSetOldPrice,
+} from '~/store/shop/shopActions';
+import { asString } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -32,6 +48,9 @@ interface IModelProps {
   categories: IShopCategory[];
   products: IProductElasticHitsFirst;
   totalPages: number;
+  routerParams: IRouterStuff;
+  routerQuery: IRouterStuff;
+  aggregations: IAgregations;
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -42,7 +61,33 @@ export interface IBaseFilter<T extends string, V> {
 
 function Model(props: IModelProps) {
   const classes = useStyles();
-  const { model, categories, products, totalPages } = props;
+
+  const {
+    model,
+    categories,
+    products,
+    totalPages,
+    routerParams,
+    routerQuery,
+    aggregations,
+  } = props;
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+  Router.events.on('routeChangeStart', () => {
+    dispatch(shopProductLoading(true));
+  });
+  Router.events.on('routeChangeComplete', () => {
+    dispatch(shopProductLoading(false));
+  });
+  const filtersFromStore = useSelector(
+    (state: IState) => state.shopNew.filters
+  );
+  const [curCarLocalStorage, setCurCarLocalStorage] = useLocalstorageState(
+    'currentCar',
+    {}
+  );
+
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
   const header = `Запчасти для ${makeName} ${modelName}`;
@@ -53,17 +98,12 @@ function Model(props: IModelProps) {
     { name: model.model, path: `/car/${model.make.slug}/${model.slug}` },
   ];
 
-  const dispatch = useDispatch();
-  const [curCarLocalStorage, setCurCarLocalStorage] = useLocalstorageState(
-    'currentCar',
-    {}
-  );
   useEffect(() => {
     dispatch(setCurrentCarAction(model));
     /* setCurCarLocalStorage(model); */
   }, [model]);
 
-  const filterCategory: IFilter = {
+  const categoriesFilter: IFilter = {
     type: 'category',
     name: 'category',
     slug: 'category',
@@ -71,38 +111,73 @@ function Model(props: IModelProps) {
     items: categories,
   };
 
-  const filters = [];
-  filters.push(filterCategory);
-  const router = useRouter();
-  const urlPush = {
-    pathname: `/car/${model.make.slug}/${model.slug}`,
-    query: { filters_chk: 1, brand: 'mobis,angara,mando', engine: 'd4dd,d4db' },
-  };
+  /* // ************************** Price filters ********************* */
+  let minPrice: number = 0;
+  let maxPrice: number = 0;
+  if (
+    aggregations.hasOwnProperty('min_price') &&
+    aggregations.hasOwnProperty('max_price')
+  ) {
+    minPrice = aggregations.min_price.value as number;
+    maxPrice = aggregations.max_price.value as number;
+  }
+  /* // Use effect for keeping price */
+  const oldPrice = useSelector(
+    (state: IState) => state.shopNew.filterPriceOldState
+  );
+  useEffect(() => {
+    if (oldPrice.length === 0) {
+      dispatch(shopSetOldPrice([minPrice, maxPrice]));
+    }
+  }, []);
 
-  const handleFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    filterName: string,
-    itemName: string
-  ) => {
-    router.push(urlPush);
-    /* if (des.includes(itemName)) { */
-    /*   // delete from des */
-    /*   const idx = des.indexOf(itemName); */
-    /*   des.splice(idx, 1); */
-    /* } else { */
-    /*   // add to des */
-    /*   des.push(itemName); */
-    /* } */
-    /* // serialize des and dispatch */
-    /* const newFilterValues = des.join(','); */
+  const sortedFilters: IFilter[] = createCheckFilters(
+    router,
+    aggregations,
+    filtersFromStore,
+    oldPrice,
+    categoriesFilter
+  );
+  // ************************** End filters *********************
 
-    /* dispatch(shopSetFilterVlue(options.slug, newFilterValues)); */
-  };
+  const possibleFilters: string[] = sortedFilters.map(
+    (item: IFilter) => item.slug
+  );
 
-  const filtersResetHandlers = {
-    handleDeleteFilter: (filter: string, value: string): void => {},
-    handleDeleteFilters: (): void => {},
-  };
+  // Getting filters from state redux
+
+  const activeFilters: IActiveFilterMy[] = getActiveFilters(
+    routerParams,
+    routerQuery,
+    filtersFromStore,
+    possibleFilters
+  );
+
+  // Putting filters from url to store
+  useEffect(() => {
+    if (!Object.keys(filtersFromStore).length) {
+      for (const filter of activeFilters) {
+        const fvalues = filter.filterValues.join(',');
+        dispatch(shopSetFilterVlue(filter.filterSlug, fvalues));
+      }
+    }
+  }, []);
+
+  // Function for redirection
+  const handleFilterChange = makeHandleFilterChange(
+    activeFilters,
+    router,
+    dispatch,
+    model
+  );
+
+  const handleDeleteFilter = makeHandleDeleteFilter(
+    router,
+    dispatch,
+    activeFilters,
+    model
+  );
+  const handleDeleteFilters = makeHandleDeleteFilters(router, dispatch, model);
 
   return (
     <React.Fragment>
@@ -114,7 +189,7 @@ function Model(props: IModelProps) {
             <Grid item xs={3}>
               <LeftSideBar>
                 <FilterWidget
-                  filters={filters}
+                  filters={sortedFilters}
                   handleChange={handleFilterChange}
                 />
               </LeftSideBar>
@@ -125,7 +200,10 @@ function Model(props: IModelProps) {
               <ShopGrid
                 products={products.hits}
                 totalPages={totalPages}
-                filtersResetHandlers={filtersResetHandlers}
+                filtersResetHandlers={{
+                  handleDeleteFilter,
+                  handleDeleteFilters,
+                }}
               />
             </Grid>
           </Grid>
@@ -138,19 +216,45 @@ function Model(props: IModelProps) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const page: number = parseInt(context.query.page as string) || 1;
+  const routerParams = context.params;
+  const routerQuery = context.query;
   const modelSlug = context.params?.model as string;
-  const vehicle: ICar = await getVehicle(modelSlug);
+  const model: ICar = await getVehicle(modelSlug);
+  const filtersQuery = clearParams(
+    routerQuery as IRouterStuff,
+    routerParams as IRouterStuff
+  );
+
+  const str: string = asString(context.query.page as string);
+  const page: number = parseInt(str) || 1;
 
   const page_from = pageSize * (page - 1);
 
-  const promise = await getProductsByCar(vehicle.slug, page_from, pageSize);
+  let url = '';
+
+  if (Object.entries(filtersQuery).length > 0) {
+    let filUrl = '';
+    let amp = '&';
+    Object.entries(filtersQuery).forEach(([filter, value], i) => {
+      if (i === Object.entries(filtersQuery).length - 1) {
+        amp = '';
+      }
+      filUrl += `${filter}=${value}${amp}`;
+    });
+    url = `?model=${model}&${filUrl}&page_from=${page_from}&page_size=${pageSize}`;
+  } else {
+    url = `?model=${model}&page_from=${page_from}&page_size=${pageSize}`;
+  }
+  const promise = await getProductsByFilters(url);
+
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
-  const products = promise.hits;
-
+  let products: IProductElasticHitsFirst = promise.hits;
   const prodCount: number = products.total.value;
+
   const totalPages = Math.ceil(prodCount / pageSize);
+
+  const aggregations: IAgregations = promise.aggregations;
 
   if (!promise) {
     return {
@@ -160,10 +264,13 @@ export const getServerSideProps: GetServerSideProps = async (
 
   return {
     props: {
-      model: vehicle,
+      model,
       categories: makeTree(categories),
       products: products,
+      aggregations,
       totalPages: totalPages,
+      routerParams,
+      routerQuery,
     },
   };
 };

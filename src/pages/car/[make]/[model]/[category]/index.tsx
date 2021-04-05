@@ -39,6 +39,7 @@ import {
   makeHandleDeleteFilter,
   makeHandleDeleteFilters,
   makeHandleFilterChange,
+  clearParams,
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 
@@ -226,25 +227,12 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const routerParams = context.params;
   const routerQuery = context.query;
-  interface IQuery {
-    [key: string]: string;
-  }
 
   // Probably needs to go ouside this file
-  function clearParams(routerQuery: IQuery, routerParams: IQuery): IQuery {
-    let retQuery = {} as IQuery;
-    for (const [key, value] of Object.entries(routerQuery)) {
-      if (!routerParams.hasOwnProperty(key) && key !== 'page') {
-        retQuery[key] = value;
-      }
-    }
-    return retQuery;
-  }
-
   // Cleaning filters from pages and main url params
   const filtersQuery = clearParams(
-    routerQuery as IQuery,
-    routerParams as IQuery
+    routerQuery as IRouterStuff,
+    routerParams as IRouterStuff
   );
   const { category, model } = context.params!;
   const modelSlug: string = model as string;
