@@ -197,9 +197,6 @@ export default function Cagetory(props: CategoryProps) {
       <CategoryHead model={model} category={category} />
       <AnimationPage>
         <Grid container>
-          <div onClick={() => dispatch(shopResetFilter('brand', 'pos'))}>
-            click
-          </div>
           <PageHeader header={header} breads={breads} count={count} />
           <Hidden smDown>
             <Grid item xs={3}>
