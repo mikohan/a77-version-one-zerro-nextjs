@@ -53,6 +53,7 @@ export const filtersConf = [
   'brand',
   'engine',
   'has_photo',
+  'condition',
   'bages',
 ];
 
@@ -62,4 +63,5 @@ export const transFilter: ITransFilter = {
   price: 'Цена',
   bages: 'Теги',
   has_photo: 'Фото',
+  condition: 'Состояние',
 };

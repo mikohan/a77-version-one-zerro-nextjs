@@ -161,7 +161,7 @@ export default function Cagetory(props: CategoryProps) {
     aggregations.condition.buckets,
     getInitVals('condition')
   );
-  const condition = filterBages.buildFilter();
+  const condition = filterCondition.buildFilter();
   // ************************** Price filters *********************
   let minPrice: number = 0;
   let maxPrice: number = 0;
@@ -209,6 +209,7 @@ export default function Cagetory(props: CategoryProps) {
     }
   }
   const sortedFilters: IFilter[] = orderFilters(filters, filtersConf);
+  console.log(sortedFilters);
   /* filters.push(); */
   // ************************** End filters *********************
 
