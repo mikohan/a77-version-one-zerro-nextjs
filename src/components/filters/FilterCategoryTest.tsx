@@ -16,7 +16,7 @@ import { asString } from '~/helpers';
 import { ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
 import { useDispatch } from 'react-redux';
-import { shopResetFilters } from '~/store/shop/shopActions';
+import { shopResetFilters, shopSetOldPrice } from '~/store/shop/shopActions';
 
 interface Props {
   options: ICategoryFilter;
@@ -80,6 +80,7 @@ function FilterCategory(props: Props) {
   }
   function handleClearFilters() {
     dispatch(shopResetFilters());
+    dispatch(shopResetOldPrice());
   }
   return (
     <Box className={classes.root}>

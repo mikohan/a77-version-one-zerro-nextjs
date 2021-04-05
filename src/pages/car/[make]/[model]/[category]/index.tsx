@@ -33,6 +33,7 @@ import {
   shopProductLoading,
   shopResetFilter,
   shopSetFilterVlue,
+  shopSetOldPrice,
 } from '~/store/shop/shopActions';
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 import { getProductsByCarModel } from '~/endpoints/productEndpoint';
@@ -163,6 +164,9 @@ export default function Cagetory(props: CategoryProps) {
     minPrice = aggregations.min_price.value as number;
     maxPrice = aggregations.max_price.value as number;
   }
+  const oldPrice: number[] | string[] = useSelector(
+    (state: IState) => state.shopNew.filterPriceOldState
+  );
   // Use effect for keeping price
 
   const price: IFilter = {
@@ -170,8 +174,8 @@ export default function Cagetory(props: CategoryProps) {
     name: 'Цена',
     slug: 'price',
     value: [minPrice, maxPrice],
-    min: minPrice,
-    max: maxPrice,
+    min: oldPrice[0] as number,
+    max: oldPrice[1] as number,
   };
 
   const bucketsFilters: { [key: string]: IFilter } = {
@@ -239,6 +243,9 @@ export default function Cagetory(props: CategoryProps) {
         const fvalues = filter.filterValues.join(',');
         dispatch(shopSetFilterVlue(filter.filterSlug, fvalues));
       }
+    }
+    if (!oldPrice) {
+      dispatch(shopSetOldPrice([minPrice, maxPrice]));
     }
   }, []);
 
