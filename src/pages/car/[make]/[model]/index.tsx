@@ -241,9 +241,9 @@ export const getServerSideProps: GetServerSideProps = async (
       }
       filUrl += `${filter}=${value}${amp}`;
     });
-    url = `?model=${model}&${filUrl}&page_from=${page_from}&page_size=${pageSize}`;
+    url = `?model=${modelSlug}&${filUrl}&page_from=${page_from}&page_size=${pageSize}`;
   } else {
-    url = `?model=${model}&page_from=${page_from}&page_size=${pageSize}`;
+    url = `?model=${modelSlug}&page_from=${page_from}&page_size=${pageSize}`;
   }
   const promise = await getProductsByFilters(url);
 
