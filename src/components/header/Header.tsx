@@ -22,10 +22,15 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Grid,
+  Box,
+  Switch,
+  FormControlLabel,
 } from '@material-ui/core';
 
 import { InboxTwoTone, HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
+import { setUIThemeAction } from '~/store/ui/UIActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,10 +52,23 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: 10,
       marginLeft: '25px',
     },
+    smallHeaderBox: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      minHeight: '2rem',
+      padding: theme.spacing(1),
+    },
+    switchLabel: {
+      fontSize: '0.8rem',
+    },
   })
 );
 
-export default function AppBarDense() {
+interface IProps {
+  setIsDark(value: boolean): void;
+}
+
+export default function Header({ setIsDark }: IProps) {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
@@ -59,6 +77,11 @@ export default function AppBarDense() {
   const activePage = useSelector(
     (state: IState) => state.uiState.activePage
   ) as number;
+  const isDark = useSelector((state: IState) => state.uiState.isDark);
+  function isDarkHandler() {
+    setIsDark(!isDark);
+    dispatch(setUIThemeAction(!isDark));
+  }
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     // setValue(newValue);
@@ -168,11 +191,31 @@ export default function AppBarDense() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent" elevation={0}>
+      <AppBar position="static" color="transparent" elevation={1}>
         <Toolbar className={classes.appbar} variant="regular">
           {matches ? drawer : tabs}
         </Toolbar>
       </AppBar>
+      <Grid container>
+        <Grid item xs={12}>
+          <Box className={classes.smallHeaderBox}>
+            <Box>
+              <FormControlLabel
+                control={
+                  <Switch
+                    color="primary"
+                    size="small"
+                    checked={isDark}
+                    onChange={isDarkHandler}
+                  />
+                }
+                label="темная тема"
+                classes={{ label: classes.switchLabel }}
+              />
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
     </div>
   );
 }

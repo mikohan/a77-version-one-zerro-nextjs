@@ -1,4 +1,4 @@
-import React, { /*Context*/ useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Router } from 'next/dist/client/router';
-import theme from '~/theme';
+import theme, { darkTheme } from '~/theme';
 import { Provider } from 'react-redux';
 import { useStore } from '~/store/store';
 import { cookiesAge } from '~/config';
@@ -42,6 +42,10 @@ function MyApp(props: any) {
   const store = useStore(pageProps.initialReduxState);
   const [cookies, setCookie] = useCookies(['userUUID']);
   const [localstorage, setLocalstorage] = useLocalStorage('userUUID', '');
+  const [isDark, setIsDark] = useState(false);
+  /* const useTheme = theme; */
+
+  const useTheme = isDark ? darkTheme : theme;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,10 +119,10 @@ function MyApp(props: any) {
       </Head>
       <CookiesProvider>
         <Provider store={store}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={useTheme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <MainLayout>
+            <MainLayout setIsDark={setIsDark}>
               <Component {...pageProps} />
             </MainLayout>
           </ThemeProvider>

@@ -24,7 +24,7 @@ const theme = createMuiTheme({
     },
   },
   palette: {
-    type: 'dark',
+    type: 'light',
   },
   mixins: {
     toolbar: {
@@ -130,4 +130,10 @@ theme.typography.subtitle2 = {
   },
 };
 
+export const darkTheme = createMuiTheme({
+  ...theme,
+  palette: {
+    type: 'dark',
+  },
+});
 export default theme;

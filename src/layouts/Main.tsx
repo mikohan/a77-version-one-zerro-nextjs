@@ -2,10 +2,13 @@ import React from 'react';
 import { Grid, Container } from '@material-ui/core';
 import Head from 'next/head';
 /* import AppBar from '~/components/header/AppBar'; */
-import AppBarDense from '~/components/header/Header';
+import Header from '~/components/header/Header';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
+import { useSelector } from 'react-redux';
+import theme from '~/theme';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,7 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MainLayout(props: any) {
+  const { setIsDark } = props;
   const classes = useStyles();
+  const isDark = useSelector((state: IState) => state.uiState.isDark);
+  const isThemeDark = isDark ? 'dark' : 'light';
+  theme.palette.type = isThemeDark;
+  console.log(theme.palette.type);
   return (
     <React.Fragment>
       <Head>
@@ -26,7 +34,7 @@ export default function MainLayout(props: any) {
       <Container maxWidth="xl">
         <div>
           <div>
-            <AppBarDense />
+            <Header setIsDark={setIsDark} />
             <div className={classes.divider} />
           </div>
           <div>{props.children}</div>
