@@ -25,7 +25,6 @@ export default function MainLayout(props: any) {
   const isDark = useSelector((state: IState) => state.uiState.isDark);
   const isThemeDark = isDark ? 'dark' : 'light';
   theme.palette.type = isThemeDark;
-  console.log(theme.palette.type);
   return (
     <React.Fragment>
       <Head>
