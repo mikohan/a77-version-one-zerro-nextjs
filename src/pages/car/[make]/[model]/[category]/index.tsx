@@ -36,7 +36,12 @@ import {
 } from '~/store/shop/shopActions';
 import { pageSize } from '~/config';
 import { shopResetFilters } from '~/store/shop/shopActions';
-import { makePushUrl } from '~/services/filters/filterHandler';
+import {
+  makeHandleDeleteFilter,
+  makeHandleDeleteFilters,
+  makeHandleFilterChange,
+  makePushUrl,
+} from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 
 interface CategoryProps {
@@ -193,69 +198,27 @@ export default function Cagetory(props: CategoryProps) {
   }, []);
 
   // Function for redirection
+  const handleFilterChange = makeHandleFilterChange(
+    activeFilters,
+    router,
+    dispatch,
+    model,
+    category
+  );
 
-  const handleFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    filterName: string,
-    itemName: string
-  ) => {
-    if (filterName === 'price') {
-      const idx = activeFilters.findIndex(
-        (item: IActiveFilterMy) => item.filterSlug === 'price'
-      );
-      if (idx === -1) {
-        activeFilters.push({ filterSlug: 'price', filterValues: [itemName] });
-      } else {
-        activeFilters[idx].filterValues = [itemName];
-      }
-    } else {
-      if (
-        activeFilters.length &&
-        activeFilters.filter((item) => item.filterSlug === filterName).length >
-          0
-      ) {
-        const clickedFilter = activeFilters?.findIndex(
-          (filter: IActiveFilterMy) => filter.filterSlug === filterName
-        );
-        const activeFilter = activeFilters[clickedFilter];
-        if (activeFilter.filterValues.includes(itemName)) {
-          // delete from des
-          const idx = activeFilter.filterValues.indexOf(itemName);
-          activeFilter.filterValues.splice(idx, 1);
-        } else {
-          // add to des
-          activeFilter.filterValues.push(itemName);
-        }
-        activeFilters[clickedFilter] = activeFilter;
-      } else {
-        activeFilters.push({
-          filterSlug: filterName,
-          filterValues: [itemName],
-        });
-      }
-    }
-    // Call redirect
-    makePushUrl(router, dispatch, activeFilters, model, category);
-  };
-
-  const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
-    dispatch(shopResetFilter(filterSlug, filterValue));
-    const idx = activeFilters.findIndex(
-      (item: IActiveFilterMy) => item.filterSlug === filterSlug
-    );
-    const filVals = activeFilters[idx].filterValues;
-    const idxv = filVals.indexOf(filterValue);
-    filVals.splice(idxv, 1);
-    activeFilters[idx].filterValues = filVals;
-
-    const newFilters = [...activeFilters];
-    makePushUrl(router, dispatch, newFilters, model, category);
-  };
-  const handleDeleteFilters = () => {
-    dispatch(shopResetFilters());
-    makePushUrl(router, dispatch, [], model, category);
-  };
-
+  const handleDeleteFilter = makeHandleDeleteFilter(
+    router,
+    dispatch,
+    activeFilters,
+    model,
+    category
+  );
+  const handleDeleteFilters = makeHandleDeleteFilters(
+    router,
+    dispatch,
+    model,
+    category
+  );
   return (
     <React.Fragment>
       <CategoryHead model={model} category={category} />
