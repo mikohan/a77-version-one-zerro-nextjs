@@ -1,5 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
@@ -11,7 +11,6 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle } from '~/endpoints/carsEndpoint';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
-import { getProductsByCar } from '~/endpoints/productEndpoint';
 import { makeTree, OrderBreads } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
@@ -35,13 +34,9 @@ import {
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
-import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
-import { getProductsByCarModel } from '~/endpoints/productEndpoint';
 import { pageSize } from '~/config';
 import { shopResetFilters } from '~/store/shop/shopActions';
 import { makePushUrl } from '~/services/filters/filterHandler';
-import { filtersConf } from '~/config';
-import { orderFilters } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 
 interface CategoryProps {
@@ -64,9 +59,7 @@ export default function Cagetory(props: CategoryProps) {
   const {
     category,
     categories,
-    make,
     model,
-    updated,
     products,
     catPath,
     aggregations,
@@ -324,7 +317,7 @@ export const getServerSideProps: GetServerSideProps = async (
     routerQuery as IQuery,
     routerParams as IQuery
   );
-  const { category, make, model } = context.params!;
+  const { category, model } = context.params!;
   const modelSlug: string = model as string;
   if (!category) {
     return {
@@ -413,9 +406,7 @@ export const getServerSideProps: GetServerSideProps = async (
       category: cat,
       categories: catRet,
       products: products,
-      make: make,
       model: mod,
-      updated: Date.now(),
       catPath: catPath,
       aggregations,
       totalPages,
