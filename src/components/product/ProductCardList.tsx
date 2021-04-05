@@ -35,7 +35,7 @@ export default function ComplexGrid({ product }: IProp) {
         },
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
-        background: 'white',
+        background: theme.palette.background.paper,
         transition: '0.5s',
         '&:hover $shoppingCartIcon': {
           transform: `scale(1.1)`,
