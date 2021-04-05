@@ -30,18 +30,15 @@ import { IActiveFilterMy } from '~/interfaces';
 import { Router } from 'next/dist/client/router';
 import {
   shopProductLoading,
-  shopResetFilter,
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
 import { pageSize } from '~/config';
-import { shopResetFilters } from '~/store/shop/shopActions';
 import {
   getActiveFilters,
   makeHandleDeleteFilter,
   makeHandleDeleteFilters,
   makeHandleFilterChange,
-  makePushUrl,
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 
