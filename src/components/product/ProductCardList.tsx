@@ -28,12 +28,10 @@ export default function ComplexGrid({ product }: IProp) {
 
         [theme.breakpoints.down('sm')]: {
           gridTemplateColumns: `repeat(auto-fill, minmax(215px, 1fr))`,
-          /* gridAutoRows: `minmax(50px, 100px)`, */
           justifyContent: 'center',
         },
         [theme.breakpoints.up('sm')]: {
           gridTemplateColumns: `1fr 2fr 1fr`,
-          /* gridAutoRows: `minmax(150px, 200px)`, */
         },
         boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
         borderRadius: '2px',
@@ -58,7 +56,7 @@ export default function ComplexGrid({ product }: IProp) {
         [theme.breakpoints.up('sm')]: {
           fontSize: '1.1rem',
         },
-        color: theme.palette.grey[700],
+        color: theme.palette.text.secondary,
       },
       cardImage: {
         maxWidth: '100%',
@@ -70,15 +68,13 @@ export default function ComplexGrid({ product }: IProp) {
           maxWidth: '100%',
           height: 'auto',
         },
-        /* border: '2px solid red', */
-        objectFit: 'contain', // contain maki it small, cover make it big
+        objectFit: 'contain',
       },
       cardContent: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: theme.spacing(3),
-        /* border: '2px solid green', */
       },
       cardInfo: {
         [theme.breakpoints.down('sm')]: {
@@ -96,7 +92,6 @@ export default function ComplexGrid({ product }: IProp) {
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(2),
         display: 'flex',
-        /* background: theme.palette.grey[200], */
       },
       shoppingCartIcon: {
         [theme.breakpoints.down('sm')]: {
@@ -113,7 +108,7 @@ export default function ComplexGrid({ product }: IProp) {
         transition: '0.2s',
       },
       productSku: {
-        color: theme.palette.grey[500],
+        color: theme.palette.text.disabled,
       },
     })
   );
