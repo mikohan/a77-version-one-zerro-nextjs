@@ -164,18 +164,24 @@ export default function Cagetory(props: CategoryProps) {
     minPrice = aggregations.min_price.value as number;
     maxPrice = aggregations.max_price.value as number;
   }
-  const oldPrice: number[] | string[] = useSelector(
+  // Use effect for keeping price
+  const oldPrice = useSelector(
     (state: IState) => state.shopNew.filterPriceOldState
   );
-  // Use effect for keeping price
+  useEffect(() => {
+    if (oldPrice.length === 0) {
+      console.log('Old price empty');
+      dispatch(shopSetOldPrice([minPrice, maxPrice]));
+    }
+  }, []);
 
   const price: IFilter = {
     type: 'range',
     name: 'Цена',
     slug: 'price',
     value: [minPrice, maxPrice],
-    min: oldPrice[0] as number,
-    max: oldPrice[1] as number,
+    min: oldPrice[0],
+    max: oldPrice[1],
   };
 
   const bucketsFilters: { [key: string]: IFilter } = {
@@ -243,9 +249,6 @@ export default function Cagetory(props: CategoryProps) {
         const fvalues = filter.filterValues.join(',');
         dispatch(shopSetFilterVlue(filter.filterSlug, fvalues));
       }
-    }
-    if (!oldPrice) {
-      dispatch(shopSetOldPrice([minPrice, maxPrice]));
     }
   }, []);
 

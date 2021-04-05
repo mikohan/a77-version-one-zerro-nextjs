@@ -21,7 +21,7 @@ export interface IShopState {
    */
 
   currentFilters: IActiveFilter[];
-  filterPriceOldState: number[] | string[];
+  filterPriceOldState: number[];
 }
 
 export const SHOP_RESET_FILTER = 'SHOP_RESET_FILTER';
@@ -38,7 +38,7 @@ export const SHOP_SET_PRICE_OLD_STATE = 'SHOP_SET_PRICE_OLD_STATE';
 
 export interface ShopSetPriceOldState {
   type: typeof SHOP_SET_PRICE_OLD_STATE;
-  value: number[] | string[];
+  value: number[];
 }
 
 export interface ShopSetFilterValueAction {
@@ -71,4 +71,5 @@ export type ShopAction =
   | ShopResetFiltersAction
   | ShopProductLoadingAction
   | ShopDeleteFilterAction
-  | ShopSetPriceOldState;
+  | ShopSetPriceOldState
+  | ShopResetFiltersAction;

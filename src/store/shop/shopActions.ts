@@ -5,6 +5,7 @@ import {
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_DELETE_FILTER,
   SHOP_SET_PRICE_OLD_STATE,
+  ShopSetPriceOldState,
   ShopSetFilterValueAction,
   ShopResetFilterAction,
   ShopResetFiltersAction,
@@ -12,7 +13,7 @@ import {
   ShopProductLoadingAction,
 } from '~/store/shop/shopTypes';
 
-export function shopSetOldPrice(value: number[] | string[]) {
+export function shopSetOldPrice(value: number[]): ShopSetPriceOldState {
   return {
     type: SHOP_SET_PRICE_OLD_STATE,
     value: value,

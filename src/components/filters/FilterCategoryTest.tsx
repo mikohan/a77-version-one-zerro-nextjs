@@ -80,7 +80,6 @@ function FilterCategory(props: Props) {
   }
   function handleClearFilters() {
     dispatch(shopResetFilters());
-    dispatch(shopResetOldPrice());
   }
   return (
     <Box className={classes.root}>

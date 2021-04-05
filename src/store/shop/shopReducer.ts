@@ -1,19 +1,19 @@
 import {
   IShopState,
-  ShopProductLoadingAction,
-  ShopSetPriceOldState,
   SHOP_DELETE_FILTER,
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_RESET_FILTER,
   SHOP_RESET_FILTERS,
   SHOP_SET_PRICE_OLD_STATE,
+  SHOP_SET_FILTER_VALUE,
 } from '~/store/shop/shopTypes';
 import { IFilterValues } from '~/interfaces/list';
 import {
+  ShopProductLoadingAction,
+  ShopSetPriceOldState,
   ShopResetFilterAction,
   ShopDeleteFilterAction,
   ShopSetFilterValueAction,
-  SHOP_SET_FILTER_VALUE,
   ShopAction,
 } from '~/store/shop/shopTypes';
 
