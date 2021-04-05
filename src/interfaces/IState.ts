@@ -20,6 +20,7 @@ interface IUIstate {
   activePage: string | number;
   sortPage: number | string;
   shopGrid: string;
+  isDark: boolean;
 }
 
 export interface IState {

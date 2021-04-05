@@ -5,7 +5,16 @@ import {
   SET_ACTIVE_PAGE,
   SET_SORT_VALUE,
   SET_SHOP_GRID,
+  ISetUITheme,
+  SET_UI_THEME,
 } from '~/store/ui/UITypes';
+
+export function setUIThemeAction(value: boolean): ISetUITheme {
+  return {
+    type: SET_UI_THEME,
+    payload: value,
+  };
+}
 
 export const linkActiveAction = (activePage: string): ISetActivePage => {
   return {
@@ -27,3 +36,10 @@ export const setShopGrid = (value: string): ISetShopGrid => {
     payload: value,
   };
 };
+
+// export const sortAction = (value: number) => {
+//   return {
+//     type: SET_SORT_VALUE,
+//     payload: value,
+//   };
+// };
