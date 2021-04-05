@@ -352,7 +352,6 @@ export default function ShopGrid({
                         className={classes.deleteChip}
                         variant="outlined"
                         size="small"
-                        color="primary"
                         label={`${capitalize(
                           transFilter[fil[0]]
                         )}: ${capitalize(elem)}`}
@@ -370,7 +369,6 @@ export default function ShopGrid({
                   className={classes.deleteChip}
                   variant="outlined"
                   size="small"
-                  color="secondary"
                   label="Очистить Все"
                   onDelete={handleDeleteFilters}
                   onClick={handleDeleteFilters}

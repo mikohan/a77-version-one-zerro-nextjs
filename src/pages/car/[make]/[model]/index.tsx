@@ -40,6 +40,7 @@ import {
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
 import { asString } from '~/helpers';
+import ModelShopList from '~/components/car/ModelShopList';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -184,29 +185,17 @@ function Model(props: IModelProps) {
       <CarModelHead model={model} />
       <AnimationPage>
         <Grid container>
-          <PageHeader header={header} breads={breads} count={count} />
-          <Hidden smDown>
-            <Grid item xs={3}>
-              <LeftSideBar>
-                <FilterWidget
-                  filters={sortedFilters}
-                  handleChange={handleFilterChange}
-                />
-              </LeftSideBar>
-            </Grid>
-          </Hidden>
-          <Grid item xs={12} md={9}>
-            <Grid item xs={12}>
-              <ShopGrid
-                products={products.hits}
-                totalPages={totalPages}
-                filtersResetHandlers={{
-                  handleDeleteFilter,
-                  handleDeleteFilters,
-                }}
-              />
-            </Grid>
-          </Grid>
+          <ModelShopList
+            header={header}
+            breads={breads}
+            count={count}
+            totalPages={totalPages}
+            sortedFilters={sortedFilters}
+            products={products}
+            handleFilterChange={handleFilterChange}
+            handleDeleteFilter={handleDeleteFilter}
+            handleDeleteFilters={handleDeleteFilters}
+          />
         </Grid>
       </AnimationPage>
     </React.Fragment>
