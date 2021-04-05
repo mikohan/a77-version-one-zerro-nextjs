@@ -42,6 +42,7 @@ import { shopResetFilters } from '~/store/shop/shopActions';
 import { makePushUrl } from '~/services/filters/filterHandler';
 import { filtersConf } from '~/config';
 import { orderFilters } from '~/services/filters/filterHandler';
+import { createCheckFilters } from '~/services/filters/filterCreater';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -73,8 +74,6 @@ export default function Cagetory(props: CategoryProps) {
     routerQuery,
     routerParams,
   } = props;
-
-  const fils = useSelector((state: IState) => state.shopNew.filters);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -119,50 +118,8 @@ export default function Cagetory(props: CategoryProps) {
     path: orderedCatBreads,
     items: categories,
   };
-  function getInitVals(filterSlug: string): string {
-    return (router.query[filterSlug] as string) || fils[filterSlug];
-  }
 
-  const brandsClass = new CheckFilterBulder(
-    'Бренды',
-    'brand',
-    aggregations.brands.buckets,
-    getInitVals('brand')
-  );
-  const brands = brandsClass.buildFilter();
-  // llllllllllllllllllllllllll
-  const photoClass = new CheckFilterBulder(
-    'Фото',
-    'has_photo',
-    aggregations.has_photo.buckets,
-    getInitVals('has_photo')
-  );
-  const has_photo = photoClass.buildFilter();
-
-  const filterEngine = new CheckFilterBulder(
-    'Двигатель',
-    'engine',
-    aggregations.engines.buckets,
-    getInitVals('engine')
-  );
-  const engines = filterEngine.buildFilter();
-  //////////////////////////////////////////
-  const filterBages = new CheckFilterBulder(
-    'Теги',
-    'bages',
-    aggregations.bages.buckets,
-    getInitVals('bages')
-  );
-  const bages = filterBages.buildFilter();
-  // Condition filter
-  const filterCondition = new CheckFilterBulder(
-    'Состояние',
-    'condition',
-    aggregations.condition.buckets,
-    getInitVals('condition')
-  );
-  const condition = filterCondition.buildFilter();
-  // ************************** Price filters *********************
+  /* // ************************** Price filters ********************* */
   let minPrice: number = 0;
   let maxPrice: number = 0;
   if (
@@ -172,7 +129,7 @@ export default function Cagetory(props: CategoryProps) {
     minPrice = aggregations.min_price.value as number;
     maxPrice = aggregations.max_price.value as number;
   }
-  // Use effect for keeping price
+  /* // Use effect for keeping price */
   const oldPrice = useSelector(
     (state: IState) => state.shopNew.filterPriceOldState
   );
@@ -182,36 +139,19 @@ export default function Cagetory(props: CategoryProps) {
     }
   }, []);
 
-  const price: IFilter = {
-    type: 'range',
-    name: 'Цена',
-    slug: 'price',
-    value: [minPrice, maxPrice],
-    min: oldPrice[0],
-    max: oldPrice[1],
-  };
-
-  const bucketsFilters: { [key: string]: IFilter } = {
-    brands,
-    engines,
-    bages,
-    has_photo,
-    condition,
-  };
-  const filters: IFilter[] = [categoriesFilter, price];
-
-  for (const [key, value] of Object.entries(aggregations)) {
-    if (value.hasOwnProperty('buckets') && value.buckets.length > 0) {
-      if (bucketsFilters[key]) {
-        filters.push(bucketsFilters[key]);
-      }
-    }
-  }
-  const sortedFilters: IFilter[] = orderFilters(filters, filtersConf);
+  const sortedFilters: IFilter[] = createCheckFilters(
+    router,
+    aggregations,
+    filtersFromStore,
+    oldPrice,
+    categoriesFilter
+  );
   /* filters.push(); */
   // ************************** End filters *********************
 
-  const possibleFilters: string[] = filters.map((item: IFilter) => item.slug);
+  const possibleFilters: string[] = sortedFilters.map(
+    (item: IFilter) => item.slug
+  );
 
   // Getting filters from state redux
 
