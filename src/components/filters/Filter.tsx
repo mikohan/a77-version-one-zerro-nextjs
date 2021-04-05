@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IFilter } from '~/interfaces/filters';
-import FilterCategoryTest from '~/components/filters/FilterCategoryTest';
+import FilterCategory from '~/components/filters/FilterCategory';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -10,9 +10,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { capitalize } from '~/utils';
 import FilterCheck from '~/components/filters/FilterCheck';
 import FilterSlider from '~/components/filters/FilterSlider';
-import { useDispatch, useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,9 +64,7 @@ function Filter(props: IProps) {
           </IconButton>
         </Box>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {filter.type === 'category' && (
-            <FilterCategoryTest options={filter} />
-          )}
+          {filter.type === 'category' && <FilterCategory options={filter} />}
           {filter.type === 'check' && (
             <FilterCheck
               value={filter.value}
