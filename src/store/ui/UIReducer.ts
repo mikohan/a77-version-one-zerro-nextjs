@@ -1,5 +1,9 @@
-import * as types from '~/store/types';
-import { actionTypes } from '~/store/actions/UIActions';
+import {
+  SET_ACTIVE_PAGE,
+  SET_SORT_VALUE,
+  SET_SHOP_GRID,
+  actionTypes,
+} from '~/store/ui/UITypes';
 import { defaultShopPageLayout } from '~/config';
 
 const initialState = {
@@ -10,17 +14,17 @@ const initialState = {
 
 export const UIReducer = (state = initialState, action: actionTypes) => {
   switch (action.type) {
-    case types.SET_ACTIVE_PAGE:
+    case SET_ACTIVE_PAGE:
       return {
         ...state,
         activePage: action.payload,
       };
-    case types.SET_SORT_VALUE:
+    case SET_SORT_VALUE:
       return {
         ...state,
         sortPage: action.payload,
       };
-    case types.SET_SHOP_GRID:
+    case SET_SHOP_GRID:
       return {
         ...state,
         shopGrid: action.payload,
