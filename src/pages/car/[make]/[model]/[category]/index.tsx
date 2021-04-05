@@ -154,6 +154,14 @@ export default function Cagetory(props: CategoryProps) {
     getInitVals('bages')
   );
   const bages = filterBages.buildFilter();
+  // Condition filter
+  const filterCondition = new CheckFilterBulder(
+    'Состояние',
+    'condition',
+    aggregations.condition.buckets,
+    getInitVals('condition')
+  );
+  const condition = filterBages.buildFilter();
   // ************************** Price filters *********************
   let minPrice: number = 0;
   let maxPrice: number = 0;
@@ -189,6 +197,7 @@ export default function Cagetory(props: CategoryProps) {
     engines,
     bages,
     has_photo,
+    condition,
   };
   const filters: IFilter[] = [categoriesFilter, price];
 
