@@ -8,7 +8,7 @@ export function createCheckFilters(
   aggregations: IAgregations,
   filtersFromStore: ITransFilter,
   oldPrice: number[],
-  categoriesFilter: IFilter
+  categoriesFilter?: IFilter
 ): IFilter[] {
   function getInitVals(filterSlug: string): string {
     return (router.query[filterSlug] as string) || filtersFromStore[filterSlug];
@@ -79,8 +79,10 @@ export function createCheckFilters(
     max: oldPrice[1],
   };
 
-  const filters: IFilter[] = [categoriesFilter, price];
-
+  let filters: IFilter[] = [price];
+  if (categoriesFilter) {
+    filters.push(categoriesFilter);
+  }
   for (const [key, value] of Object.entries(aggregations)) {
     if (value.hasOwnProperty('buckets') && value.buckets.length > 0) {
       if (bucketsFilters[key]) {
