@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
       borderRadius: '2px',
-      background: 'white',
+      background: theme.palette.background.paper,
     },
     cardContent: {
       padding: theme.spacing(3),
@@ -28,11 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     productName: {
       fontSize: '1.1rem',
-      color: theme.palette.grey[700],
-    },
-    productSku: {
-      paddingLeft: theme.spacing(2),
-      color: theme.palette.grey[500],
+      color: theme.palette.text.secondary,
     },
   })
 );
