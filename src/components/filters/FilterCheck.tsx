@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ICheckFilterValue } from '~/interfaces/filters';
-import { booleanToRus } from '~/helpers';
+import { booleanToRus, conditionToRus } from '~/helpers';
 
 // Helper functions need to refactor
 
@@ -74,6 +74,7 @@ export default function CheckboxLabels({
       {items.map((item: any) => {
         let iName = '';
         let lName = '';
+
         if (typeof item.name !== 'string') {
           iName = item.name.toString();
           if (options.slug === 'has_photo') {
@@ -82,6 +83,9 @@ export default function CheckboxLabels({
         } else {
           iName = item.name.toLowerCase();
           lName = iName;
+        }
+        if (options.slug === 'condition') {
+          lName = conditionToRus(iName);
         }
         return (
           <Box className={classes.box} key={item.name}>

@@ -68,3 +68,12 @@ export function booleanToRus(name: string): string {
   }
   return name;
 }
+
+export function conditionToRus(name: string): string {
+  if (name.toLowerCase() === 'new') {
+    name = 'Новый';
+  } else if (name.toLowerCase() === 'secondgand') {
+    name = 'б/у';
+  }
+  return name;
+}

@@ -178,7 +178,6 @@ export default function Cagetory(props: CategoryProps) {
   );
   useEffect(() => {
     if (oldPrice.length === 0) {
-      console.log('Old price empty');
       dispatch(shopSetOldPrice([minPrice, maxPrice]));
     }
   }, []);
@@ -209,7 +208,6 @@ export default function Cagetory(props: CategoryProps) {
     }
   }
   const sortedFilters: IFilter[] = orderFilters(filters, filtersConf);
-  console.log(sortedFilters);
   /* filters.push(); */
   // ************************** End filters *********************
 

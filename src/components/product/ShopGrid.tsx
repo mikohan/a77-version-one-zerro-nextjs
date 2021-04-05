@@ -22,7 +22,7 @@ import ProductCardGridSkeleton from './ProductCardGridSkeleton';
 import ProductCardListSkeleton from './ProductCardListSkeleton';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
-import { asString } from '~/helpers';
+import { asString, conditionToRus } from '~/helpers';
 import { transFilter } from '~/config';
 import { booleanToRus } from '~/helpers';
 
@@ -342,6 +342,9 @@ export default function ShopGrid({
                   return fil[1].split(',').map((elem: string) => {
                     if (fil[0] === 'has_photo') {
                       elem = booleanToRus(elem);
+                    }
+                    if (fil[0] === 'condition') {
+                      elem = conditionToRus(elem);
                     }
                     return (
                       <Chip
