@@ -24,7 +24,7 @@ const theme = createMuiTheme({
     },
   },
   palette: {
-    type: 'light',
+    type: 'dark',
   },
   mixins: {
     toolbar: {

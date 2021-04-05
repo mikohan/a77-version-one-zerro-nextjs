@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
     whiteBox: {
       padding: theme.spacing(2),
       width: '100%',
-      background: '#fff',
+      background: theme.palette.background.paper,
     },
     children: {},
   })

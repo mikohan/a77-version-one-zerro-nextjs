@@ -10,7 +10,8 @@ import Footer from '~/components/footer/Footer';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     divider: {
-      borderBottom: '1px solid #e8e8eb ',
+      borderBottom: '1px solid',
+      borderColor: theme.palette.divider,
     },
   })
 );
