@@ -4,12 +4,20 @@ import {
   SHOP_RESET_FILTERS,
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_DELETE_FILTER,
+  SHOP_SET_PRICE_OLD_STATE,
   ShopSetFilterValueAction,
   ShopResetFilterAction,
   ShopResetFiltersAction,
   ShopDeleteFilterAction,
   ShopProductLoadingAction,
 } from '~/store/shop/shopTypes';
+
+export function shopSetOldPrice(value: number[] | string[]) {
+  return {
+    type: SHOP_SET_PRICE_OLD_STATE,
+    value: value,
+  };
+}
 
 export function shopSetFilterVlue(
   filter: string,

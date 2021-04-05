@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
+      width: '90%',
     },
     numbersContainer: {
       display: 'flex',

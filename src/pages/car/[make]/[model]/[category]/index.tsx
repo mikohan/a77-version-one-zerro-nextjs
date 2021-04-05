@@ -74,9 +74,7 @@ export default function Cagetory(props: CategoryProps) {
   } = props;
 
   const fils = useSelector((state: IState) => state.shopNew.filters);
-  const isLoding = useSelector(
-    (state: IState) => state.shopNew.productsLoading
-  );
+
   const dispatch = useDispatch();
   const router = useRouter();
   Router.events.on('routeChangeStart', () => {
@@ -85,6 +83,9 @@ export default function Cagetory(props: CategoryProps) {
   Router.events.on('routeChangeComplete', () => {
     dispatch(shopProductLoading(false));
   });
+  const filtersFromStore = useSelector(
+    (state: IState) => state.shopNew.filters
+  );
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
@@ -162,6 +163,7 @@ export default function Cagetory(props: CategoryProps) {
     minPrice = aggregations.min_price.value as number;
     maxPrice = aggregations.max_price.value as number;
   }
+  // Use effect for keeping price
 
   const price: IFilter = {
     type: 'range',
@@ -194,9 +196,6 @@ export default function Cagetory(props: CategoryProps) {
   const possibleFilters: string[] = filters.map((item: IFilter) => item.slug);
 
   // Getting filters from state redux
-  const filtersFromStore = useSelector(
-    (state: IState) => state.shopNew.filters
-  );
 
   let activeFilters: IActiveFilterMy[] = [];
   if (Object.keys(filtersFromStore).length) {

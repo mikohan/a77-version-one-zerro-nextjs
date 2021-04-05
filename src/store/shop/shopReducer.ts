@@ -1,10 +1,12 @@
 import {
   IShopState,
   ShopProductLoadingAction,
+  ShopSetPriceOldState,
   SHOP_DELETE_FILTER,
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_RESET_FILTER,
   SHOP_RESET_FILTERS,
+  SHOP_SET_PRICE_OLD_STATE,
 } from '~/store/shop/shopTypes';
 import { IFilterValues } from '~/interfaces/list';
 import {
@@ -23,6 +25,7 @@ const initialState: IShopState = {
   activeFilters: [],
   removedFilters: [],
   currentFilters: [],
+  filterPriceOldState: [],
 };
 
 export function shopReducerSetFilterValue(
@@ -101,6 +104,16 @@ function shopProductLoadingReducer(
   };
 }
 
+function shopSetOldPriceReducer(
+  state: IShopState,
+  action: ShopSetPriceOldState
+): IShopState {
+  return {
+    ...state,
+    filterPriceOldState: action.value,
+  };
+}
+
 export function shopReducer(
   state = initialState,
   action: ShopAction
@@ -116,6 +129,8 @@ export function shopReducer(
       return shopReducerResetFilters(state);
     case SHOP_DELETE_FILTER:
       return shopReducerDeleteFilter(state, action);
+    case SHOP_SET_PRICE_OLD_STATE:
+      return shopSetOldPriceReducer(state, action);
     default:
       return state;
   }
