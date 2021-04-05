@@ -153,7 +153,7 @@ export default function Cagetory(props: CategoryProps) {
 
   // Getting filters from state redux
 
-  let activeFilters: IActiveFilterMy[] = getActiveFilters(
+  const activeFilters: IActiveFilterMy[] = getActiveFilters(
     routerParams,
     routerQuery,
     filtersFromStore,
