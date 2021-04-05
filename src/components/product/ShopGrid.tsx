@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import { Hidden, Box, Grid, TextField } from '@material-ui/core';
@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Pagination from '@material-ui/lab/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/types';
+import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/ui/UITypes';
 import { compareByNameAsc, compareByNameDesc } from '~/utils';
 import ProductCardGrid from './ProductCardGrid';
 import ProductCardList from './ProductCardList';

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_ACTIVE_PAGE } from '~/store/types';
+import { SET_ACTIVE_PAGE } from '~/store/ui/UITypes';
 import {
   Tabs,
   Tab,
