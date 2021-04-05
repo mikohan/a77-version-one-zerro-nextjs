@@ -18,7 +18,7 @@ import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import CategoryHead from '~/components/heads/CategoryHead';
 import { getCatPath } from '~/services/utils';
-import { IBread } from '~/interfaces';
+import { IBread, IRouterStuff } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
@@ -37,6 +37,7 @@ import {
 import { pageSize } from '~/config';
 import { shopResetFilters } from '~/store/shop/shopActions';
 import {
+  getActiveFilters,
   makeHandleDeleteFilter,
   makeHandleDeleteFilters,
   makeHandleFilterChange,
@@ -56,8 +57,8 @@ interface CategoryProps {
   categories: ICategory[];
   aggregations: IAgregations;
   totalPages: number;
-  routerQuery: object;
-  routerParams: object;
+  routerQuery: IRouterStuff;
+  routerParams: IRouterStuff;
 }
 
 export default function Cagetory(props: CategoryProps) {
@@ -152,40 +153,12 @@ export default function Cagetory(props: CategoryProps) {
 
   // Getting filters from state redux
 
-  let activeFilters: IActiveFilterMy[] = [];
-  if (Object.keys(filtersFromStore).length) {
-    for (const [key, value] of Object.entries(filtersFromStore)) {
-      activeFilters.push({
-        filterSlug: key,
-        filterValues: value.split(','),
-      });
-    }
-  } else {
-    for (const [key, value] of Object.entries(routerQuery)) {
-      if (!routerParams.hasOwnProperty(key)) {
-        if (
-          possibleFilters.includes(key) ||
-          key === 'filters_chk' ||
-          key === 'page'
-        ) {
-          if (key === 'page') {
-            continue;
-          }
-          if (value !== '') {
-            activeFilters.push({
-              filterSlug: key,
-              filterValues: value.split(','),
-            });
-          }
-        } else {
-          const e = new Error(
-            'Some bullshit in query strint here the point to make redirect to 404'
-          );
-          throw e;
-        }
-      }
-    }
-  }
+  let activeFilters: IActiveFilterMy[] = getActiveFilters(
+    routerParams,
+    routerQuery,
+    filtersFromStore,
+    possibleFilters
+  );
 
   // Putting filters from url to store
   useEffect(() => {
@@ -330,12 +303,6 @@ export const getServerSideProps: GetServerSideProps = async (
   }
   const promise = await getProductsByFilters(url);
 
-  /* const promise = await getProductsByCar( */
-  /*   modelSlug, */
-  /*   page_from, */
-  /*   pageSize, */
-  /*   cat.slug */
-  /* ); */
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;

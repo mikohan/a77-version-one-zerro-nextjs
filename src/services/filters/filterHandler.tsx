@@ -5,6 +5,8 @@ import {
   IActiveFilterMy,
   IFilterQueryString,
   IFilter,
+  ITransFilter,
+  IRouterStuff,
 } from '~/interfaces';
 import { shopSetFilterVlue, shopDeleteFilter } from '~/store/shop/shopActions';
 import url from '~/services/url';
@@ -64,6 +66,49 @@ export function orderFilters(
   } else {
     return filters;
   }
+}
+
+export function getActiveFilters(
+  routerParams: IRouterStuff,
+  routerQuery: IRouterStuff,
+  filtersFromStore: ITransFilter,
+  possibleFilters: string[]
+): IActiveFilterMy[] {
+  let activeFilters: IActiveFilterMy[] = [];
+  if (Object.keys(filtersFromStore).length) {
+    for (const [key, value] of Object.entries(filtersFromStore)) {
+      activeFilters.push({
+        filterSlug: key,
+        filterValues: value.split(','),
+      });
+    }
+  } else {
+    for (const [key, value] of Object.entries(routerQuery)) {
+      if (!routerParams.hasOwnProperty(key)) {
+        if (
+          possibleFilters.includes(key) ||
+          key === 'filters_chk' ||
+          key === 'page'
+        ) {
+          if (key === 'page') {
+            continue;
+          }
+          if (value !== '') {
+            activeFilters.push({
+              filterSlug: key,
+              filterValues: value.split(','),
+            });
+          }
+        } else {
+          const e = new Error(
+            'Some bullshit in query strint here the point to make redirect to 404'
+          );
+          throw e;
+        }
+      }
+    }
+  }
+  return activeFilters;
 }
 
 export function makeHandleFilterChange(

@@ -5,3 +5,4 @@ export * from './product';
 export * from './category';
 export * from './aggregations';
 export * from './filters';
+export * from './router';
