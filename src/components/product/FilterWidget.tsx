@@ -5,7 +5,7 @@ import Filter from '~/components/filters/Filter';
 
 interface IProps {
   filters?: IFilter[];
-  handleChange(e: object, fName: string, itemName: string): void;
+  handleChange?(e: object, fName: string, itemName: string): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function FiltersWidget({ filters, handleChange }: IProps) {
+export default function FiltersWidget(props: IProps) {
+  const { filters } = props;
+  const handleChange = props.handleChange!;
   const classes = useStyles();
 
   // Needs to get filters here probably from store Redux

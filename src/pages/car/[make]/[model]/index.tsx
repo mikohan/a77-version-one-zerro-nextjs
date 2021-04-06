@@ -193,6 +193,7 @@ function Model(props: IModelProps) {
               breads={breads}
               count={count}
               totalPages={totalPages}
+              sortedFilters={[categoriesFilter]}
             />
           ) : (
             <ModelShopList
