@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_ACTIVE_PAGE } from '~/store/ui/UITypes';
+import SearchBox from '~/components/header/SearchBox';
 import {
   Tabs,
   Tab,
@@ -187,7 +188,7 @@ export default function Header({ setIsDark }: IProps) {
   );
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <AppBar position="static" color="transparent" elevation={1}>
         <Toolbar className={classes.appbar} variant="regular">
           {matches ? drawer : tabs}
@@ -212,7 +213,10 @@ export default function Header({ setIsDark }: IProps) {
             </Box>
           </Box>
         </Grid>
+        <Grid item xs={12}>
+          <SearchBox />
+        </Grid>
       </Grid>
-    </div>
+    </React.Fragment>
   );
 }

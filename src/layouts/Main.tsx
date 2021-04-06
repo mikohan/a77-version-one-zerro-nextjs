@@ -12,9 +12,8 @@ import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    divider: {
-      borderBottom: '1px solid',
-      borderColor: theme.palette.divider,
+    head: {
+      margin: 0,
     },
   })
 );
@@ -30,14 +29,11 @@ export default function MainLayout(props: any) {
       <Head>
         <title>Angara && | The Best Spares Shop</title>
       </Head>
+      <div className={classes.head}>
+        <Header setIsDark={setIsDark} />
+      </div>
       <Container maxWidth="xl">
-        <div>
-          <div>
-            <Header setIsDark={setIsDark} />
-            <div className={classes.divider} />
-          </div>
-          <div>{props.children}</div>
-        </div>
+        <div>{props.children}</div>
       </Container>
       <div>
         <Footer />

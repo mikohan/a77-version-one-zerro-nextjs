@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    appBar: {
+      margin: 0,
+    },
   })
 );
 
@@ -76,7 +79,12 @@ export default function ButtonAppBar() {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <AppBar elevation={0} color="inherit" position="static">
+        <AppBar
+          className={classes.appBar}
+          elevation={0}
+          color="inherit"
+          position="static"
+        >
           <Toolbar variant="dense">
             <Tabs
               value=""
