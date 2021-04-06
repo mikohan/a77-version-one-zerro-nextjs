@@ -30,10 +30,7 @@ const url: { [key: string]: any } = {
       },
     };
   },
-  product: (product: IProduct): IAppLinkHref => ({
-    href: `/products/[slug]?slug=${product.slug}`,
-    as: `/products/${product.slug}`,
-  }),
+  product: (slug: string): IAppLinkHref => `/products/${slug}`,
   about: () => ({
     href: `/about`,
   }),

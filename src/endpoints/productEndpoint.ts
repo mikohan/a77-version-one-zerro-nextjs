@@ -81,6 +81,9 @@ export async function getPopularProductsByModel(
           img500x500
           main
         }
+        stocks {
+          price
+        }
         model {
           slug
           model

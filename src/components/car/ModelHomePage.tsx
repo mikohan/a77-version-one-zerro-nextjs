@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
       /*   gridGap: theme.spacing(3), */
       /* }, */
       '&> div': {
-        border: '1px solid blue',
         minHeight: '20rem',
         padding: theme.spacing(3),
         background: theme.palette.background.paper,
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     blockTitle: {
-      border: '1px solid pink',
       marginBottom: '2rem',
     },
   })
