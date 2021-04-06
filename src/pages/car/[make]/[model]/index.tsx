@@ -111,7 +111,7 @@ function Model(props: IModelProps) {
 
   const categoriesFilter: IFilter = {
     type: 'category',
-    name: 'category',
+    name: 'Категории',
     slug: 'category',
     value: 'dvigatel',
     items: categories,

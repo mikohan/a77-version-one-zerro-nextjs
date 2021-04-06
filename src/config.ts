@@ -61,6 +61,7 @@ export const filtersConf = [
 ];
 
 export const transFilter: ITransFilter = {
+  category: 'Категории',
   engine: 'Двигатель',
   brand: 'Бренд',
   price: 'Цена',

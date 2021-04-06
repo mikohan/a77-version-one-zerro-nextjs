@@ -109,7 +109,7 @@ export default function Cagetory(props: CategoryProps) {
 
   const categoriesFilter: IFilter = {
     type: 'category',
-    name: 'category',
+    name: 'Категории',
     slug: 'category',
     value: 'dvigatel',
     path: orderedCatBreads,
