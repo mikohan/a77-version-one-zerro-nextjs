@@ -7,7 +7,8 @@ import { GetStaticProps } from 'next';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
-import { Typography } from '@material-ui/core';
+import { Typography, Container } from '@material-ui/core';
+import { containerMaxWidth } from '~/config';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentContainer: {
@@ -45,87 +46,89 @@ export default function Home(props: IHomeProps) {
 
   return (
     <Animation>
-      <Grid container>
-        <Grid item xs={12}>
-          <div className={classes.contentContainer}>
-            <div>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Расходники
-              </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
+      <Container maxWidth={containerMaxWidth}>
+        <Grid container>
+          <Grid item xs={12}>
+            <div className={classes.contentContainer}>
+              <div>
+                <Typography variant="h6" className={classes.blockTitle}>
+                  Расходники
+                </Typography>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quaerat non odio reprehenderit illo facilis doloremque odit
+                  esse est nemo alias assumenda eaque deserunt inventore quas
+                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
+                  architecto recusandae inventore ipsam, saepe sit provident
+                  reiciendis accusamus rerum molestias voluptatem at dolor atque
+                  iure. Voluptas?
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h6" className={classes.blockTitle}>
+                  Машины
+                </Typography>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quaerat non odio reprehenderit illo facilis doloremque odit
+                  esse est nemo alias assumenda eaque deserunt inventore quas
+                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
+                  architecto recusandae inventore ipsam, saepe sit provident
+                  reiciendis accusamus rerum molestias voluptatem at dolor atque
+                  iure. Voluptas?
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h6" className={classes.blockTitle}>
+                  Популярные товары
+                </Typography>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quaerat non odio reprehenderit illo facilis doloremque odit
+                  esse est nemo alias assumenda eaque deserunt inventore quas
+                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
+                  architecto recusandae inventore ipsam, saepe sit provident
+                  reiciendis accusamus rerum molestias voluptatem at dolor atque
+                  iure. Voluptas?
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h6" className={classes.blockTitle}>
+                  Блог
+                </Typography>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quaerat non odio reprehenderit illo facilis doloremque odit
+                  esse est nemo alias assumenda eaque deserunt inventore quas
+                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
+                  architecto recusandae inventore ipsam, saepe sit provident
+                  reiciendis accusamus rerum molestias voluptatem at dolor atque
+                  iure. Voluptas?
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h6" className={classes.blockTitle}>
+                  Videos
+                </Typography>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quaerat non odio reprehenderit illo facilis doloremque odit
+                  esse est nemo alias assumenda eaque deserunt inventore quas
+                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
+                  architecto recusandae inventore ipsam, saepe sit provident
+                  reiciendis accusamus rerum molestias voluptatem at dolor atque
+                  iure. Voluptas?
+                </Typography>
+              </div>
             </div>
-            <div>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Машины
-              </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
-            </div>
-            <div>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Популярные товары
-              </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
-            </div>
-            <div>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Блог
-              </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
-            </div>
-            <div>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Videos
-              </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
-            </div>
-          </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </Animation>
   );
 }

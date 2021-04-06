@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { getVehicles } from '~/endpoints/carsEndpoint';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
+import {containerMaxWidth} from '~/config'
 
 interface ICarProps {
   makes: IMake[];
@@ -59,6 +60,7 @@ function Car(props: ICarProps) {
         />
       </Head>
       <AnimationPage>
+        <Container maxWidth={containerMaxWidth}
         <Grid container>
           <Hidden smDown>
             <Grid item xs={2} style={{ border: '1px solid green' }}>

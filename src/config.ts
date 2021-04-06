@@ -48,6 +48,7 @@ export const prodCardSize = 225;
 export const defaultShopPageLayout = 'grid';
 export const pageSize = 20;
 export const popularProductsQuantity = 10;
+export const containerMaxWidth = 'lg';
 
 // Define order of rendering filters on page
 export const filtersConf = [

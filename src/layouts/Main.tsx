@@ -32,9 +32,7 @@ export default function MainLayout(props: any) {
       <div className={classes.head}>
         <Header setIsDark={setIsDark} />
       </div>
-      <Container maxWidth="xl">
-        <div>{props.children}</div>
-      </Container>
+      <div>{props.children}</div>
       <div>
         <Footer />
       </div>

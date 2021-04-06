@@ -33,7 +33,7 @@ import {
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
-import { pageSize } from '~/config';
+import { containerMaxWidth, pageSize } from '~/config';
 import {
   getActiveFilters,
   makeHandleDeleteFilter,
@@ -42,6 +42,7 @@ import {
   clearParams,
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
+import { Container } from '@material-ui/core';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -194,29 +195,31 @@ export default function Cagetory(props: CategoryProps) {
     <React.Fragment>
       <CategoryHead model={model} category={category} />
       <AnimationPage>
-        <Grid container>
-          <PageHeader header={header} breads={breads} count={count} />
-          <Hidden smDown>
-            <Grid item xs={3}>
-              <LeftSideBar>
-                <FilterWidget
-                  filters={sortedFilters}
-                  handleChange={handleFilterChange}
-                />
-              </LeftSideBar>
+        <Container maxWidth={containerMaxWidth}>
+          <Grid container>
+            <PageHeader header={header} breads={breads} count={count} />
+            <Hidden smDown>
+              <Grid item xs={3}>
+                <LeftSideBar>
+                  <FilterWidget
+                    filters={sortedFilters}
+                    handleChange={handleFilterChange}
+                  />
+                </LeftSideBar>
+              </Grid>
+            </Hidden>
+            <Grid item xs={12} md={9}>
+              <ShopGrid
+                products={products.hits}
+                totalPages={totalPages}
+                filtersResetHandlers={{
+                  handleDeleteFilter,
+                  handleDeleteFilters,
+                }}
+              />
             </Grid>
-          </Hidden>
-          <Grid item xs={12} md={9}>
-            <ShopGrid
-              products={products.hits}
-              totalPages={totalPages}
-              filtersResetHandlers={{
-                handleDeleteFilter,
-                handleDeleteFilters,
-              }}
-            />
           </Grid>
-        </Grid>
+        </Container>
       </AnimationPage>
     </React.Fragment>
   );

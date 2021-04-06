@@ -17,7 +17,7 @@ import { IBread, IRouterStuff } from '~/interfaces';
 import { IShopCategory, IActiveFilterMy } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
 import useLocalstorageState from '~/hooks/useLocalStorage';
-import { pageSize } from '~/config';
+import { containerMaxWidth, pageSize } from '~/config';
 import { useRouter } from 'next/router';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { createCheckFilters } from '~/services/filters/filterCreater';
@@ -41,6 +41,7 @@ import { carHomePagePriority } from '~/config';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
 import { popularProductsQuantity } from '~/config';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -189,31 +190,33 @@ function Model(props: IModelProps) {
     <React.Fragment>
       <CarModelHead model={model} />
       <AnimationPage>
-        <Grid container>
-          {showCarHomePage ? (
-            <ModelHomePage
-              products={products}
-              header={header}
-              breads={breads}
-              count={count}
-              totalPages={totalPages}
-              sortedFilters={[categoriesFilter]}
-              popularProducts={popularProducts}
-            />
-          ) : (
-            <ModelShopList
-              header={header}
-              breads={breads}
-              count={count}
-              totalPages={totalPages}
-              sortedFilters={sortedFilters}
-              products={products}
-              handleFilterChange={handleFilterChange}
-              handleDeleteFilter={handleDeleteFilter}
-              handleDeleteFilters={handleDeleteFilters}
-            />
-          )}
-        </Grid>
+        <Container maxWidth={containerMaxWidth}>
+          <Grid container>
+            {showCarHomePage ? (
+              <ModelHomePage
+                products={products}
+                header={header}
+                breads={breads}
+                count={count}
+                totalPages={totalPages}
+                sortedFilters={[categoriesFilter]}
+                popularProducts={popularProducts}
+              />
+            ) : (
+              <ModelShopList
+                header={header}
+                breads={breads}
+                count={count}
+                totalPages={totalPages}
+                sortedFilters={sortedFilters}
+                products={products}
+                handleFilterChange={handleFilterChange}
+                handleDeleteFilter={handleDeleteFilter}
+                handleDeleteFilters={handleDeleteFilters}
+              />
+            )}
+          </Grid>
+        </Container>
       </AnimationPage>
     </React.Fragment>
   );

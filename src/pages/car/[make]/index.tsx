@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { REVALIDATE } from '~/config';
+import { containerMaxWidth, REVALIDATE } from '~/config';
 import { Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
@@ -16,6 +16,7 @@ import { getProductsByMake } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces';
 import LeftSidebar from '~/components/product/LeftSideBar';
 import ModelList from '~/components/product/ModelsList';
+import { Container } from '@material-ui/core';
 
 interface ICarProps {
   models: ICar[];
@@ -42,26 +43,28 @@ function Make(props: ICarProps) {
     <React.Fragment>
       <CarMakeHead make={make} />
       <AnimationPage>
-        <Grid container>
-          <PageHeader header={header} breads={breads} count={count} />
-          <Hidden smDown>
-            <Grid item xs={3}>
-              <LeftSidebar>
-                <ModelList models={models} />
-              </LeftSidebar>
-            </Grid>
-          </Hidden>
-          <Grid item xs={12} md={9}>
-            <Grid item xs={12}>
-              {
-                <ShopGrid
-                  products={products.hits}
-                  filtersResetHandlers={filtersResetHandlers}
-                />
-              }
+        <Container maxWidth={containerMaxWidth}>
+          <Grid container>
+            <PageHeader header={header} breads={breads} count={count} />
+            <Hidden smDown>
+              <Grid item xs={3}>
+                <LeftSidebar>
+                  <ModelList models={models} />
+                </LeftSidebar>
+              </Grid>
+            </Hidden>
+            <Grid item xs={12} md={9}>
+              <Grid item xs={12}>
+                {
+                  <ShopGrid
+                    products={products.hits}
+                    filtersResetHandlers={filtersResetHandlers}
+                  />
+                }
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </AnimationPage>
     </React.Fragment>
   );
