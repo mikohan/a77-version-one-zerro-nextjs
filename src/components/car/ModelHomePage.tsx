@@ -1,29 +1,36 @@
-import { IFilter, IProductElasticHitsFirst } from '~/interfaces';
+import { IFilter, IProductElasticHitsFirst, IProduct } from '~/interfaces';
 import React from 'react';
 import { Hidden, Grid } from '@material-ui/core';
 import PageHeader from '~/components/product/PageHeader';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FilterWidget from '~/components/product/FilterWidget';
+import { Box, Paper, Typography } from '@material-ui/core';
+import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentContainer: {
       display: 'grid',
-      [theme.breakpoints.down('md')]: {
-        gridTemplateColumns: `repeat(auto-fill, minmax(100%, 1fr))`,
-        gridGap: theme.spacing(1),
+      [theme.breakpoints.down('xxl')]: {
+        gridTemplateColumns: `repeat(auto-fill, minmax(90%, 1fr))`,
       },
 
-      [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: `repeat(auto-fill, minmax(40%, 1fr))`,
-        gridGap: theme.spacing(1),
-      },
+      /* [theme.breakpoints.up('lg')]: { */
+      /*   gridTemplateColumns: `repeat(auto-fill, minmax(40%, 1fr))`, */
+      /*   gridGap: theme.spacing(3), */
+      /* }, */
       '&> div': {
         border: '1px solid blue',
-        padding: theme.spacing(1),
+        minHeight: '20rem',
+        padding: theme.spacing(3),
         background: theme.palette.background.paper,
+        marginBottom: theme.spacing(3),
       },
+    },
+    blockTitle: {
+      border: '1px solid pink',
+      marginBottom: '2rem',
     },
   })
 );
@@ -42,9 +49,10 @@ interface IProps {
   handleDeleteFilter?(filter: string, value: string): void;
   handleDeleteFilters?(): void;
   totalPages?: number;
+  popularProducts: IProduct[];
 }
 export default function ModelShopList(props: IProps) {
-  const { header, breads, count, sortedFilters } = props;
+  const { header, breads, count, sortedFilters, popularProducts } = props;
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -53,17 +61,88 @@ export default function ModelShopList(props: IProps) {
         <Grid item xs={3}>
           <LeftSideBar>
             <FilterWidget filters={sortedFilters} />
+            <LeftSidePopularWidget popularProducts={popularProducts} />
           </LeftSideBar>
         </Grid>
       </Hidden>
       <Grid item xs={12} md={9}>
         <Grid item xs={12}>
           <div className={classes.contentContainer}>
-            <div>Inside stuff</div>
-            <div>Inside stuff</div>
-            <div>Inside stuff</div>
-            <div>Inside stuff</div>
-            <div>Inside stuff</div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Расходники
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Categories
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Популярные товары
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Блог
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Videos
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </div>
           </div>
         </Grid>
       </Grid>

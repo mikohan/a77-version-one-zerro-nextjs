@@ -38,6 +38,8 @@ import { asString } from '~/helpers';
 import ModelShopList from '~/components/car/ModelShopList';
 import ModelHomePage from '~/components/car/ModelHomePage';
 import { carHomePagePriority } from '~/config';
+import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
+import { IProduct } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -49,6 +51,7 @@ interface IModelProps {
   routerParams: IRouterStuff;
   routerQuery: IRouterStuff;
   aggregations: IAgregations;
+  popularProducts: IProduct[];
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -68,11 +71,11 @@ function Model(props: IModelProps) {
     routerParams,
     routerQuery,
     aggregations,
+    popularProducts,
   } = props;
   // If car priority from config show home page otherwise show shop grid
   const showCarHomePage: boolean =
     parseInt(model.priority) >= carHomePagePriority ? true : false;
-  console.log(showCarHomePage, model.priority);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -194,6 +197,7 @@ function Model(props: IModelProps) {
               count={count}
               totalPages={totalPages}
               sortedFilters={[categoriesFilter]}
+              popularProducts={popularProducts}
             />
           ) : (
             <ModelShopList
@@ -246,6 +250,8 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?model=${modelSlug}&page_from=${page_from}&page_size=${pageSize}`;
   }
+
+  const popularProducts = await getPopularProductsByModel(modelSlug);
   const promise = await getProductsByFilters(url);
 
   const categories: IAggregationCategory[] =
@@ -272,6 +278,7 @@ export const getServerSideProps: GetServerSideProps = async (
       totalPages: totalPages,
       routerParams,
       routerQuery,
+      popularProducts,
     },
   };
 };
