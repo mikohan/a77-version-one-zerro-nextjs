@@ -30,6 +30,13 @@ import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -39,22 +46,22 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2rem',
     },
     appbar: {
-      minHeight: '4rem',
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'nowrap',
     },
     list: {
       width: 250,
     },
-    listItem: {},
     tab: {
       ...(theme.mixins.toolbar.tab as object),
       minWidth: 10,
       marginLeft: '25px',
     },
-    smallHeaderBox: {
+    toolBarContainer: {
       display: 'flex',
-      justifyContent: 'flex-end',
-      minHeight: '2rem',
-      padding: theme.spacing(1),
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     switchLabel: {
       fontSize: '0.8rem',
@@ -138,12 +145,7 @@ export default function Header({ setIsDark }: IProps) {
         disableDiscovery={iOS}
       >
         <List className={classes.list}>
-          <ListItem
-            button
-            onClick={goHome}
-            selected={activePage === 0}
-            className={classes.listItem}
-          >
+          <ListItem button onClick={goHome} selected={activePage === 0}>
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
@@ -189,30 +191,41 @@ export default function Header({ setIsDark }: IProps) {
 
   return (
     <React.Fragment>
-      <AppBar position="static" color="transparent" elevation={1}>
-        <Toolbar className={classes.appbar} variant="regular">
-          {matches ? drawer : tabs}
-        </Toolbar>
-      </AppBar>
-      <Grid container>
-        <Grid item xs={12}>
-          <Box className={classes.smallHeaderBox}>
-            <Box>
-              <FormControlLabel
-                control={
-                  <Switch
-                    color="primary"
-                    size="small"
-                    checked={isDark}
-                    onChange={isDarkHandler}
+      <div className={classes.root}>
+        <AppBar
+          className={classes.appbar}
+          position="static"
+          color="transparent"
+          elevation={1}
+        >
+          <Toolbar variant="regular">
+            <Grid
+              className={classes.toolBarContainer}
+              justify="space-between"
+              container
+            >
+              <Grid item>{matches ? drawer : tabs}</Grid>
+              <Grid item>
+                <Box>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        color="primary"
+                        size="small"
+                        checked={isDark}
+                        onChange={isDarkHandler}
+                      />
+                    }
+                    label={isDark ? 'светлая тема' : 'темная тема'}
+                    classes={{ label: classes.switchLabel }}
                   />
-                }
-                label={isDark ? 'светлая тема' : 'темная тема'}
-                classes={{ label: classes.switchLabel }}
-              />
-            </Box>
-          </Box>
-        </Grid>
+                </Box>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <Grid container>
         <Grid item xs={12}>
           <SearchBox />
         </Grid>

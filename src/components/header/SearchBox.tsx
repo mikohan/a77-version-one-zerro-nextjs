@@ -7,11 +7,17 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
+      background: theme.palette.background.paper,
+    },
     container: {
       display: 'flex',
       justifyContent: 'center',
-      paddingLeft: theme.spacing(15),
-      paddingRight: theme.spacing(15),
+      alignItems: 'center',
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     autocomlete: {
       width: '100%',
@@ -30,8 +36,11 @@ export default function Grouped() {
   });
 
   return (
-    <Grid container>
-      <Grid className={classes.container} item xs={12}>
+    <Grid className={classes.root} container>
+      <Grid className={classes.container} item xs={4}>
+        Content
+      </Grid>
+      <Grid className={classes.container} item xs={4}>
         <Autocomplete
           className={classes.autocomlete}
           id="grouped-demo"
@@ -45,6 +54,9 @@ export default function Grouped() {
             <TextField {...params} label="With categories" variant="outlined" />
           )}
         />
+      </Grid>
+      <Grid className={classes.container} item xs={4}>
+        Content
       </Grid>
     </Grid>
   );
