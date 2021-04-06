@@ -5,13 +5,20 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import ShopCarGrid from '~/components/product/ShopMakeGrid';
 
-import { List, ListItem, Grid, Hidden, Typography } from '@material-ui/core';
+import {
+  Container,
+  List,
+  ListItem,
+  Grid,
+  Hidden,
+  Typography,
+} from '@material-ui/core';
 import Link from 'next/link';
 
 import { getVehicles } from '~/endpoints/carsEndpoint';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
-import {containerMaxWidth} from '~/config'
+import { containerMaxWidth } from '~/config';
 
 interface ICarProps {
   makes: IMake[];
@@ -60,18 +67,19 @@ function Car(props: ICarProps) {
         />
       </Head>
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}
-        <Grid container>
-          <Hidden smDown>
-            <Grid item xs={2} style={{ border: '1px solid green' }}>
-              LEFT SIDE PANE
+        <Container maxWidth={containerMaxWidth}>
+          <Grid container>
+            <Hidden smDown>
+              <Grid item xs={2} style={{ border: '1px solid green' }}>
+                LEFT SIDE PANE
+              </Grid>
+            </Hidden>
+            <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
+              <Typography variant="h1">H1 Goes Here</Typography>
+              <ShopCarGrid cars={makes} />
             </Grid>
-          </Hidden>
-          <Grid style={{ border: '1px solid green' }} item xs={12} md={10}>
-            <Typography variant="h1">H1 Goes Here</Typography>
-            <ShopCarGrid cars={makes} />
           </Grid>
-        </Grid>
+        </Container>
       </AnimationPage>
     </React.Fragment>
   );
