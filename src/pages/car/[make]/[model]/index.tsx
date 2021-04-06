@@ -36,6 +36,8 @@ import {
 } from '~/store/shop/shopActions';
 import { asString } from '~/helpers';
 import ModelShopList from '~/components/car/ModelShopList';
+import ModelHomePage from '~/components/car/ModelHomePage';
+import { carHomePagePriority } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -67,7 +69,10 @@ function Model(props: IModelProps) {
     routerQuery,
     aggregations,
   } = props;
-  console.log(model.priority);
+  // If car priority from config show home page otherwise show shop grid
+  const showCarHomePage: boolean =
+    parseInt(model.priority) >= carHomePagePriority ? true : false;
+  console.log(showCarHomePage, model.priority);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -181,17 +186,27 @@ function Model(props: IModelProps) {
       <CarModelHead model={model} />
       <AnimationPage>
         <Grid container>
-          <ModelShopList
-            header={header}
-            breads={breads}
-            count={count}
-            totalPages={totalPages}
-            sortedFilters={sortedFilters}
-            products={products}
-            handleFilterChange={handleFilterChange}
-            handleDeleteFilter={handleDeleteFilter}
-            handleDeleteFilters={handleDeleteFilters}
-          />
+          {showCarHomePage ? (
+            <ModelHomePage
+              products={products}
+              header={header}
+              breads={breads}
+              count={count}
+              totalPages={totalPages}
+            />
+          ) : (
+            <ModelShopList
+              header={header}
+              breads={breads}
+              count={count}
+              totalPages={totalPages}
+              sortedFilters={sortedFilters}
+              products={products}
+              handleFilterChange={handleFilterChange}
+              handleDeleteFilter={handleDeleteFilter}
+              handleDeleteFilters={handleDeleteFilters}
+            />
+          )}
         </Grid>
       </AnimationPage>
     </React.Fragment>
@@ -205,7 +220,6 @@ export const getServerSideProps: GetServerSideProps = async (
   const routerQuery = context.query;
   const modelSlug = context.params?.model as string;
   const model: ICar = await getVehicle(modelSlug);
-  console.log(model);
   const filtersQuery = clearParams(
     routerQuery as IRouterStuff,
     routerParams as IRouterStuff

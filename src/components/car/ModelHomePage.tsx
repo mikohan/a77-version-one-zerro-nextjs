@@ -12,7 +12,7 @@ interface IProps {
   breads: any;
   count: number;
   sortedFilters?: IFilter[];
-  handleFilterChange(
+  handleFilterChange?(
     e: React.ChangeEvent<HTMLElement>,
     filterName: string,
     itemName: string

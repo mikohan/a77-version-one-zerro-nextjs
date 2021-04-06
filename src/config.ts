@@ -65,3 +65,6 @@ export const transFilter: ITransFilter = {
   has_photo: 'Фото',
   condition: 'Состояние',
 };
+
+// If priority high and higer show car model homepage if not shop product grid
+export const carHomePagePriority = 4;
