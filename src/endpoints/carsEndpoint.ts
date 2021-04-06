@@ -53,6 +53,7 @@ export async function getVehicles(): Promise<ICar[]> {
           model
           year
           engine
+          priority
           make {
             id
             name
@@ -76,6 +77,7 @@ export async function getVehicle(slug: string): Promise<ICar> {
         model
         year
         engine
+        priority
         make {
           id
           name
@@ -106,6 +108,7 @@ export async function getVehiclesByMake(slug: string): Promise<ICar> {
         year
         engine
         count
+        priority
         make {
           id
           name

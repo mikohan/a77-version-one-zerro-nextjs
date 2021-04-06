@@ -205,6 +205,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const routerQuery = context.query;
   const modelSlug = context.params?.model as string;
   const model: ICar = await getVehicle(modelSlug);
+  console.log(model);
   const filtersQuery = clearParams(
     routerQuery as IRouterStuff,
     routerParams as IRouterStuff
