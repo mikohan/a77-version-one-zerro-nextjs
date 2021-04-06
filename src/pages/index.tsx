@@ -7,10 +7,16 @@ import { GetStaticProps } from 'next';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
-import { Typography, Container } from '@material-ui/core';
+import { Box, Typography, Container } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    topBlock: {
+      marginTop: theme.spacing(3),
+      minHeight: '20rem',
+      widht: '100%',
+      background: theme.palette.background.paper,
+    },
     contentContainer: {
       paddingTop: theme.spacing(3),
       display: 'grid',
@@ -46,6 +52,11 @@ export default function Home(props: IHomeProps) {
 
   return (
     <Animation>
+      <Grid container>
+        <Grid item xs={12}>
+          <Box className={classes.topBlock}>contant</Box>
+        </Grid>
+      </Grid>
       <Container maxWidth={containerMaxWidth}>
         <Grid container>
           <Grid item xs={12}>
