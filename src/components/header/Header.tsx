@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Link from 'next/link';
-import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +25,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 
-import { InboxTwoTone, HomeOutlined } from '@material-ui/icons';
+import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 
@@ -209,7 +206,7 @@ export default function Header({ setIsDark }: IProps) {
                     onChange={isDarkHandler}
                   />
                 }
-                label="темная тема"
+                label={isDark ? 'светлая тема' : 'темная тема'}
                 classes={{ label: classes.switchLabel }}
               />
             </Box>
