@@ -11,14 +11,9 @@ import { getVehicle } from '~/endpoints/carsEndpoint';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { capitalize, makeTree } from '~/utils';
-import { Hidden } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CarModelHead from '~/components/heads/carModelHead';
 import { IBread, IRouterStuff } from '~/interfaces';
-import PageHeader from '~/components/product/PageHeader';
-import ShopGrid from '~/components/product/ShopGrid';
-import FilterWidget from '~/components/product/FilterWidget';
-import LeftSideBar from '~/components/product/LeftSideBar';
 import { IShopCategory, IActiveFilterMy } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
 import useLocalstorageState from '~/hooks/useLocalStorage';
@@ -72,6 +67,7 @@ function Model(props: IModelProps) {
     routerQuery,
     aggregations,
   } = props;
+  console.log(model.priority);
 
   const dispatch = useDispatch();
   const router = useRouter();

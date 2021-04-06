@@ -15,6 +15,7 @@ export interface ICar {
   engine?: IEngine[];
   slug: string;
   count?: string;
+  priority: string;
 }
 
 export interface IVehicle extends ICar {}
