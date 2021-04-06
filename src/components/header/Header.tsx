@@ -64,7 +64,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     switchLabel: {
-      fontSize: '0.8rem',
+      fontSize: '90%',
+    },
+    switcherBox: {
+      paddingRight: theme.spacing(2),
     },
   })
 );
@@ -206,7 +209,7 @@ export default function Header({ setIsDark }: IProps) {
             >
               <Grid item>{matches ? drawer : tabs}</Grid>
               <Grid item>
-                <Box>
+                <Box className={classes.switcherBox}>
                   <FormControlLabel
                     control={
                       <Switch
@@ -217,6 +220,7 @@ export default function Header({ setIsDark }: IProps) {
                       />
                     }
                     label={isDark ? 'светлая тема' : 'темная тема'}
+                    labelPlacement="start"
                     classes={{ label: classes.switchLabel }}
                   />
                 </Box>
