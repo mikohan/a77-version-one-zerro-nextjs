@@ -45,6 +45,7 @@ export const SITE_DOMAIN_FULL = 'https://angara77.com';
 export const prodCardSize = 225;
 export const defaultShopPageLayout = 'grid';
 export const pageSize = 20;
+export const popularProductsQuantity = 10;
 
 // Define order of rendering filters on page
 export const filtersConf = [

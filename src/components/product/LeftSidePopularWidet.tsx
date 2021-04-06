@@ -34,6 +34,11 @@ export default function LeftSidePopularWidget({
         <Grid item xs={12}>
           <Typography variant="h6">Popular Products</Typography>
         </Grid>
+        <Grid item xs={12}>
+          {popularProducts.map((product: IProduct, i: number) => (
+            <pre key={product.slug}>{JSON.stringify(product, null, 2)}</pre>
+          ))}
+        </Grid>
       </Box>
     </Grid>
   );

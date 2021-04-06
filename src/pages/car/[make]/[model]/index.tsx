@@ -40,6 +40,7 @@ import ModelHomePage from '~/components/car/ModelHomePage';
 import { carHomePagePriority } from '~/config';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
+import { popularProductsQuantity } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -251,8 +252,10 @@ export const getServerSideProps: GetServerSideProps = async (
     url = `?model=${modelSlug}&page_from=${page_from}&page_size=${pageSize}`;
   }
 
-  const popularProducts = await getPopularProductsByModel(modelSlug, 20);
-  console.log(popularProducts);
+  const popularProducts = await getPopularProductsByModel(
+    modelSlug,
+    popularProductsQuantity
+  );
   const promise = await getProductsByFilters(url);
 
   const categories: IAggregationCategory[] =
