@@ -1,14 +1,10 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-import MainLayout from '~/layouts/Main';
 import Link from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ListForTesting from '~/components/ListForTesting';
 import { GetStaticProps } from 'next';
-import { makesUrl } from '~/config';
 import { IMake } from '~/interfaces/IMake';
-import axios from 'axios';
 import { getMakes } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
 const useStyles = makeStyles((theme: Theme) =>
