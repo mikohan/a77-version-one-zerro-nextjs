@@ -251,7 +251,8 @@ export const getServerSideProps: GetServerSideProps = async (
     url = `?model=${modelSlug}&page_from=${page_from}&page_size=${pageSize}`;
   }
 
-  const popularProducts = await getPopularProductsByModel(modelSlug);
+  const popularProducts = await getPopularProductsByModel(modelSlug, 20);
+  console.log(popularProducts);
   const promise = await getProductsByFilters(url);
 
   const categories: IAggregationCategory[] =

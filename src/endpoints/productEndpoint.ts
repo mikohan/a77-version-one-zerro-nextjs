@@ -59,24 +59,36 @@ export async function getProductsByFilters(
 }
 
 export async function getPopularProductsByModel(
-  slug: string
+  slug: string,
+  quantity: number
 ): Promise<IProduct> {
   const query = gql`
-    query vehicle($slug: String!) {
-      vehicle(slug: $slug) {
+    query vehicle($slug: String!, $quantity: Int!) {
+      popularProducts(slug: $slug, quantity: $quantity) {
         id
-        model
-        year
-        engine
-        priority
-        make {
-          id
-          name
-          country
-          priority
-          slug
-        }
         slug
+        name
+        fullName
+        sku
+        catNumber
+        bages
+        images {
+          img150
+          img245
+          img500
+          img150x150
+          img245x245
+          img500x500
+          main
+        }
+        model {
+          slug
+          model
+          make {
+            slug
+            name
+          }
+        }
       }
     }
   `;
@@ -84,8 +96,9 @@ export async function getPopularProductsByModel(
     query: query,
     variables: {
       slug: slug,
+      quantity: quantity,
     },
   });
-  const data = await promise.data.vehicle;
+  const data = await promise.data.popularProducts;
   return data;
 }
