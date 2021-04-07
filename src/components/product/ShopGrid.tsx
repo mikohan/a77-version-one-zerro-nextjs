@@ -340,7 +340,6 @@ export default function ShopGrid({
               <Box className={classes.filtersBox}>
                 {Object.entries(filters).map((fil: any) => {
                   return fil[1].split(',').map((elem: string) => {
-                    console.log(fil[0]);
                     if (fil[0] === 'has_photo') {
                       elem = booleanToRus(elem);
                     }
