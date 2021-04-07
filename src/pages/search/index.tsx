@@ -29,6 +29,7 @@ import { IState } from '~/interfaces/IState';
 import {
   getProductsAll,
   getProductsByFilters,
+  getProductsBySearch,
 } from '~/endpoints/productEndpoint';
 import { IActiveFilterMy } from '~/interfaces';
 import { Router } from 'next/dist/client/router';
@@ -158,7 +159,6 @@ export default function Cagetory(props: CategoryProps) {
       filterValues: value.split(','),
     });
   }
-  console.log(routerQuery);
 
   /* const activeFilters: IActiveFilterMy[] = getActiveFilters( */
   /*   /1* routerParams, *1/ */
@@ -278,7 +278,7 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
-  const promise = await getProductsByFilters(url);
+  const promise = await getProductsBySearch(url);
   /* const promise = await getProductsAll(); */
 
   const categories: IAggregationCategory[] =
