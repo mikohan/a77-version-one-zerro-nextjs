@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,15 +37,15 @@ export default function Grouped() {
   const classes = useStyles();
   const initState: IOptions[] = [];
   const [options, setOptions] = useState(initState);
+  const [value, setValue] = useState('');
+  const router = useRouter();
 
   function handleChange(
     event: React.ChangeEvent<{}>,
     value: IOptions | null
-  ): void {
-    console.log(value);
-  }
+  ): void {}
   function handleInput(event: React.ChangeEvent<{}>, value: string): void {
-    console.log(value);
+    setValue(value);
     const opts: IOptions[] = top100Films.map((option) => {
       const firstLetter = option.title[0].toUpperCase();
       return {
@@ -56,6 +58,15 @@ export default function Grouped() {
 
   function handleClose(event: React.ChangeEvent<{}>) {
     setOptions(initState);
+  }
+  console.log(value);
+  function sendRequest() {
+    router.push({
+      pathname: '/search',
+      query: {
+        search: value,
+      },
+    });
   }
 
   return (
@@ -80,6 +91,9 @@ export default function Grouped() {
             <TextField {...params} label="With categories" variant="outlined" />
           )}
         />
+        <Button variant="outlined" onClick={sendRequest}>
+          Search
+        </Button>
       </Grid>
       <Grid className={classes.container} item xs={4}>
         Content

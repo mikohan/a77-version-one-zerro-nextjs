@@ -67,11 +67,9 @@ interface CategoryProps {
 
 export default function Cagetory(props: CategoryProps) {
   const {
-    category,
     categories,
     model,
     products,
-    catPath,
     aggregations,
     totalPages,
     routerQuery,
@@ -93,7 +91,6 @@ export default function Cagetory(props: CategoryProps) {
   const header = `${search} Have found or not have found `;
   const count = products.total.value;
 
-  const orderedCatBreads = catPath.sort(OrderBreads);
   /* const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({ */
   /*   name: item.name, */
   /*   path: url.category(model.make.slug, model.slug, item.slug), */
@@ -108,14 +105,14 @@ export default function Cagetory(props: CategoryProps) {
 
   //************************ Filters Section Starts here**********************************************
 
-  const categoriesFilter: IFilter = {
-    type: 'category',
-    name: 'Категории',
-    slug: 'category',
-    value: 'dvigatel',
-    path: orderedCatBreads,
-    items: categories,
-  };
+  /* const categoriesFilter: IFilter = { */
+  /*   type: 'category', */
+  /*   name: 'Категории', */
+  /*   slug: 'category', */
+  /*   value: 'dvigatel', */
+  /*   path: orderedCatBreads, */
+  /*   items: categories, */
+  /* }; */
 
   /* // ************************** Price filters ********************* */
   let minPrice: number = 0;
@@ -141,8 +138,7 @@ export default function Cagetory(props: CategoryProps) {
     router,
     aggregations,
     filtersFromStore,
-    oldPrice,
-    categoriesFilter
+    oldPrice
   );
   // ************************** End filters *********************
 
@@ -182,23 +178,16 @@ export default function Cagetory(props: CategoryProps) {
     activeFilters,
     router,
     dispatch,
-    model,
-    category
+    model
   );
 
   const handleDeleteFilter = makeHandleDeleteFilter(
     router,
     dispatch,
     activeFilters,
-    model,
-    category
+    model
   );
-  const handleDeleteFilters = makeHandleDeleteFilters(
-    router,
-    dispatch,
-    model,
-    category
-  );
+  const handleDeleteFilters = makeHandleDeleteFilters(router, dispatch, model);
   return (
     <React.Fragment>
       <SearchHead searchQuery={'replace for real search later'} />
@@ -236,27 +225,15 @@ export default function Cagetory(props: CategoryProps) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const routerParams = context.params;
   const routerQuery = context.query;
 
   // Probably needs to go ouside this file
   // Cleaning filters from pages and main url params
   const filtersQuery = routerQuery;
-  const { category, model } = routerQuery;
-  const modelSlug: string = model as string;
-  if (!category) {
-    return {
-      notFound: true,
-    };
-  }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-  const mod: ICar = await getVehicle(modelSlug);
-
-  const slug: string = asString(category);
 
   // Comment out for building next time here and in static paths
-  const cat: ICategory = await getCategoryBySlugGQL(slug);
   //pagination part
   const str: string = asString(context.query.page as string);
   const page: number = parseInt(str) || 1;
@@ -274,9 +251,9 @@ export const getServerSideProps: GetServerSideProps = async (
       }
       filUrl += `${filter}=${value}${amp}`;
     });
-    url = `?model=${model}&category=${category}&${filUrl}&page_from=${page_from}&page_size=${pageSize}`;
+    url = `?${filUrl}&page_from=${page_from}&page_size=${pageSize}`;
   } else {
-    url = `?model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
+    url = `?&page_from=${page_from}&page_size=${pageSize}`;
   }
   const promise = await getProductsBySearch(url);
   /* const promise = await getProductsAll(); */
@@ -290,17 +267,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const aggregations: IAgregations = promise.aggregations;
 
-  const catPath = getCatPath(cat, categories);
-
   const localCatTree: ICategory[] = makeTree(categories);
-  let catRet;
-  try {
-    const cttt = searchTree(localCatTree[0], slug);
-    catRet = cttt.children.length ? cttt.children : [];
-  } catch (e) {
-    catRet = null;
-    console.log('Fucks up in ', e);
-  }
 
   if (!promise) {
     return {
@@ -310,11 +277,10 @@ export const getServerSideProps: GetServerSideProps = async (
   return {
     props: {
       car: {},
-      category: cat,
-      categories: catRet,
+      /* category: cat, */
+      /* categories: catRet, */
       products: products,
-      model: mod,
-      catPath: catPath,
+      /* catPath: catPath, */
       aggregations,
       totalPages,
       routerQuery,
