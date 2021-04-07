@@ -88,7 +88,9 @@ export const filtersConf = [
 ];
 
 export const transFilter: ITransFilter = {
+  search: 'Поиск',
   category: 'Категории',
+  car_models: 'Модель',
   engine: 'Двигатель',
   brand: 'Бренд',
   price: 'Цена',
