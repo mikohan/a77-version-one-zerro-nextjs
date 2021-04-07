@@ -73,9 +73,7 @@ export function createCheckFilters(
   let bucketsFilters: { [key: string]: IFilter } = {};
 
   pageSpecificFilters[page].forEach((item: string) => {
-    console.log(item);
     if (!bucketsFilters.hasOwnProperty(item)) {
-      console.log(bucketsFilters[item]);
       bucketsFilters[item] = oldBucketsFilters[item];
     }
   });
