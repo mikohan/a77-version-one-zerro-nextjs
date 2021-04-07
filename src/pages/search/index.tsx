@@ -206,14 +206,18 @@ export default function Cagetory(props: CategoryProps) {
               </Grid>
             </Hidden>
             <Grid item xs={12} md={9}>
-              <ShopGrid
-                products={products.hits}
-                totalPages={totalPages}
-                filtersResetHandlers={{
-                  handleDeleteFilter,
-                  handleDeleteFilters,
-                }}
-              />
+              {products.hits.length > 0 ? (
+                <ShopGrid
+                  products={products.hits}
+                  totalPages={totalPages}
+                  filtersResetHandlers={{
+                    handleDeleteFilter,
+                    handleDeleteFilters,
+                  }}
+                />
+              ) : (
+                <div>No stuff</div>
+              )}
             </Grid>
           </Grid>
         </Container>

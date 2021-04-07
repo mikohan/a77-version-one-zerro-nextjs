@@ -5,8 +5,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Grid, Button } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import url from '~/services/url';
-import { Formik, Form } from 'formik';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import ClearIcon from '@material-ui/icons/Clear';
+import PaperSearchForm from './PaperSearchForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,6 +70,22 @@ export default function Grouped() {
       },
     });
   }
+  const textField = (params) => (
+    <TextField
+      {...params}
+      label="With categories"
+      variant="outlined"
+      name="search"
+      onChange={(e) => setInputValue(e.target.value)}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <ClearIcon />
+          </InputAdornment>
+        ),
+      }}
+    />
+  );
 
   return (
     <Grid className={classes.root} container>
@@ -90,15 +107,7 @@ export default function Grouped() {
           size="small"
           groupBy={(option) => option.firstLetter}
           getOptionLabel={(option) => option.title}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="With categories"
-              variant="outlined"
-              name="search"
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-          )}
+          renderInput={(params) => textField(params)}
         />
         <Button type="submit" variant="outlined" onClick={handleSubmit}>
           Search
