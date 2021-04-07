@@ -30,14 +30,17 @@ export function makePushUrl(
   router: NextRouter,
   dispatch: any,
   activeFilters: IActiveFilterMy[],
-  model: ICar,
-  category?: ICategory
+  model?: ICar,
+  category?: ICategory,
+  search?: string
 ) {
   let mainUrl: string = '';
-  if (category) {
+  if (category && model) {
     mainUrl = url.category(model.make.slug, model.slug, category.slug);
-  } else {
+  } else if (model) {
     mainUrl = url.model(model.make.slug, model.slug);
+  } else if (search) {
+    mainUrl = url.search();
   }
 
   const params = {} as IFilterQueryString;
@@ -45,6 +48,9 @@ export function makePushUrl(
     if (value.filterValues.length > 0) {
       params[value.filterSlug] = value.filterValues.join(',');
     }
+  }
+  if (search) {
+    params.search = search;
   }
 
   for (const item of activeFilters) {
@@ -129,8 +135,9 @@ export function makeHandleFilterChange(
 
   router: NextRouter,
   dispatch: any,
-  model: ICar,
-  category?: ICategory
+  model?: ICar,
+  category?: ICategory,
+  search?: string
 ): (
   e: React.ChangeEvent<HTMLInputElement>,
   filterName: string,
@@ -177,7 +184,18 @@ export function makeHandleFilterChange(
       }
     }
     // Call redirect
-    makePushUrl(router, dispatch, activeFilters, model, category);
+    if (model) {
+      makePushUrl(router, dispatch, activeFilters, model, category);
+    } else if (search) {
+      makePushUrl(
+        router,
+        dispatch,
+        activeFilters,
+        undefined,
+        undefined,
+        search
+      );
+    }
   };
   return handleFilterChange;
 }
@@ -186,8 +204,9 @@ export function makeHandleDeleteFilter(
   router: NextRouter,
   dispatch: any,
   activeFilters: IActiveFilterMy[],
-  model: ICar,
-  category?: ICategory
+  model?: ICar,
+  category?: ICategory,
+  search?: string
 ) {
   const handleDeleteFilter = (filterSlug: string, filterValue: string) => {
     dispatch(shopResetFilter(filterSlug, filterValue));
@@ -200,19 +219,28 @@ export function makeHandleDeleteFilter(
     activeFilters[idx].filterValues = filVals;
 
     const newFilters = [...activeFilters];
-    makePushUrl(router, dispatch, newFilters, model, category);
+    if (model) {
+      makePushUrl(router, dispatch, newFilters, model, category);
+    } else if (search) {
+      makePushUrl(router, dispatch, newFilters, undefined, undefined, search);
+    }
   };
   return handleDeleteFilter;
 }
 export function makeHandleDeleteFilters(
   router: NextRouter,
   dispatch: any,
-  model: ICar,
-  category?: ICategory
+  model?: ICar,
+  category?: ICategory,
+  search?: string
 ) {
   const handleDeleteFilters = () => {
     dispatch(shopResetFilters());
-    makePushUrl(router, dispatch, [], model, category);
+    if (model) {
+      makePushUrl(router, dispatch, [], model, category);
+    } else if (search) {
+      makePushUrl(router, dispatch, [], undefined, undefined, search);
+    }
   };
   return handleDeleteFilters;
 }

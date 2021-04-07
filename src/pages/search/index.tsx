@@ -164,30 +164,40 @@ export default function Cagetory(props: CategoryProps) {
   /* ); */
 
   // Putting filters from url to store
-  /* useEffect(() => { */
-  /*   if (!Object.keys(filtersFromStore).length) { */
-  /*     for (const filter of activeFilters) { */
-  /*       const fvalues = filter.filterValues.join(','); */
-  /*       dispatch(shopSetFilterVlue(filter.filterSlug, fvalues)); */
-  /*     } */
-  /*   } */
-  /* }, []); */
+  useEffect(() => {
+    if (!Object.keys(filtersFromStore).length) {
+      for (const filter of activeFilters) {
+        const fvalues = filter.filterValues.join(',');
+        dispatch(shopSetFilterVlue(filter.filterSlug, fvalues));
+      }
+    }
+  }, []);
 
   /* // Function for redirection */
   const handleFilterChange = makeHandleFilterChange(
     activeFilters,
     router,
     dispatch,
-    model
+    undefined,
+    undefined,
+    search
   );
 
   const handleDeleteFilter = makeHandleDeleteFilter(
     router,
     dispatch,
     activeFilters,
-    model
+    undefined,
+    undefined,
+    search
   );
-  const handleDeleteFilters = makeHandleDeleteFilters(router, dispatch, model);
+  const handleDeleteFilters = makeHandleDeleteFilters(
+    router,
+    dispatch,
+    undefined,
+    undefined,
+    search
+  );
   return (
     <React.Fragment>
       <SearchHead searchQuery={'replace for real search later'} />

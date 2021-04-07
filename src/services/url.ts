@@ -12,7 +12,7 @@ const url: { [key: string]: any } = {
   ): IAppLinkHref => {
     return `/car/${make}/${model}/${categorySlug}`;
   },
-  search: (searchUrl: string) => `/search/${searchUrl}`,
+  search: () => `/search`,
   products: (
     make?: string,
     model?: string,
