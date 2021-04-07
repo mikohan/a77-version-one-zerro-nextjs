@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Grid } from '@material-ui/core';
@@ -25,15 +25,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface IOptions {
+  title: string;
+  year: number;
+  firstLetter: string;
+}
+
 export default function Grouped() {
   const classes = useStyles();
-  const options = top100Films.map((option) => {
-    const firstLetter = option.title[0].toUpperCase();
-    return {
-      firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-      ...option,
-    };
-  });
+  const initState: IOptions[] = [];
+  const [options, setOptions] = useState(initState);
+
+  function handleChange(
+    event: React.ChangeEvent<{}>,
+    value: IOptions | null
+  ): void {
+    console.log(value);
+  }
+  function handleInput(event: React.ChangeEvent<{}>, value: string): void {
+    console.log(value);
+    const opts: IOptions[] = top100Films.map((option) => {
+      const firstLetter = option.title[0].toUpperCase();
+      return {
+        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+        ...option,
+      };
+    });
+    setOptions(opts);
+  }
+
+  function handleClose(event: React.ChangeEvent<{}>) {
+    setOptions(initState);
+  }
 
   return (
     <Grid className={classes.root} container>
@@ -42,6 +65,9 @@ export default function Grouped() {
       </Grid>
       <Grid className={classes.container} item xs={4}>
         <Autocomplete
+          onClose={handleClose}
+          onInputChange={handleInput}
+          onChange={handleChange}
           className={classes.autocomlete}
           id="grouped-demo"
           options={options.sort(
