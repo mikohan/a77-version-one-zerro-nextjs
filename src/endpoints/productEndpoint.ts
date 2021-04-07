@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { elasticApiUrl } from '~/config';
+import { elasticApiUrl, elasticApiSearchUrl } from '~/config';
 import { IProductElasticBase } from '~/interfaces/product';
 import { ICar } from '~/interfaces/ICar';
 import { IProduct } from '~/interfaces';
@@ -53,6 +53,14 @@ export async function getProductsByFilters(
   finalUrl: string
 ): Promise<IProductElasticBase> {
   const url = encodeURI(`${elasticApiUrl}${finalUrl}`);
+  const prom = await axios(url);
+
+  return prom.data;
+}
+export async function getProductsBySearch(
+  finalUrl: string
+): Promise<IProductElasticBase> {
+  const url = encodeURI(`${elasticApiSearchUrl}${finalUrl}`);
   const prom = await axios(url);
 
   return prom.data;

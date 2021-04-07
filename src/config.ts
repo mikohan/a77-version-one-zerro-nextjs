@@ -5,6 +5,8 @@ export const imageServerUrl = 'http://localhost:8000';
 
 export const apiUrl = 'http://localhost:8000/testcategory/';
 export const elasticApiUrl = 'http://localhost:8000/api/product/jsontest';
+export const elasticApiSearchUrl =
+  'http://localhost:8000/api/product/searchapi';
 // export const elasticApiUrl = 'http://192.168.0.109:8000/api/product/jsontest';
 
 export const vehiclesUrl = `${apiUrl}testproducts/vehicles/`;

@@ -278,8 +278,8 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
-  /* const promise = await getProductsByFilters(url); */
-  const promise = await getProductsAll();
+  const promise = await getProductsByFilters(url);
+  /* const promise = await getProductsAll(); */
 
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
