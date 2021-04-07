@@ -141,7 +141,6 @@ export default function Cagetory(props: CategoryProps) {
     oldPrice,
     'search'
   );
-  console.log(sortedFilters);
   // ************************** End filters *********************
 
   const possibleFilters: string[] = sortedFilters.map(

@@ -6,6 +6,7 @@ import { Grid, Button } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import { Formik, Form } from 'formik';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,16 +37,17 @@ interface IOptions {
 export default function Grouped() {
   const classes = useStyles();
   const initState: IOptions[] = [];
+  const [inputValue, setInputValue] = useState('some string');
   const [options, setOptions] = useState(initState);
-  const [value, setValue] = useState('');
   const router = useRouter();
 
   function handleChange(
     event: React.ChangeEvent<{}>,
     value: IOptions | null
-  ): void {}
+  ): void {
+    console.log(value);
+  }
   function handleInput(event: React.ChangeEvent<{}>, value: string): void {
-    setValue(value);
     const opts: IOptions[] = top100Films.map((option) => {
       const firstLetter = option.title[0].toUpperCase();
       return {
@@ -55,16 +57,15 @@ export default function Grouped() {
     });
     setOptions(opts);
   }
-
   function handleClose(event: React.ChangeEvent<{}>) {
     setOptions(initState);
   }
-  console.log(value);
-  function sendRequest() {
+  function handleSubmit() {
+    console.log(inputValue);
     router.push({
       pathname: '/search',
       query: {
-        search: value,
+        search: inputValue,
       },
     });
   }
@@ -76,6 +77,8 @@ export default function Grouped() {
       </Grid>
       <Grid className={classes.container} item xs={4}>
         <Autocomplete
+          inputValue={inputValue}
+          fullWidth
           onClose={handleClose}
           onInputChange={handleInput}
           onChange={handleChange}
@@ -88,10 +91,16 @@ export default function Grouped() {
           groupBy={(option) => option.firstLetter}
           getOptionLabel={(option) => option.title}
           renderInput={(params) => (
-            <TextField {...params} label="With categories" variant="outlined" />
+            <TextField
+              {...params}
+              label="With categories"
+              variant="outlined"
+              name="search"
+              onChange={(e) => setInputValue(e.target.value)}
+            />
           )}
         />
-        <Button variant="outlined" onClick={sendRequest}>
+        <Button type="submit" variant="outlined" onClick={handleSubmit}>
           Search
         </Button>
       </Grid>
