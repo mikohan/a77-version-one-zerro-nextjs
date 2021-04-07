@@ -143,6 +143,7 @@ function Model(props: IModelProps) {
     aggregations,
     filtersFromStore,
     oldPrice,
+    'category',
     categoriesFilter
   );
   // ************************** End filters *********************

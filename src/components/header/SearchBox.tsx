@@ -70,7 +70,7 @@ export default function Grouped() {
       },
     });
   }
-  const textField = (params) => (
+  const textField = (params: any) => (
     <TextField
       {...params}
       label="With categories"
