@@ -1,5 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
+import { searchTree } from '~/utils';
 
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
@@ -16,7 +17,7 @@ import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
-import CategoryHead from '~/components/heads/CategoryHead';
+import SearchHead from '~/components/heads/SearchHead';
 import { getCatPath } from '~/services/utils';
 import { IBread, IRouterStuff } from '~/interfaces';
 import url from '~/services/url';
@@ -25,7 +26,10 @@ import PageHeader from '~/components/product/PageHeader';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import { getProductsByFilters } from '~/endpoints/productEndpoint';
+import {
+  getProductsAll,
+  getProductsByFilters,
+} from '~/endpoints/productEndpoint';
 import { IActiveFilterMy } from '~/interfaces';
 import { Router } from 'next/dist/client/router';
 import {
@@ -70,7 +74,6 @@ export default function Cagetory(props: CategoryProps) {
     aggregations,
     totalPages,
     routerQuery,
-    routerParams,
   } = props;
 
   const dispatch = useDispatch();
@@ -84,24 +87,20 @@ export default function Cagetory(props: CategoryProps) {
   const filtersFromStore = useSelector(
     (state: IState) => state.shopNew.filters
   );
+  const search = routerQuery.search;
 
-  const modelName = capitalize(model.model);
-  const makeName = capitalize(model.make.name);
-  const catName = capitalize(category.name);
-  const header = `${catName} на  ${makeName} ${modelName}`;
+  const header = `${search} Have found or not have found `;
   const count = products.total.value;
 
   const orderedCatBreads = catPath.sort(OrderBreads);
-  const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({
-    name: item.name,
-    path: url.category(model.make.slug, model.slug, item.slug),
-  }));
+  /* const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({ */
+  /*   name: item.name, */
+  /*   path: url.category(model.make.slug, model.slug, item.slug), */
+  /* })); */
 
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
-    { name: model.make.name, path: url.make(model.make.slug) },
-    { name: model.model, path: url.model(model.make.slug, model.slug) },
-    ...catBreads,
+    { name: search, path: url.search(search) },
   ];
 
   // Make array for brands filter
@@ -151,25 +150,34 @@ export default function Cagetory(props: CategoryProps) {
   );
 
   // Getting filters from state redux
+  console.log(filtersFromStore);
+  const activeFilters: IActiveFilterMy[] = [];
+  for (const [key, value] of Object.entries(routerQuery)) {
+    activeFilters.push({
+      filterSlug: key,
+      filterValues: value.split(','),
+    });
+  }
+  console.log(routerQuery);
 
-  const activeFilters: IActiveFilterMy[] = getActiveFilters(
-    routerParams,
-    routerQuery,
-    filtersFromStore,
-    possibleFilters
-  );
+  /* const activeFilters: IActiveFilterMy[] = getActiveFilters( */
+  /*   /1* routerParams, *1/ */
+  /*   routerQuery, */
+  /*   filtersFromStore, */
+  /*   possibleFilters */
+  /* ); */
 
   // Putting filters from url to store
-  useEffect(() => {
-    if (!Object.keys(filtersFromStore).length) {
-      for (const filter of activeFilters) {
-        const fvalues = filter.filterValues.join(',');
-        dispatch(shopSetFilterVlue(filter.filterSlug, fvalues));
-      }
-    }
-  }, []);
+  /* useEffect(() => { */
+  /*   if (!Object.keys(filtersFromStore).length) { */
+  /*     for (const filter of activeFilters) { */
+  /*       const fvalues = filter.filterValues.join(','); */
+  /*       dispatch(shopSetFilterVlue(filter.filterSlug, fvalues)); */
+  /*     } */
+  /*   } */
+  /* }, []); */
 
-  // Function for redirection
+  /* // Function for redirection */
   const handleFilterChange = makeHandleFilterChange(
     activeFilters,
     router,
@@ -193,7 +201,7 @@ export default function Cagetory(props: CategoryProps) {
   );
   return (
     <React.Fragment>
-      <CategoryHead model={model} category={category} />
+      <SearchHead searchQuery={'replace for real search later'} />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
@@ -233,11 +241,8 @@ export const getServerSideProps: GetServerSideProps = async (
 
   // Probably needs to go ouside this file
   // Cleaning filters from pages and main url params
-  const filtersQuery = clearParams(
-    routerQuery as IRouterStuff,
-    routerParams as IRouterStuff
-  );
-  const { category, model } = context.params!;
+  const filtersQuery = routerQuery;
+  const { category, model } = routerQuery;
   const modelSlug: string = model as string;
   if (!category) {
     return {
@@ -245,19 +250,6 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-  function searchTree(element: any, matchingTitle: any): any {
-    if (element.slug == matchingTitle) {
-      return element;
-    } else if (element.children != null) {
-      var i;
-      var result = null;
-      for (i = 0; result == null && i < element.children.length; i++) {
-        result = searchTree(element.children[i], matchingTitle);
-      }
-      return result;
-    }
-    return null;
-  }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   const mod: ICar = await getVehicle(modelSlug);
 
@@ -286,7 +278,8 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
-  const promise = await getProductsByFilters(url);
+  /* const promise = await getProductsByFilters(url); */
+  const promise = await getProductsAll();
 
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
@@ -325,7 +318,6 @@ export const getServerSideProps: GetServerSideProps = async (
       aggregations,
       totalPages,
       routerQuery,
-      routerParams,
     },
   };
 };

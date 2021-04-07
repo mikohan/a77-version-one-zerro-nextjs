@@ -1,5 +1,4 @@
 import { LinkProps } from 'next/link';
-import { IProduct } from '~/interfaces/product';
 
 type IAppLinkHref = string | LinkProps;
 
@@ -13,6 +12,7 @@ const url: { [key: string]: any } = {
   ): IAppLinkHref => {
     return `/car/${make}/${model}/${categorySlug}`;
   },
+  search: (searchUrl: string) => `/search/${searchUrl}`,
   products: (
     make?: string,
     model?: string,

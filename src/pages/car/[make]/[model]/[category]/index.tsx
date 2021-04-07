@@ -1,5 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
+import { searchTree } from '~/utils';
 
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
@@ -245,19 +246,6 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-  function searchTree(element: any, matchingTitle: any): any {
-    if (element.slug == matchingTitle) {
-      return element;
-    } else if (element.children != null) {
-      var i;
-      var result = null;
-      for (i = 0; result == null && i < element.children.length; i++) {
-        result = searchTree(element.children[i], matchingTitle);
-      }
-      return result;
-    }
-    return null;
-  }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   const mod: ICar = await getVehicle(modelSlug);
 

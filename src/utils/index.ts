@@ -114,3 +114,16 @@ export function makeFiltersQueryString(
   const finalUrl = filtersUrl + string;
   return finalUrl;
 }
+export function searchTree(element: any, matchingTitle: any): any {
+  if (element.slug == matchingTitle) {
+    return element;
+  } else if (element.children != null) {
+    var i;
+    var result = null;
+    for (i = 0; result == null && i < element.children.length; i++) {
+      result = searchTree(element.children[i], matchingTitle);
+    }
+    return result;
+  }
+  return null;
+}
