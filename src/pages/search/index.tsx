@@ -138,8 +138,10 @@ export default function Cagetory(props: CategoryProps) {
     router,
     aggregations,
     filtersFromStore,
-    oldPrice
+    oldPrice,
+    'search'
   );
+  console.log(sortedFilters);
   // ************************** End filters *********************
 
   const possibleFilters: string[] = sortedFilters.map(
@@ -147,7 +149,6 @@ export default function Cagetory(props: CategoryProps) {
   );
 
   // Getting filters from state redux
-  console.log(filtersFromStore);
   const activeFilters: IActiveFilterMy[] = [];
   for (const [key, value] of Object.entries(routerQuery)) {
     activeFilters.push({

@@ -143,6 +143,7 @@ export default function Cagetory(props: CategoryProps) {
     aggregations,
     filtersFromStore,
     oldPrice,
+    'category',
     categoriesFilter
   );
   // ************************** End filters *********************

@@ -1,4 +1,4 @@
-import { ITransFilter } from '~/interfaces';
+import { ITransFilter, IFilter } from '~/interfaces';
 export * from '~/data/shopData';
 
 export const imageServerUrl = 'http://localhost:8000';
@@ -53,8 +53,32 @@ export const popularProductsQuantity = 10;
 export const containerMaxWidth = 'xl';
 
 // Define order of rendering filters on page
+
+export const pageSpecificFilters: { [key: string]: string[] } = {
+  search: [
+    'car_models',
+    'price',
+    'brands',
+    'engines',
+    'has_photo',
+    'condition',
+    'bages',
+  ],
+  category: [
+    'category',
+    'price',
+    'brands',
+    'engines',
+    'has_photo',
+    'condition',
+    'bages',
+  ],
+};
+
+//  Order of filter display on page
 export const filtersConf = [
   'category',
+  'car_models',
   'price',
   'brand',
   'engine',

@@ -1,13 +1,14 @@
 import { CheckFilterBulder } from '~/services/filters/filtersBuilder';
 import { IFilter, IAgregations, ITransFilter } from '~/interfaces';
 import { orderFilters } from '~/services/filters/filterHandler';
-import { filtersConf } from '~/config';
+import { filtersConf, pageSpecificFilters } from '~/config';
 
 export function createCheckFilters(
   router: any,
   aggregations: IAgregations,
   filtersFromStore: ITransFilter,
   oldPrice: number[],
+  page: string,
   categoriesFilter?: IFilter
 ): IFilter[] {
   function getInitVals(filterSlug: string): string {
@@ -20,6 +21,13 @@ export function createCheckFilters(
     getInitVals('brand')
   );
   const brands = brandsClass.buildFilter();
+  const modelsClass = new CheckFilterBulder(
+    'Модели',
+    'car_models',
+    aggregations.car_models.buckets,
+    getInitVals('car_models')
+  );
+  const car_models = modelsClass.buildFilter();
   // llllllllllllllllllllllllll
   const photoClass = new CheckFilterBulder(
     'Фото',
@@ -52,13 +60,25 @@ export function createCheckFilters(
     getInitVals('condition')
   );
   const condition = filterCondition.buildFilter();
-  const bucketsFilters: { [key: string]: IFilter } = {
+
+  const oldBucketsFilters: { [key: string]: IFilter } = {
     brands,
+    car_models,
+    has_photo,
     engines,
     bages,
-    has_photo,
     condition,
   };
+
+  let bucketsFilters: { [key: string]: IFilter } = {};
+
+  pageSpecificFilters[page].forEach((item: string) => {
+    console.log(item);
+    if (!bucketsFilters.hasOwnProperty(item)) {
+      console.log(bucketsFilters[item]);
+      bucketsFilters[item] = oldBucketsFilters[item];
+    }
+  });
 
   let minPrice: number = 0;
   let maxPrice: number = 0;
