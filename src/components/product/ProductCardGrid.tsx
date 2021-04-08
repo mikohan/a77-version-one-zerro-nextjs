@@ -4,12 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { capitalize } from '~/utils';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import ChipContainer from '../common/ChipBox';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import Skeleton from '@material-ui/lab/Skeleton';
-import { ICar } from '~/interfaces';
 
 interface IProp {
   product: IProductElasticHitsSecond;

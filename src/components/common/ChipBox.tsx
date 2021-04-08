@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chipContainer: {
       position: 'absolute',
-      top: 200,
+      top: 20,
       left: -5,
     },
     chip: {

@@ -107,7 +107,7 @@ function Model(props: IModelProps) {
 
   useEffect(() => {
     dispatch(setCurrentCarAction(model));
-    /* setCurCarLocalStorage(model); */
+    setCurCarLocalStorage(model);
   }, [model]);
 
   const categoriesFilter: IFilter = {
