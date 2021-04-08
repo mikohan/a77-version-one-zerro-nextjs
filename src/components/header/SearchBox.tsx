@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ClearIcon from '@material-ui/icons/Clear';
-import PaperSearchForm from './PaperSearchForm';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +38,7 @@ interface IOptions {
 export default function Grouped() {
   const classes = useStyles();
   const initState: IOptions[] = [];
-  const [inputValue, setInputValue] = useState('some string');
+  const [inputValue, setInputValue] = useState('фильтров маслянных');
   const [options, setOptions] = useState(initState);
   const router = useRouter();
 
@@ -73,7 +73,7 @@ export default function Grouped() {
   const textField = (params: any) => (
     <TextField
       {...params}
-      label="With categories"
+      label="найти запчасть"
       variant="outlined"
       name="search"
       onChange={(e) => setInputValue(e.target.value)}
@@ -109,9 +109,9 @@ export default function Grouped() {
           getOptionLabel={(option) => option.title}
           renderInput={(params) => textField(params)}
         />
-        <Button type="submit" variant="outlined" onClick={handleSubmit}>
-          Search
-        </Button>
+        <IconButton onClick={handleSubmit}>
+          <SearchIcon />
+        </IconButton>
       </Grid>
       <Grid className={classes.container} item xs={4}>
         Content
