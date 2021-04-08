@@ -22,6 +22,7 @@ export default function ProductCardGrid({ product }: IProp) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       card: {
+        position: 'relative',
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -104,6 +105,7 @@ export default function ProductCardGrid({ product }: IProp) {
 
   return (
     <div className={classes.card}>
+      {compatable && <ChipContainer car={currentCar.model} />}
       <a className={classes.a}>
         <img
           className={classes.image}

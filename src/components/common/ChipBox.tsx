@@ -1,9 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { IBread } from '~/interfaces';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chipContainer: {
       position: 'absolute',
-      top: 20,
+      top: 200,
       left: -5,
     },
     chip: {
@@ -59,11 +56,9 @@ export default function ChipContainer({ car }: IProps) {
 
   return (
     <React.Fragment>
-      <Box className={classes.container} display="flex" justifyContent="start">
-        <div className={classes.chipContainer}>
-          <div className={classes.chip}>Подходит {car?.toUpperCase()}</div>
-        </div>
-      </Box>
+      <div className={classes.chipContainer}>
+        <div className={classes.chip}>Подходит {car?.toUpperCase()}</div>
+      </div>
     </React.Fragment>
   );
 }
