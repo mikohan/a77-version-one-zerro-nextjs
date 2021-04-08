@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { capitalize } from '~/utils';
 import { ICar } from '~/interfaces';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,6 +116,14 @@ export default function Grouped() {
     setError(false);
     setHelper('');
   }
+  // Redirect to car page on click
+  function handleCurrentCar() {
+    if (currentCar && Object.keys(currentCar).length > 0) {
+      router.push({
+        pathname: url.model(currentCar.make.slug, currentCar.slug),
+      });
+    }
+  }
   const textField = (params: any) => (
     <TextField
       {...params}
@@ -148,9 +157,10 @@ export default function Grouped() {
         <Chip
           icon={<CarIcon />}
           label={chipLabel}
+          onClick={handleCurrentCar}
           clickable
           color="default"
-          onDelete={() => {}}
+          onDelete={handleCurrentCar}
           deleteIcon={<DoneIcon />}
           variant="outlined"
         />
