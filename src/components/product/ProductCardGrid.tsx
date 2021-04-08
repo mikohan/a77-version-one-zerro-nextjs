@@ -66,8 +66,15 @@ export default function ProductCardGrid({ product }: IProp) {
       sku: {
         paddingLeft: theme.spacing(1),
       },
+      models: {
+        paddingLeft: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        display: 'flex',
+        color: theme.palette.text.disabled,
+      },
       model: {
-        color: 'red',
+        marginRight: theme.spacing(1),
+        fontSize: '.8rem',
       },
       lastRow: {
         borderTop: '1px solid',
@@ -114,6 +121,13 @@ export default function ProductCardGrid({ product }: IProp) {
       <Typography className={classes.name} variant="subtitle1" component="div">
         {product._source.full_name}
       </Typography>
+      <div className={classes.models}>
+        {product._source.model.map((model: any) => (
+          <Typography className={classes.model} variant="body2" component="div">
+            {model.name.toUpperCase()}
+          </Typography>
+        ))}
+      </div>
       <div className={classes.lastRow}>
         <Typography className={classes.sku} variant="body2" component="div">
           {product._source.brand.name.toUpperCase()}
