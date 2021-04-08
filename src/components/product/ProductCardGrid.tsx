@@ -123,7 +123,12 @@ export default function ProductCardGrid({ product }: IProp) {
       </Typography>
       <div className={classes.models}>
         {product._source.model.map((model: any) => (
-          <Typography className={classes.model} variant="body2" component="div">
+          <Typography
+            key={model.slug}
+            className={classes.model}
+            variant="body2"
+            component="div"
+          >
             {model.name.toUpperCase()}
           </Typography>
         ))}

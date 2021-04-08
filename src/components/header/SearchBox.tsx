@@ -15,6 +15,7 @@ import { IState } from '~/interfaces/IState';
 import { capitalize } from '~/utils';
 import { ICar } from '~/interfaces';
 import url from '~/services/url';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,19 +73,40 @@ export default function Grouped() {
     )}`;
   }
 
+  const optionsR = top100Films.map((option) => {
+    const firstLetter = option.title[0].toUpperCase();
+    return {
+      firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+      ...option,
+    };
+  });
+
   function handleChange(
     event: React.ChangeEvent<{}>,
     value: IOptions | null
   ): void {}
-  function handleInput(event: React.ChangeEvent<{}>, value: string): void {
-    const opts: IOptions[] = top100Films.map((option) => {
-      const firstLetter = option.title[0].toUpperCase();
-      return {
-        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-        ...option,
-      };
-    });
-    setOptions(opts);
+  async function handleInput(
+    event: React.ChangeEvent<{}>,
+    value: string
+  ): Promise<void> {
+    async function callAip() {
+      const prom = await axios(
+        `http://localhost:8000/api/product/autocomplete?q=${value}`
+      );
+
+      return prom.data;
+    }
+    const promise = await callAip();
+    const opts = promise.hits.hits;
+    const options = opts.map((item: any) => ({
+      firstLetter: 'A',
+      title: item._source.name,
+      year: item._source.cat_number,
+    }));
+    console.log(options);
+    setOptions(options);
+
+    setInputValue(value);
     setError(false);
     setHelper('');
   }
@@ -135,19 +157,8 @@ export default function Grouped() {
       label={<Typography variant="body2">По номеру или по Названию</Typography>}
       variant="outlined"
       name="search"
-      onChange={(e) => setInputValue(e.target.value)}
       onBlur={handleBlur}
       onFocus={handleBlur}
-      InputProps={{
-        classes: {
-          input: classes.input,
-        },
-        endAdornment: (
-          <InputAdornment position="end">
-            <ClearIcon className={classes.clearIcon} onClick={handleClear} />
-          </InputAdornment>
-        ),
-      }}
     />
   );
 
@@ -172,14 +183,10 @@ export default function Grouped() {
           fullWidth
           onClose={handleClose}
           onInputChange={handleInput}
-          onChange={handleChange}
           className={classes.autocomlete}
           id="grouped-demo"
-          options={options.sort(
-            (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-          )}
+          options={options}
           size="small"
-          groupBy={(option) => option.firstLetter}
           getOptionLabel={(option) => option.title}
           renderInput={(params) => textField(params)}
         />
@@ -197,6 +204,7 @@ export default function Grouped() {
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
   { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'фара левая', year: 1994 },
   { title: 'The Godfather', year: 1972 },
   { title: 'The Godfather: Part II', year: 1974 },
   { title: 'The Dark Knight', year: 2008 },
