@@ -21,27 +21,68 @@ export default function ProductCardGrid({ product }: IProp) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       card: {
-        position: 'relative',
-        display: 'block',
-        boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
-        borderRadius: '2px',
-        background: theme.palette.background.paper,
-        transition: '0.5s',
-        '&:hover $shoppingCartIcon': {
-          transform: `scale(1.1)`,
-          color: theme.palette.primary.main,
-          cursor: 'pointer',
-        },
+        border: '2px solid teal',
+        /* height: '100%', */
+        /* /1* position: 'relative', *1/ */
+        /* /1* display: 'block', *1/ */
+        /* boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)', */
+        /* borderRadius: '2px', */
+        /* background: theme.palette.background.paper, */
+        /* transition: '0.5s', */
+        /* '&:hover $shoppingCartIcon': { */
+        /*   transform: `scale(1.1)`, */
+        /*   color: theme.palette.primary.main, */
+        /*   cursor: 'pointer', */
+        /* }, */
       },
+
       cardImage: {
-        display: 'block',
-        position: 'absolute',
+        /* display: 'block', */
+        /* position: 'absolute', */
+        /* width: '100%', */
+        /* height: '100%', */
+        /* objectFit: 'cover', // contain maki it small, cover make it big */
+      },
+      a: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+      },
+      image: {
+        flexShrink: 0,
         width: '100%',
-        height: '100%',
+        height: '245px',
         objectFit: 'cover', // contain maki it small, cover make it big
       },
+      content: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        border: '2px solid yellow',
+      },
+      one: {
+        background: '#ddd',
+      },
+      two: {
+        background: '#eee',
+        flex: '1 0 auto',
+      },
+      three: {
+        background: '#fff',
+      },
       cardContent: {
-        minHeight: '8rem',
+        border: '3px solid red',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      productNameBox: {
+        flex: 1,
+        border: '1px solid pink',
+      },
+      cardContentInner: {
         lineHeight: '1.5',
         padding: theme.spacing(3),
       },
@@ -56,15 +97,15 @@ export default function ProductCardGrid({ product }: IProp) {
         /* background: theme.palette.grey[200], */
       },
       shoppingCartIcon: {
-        fontSize: '2rem',
-        color: theme.palette.grey[500],
+        fontSize: '1.5rem',
+        color: theme.palette.text.disabled,
         transition: '0.2s',
       },
       cardImageLink: {
         display: 'block',
         position: 'relative',
         width: '100%',
-        paddingBottom: '100%',
+        /* paddingBottom: '100%', */
       },
       productName: {
         wordBreak: 'break-word',
@@ -72,6 +113,10 @@ export default function ProductCardGrid({ product }: IProp) {
       productSku: {
         paddingLeft: theme.spacing(2),
         color: theme.palette.text.disabled,
+      },
+      cartIconRow: {
+        border: '2px solid pink',
+        /* justifySelf: 'flex-end', */
       },
     })
   );
@@ -88,41 +133,23 @@ export default function ProductCardGrid({ product }: IProp) {
   const price = stock?.price;
 
   return (
-    <div key={product._id} className={classes.card}>
-      <a className={classes.cardImageLink}>
-        {productsLoading && (
-          <Skeleton variant="rect" className={classes.cardImage} />
-        )}
+    <div className={classes.content}>
+      <div className={classes.a}>
         <img
+          className={classes.image}
           src={imgPath}
-          className={classes.cardImage}
           alt={product._source.full_name}
         />
-      </a>
-      <div className={classes.cardContent}>
-        <Typography className={classes.productName} variant="body1">
-          {capitalize(product._source.name)}
-        </Typography>
       </div>
-      {compatable && <ChipContainer car={currentCar?.model} />}
-      <div className={classes.productSku}>
-        <Typography variant="body2">
-          BRAND: {product._source.brand.name}
-        </Typography>
-        {product._source.engine?.map((item: any) => (
-          <Typography variant="body2" key={item.id}>
-            {item.name}
-          </Typography>
-        ))}
-        <Typography variant="body2">
-          SKU: {product._source.cat_number}
-        </Typography>
+      <div className={classes.one}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
       </div>
-      <div className={classes.cardInfo}>
-        <Typography variant="h6">&#8381; {price} </Typography>
-        <div>
-          <ShoppingCartOutlinedIcon className={classes.shoppingCartIcon} />
-        </div>
+      <div className={classes.two}>
+        {product._source.full_name}
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
+      </div>
+      <div className={classes.three}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
       </div>
     </div>
   );
