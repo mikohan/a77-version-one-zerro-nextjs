@@ -150,10 +150,12 @@ export default function Cagetory(props: CategoryProps) {
   // Getting filters from state redux
   const activeFilters: IActiveFilterMy[] = [];
   for (const [key, value] of Object.entries(routerQuery)) {
-    activeFilters.push({
-      filterSlug: key,
-      filterValues: value.split(','),
-    });
+    if (key !== 'page') {
+      activeFilters.push({
+        filterSlug: key,
+        filterValues: value.split(','),
+      });
+    }
   }
 
   /* const activeFilters: IActiveFilterMy[] = getActiveFilters( */
@@ -243,7 +245,10 @@ export const getServerSideProps: GetServerSideProps = async (
 
   // Probably needs to go ouside this file
   // Cleaning filters from pages and main url params
-  const filtersQuery = routerQuery;
+  const filtersQuery = Object.assign({}, routerQuery);
+  if (filtersQuery.hasOwnProperty('page')) {
+    delete filtersQuery.page;
+  }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 
