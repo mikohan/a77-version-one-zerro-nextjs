@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
     autocomlete: {
       width: '100%',
     },
+    clearIcon: {
+      color: theme.palette.text.disabled,
+      fontSize: '90%',
+      cursor: 'pointer',
+    },
   })
 );
 
@@ -38,8 +43,9 @@ interface IOptions {
 export default function Grouped() {
   const classes = useStyles();
   const initState: IOptions[] = [];
-  const [inputValue, setInputValue] = useState('фильтров маслянных');
+  const [inputValue, setInputValue] = useState('фарой левой');
   const [options, setOptions] = useState(initState);
+  const [error, setError] = useState(false);
   const router = useRouter();
 
   function handleChange(
@@ -62,17 +68,30 @@ export default function Grouped() {
     setOptions(initState);
   }
   function handleSubmit() {
-    console.log(inputValue);
-    router.push({
-      pathname: '/search',
-      query: {
-        search: inputValue,
-      },
-    });
+    if (inputValue !== '') {
+      router.push({
+        pathname: '/search',
+        query: {
+          search: inputValue,
+        },
+      });
+    } else {
+      setError(true);
+    }
+  }
+  function handleEnter(event: React.KeyboardEvent<{}>) {
+    console.log(event.key);
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  }
+  function handleClear() {
+    setInputValue('');
   }
   const textField = (params: any) => (
     <TextField
       {...params}
+      error={error}
       label="найти запчасть"
       variant="outlined"
       name="search"
@@ -80,7 +99,7 @@ export default function Grouped() {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <ClearIcon />
+            <ClearIcon className={classes.clearIcon} onClick={handleClear} />
           </InputAdornment>
         ),
       }}
@@ -94,6 +113,7 @@ export default function Grouped() {
       </Grid>
       <Grid className={classes.container} item xs={4}>
         <Autocomplete
+          onKeyUp={handleEnter}
           inputValue={inputValue}
           fullWidth
           onClose={handleClose}
