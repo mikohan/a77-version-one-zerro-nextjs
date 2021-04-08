@@ -11,6 +11,7 @@ export interface ICar {
   year?: number[];
   make: IMake;
   model: string;
+  name?: string;
   runsname?: string;
   engine?: IEngine[];
   slug: string;

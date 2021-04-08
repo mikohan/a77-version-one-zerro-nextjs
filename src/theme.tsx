@@ -100,7 +100,7 @@ theme.typography.subtitle1 = {
   [theme.breakpoints.down('xl')]: {
     fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
     fontWeight: 300,
-    fontSize: '875rem',
+    fontSize: '.875rem',
     lineHeight: 1.75,
     letterSpacing: '0.00938em',
   },

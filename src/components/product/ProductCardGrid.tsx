@@ -9,6 +9,7 @@ import ChipContainer from '../common/ChipBox';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { ICar } from '~/interfaces';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -21,33 +22,29 @@ export default function ProductCardGrid({ product }: IProp) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       card: {
-        border: '2px solid teal',
-        /* height: '100%', */
-        /* /1* position: 'relative', *1/ */
-        /* /1* display: 'block', *1/ */
-        /* boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)', */
-        /* borderRadius: '2px', */
-        /* background: theme.palette.background.paper, */
-        /* transition: '0.5s', */
-        /* '&:hover $shoppingCartIcon': { */
-        /*   transform: `scale(1.1)`, */
-        /*   color: theme.palette.primary.main, */
-        /*   cursor: 'pointer', */
-        /* }, */
-      },
-
-      cardImage: {
-        /* display: 'block', */
-        /* position: 'absolute', */
-        /* width: '100%', */
-        /* height: '100%', */
-        /* objectFit: 'cover', // contain maki it small, cover make it big */
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: theme.palette.background.paper,
+        boxShadow: '0 1px 3px  rgba(0, 0, 0, 0.1)',
+        borderRadius: '2px',
+        '&:hover $cartIcon': {
+          transform: `scale(1.2)`,
+          color: theme.palette.text.primary,
+          cursor: 'pointer',
+        },
+        '&:hover $name': {
+          color: theme.palette.text.primary,
+          fontWeight: 700,
+        },
       },
       a: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
+        cursor: 'pointer',
       },
       image: {
         flexShrink: 0,
@@ -55,68 +52,40 @@ export default function ProductCardGrid({ product }: IProp) {
         height: '245px',
         objectFit: 'cover', // contain maki it small, cover make it big
       },
-      content: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        border: '2px solid yellow',
+      price: {
+        padding: theme.spacing(1),
+        fontWeight: 600,
       },
-      one: {
-        background: '#ddd',
-      },
-      two: {
-        background: '#eee',
+      name: {
+        paddingTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
         flex: '1 0 auto',
+        fontWeight: 600,
+        color: theme.palette.text.secondary,
+        transition: '0.5s',
       },
-      three: {
-        background: '#fff',
+      sku: {
+        paddingLeft: theme.spacing(1),
       },
-      cardContent: {
-        border: '3px solid red',
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
+      model: {
+        color: 'red',
       },
-      productNameBox: {
-        flex: 1,
-        border: '1px solid pink',
-      },
-      cardContentInner: {
-        lineHeight: '1.5',
-        padding: theme.spacing(3),
-      },
-      cardInfo: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
+      lastRow: {
+        borderTop: '1px solid',
+        borderColor: theme.palette.divider,
         paddingTop: theme.spacing(2),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(3),
         paddingBottom: theme.spacing(2),
+
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        /* background: theme.palette.grey[200], */
       },
-      shoppingCartIcon: {
+      cartIcon: {
         fontSize: '1.5rem',
         color: theme.palette.text.disabled,
-        transition: '0.2s',
-      },
-      cardImageLink: {
-        display: 'block',
-        position: 'relative',
-        width: '100%',
-        /* paddingBottom: '100%', */
-      },
-      productName: {
-        wordBreak: 'break-word',
-      },
-      productSku: {
-        paddingLeft: theme.spacing(2),
-        color: theme.palette.text.disabled,
-      },
-      cartIconRow: {
-        border: '2px solid pink',
-        /* justifySelf: 'flex-end', */
+        transition: '0.5s',
       },
     })
   );
@@ -131,25 +100,28 @@ export default function ProductCardGrid({ product }: IProp) {
   );
   const stock = product._source.stocks.find((item: any) => item.store.id === 3);
   const price = stock?.price;
+  console.log(product._source.model);
 
   return (
-    <div className={classes.content}>
-      <div className={classes.a}>
+    <div className={classes.card}>
+      <a className={classes.a}>
         <img
           className={classes.image}
           src={imgPath}
           alt={product._source.full_name}
         />
-      </div>
-      <div className={classes.one}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
-      </div>
-      <div className={classes.two}>
+      </a>
+      <Typography className={classes.price} variant="h6">
+        &#8381; {product._source.stocks[0].price}
+      </Typography>
+      <Typography className={classes.name} variant="subtitle1" component="div">
         {product._source.full_name}
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
-      </div>
-      <div className={classes.three}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
+      </Typography>
+      <div className={classes.lastRow}>
+        <Typography className={classes.sku} variant="body2" component="div">
+          {product._source.brand.name.toUpperCase()}
+        </Typography>
+        <ShoppingCartOutlinedIcon className={classes.cartIcon} />
       </div>
     </div>
   );
