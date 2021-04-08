@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -31,6 +31,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '90%',
       cursor: 'pointer',
     },
+    input: {
+      fontSize: '1.1rem',
+      /* color: theme.palette.text.secondary, */
+      '&::placeholder': {
+        fontSize: '1rem',
+      },
+    },
   })
 );
 
@@ -43,17 +50,16 @@ interface IOptions {
 export default function Grouped() {
   const classes = useStyles();
   const initState: IOptions[] = [];
-  const [inputValue, setInputValue] = useState('фарой левой');
+  const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState(initState);
   const [error, setError] = useState(false);
+  const [helper, setHelper] = useState('');
   const router = useRouter();
 
   function handleChange(
     event: React.ChangeEvent<{}>,
     value: IOptions | null
-  ): void {
-    console.log(value);
-  }
+  ): void {}
   function handleInput(event: React.ChangeEvent<{}>, value: string): void {
     const opts: IOptions[] = top100Films.map((option) => {
       const firstLetter = option.title[0].toUpperCase();
@@ -63,6 +69,8 @@ export default function Grouped() {
       };
     });
     setOptions(opts);
+    setError(false);
+    setHelper('');
   }
   function handleClose(event: React.ChangeEvent<{}>) {
     setOptions(initState);
@@ -77,10 +85,10 @@ export default function Grouped() {
       });
     } else {
       setError(true);
+      setHelper('Поле не может быть пустым');
     }
   }
   function handleEnter(event: React.KeyboardEvent<{}>) {
-    console.log(event.key);
     if (event.key === 'Enter') {
       handleSubmit();
     }
@@ -88,15 +96,28 @@ export default function Grouped() {
   function handleClear() {
     setInputValue('');
   }
+  function handleBlur() {
+    setError(false);
+    setHelper('');
+  }
   const textField = (params: any) => (
     <TextField
       {...params}
+      autoFocus
+      margin="dense"
+      placeholder="Номер или название"
       error={error}
-      label="найти запчасть"
+      helperText={helper}
+      label={<Typography variant="body2">По номеру или по Названию</Typography>}
       variant="outlined"
       name="search"
       onChange={(e) => setInputValue(e.target.value)}
+      onBlur={handleBlur}
+      onFocus={handleBlur}
       InputProps={{
+        classes: {
+          input: classes.input,
+        },
         endAdornment: (
           <InputAdornment position="end">
             <ClearIcon className={classes.clearIcon} onClick={handleClear} />
@@ -108,10 +129,10 @@ export default function Grouped() {
 
   return (
     <Grid className={classes.root} container>
-      <Grid className={classes.container} item xs={4}>
+      <Grid className={classes.container} item xs={3}>
         Content
       </Grid>
-      <Grid className={classes.container} item xs={4}>
+      <Grid className={classes.container} item xs={6}>
         <Autocomplete
           onKeyUp={handleEnter}
           inputValue={inputValue}
@@ -133,7 +154,7 @@ export default function Grouped() {
           <SearchIcon />
         </IconButton>
       </Grid>
-      <Grid className={classes.container} item xs={4}>
+      <Grid className={classes.container} item xs={3}>
         Content
       </Grid>
     </Grid>
