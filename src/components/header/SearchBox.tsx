@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Grid, IconButton, Typography } from '@material-ui/core';
+import { Grid, IconButton, Typography, Chip } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
+import CarIcon from '@material-ui/icons/DriveEtaRounded';
+import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -130,7 +132,14 @@ export default function Grouped() {
   return (
     <Grid className={classes.root} container>
       <Grid className={classes.container} item xs={3}>
-        Content
+        <Chip
+          icon={<CarIcon />}
+          label="Primary clickable"
+          clickable
+          color="primary"
+          deleteIcon={<DoneIcon />}
+          variant="outlined"
+        />
       </Grid>
       <Grid className={classes.container} item xs={6}>
         <Autocomplete
