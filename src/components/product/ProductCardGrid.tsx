@@ -91,11 +91,10 @@ export default function ProductCardGrid({ product }: IProp) {
     })
   );
   const classes = useStyles();
-  const productsLoading = useSelector(
-    (state: IState) => state.shopNew.productsLoading
-  );
 
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  let car: string =
+    currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
@@ -105,7 +104,7 @@ export default function ProductCardGrid({ product }: IProp) {
 
   return (
     <div className={classes.card}>
-      {compatable && <ChipContainer car={currentCar.model} />}
+      {compatable && <ChipContainer car={car} />}
       <a className={classes.a}>
         <img
           className={classes.image}
