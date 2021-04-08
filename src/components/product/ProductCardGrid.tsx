@@ -100,7 +100,6 @@ export default function ProductCardGrid({ product }: IProp) {
   );
   const stock = product._source.stocks.find((item: any) => item.store.id === 3);
   const price = stock?.price;
-  console.log(product._source.model);
 
   return (
     <div className={classes.card}>
@@ -113,7 +112,7 @@ export default function ProductCardGrid({ product }: IProp) {
         />
       </a>
       <Typography className={classes.price} variant="h6">
-        &#8381; {product._source.stocks[0].price}
+        &#8381; {price}
       </Typography>
       <Typography className={classes.name} variant="subtitle1" component="div">
         {product._source.full_name}

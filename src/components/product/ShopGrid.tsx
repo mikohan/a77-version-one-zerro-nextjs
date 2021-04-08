@@ -56,7 +56,6 @@ export default function ShopGrid({
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       cards: {
-        border: '1px solid blue',
         margin: '0 auto',
         padding: theme.spacing(2),
         display: 'grid',
