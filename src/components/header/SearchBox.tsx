@@ -10,6 +10,10 @@ import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import CarIcon from '@material-ui/icons/DriveEtaRounded';
 import DoneIcon from '@material-ui/icons/Done';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import { capitalize } from '~/utils';
+import { ICar } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +61,15 @@ export default function Grouped() {
   const [error, setError] = useState(false);
   const [helper, setHelper] = useState('');
   const router = useRouter();
+  const currentCar: ICar | undefined = useSelector(
+    (state: IState) => state.shop.currentCar
+  );
+  let chipLabel: string = 'Select car';
+  if (currentCar && Object.keys(currentCar).length) {
+    chipLabel = `${capitalize(currentCar.make.name)} ${capitalize(
+      currentCar.model
+    )}`;
+  }
 
   function handleChange(
     event: React.ChangeEvent<{}>,
@@ -134,9 +147,10 @@ export default function Grouped() {
       <Grid className={classes.container} item xs={3}>
         <Chip
           icon={<CarIcon />}
-          label="Primary clickable"
+          label={chipLabel}
           clickable
-          color="primary"
+          color="default"
+          onDelete={() => {}}
           deleteIcon={<DoneIcon />}
           variant="outlined"
         />
