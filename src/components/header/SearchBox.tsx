@@ -83,10 +83,8 @@ export default function Grouped() {
   ): Promise<void> {
     let url = '';
     if (/^\d+/.test(value)) {
-      console.log('Digits');
       url = `http://localhost:8000/api/product/findnumber?q=${value}`;
     } else {
-      console.log('String');
       url = `http://localhost:8000/api/product/autocomplete?q=${value}`;
     }
     const promise = await callAip(url);
