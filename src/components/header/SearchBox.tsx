@@ -89,7 +89,6 @@ export default function Grouped() {
     }
     const promise = await callAip();
     const opts = promise.hits.hits;
-    console.log(opts);
     const options = opts.map((item: any) => item._source.name);
     setOptions(options);
 
@@ -172,6 +171,7 @@ export default function Grouped() {
           inputValue={inputValue}
           fullWidth
           onClose={handleClose}
+          onChange={handleSubmit}
           onInputChange={handleInput}
           className={classes.autocomlete}
           id="grouped-demo"
@@ -185,9 +185,7 @@ export default function Grouped() {
           <SearchIcon />
         </IconButton>
       </Grid>
-      <Grid className={classes.container} item xs={3}>
-        {options.map((option: any, i: number) => console.log(option))}
-      </Grid>
+      <Grid className={classes.container} item xs={3}></Grid>
     </Grid>
   );
 }
