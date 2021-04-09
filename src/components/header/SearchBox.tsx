@@ -89,8 +89,8 @@ export default function Grouped() {
     }
     const promise = await callAip();
     const opts = promise.hits.hits;
-    const options = opts.map((item: any) => item._source.name);
-    setOptions(options);
+    const options: string[] = opts.map((item: any) => item._source.name);
+    setOptions([...new Set(options)]);
 
     setInputValue(value);
     setError(false);
