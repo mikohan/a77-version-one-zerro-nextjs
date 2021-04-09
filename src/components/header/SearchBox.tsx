@@ -81,16 +81,23 @@ export default function Grouped() {
     event: React.ChangeEvent<{}>,
     value: string
   ): Promise<void> {
-    async function callAip() {
-      const prom = await axios(
-        `http://localhost:8000/api/product/autocomplete?q=${value}`
-      );
-      return prom.data;
+    let url = '';
+    if (/^\d+/.test(value)) {
+      console.log('Digits');
+      url = `http://localhost:8000/api/product/findnumber?q=${value}`;
+    } else {
+      console.log('String');
+      url = `http://localhost:8000/api/product/autocomplete?q=${value}`;
     }
-    const promise = await callAip();
+    const promise = await callAip(url);
     const opts = promise.hits.hits;
     const options: string[] = opts.map((item: any) => item._source.name);
     setOptions([...new Set(options)]);
+
+    async function callAip(url: string) {
+      const prom = await axios(url);
+      return prom.data;
+    }
 
     setInputValue(value);
     setError(false);
