@@ -19,9 +19,12 @@ const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.paper,
       border: '1px solid pink',
     },
+    choiseText: {
+      padding: theme.spacing(2),
+    },
     formControl: {
       margin: theme.spacing(1),
-      minWidth: '80%',
+      minWidth: '95%',
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -41,7 +44,9 @@ export default function SimpleSelect() {
     <Box className={classes.container}>
       <Grid container className={classes.paper}>
         <Grid container item xs={4} justify="center" alignItems="center">
-          <Typography variant="h6">Select a car</Typography>
+          <Typography className={classes.choiseText} variant="body2">
+            Поиск запчастей по автомобилю
+          </Typography>
         </Grid>
         <Grid container item xs={4} justify="center">
           <FormControl
