@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Grid, IconButton, Typography, Chip } from '@material-ui/core';
@@ -52,6 +52,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+const strip = (value: string) => value.replace(/[^a-zA-Z\s0-9]/g, '');
+
+function filterOut(text: string, cursor: number): [string, number] {
+  const beforeCursor = text.slice(0, cursor);
+  const afterCursor = text.slice(cursor, text.length);
+
+  const filterdBeforeCursor = strip(beforeCursor);
+  const filterAfterCursor = strip(afterCursor);
+
+  const newText = filterdBeforeCursor + filterAfterCursor;
+  const newCursor = filterdBeforeCursor.length;
+
+  return [newText, newCursor];
+}
 
 interface IOptions {
   title: string;
@@ -66,7 +80,9 @@ export default function Grouped() {
   const [options, setOptions] = useState(initState);
   const [error, setError] = useState(false);
   const [helper, setHelper] = useState('');
+  const [cursor, setCursor] = useState(0);
   const router = useRouter();
+  const inputRef = useRef();
   const currentCar: ICar | undefined = useSelector(
     (state: IState) => state.shop.currentCar
   );
@@ -78,9 +94,23 @@ export default function Grouped() {
   }
 
   async function handleInput(
-    event: React.ChangeEvent<{}>,
+    event: React.ChangeEvent<HTMLInputElement>,
     value: string
   ): Promise<void> {
+    const input = event.target;
+    const text = input.value;
+    const cursor: number = input.selectionStart!;
+
+    setCursor(cursor);
+
+    window.requestAnimationFrame(() => {
+      input.selectionStart = 5;
+      input.selectionEnd = 6;
+    });
+
+    input.setSelectionRange(4, 5);
+
+    const [newName, newCursor] = filterOut(text, cursor);
     let url = '';
     if (/^\d+/.test(value)) {
       url = `http://localhost:8000/api/product/findnumber?q=${value}`;
@@ -97,7 +127,7 @@ export default function Grouped() {
       return prom.data;
     }
 
-    setInputValue(value);
+    setInputValue(newName);
     setError(false);
     setHelper('');
   }
@@ -141,7 +171,6 @@ export default function Grouped() {
   const textField = (params: any) => (
     <TextField
       {...params}
-      autoFocus
       margin="dense"
       placeholder="Номер или название"
       error={error}
@@ -151,8 +180,11 @@ export default function Grouped() {
       name="search"
       onBlur={handleBlur}
       onFocus={handleBlur}
+      type="text"
+      ref={inputRef}
     />
   );
+  console.log(cursor);
 
   return (
     <Grid className={classes.root} container>
