@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     resize: {
       color: theme.palette.text.secondary,
-      padding: '.4rem 14px',
-      fontSize: '1.1rem',
+      padding: '.6rem 14px',
+      fontSize: '1rem',
     },
     label: {},
     selectEmpty: {
@@ -47,14 +47,15 @@ export default function SimpleSelect() {
 
   interface ISelectProps {
     label: string;
+    id: string;
     placeholder?: string;
     options?: string[];
   }
 
-  const Select = ({ label }: ISelectProps) => (
+  const Select = ({ label, id }: ISelectProps) => (
     <TextField
       className={classes.textField}
-      id="outlined-select-currency-native"
+      id={id}
       select
       label={label}
       SelectProps={{
@@ -91,10 +92,10 @@ export default function SimpleSelect() {
           </Typography>
         </Grid>
         <Grid container item xs={4} justify="center" alignItems="center">
-          <Select label="Марка" />
+          <Select id="make" label="Марка" />
         </Grid>
         <Grid container item xs={4} justify="center" alignItems="center">
-          <Select label="Модель" />
+          <Select id="model" label="Модель" />
         </Grid>
       </Grid>
     </Box>
