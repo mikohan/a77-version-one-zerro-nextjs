@@ -64,6 +64,7 @@ interface CategoryProps {
   routerQuery: IRouterStuff;
   routerParams: IRouterStuff;
 }
+import CarChoiser from '~/components/header/CarChoiserLong';
 
 export default function Cagetory(props: CategoryProps) {
   const {
@@ -218,18 +219,25 @@ export default function Cagetory(props: CategoryProps) {
               </Grid>
             </Hidden>
             <Grid item xs={12} md={9}>
-              {products.hits.length > 0 ? (
-                <ShopGrid
-                  products={products.hits}
-                  totalPages={totalPages}
-                  filtersResetHandlers={{
-                    handleDeleteFilter,
-                    handleDeleteFilters,
-                  }}
-                />
-              ) : (
-                <div>No stuff</div>
-              )}
+              <Grid container>
+                <Grid item xs={12}>
+                  <CarChoiser />
+                </Grid>
+                <Grid item xs={12}>
+                  {products.hits.length > 0 ? (
+                    <ShopGrid
+                      products={products.hits}
+                      totalPages={totalPages}
+                      filtersResetHandlers={{
+                        handleDeleteFilter,
+                        handleDeleteFilters,
+                      }}
+                    />
+                  ) : (
+                    <div>No stuff</div>
+                  )}
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
