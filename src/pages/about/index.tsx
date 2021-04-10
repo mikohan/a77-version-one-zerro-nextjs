@@ -4,6 +4,7 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { Box, Grid, Typography } from '@material-ui/core';
+import CarSelector from '~/components/header/CarChoiserLong';
 
 interface IProps {
   products: IProductElasticHitsFirst;
@@ -21,7 +22,13 @@ export default function About() {
           </Grid>
           <Grid style={{ border: '1px solid green' }} item xs={9}>
             <Typography variant="h1">{state}</Typography>
-            <Box p={5}></Box>
+            <Box p={5}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <CarSelector />
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
         </Grid>
       </AnimationPage>
