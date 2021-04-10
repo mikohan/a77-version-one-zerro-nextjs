@@ -62,7 +62,7 @@ export default function Asynchronous() {
 
   function handleSubmit() {
     if (inputValue !== '') {
-      console.log(inputValue);
+      console.log(strip(inputValue));
       /*   router.push({ */
       /*     pathname: '/search', */
       /*     query: { */
@@ -77,6 +77,8 @@ export default function Asynchronous() {
 
   function handleEnter(event: React.KeyboardEvent<{}>) {
     if (event.key === 'Enter') {
+      event.preventDefault();
+      setInputValue(strip(inputValue));
       handleSubmit();
     }
   }
@@ -90,7 +92,7 @@ export default function Asynchronous() {
             freeSolo
             onKeyDown={handleEnter}
             onInputChange={(e, value) => {
-              setInputValue(value);
+              setInputValue(strip(value));
             }}
             inputValue={inputValue}
             id="autocomplete"
