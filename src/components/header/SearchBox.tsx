@@ -16,6 +16,7 @@ import { capitalize } from '~/utils';
 import { ICar } from '~/interfaces';
 import url from '~/services/url';
 import axios from 'axios';
+import SearchBar from '~/components/header/SearchBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,22 +68,9 @@ function filterOut(text: string, cursor: number): [string, number] {
   return [newText, newCursor];
 }
 
-interface IOptions {
-  title: string;
-  year: number;
-  firstLetter: string;
-}
-
-export default function Grouped() {
+export default function SearchBox() {
   const classes = useStyles();
-  const initState: string[] = [];
-  const [inputValue, setInputValue] = useState('');
-  const [options, setOptions] = useState(initState);
-  const [error, setError] = useState(false);
-  const [helper, setHelper] = useState('');
-  const [cursor, setCursor] = useState(0);
   const router = useRouter();
-  const inputRef = useRef();
   const currentCar: ICar | undefined = useSelector(
     (state: IState) => state.shop.currentCar
   );
@@ -93,73 +81,6 @@ export default function Grouped() {
     )}`;
   }
 
-  async function handleInput(
-    event: React.ChangeEvent<HTMLInputElement>,
-    value: string
-  ): Promise<void> {
-    const input = event.target;
-    const text = input.value;
-    const cursor: number = input.selectionStart!;
-
-    setCursor(cursor);
-
-    window.requestAnimationFrame(() => {
-      input.selectionStart = 5;
-      input.selectionEnd = 6;
-    });
-
-    input.setSelectionRange(4, 5);
-
-    const [newName, newCursor] = filterOut(text, cursor);
-    let url = '';
-    if (/^\d+/.test(value)) {
-      url = `http://localhost:8000/api/product/findnumber?q=${value}`;
-    } else {
-      url = `http://localhost:8000/api/product/autocomplete?q=${value}`;
-    }
-    const promise = await callAip(url);
-    const opts = promise.hits.hits;
-    const options: string[] = opts.map((item: any) => item._source.name);
-    setOptions([...new Set(options)]);
-
-    async function callAip(url: string) {
-      const prom = await axios(url);
-      return prom.data;
-    }
-
-    setInputValue(newName);
-    setError(false);
-    setHelper('');
-  }
-
-  function handleClose(event: React.ChangeEvent<{}>) {
-    setOptions(initState);
-  }
-  function handleSubmit() {
-    if (inputValue !== '') {
-      router.push({
-        pathname: '/search',
-        query: {
-          search: inputValue,
-        },
-      });
-    } else {
-      setError(true);
-      setHelper('Поле не может быть пустым');
-    }
-  }
-  function handleEnter(event: React.KeyboardEvent<{}>) {
-    if (event.key === 'Enter') {
-      handleSubmit();
-    }
-  }
-  function handleClear() {
-    setInputValue('');
-  }
-  function handleBlur() {
-    setError(false);
-    setHelper('');
-  }
   // Redirect to car page on click
   function handleCurrentCar() {
     if (currentCar && Object.keys(currentCar).length > 0) {
@@ -168,23 +89,6 @@ export default function Grouped() {
       });
     }
   }
-  const textField = (params: any) => (
-    <TextField
-      {...params}
-      margin="dense"
-      placeholder="Номер или название"
-      error={error}
-      helperText={helper}
-      label={<Typography variant="body2">По номеру или по Названию</Typography>}
-      variant="outlined"
-      name="search"
-      onBlur={handleBlur}
-      onFocus={handleBlur}
-      type="text"
-      ref={inputRef}
-    />
-  );
-  console.log(cursor);
 
   return (
     <Grid className={classes.root} container>
@@ -200,26 +104,8 @@ export default function Grouped() {
           variant="outlined"
         />
       </Grid>
-      <Grid className={classes.container} item xs={6}>
-        <Autocomplete
-          freeSolo
-          filterOptions={(options, state) => options}
-          onKeyUp={handleEnter}
-          inputValue={inputValue}
-          fullWidth
-          onClose={handleClose}
-          onChange={handleSubmit}
-          className={classes.autocomlete}
-          id="grouped-demo"
-          options={options}
-          size="small"
-          getOptionLabel={(option) => option}
-          renderInput={(params) => textField(params)}
-          classes={{ listbox: classes.listbox }}
-        />
-        <IconButton onClick={handleSubmit}>
-          <SearchIcon />
-        </IconButton>
+      <Grid item xs={6}>
+        <SearchBar />
       </Grid>
       <Grid className={classes.container} item xs={3}></Grid>
     </Grid>

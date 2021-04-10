@@ -3,6 +3,11 @@ export * from '~/data/shopData';
 
 export const imageServerUrl = 'http://localhost:8000';
 
+export const autocompleteUrls = {
+  number: `http://localhost:8000/api/product/findnumber`,
+  string: `http://localhost:8000/api/product/autocomplete`,
+};
+
 export const apiUrl = 'http://localhost:8000/testcategory/';
 export const elasticApiUrl = 'http://localhost:8000/api/product/jsontest';
 export const elasticApiSearchUrl =
