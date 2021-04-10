@@ -1,5 +1,4 @@
 // *https://www.registers.service.gov.uk/registers/country/use-the-api*
-import fetch from 'cross-fetch';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -12,19 +11,13 @@ interface CountryType {
   name: string;
 }
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
-
 export default function Asynchronous() {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<CountryType[]>([]);
   const [inputValue, setInputValue] = React.useState('');
   const loading = open && options.length === 0;
   const router = useRouter();
-  const strip = (value: string) => value.replace(/[^a-zA-Z\s0-9]/g, '');
+  const strip = (value: string) => value.replace(/[^a-zA-ZА-Яа-я\s0-9]/g, '');
 
   React.useEffect(() => {
     async function callApi(url: string) {
