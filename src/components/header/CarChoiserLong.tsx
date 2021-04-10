@@ -6,7 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import { Box, Grid, Typography } from '@material-ui/core';
+import { TextField, Box, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,10 +22,15 @@ const useStyles = makeStyles((theme: Theme) =>
     choiseText: {
       padding: theme.spacing(2),
     },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: '95%',
+    textField: {
+      width: '80%',
     },
+    resize: {
+      color: theme.palette.text.secondary,
+      padding: '.4rem 14px',
+      fontSize: '1.1rem',
+    },
+    label: {},
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
@@ -40,6 +45,37 @@ export default function SimpleSelect() {
     setAge(event.target.value as string);
   };
 
+  const Select = () => (
+    <TextField
+      className={classes.textField}
+      id="outlined-select-currency-native"
+      select
+      label="сортировать"
+      SelectProps={{
+        native: true,
+      }}
+      InputProps={{
+        classes: {
+          input: classes.resize,
+        },
+      }}
+      InputLabelProps={{
+        classes: {
+          root: classes.label,
+        },
+      }}
+      variant="outlined"
+      size="small"
+      fullWidth
+    >
+      {[{ value: 'Value', label: 'label' }].map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </TextField>
+  );
+
   return (
     <Box className={classes.container}>
       <Grid container className={classes.paper}>
@@ -48,51 +84,11 @@ export default function SimpleSelect() {
             Поиск запчастей по автомобилю
           </Typography>
         </Grid>
-        <Grid container item xs={4} justify="center">
-          <FormControl
-            size="small"
-            variant="outlined"
-            className={classes.formControl}
-          >
-            <InputLabel id="inputMake">Age</InputLabel>
-            <Select
-              labelId="makeLabel"
-              id="make"
-              value={age}
-              onChange={handleChange}
-              label="Age"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+        <Grid container item xs={4} justify="center" alignItems="center">
+          <Select />
         </Grid>
-        <Grid container item xs={4} justify="center">
-          <FormControl
-            size="small"
-            variant="outlined"
-            className={classes.formControl}
-          >
-            <InputLabel id="modelLabel">Age</InputLabel>
-            <Select
-              labelId="inputModle"
-              id="model"
-              value={age}
-              onChange={handleChange}
-              label="Age"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+        <Grid container item xs={4} justify="center" alignItems="center">
+          <Select />
         </Grid>
       </Grid>
     </Box>
