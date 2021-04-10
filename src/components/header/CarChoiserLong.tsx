@@ -1,10 +1,5 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import { TextField, Box, Grid, Typography } from '@material-ui/core';
 
@@ -23,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     textField: {
-      width: '80%',
+      width: '95%',
     },
     resize: {
       color: theme.palette.text.secondary,
