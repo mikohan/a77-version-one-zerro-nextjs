@@ -45,12 +45,18 @@ export default function SimpleSelect() {
     setAge(event.target.value as string);
   };
 
-  const Select = () => (
+  interface ISelectProps {
+    label: string;
+    placeholder?: string;
+    options?: string[];
+  }
+
+  const Select = ({ label }: ISelectProps) => (
     <TextField
       className={classes.textField}
       id="outlined-select-currency-native"
       select
-      label="сортировать"
+      label={label}
       SelectProps={{
         native: true,
       }}
@@ -68,7 +74,7 @@ export default function SimpleSelect() {
       size="small"
       fullWidth
     >
-      {[{ value: 'Value', label: 'label' }].map((option) => (
+      {[{ value: 'Value', label: 'Default' }].map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>
@@ -85,10 +91,10 @@ export default function SimpleSelect() {
           </Typography>
         </Grid>
         <Grid container item xs={4} justify="center" alignItems="center">
-          <Select />
+          <Select label="Марка" />
         </Grid>
         <Grid container item xs={4} justify="center" alignItems="center">
-          <Select />
+          <Select label="Модель" />
         </Grid>
       </Grid>
     </Box>
