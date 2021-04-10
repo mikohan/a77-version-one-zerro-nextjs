@@ -209,7 +209,6 @@ export default function Grouped() {
           fullWidth
           onClose={handleClose}
           onChange={handleSubmit}
-          onInputChange={handleInput}
           className={classes.autocomlete}
           id="grouped-demo"
           options={options}

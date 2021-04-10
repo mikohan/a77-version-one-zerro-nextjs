@@ -24,6 +24,7 @@ export default function Asynchronous() {
   const [inputValue, setInputValue] = React.useState('');
   const loading = open && options.length === 0;
   const router = useRouter();
+  const strip = (value: string) => value.replace(/[^a-zA-Z\s0-9]/g, '');
 
   React.useEffect(() => {
     async function callApi(url: string) {
@@ -74,6 +75,12 @@ export default function Asynchronous() {
     }
   }
 
+  function handleEnter(event: React.KeyboardEvent<{}>) {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  }
+
   return (
     <React.Fragment>
       <div>{inputValue}</div>
@@ -81,12 +88,12 @@ export default function Asynchronous() {
         <Grid item xs={8}>
           <Autocomplete
             freeSolo
+            onKeyDown={handleEnter}
             onInputChange={(e, value) => {
               setInputValue(value);
             }}
             inputValue={inputValue}
             id="autocomplete"
-            style={{ width: 300 }}
             open={open}
             onOpen={() => {
               setOpen(true);
@@ -94,16 +101,19 @@ export default function Asynchronous() {
             onClose={() => {
               setOpen(false);
             }}
+            fullWidth
+            size="small"
             getOptionSelected={(option, value) => option.name === value.name}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => option.name || ''}
             options={options}
             filterOptions={(options, state) => options}
             loading={loading}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Asynchronous"
+                label="Поиск по номеру или названию"
                 variant="outlined"
+                placeholder="Номер или название"
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
@@ -121,7 +131,6 @@ export default function Asynchronous() {
         </Grid>
         <Grid item xs={4}>
           <Button variant="outlined" onClick={handleSubmit}>
-            {' '}
             Button
           </Button>
         </Grid>
