@@ -155,10 +155,6 @@ export default function SearchBar() {
               }
               variant="outlined"
               placeholder="Номер или название"
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: <React.Fragment></React.Fragment>,
-              }}
             />
           )}
         />
