@@ -124,10 +124,10 @@ export default function CarChooseModal() {
                   value={make}
                   onChange={handleChange}
                 >
-                  {carMakes.map((make: string) => {
+                  {carMakes.map((make: IMake) => {
                     return (
-                      <MenuItem key={make} value={make}>
-                        {make.toUpperCase()}
+                      <MenuItem key={make.id} value={make.slug}>
+                        {make.name.toUpperCase()}
                       </MenuItem>
                     );
                   })}
