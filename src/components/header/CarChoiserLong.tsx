@@ -95,11 +95,24 @@ export default function SimpleSelect() {
 
   const handleMakeChange = (event: React.ChangeEvent<{ value: any }>) => {
     setMake({ label: event.target.value as string, value: event.target.value });
+    console.log(event.target.value);
+    console.log(make.value);
+    let modelsByMake = models.filter(
+      (model: ICar) => model.make.slug === event.target.value
+    );
+    console.log(modelsByMake);
+  };
+  const handleModelChange = (event: React.ChangeEvent<{ value: any }>) => {
+    setModel({
+      label: event.target.value as string,
+      value: event.target.value,
+    });
   };
 
   const Select = ({ label, id, options }: ISelectProps) => (
     <TextField
-      onChange={handleMakeChange}
+      onChange={id === 'make' ? handleMakeChange : handleModelChange}
+      value={id === 'make' ? make.value : model.value}
       className={classes.textField}
       id={id}
       select
@@ -126,11 +139,6 @@ export default function SimpleSelect() {
           className={classes.option}
           key={option.value}
           value={option.value}
-          selected={
-            id === 'make'
-              ? option.value === make.value
-              : option.value === model.value
-          }
         >
           {option.label.toUpperCase()}
         </option>
