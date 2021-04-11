@@ -29,7 +29,7 @@ export default function SimpleSelect({ size }: IProps) {
   let padding: string = '0.7rem 14px';
   if (size === 'sm') {
     formSize = 'small';
-    fontSize = '0.9rem';
+    fontSize = '1rem';
     padding = '0.6rem 14px';
   } else if (size === 'md') {
     formSize = 'medium';
@@ -71,7 +71,7 @@ export default function SimpleSelect({ size }: IProps) {
         marginTop: theme.spacing(2),
       },
       option: {
-        fontSize: '1rem',
+        fontSize: fontSize,
         WebkitAppearance: 'none',
         MozAppearanceppearance: 'none',
         appearance: 'none',

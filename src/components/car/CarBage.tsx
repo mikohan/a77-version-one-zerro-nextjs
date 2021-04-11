@@ -16,10 +16,10 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
     fontSize = '1.26rem';
   } else if (size === 'md') {
     avSize = 4.5;
-    fontSize = '1rem';
+    fontSize = '1.1rem';
   } else if (size === 'sm') {
     avSize = 4.5;
-    fontSize = 'inherit';
+    fontSize = '1rem';
   }
 
   const useStyles = makeStyles((theme: Theme) =>
