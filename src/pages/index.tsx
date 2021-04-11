@@ -1,17 +1,19 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Link from 'next/link';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import ListForTesting from '~/components/ListForTesting';
 import { GetStaticProps } from 'next';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
 import { Box, Typography, Container } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
+import CarChioserLong from '~/components/car/CarChoiserLong';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     topBlock: {
+      display: 'flex',
+      width: '100%',
+      alignItems: 'center',
       marginTop: theme.spacing(3),
       minHeight: '20rem',
       widht: '100%',
@@ -54,7 +56,13 @@ export default function Home(props: IHomeProps) {
     <Animation>
       <Grid container>
         <Grid item xs={12}>
-          <Box className={classes.topBlock}>contant</Box>
+          <Box className={classes.topBlock}>
+            <Grid container>
+              <Grid item xs={12}>
+                <CarChioserLong />
+              </Grid>
+            </Grid>
+          </Box>
         </Grid>
       </Grid>
       <Container maxWidth={containerMaxWidth}>

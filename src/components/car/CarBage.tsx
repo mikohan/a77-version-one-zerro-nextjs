@@ -2,7 +2,6 @@ import React from 'react';
 import { Avatar, Chip } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import CarIcon from '@material-ui/icons/LocalShipping';
-import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

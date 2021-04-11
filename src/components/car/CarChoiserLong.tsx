@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import CarIcon from '~/components/common/CarIcon';
+import CarBage from '~/components/car/CarBage';
 
 import { TextField, Box, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -176,7 +176,7 @@ export default function SimpleSelect() {
       <Box className={classes.container}>
         <Grid container className={classes.paper}>
           <Grid container item xs={4} justify="center" alignItems="center">
-            <CarIcon text={carSelected} carImg={carImg} />
+            <CarBage text={carSelected} carImg={carImg} />
           </Grid>
           <Grid container item xs={4} justify="center" alignItems="center">
             <Select id="make" label="Марка" options={makesOptions} />
