@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarIcon from '~/components/common/CarIcon';
 
@@ -92,13 +92,19 @@ export default function SimpleSelect() {
     label: 'Choise model',
     value: 'model',
   });
+  const [modelOptions, setModelOptions] = useState<IOptions[]>([]);
 
   const handleMakeChange = (event: React.ChangeEvent<{ value: any }>) => {
     setMake({ label: event.target.value as string, value: event.target.value });
-    let modelsByMake = sortedModels.filter(
+    let modelsByMake: ICar[] = sortedModels.filter(
       (model: ICar) => model.make.slug === event.target.value
     );
     console.log(modelsByMake);
+    const modelOpts: IOptions[] = modelsByMake.map((model: ICar) => ({
+      label: model.model.toUpperCase(),
+      value: model.slug,
+    }));
+    setModelOptions(modelOpts);
   };
   const handleModelChange = (event: React.ChangeEvent<{ value: any }>) => {
     setModel({
@@ -132,6 +138,23 @@ export default function SimpleSelect() {
       size="small"
       fullWidth
     >
+      {id === 'make' ? (
+        <option
+          className={classes.option}
+          key={'defalultMake'}
+          value="defalutMake"
+        >
+          Выбрать Марку
+        </option>
+      ) : (
+        <option
+          className={classes.option}
+          key={'defalultModel'}
+          value="defalutModel"
+        >
+          Выбрать Модель
+        </option>
+      )}
       {options.map((option) => (
         <option
           className={classes.option}
@@ -155,7 +178,7 @@ export default function SimpleSelect() {
             <Select id="make" label="Марка" options={makesOptions} />
           </Grid>
           <Grid container item xs={4} justify="center" alignItems="center">
-            <Select id="model" label="Модель" options={makesOptions} />
+            <Select id="model" label="Модель" options={modelOptions} />
           </Grid>
         </Grid>
       </Box>
