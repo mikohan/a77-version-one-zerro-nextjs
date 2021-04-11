@@ -10,12 +10,16 @@ interface IProps {
 
 export default function MouseOverPopover({ size, text, carImg }: IProps) {
   let avSize = 3;
+  let fontSize = '';
   if (size === 'lg') {
     avSize = 7;
+    fontSize = '1.26rem';
   } else if (size === 'md') {
     avSize = 4.5;
+    fontSize = '1rem';
   } else if (size === 'sm') {
-    avSize = 3;
+    avSize = 4.5;
+    fontSize = 'inherit';
   }
 
   const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +33,10 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         display: 'flex',
         justifyContent: 'flex-start',
         border: '1px solid',
-        borderColor: theme.palette.divider,
+        borderColor: theme.palette.action.disabled,
+        '&:hover': {
+          borderColor: theme.palette.action.active,
+        },
         borderRadius: '5px',
         alignItems: 'center',
         width: '95%',
@@ -44,6 +51,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
       },
       text: {
         color: theme.palette.text.secondary,
+        fontSize: fontSize,
       },
     })
   );

@@ -9,46 +9,6 @@ import { IMake, ICar } from '~/interfaces';
 import { setCurrentCarAction } from '~/store/actions';
 import { capitalize } from '~/utils';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-    },
-    paper: {
-      background: theme.palette.background.paper,
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-    },
-    item: {
-      marginBottom: theme.spacing(1.5),
-    },
-    choiseText: {
-      padding: theme.spacing(2),
-    },
-    textField: {
-      width: '95%',
-    },
-    resize: {
-      color: theme.palette.text.secondary,
-      padding: '.6rem 14px',
-      fontSize: '0.9rem',
-    },
-    label: {},
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    option: {
-      fontSize: '1rem',
-      WebkitAppearance: 'none',
-      MozAppearanceppearance: 'none',
-      appearance: 'none',
-      padding: '5px',
-    },
-  })
-);
-
 interface ISelectProps {
   label: string;
   id: string;
@@ -64,6 +24,61 @@ interface IProps {
 }
 
 export default function SimpleSelect({ size }: IProps) {
+  let formSize: any = 'small';
+  let fontSize: string = '1rem';
+  let padding: string = '0.7rem 14px';
+  if (size === 'sm') {
+    formSize = 'small';
+    fontSize = '0.9rem';
+    padding = '0.6rem 14px';
+  } else if (size === 'md') {
+    formSize = 'medium';
+    fontSize = '1.1rem';
+    padding = '0.8rem 14px';
+  } else {
+    formSize = 'small';
+    fontSize = '1.3rem';
+    padding = '1rem 14px';
+  }
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      container: {
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
+      },
+      paper: {
+        background: theme.palette.background.paper,
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+      },
+      item: {
+        marginBottom: theme.spacing(1.5),
+      },
+      choiseText: {
+        padding: theme.spacing(2),
+      },
+      textField: {
+        width: '95%',
+      },
+      resize: {
+        color: theme.palette.text.secondary,
+        padding: padding,
+        fontSize: fontSize,
+      },
+      label: {},
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+      option: {
+        fontSize: '1rem',
+        WebkitAppearance: 'none',
+        MozAppearanceppearance: 'none',
+        appearance: 'none',
+        padding: '5px',
+      },
+    })
+  );
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
@@ -152,7 +167,7 @@ export default function SimpleSelect({ size }: IProps) {
         },
       }}
       variant="outlined"
-      size="small"
+      size={formSize}
       fullWidth
     >
       {id === 'make' ? (

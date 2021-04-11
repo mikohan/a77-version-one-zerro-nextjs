@@ -59,7 +59,7 @@ export default function Home(props: IHomeProps) {
           <Box className={classes.topBlock}>
             <Grid container>
               <Grid item xs={12}>
-                <CarChioserLong />
+                <CarChioserLong size="lg" />
               </Grid>
             </Grid>
           </Box>
