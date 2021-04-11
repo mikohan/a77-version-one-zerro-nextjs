@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import PopOver from '~/components/common/PopOver';
 
 import { TextField, Box, Grid, Typography } from '@material-ui/core';
 
@@ -78,21 +79,47 @@ export default function SimpleSelect() {
     </TextField>
   );
 
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   return (
-    <Box className={classes.container}>
-      <Grid container className={classes.paper}>
-        <Grid container item xs={4} justify="center" alignItems="center">
-          <Typography className={classes.choiseText} variant="body2">
-            Поиск запчастей по автомобилю
-          </Typography>
+    <React.Fragment>
+      <Box className={classes.container}>
+        <Grid container className={classes.paper}>
+          <Grid container item xs={4} justify="center" alignItems="center">
+            <Typography
+              className={classes.choiseText}
+              variant="body2"
+              aria-owns={open ? 'mouse-over-popover' : undefined}
+              onMouseEnter={handlePopoverOpen}
+              onMouseLeave={handlePopoverClose}
+            >
+              Поиск запчастей по автомобилю
+            </Typography>
+          </Grid>
+          <Grid container item xs={4} justify="center" alignItems="center">
+            <Select id="make" label="Марка" />
+          </Grid>
+          <Grid container item xs={4} justify="center" alignItems="center">
+            <Select id="model" label="Модель" />
+          </Grid>
         </Grid>
-        <Grid container item xs={4} justify="center" alignItems="center">
-          <Select id="make" label="Марка" />
-        </Grid>
-        <Grid container item xs={4} justify="center" alignItems="center">
-          <Select id="model" label="Модель" />
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+      <PopOver
+        text={'some text'}
+        handlePopoverOpen={handlePopoverOpen}
+        handlePopoverClose={handlePopoverClose}
+      />
+    </React.Fragment>
   );
 }
