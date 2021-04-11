@@ -18,6 +18,7 @@ import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { firstSlug } from '~/config';
 import { getVehicles } from '~/endpoints/carsEndpoint';
+import { IMake } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,7 +75,7 @@ export default function CarChooseModal() {
     setModels(models);
   };
 
-  const carMakes: string[] = useSelector((state: IState) => {
+  const carMakes: IMake[] = useSelector((state: IState) => {
     return state.shop.makes;
   });
 
