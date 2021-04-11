@@ -95,9 +95,7 @@ export default function SimpleSelect() {
 
   const handleMakeChange = (event: React.ChangeEvent<{ value: any }>) => {
     setMake({ label: event.target.value as string, value: event.target.value });
-    console.log(event.target.value);
-    console.log(make.value);
-    let modelsByMake = models.filter(
+    let modelsByMake = sortedModels.filter(
       (model: ICar) => model.make.slug === event.target.value
     );
     console.log(modelsByMake);
