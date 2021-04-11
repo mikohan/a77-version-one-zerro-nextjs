@@ -54,19 +54,19 @@ export default function Home(props: IHomeProps) {
 
   return (
     <Animation>
-      <Container maxWidth={containerMaxWidth}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Box className={classes.topBlock}>
+      <Grid container>
+        <Grid item xs={12}>
+          <Box className={classes.topBlock}>
+            <Container maxWidth={containerMaxWidth}>
               <Grid container>
                 <Grid item xs={12}>
                   <CarChioserLong size="lg" />
                 </Grid>
               </Grid>
-            </Box>
-          </Grid>
+            </Container>
+          </Box>
         </Grid>
-      </Container>
+      </Grid>
       <Container maxWidth={containerMaxWidth}>
         <Grid container>
           <Grid item xs={12}>
