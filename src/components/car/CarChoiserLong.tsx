@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
 import { setCurrentCarAction } from '~/store/actions';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.paper,
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+    },
+    item: {
+      marginBottom: theme.spacing(1.5),
     },
     choiseText: {
       padding: theme.spacing(2),
@@ -36,7 +40,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
     },
     option: {
-      fontSize: '0.9rem',
+      fontSize: '1rem',
+      WebkitAppearance: 'none',
+      MozAppearanceppearance: 'none',
+      appearance: 'none',
+      padding: '5px',
     },
   })
 );
@@ -51,8 +59,11 @@ interface IOptions {
   label: string;
   value: string;
 }
+interface IProps {
+  size: string;
+}
 
-export default function SimpleSelect() {
+export default function SimpleSelect({ size }: IProps) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
@@ -79,7 +90,9 @@ export default function SimpleSelect() {
   let carImg = '/images/local/carsAvatar/generic.png';
 
   if (currentCar && currentCar.hasOwnProperty('model')) {
-    carSelected = `Выбран ${currentCar.make.name.toUpperCase()} ${currentCar.model.toUpperCase()}`;
+    carSelected = `Выбран ${capitalize(currentCar.make.name)} ${capitalize(
+      currentCar.model
+    )}`;
     // here need to set car img
     carImg = '/images/local/carsAvatar/hd-78.png';
   } else {
@@ -165,7 +178,7 @@ export default function SimpleSelect() {
           key={option.value}
           value={option.value}
         >
-          {option.label.toUpperCase()}
+          {capitalize(option.label)}
         </option>
       ))}
     </TextField>
@@ -175,13 +188,37 @@ export default function SimpleSelect() {
     <React.Fragment>
       <Box className={classes.container}>
         <Grid container className={classes.paper}>
-          <Grid container item xs={4} justify="center" alignItems="center">
-            <CarBage text={carSelected} carImg={carImg} />
+          <Grid
+            className={classes.item}
+            container
+            item
+            sm={12}
+            md={4}
+            justify="center"
+            alignItems="center"
+          >
+            <CarBage size={size} text={carSelected} carImg={carImg} />
           </Grid>
-          <Grid container item xs={4} justify="center" alignItems="center">
+          <Grid
+            className={classes.item}
+            container
+            item
+            sm={12}
+            md={4}
+            justify="center"
+            alignItems="center"
+          >
             <Select id="make" label="Марка" options={makesOptions} />
           </Grid>
-          <Grid container item xs={4} justify="center" alignItems="center">
+          <Grid
+            className={classes.item}
+            container
+            item
+            sm={12}
+            md={4}
+            justify="center"
+            alignItems="center"
+          >
             <Select id="model" label="Модель" options={modelOptions} />
           </Grid>
         </Grid>

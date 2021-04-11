@@ -203,7 +203,7 @@ export default function Cagetory(props: CategoryProps) {
             <Grid item xs={12} md={9}>
               <Grid container>
                 <Grid item xs={12}>
-                  <CarChoiser />
+                  <CarChoiser size="md" />
                 </Grid>
                 <Grid item xs={12}>
                   {products.hits.length > 0 ? (
