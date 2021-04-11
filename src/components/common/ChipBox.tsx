@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color:
         theme.palette.type === 'dark'
           ? fade(theme.palette.text.primary, 0.8)
-          : fade(theme.palette.background.default, 0.8),
+          : fade(theme.palette.background.default, 1),
       textAlign: 'center',
       lineHeight: 1,
       display: 'inline-block',
@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'block',
         background:
           theme.palette.type === 'dark'
-            ? fade(theme.palette.background.paper, 1)
-            : fade(bageGreen, 0.8),
+            ? fade(theme.palette.background.paper, 0.4)
+            : fade(bageGreen, 0.4),
         left: '3.5px',
         right: '3.5px',
         top: 0,
