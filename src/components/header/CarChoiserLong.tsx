@@ -5,6 +5,7 @@ import CarIcon from '~/components/common/CarIcon';
 import { TextField, Box, Grid, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import { IMake, ICar } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,18 +28,51 @@ const useStyles = makeStyles((theme: Theme) =>
     resize: {
       color: theme.palette.text.secondary,
       padding: '.6rem 14px',
-      fontSize: '1rem',
+      fontSize: '0.9rem',
     },
     label: {},
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    option: {
+      fontSize: '0.9rem',
+    },
   })
 );
+
+interface ISelectProps {
+  label: string;
+  id: string;
+  placeholder?: string;
+  options: IOptions[];
+}
+interface IOptions {
+  label: string;
+  value: string;
+}
 
 export default function SimpleSelect() {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  const makes = useSelector((state: IState) => state.shop.makes);
+  const models = useSelector((state: IState) => state.shop.cars);
+
+  const sortedMakes = makes
+    .slice()
+    .sort((a: IMake, b: IMake) => (a.priority! > b.priority! ? -1 : 1));
+  const sortedModels = models
+    .slice()
+    .sort((a: ICar, b: ICar) => (a.priority! > b.priority! ? -1 : 1));
+
+  let makesOptions: IOptions[] = [];
+
+  if (makes && Object.keys(makes).length > 0) {
+    makesOptions = sortedMakes.map((make: IMake) => ({
+      label: make.name,
+      value: make.slug,
+    }));
+  }
+
   let carSelected = '';
   let carImg = '/images/local/carsAvatar/generic.png';
 
@@ -50,21 +84,22 @@ export default function SimpleSelect() {
     carSelected = `Поиск запчастей по Вашей Машине`;
     carImg = '/images/local/carsAvatar/generic.png';
   }
-  const [age, setAge] = React.useState('');
+  const [make, setMake] = React.useState<IOptions>({
+    label: 'Choise make',
+    value: 'make',
+  });
+  const [model, setModel] = React.useState<IOptions>({
+    label: 'Choise model',
+    value: 'model',
+  });
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
+  const handleMakeChange = (event: React.ChangeEvent<{ value: any }>) => {
+    setMake({ label: event.target.value as string, value: event.target.value });
   };
 
-  interface ISelectProps {
-    label: string;
-    id: string;
-    placeholder?: string;
-    options?: string[];
-  }
-
-  const Select = ({ label, id }: ISelectProps) => (
+  const Select = ({ label, id, options }: ISelectProps) => (
     <TextField
+      onChange={handleMakeChange}
       className={classes.textField}
       id={id}
       select
@@ -86,9 +121,18 @@ export default function SimpleSelect() {
       size="small"
       fullWidth
     >
-      {[{ value: 'Value', label: 'Default' }].map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
+      {options.map((option) => (
+        <option
+          className={classes.option}
+          key={option.value}
+          value={option.value}
+          selected={
+            id === 'make'
+              ? option.value === make.value
+              : option.value === model.value
+          }
+        >
+          {option.label.toUpperCase()}
         </option>
       ))}
     </TextField>
@@ -102,10 +146,10 @@ export default function SimpleSelect() {
             <CarIcon text={carSelected} carImg={carImg} />
           </Grid>
           <Grid container item xs={4} justify="center" alignItems="center">
-            <Select id="make" label="Марка" />
+            <Select id="make" label="Марка" options={makesOptions} />
           </Grid>
           <Grid container item xs={4} justify="center" alignItems="center">
-            <Select id="model" label="Модель" />
+            <Select id="model" label="Модель" options={makesOptions} />
           </Grid>
         </Grid>
       </Box>
