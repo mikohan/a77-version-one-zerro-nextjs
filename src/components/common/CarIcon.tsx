@@ -1,8 +1,8 @@
 import React from 'react';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import { Avatar, Chip } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import CarIcon from '@material-ui/icons/LocalShipping';
+import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,14 +15,28 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {}
+interface IProps {
+  text: string;
+}
 
-export default function MouseOverPopover() {
+export default function MouseOverPopover({ text }: IProps) {
   const classes = useStyles();
 
   return (
     <div>
-      <CarIcon />
+      <Chip
+        avatar={
+          <Avatar src="/images/local/carsAvatar/hd-78.png">
+            <CarIcon />
+          </Avatar>
+        }
+        label={text}
+        clickable
+        color="default"
+        onDelete={() => {}}
+        deleteIcon={<DoneIcon />}
+        variant="outlined"
+      />
     </div>
   );
 }

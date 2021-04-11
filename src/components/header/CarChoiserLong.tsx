@@ -3,17 +3,20 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarIcon from '~/components/common/CarIcon';
 
 import { TextField, Box, Grid, Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
-      paddingBottom: theme.spacing(1),
+      paddingBottom: theme.spacing(2),
     },
     paper: {
       background: theme.palette.background.paper,
-      border: '1px solid pink',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
     },
     choiseText: {
       padding: theme.spacing(2),
@@ -35,6 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SimpleSelect() {
   const classes = useStyles();
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  let carSelected = '';
+  if (currentCar && currentCar.hasOwnProperty('model')) {
+    carSelected = `Выбран ${currentCar.make.name.toUpperCase()} ${currentCar.model.toUpperCase()}`;
+  } else {
+    carSelected = `Choise your car here`;
+  }
   const [age, setAge] = React.useState('');
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -83,11 +93,8 @@ export default function SimpleSelect() {
     <React.Fragment>
       <Box className={classes.container}>
         <Grid container className={classes.paper}>
-          <CarIcon />
           <Grid container item xs={4} justify="center" alignItems="center">
-            <Typography className={classes.choiseText} variant="body2">
-              Поиск запчастей по автомобилю
-            </Typography>
+            <CarIcon text={carSelected} />
           </Grid>
           <Grid container item xs={4} justify="center" alignItems="center">
             <Select id="make" label="Марка" />
