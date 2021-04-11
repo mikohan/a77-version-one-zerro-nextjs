@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarIcon from '~/components/common/CarIcon';
 
-import { TextField, Box, Grid, Typography } from '@material-ui/core';
+import { TextField, Box, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
