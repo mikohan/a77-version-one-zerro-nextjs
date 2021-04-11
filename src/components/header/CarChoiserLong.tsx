@@ -3,9 +3,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarIcon from '~/components/common/CarIcon';
 
 import { TextField, Box, Grid, Typography } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
+import { setCurrentCarAction } from '~/store/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,6 +54,7 @@ interface IOptions {
 
 export default function SimpleSelect() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const makes = useSelector((state: IState) => state.shop.makes);
   const models = useSelector((state: IState) => state.shop.cars);
@@ -111,6 +113,9 @@ export default function SimpleSelect() {
       label: event.target.value as string,
       value: event.target.value,
     });
+    const curCar = models.find((car: ICar) => car.slug === event.target.value);
+
+    dispatch(setCurrentCarAction(curCar));
   };
 
   const Select = ({ label, id, options }: ISelectProps) => (
