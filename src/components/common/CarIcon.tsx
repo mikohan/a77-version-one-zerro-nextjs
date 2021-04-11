@@ -17,24 +17,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   text: string;
+  carImg: string;
 }
 
-export default function MouseOverPopover({ text }: IProps) {
+export default function MouseOverPopover({ text, carImg }: IProps) {
   const classes = useStyles();
 
   return (
     <div>
       <Chip
         avatar={
-          <Avatar src="/images/local/carsAvatar/hd-78.png">
+          <Avatar src={carImg}>
             <CarIcon />
           </Avatar>
         }
         label={text}
-        clickable
         color="default"
-        onDelete={() => {}}
-        deleteIcon={<DoneIcon />}
         variant="outlined"
       />
     </div>

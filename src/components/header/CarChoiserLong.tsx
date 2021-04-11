@@ -40,10 +40,15 @@ export default function SimpleSelect() {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
   let carSelected = '';
+  let carImg = '/images/local/carsAvatar/generic.png';
+
   if (currentCar && currentCar.hasOwnProperty('model')) {
     carSelected = `Выбран ${currentCar.make.name.toUpperCase()} ${currentCar.model.toUpperCase()}`;
+    // here need to set car img
+    carImg = '/images/local/carsAvatar/hd-78.png';
   } else {
-    carSelected = `Choise your car here`;
+    carSelected = `Поиск запчастей по Вашей Машине`;
+    carImg = '/images/local/carsAvatar/generic.png';
   }
   const [age, setAge] = React.useState('');
 
@@ -94,7 +99,7 @@ export default function SimpleSelect() {
       <Box className={classes.container}>
         <Grid container className={classes.paper}>
           <Grid container item xs={4} justify="center" alignItems="center">
-            <CarIcon text={carSelected} />
+            <CarIcon text={carSelected} carImg={carImg} />
           </Grid>
           <Grid container item xs={4} justify="center" alignItems="center">
             <Select id="make" label="Марка" />
