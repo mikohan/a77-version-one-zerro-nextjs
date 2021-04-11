@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import PopOver from '~/components/common/PopOver';
+import CarIcon from '~/components/common/CarIcon';
 
 import { TextField, Box, Grid, Typography } from '@material-ui/core';
 
@@ -79,31 +79,13 @@ export default function SimpleSelect() {
     </TextField>
   );
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
-  const handlePopoverOpen = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
   return (
     <React.Fragment>
       <Box className={classes.container}>
         <Grid container className={classes.paper}>
+          <CarIcon />
           <Grid container item xs={4} justify="center" alignItems="center">
-            <Typography
-              className={classes.choiseText}
-              variant="body2"
-              aria-owns={open ? 'mouse-over-popover' : undefined}
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}
-            >
+            <Typography className={classes.choiseText} variant="body2">
               Поиск запчастей по автомобилю
             </Typography>
           </Grid>
@@ -115,11 +97,6 @@ export default function SimpleSelect() {
           </Grid>
         </Grid>
       </Box>
-      <PopOver
-        text={'some text'}
-        handlePopoverOpen={handlePopoverOpen}
-        handlePopoverClose={handlePopoverClose}
-      />
     </React.Fragment>
   );
 }
