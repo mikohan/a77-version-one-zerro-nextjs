@@ -1,9 +1,9 @@
-import { ICar } from '~/interfaces';
+import { ICar, IMake } from '~/interfaces';
 import * as types from '~/store/types';
 
 interface IMakesAction {
   type: typeof types.SET_MAKES_ACTION;
-  payload: string[];
+  payload: IMake[];
 }
 
 interface ISetCurrnetCarAction {
@@ -11,7 +11,7 @@ interface ISetCurrnetCarAction {
   payload: ICar | undefined;
 }
 
-export const makesAction = (makes: string[]): IMakesAction => {
+export const makesAction = (makes: IMake[]): IMakesAction => {
   return {
     type: types.SET_MAKES_ACTION,
     payload: makes,

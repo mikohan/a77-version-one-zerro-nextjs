@@ -19,12 +19,12 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 /* import { parseCookies } from '~/helpers'; */
 
 import 'styles/globals.scss';
-import { setCurrentCarAction } from '~/store/actions';
+import { makesAction, setCurrentCarAction } from '~/store/actions';
 import { ICar } from '~/interfaces/ICar';
 import useLocalStorage from '~/hooks/useLocalStorage';
 
 import { v4 as uuidv4 } from 'uuid';
-import { getVehicles } from '~/endpoints/carsEndpoint';
+import { getMakes, getVehicles } from '~/endpoints/carsEndpoint';
 import MainLayout from '~/layouts/Main';
 
 Router.events.on('routeChangeStart', () => {
@@ -55,13 +55,11 @@ function MyApp(props: any) {
         type: GET_ALL_CARS,
         payload: cars,
       });
+
+      const makesPromise = await getMakes();
+      store.dispatch(makesAction(makesPromise));
       // Dispatching currentCar to redux
       let currentCarFromCookies: ICar | undefined;
-      /* if (cookies.currentCar) { */
-      /*   currentCarFromCookies = cookies.currentCar; */
-      /* } else { */
-      /*   currentCarFromCookies = undefined; */
-      /* } */
       try {
         currentCarFromCookies = JSON.parse(
           window.localStorage.getItem('currentCar') as string

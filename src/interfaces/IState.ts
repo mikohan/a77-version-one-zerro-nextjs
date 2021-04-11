@@ -1,18 +1,12 @@
 import { ICategory } from '~/interfaces/category';
 import { ICar } from '~/interfaces/ICar';
 import { IShopState as INewShopState } from '~/store/shop/shopTypes';
-
-export interface IMake {
-  id: number;
-  slug: string;
-  name: string;
-  country: number;
-}
+import { IMake } from '~/interfaces/IMake';
 
 export interface IShopState {
   cars: ICar[];
   currentCar: ICar | undefined;
-  makes: string[];
+  makes: IMake[];
   categories: ICategory[];
 }
 

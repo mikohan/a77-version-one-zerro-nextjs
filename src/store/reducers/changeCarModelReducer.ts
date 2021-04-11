@@ -1,11 +1,11 @@
 import { IShopState } from '~/interfaces/IState';
-import { ICar } from '~/interfaces/ICar';
+import { ICar, IMake } from '~/interfaces';
 import * as types from '~/store/types';
 
 const initialState: IShopState = {
   cars: [],
   currentCar: <ICar>{},
-  makes: [],
+  makes: <IMake[]>[],
   categories: [],
 };
 
