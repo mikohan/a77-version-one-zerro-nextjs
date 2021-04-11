@@ -1,6 +1,9 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { lightGreen } from '@material-ui/core/colors';
+
+const bageGreen: any = lightGreen['A700'];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       marginLeft: theme.spacing(2),
       marginBottom: theme.spacing(2),
-      color: fade(theme.palette.background.default, 0.8),
+      color:
+        theme.palette.type === 'dark'
+          ? fade(theme.palette.text.primary, 0.8)
+          : fade(theme.palette.background.default, 0.8),
       textAlign: 'center',
       lineHeight: 1,
       display: 'inline-block',
@@ -34,7 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
         position: 'absolute',
         content: '""',
         display: 'block',
-        background: fade(theme.palette.primary.main, 0.7),
+        background:
+          theme.palette.type === 'dark'
+            ? fade(theme.palette.background.paper, 1)
+            : fade(bageGreen, 0.8),
         left: '3.5px',
         right: '3.5px',
         top: 0,

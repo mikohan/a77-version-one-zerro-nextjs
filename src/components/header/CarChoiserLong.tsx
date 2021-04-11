@@ -101,7 +101,6 @@ export default function SimpleSelect() {
     let modelsByMake: ICar[] = sortedModels.filter(
       (model: ICar) => model.make.slug === event.target.value
     );
-    console.log(modelsByMake);
     const modelOpts: IOptions[] = modelsByMake.map((model: ICar) => ({
       label: model.model.toUpperCase(),
       value: model.slug,
