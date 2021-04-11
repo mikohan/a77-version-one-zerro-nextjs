@@ -1,36 +1,27 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
-import { searchTree } from '~/utils';
 
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
-import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
-import { getVehicle } from '~/endpoints/carsEndpoint';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
-import { makeTree, OrderBreads } from '~/utils';
+import { makeTree } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import SearchHead from '~/components/heads/SearchHead';
-import { getCatPath } from '~/services/utils';
 import { IBread, IRouterStuff } from '~/interfaces';
 import url from '~/services/url';
-import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import {
-  getProductsAll,
-  getProductsByFilters,
-  getProductsBySearch,
-} from '~/endpoints/productEndpoint';
+import { getProductsBySearch } from '~/endpoints/productEndpoint';
 import { IActiveFilterMy } from '~/interfaces';
 import { Router } from 'next/dist/client/router';
 import {
@@ -40,11 +31,9 @@ import {
 } from '~/store/shop/shopActions';
 import { containerMaxWidth, pageSize } from '~/config';
 import {
-  getActiveFilters,
   makeHandleDeleteFilter,
   makeHandleDeleteFilters,
   makeHandleFilterChange,
-  clearParams,
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 import { Container } from '@material-ui/core';
@@ -64,17 +53,10 @@ interface CategoryProps {
   routerQuery: IRouterStuff;
   routerParams: IRouterStuff;
 }
-import CarChoiser from '~/components/header/CarChoiserLong';
+import CarChoiser from '~/components/car/CarChoiserLong';
 
 export default function Cagetory(props: CategoryProps) {
-  const {
-    categories,
-    model,
-    products,
-    aggregations,
-    totalPages,
-    routerQuery,
-  } = props;
+  const { products, aggregations, totalPages, routerQuery } = props;
 
   const dispatch = useDispatch();
   const router = useRouter();
