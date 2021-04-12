@@ -97,6 +97,7 @@ export default function ProductCardGrid({ product }: IProp) {
   const classes = useStyles();
 
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  console.log(currentCar.slug);
   let car: string =
     currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
   const compatable = product._source.model.some(
