@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
-import { Grid, Chip } from '@material-ui/core';
+import { Grid, Chip, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import CarIcon from '@material-ui/icons/DriveEtaRounded';
@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
+    },
+    myCar: {
+      marginRight: theme.spacing(1),
     },
   })
 );
@@ -54,16 +57,27 @@ export default function SearchBox() {
   return (
     <Grid className={classes.root} container>
       <Grid className={classes.container} item xs={3}>
-        <Chip
-          icon={<CarIcon />}
-          label={chipLabel}
-          onClick={handleCurrentCar}
-          clickable
-          color="default"
-          onDelete={handleCurrentCar}
-          deleteIcon={<DoneIcon />}
-          variant="outlined"
-        />
+        {currentCar ? (
+          <React.Fragment>
+            <Typography className={classes.myCar} variant="subtitle1">
+              Моя машина:
+            </Typography>
+            <Chip
+              icon={<CarIcon />}
+              label={chipLabel}
+              onClick={handleCurrentCar}
+              clickable
+              color="default"
+              onDelete={handleCurrentCar}
+              deleteIcon={<DoneIcon />}
+              variant="outlined"
+            />
+          </React.Fragment>
+        ) : (
+          <Typography className={classes.myCar} variant="subtitle1">
+            Выбрать Машину
+          </Typography>
+        )}
       </Grid>
       <Grid item xs={6}>
         <SearchBar />
