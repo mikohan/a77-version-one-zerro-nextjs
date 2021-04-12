@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Image from 'next/image';
 
 interface IProps {
   size: string;
@@ -47,7 +48,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         marginRight: theme.spacing(1.5),
         height: theme.spacing(avSize),
         width: theme.spacing(avSize),
-        /* backgroundColor: theme.palette.action.selected, */
+        backgroundColor: 'transparent',
       },
       text: {
         color: theme.palette.text.secondary,
@@ -60,7 +61,9 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
   return (
     <Box className={classes.outerBox}>
       <Box className={classes.carBox}>
-        <Avatar className={classes.avatar} src={carImg}></Avatar>
+        <Avatar className={classes.avatar}>
+          <Image src={carImg} alt={text} width={100} height={100} />
+        </Avatar>
         <Typography className={classes.text} variant="body2">
           {text}
         </Typography>

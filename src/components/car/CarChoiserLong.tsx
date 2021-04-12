@@ -117,12 +117,14 @@ export default function SimpleSelect({ size }: IProps) {
   }
 
   if (currentCar && currentCar.hasOwnProperty('image')) {
-    carImg = `${imageServerUrl}${currentCar.image}`;
+    if (currentCar.image) {
+      carImg = `${imageServerUrl}${currentCar.image}`;
+    } else {
+      carImg = '/images/local/carsAvatar/generic.png';
+    }
   } else {
     carImg = '/images/local/carsAvatar/generic.png';
   }
-  console.log(currentCar);
-  console.log(carImg);
   const [make, setMake] = React.useState<IOptions>({
     label: 'Choise make',
     value: 'make',
