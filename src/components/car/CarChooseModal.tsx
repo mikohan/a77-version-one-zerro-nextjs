@@ -112,7 +112,6 @@ export default function CarChooseModal() {
     setAnchorEl(null);
     setSelectedModel(event.target.value as string);
   };
-  console.log(currentCar);
 
   return (
     <div>
@@ -128,7 +127,7 @@ export default function CarChooseModal() {
                 <Select
                   labelId="demo-simple-select-label"
                   id="makeLabelId"
-                  value={currentCar.make.slug}
+                  value={currentCar ? currentCar.make.slug : ''}
                   onChange={handleChange}
                 >
                   {sortedMakes.map((make: IMake) => {
