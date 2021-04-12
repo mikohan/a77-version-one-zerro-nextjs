@@ -47,7 +47,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         marginRight: theme.spacing(1.5),
         height: theme.spacing(avSize),
         width: theme.spacing(avSize),
-        backgroundColor: theme.palette.background.default,
+        /* backgroundColor: theme.palette.action.selected, */
       },
       text: {
         color: theme.palette.text.secondary,

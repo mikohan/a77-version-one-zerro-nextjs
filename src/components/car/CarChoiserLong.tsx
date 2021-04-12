@@ -9,6 +9,7 @@ import { IMake, ICar } from '~/interfaces';
 import { setCurrentCarAction } from '~/store/actions';
 import { capitalize } from '~/utils';
 import useLocalStorage from '~/hooks/useLocalStorage';
+import { imageServerUrl } from '~/config';
 
 interface ISelectProps {
   label: string;
@@ -111,11 +112,17 @@ export default function SimpleSelect({ size }: IProps) {
       currentCar.model
     )}`;
     // here need to set car img
-    carImg = '/images/local/carsAvatar/hd-78.png';
   } else {
     carSelected = `Поиск запчастей по Вашей Машине`;
+  }
+
+  if (currentCar && currentCar.hasOwnProperty('image')) {
+    carImg = `${imageServerUrl}${currentCar.image}`;
+  } else {
     carImg = '/images/local/carsAvatar/generic.png';
   }
+  console.log(currentCar);
+  console.log(carImg);
   const [make, setMake] = React.useState<IOptions>({
     label: 'Choise make',
     value: 'make',

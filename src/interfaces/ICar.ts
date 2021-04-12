@@ -4,6 +4,7 @@ export interface IEngine {
   id: string;
   name: string;
   slug: string;
+  image: string;
 }
 
 export interface ICar {
@@ -17,6 +18,7 @@ export interface ICar {
   slug: string;
   count?: string;
   priority: string;
+  image: string;
 }
 
 export interface IVehicle extends ICar {}

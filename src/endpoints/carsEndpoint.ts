@@ -14,6 +14,7 @@ export async function getMake(slug: string): Promise<IMake> {
         slug
         country
         priority
+        image
       }
     }
   `;
@@ -37,6 +38,7 @@ export async function getMakes(): Promise<IMake[]> {
           slug
           country
           priority
+          image
         }
       }
     `,
@@ -54,6 +56,7 @@ export async function getVehicles(): Promise<ICar[]> {
           year
           engine
           priority
+          image
           make {
             id
             name
@@ -78,6 +81,7 @@ export async function getVehicle(slug: string): Promise<ICar> {
         year
         engine
         priority
+        image
         make {
           id
           name
@@ -109,6 +113,7 @@ export async function getVehiclesByMake(slug: string): Promise<ICar> {
         engine
         count
         priority
+        image
         make {
           id
           name
