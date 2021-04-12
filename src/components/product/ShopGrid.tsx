@@ -355,33 +355,40 @@ export default function ShopGrid({
                 АКТИВНЫЕ ФИЛЬТРЫ
               </Typography>
               <Box className={classes.filtersBox}>
-                {Object.entries(filters).map((fil: any) => {
-                  return fil[1].split(',').map((elem: string) => {
-                    if (fil[0] === 'has_photo') {
-                      elem = booleanToRus(elem);
+                {Object.entries(filters)
+                  .filter((item: any) => {
+                    if (item[0] === 'sort_price') {
+                      return false;
                     }
-                    if (fil[0] === 'condition') {
-                      elem = conditionToRus(elem);
-                    }
-                    return (
-                      <Chip
-                        key={elem}
-                        className={classes.deleteChip}
-                        variant="outlined"
-                        size="small"
-                        label={`${capitalize(
-                          transFilter[fil[0]]
-                        )}: ${capitalize(elem)}`}
-                        onDelete={() => {
-                          handleDeleteFilter(fil[0], elem);
-                        }}
-                        onClick={() => {
-                          handleDeleteFilter(fil[0], elem);
-                        }}
-                      />
-                    );
-                  });
-                })}
+                    return true;
+                  })
+                  .map((fil: any) => {
+                    return fil[1].split(',').map((elem: string) => {
+                      if (fil[0] === 'has_photo') {
+                        elem = booleanToRus(elem);
+                      }
+                      if (fil[0] === 'condition') {
+                        elem = conditionToRus(elem);
+                      }
+                      return (
+                        <Chip
+                          key={elem}
+                          className={classes.deleteChip}
+                          variant="outlined"
+                          size="small"
+                          label={`${capitalize(
+                            transFilter[fil[0]]
+                          )}: ${capitalize(elem)}`}
+                          onDelete={() => {
+                            handleDeleteFilter(fil[0], elem);
+                          }}
+                          onClick={() => {
+                            handleDeleteFilter(fil[0], elem);
+                          }}
+                        />
+                      );
+                    });
+                  })}
                 <Chip
                   className={classes.deleteChip}
                   variant="outlined"
