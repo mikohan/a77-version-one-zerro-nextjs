@@ -214,10 +214,6 @@ export default function ShopGrid({
     { value: 5, label: 'название: Я - А' },
   ];
 
-  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
-  };
-
   const handleGrid = () => {
     dispatch({ type: SET_SHOP_GRID, payload: 'grid' });
   };
@@ -289,6 +285,11 @@ export default function ShopGrid({
   delete currentUrl.model;
   delete currentUrl.category;
 
+  let srt: string = 'asc';
+  if (sort === '2') {
+    srt = 'desc';
+  }
+
   function paginationHandler(e: object, page: number) {
     router.push({
       pathname,
@@ -298,6 +299,18 @@ export default function ShopGrid({
       },
     });
   }
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
+    delete currentUrl.sort_price;
+    router.push({
+      pathname,
+      query: {
+        ...currentUrl,
+        sort_price: srt,
+      },
+    });
+  };
 
   return (
     <React.Fragment>
