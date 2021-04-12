@@ -40,6 +40,10 @@ export default function ShopGrid({
   filtersResetHandlers,
   totalPages = 15,
 }: IProps) {
+  // Working on capability parts
+
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
+
   // Drawer stuff
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const toggleDrawer = () => {
@@ -382,9 +386,17 @@ export default function ShopGrid({
             {products.map((item: IProductElasticHitsSecond) => {
               const elem =
                 shopGrid === 'grid' ? (
-                  <ProductCardGrid key={item._id} product={item} />
+                  <ProductCardGrid
+                    key={item._id}
+                    product={item}
+                    currentCar={currentCar}
+                  />
                 ) : (
-                  <ProductCardList key={item._id} product={item} />
+                  <ProductCardList
+                    key={item._id}
+                    product={item}
+                    currentCar={currentCar}
+                  />
                 );
               const skel =
                 shopGrid === 'grid' ? (

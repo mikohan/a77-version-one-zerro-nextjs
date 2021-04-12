@@ -7,12 +7,14 @@ import { capitalize } from '~/utils';
 import ChipContainer from '../common/ChipBox';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import { ICar } from '~/interfaces/ICar';
 
 interface IProp {
   product: IProductElasticHitsSecond;
+  currentCar?: ICar;
 }
 
-export default function ProductCardGrid({ product }: IProp) {
+export default function ProductCardGrid({ product, currentCar }: IProp) {
   const imgPath: string = product._source.images.length
     ? (product._source.images[0].img500 as string)
     : '/images/local/defaultParts500.jpg';
@@ -96,15 +98,13 @@ export default function ProductCardGrid({ product }: IProp) {
   );
   const classes = useStyles();
 
-  const currentCar = useSelector((state: IState) => state.shop.currentCar);
-  console.log(currentCar.slug);
-  let car: string =
-    currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
+  const stock = product._source.stocks.find((item: any) => item.store.id === 3);
+  const price = stock?.price;
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
-  const stock = product._source.stocks.find((item: any) => item.store.id === 3);
-  const price = stock?.price;
+  let car: string =
+    currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
 
   return (
     <div className={classes.card}>

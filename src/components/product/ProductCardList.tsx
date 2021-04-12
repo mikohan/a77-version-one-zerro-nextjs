@@ -7,12 +7,14 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ChipBox from '~/components/common/ChipBox';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import { ICar } from '~/interfaces';
 
 interface IProp {
   product: IProductElasticHitsSecond;
+  currentCar?: ICar;
 }
 
-export default function ComplexGrid({ product }: IProp) {
+export default function ComplexGrid({ product, currentCar }: IProp) {
   const imgPath: string = product._source.images.length
     ? (product._source.images[0].img500 as string)
     : '/images/local/defaultParts500.jpg';
@@ -113,7 +115,6 @@ export default function ComplexGrid({ product }: IProp) {
     })
   );
   const classes = useStyles();
-  const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
