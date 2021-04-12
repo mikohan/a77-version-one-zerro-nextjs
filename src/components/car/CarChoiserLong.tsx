@@ -8,6 +8,7 @@ import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
 import { setCurrentCarAction } from '~/store/actions';
 import { capitalize } from '~/utils';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 interface ISelectProps {
   label: string;
@@ -84,6 +85,7 @@ export default function SimpleSelect({ size }: IProps) {
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const makes = useSelector((state: IState) => state.shop.makes);
   const models = useSelector((state: IState) => state.shop.cars);
+  const [localStorage, setLocalStorage] = useLocalStorage('currentCar', {});
 
   const sortedMakes = makes
     .slice()
@@ -143,6 +145,7 @@ export default function SimpleSelect({ size }: IProps) {
     const curCar = models.find((car: ICar) => car.slug === event.target.value);
 
     dispatch(setCurrentCarAction(curCar));
+    setLocalStorage(curCar);
   };
 
   const Select = ({ label, id, options }: ISelectProps) => (
