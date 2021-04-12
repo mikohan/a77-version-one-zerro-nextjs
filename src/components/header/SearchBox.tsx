@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Chip, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ import { capitalize } from '~/utils';
 import { ICar } from '~/interfaces';
 import url from '~/services/url';
 import SearchBar from '~/components/header/SearchBar';
+import CarChooseModal from '~/components/car/CarChooseModal';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,44 +46,46 @@ export default function SearchBox() {
     )}`;
   }
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   // Redirect to car page on click
   function handleCurrentCar() {
-    if (currentCar && Object.keys(currentCar).length > 0) {
-      router.push({
-        pathname: url.model(currentCar.make.slug, currentCar.slug),
-      });
-    }
+    /* if (currentCar && Object.keys(currentCar).length > 0) { */
+    /*   router.push({ */
+    /*     pathname: url.model(currentCar.make.slug, currentCar.slug), */
+    /*   }); */
+    /* } */
   }
 
   return (
-    <Grid className={classes.root} container>
-      <Grid className={classes.container} item xs={3}>
-        {currentCar ? (
-          <React.Fragment>
-            <Typography className={classes.myCar} variant="subtitle1">
-              Моя машина:
-            </Typography>
-            <Chip
-              icon={<CarIcon />}
-              label={chipLabel}
-              onClick={handleCurrentCar}
-              clickable
-              color="default"
-              onDelete={handleCurrentCar}
-              deleteIcon={<DoneIcon />}
-              variant="outlined"
-            />
-          </React.Fragment>
-        ) : (
-          <Typography className={classes.myCar} variant="subtitle1">
-            Выбрать Машину
-          </Typography>
-        )}
+    <React.Fragment>
+      <Grid className={classes.root} container>
+        <Grid className={classes.container} item xs={3}>
+          {false ? (
+            <React.Fragment>
+              <Typography className={classes.myCar} variant="subtitle1">
+                Моя машина:
+              </Typography>
+              <Chip
+                icon={<CarIcon />}
+                label={chipLabel}
+                onClick={handleCurrentCar}
+                clickable
+                color="default"
+                onDelete={handleCurrentCar}
+                deleteIcon={<DoneIcon />}
+                variant="outlined"
+              />
+            </React.Fragment>
+          ) : (
+            <CarChooseModal />
+          )}
+        </Grid>
+        <Grid item xs={6}>
+          <SearchBar />
+        </Grid>
+        <Grid className={classes.container} item xs={3}></Grid>
       </Grid>
-      <Grid item xs={6}>
-        <SearchBar />
-      </Grid>
-      <Grid className={classes.container} item xs={3}></Grid>
-    </Grid>
+    </React.Fragment>
   );
 }

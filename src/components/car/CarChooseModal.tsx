@@ -22,8 +22,8 @@ import { IMake } from '~/interfaces';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      minWidth: 300,
-      minHeight: 50,
+      minWidth: 500,
+      minHeight: 250,
       border: '1px solid',
       padding: theme.spacing(1),
       backgroundColor: theme.palette.background.paper,
@@ -41,48 +41,57 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function CarChooseModal() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [make, setMake] = React.useState('');
+  const [makes, setMakes] = React.useState({});
   const [models, setModels] = React.useState<ICar[]>([]);
+  const [selectedMake, setSelectedMake] = React.useState('');
+  const [selectedModel, setSelectedModel] = React.useState('');
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const [localstorage, setLocalStorage] = useLocalStorage(
     'currentCar',
     undefined
   );
-  const [modelState, setModelState] = React.useState<string | undefined>('');
 
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
   const dispatch = useDispatch();
 
-  const router = useRouter();
+  // Save to local storage hook init
 
-  useEffect(() => {
-    if (localstorage) {
-      setModelState(localstorage.model);
-    }
-  }, []);
-
+  /* const stateModel = useSelector((state: IState) => state.shop.currentCar.slug); */
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
   const open = Boolean(anchorEl);
   const id = open ? 'transitions-popper' : undefined;
-
-  const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
-    const getUrl = `${getModelsByMakeUrl}${event.target.value}/`;
-    const models: ICar[] = await getVehicles();
-    setMake(event.target.value as string);
-    setModels(models);
-  };
-
   const carMakes: IMake[] = useSelector((state: IState) => {
     return state.shop.makes;
   });
+  let sortedMakes: IMake[] = [];
 
-  // Save to local storage hook init
+  if (carMakes) {
+    sortedMakes = carMakes
+      .slice()
+      .sort((a: IMake, b: IMake) => (a.priority! > b.priority! ? -1 : 1));
+  }
 
-  /* const stateModel = useSelector((state: IState) => state.shop.currentCar.slug); */
+  const carModels: ICar[] = useSelector((state: IState) => state.shop.cars);
 
-  const handleModelChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
+    let sortedModels: ICar[] = [];
+    if (carModels) {
+      const carModelsByMake = carModels.filter(
+        (model: ICar) => model.make.slug === event.target.value
+      );
+      sortedModels = carModelsByMake
+        .slice()
+        .sort((a: ICar, b: ICar) => (a.priority! > b.priority! ? -1 : 1));
+    }
+    setSelectedMake(event.target.value);
+    setModels(sortedModels);
+    setMakes(sortedMakes);
+  };
+
+  const handleModelChange = (event: React.ChangeEvent<{ value: any }>) => {
     /* dispatch(changeCarModel(event.target.value as string)); */
     // Closing car selector form
     const getModel = models.find(
@@ -101,29 +110,28 @@ export default function CarChooseModal() {
       dispatch(setCurrentCarAction(getModel));
     }
     setAnchorEl(null);
-    const pushUrl = `/${firstSlug}/${make}/${event.target.value as string}`;
-    router.push(pushUrl);
-    setModelState(event.target.value as string);
+    setSelectedModel(event.target.value as string);
   };
+  console.log(selectedMake);
 
   return (
     <div>
       <Button aria-describedby={id} type="button" onClick={handleClick}>
-        ВЫБРАТЬ МОДЕЛЬ
+        ВЫБРАТЬ МАШИНУ
       </Button>
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <div className={classes.paper}>
               <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Марка</InputLabel>
+                <InputLabel id="labelMake">Марка</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={make}
+                  id="makeLabelId"
+                  value={selectedMake}
                   onChange={handleChange}
                 >
-                  {carMakes.map((make: IMake) => {
+                  {sortedMakes.map((make: IMake) => {
                     return (
                       <MenuItem key={make.id} value={make.slug}>
                         {make.name.toUpperCase()}
@@ -133,13 +141,13 @@ export default function CarChooseModal() {
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Модель</InputLabel>
+                <InputLabel id="labelModel">Модель</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
+                  labelId="modelLabelId"
                   id="model-select"
-                  value={modelState}
+                  value={''}
                   onChange={handleModelChange}
-                  disabled={make ? false : true}
+                  disabled={selectedMake ? false : true}
                 >
                   {models.map((model: ICar) => (
                     <MenuItem key={model.id} value={model.slug}>
