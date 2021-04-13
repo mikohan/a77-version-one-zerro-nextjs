@@ -11,7 +11,10 @@ import {
   ShopResetFiltersAction,
   ShopDeleteFilterAction,
   ShopProductLoadingAction,
+  ShopLastCarsAction,
+  SHOP_SET_LAST_CARS_ACTION,
 } from '~/store/shop/shopTypes';
+import { ICar } from '~/interfaces/ICar';
 
 export function shopSetOldPrice(value: number[]): ShopSetPriceOldState {
   return {
@@ -58,5 +61,12 @@ export function shopProductLoading(loading: boolean): ShopProductLoadingAction {
   return {
     type: SHOP_PRODUCTS_LIST_LOADING,
     loading: loading,
+  };
+}
+
+export function shopLastCarAction(payload: ICar[]): ShopLastCarsAction {
+  return {
+    type: SHOP_SET_LAST_CARS_ACTION,
+    payload: payload,
   };
 }

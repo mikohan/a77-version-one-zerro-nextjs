@@ -1,3 +1,4 @@
+import { ICar } from '~/interfaces';
 import { IActiveFilter } from '~/interfaces/filters';
 import { IFilterValues } from '~/interfaces/list';
 
@@ -35,6 +36,7 @@ export const SHOP_SET_FILTER_VALUE = 'SHOP_SET_FILTER_VALUE';
 export const SHOP_PRODUCTS_LIST_LOADING = 'SHOP_PRODUCTS_LIST_LOADING';
 
 export const SHOP_SET_PRICE_OLD_STATE = 'SHOP_SET_PRICE_OLD_STATE';
+export const SHOP_SET_LAST_CARS_ACTION = 'SHOP_SET_LAST_CARS_ACTION';
 
 export interface ShopSetPriceOldState {
   type: typeof SHOP_SET_PRICE_OLD_STATE;
@@ -64,6 +66,10 @@ export interface ShopProductLoadingAction {
   type: typeof SHOP_PRODUCTS_LIST_LOADING;
   loading: boolean;
 }
+export interface ShopLastCarsAction {
+  type: typeof SHOP_SET_LAST_CARS_ACTION;
+  payload: ICar[];
+}
 
 export type ShopAction =
   | ShopSetFilterValueAction
@@ -72,4 +78,5 @@ export type ShopAction =
   | ShopProductLoadingAction
   | ShopDeleteFilterAction
   | ShopSetPriceOldState
-  | ShopResetFiltersAction;
+  | ShopResetFiltersAction
+  | ShopLastCarsAction;
