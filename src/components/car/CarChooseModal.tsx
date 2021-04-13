@@ -55,13 +55,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     closeIcon: {
       position: 'absolute',
-      top: 10,
-      right: 10,
+      top: theme.spacing(2),
+      right: theme.spacing(2),
+    },
+    closeButtonContainer: {
+      minHeight: theme.spacing(3),
     },
     bottomCloseButton: {
       position: 'absolute',
-      bottom: 10,
-      right: 10,
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
     },
     formContainer: {},
     fieldContainer: {
@@ -307,7 +310,7 @@ export default function CarChooseModal() {
                     ))}
                   </List>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid className={classes.closeButtonContainer} item xs={12}>
                   <IconButton
                     className={classes.closeIcon}
                     onClick={handleCloseDialog}
