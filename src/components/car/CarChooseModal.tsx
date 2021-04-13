@@ -16,7 +16,6 @@ import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { IMake } from '~/interfaces';
 import { Grid, Box, Typography } from '@material-ui/core';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { capitalize } from '~/utils';
@@ -29,14 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 250,
       borderRadius: '0.25rem',
       paddingTop: theme.spacing(3),
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.default,
       boxShadow: theme.shadows[2],
     },
     carButton: {
-      fontSize: '0.9rem',
+      fontSize: '0.85rem',
+      color: theme.palette.text.secondary,
       '&:hover': {
         cursor: 'pointer',
-        color: theme.palette.primary.main,
+        color: theme.palette.text.primary,
         transition: '0.2s',
       },
     },
@@ -166,7 +166,7 @@ export default function CarChooseModal() {
         aria-describedby={id}
         onClick={handleClick}
       >
-        Выбрать машину
+        Выбрать другую машину
       </Typography>
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
