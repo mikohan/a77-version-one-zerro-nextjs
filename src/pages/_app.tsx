@@ -26,6 +26,7 @@ import useLocalStorage from '~/hooks/useLocalStorage';
 import { v4 as uuidv4 } from 'uuid';
 import { getMakes, getVehicles } from '~/endpoints/carsEndpoint';
 import MainLayout from '~/layouts/Main';
+import { shopLastCarAction } from '~/store/shop/shopActions';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -71,6 +72,16 @@ function MyApp(props: any) {
       store.dispatch(setCurrentCarAction(currentCarFromCookies));
     };
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    let lastCars: ICar[] = [];
+    try {
+      lastCars = JSON.parse(window.localStorage.getItem('lastCars') as string);
+      store.dispatch(shopLastCarAction(lastCars));
+    } catch (e) {
+      console.error("Can't get lastCars from localstorage", e);
+    }
   }, []);
 
   let userUUID: string = '';
