@@ -113,3 +113,92 @@ export async function getPopularProductsByModel(
   const data = await promise.data.popularProducts;
   return data;
 }
+
+export async function getProduct(slug: string): Promise<IProduct> {
+  const query = gql`
+    query product($slug: String!) {
+      product(slug: $slug) {
+        id
+        slug
+        name
+        name2
+        fullName
+        oneCId
+        sku
+        active
+        unit
+        catNumber
+        oemNumber
+        brand {
+          id
+          slug
+          name
+          country
+          image
+        }
+        related
+        category {
+          id
+          name
+          slug
+          parent
+        }
+        model {
+          id
+          model
+          slug
+          image
+          priority
+          rusname
+          make {
+            slug
+            name
+            id
+            country
+          }
+        }
+        engine {
+          id
+          name
+          image
+        }
+        excerpt
+        description
+        createdDate
+        updatedDate
+        hasPhoto
+        images {
+          img150
+          img245
+          img500
+          img800
+          img150x150
+          img245x245
+          img500x500
+          img800x800
+          main
+        }
+        video
+        attributes {
+          name
+          value
+        }
+        stocks {
+          price
+          store
+        }
+        bages
+        reviews
+        condition
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      slug: slug,
+    },
+  });
+  const data = await promise.data.product;
+  return data;
+}
