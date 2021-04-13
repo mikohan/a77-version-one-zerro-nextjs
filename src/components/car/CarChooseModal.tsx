@@ -10,7 +10,7 @@ import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentCarAction } from '~/store/actions/categoriesAction';
 import { ICar } from '~/interfaces/ICar';
-import { cookiesAge } from '~/config';
+import { cookiesAge, imageServerUrl } from '~/config';
 import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
@@ -19,6 +19,12 @@ import { Grid, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { capitalize } from '~/utils';
+import { shopLastCarAction } from '~/store/shop/shopActions';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +68,11 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    rootList: {
+      width: '100%',
+      /* maxWidth: 360, */
+      /* backgroundColor: theme.palette.background.paper, */
+    },
   })
 );
 
@@ -80,6 +91,10 @@ export default function CarChooseModal() {
   const [selectedModel, setSelectedModel] = React.useState(initModel);
   const [localstorage, setLocalStorage] = useLocalStorage(
     'currentCar',
+    undefined
+  );
+  const [localStorageLastCars, setLocalstorageLastCars] = useLocalStorage(
+    'lastCars',
     undefined
   );
   useEffect(() => {
@@ -154,6 +169,28 @@ export default function CarChooseModal() {
   function handleCloseDialog() {
     setAnchorEl(null);
   }
+  // Last car stuff
+  const lastCars = useSelector((state: IState) => state.shopNew.lastCars) || [];
+  useEffect(() => {
+    if (Array.isArray(lastCars)) {
+      if (lastCars.length <= 5) {
+        if (!lastCars.find((car: ICar) => car.slug === currentCar!.slug)) {
+          if (Object.keys(currentCar!).length) {
+            lastCars.unshift(currentCar!);
+          }
+        }
+      } else {
+        if (!lastCars.find((car: ICar) => car.slug === currentCar!.slug)) {
+          if (Object.keys(currentCar!).length) {
+            lastCars.pop();
+            lastCars.unshift(currentCar!);
+          }
+        }
+      }
+    }
+    dispatch(shopLastCarAction(lastCars));
+    window.localStorage.setItem('lastCars', JSON.stringify(lastCars));
+  }, [currentCar]);
 
   return (
     <div>
@@ -216,7 +253,29 @@ export default function CarChooseModal() {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  some content
+                  <List
+                    component="nav"
+                    className={classes.rootList}
+                    aria-label="contacts"
+                  >
+                    {lastCars.map((car: ICar) => (
+                      <ListItem key={car.id} button>
+                        <ListItemAvatar>
+                          <Avatar
+                            alt={`${capitalize(car.make.name)} ${capitalize(
+                              car.model
+                            )}`}
+                            src={`${imageServerUrl}${car.image}`}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`${capitalize(car.make.name)} ${capitalize(
+                            car.model
+                          )}`}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
                 </Grid>
                 <Grid item xs={12}>
                   <IconButton

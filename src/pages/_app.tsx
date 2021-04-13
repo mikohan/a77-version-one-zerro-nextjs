@@ -78,6 +78,7 @@ function MyApp(props: any) {
     let lastCars: ICar[] = [];
     try {
       lastCars = JSON.parse(window.localStorage.getItem('lastCars') as string);
+      console.log(lastCars);
       store.dispatch(shopLastCarAction(lastCars));
     } catch (e) {
       console.error("Can't get lastCars from localstorage", e);
