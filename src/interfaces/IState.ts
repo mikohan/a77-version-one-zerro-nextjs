@@ -8,7 +8,6 @@ export interface IShopState {
   currentCar: ICar | undefined;
   makes: IMake[];
   categories: ICategory[];
-  lastCars: ICar[];
 }
 
 interface IUIstate {
