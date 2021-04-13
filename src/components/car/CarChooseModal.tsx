@@ -68,10 +68,18 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    carsListContainer: {
+      paddingBottom: theme.spacing(3),
+    },
     rootList: {
       width: '100%',
+
       /* maxWidth: 360, */
       /* backgroundColor: theme.palette.background.paper, */
+    },
+    myCarsText: {
+      marginTop: theme.spacing(3),
+      marginLeft: theme.spacing(3),
     },
   })
 );
@@ -91,10 +99,6 @@ export default function CarChooseModal() {
   const [selectedModel, setSelectedModel] = React.useState(initModel);
   const [localstorage, setLocalStorage] = useLocalStorage(
     'currentCar',
-    undefined
-  );
-  const [localStorageLastCars, setLocalstorageLastCars] = useLocalStorage(
-    'lastCars',
     undefined
   );
   useEffect(() => {
@@ -192,6 +196,11 @@ export default function CarChooseModal() {
     window.localStorage.setItem('lastCars', JSON.stringify(lastCars));
   }, [currentCar]);
 
+  function handleQuickCurrentCar(carSlug: string) {
+    const getCar = models.find((car: ICar) => car.slug === carSlug);
+    dispatch(setCurrentCarAction(getCar));
+  }
+
   return (
     <div>
       <Typography
@@ -252,14 +261,21 @@ export default function CarChooseModal() {
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid className={classes.carsListContainer} item xs={12}>
+                  <Typography className={classes.myCarsText} variant="body2">
+                    Мои машины (быстрый выбор)
+                  </Typography>
                   <List
                     component="nav"
                     className={classes.rootList}
                     aria-label="contacts"
                   >
                     {lastCars.map((car: ICar) => (
-                      <ListItem key={car.id} button>
+                      <ListItem
+                        key={car.id}
+                        button
+                        onClick={() => handleQuickCurrentCar(car.slug)}
+                      >
                         <ListItemAvatar>
                           <Avatar
                             alt={`${capitalize(car.make.name)} ${capitalize(
