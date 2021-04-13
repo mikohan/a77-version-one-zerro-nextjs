@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formContainer: {},
     fieldContainer: {
-      padding: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     formControl: {
       margin: theme.spacing(1),
@@ -67,6 +68,10 @@ export default function CarChooseModal() {
     'currentCar',
     undefined
   );
+  useEffect(() => {
+    setSelectedMake(initMake);
+    setSelectedModel(initModel);
+  }, [initMake]);
 
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
   const dispatch = useDispatch();
@@ -144,70 +149,63 @@ export default function CarChooseModal() {
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <ClickAwayListener onClickAway={handleClickAway}>
-              <div className={classes.paper}>
-                <Grid className={classes.formContainer} container>
-                  <Grid item xs={12}>
-                    <Typography variant="subtitle1">
-                      Выберите машину, чтобы сузить поиск запчастей
-                    </Typography>
-                  </Grid>
-                  <Grid className={classes.fieldContainer} item xs={6}>
-                    <FormControl
-                      className={classes.formControl}
-                      fullWidth
-                      size="small"
+            <div className={classes.paper}>
+              <Grid className={classes.formContainer} container>
+                <Grid className={classes.fieldContainer} item xs={6}>
+                  <FormControl
+                    className={classes.formControl}
+                    fullWidth
+                    size="small"
+                  >
+                    <InputLabel id="labelMake">Марка</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="makeLabelId"
+                      value={selectedMake}
+                      onChange={handleChange}
                     >
-                      <InputLabel id="labelMake">Марка</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="makeLabelId"
-                        value={selectedMake}
-                        onChange={handleChange}
-                      >
-                        {sortedMakes.map((make: IMake) => {
-                          return (
-                            <MenuItem key={make.id} value={make.slug}>
-                              {make.name.toUpperCase()}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid className={classes.fieldContainer} item xs={6}>
-                    <FormControl
-                      className={classes.formControl}
-                      fullWidth
-                      size="small"
-                    >
-                      <InputLabel id="labelModel">Модель</InputLabel>
-                      <Select
-                        labelId="modelLabelId"
-                        id="model-select"
-                        value={selectedModel ? selectedModel : ''}
-                        onChange={handleModelChange}
-                        disabled={selectedMake ? false : true}
-                      >
-                        {models.map((model: ICar) => (
-                          <MenuItem key={model.id} value={model.slug}>
-                            {model.model}
+                      {sortedMakes.map((make: IMake) => {
+                        return (
+                          <MenuItem key={make.id} value={make.slug}>
+                            {make.name.toUpperCase()}
                           </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    some content
-                  </Grid>
-                  <Grid item xs={12}>
-                    <IconButton className={classes.closeIcon}>
-                      <CloseIcon />
-                    </IconButton>
-                  </Grid>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
                 </Grid>
-              </div>
-            </ClickAwayListener>
+                <Grid className={classes.fieldContainer} item xs={6}>
+                  <FormControl
+                    className={classes.formControl}
+                    fullWidth
+                    size="small"
+                  >
+                    <InputLabel id="labelModel">Модель</InputLabel>
+                    <Select
+                      labelId="modelLabelId"
+                      id="model-select"
+                      value={selectedModel ? selectedModel : ''}
+                      onChange={handleModelChange}
+                      disabled={selectedMake ? false : true}
+                    >
+                      {models.map((model: ICar) => (
+                        <MenuItem key={model.id} value={model.slug}>
+                          {model.model}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  some content
+                </Grid>
+                <Grid item xs={12}>
+                  <IconButton className={classes.closeIcon}>
+                    <CloseIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </div>
           </Fade>
         )}
       </Popper>
