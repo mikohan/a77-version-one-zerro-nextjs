@@ -113,6 +113,10 @@ export default function CarChooseModal() {
     setSelectedModel(event.target.value as string);
   };
 
+  useEffect(() => {
+    console.log(selectedMake, selectedModel);
+  }, [selectedMake]);
+
   return (
     <div>
       <Button aria-describedby={id} type="button" onClick={handleClick}>
