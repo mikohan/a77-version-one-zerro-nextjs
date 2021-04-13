@@ -219,7 +219,7 @@ export default function CarChooseModal() {
         aria-describedby={id}
         onClick={handleClick}
       >
-        Выбрать другую машину
+        Выбрать машину
       </Typography>
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (

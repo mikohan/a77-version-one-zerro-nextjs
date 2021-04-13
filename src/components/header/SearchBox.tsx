@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
       background: theme.palette.background.paper,
     },
     container: {
@@ -60,8 +62,8 @@ export default function SearchBox() {
   return (
     <React.Fragment>
       <Grid className={classes.root} container>
-        <Grid className={classes.container} item xs={3}>
-          <Hidden smDown>
+        <Hidden smDown>
+          <Grid className={classes.container} item md={4} lg={3}>
             {currentCar ? (
               <React.Fragment>
                 <Chip
@@ -81,12 +83,14 @@ export default function SearchBox() {
             ) : (
               <CarChooseModal />
             )}
-          </Hidden>
-        </Grid>
-        <Grid item xs={6}>
+          </Grid>
+        </Hidden>
+        <Grid item xs={12} md={8} lg={6}>
           <SearchBar />
         </Grid>
-        <Grid className={classes.container} item xs={3}></Grid>
+        <Hidden mdDown>
+          <Grid className={classes.container} item xs={3}></Grid>
+        </Hidden>
       </Grid>
     </React.Fragment>
   );
