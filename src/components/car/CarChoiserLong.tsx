@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarBage from '~/components/car/CarBage';
 
-import { SvgIcon, TextField, Box, Grid } from '@material-ui/core';
+import { SvgIcon, TextField, Box, Grid, useTheme } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
@@ -87,6 +87,11 @@ export default function SimpleSelect({ size }: IProps) {
   const makes = useSelector((state: IState) => state.shop.makes);
   const models = useSelector((state: IState) => state.shop.cars);
   const [localStorage, setLocalStorage] = useLocalStorage('currentCar', {});
+  const theme = useTheme();
+  const defImg =
+    theme.palette.type === 'light'
+      ? '/images/local/carsAvatar/generic2.png'
+      : '/images/local/carsAvatar/generic2-white.png';
 
   const sortedMakes = makes
     .slice()
@@ -105,7 +110,7 @@ export default function SimpleSelect({ size }: IProps) {
   }
 
   let carSelected = '';
-  let carImg = '/images/local/carsAvatar/generic2.png';
+  let carImg = defImg;
 
   if (currentCar && currentCar.hasOwnProperty('model')) {
     carSelected = `Выбран ${capitalize(currentCar.make.name)} ${capitalize(
@@ -120,10 +125,10 @@ export default function SimpleSelect({ size }: IProps) {
     if (currentCar.image) {
       carImg = `${imageServerUrl}${currentCar.image}`;
     } else {
-      carImg = '/images/local/carsAvatar/generic2.png';
+      carImg = defImg;
     }
   } else {
-    carImg = '/images/local/carsAvatar/generic2.png';
+    carImg = defImg;
   }
 
   const initMakeName = Object.keys(currentCar!).length
