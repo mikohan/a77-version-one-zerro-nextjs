@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import { ICar } from '~/interfaces/ICar';
 import { IFilter } from '~/interfaces/filters';
 import AnimationPage from '~/components/common/AnimationPage';
-import { setCurrentCarAction } from '~/store/actions';
 import { getVehicle } from '~/endpoints/carsEndpoint';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
@@ -16,7 +15,6 @@ import CarModelHead from '~/components/heads/carModelHead';
 import { IBread, IRouterStuff } from '~/interfaces';
 import { IShopCategory, IActiveFilterMy } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
-import useLocalstorageState from '~/hooks/useLocalStorage';
 import { containerMaxWidth, pageSize } from '~/config';
 import { useRouter } from 'next/router';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
@@ -89,10 +87,6 @@ function Model(props: IModelProps) {
   });
   const filtersFromStore = useSelector(
     (state: IState) => state.shopNew.filters
-  );
-  const [curCarLocalStorage, setCurCarLocalStorage] = useLocalstorageState(
-    'currentCar',
-    {}
   );
 
   const modelName = capitalize(model.model);

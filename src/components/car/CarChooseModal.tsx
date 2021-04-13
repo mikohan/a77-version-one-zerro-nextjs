@@ -215,7 +215,7 @@ export default function CarChooseModal() {
     const getCar = reduxModels.find((car: ICar) => car.slug === carSlug);
     dispatch(setCurrentCarAction(getCar));
     setSelectedMake(getCar!.make.slug);
-    /* setAnchorEl(null); */
+    setAnchorEl(null);
   }
 
   return (
