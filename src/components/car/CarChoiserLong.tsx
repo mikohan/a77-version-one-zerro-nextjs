@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarBage from '~/components/car/CarBage';
 
-import { TextField, Box, Grid } from '@material-ui/core';
+import { SvgIcon, TextField, Box, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
@@ -10,6 +10,7 @@ import { setCurrentCarAction } from '~/store/actions';
 import { capitalize } from '~/utils';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { imageServerUrl } from '~/config';
+import CarIcon from '~/assets/sedan-car-front.svg';
 
 interface ISelectProps {
   label: string;
@@ -113,7 +114,7 @@ export default function SimpleSelect({ size }: IProps) {
     )}`;
     // here need to set car img
   } else {
-    carSelected = `Поиск запчастей по Вашей Машине`;
+    carSelected = `Поиск по Машине`;
   }
 
   if (currentCar && currentCar.hasOwnProperty('image')) {
