@@ -23,6 +23,7 @@ export interface IShopState {
 
   currentFilters: IActiveFilter[];
   filterPriceOldState: number[];
+  lastCars: ICar[];
 }
 
 export const SHOP_RESET_FILTER = 'SHOP_RESET_FILTER';
