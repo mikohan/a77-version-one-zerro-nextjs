@@ -15,7 +15,7 @@ import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { IMake } from '~/interfaces';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Box, Typography } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -31,9 +31,22 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[2],
     },
+    carButton: {
+      fontSize: '0.9rem',
+      '&:hover': {
+        cursor: 'pointer',
+        color: theme.palette.primary.main,
+        transition: '0.2s',
+      },
+    },
     closeIcon: {
       position: 'absolute',
       top: 10,
+      right: 10,
+    },
+    bottomCloseButton: {
+      position: 'absolute',
+      bottom: 10,
       right: 10,
     },
     formContainer: {},
@@ -140,12 +153,20 @@ export default function CarChooseModal() {
   function handleClickAway() {
     setAnchorEl(null);
   }
+  function handleCloseDialog() {
+    setAnchorEl(null);
+  }
 
   return (
     <div>
-      <Button aria-describedby={id} type="button" onClick={handleClick}>
-        ВЫБРАТЬ МАШИНУ
-      </Button>
+      <Typography
+        variant="body2"
+        className={classes.carButton}
+        aria-describedby={id}
+        onClick={handleClick}
+      >
+        <div style={{ fontSize: '0.9rem' }}>Выбрать машину</div>
+      </Typography>
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
@@ -200,11 +221,20 @@ export default function CarChooseModal() {
                   some content
                 </Grid>
                 <Grid item xs={12}>
-                  <IconButton className={classes.closeIcon}>
+                  <IconButton
+                    className={classes.closeIcon}
+                    onClick={handleCloseDialog}
+                  >
                     <CloseIcon />
                   </IconButton>
                 </Grid>
               </Grid>
+              <Button
+                className={classes.bottomCloseButton}
+                onClick={handleCloseDialog}
+              >
+                закрыть
+              </Button>
             </div>
           </Fade>
         )}
