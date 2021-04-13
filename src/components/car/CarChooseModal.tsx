@@ -10,23 +10,35 @@ import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentCarAction } from '~/store/actions/categoriesAction';
 import { ICar } from '~/interfaces/ICar';
-import { useRouter } from 'next/router';
-import { cookiesAge, getModelsByMakeUrl } from '~/config';
+import { cookiesAge } from '~/config';
 import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
-import { firstSlug } from '~/config';
-import { getVehicles } from '~/endpoints/carsEndpoint';
 import { IMake } from '~/interfaces';
+import { Grid, Typography } from '@material-ui/core';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
+      position: 'relative',
       minWidth: 500,
       minHeight: 250,
-      border: '1px solid',
-      padding: theme.spacing(1),
+      borderRadius: '0.25rem',
+      paddingTop: theme.spacing(3),
       backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[2],
+    },
+    closeIcon: {
+      position: 'absolute',
+      top: 10,
+      right: 10,
+    },
+    formContainer: {},
+    fieldContainer: {
+      padding: theme.spacing(2),
     },
     formControl: {
       margin: theme.spacing(1),
@@ -40,12 +52,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CarChooseModal() {
   const classes = useStyles();
+  const currentCar: ICar | undefined = useSelector(
+    (state: IState) => state.shop.currentCar
+  );
+  const initMake = Object.keys(currentCar!).length ? currentCar?.make.slug : '';
+  const initModel = Object.keys(currentCar!).length ? currentCar?.slug : '';
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [makes, setMakes] = React.useState({});
   const [models, setModels] = React.useState<ICar[]>([]);
-  const [selectedMake, setSelectedMake] = React.useState('');
-  const [selectedModel, setSelectedModel] = React.useState('');
-  const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  const [selectedMake, setSelectedMake] = React.useState(initMake);
+  const [selectedModel, setSelectedModel] = React.useState(initModel);
   const [localstorage, setLocalStorage] = useLocalStorage(
     'currentCar',
     undefined
@@ -77,23 +94,12 @@ export default function CarChooseModal() {
   const carModels: ICar[] = useSelector((state: IState) => state.shop.cars);
 
   const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
-    let sortedModels: ICar[] = [];
-    if (carModels) {
-      const carModelsByMake = carModels.filter(
-        (model: ICar) => model.make.slug === event.target.value
-      );
-      sortedModels = carModelsByMake
-        .slice()
-        .sort((a: ICar, b: ICar) => (a.priority! > b.priority! ? -1 : 1));
-    }
     setSelectedMake(event.target.value);
-    setModels(sortedModels);
     setMakes(sortedMakes);
+    setSelectedModel('');
   };
 
   const handleModelChange = (event: React.ChangeEvent<{ value: any }>) => {
-    /* dispatch(changeCarModel(event.target.value as string)); */
-    // Closing car selector form
     const getModel = models.find(
       (model: ICar) => model.slug === event.target.value
     );
@@ -114,8 +120,21 @@ export default function CarChooseModal() {
   };
 
   useEffect(() => {
-    console.log(selectedMake, selectedModel);
+    let sortedModels: ICar[] = [];
+    if (carModels) {
+      const carModelsByMake = carModels.filter(
+        (model: ICar) => model.make.slug === selectedMake
+      );
+      sortedModels = carModelsByMake
+        .slice()
+        .sort((a: ICar, b: ICar) => (a.priority! > b.priority! ? -1 : 1));
+    }
+    setModels(sortedModels);
   }, [selectedMake]);
+
+  function handleClickAway() {
+    setAnchorEl(null);
+  }
 
   return (
     <div>
@@ -125,41 +144,70 @@ export default function CarChooseModal() {
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <div className={classes.paper}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="labelMake">Марка</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="makeLabelId"
-                  value={currentCar ? currentCar.make.slug : ''}
-                  onChange={handleChange}
-                >
-                  {sortedMakes.map((make: IMake) => {
-                    return (
-                      <MenuItem key={make.id} value={make.slug}>
-                        {make.name.toUpperCase()}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="labelModel">Модель</InputLabel>
-                <Select
-                  labelId="modelLabelId"
-                  id="model-select"
-                  value={''}
-                  onChange={handleModelChange}
-                  disabled={selectedMake ? false : true}
-                >
-                  {models.map((model: ICar) => (
-                    <MenuItem key={model.id} value={model.slug}>
-                      {model.model}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+            <ClickAwayListener onClickAway={handleClickAway}>
+              <div className={classes.paper}>
+                <Grid className={classes.formContainer} container>
+                  <Grid item xs={12}>
+                    <Typography variant="subtitle1">
+                      Выберите машину, чтобы сузить поиск запчастей
+                    </Typography>
+                  </Grid>
+                  <Grid className={classes.fieldContainer} item xs={6}>
+                    <FormControl
+                      className={classes.formControl}
+                      fullWidth
+                      size="small"
+                    >
+                      <InputLabel id="labelMake">Марка</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="makeLabelId"
+                        value={selectedMake}
+                        onChange={handleChange}
+                      >
+                        {sortedMakes.map((make: IMake) => {
+                          return (
+                            <MenuItem key={make.id} value={make.slug}>
+                              {make.name.toUpperCase()}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid className={classes.fieldContainer} item xs={6}>
+                    <FormControl
+                      className={classes.formControl}
+                      fullWidth
+                      size="small"
+                    >
+                      <InputLabel id="labelModel">Модель</InputLabel>
+                      <Select
+                        labelId="modelLabelId"
+                        id="model-select"
+                        value={selectedModel ? selectedModel : ''}
+                        onChange={handleModelChange}
+                        disabled={selectedMake ? false : true}
+                      >
+                        {models.map((model: ICar) => (
+                          <MenuItem key={model.id} value={model.slug}>
+                            {model.model}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    some content
+                  </Grid>
+                  <Grid item xs={12}>
+                    <IconButton className={classes.closeIcon}>
+                      <CloseIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </div>
+            </ClickAwayListener>
           </Fade>
         )}
       </Popper>
