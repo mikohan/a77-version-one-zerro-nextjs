@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CarBage from '~/components/car/CarBage';
 
@@ -18,8 +18,8 @@ interface ISelectProps {
   options: IOptions[];
 }
 interface IOptions {
-  label: string;
-  value: string;
+  label: string | undefined;
+  value: string | undefined;
 }
 interface IProps {
   size: string;
@@ -125,26 +125,47 @@ export default function SimpleSelect({ size }: IProps) {
   } else {
     carImg = '/images/local/carsAvatar/generic.png';
   }
+
+  const initMakeName = Object.keys(currentCar!).length
+    ? currentCar?.make.name
+    : '';
+  const initMakeSlug = Object.keys(currentCar!).length
+    ? currentCar?.make.slug
+    : '';
+  const initModelName = Object.keys(currentCar!).length
+    ? currentCar?.model
+    : '';
+  const initModelSlug = Object.keys(currentCar!).length ? currentCar?.slug : '';
+
   const [make, setMake] = React.useState<IOptions>({
-    label: 'Choise make',
-    value: 'make',
+    label: initMakeName,
+    value: initMakeSlug,
   });
   const [model, setModel] = React.useState<IOptions>({
-    label: 'Choise model',
-    value: 'model',
+    label: initModelName,
+    value: initModelSlug,
   });
+
   const [modelOptions, setModelOptions] = useState<IOptions[]>([]);
 
-  const handleMakeChange = (event: React.ChangeEvent<{ value: any }>) => {
-    setMake({ label: event.target.value as string, value: event.target.value });
+  useEffect(() => {
+    setMake({ label: initMakeName, value: initMakeSlug });
+    setModel({ label: initModelName, value: initModelSlug });
+  }, [currentCar]);
+
+  useEffect(() => {
     let modelsByMake: ICar[] = sortedModels.filter(
-      (model: ICar) => model.make.slug === event.target.value
+      (model: ICar) => model.make.slug === make.value
     );
     const modelOpts: IOptions[] = modelsByMake.map((model: ICar) => ({
       label: model.model.toUpperCase(),
       value: model.slug,
     }));
     setModelOptions(modelOpts);
+  }, [make]);
+
+  const handleMakeChange = (event: React.ChangeEvent<{ value: any }>) => {
+    setMake({ label: event.target.value as string, value: event.target.value });
   };
   const handleModelChange = (event: React.ChangeEvent<{ value: any }>) => {
     setModel({

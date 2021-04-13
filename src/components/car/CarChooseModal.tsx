@@ -19,6 +19,7 @@ import { Grid, Box, Typography } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,7 +85,7 @@ export default function CarChooseModal() {
   useEffect(() => {
     setSelectedMake(initMake);
     setSelectedModel(initModel);
-  }, [initMake]);
+  }, [currentCar]);
 
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
   const dispatch = useDispatch();
@@ -188,7 +189,7 @@ export default function CarChooseModal() {
                       {sortedMakes.map((make: IMake) => {
                         return (
                           <MenuItem key={make.id} value={make.slug}>
-                            {make.name.toUpperCase()}
+                            {capitalize(make.name)}
                           </MenuItem>
                         );
                       })}
