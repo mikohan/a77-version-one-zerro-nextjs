@@ -51,7 +51,7 @@ export default function SimpleSelect({ size }: IProps) {
       },
       paper: {
         background: theme.palette.background.paper,
-        paddingTop: theme.spacing(1),
+        paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(1),
       },
       item: {

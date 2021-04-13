@@ -15,7 +15,7 @@ import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { IMake } from '~/interfaces';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { capitalize } from '~/utils';
@@ -151,9 +151,6 @@ export default function CarChooseModal() {
     setModels(sortedModels);
   }, [selectedMake]);
 
-  function handleClickAway() {
-    setAnchorEl(null);
-  }
   function handleCloseDialog() {
     setAnchorEl(null);
   }
