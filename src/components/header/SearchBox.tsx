@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
-import { Grid, Chip, Typography } from '@material-ui/core';
+import { Grid, Chip, Hidden, Box } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import CarIcon from '@material-ui/icons/DriveEtaRounded';
@@ -30,12 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
     myCar: {
       marginRight: theme.spacing(1),
     },
+    carChoiserText: {
+      marginLeft: theme.spacing(2),
+    },
   })
 );
 
 export default function SearchBox() {
   const classes = useStyles();
-  const router = useRouter();
   const currentCar: ICar | undefined = useSelector(
     (state: IState) => state.shop.currentCar
   );
@@ -45,8 +47,6 @@ export default function SearchBox() {
       currentCar.model
     )}`;
   }
-
-  const [modalOpen, setModalOpen] = useState(false);
 
   // Redirect to car page on click
   function handleCurrentCar() {
@@ -61,25 +61,27 @@ export default function SearchBox() {
     <React.Fragment>
       <Grid className={classes.root} container>
         <Grid className={classes.container} item xs={3}>
-          {false ? (
-            <React.Fragment>
-              <Typography className={classes.myCar} variant="subtitle1">
-                Моя машина:
-              </Typography>
-              <Chip
-                icon={<CarIcon />}
-                label={chipLabel}
-                onClick={handleCurrentCar}
-                clickable
-                color="default"
-                onDelete={handleCurrentCar}
-                deleteIcon={<DoneIcon />}
-                variant="outlined"
-              />
-            </React.Fragment>
-          ) : (
-            <CarChooseModal />
-          )}
+          <Hidden smDown>
+            {currentCar ? (
+              <React.Fragment>
+                <Chip
+                  icon={<CarIcon />}
+                  label={chipLabel}
+                  onClick={handleCurrentCar}
+                  clickable
+                  color="default"
+                  onDelete={handleCurrentCar}
+                  deleteIcon={<DoneIcon />}
+                  variant="outlined"
+                />
+                <Box className={classes.carChoiserText}>
+                  <CarChooseModal />
+                </Box>
+              </React.Fragment>
+            ) : (
+              <CarChooseModal />
+            )}
+          </Hidden>
         </Grid>
         <Grid item xs={6}>
           <SearchBar />

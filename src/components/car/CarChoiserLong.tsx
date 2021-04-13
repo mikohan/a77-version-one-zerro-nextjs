@@ -226,7 +226,7 @@ export default function SimpleSelect({ size }: IProps) {
           key={option.value}
           value={option.value}
         >
-          {capitalize(option.label)}
+          {capitalize(option.label as string)}
         </option>
       ))}
     </TextField>
