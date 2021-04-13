@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: 'relative',
-      minWidth: 500,
+      minWidth: 400,
+      maxWidth: 500,
       minHeight: 250,
       borderRadius: '0.25rem',
       paddingTop: theme.spacing(3),
@@ -45,6 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.text.primary,
         transition: '0.2s',
       },
+    },
+    title: {
+      paddingLeft: theme.spacing(3),
+    },
+    titleText: {
+      color: theme.palette.text.secondary,
     },
     closeIcon: {
       position: 'absolute',
@@ -216,6 +223,11 @@ export default function CarChooseModal() {
           <Fade {...TransitionProps} timeout={350}>
             <div className={classes.paper}>
               <Grid className={classes.formContainer} container>
+                <Grid item xs={12} className={classes.title}>
+                  <Typography className={classes.titleText} variant="h6">
+                    Выбрать машину
+                  </Typography>
+                </Grid>
                 <Grid className={classes.fieldContainer} item xs={6}>
                   <FormControl
                     className={classes.formControl}
@@ -272,6 +284,8 @@ export default function CarChooseModal() {
                   >
                     {lastCars.map((car: ICar) => (
                       <ListItem
+                        dense
+                        selected={car.slug === currentCar?.slug}
                         key={car.id}
                         button
                         onClick={() => handleQuickCurrentCar(car.slug)}
