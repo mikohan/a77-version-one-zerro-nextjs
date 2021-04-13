@@ -1,9 +1,8 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
-import { Grid, Chip, Hidden, Box } from '@material-ui/core';
+import { Grid, Chip, Hidden, Box, SvgIcon } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import CarIcon from '@material-ui/icons/DriveEtaRounded';
 import DoneIcon from '@material-ui/icons/Done';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
@@ -12,6 +11,7 @@ import { ICar } from '~/interfaces';
 import url from '~/services/url';
 import SearchBar from '~/components/header/SearchBar';
 import CarChooseModal from '~/components/car/CarChooseModal';
+import CarIcon from '~/assets/sedan-car-front.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
     },
     carChoiserText: {
+      marginLeft: theme.spacing(2),
+    },
+    carIcon: {
+      fontSize: '1.5rem',
       marginLeft: theme.spacing(2),
     },
   })
@@ -58,6 +62,15 @@ export default function SearchBox() {
     /*   }); */
     /* } */
   }
+  function CarIconComponent() {
+    return (
+      <SvgIcon
+        className={classes.carIcon}
+        component={CarIcon}
+        viewBox="0 0 48.997 48.998"
+      ></SvgIcon>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -67,7 +80,7 @@ export default function SearchBox() {
             {currentCar ? (
               <React.Fragment>
                 <Chip
-                  icon={<CarIcon />}
+                  icon={<CarIconComponent />}
                   label={chipLabel}
                   onClick={handleCurrentCar}
                   clickable
@@ -75,6 +88,7 @@ export default function SearchBox() {
                   onDelete={handleCurrentCar}
                   deleteIcon={<DoneIcon />}
                   variant="outlined"
+                  classes={{ icon: classes.carIcon }}
                 />
                 <Box className={classes.carChoiserText}>
                   <CarChooseModal />

@@ -10,7 +10,6 @@ import { setCurrentCarAction } from '~/store/actions';
 import { capitalize } from '~/utils';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { imageServerUrl } from '~/config';
-import CarIcon from '~/assets/sedan-car-front.svg';
 
 interface ISelectProps {
   label: string;
@@ -106,7 +105,7 @@ export default function SimpleSelect({ size }: IProps) {
   }
 
   let carSelected = '';
-  let carImg = '/images/local/carsAvatar/generic.png';
+  let carImg = '/images/local/carsAvatar/generic2.png';
 
   if (currentCar && currentCar.hasOwnProperty('model')) {
     carSelected = `Выбран ${capitalize(currentCar.make.name)} ${capitalize(
@@ -121,10 +120,10 @@ export default function SimpleSelect({ size }: IProps) {
     if (currentCar.image) {
       carImg = `${imageServerUrl}${currentCar.image}`;
     } else {
-      carImg = '/images/local/carsAvatar/generic.png';
+      carImg = '/images/local/carsAvatar/generic2.png';
     }
   } else {
-    carImg = '/images/local/carsAvatar/generic.png';
+    carImg = '/images/local/carsAvatar/generic2.png';
   }
 
   const initMakeName = Object.keys(currentCar!).length
