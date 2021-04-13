@@ -131,29 +131,30 @@ export default function SimpleSelect({ size }: IProps) {
     carImg = defImg;
   }
 
-  const initMakeName = Object.keys(currentCar!).length
-    ? currentCar?.make.name
-    : '';
-  const initMakeSlug = Object.keys(currentCar!).length
-    ? currentCar?.make.slug
-    : '';
-  const initModelName = Object.keys(currentCar!).length
-    ? currentCar?.model
-    : '';
-  const initModelSlug = Object.keys(currentCar!).length ? currentCar?.slug : '';
-
   const [make, setMake] = React.useState<IOptions>({
-    label: initMakeName,
-    value: initMakeSlug,
+    label: '',
+    value: '',
   });
   const [model, setModel] = React.useState<IOptions>({
-    label: initModelName,
-    value: initModelSlug,
+    label: '',
+    value: '',
   });
 
   const [modelOptions, setModelOptions] = useState<IOptions[]>([]);
 
   useEffect(() => {
+    const initMakeName = Object.keys(currentCar!).length
+      ? currentCar?.make.name
+      : '';
+    const initMakeSlug = Object.keys(currentCar!).length
+      ? currentCar?.make.slug
+      : '';
+    const initModelName = Object.keys(currentCar!).length
+      ? currentCar?.model
+      : '';
+    const initModelSlug = Object.keys(currentCar!).length
+      ? currentCar?.slug
+      : '';
     setMake({ label: initMakeName, value: initMakeSlug });
     setModel({ label: initModelName, value: initModelSlug });
   }, [currentCar]);

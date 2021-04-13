@@ -99,21 +99,26 @@ export default function CarChooseModal() {
   const currentCar: ICar | undefined = useSelector(
     (state: IState) => state.shop.currentCar
   );
-  const initMake = Object.keys(currentCar!).length ? currentCar?.make.slug : '';
-  const initModel = Object.keys(currentCar!).length ? currentCar?.slug : '';
+
+  const reduxMakes = useSelector((state: IState) => state.shop.makes);
+  const reduxModels = useSelector((state: IState) => state.shop.cars);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [makes, setMakes] = React.useState({});
-  const [models, setModels] = React.useState<ICar[]>([]);
-  const [selectedMake, setSelectedMake] = React.useState(initMake);
-  const [selectedModel, setSelectedModel] = React.useState(initModel);
+  const [selectedMake, setSelectedMake] = React.useState('');
+  const [selectedModel, setSelectedModel] = React.useState('');
+  const [makes, setMakes] = React.useState(reduxMakes);
+  const [models, setModels] = React.useState<ICar[]>(reduxModels);
   const [localstorage, setLocalStorage] = useLocalStorage(
     'currentCar',
     undefined
   );
   useEffect(() => {
-    setSelectedMake(initMake);
-    setSelectedModel(initModel);
+    setSelectedMake(
+      Object.keys(currentCar!).length ? (currentCar?.make.slug as string) : ''
+    );
+    setSelectedModel(
+      Object.keys(currentCar!).length ? (currentCar?.slug as string) : ''
+    );
   }, [currentCar]);
 
   const [cookie, setCookie, removeCookie] = useCookies(['currentCar']);
@@ -207,8 +212,10 @@ export default function CarChooseModal() {
   }, [currentCar]);
 
   function handleQuickCurrentCar(carSlug: string) {
-    const getCar = models.find((car: ICar) => car.slug === carSlug);
+    const getCar = reduxModels.find((car: ICar) => car.slug === carSlug);
     dispatch(setCurrentCarAction(getCar));
+    setSelectedMake(getCar!.make.slug);
+    /* setAnchorEl(null); */
   }
 
   return (
