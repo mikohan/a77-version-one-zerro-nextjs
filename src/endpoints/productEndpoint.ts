@@ -188,7 +188,7 @@ export async function getProduct(slug: string): Promise<IProduct> {
           store
         }
         bages
-        reviews
+        rating
         condition
       }
     }
