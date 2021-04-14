@@ -3,7 +3,7 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { containerMaxWidth, REVALIDATE } from '~/config';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Grid, Typography, useTheme } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 import { IImage } from '~/interfaces/IImage';
 import { imageServerUrl } from '~/config';
@@ -14,18 +14,30 @@ import { useRouter } from 'next/router';
 import ImageGallery from 'react-image-gallery';
 import PageHeader from '~/components/product/PageHeader';
 import { IBread } from '~/interfaces';
+import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     headerContainer: {
-      border: '1px solid pink',
-      background: 'rgba(0,142,129,0.1)',
+      /* background: 'rgba(0,142,129,0.1)', */
       marginBottom: theme.spacing(2),
     },
     wrapper: {
       display: 'grid',
-      gridTemplateColumns: '5fr 4fr 3fr',
+      [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: '1fr',
+      },
+      [theme.breakpoints.up('md')]: {
+        gridTemplateColumns: '4fr 3fr',
+      },
+      [theme.breakpoints.up('lg')]: {
+        gridTemplateColumns: '2fr 1fr',
+      },
       gridGap: theme.spacing(2),
+    },
+    side: {
+      display: 'flex',
+      border: '1px solid pink',
     },
     first: {
       background: theme.palette.action.hover,
@@ -36,6 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
     third: {
       background: 'rgba(0,180,204,0.2)',
     },
+    fifth: {
+      background: 'rgba(0, 180, 100, 0.2)',
+    },
+    playerWrapper: {
+      position: 'relative',
+    },
+    reactPlayer: {},
   })
 );
 
@@ -79,6 +98,17 @@ export default function ProductPage({ product }: IProps) {
       },
     ];
   }
+  const sources = [
+    {
+      src: 'https://youtu.be/KDPi_cgItcA',
+      type: 'application/x-mpegURL',
+    },
+    {
+      src:
+        'https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8',
+      type: 'application/dash+xml',
+    },
+  ];
 
   return (
     <React.Fragment>
@@ -89,7 +119,7 @@ export default function ProductPage({ product }: IProps) {
             <Grid className={classes.headerContainer} item xs={12}>
               <PageHeader header={product.name} breads={breads} />
             </Grid>
-            <Grid className={classes.wrapper} item xs={12}>
+            <Grid className={classes.wrapper} item xs={12} md={9}>
               <div className={classes.first}>
                 <ImageGallery items={images} />
               </div>
@@ -102,6 +132,16 @@ export default function ProductPage({ product }: IProps) {
                 aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
               </div>
               <div className={classes.third}>
+                <ResponsivePlayer />
+              </div>
+              <div className={classes.third}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Officiis harum, autem deleniti, quidem pariatur est, repellendus
+                vel similique odit odio id consectetur. Et enim totam nisi
+                tempore illum iure, consequuntur aperiam sint est corporis animi
+                illo alias, odio explicabo quam.
+              </div>
+              <div className={classes.fifth}>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
                 distinctio necessitatibus placeat ut vel. A laboriosam
                 asperiores, harum vitae esse nisi eveniet labore eligendi qui
@@ -109,21 +149,8 @@ export default function ProductPage({ product }: IProps) {
                 fuga consequatur perferendis soluta dolor vero sint porro quod
                 aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
               </div>
-              <div>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                distinctio necessitatibus placeat ut vel. A laboriosam
-                asperiores, harum vitae esse nisi eveniet labore eligendi qui
-                deserunt. Ut facere dolorem vitae perspiciatis ratione, veniam
-                fuga consequatur perferendis soluta dolor vero sint porro quod
-                aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
-              </div>
             </Grid>
-            <Grid item xs={6}>
-              <ImageGallery items={images} />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h1">{product.name}</Typography>
-            </Grid>
+            <Grid className={classes.side} item xs={12} md={3}></Grid>
           </Grid>
         </Container>
       </AnimationPage>
