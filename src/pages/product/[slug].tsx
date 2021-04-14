@@ -24,16 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     wrapper: {
       display: 'grid',
-      [theme.breakpoints.down('sm')]: {
+      gridGap: theme.spacing(2),
+      [theme.breakpoints.down('md')]: {
         gridTemplateColumns: '1fr',
       },
       [theme.breakpoints.up('md')]: {
         gridTemplateColumns: '4fr 3fr',
       },
       [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: '2fr 1fr',
+        gridTemplateColumns: '4fr 3fr 3fr',
       },
-      gridGap: theme.spacing(2),
     },
     side: {
       display: 'flex',
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     first: {
       background: theme.palette.action.hover,
+      maxWidth: '100%',
     },
     second: {
       background: theme.palette.action.selected,
@@ -114,14 +115,18 @@ export default function ProductPage({ product }: IProps) {
     <React.Fragment>
       <ProductPageHead product={product} />
       <AnimationPage>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Grid container>
             <Grid className={classes.headerContainer} item xs={12}>
               <PageHeader header={product.name} breads={breads} />
             </Grid>
-            <Grid className={classes.wrapper} item xs={12} md={9}>
+            <Grid className={classes.wrapper} item xs={12}>
               <div className={classes.first}>
-                <ImageGallery items={images} />
+                <ImageGallery
+                  items={images}
+                  lazyLoad={true}
+                  thumbnailPosition="bottom"
+                />
               </div>
               <div className={classes.second}>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
@@ -132,14 +137,14 @@ export default function ProductPage({ product }: IProps) {
                 aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
               </div>
               <div className={classes.third}>
-                <ResponsivePlayer />
-              </div>
-              <div className={classes.third}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Officiis harum, autem deleniti, quidem pariatur est, repellendus
                 vel similique odit odio id consectetur. Et enim totam nisi
                 tempore illum iure, consequuntur aperiam sint est corporis animi
                 illo alias, odio explicabo quam.
+              </div>
+              <div className={classes.third}>
+                <ResponsivePlayer />
               </div>
               <div className={classes.fifth}>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
@@ -150,7 +155,6 @@ export default function ProductPage({ product }: IProps) {
                 aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
               </div>
             </Grid>
-            <Grid className={classes.side} item xs={12} md={3}></Grid>
           </Grid>
         </Container>
       </AnimationPage>

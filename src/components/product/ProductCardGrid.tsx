@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -112,7 +113,10 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       {compatable && <ChipContainer car={car} />}
       <Link href={`/product/${product._source.slug}`}>
         <a className={classes.a}>
-          <img
+          <Image
+            layout="intrinsic"
+            width={245}
+            height={245}
             className={classes.image}
             src={imgPath}
             alt={product._source.full_name}
