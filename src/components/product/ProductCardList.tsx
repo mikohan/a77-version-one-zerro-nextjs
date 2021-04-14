@@ -5,9 +5,8 @@ import { IProductElasticHitsSecond } from '~/interfaces/product';
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ChipBox from '~/components/common/ChipBox';
-import { useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces';
+import Image from 'next/image';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -125,7 +124,13 @@ export default function ComplexGrid({ product, currentCar }: IProp) {
     <div key={product._id} className={classes.card}>
       <a className={classes.cardImageLink}>
         {compatable && <ChipBox car={currentCar?.model} />}
-        <img src={imgPath} className={classes.cardImage} alt="Some image" />
+        <Image
+          layout="intrinsic"
+          width={350}
+          height={245}
+          src={imgPath}
+          alt={product._source.full_name}
+        />
       </a>
       <div className={classes.cardContent}>
         <Typography className={classes.productName} variant="h6">
