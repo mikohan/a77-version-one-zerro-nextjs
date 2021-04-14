@@ -25,19 +25,43 @@ const useStyles = makeStyles((theme: Theme) => createStyles({}));
 interface IProps {
   product: IProduct;
 }
+interface IGalery {
+  original: string;
+  thumbnail: string;
+}
 export default function ProductPage({ product }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   if (router.isFallback) {
     return <div> ... Loading</div>;
   }
-  const images = product.images.map((item: IImage) => ({
-    original: `${imageServerUrl}${item.img800}`,
-    thumbnail: `${imageServerUrl}${item.img150}`,
-  }));
+
+  let images: IGalery[] = [];
+  if (product.images.length) {
+    images = product.images.map((item: IImage) => ({
+      original: `${imageServerUrl}${item.img800}`,
+      thumbnail: `${imageServerUrl}${item.img150}`,
+    }));
+  } else {
+    images = [
+      {
+        original: 'https://picsum.photos/id/1018/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1018/250/150/',
+      },
+      {
+        original: 'https://picsum.photos/id/1015/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1015/250/150/',
+      },
+      {
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+      },
+    ];
+  }
+
   return (
     <React.Fragment>
-      {/* <ProductPageHead product={product} /> */}
+      <ProductPageHead product={product} />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
@@ -53,21 +77,6 @@ export default function ProductPage({ product }: IProps) {
     </React.Fragment>
   );
 }
-
-const imgs = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
