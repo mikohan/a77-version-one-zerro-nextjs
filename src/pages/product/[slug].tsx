@@ -52,12 +52,23 @@ export const getStaticProps: GetStaticProps = async (
   };
 };
 
+interface IPaths {
+  params: {
+    slug: string;
+  };
+}
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const promise = await getProductsAll();
   const prods = promise.hits.hits;
-  const paths = prods.map((prod: any) => {
-    return { params: { product: prod._source.slug } };
-  });
+  let paths: IPaths[] = [];
+  for (let prod of prods) {
+    if (prod._source.slug) {
+      paths.push({ params: { slug: prod._source.slug } });
+    } else {
+      console.log('Something wrong with slug in product');
+    }
+  }
 
   return {
     fallback: false,
