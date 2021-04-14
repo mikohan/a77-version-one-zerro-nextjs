@@ -7,15 +7,8 @@ import { Container, Grid, Typography } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 import { IImage } from '~/interfaces/IImage';
 import { imageServerUrl } from '~/config';
-import { asString } from '~/helpers';
-import { ParsedUrlQuery } from 'querystring';
 
-import {
-  IProduct,
-  IProductElasticBase,
-  IProductElasticHitsFirst,
-  IProductElasticHitsSecond,
-} from '~/interfaces';
+import { IProduct } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 import ImageGallery from 'react-image-gallery';
@@ -32,9 +25,9 @@ interface IGalery {
 export default function ProductPage({ product }: IProps) {
   const classes = useStyles();
   const router = useRouter();
-  if (router.isFallback) {
-    return <div> ... Loading</div>;
-  }
+  /* if (router.isFallback) { */
+  /*   return <div> ... Loading</div>; */
+  /* } */
 
   let images: IGalery[] = [];
   if (product.images.length) {
