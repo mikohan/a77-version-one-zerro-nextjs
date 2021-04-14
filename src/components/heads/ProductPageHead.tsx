@@ -1,15 +1,15 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { IMake, IProductElasticHitsSecond } from '~/interfaces';
 import { capitalize } from '~/utils';
+import { IProduct } from '~/interfaces';
 
 interface IProps {
-  product: IProductElasticHitsSecond;
+  product: IProduct;
 }
 
 export default function ProductPageHead({ product }: IProps) {
-  const mk = capitalize(product._source.name);
+  const mk = capitalize(product.name);
   return (
     <Head>
       <title key="title">Запчасти {mk} в наличии | Angara 77 Parts</title>
