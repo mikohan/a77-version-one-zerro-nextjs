@@ -44,6 +44,7 @@
     "redux-wrapper": "^0.0.1",
     "sass": "^1.29.0",
     "svg-react-loader": "^0.4.6",
+    "swiper": "^6.5.6",
     "swr": "^0.3.9",
     "uuid": "^8.3.2"
   },
