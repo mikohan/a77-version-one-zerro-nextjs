@@ -12,8 +12,32 @@ import { IProduct } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 import ImageGallery from 'react-image-gallery';
+import PageHeader from '~/components/product/PageHeader';
+import { IBread } from '~/interfaces';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    headerContainer: {
+      border: '1px solid pink',
+      background: 'rgba(0,142,129,0.1)',
+      marginBottom: theme.spacing(2),
+    },
+    wrapper: {
+      display: 'grid',
+      gridTemplateColumns: '5fr 4fr 3fr',
+      gridGap: theme.spacing(2),
+    },
+    first: {
+      background: theme.palette.action.hover,
+    },
+    second: {
+      background: theme.palette.action.selected,
+    },
+    third: {
+      background: 'rgba(0,180,204,0.2)',
+    },
+  })
+);
 
 interface IProps {
   product: IProduct;
@@ -28,6 +52,10 @@ export default function ProductPage({ product }: IProps) {
   /* if (router.isFallback) { */
   /*   return <div> ... Loading</div>; */
   /* } */
+  const breads: IBread[] = [
+    { name: 'Ангара77', path: '/' },
+    { name: product.name, path: `/product/${product.slug}` },
+  ];
 
   let images: IGalery[] = [];
   if (product.images.length) {
@@ -56,8 +84,40 @@ export default function ProductPage({ product }: IProps) {
     <React.Fragment>
       <ProductPageHead product={product} />
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}>
+        <Container maxWidth="lg">
           <Grid container>
+            <Grid className={classes.headerContainer} item xs={12}>
+              <PageHeader header={product.name} breads={breads} />
+            </Grid>
+            <Grid className={classes.wrapper} item xs={12}>
+              <div className={classes.first}>
+                <ImageGallery items={images} />
+              </div>
+              <div className={classes.second}>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
+                distinctio necessitatibus placeat ut vel. A laboriosam
+                asperiores, harum vitae esse nisi eveniet labore eligendi qui
+                deserunt. Ut facere dolorem vitae perspiciatis ratione, veniam
+                fuga consequatur perferendis soluta dolor vero sint porro quod
+                aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
+              </div>
+              <div className={classes.third}>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
+                distinctio necessitatibus placeat ut vel. A laboriosam
+                asperiores, harum vitae esse nisi eveniet labore eligendi qui
+                deserunt. Ut facere dolorem vitae perspiciatis ratione, veniam
+                fuga consequatur perferendis soluta dolor vero sint porro quod
+                aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
+              </div>
+              <div>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
+                distinctio necessitatibus placeat ut vel. A laboriosam
+                asperiores, harum vitae esse nisi eveniet labore eligendi qui
+                deserunt. Ut facere dolorem vitae perspiciatis ratione, veniam
+                fuga consequatur perferendis soluta dolor vero sint porro quod
+                aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
+              </div>
+            </Grid>
             <Grid item xs={6}>
               <ImageGallery items={images} />
             </Grid>
