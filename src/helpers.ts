@@ -2,9 +2,12 @@ import { ICar } from '~/interfaces/ICar';
 import cookie from 'cookie';
 import { IMake } from './interfaces/IMake';
 
-export function asString(query: string | string[]): string {
+export function asString(query: string | string[] | undefined): string {
   if (Array.isArray(query)) {
     return query[0];
+  }
+  if (typeof query === 'undefined') {
+    return '';
   }
   return query;
 }

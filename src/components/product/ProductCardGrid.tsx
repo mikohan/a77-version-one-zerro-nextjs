@@ -8,6 +8,7 @@ import ChipContainer from '../common/ChipBox';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
+import Link from 'next/link';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -109,13 +110,15 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   return (
     <div className={classes.card}>
       {compatable && <ChipContainer car={car} />}
-      <a className={classes.a}>
-        <img
-          className={classes.image}
-          src={imgPath}
-          alt={product._source.full_name}
-        />
-      </a>
+      <Link href={`/product/${product._source.slug}`}>
+        <a className={classes.a}>
+          <img
+            className={classes.image}
+            src={imgPath}
+            alt={product._source.full_name}
+          />
+        </a>
+      </Link>
       <Typography className={classes.price} variant="h6">
         &#8381; {price}
       </Typography>

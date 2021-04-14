@@ -3,8 +3,13 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { containerMaxWidth, REVALIDATE } from '~/config';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
+import { IImage } from '~/interfaces/IImage';
+import { imageServerUrl } from '~/config';
+import { asString } from '~/helpers';
+import { ParsedUrlQuery } from 'querystring';
+
 import {
   IProduct,
   IProductElasticBase,
@@ -13,6 +18,7 @@ import {
 } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
+import ImageGallery from 'react-image-gallery';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -25,24 +31,50 @@ export default function ProductPage({ product }: IProps) {
   if (router.isFallback) {
     return <div> ... Loading</div>;
   }
+  const images = product.images.map((item: IImage) => ({
+    original: `${imageServerUrl}${item.img800}`,
+    thumbnail: `${imageServerUrl}${item.img150}`,
+  }));
   return (
     <React.Fragment>
       {/* <ProductPageHead product={product} /> */}
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
-          <Grid container></Grid>
+          <Grid container>
+            <Grid item xs={6}>
+              <ImageGallery items={images} />
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h1">{product.name}</Typography>
+            </Grid>
+          </Grid>
         </Container>
       </AnimationPage>
     </React.Fragment>
   );
 }
 
+const imgs = [
+  {
+    original: 'https://picsum.photos/id/1018/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1018/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1015/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1015/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1019/1000/600/',
+    thumbnail: 'https://picsum.photos/id/1019/250/150/',
+  },
+];
+
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const slug = context.params;
+  const { slug } = context.params!;
 
-  const product: IProduct = await getProduct('vkladyshi-korennye-4030');
+  const product: IProduct = await getProduct(slug as string);
 
   return {
     revalidate: REVALIDATE,
