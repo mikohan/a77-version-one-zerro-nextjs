@@ -7,6 +7,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
+
 import { Router } from 'next/dist/client/router';
 import theme, { darkTheme } from '~/theme';
 import { Provider } from 'react-redux';

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, imageServerUrl, SITE_DOMAIN_FULL } from '~/config';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { Box, Grid, Typography } from '@material-ui/core';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image';
+import SwiperProduct from '~/components/common/SwiperProduct';
+import LightBox from '~/components/common/LightBox';
 
 interface IProps {
   products: IProductElasticHitsFirst;
@@ -16,14 +20,23 @@ export default function About() {
       <AboutHead />
       <AnimationPage>
         <Grid container>
-          <Grid item xs={3} style={{ border: '1px solid green' }}>
+          <Grid item xs={3}>
             LEFT SIDE PANE
           </Grid>
-          <Grid style={{ border: '1px solid green' }} item xs={9}>
+          <Grid item xs={9}>
             <Typography variant="h1">{state}</Typography>
             <Box p={5}>
               <Grid container>
-                <Grid item xs={12}></Grid>
+                <Grid item xs={8}>
+                  <Box style={{ border: '1px solid green' }}>
+                    <LightBox />
+                  </Box>
+                </Grid>
+                <Grid item xs={4}>
+                  <Box style={{ border: '1px solid pink' }}>
+                    <SwiperProduct />
+                  </Box>
+                </Grid>
               </Grid>
             </Box>
           </Grid>

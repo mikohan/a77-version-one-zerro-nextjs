@@ -15,6 +15,8 @@ import ImageGallery from 'react-image-gallery';
 import PageHeader from '~/components/product/PageHeader';
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
+import Image from 'next/image';
+import SwiperProduct from '~/components/common/SwiperProduct';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -122,11 +124,7 @@ export default function ProductPage({ product }: IProps) {
             </Grid>
             <Grid className={classes.wrapper} item xs={12}>
               <div className={classes.first}>
-                <ImageGallery
-                  items={images}
-                  lazyLoad={true}
-                  thumbnailPosition="bottom"
-                />
+                <SwiperProduct product={product} />
               </div>
               <div className={classes.second}>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo

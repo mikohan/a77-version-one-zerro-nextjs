@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'picsum'],
   },
   crossOrigin: 'anonymous',
   webpack(config) {
