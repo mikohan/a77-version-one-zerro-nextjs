@@ -11,17 +11,13 @@ import {
   useTheme,
 } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
-import { IImage } from '~/interfaces/IImage';
-import { imageServerUrl } from '~/config';
 
 import { IProduct } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
-import ImageGallery from 'react-image-gallery';
 import PageHeader from '~/components/product/PageHeader';
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
-import Image from 'next/image';
 import SwiperProduct from '~/components/common/SwiperProduct';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,7 +56,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     side: {
       display: 'flex',
-      border: '1px solid pink',
     },
     first: {
       background: theme.palette.action.hover,

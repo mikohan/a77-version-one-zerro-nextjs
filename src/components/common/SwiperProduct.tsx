@@ -14,12 +14,18 @@ import { IProduct } from '~/interfaces';
 import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import '~/components/styles/SwiperProduct.module.css';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    swiperContainer: {},
+    swiperContainer: {
+      '& > div': {
+        color: theme.palette.primary.main,
+      },
+      '&  > div > span': {
+        background: theme.palette.primary.main,
+      },
+    },
     swiperWrapper: {
       height: 'auto !important',
     },
