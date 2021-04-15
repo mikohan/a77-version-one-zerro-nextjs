@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, imageServerUrl, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { Box, Grid, Typography } from '@material-ui/core';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Image from 'next/image';
 import SwiperProduct from '~/components/common/SwiperProduct';
 import LightBox from '~/components/common/LightBox';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -32,9 +30,6 @@ export default function About() {
         <Grid className={classes.main} container>
           <Grid item xs={12}>
             <Typography variant="h1">{state}</Typography>
-            <Box m={5} style={{ border: '1px solid green' }}>
-              <LightBox />
-            </Box>
           </Grid>
           <Grid item xs={12}>
             <Box m={5} style={{ border: '1px solid pink' }}>
