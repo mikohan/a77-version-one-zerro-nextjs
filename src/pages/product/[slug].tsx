@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       padding: theme.spacing(2),
     },
+    under: {
+      height: theme.spacing(10),
+    },
     wrapper: {
       display: 'grid',
       gridGap: theme.spacing(2),
@@ -52,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateColumns: '4fr 3fr',
       },
       [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: '4fr 3fr 3fr',
+        gridTemplateColumns: '6fr 6fr',
       },
     },
     side: {
@@ -96,40 +99,6 @@ export default function ProductPage({ product }: IProps) {
     { name: product.name, path: `/product/${product.slug}` },
   ];
 
-  let images: IGalery[] = [];
-  if (product.images.length) {
-    images = product.images.map((item: IImage) => ({
-      original: `${imageServerUrl}${item.img800}`,
-      thumbnail: `${imageServerUrl}${item.img150}`,
-    }));
-  } else {
-    images = [
-      {
-        original: 'https://picsum.photos/id/1018/1000/600/',
-        thumbnail: 'https://picsum.photos/id/1018/250/150/',
-      },
-      {
-        original: 'https://picsum.photos/id/1015/1000/600/',
-        thumbnail: 'https://picsum.photos/id/1015/250/150/',
-      },
-      {
-        original: 'https://picsum.photos/id/1019/1000/600/',
-        thumbnail: 'https://picsum.photos/id/1019/250/150/',
-      },
-    ];
-  }
-  const sources = [
-    {
-      src: 'https://youtu.be/KDPi_cgItcA',
-      type: 'application/x-mpegURL',
-    },
-    {
-      src:
-        'https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8',
-      type: 'application/dash+xml',
-    },
-  ];
-
   return (
     <React.Fragment>
       <ProductPageHead product={product} />
@@ -140,12 +109,12 @@ export default function ProductPage({ product }: IProps) {
               <PageHeader header={product.name} breads={breads} />
             </Grid>
             <Grid className={classes.gridRow} container item xs={12}>
-              <Grid className={classes.swipeGrid} item xs={12} md={7}>
+              <Grid className={classes.swipeGrid} item xs={12} md={6}>
                 <Paper className={classes.swiperPaper}>
                   <SwiperProduct product={product} />
                 </Paper>
               </Grid>
-              <Grid className={classes.descriptionGrid} item xs={12} md={5}>
+              <Grid className={classes.descriptionGrid} item xs={12} md={6}>
                 <Paper className={classes.descriptionPaper}>
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Earum officia nulla quis magni ad odit autem natus? Vel,
@@ -153,6 +122,7 @@ export default function ProductPage({ product }: IProps) {
                 </Paper>
               </Grid>
             </Grid>
+            <Grid item className={classes.under} xs={12}></Grid>
             <Grid container>
               <Grid className={classes.wrapper} item xs={12}>
                 <div className={classes.first}>

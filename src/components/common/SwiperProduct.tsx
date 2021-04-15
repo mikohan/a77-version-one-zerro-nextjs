@@ -14,6 +14,7 @@ import { IProduct } from '~/interfaces';
 import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import '~/components/styles/SwiperProduct.module.css';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -102,11 +103,11 @@ export default function Swipper({ product }: IProps) {
   return (
     <React.Fragment>
       <Swiper
+        className={classes.swiperContainer}
         id="main"
         thumbs={{ swiper: thumbSwiper }}
         spaceBetween={10}
         slidesPerView={1}
-        className={classes.swiperWrapper}
         navigation
         pagination={{ clickable: true }}
         onSwiper={(swiper) => console.log(swiper)}
