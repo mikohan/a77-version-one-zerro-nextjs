@@ -49,7 +49,6 @@ interface ISlide {
 export default function Swipper({ product }: IProps) {
   const init: any = null;
   const [thumbSwiper, setThumbSwiper] = useState(init);
-  console.log(thumbSwiper);
   const classes = useStyles();
   const images = product?.images.map((image: IImage) => ({
     image: image.img800,
