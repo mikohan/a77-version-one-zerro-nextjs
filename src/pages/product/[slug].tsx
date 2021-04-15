@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { containerMaxWidth, REVALIDATE } from '~/config';
-import { Container, Grid, Typography, useTheme } from '@material-ui/core';
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  useTheme,
+} from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 import { IImage } from '~/interfaces/IImage';
 import { imageServerUrl } from '~/config';
@@ -24,6 +30,18 @@ const useStyles = makeStyles((theme: Theme) =>
       /* background: 'rgba(0,142,129,0.1)', */
       marginBottom: theme.spacing(2),
     },
+    gridRow: {
+      paddingBottom: theme.spacing(2),
+    },
+    swipeGrid: { paddingRight: theme.spacing(1) },
+    swiperPaper: {
+      /* padding: theme.spacing(2), */
+    },
+    descriptionGrid: { paddingLeft: theme.spacing(1) },
+    descriptionPaper: {
+      height: '100%',
+      padding: theme.spacing(2),
+    },
     wrapper: {
       display: 'grid',
       gridGap: theme.spacing(2),
@@ -43,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     first: {
       background: theme.palette.action.hover,
-      maxWidth: '100%',
     },
     second: {
       background: theme.palette.action.selected,
@@ -122,36 +139,42 @@ export default function ProductPage({ product }: IProps) {
             <Grid className={classes.headerContainer} item xs={12}>
               <PageHeader header={product.name} breads={breads} />
             </Grid>
-            <Grid className={classes.wrapper} item xs={12}>
-              <div className={classes.first}>
-                <SwiperProduct product={product} />
-              </div>
-              <div className={classes.second}>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                distinctio necessitatibus placeat ut vel. A laboriosam
-                asperiores, harum vitae esse nisi eveniet labore eligendi qui
-                deserunt. Ut facere dolorem vitae perspiciatis ratione, veniam
-                fuga consequatur perferendis soluta dolor vero sint porro quod
-                aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
-              </div>
-              <div className={classes.third}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Officiis harum, autem deleniti, quidem pariatur est, repellendus
-                vel similique odit odio id consectetur. Et enim totam nisi
-                tempore illum iure, consequuntur aperiam sint est corporis animi
-                illo alias, odio explicabo quam.
-              </div>
-              <div className={classes.third}>
-                <ResponsivePlayer />
-              </div>
-              <div className={classes.fifth}>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                distinctio necessitatibus placeat ut vel. A laboriosam
-                asperiores, harum vitae esse nisi eveniet labore eligendi qui
-                deserunt. Ut facere dolorem vitae perspiciatis ratione, veniam
-                fuga consequatur perferendis soluta dolor vero sint porro quod
-                aliquam culpa, repudiandae, ex tempore. Sed, ipsa minus!
-              </div>
+            <Grid className={classes.gridRow} container item xs={12}>
+              <Grid className={classes.swipeGrid} item xs={12} lg={6}>
+                <Paper className={classes.swiperPaper}>
+                  <SwiperProduct product={product} />
+                </Paper>
+              </Grid>
+              <Grid className={classes.descriptionGrid} item xs={12} lg={6}>
+                <Paper className={classes.descriptionPaper}>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Earum officia nulla quis magni ad odit autem natus? Vel,
+                  impedit placeat.
+                </Paper>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid className={classes.wrapper} item xs={12}>
+                <div className={classes.first}>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facilis cumque rem molestiae excepturi earum voluptate
+                  deserunt aspernatur qui non eum maxime quas incidunt facere
+                  nostrum atque, beatae animi ullam libero dolore architecto
+                  minus voluptates nesciunt vitae! Ut, molestias? Repellat optio
+                  reprehenderit quae harum repellendus dignissimos, dolore
+                  maxime expedita in. Libero?
+                </div>
+                <div className={classes.third}>
+                  <ResponsivePlayer />
+                </div>
+                <div className={classes.fifth}>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
+                  dolorem reiciendis blanditiis laborum repellat, mollitia
+                  assumenda consequuntur? Eveniet voluptatum ex atque quae sunt
+                  dolor enim nihil harum ipsa facilis ratione, quo ducimus
+                  incidunt eaque nobis illum, maxime dignissimos natus esse.
+                </div>
+              </Grid>
             </Grid>
           </Grid>
         </Container>

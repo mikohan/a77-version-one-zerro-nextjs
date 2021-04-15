@@ -8,36 +8,37 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import SwiperProduct from '~/components/common/SwiperProduct';
 import LightBox from '~/components/common/LightBox';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    main: {
+      padding: theme.spacing(20),
+    },
+  })
+);
 
 interface IProps {
   products: IProductElasticHitsFirst;
 }
 
 export default function About() {
+  const classes = useStyles();
   const [state, setState] = useState('');
   return (
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
-        <Grid container>
-          <Grid item xs={3}>
-            LEFT SIDE PANE
-          </Grid>
-          <Grid item xs={9}>
+        <Grid className={classes.main} container>
+          <Grid item xs={12}>
             <Typography variant="h1">{state}</Typography>
-            <Box p={5}>
-              <Grid container>
-                <Grid item xs={8}>
-                  <Box style={{ border: '1px solid green' }}>
-                    <LightBox />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Box style={{ border: '1px solid pink' }}>
-                    <SwiperProduct />
-                  </Box>
-                </Grid>
-              </Grid>
+            <Box m={5} style={{ border: '1px solid green' }}>
+              <LightBox />
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box m={5} style={{ border: '1px solid pink' }}>
+              <SwiperProduct />
             </Box>
           </Grid>
         </Grid>

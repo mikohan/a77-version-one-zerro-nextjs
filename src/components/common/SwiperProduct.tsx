@@ -15,9 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     swiperContainer: {},
     swiperWrapper: {
-      '& >ul': {
-        paddingInlineStart: 0,
-      },
+      height: 'auto !important',
+    },
+    swiperSlide: {
+      height: 'auto !important',
     },
   })
 );
@@ -35,42 +36,54 @@ interface ISlide {
 
 export default function Swipper({ product }: IProps) {
   const classes = useStyles();
-  /* const images = product.images.map((image: IImage) => ({ */
-  /*   image: image.img800, */
-  /*   thumbnail: image.img150, */
-  /* })); */
+  const images = product?.images.map((image: IImage) => ({
+    image: image.img800,
+    thumbnail: image.img150,
+  }));
+
   const slides = [];
-  for (let i = 0; i < 5; i += 1) {
-    slides.push(
-      <SwiperSlide key={i + 1} tag="li">
-        <Image
-          layout="responsive"
-          width={500}
-          height={300}
-          src={`https://picsum.photos/id/${i + 1}/500/300`}
-        />
-      </SwiperSlide>
-    );
+  if (images?.length) {
+    for (let im of images) {
+      slides.push(
+        <SwiperSlide key={im.image} className={classes.swiperSlide}>
+          <Image
+            layout="responsive"
+            width={900}
+            height={600}
+            src={`${imageServerUrl}${im.image}`}
+          />
+        </SwiperSlide>
+      );
+    }
+  } else {
+    for (let i = 0; i < 5; i += 1) {
+      slides.push(
+        <SwiperSlide key={i + 1}>
+          <Image
+            layout="responsive"
+            width={700}
+            height={500}
+            src={`https://picsum.photos/id/${i + 1}/500/300`}
+          />
+        </SwiperSlide>
+      );
+    }
   }
 
   return (
     <React.Fragment>
-      <div className={styles.myclass}>
-        <Swiper
-          id="main"
-          spaceBetween={10}
-          slidesPerView={1}
-          className={classes.swiperWrapper}
-          tag="section"
-          wrapperTag="ul"
-          navigation
-          pagination={{ clickable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
-        >
-          {slides}
-        </Swiper>
-      </div>
+      <Swiper
+        id="main"
+        spaceBetween={10}
+        slidesPerView={1}
+        className={classes.swiperWrapper}
+        navigation
+        pagination={{ clickable: true }}
+        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => console.log('slide change')}
+      >
+        {slides}
+      </Swiper>
     </React.Fragment>
   );
 }
