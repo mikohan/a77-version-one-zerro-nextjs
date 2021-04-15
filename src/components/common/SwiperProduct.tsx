@@ -1,6 +1,12 @@
 // import Swiper core and required modules
-import React from 'react';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import React, { useState } from 'react';
+import SwiperCore, {
+  Thumbs,
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+} from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { imageServerUrl } from '~/config';
@@ -9,6 +15,7 @@ import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import styles from '~/components/styles/SwiperProduct.module.scss';
+import { Swiper as SwiperType } from 'swiper/types';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 interface IProps {
   product?: IProduct;
@@ -35,6 +42,9 @@ interface ISlide {
 }
 
 export default function Swipper({ product }: IProps) {
+  const init: any = null;
+  const [thumbSwiper, setThumbSwiper] = useState(init);
+  console.log(thumbSwiper);
   const classes = useStyles();
   const images = product?.images.map((image: IImage) => ({
     image: image.img800,
@@ -42,6 +52,7 @@ export default function Swipper({ product }: IProps) {
   }));
 
   const slides = [];
+  const thumbs = [];
   if (images?.length) {
     for (let im of images) {
       slides.push(
@@ -51,6 +62,16 @@ export default function Swipper({ product }: IProps) {
             width={900}
             height={600}
             src={`${imageServerUrl}${im.image}`}
+          />
+        </SwiperSlide>
+      );
+      thumbs.push(
+        <SwiperSlide key={im.thumbnail}>
+          <Image
+            layout="responsive"
+            width={150}
+            height={100}
+            src={`${imageServerUrl}${im.thumbnail}`}
           />
         </SwiperSlide>
       );
@@ -67,6 +88,16 @@ export default function Swipper({ product }: IProps) {
           />
         </SwiperSlide>
       );
+      thumbs.push(
+        <SwiperSlide key={i + 1}>
+          <Image
+            layout="intrinsic"
+            width={150}
+            height={100}
+            src={`https://picsum.photos/id/${i + 1}/500/300`}
+          />
+        </SwiperSlide>
+      );
     }
   }
 
@@ -74,6 +105,7 @@ export default function Swipper({ product }: IProps) {
     <React.Fragment>
       <Swiper
         id="main"
+        thumbs={{ swiper: thumbSwiper }}
         spaceBetween={10}
         slidesPerView={1}
         className={classes.swiperWrapper}
@@ -83,6 +115,40 @@ export default function Swipper({ product }: IProps) {
         onSlideChange={() => console.log('slide change')}
       >
         {slides}
+      </Swiper>
+      <Swiper
+        slidesPerView={6}
+        style={{ width: '100%' }}
+        spaceBetween={5}
+        id="tumbs"
+        onSwiper={setThumbSwiper}
+        breakpoints={{
+          // when window width is >= 640px
+          200: {
+            slidesPerView: 2,
+          },
+          450: {
+            slidesPerView: 3,
+          },
+          640: {
+            slidesPerView: 4,
+          },
+          768: {
+            slidesPerView: 5,
+          },
+          // when window width is >= 768px
+          960: {
+            slidesPerView: 4,
+          },
+          1100: {
+            slidesPerView: 5,
+          },
+          1600: {
+            slidesPerView: 6,
+          },
+        }}
+      >
+        {thumbs}
       </Swiper>
     </React.Fragment>
   );

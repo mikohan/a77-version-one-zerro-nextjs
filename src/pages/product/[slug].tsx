@@ -140,12 +140,12 @@ export default function ProductPage({ product }: IProps) {
               <PageHeader header={product.name} breads={breads} />
             </Grid>
             <Grid className={classes.gridRow} container item xs={12}>
-              <Grid className={classes.swipeGrid} item xs={12} lg={6}>
+              <Grid className={classes.swipeGrid} item xs={12} md={7}>
                 <Paper className={classes.swiperPaper}>
                   <SwiperProduct product={product} />
                 </Paper>
               </Grid>
-              <Grid className={classes.descriptionGrid} item xs={12} lg={6}>
+              <Grid className={classes.descriptionGrid} item xs={12} md={5}>
                 <Paper className={classes.descriptionPaper}>
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Earum officia nulla quis magni ad odit autem natus? Vel,
