@@ -29,11 +29,18 @@ const useStyles = makeStyles((theme: Theme) =>
     gridRow: {
       paddingBottom: theme.spacing(2),
     },
-    swipeGrid: { paddingRight: theme.spacing(1) },
-    swiperPaper: {
-      /* padding: theme.spacing(2), */
+    swipeGrid: {
+      paddingRight: theme.spacing(1),
     },
-    descriptionGrid: { paddingLeft: theme.spacing(1) },
+    swiperPaper: {},
+    descriptionGrid: {
+      paddingLeft: theme.spacing(1),
+      [theme.breakpoints.down('sm')]: {
+        marginTop: theme.spacing(3),
+        paddingLeft: 0,
+        paddingRight: theme.spacing(1),
+      },
+    },
     descriptionPaper: {
       height: '100%',
       padding: theme.spacing(2),
