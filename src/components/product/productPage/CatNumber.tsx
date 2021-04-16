@@ -5,10 +5,10 @@ import { Paper, Grid, Chip, Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      height: '100%',
+      border: '1px solid green',
     },
     paperOne: {
-      height: theme.spacing(20),
+      height: '100%',
     },
     firstRow: {},
   })

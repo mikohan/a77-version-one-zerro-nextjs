@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: theme.spacing(10),
     },
     excerptBox: {
-      border: '1px solid grey',
       [theme.breakpoints.down('md')]: {
         order: 2,
       },
@@ -189,7 +188,7 @@ export default function ProductPage({ product }: IProps) {
                 <Paper className={classes.descriptionPaper}>
                   {compability && (
                     <div className={classes.carBage}>
-                      Подходит на {currentCar.model}
+                      Подходит на {currentCar?.model}
                     </div>
                   )}
                   <Grid className={classes.rightSideGrid} container>
@@ -223,9 +222,9 @@ export default function ProductPage({ product }: IProps) {
                       <Box className={classes.priceBox}>
                         <PriceBox />
                       </Box>
-                      <Box className={classes.catBox}>
-                        <CatNumber />
-                      </Box>
+                      {/* <Box className={classes.catBox}> */}
+                      {/*   <CatNumber /> */}
+                      {/* </Box> */}
                     </Grid>
                     <Grid className={classes.bottomRow}>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
