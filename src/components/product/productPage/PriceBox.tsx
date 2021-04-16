@@ -10,8 +10,6 @@ import {
   TableRow,
   TableBody,
   TableCell,
-  TableContainer,
-  TableHead,
 } from '@material-ui/core';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
@@ -93,8 +91,12 @@ const PriceBox = ({ product }: IProps) => {
         <Table className="classes.table" size="small">
           <TableBody>
             <TableRow>
+              <TableCell component="th">Номер</TableCell>
+              <TableCell>{product.catNumber}</TableCell>
+            </TableRow>
+            <TableRow>
               <TableCell component="th">Brand</TableCell>
-              <TableCell>Номер</TableCell>
+              <TableCell>{product.brand.name.toUpperCase()}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th">Mobis</TableCell>

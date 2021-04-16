@@ -41,6 +41,7 @@ export interface IProduct {
   unit: string;
   // Next group
   cat_number: string;
+  catNumber?: string;
   oem_number: string;
   partNumber: string;
   brand: IBrand;
