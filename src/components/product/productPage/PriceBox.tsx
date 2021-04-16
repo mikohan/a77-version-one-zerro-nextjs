@@ -1,6 +1,7 @@
 import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
+  Avatar,
   Paper,
   Grid,
   Chip,
@@ -13,10 +14,11 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      height: theme.spacing(20),
+      height: '100%',
       border: '1px solid blue',
       display: 'flex',
       flexDirection: 'column',
+      padding: theme.spacing(2),
     },
     paperOne: {
       height: theme.spacing(20),
@@ -36,8 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     secondRow: {
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'space-around',
       border: '1px solid pink',
+      alignItems: 'center',
+    },
+    formBox: {
+      width: '30%',
     },
   })
 );
@@ -51,23 +57,37 @@ const PriceBox = () => {
           <Typography variant="h4">R 5967</Typography>
         </Box>
         <Box className={classes.priceSide}>
-          <Typography variant="body2">Some content</Typography>
+          <Chip
+            avatar={<Avatar>M</Avatar>}
+            label="Clickable"
+            variant="outlined"
+          />
         </Box>
       </Box>
-      <Box className={classes.middle}>content</Box>
+      <Box className={classes.middle}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eveniet
+        ut voluptatem voluptatum voluptatibus, fugit tempore odio eligendi
+        laudantium numquam. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Dolore eveniet ut voluptatem voluptatum voluptatibus, fugit
+        tempore odio eligendi laudantium numquam.
+      </Box>
       <Box className={classes.secondRow}>
-        <Box>
+        <Box className={classes.formBox}>
           <TextField
-            label="Size"
+            style={{ width: '100%' }}
+            type="number"
+            label="Кол-во"
             id="filled-size-small"
             defaultValue="Small"
-            variant="filled"
+            variant="outlined"
             size="small"
           />
         </Box>
-        <Button variant="contained" color="primary">
-          Add to CART
-        </Button>
+        <Box>
+          <Button variant="contained" color="primary">
+            Add to CART
+          </Button>
+        </Box>
       </Box>
     </div>
   );

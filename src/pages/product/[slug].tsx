@@ -68,13 +68,13 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     catNumberBox: {
+      display: 'flex',
+      flexDirection: 'column',
       [theme.breakpoints.down('md')]: {
         order: 1,
       },
     },
-    priceBox: {
-      marginBottom: theme.spacing(2),
-    },
+    priceBox: {},
     catBox: {},
     bottomRow: {
       padding: theme.spacing(2),
@@ -177,12 +177,12 @@ export default function ProductPage({ product }: IProps) {
                       xs={12}
                       lg={6}
                     >
-                      <Grid className={classes.priceBox} item xs={12}>
+                      <Box className={classes.priceBox}>
                         <PriceBox />
-                      </Grid>
-                      <Grid className={classes.catBox} item xs={12}>
+                      </Box>
+                      <Box className={classes.catBox}>
                         <CatNumber />
-                      </Grid>
+                      </Box>
                     </Grid>
                     <Grid className={classes.bottomRow}>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
