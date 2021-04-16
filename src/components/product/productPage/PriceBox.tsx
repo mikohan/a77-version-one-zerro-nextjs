@@ -62,6 +62,10 @@ const useStyles = makeStyles((theme: Theme) =>
       color: () =>
         theme.palette.type === 'light' ? lightGreen[700] : lightGreen[100],
     },
+    enginesCell: {
+      display: 'flext',
+      flexWrap: 'wrap',
+    },
     engine: {
       marginRight: theme.spacing(1),
     },
@@ -125,11 +129,11 @@ const PriceBox = ({ product }: IProps) => {
               {product.engine?.length && (
                 <TableRow>
                   <TableCell component="th">Двигатель</TableCell>
-                  <TableCell>
+                  <TableCell className={classes.enginesCell}>
                     {product.engine.map((engine: IEngine) => (
-                      <span className={classes.engine} key={engine.id}>
+                      <div className={classes.engine} key={engine.id}>
                         {engine.name}
-                      </span>
+                      </div>
                     ))}
                   </TableCell>
                 </TableRow>
