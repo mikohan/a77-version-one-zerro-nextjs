@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
   useTheme,
+  Box,
 } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
@@ -19,6 +20,9 @@ import PageHeader from '~/components/product/PageHeader';
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
+import CatNumber from '~/components/product/productPage/CatNumber';
+import PriceBox from '~/components/product/productPage/PriceBox';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
     swipeGrid: {
       paddingRight: theme.spacing(1),
     },
-    swiperPaper: {},
+    productHeader: {
+      padding: theme.spacing(2),
+    },
     descriptionGrid: {
       paddingLeft: theme.spacing(1),
       [theme.breakpoints.down('sm')]: {
@@ -47,6 +53,29 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     under: {
       height: theme.spacing(10),
+    },
+    excerptBox: {
+      border: '1px solid grey',
+      [theme.breakpoints.down('md')]: {
+        order: 2,
+      },
+    },
+    excerptPaper: {
+      height: '100%',
+      padding: theme.spacing(2),
+    },
+    catNumberBox: {
+      [theme.breakpoints.down('md')]: {
+        order: 1,
+      },
+    },
+    priceBox: {
+      marginBottom: theme.spacing(2),
+    },
+    catBox: {},
+    bottomRow: {
+      padding: theme.spacing(2),
+      border: '1px solid teal',
     },
     wrapper: {
       display: 'grid',
@@ -100,7 +129,6 @@ export default function ProductPage({ product }: IProps) {
     { name: 'Ангара77', path: '/' },
     { name: product.name, path: `/product/${product.slug}` },
   ];
-
   return (
     <React.Fragment>
       <ProductPageHead product={product} />
@@ -112,15 +140,59 @@ export default function ProductPage({ product }: IProps) {
             </Grid>
             <Grid className={classes.gridRow} container item xs={12}>
               <Grid className={classes.swipeGrid} item xs={12} md={6}>
-                <Paper className={classes.swiperPaper}>
+                <Paper>
                   <SwiperProduct product={product} />
                 </Paper>
               </Grid>
               <Grid className={classes.descriptionGrid} item xs={12} md={6}>
                 <Paper className={classes.descriptionPaper}>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Earum officia nulla quis magni ad odit autem natus? Vel,
-                  impedit placeat.
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Typography
+                        className={classes.productHeader}
+                        variant="h1"
+                      >
+                        {`${product.name} ${capitalize(
+                          product.model[0].make.name
+                        )} ${product.model[0].model}`}
+                      </Typography>
+                    </Grid>
+                    <Grid className={classes.excerptBox} item xs={12} lg={6}>
+                      <Box className={classes.excerptPaper}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Itaque alias, nemo dolore quibusdam praesentium
+                        voluptates provident reprehenderit. Sequi, placeat? Eius
+                        placeat repellat in autem! Deleniti dignissimos eveniet
+                        explicabo aut, animi, dolorum aspernatur sunt laborum
+                        delectus doloribus eaque velit, ducimus nisi.
+                      </Box>
+                    </Grid>
+                    <Grid
+                      className={classes.catNumberBox}
+                      container
+                      item
+                      xs={12}
+                      lg={6}
+                    >
+                      <Grid className={classes.priceBox} item xs={12}>
+                        <PriceBox />
+                      </Grid>
+                      <Grid className={classes.catBox} item xs={12}>
+                        <CatNumber />
+                      </Grid>
+                    </Grid>
+                    <Grid className={classes.bottomRow}>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vitae voluptates illo praesentium est commodi perspiciatis
+                      veniam animi? Distinctio vero totam, libero voluptate a,
+                      explicabo veritatis facilis dolores ipsum voluptates,
+                      deleniti cumque consectetur. Sit doloremque accusamus
+                      ratione a, eaque hic nostrum, veniam earum voluptas cum
+                      quam repellat fugit nisi ipsam placeat perspiciatis
+                      molestias sunt fuga labore. Praesentium, autem?
+                      Doloremque, reiciendis veniam!
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
             </Grid>
