@@ -39,9 +39,8 @@ const useStyles = makeStyles((theme: Theme) =>
     swipeGrid: {
       paddingRight: theme.spacing(1),
     },
-    productHeader: {
-      padding: theme.spacing(2),
-    },
+    productHeader: {},
+
     descriptionGrid: {
       paddingLeft: theme.spacing(1),
       [theme.breakpoints.down('sm')]: {
@@ -77,8 +76,6 @@ const useStyles = makeStyles((theme: Theme) =>
         order: 1,
       },
     },
-    priceBox: {},
-    catBox: {},
     bottomRow: {
       padding: theme.spacing(2),
       border: '1px solid teal',
@@ -192,7 +189,7 @@ export default function ProductPage({ product }: IProps) {
                     </div>
                   )}
                   <Grid className={classes.rightSideGrid} container>
-                    <Grid item xs={12}>
+                    <Grid style={{ border: '1px solid teal' }} item xs={12}>
                       <Typography
                         className={classes.productHeader}
                         variant="h1"
