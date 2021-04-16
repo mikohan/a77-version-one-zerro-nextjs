@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       padding: theme.spacing(2),
     },
+    rightSideGrid: {
+      height: '100%',
+    },
     under: {
       height: theme.spacing(10),
     },
@@ -146,7 +149,7 @@ export default function ProductPage({ product }: IProps) {
               </Grid>
               <Grid className={classes.descriptionGrid} item xs={12} md={6}>
                 <Paper className={classes.descriptionPaper}>
-                  <Grid container>
+                  <Grid className={classes.rightSideGrid} container>
                     <Grid item xs={12}>
                       <Typography
                         className={classes.productHeader}
