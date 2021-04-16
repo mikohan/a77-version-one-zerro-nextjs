@@ -233,7 +233,7 @@ export default function ProductPage({ product }: IProps) {
                       xs={12}
                       lg={6}
                     >
-                      <Box className={classes.priceBox}>
+                      <Box>
                         <PriceBox />
                       </Box>
                       {/* <Box className={classes.catBox}> */}
