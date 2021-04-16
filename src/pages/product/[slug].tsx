@@ -234,7 +234,7 @@ export default function ProductPage({ product }: IProps) {
                       lg={6}
                     >
                       <Box>
-                        <PriceBox />
+                        <PriceBox product={product} />
                       </Box>
                       {/* <Box className={classes.catBox}> */}
                       {/*   <CatNumber /> */}

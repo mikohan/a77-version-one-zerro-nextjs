@@ -1,15 +1,17 @@
 import React from 'react';
+import { IProduct } from '~/interfaces';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
-  Avatar,
-  Paper,
-  Grid,
   Chip,
   Button,
   Typography,
   Box,
-  TextField,
-  useTheme,
+  Table,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
 } from '@material-ui/core';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
@@ -60,8 +62,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+interface IProps {
+  product: IProduct;
+}
 
-const PriceBox = () => {
+const PriceBox = ({ product }: IProps) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -85,11 +90,18 @@ const PriceBox = () => {
         </Box>
       </Box>
       <Box className={classes.middle}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eveniet
-        ut voluptatem voluptatum voluptatibus, fugit tempore odio eligendi
-        laudantium numquam. Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Dolore eveniet ut voluptatem voluptatum voluptatibus, fugit
-        tempore odio eligendi laudantium numquam.
+        <Table className="classes.table" size="small">
+          <TableBody>
+            <TableRow>
+              <TableCell component="th">Brand</TableCell>
+              <TableCell>Номер</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th">Mobis</TableCell>
+              <TableCell>KOrea</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </Box>
       <Box className={classes.secondRow}>
         <Button className={classes.button} variant="contained" color="primary">
