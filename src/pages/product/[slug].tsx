@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
-import { IProduct } from '~/interfaces';
+import { ICar, IProduct } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 import PageHeader from '~/components/product/PageHeader';
@@ -23,6 +23,9 @@ import SwiperProduct from '~/components/common/SwiperProduct';
 import CatNumber from '~/components/product/productPage/CatNumber';
 import PriceBox from '~/components/product/productPage/PriceBox';
 import { capitalize } from '~/utils';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import lightGreen from '@material-ui/core/colors/lightGreen';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     descriptionPaper: {
+      position: 'relative',
       height: '100%',
       padding: theme.spacing(2),
     },
@@ -112,6 +116,34 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     reactPlayer: {},
+    carBage: {
+      position: 'absolute',
+      top: theme.spacing(-1),
+      left: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+      color: () =>
+        theme.palette.type === 'light'
+          ? theme.palette.background.paper
+          : theme.palette.text.primary,
+      fontWeight: 500,
+      zIndex: 0,
+      '&::before': {
+        content: '""',
+        display: 'block',
+        width: '100%',
+        position: 'absolute',
+        zIndex: -1,
+        left: theme.spacing(0.5),
+        right: theme.spacing(0.5),
+        top: 0,
+        bottom: 0,
+        background: theme.palette.primary.main,
+        /* background: */
+        /*   theme.palette.type === 'light' ? lightGreen[100] : lightGreen[700], */
+        borderRadius: '2px',
+        transform: `skewX(-20deg)`,
+      },
+    },
   })
 );
 
@@ -124,6 +156,7 @@ interface IGalery {
 }
 export default function ProductPage({ product }: IProps) {
   const classes = useStyles();
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const router = useRouter();
   /* if (router.isFallback) { */
   /*   return <div> ... Loading</div>; */
@@ -132,6 +165,11 @@ export default function ProductPage({ product }: IProps) {
     { name: 'Ангара77', path: '/' },
     { name: product.name, path: `/product/${product.slug}` },
   ];
+  const compability =
+    currentCar &&
+    product.model.some((car: ICar) => car.slug === currentCar.slug)
+      ? true
+      : false;
   return (
     <React.Fragment>
       <ProductPageHead product={product} />
@@ -149,6 +187,11 @@ export default function ProductPage({ product }: IProps) {
               </Grid>
               <Grid className={classes.descriptionGrid} item xs={12} md={6}>
                 <Paper className={classes.descriptionPaper}>
+                  {compability && (
+                    <div className={classes.carBage}>
+                      Подходит на {currentCar.model}
+                    </div>
+                  )}
                   <Grid className={classes.rightSideGrid} container>
                     <Grid item xs={12}>
                       <Typography

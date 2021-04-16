@@ -37,16 +37,16 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     middle: {
+      paddingBottom: theme.spacing(2),
       flexGrow: 1,
     },
     secondRow: {
       display: 'flex',
-      justifyContent: 'space-around',
-      border: '1px solid pink',
+      justifyContent: 'center',
       alignItems: 'center',
     },
-    formBox: {
-      width: '30%',
+    button: {
+      width: '100%',
     },
     chip: {
       background: () =>
@@ -67,7 +67,9 @@ const PriceBox = () => {
     <div className={classes.container}>
       <Box className={classes.firstRow}>
         <Box className={classes.price}>
-          <Typography variant="h4">R 5967</Typography>
+          <Typography variant="h4">
+            <span>&#8381;</span> 5967
+          </Typography>
         </Box>
         <Box className={classes.priceSide}>
           <Chip
@@ -90,22 +92,9 @@ const PriceBox = () => {
         tempore odio eligendi laudantium numquam.
       </Box>
       <Box className={classes.secondRow}>
-        <Box className={classes.formBox}>
-          <TextField
-            style={{ width: '100%' }}
-            type="number"
-            label="Кол-во"
-            id="filled-size-small"
-            defaultValue="Small"
-            variant="outlined"
-            size="small"
-          />
-        </Box>
-        <Box>
-          <Button variant="contained" color="primary">
-            Add to CART
-          </Button>
-        </Box>
+        <Button className={classes.button} variant="contained" color="primary">
+          В корзину
+        </Button>
       </Box>
     </div>
   );
