@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       justifyContent: 'center',
       [theme.breakpoints.up('lg')]: {
-        maxWidth: '80%',
+        maxWidth: '85%',
       },
       [theme.breakpoints.up('xl')]: {
         maxWidth: '75%',
@@ -58,8 +58,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
     },
     productHeaderGrid: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
+      /* paddingTop: theme.spacing(1), */
+      /* paddingLeft: theme.spacing(2), */
     },
 
     descriptionGrid: {
@@ -76,13 +76,15 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     rightSideGrid: {
-      height: '100%',
+      display: 'flex',
+      alignItems: 'start',
     },
     under: {
-      border: '1px solid orange',
       height: theme.spacing(10),
     },
     productHeader: {
+      fontSize: '1.8rem',
+      fontWeight: 700,
       [theme.breakpoints.down('md')]: {
         order: 1,
       },
@@ -95,6 +97,36 @@ const useStyles = makeStyles((theme: Theme) =>
     excerptPaper: {
       height: '100%',
       padding: theme.spacing(2),
+    },
+    dl: {
+      display: 'flex',
+      position: 'relative',
+      /* flexWrap: 'wrap', */
+      width: '100%',
+      alignItems: 'flex-end',
+      '& > dd': {
+        width: '49%',
+        wordBreak: 'break-word',
+      },
+      '& > dt': {
+        width: '50%',
+        '& span': {
+          position: 'relative',
+          display: 'inline',
+          background: theme.palette.background.paper,
+        },
+        '&:before': {
+          content: '""',
+          display: 'block',
+          width: '60%',
+          borderBottom: '1px',
+          borderStyle: 'dotted',
+          borderColor: theme.palette.action.selected,
+          position: 'absolute',
+          bottom: '0.2rem',
+          left: 0,
+        },
+      },
     },
     catNumberBox: {
       display: 'flex',
@@ -182,9 +214,6 @@ interface IGalery {
 export default function ProductPage({ product }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
-  const theme = useTheme();
-  const maxWidth = theme.breakpoints.values;
-  console.log(maxWidth);
   const router = useRouter();
   /* if (router.isFallback) { */
   /*   return <div> ... Loading</div>; */
@@ -198,6 +227,8 @@ export default function ProductPage({ product }: IProps) {
     product.model.some((car: ICar) => car.slug === currentCar.slug)
       ? true
       : false;
+
+  console.log(product);
   return (
     <React.Fragment>
       <ProductPageHead product={product} />
@@ -221,24 +252,24 @@ export default function ProductPage({ product }: IProps) {
                     </div>
                   )}
                   <Grid className={classes.rightSideGrid} container>
-                    <Grid className={classes.productHeaderGrid} item xs={12}>
-                      <Typography
-                        className={classes.productHeader}
-                        variant="h1"
-                      >
-                        {`${product.name} ${capitalize(
-                          product.model[0].make.name
-                        )} ${product.model[0].model}`}
-                      </Typography>
-                    </Grid>
+                    <Typography className={classes.productHeader} variant="h1">
+                      {`${product.name} ${capitalize(
+                        product.model[0].make.name
+                      )} ${product.model[0].model}`}
+                    </Typography>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       <Box className={classes.excerptPaper}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Itaque alias, nemo dolore quibusdam praesentium
-                        voluptates provident reprehenderit. Sequi, placeat? Eius
-                        placeat repellat in autem! Deleniti dignissimos eveniet
-                        explicabo aut, animi, dolorum aspernatur sunt laborum
-                        delectus doloribus eaque velit, ducimus nisi.
+                        {product.attributes &&
+                          product.attributes.map((attr: any) => (
+                            <dl className={classes.dl}>
+                              <dt>
+                                <span>{attr.name}</span>
+                              </dt>
+                              <dd>
+                                <span>{attr.value}</span>
+                              </dd>
+                            </dl>
+                          ))}
                       </Box>
                     </Grid>
                     <Grid
