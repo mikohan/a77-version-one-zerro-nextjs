@@ -39,7 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     swipeGrid: {
       paddingRight: theme.spacing(1),
     },
-    productHeader: {},
+    productHeaderGrid: {
+      paddingTop: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+    },
 
     descriptionGrid: {
       paddingLeft: theme.spacing(1),
@@ -58,11 +61,17 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
     },
     under: {
+      border: '1px solid orange',
       height: theme.spacing(10),
+    },
+    productHeader: {
+      [theme.breakpoints.down('md')]: {
+        order: 1,
+      },
     },
     excerptBox: {
       [theme.breakpoints.down('md')]: {
-        order: 2,
+        order: 3,
       },
     },
     excerptPaper: {
@@ -73,12 +82,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       [theme.breakpoints.down('md')]: {
-        order: 1,
+        order: 2,
       },
     },
     bottomRow: {
       padding: theme.spacing(2),
       border: '1px solid teal',
+      [theme.breakpoints.down('md')]: {
+        order: 4,
+      },
     },
     wrapper: {
       display: 'grid',
@@ -189,7 +201,12 @@ export default function ProductPage({ product }: IProps) {
                     </div>
                   )}
                   <Grid className={classes.rightSideGrid} container>
-                    <Grid style={{ border: '1px solid teal' }} item xs={12}>
+                    <Grid
+                      className={classes.productHeaderGrid}
+                      style={{ border: '1px solid teal' }}
+                      item
+                      xs={12}
+                    >
                       <Typography
                         className={classes.productHeader}
                         variant="h1"
