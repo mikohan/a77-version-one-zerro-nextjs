@@ -1,5 +1,5 @@
 import React from 'react';
-import { IProduct } from '~/interfaces';
+import { IEngine, IProduct } from '~/interfaces';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
   Chip,
@@ -10,6 +10,7 @@ import {
   TableRow,
   TableBody,
   TableCell,
+  Hidden,
 } from '@material-ui/core';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       width: '100%',
+      [theme.breakpoints.between('sm', 'md')]: {
+        width: '50%',
+      },
     },
     chip: {
       background: () =>
@@ -57,6 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
     inStock: {
       color: () =>
         theme.palette.type === 'light' ? lightGreen[700] : lightGreen[100],
+    },
+    engine: {
+      marginRight: theme.spacing(1),
     },
   })
 );
@@ -87,24 +94,54 @@ const PriceBox = ({ product }: IProps) => {
           />
         </Box>
       </Box>
-      <Box className={classes.middle}>
-        <Table className="classes.table" size="small">
-          <TableBody>
-            <TableRow>
-              <TableCell component="th">Номер</TableCell>
-              <TableCell>{product.catNumber}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th">Brand</TableCell>
-              <TableCell>{product.brand.name.toUpperCase()}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th">Mobis</TableCell>
-              <TableCell>KOrea</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Box>
+      <Hidden smDown>
+        <Box className={classes.middle}>
+          <Table className="classes.table" size="small">
+            <TableBody>
+              <TableRow>
+                <TableCell component="th">SKU</TableCell>
+                <TableCell>{product.sku}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th">Бренд</TableCell>
+                <TableCell>{product.brand.name.toUpperCase()}</TableCell>
+              </TableRow>
+              {product.brand.country && (
+                <TableRow>
+                  <TableCell component="th">Страна</TableCell>
+                  <TableCell>{product.brand.country}</TableCell>
+                </TableRow>
+              )}
+              <TableRow>
+                <TableCell component="th">Номер</TableCell>
+                <TableCell>{product.catNumber}</TableCell>
+              </TableRow>
+              {product.oemNumber && (
+                <TableRow>
+                  <TableCell component="th">OEM #</TableCell>
+                  <TableCell>{product.oemNumber.toUpperCase()}</TableCell>
+                </TableRow>
+              )}
+              {product.engine?.length && (
+                <TableRow>
+                  <TableCell component="th">Двигатель</TableCell>
+                  <TableCell>
+                    {product.engine.map((engine: IEngine) => (
+                      <span className={classes.engine} key={engine.id}>
+                        {engine.name}
+                      </span>
+                    ))}
+                  </TableCell>
+                </TableRow>
+              )}
+              <TableRow>
+                <TableCell component="th">Состояние</TableCell>
+                <TableCell>{product.condition?.toUpperCase()}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Box>
+      </Hidden>
       <Box className={classes.secondRow}>
         <Button className={classes.button} variant="contained" color="primary">
           В корзину

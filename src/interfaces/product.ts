@@ -43,6 +43,7 @@ export interface IProduct {
   cat_number: string;
   catNumber?: string;
   oem_number: string;
+  oemNumber?: string;
   partNumber: string;
   brand: IBrand;
   breadcrumbs?: string;
@@ -71,6 +72,7 @@ export interface IProduct {
   badges?: string[];
   reviews?: number;
   tags?: string[];
+  condition?: string;
 }
 
 export type IProductsList = IPaginatedList<IProduct> &

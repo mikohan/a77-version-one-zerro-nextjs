@@ -29,6 +29,21 @@ import lightGreen from '@material-ui/core/colors/lightGreen';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    mainContainer: {
+      margin: '0 auto',
+      display: 'flex',
+      flexWrap: 'wrap',
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+
+      justifyContent: 'center',
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '75%',
+      },
+    },
     headerContainer: {
       /* background: 'rgba(0,142,129,0.1)', */
       marginBottom: theme.spacing(2),
@@ -165,6 +180,9 @@ interface IGalery {
 export default function ProductPage({ product }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  const theme = useTheme();
+  const maxWidth = theme.breakpoints.values;
+  console.log(maxWidth);
   const router = useRouter();
   /* if (router.isFallback) { */
   /*   return <div> ... Loading</div>; */
@@ -182,7 +200,7 @@ export default function ProductPage({ product }: IProps) {
     <React.Fragment>
       <ProductPageHead product={product} />
       <AnimationPage>
-        <Container maxWidth="xl">
+        <div className={classes.mainContainer}>
           <Grid container>
             <Grid className={classes.headerContainer} item xs={12}>
               <PageHeader header={product.name} breads={breads} />
@@ -280,7 +298,7 @@ export default function ProductPage({ product }: IProps) {
               </Grid>
             </Grid>
           </Grid>
-        </Container>
+        </div>
       </AnimationPage>
     </React.Fragment>
   );
