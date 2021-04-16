@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme: Theme) =>
     swipeGrid: {
       paddingRight: theme.spacing(1),
     },
+    swiperPaper: {
+      height: '100%',
+    },
     productHeaderGrid: {
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(2),
@@ -102,7 +105,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bottomRow: {
       padding: theme.spacing(2),
-      border: '1px solid teal',
       [theme.breakpoints.down('md')]: {
         order: 4,
       },
@@ -207,7 +209,7 @@ export default function ProductPage({ product }: IProps) {
             </Grid>
             <Grid className={classes.gridRow} container item xs={12}>
               <Grid className={classes.swipeGrid} item xs={12} md={6}>
-                <Paper>
+                <Paper className={classes.swiperPaper}>
                   <SwiperProduct product={product} />
                 </Paper>
               </Grid>
@@ -219,12 +221,7 @@ export default function ProductPage({ product }: IProps) {
                     </div>
                   )}
                   <Grid className={classes.rightSideGrid} container>
-                    <Grid
-                      className={classes.productHeaderGrid}
-                      style={{ border: '1px solid teal' }}
-                      item
-                      xs={12}
-                    >
+                    <Grid className={classes.productHeaderGrid} item xs={12}>
                       <Typography
                         className={classes.productHeader}
                         variant="h1"
@@ -257,17 +254,6 @@ export default function ProductPage({ product }: IProps) {
                       {/* <Box className={classes.catBox}> */}
                       {/*   <CatNumber /> */}
                       {/* </Box> */}
-                    </Grid>
-                    <Grid className={classes.bottomRow}>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Vitae voluptates illo praesentium est commodi perspiciatis
-                      veniam animi? Distinctio vero totam, libero voluptate a,
-                      explicabo veritatis facilis dolores ipsum voluptates,
-                      deleniti cumque consectetur. Sit doloremque accusamus
-                      ratione a, eaque hic nostrum, veniam earum voluptas cum
-                      quam repellat fugit nisi ipsam placeat perspiciatis
-                      molestias sunt fuga labore. Praesentium, autem?
-                      Doloremque, reiciendis veniam!
                     </Grid>
                   </Grid>
                 </Paper>
