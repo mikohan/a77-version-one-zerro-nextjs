@@ -9,7 +9,9 @@ import {
   Typography,
   Box,
   TextField,
+  useTheme,
 } from '@material-ui/core';
+import lightGreen from '@material-ui/core/colors/lightGreen';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     firstRow: {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
     },
     price: {
       padding: theme.spacing(2),
@@ -45,6 +48,16 @@ const useStyles = makeStyles((theme: Theme) =>
     formBox: {
       width: '30%',
     },
+    chip: {
+      background: () =>
+        theme.palette.type === 'light' ? lightGreen[100] : lightGreen[700],
+      borderColor: () =>
+        theme.palette.type === 'light' ? lightGreen[100] : lightGreen[700],
+    },
+    inStock: {
+      color: () =>
+        theme.palette.type === 'light' ? lightGreen[700] : lightGreen[100],
+    },
   })
 );
 
@@ -58,9 +71,14 @@ const PriceBox = () => {
         </Box>
         <Box className={classes.priceSide}>
           <Chip
-            avatar={<Avatar>M</Avatar>}
-            label="Clickable"
+            className={classes.chip}
+            label={
+              <Typography className={classes.inStock} variant="body2">
+                В наличии
+              </Typography>
+            }
             variant="outlined"
+            size="small"
           />
         </Box>
       </Box>
