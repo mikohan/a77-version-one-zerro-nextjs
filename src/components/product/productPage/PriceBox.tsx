@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),
+      /* border: '1px solid', */
+      /* borderColor: theme.palette.action.disabledBackground, */
+      /* borderRadius: 3, */
     },
     paperOne: {
       height: theme.spacing(20),
@@ -30,8 +33,16 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-    price: {
+    priceBox: {
       padding: theme.spacing(2),
+    },
+    price: {
+      color: theme.palette.primary.main,
+      fontWeight: 700,
+      fontSize: '1.4rem',
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '1.7rem',
+      },
     },
     priceSide: {
       padding: theme.spacing(2),
@@ -68,6 +79,21 @@ const useStyles = makeStyles((theme: Theme) =>
     engine: {
       marginRight: theme.spacing(1),
     },
+    table: {
+      '& td': {
+        fontSize: '.875rem',
+        [theme.breakpoints.up('xl')]: {
+          fontSize: '1rem',
+        },
+        color: theme.palette.text.secondary,
+      },
+      '& th': {
+        fontSize: '.875rem',
+        [theme.breakpoints.up('xl')]: {
+          fontSize: '1rem',
+        },
+      },
+    },
   })
 );
 interface IProps {
@@ -79,8 +105,8 @@ const PriceBox = ({ product }: IProps) => {
   return (
     <div className={classes.container}>
       <Box className={classes.firstRow}>
-        <Box className={classes.price}>
-          <Typography variant="h4">
+        <Box className={classes.priceBox}>
+          <Typography className={classes.price} variant="h6">
             <span>&#8381;</span> 5967
           </Typography>
         </Box>
@@ -99,7 +125,7 @@ const PriceBox = ({ product }: IProps) => {
       </Box>
       <Hidden smDown>
         <Box className={classes.middle}>
-          <Table className="classes.table" size="small">
+          <Table className={classes.table} size="small">
             <TableBody>
               <TableRow>
                 <TableCell component="th">SKU</TableCell>
@@ -122,10 +148,10 @@ const PriceBox = ({ product }: IProps) => {
               {product.oemNumber && (
                 <TableRow>
                   <TableCell component="th">OEM #</TableCell>
-                  <TableCell>{product.oemNumber.toUpperCase()}</TableCell>
+                  <TableCell>{product.oemNumber}</TableCell>
                 </TableRow>
               )}
-              {product.engine?.length && (
+              {product.engine && product.engine?.length > 0 && (
                 <TableRow>
                   <TableCell component="th">Двигатель</TableCell>
                   <TableCell className={classes.enginesCell}>

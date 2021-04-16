@@ -58,8 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
     },
     productHeaderGrid: {
-      /* paddingTop: theme.spacing(1), */
-      /* paddingLeft: theme.spacing(2), */
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
     },
 
     descriptionGrid: {
@@ -104,6 +105,12 @@ const useStyles = makeStyles((theme: Theme) =>
       /* flexWrap: 'wrap', */
       width: '100%',
       alignItems: 'flex-end',
+      fontSize: '0.775rem',
+
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '0.875rem',
+      },
+      color: theme.palette.text.disabled,
       '& > dd': {
         width: '49%',
         wordBreak: 'break-word',
@@ -176,13 +183,14 @@ const useStyles = makeStyles((theme: Theme) =>
     carBage: {
       position: 'absolute',
       top: theme.spacing(-1),
-      left: theme.spacing(2),
+      left: theme.spacing(4),
       paddingLeft: theme.spacing(1),
       color: () =>
         theme.palette.type === 'light'
           ? theme.palette.background.paper
           : theme.palette.text.primary,
       fontWeight: 500,
+      fontSize: '0.8rem',
       zIndex: 0,
       '&::before': {
         content: '""',
@@ -228,7 +236,6 @@ export default function ProductPage({ product }: IProps) {
       ? true
       : false;
 
-  console.log(product);
   return (
     <React.Fragment>
       <ProductPageHead product={product} />
@@ -252,11 +259,16 @@ export default function ProductPage({ product }: IProps) {
                     </div>
                   )}
                   <Grid className={classes.rightSideGrid} container>
-                    <Typography className={classes.productHeader} variant="h1">
-                      {`${product.name} ${capitalize(
-                        product.model[0].make.name
-                      )} ${product.model[0].model}`}
-                    </Typography>
+                    <Grid className={classes.productHeaderGrid} item xs={12}>
+                      <Typography
+                        className={classes.productHeader}
+                        variant="h1"
+                      >
+                        {`${product.name} ${capitalize(
+                          product.model[0].make.name
+                        )} ${product.model[0].model}`}
+                      </Typography>
+                    </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       <Box className={classes.excerptPaper}>
                         {product.attributes &&
