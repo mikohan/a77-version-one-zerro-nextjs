@@ -5,6 +5,9 @@ import {
   SHOP_PRODUCTS_LIST_LOADING,
   SHOP_DELETE_FILTER,
   SHOP_SET_PRICE_OLD_STATE,
+  SHOP_SET_LAST_CARS_ACTION,
+  SHOP_SET_USER_ID,
+  ShopSetUserId,
   ShopSetPriceOldState,
   ShopSetFilterValueAction,
   ShopResetFilterAction,
@@ -12,7 +15,6 @@ import {
   ShopDeleteFilterAction,
   ShopProductLoadingAction,
   ShopLastCarsAction,
-  SHOP_SET_LAST_CARS_ACTION,
 } from '~/store/shop/shopTypes';
 import { ICar } from '~/interfaces/ICar';
 
@@ -20,6 +22,13 @@ export function shopSetOldPrice(value: number[]): ShopSetPriceOldState {
   return {
     type: SHOP_SET_PRICE_OLD_STATE,
     value: value,
+  };
+}
+
+export function shopSetUserId(payload: string): ShopSetUserId {
+  return {
+    type: SHOP_SET_USER_ID,
+    payload,
   };
 }
 

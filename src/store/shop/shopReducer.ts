@@ -8,6 +8,8 @@ import {
   SHOP_SET_FILTER_VALUE,
   ShopLastCarsAction,
   SHOP_SET_LAST_CARS_ACTION,
+  ShopSetUserId,
+  SHOP_SET_USER_ID,
 } from '~/store/shop/shopTypes';
 import { IFilterValues } from '~/interfaces/list';
 import {
@@ -29,6 +31,7 @@ const initialState: IShopState = {
   currentFilters: [],
   filterPriceOldState: [],
   lastCars: [],
+  userId: '',
 };
 
 export function shopReducerSetFilterValue(
@@ -124,6 +127,13 @@ function shopSetLastCarsReducer(state: IShopState, action: ShopLastCarsAction) {
   };
 }
 
+function shopSetUserIdReducer(state: IShopState, action: ShopSetUserId) {
+  return {
+    ...state,
+    userId: action.payload,
+  };
+}
+
 export function shopReducer(
   state = initialState,
   action: ShopAction
@@ -143,6 +153,8 @@ export function shopReducer(
       return shopSetOldPriceReducer(state, action);
     case SHOP_SET_LAST_CARS_ACTION:
       return shopSetLastCarsReducer(state, action);
+    case SHOP_SET_USER_ID:
+      return shopSetUserIdReducer(state, action);
     default:
       return state;
   }

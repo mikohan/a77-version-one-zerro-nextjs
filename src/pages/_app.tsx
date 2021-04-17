@@ -33,6 +33,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getMakes, getVehicles } from '~/endpoints/carsEndpoint';
 import MainLayout from '~/layouts/Main';
 import { shopLastCarAction } from '~/store/shop/shopActions';
+import { shopSetUserId } from '~/store/shop/shopActions';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -99,16 +100,19 @@ function MyApp(props: any) {
     // Working tested
     if (localstorage) {
       userUUID = localstorage;
+      store.dispatch(shopSetUserId(userUUID));
     } else {
       if (cookies.hasOwnProperty('userUUID')) {
         userUUID = cookies.userUUID;
         setLocalstorage(userUUID);
+        store.dispatch(shopSetUserId(userUUID));
       } else {
         userUUID = uuidv4();
         setCookie('userUUID', userUUID, {
           path: '/',
           maxAge: cookiesAge.cookierUserMaxAge,
         });
+        store.dispatch(shopSetUserId(userUUID));
         setLocalstorage(userUUID);
       }
     }
