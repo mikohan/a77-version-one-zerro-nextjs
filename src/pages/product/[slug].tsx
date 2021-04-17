@@ -297,7 +297,10 @@ export default function ProductPage({ product }: IProps) {
                           product.model[0].make.name
                         )} ${product.model[0].model}`}
                       </Typography>
-                      <ProductRating />
+                      <ProductRating
+                        rating={product.rating?.score}
+                        quantity={product.rating?.quantity}
+                      />
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       {product.description && (

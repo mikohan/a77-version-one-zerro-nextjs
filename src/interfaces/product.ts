@@ -29,6 +29,12 @@ export interface IProductStock {
   availability_days: number;
 }
 
+export interface IRating {
+  score: number;
+  quantity: number;
+  user?: string;
+}
+
 export interface IProduct {
   id: number;
   slug: string;
@@ -59,7 +65,7 @@ export interface IProduct {
    */
   excerpt: string;
   description: string;
-  rating?: number;
+  rating?: IRating;
   created_date?: Date;
   updated_date?: Date;
   // Graphic stuff

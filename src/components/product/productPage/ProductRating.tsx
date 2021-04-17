@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  rating: number;
-  quantity: number;
+  rating?: number;
+  quantity?: number;
 }
 
 export default function SimpleRating({ rating, quantity }: IProps) {
@@ -31,7 +31,9 @@ export default function SimpleRating({ rating, quantity }: IProps) {
   let initQ = 0;
   if (rating) {
     initVal = rating;
-    initQ = quantity;
+    if (quantity) {
+      initQ = quantity;
+    }
   }
   const [value, setValue] = React.useState<number | null>(initVal);
   const [quantityState, setQuantityState] = React.useState<number>(initQ);

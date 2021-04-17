@@ -8,22 +8,12 @@ export interface IShopState {
   init: boolean;
   filters: IFilterValues;
   productsLoading: boolean;
-
-  /**
-   * All active filters.
-   */
   activeFilters: IActiveFilter[];
-  /**
-   * Removed active filters.
-   */
   removedFilters: IActiveFilter[];
-  /**
-   * Active filters except removed ones.
-   */
-
   currentFilters: IActiveFilter[];
   filterPriceOldState: number[];
   lastCars: ICar[];
+  userId: string;
 }
 
 export const SHOP_RESET_FILTER = 'SHOP_RESET_FILTER';
@@ -37,7 +27,15 @@ export const SHOP_SET_FILTER_VALUE = 'SHOP_SET_FILTER_VALUE';
 export const SHOP_PRODUCTS_LIST_LOADING = 'SHOP_PRODUCTS_LIST_LOADING';
 
 export const SHOP_SET_PRICE_OLD_STATE = 'SHOP_SET_PRICE_OLD_STATE';
+
 export const SHOP_SET_LAST_CARS_ACTION = 'SHOP_SET_LAST_CARS_ACTION';
+
+export const SHOP_SET_USER_ID = 'SHOP_SET_USER_ID';
+
+export interface ShopSetUserId {
+  type: typeof SHOP_SET_USER_ID;
+  payload: string;
+}
 
 export interface ShopSetPriceOldState {
   type: typeof SHOP_SET_PRICE_OLD_STATE;
@@ -80,4 +78,5 @@ export type ShopAction =
   | ShopDeleteFilterAction
   | ShopSetPriceOldState
   | ShopResetFiltersAction
-  | ShopLastCarsAction;
+  | ShopLastCarsAction
+  | ShopSetUserId;
