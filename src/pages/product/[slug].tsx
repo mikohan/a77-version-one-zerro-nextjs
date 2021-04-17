@@ -27,6 +27,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 import parser from 'html-react-parser';
+import ProductTabs from '~/components/product/productPage/ProductTabs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -217,6 +218,12 @@ const useStyles = makeStyles((theme: Theme) =>
     analogs: {
       paddingLeft: theme.spacing(2),
     },
+    analogPaper: {
+      padding: theme.spacing(2),
+    },
+    tabs: {
+      paddingTop: theme.spacing(2),
+    },
   })
 );
 
@@ -328,7 +335,7 @@ export default function ProductPage({ product }: IProps) {
               <Grid className={classes.analogs} item xs={12} md={6}>
                 <div className={classes.first}></div>
                 <div className={classes.fifth}>
-                  <Paper>
+                  <Paper className={classes.analogPaper}>
                     <Typography variant="h6">Аналоги</Typography>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Amet dolorem reiciendis blanditiis laborum repellat,
@@ -338,6 +345,11 @@ export default function ProductPage({ product }: IProps) {
                     esse.
                   </Paper>
                 </div>
+              </Grid>
+              <Grid item className={classes.tabs} xs={12}>
+                <Paper>
+                  <ProductTabs />
+                </Paper>
               </Grid>
             </Grid>
           </Grid>
