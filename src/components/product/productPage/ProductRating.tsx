@@ -62,12 +62,16 @@ export default function SimpleRating({ rating, quantity }: IProps) {
           setClicked(true);
         }}
       />
-      <Typography className={classes.quantity} variant="body2">
-        {quantityState} оценок
-      </Typography>
-      <Typography className={classes.yourScore} variant="body2">
-        Ваша оценка {value}
-      </Typography>
+      {quantity && (
+        <Typography className={classes.quantity} variant="body2">
+          {quantityState} оценок
+        </Typography>
+      )}
+      {clicked && (
+        <Typography className={classes.yourScore} variant="body2">
+          Ваша оценка {value}
+        </Typography>
+      )}
     </div>
   );
 }
