@@ -28,6 +28,7 @@ import { IState } from '~/interfaces/IState';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 import parser from 'html-react-parser';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
+import ProductRating from '~/components/product/productPage/ProductRating';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +63,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     productHeaderGrid: {
       paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
       paddingLeft: theme.spacing(2),
     },
 
@@ -100,7 +100,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     excerptPaper: {
       height: '100%',
-      padding: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingTop: theme.spacing(1),
     },
     excerpt: {
       paddingLeft: theme.spacing(2),
@@ -296,6 +297,7 @@ export default function ProductPage({ product }: IProps) {
                           product.model[0].make.name
                         )} ${product.model[0].model}`}
                       </Typography>
+                      <ProductRating />
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       {product.description && (
