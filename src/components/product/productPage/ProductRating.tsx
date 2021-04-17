@@ -2,6 +2,8 @@ import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,6 +17,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     quantity: {
       paddingLeft: theme.spacing(2),
+      color: theme.palette.text.secondary,
+    },
+    yourScore: {
+      paddingLeft: theme.spacing(2),
+      color: theme.palette.text.secondary,
     },
   })
 );
@@ -36,6 +43,7 @@ export default function SimpleRating({ rating, quantity }: IProps) {
   }
   const [value, setValue] = React.useState<number | null>(initVal);
   const [quantityState, setQuantityState] = React.useState<number>(initQ);
+  const [clicked, setClicked] = React.useState<boolean>(false);
 
   return (
     <div className={classes.root}>
@@ -44,16 +52,21 @@ export default function SimpleRating({ rating, quantity }: IProps) {
         size="small"
         name="simple-controlled"
         value={value}
+        readOnly={clicked}
         onChange={(
           event: React.ChangeEvent<{} | null>,
           newValue: number | null
         ) => {
           setValue(newValue);
           setQuantityState(quantityState + 1);
+          setClicked(true);
         }}
       />
       <Typography className={classes.quantity} variant="body2">
         {quantityState} оценок
+      </Typography>
+      <Typography className={classes.yourScore} variant="body2">
+        Ваша оценка {value}
       </Typography>
     </div>
   );
