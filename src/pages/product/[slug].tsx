@@ -105,6 +105,13 @@ const useStyles = makeStyles((theme: Theme) =>
     excerpt: {
       paddingLeft: theme.spacing(2),
     },
+    excerptText: {
+      lineHeight: '1.5em',
+      maxHeight: '10em',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      position: 'relative',
+    },
     dl: {
       display: 'flex',
       position: 'relative',
@@ -156,6 +163,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     wrapper: {
       display: 'grid',
+      paddingRight: theme.spacing(1),
       gridGap: theme.spacing(2),
       [theme.breakpoints.down('md')]: {
         gridTemplateColumns: '1fr',
@@ -216,9 +224,14 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     analogs: {
-      paddingLeft: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+      [theme.breakpoints.down('md')]: {
+        padding: 0,
+        marginTop: theme.spacing(2),
+      },
     },
     analogPaper: {
+      height: '100%',
       padding: theme.spacing(2),
     },
     tabs: {
@@ -287,7 +300,9 @@ export default function ProductPage({ product }: IProps) {
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       {product.description && (
                         <Grid className={classes.excerpt} item xs={12} lg={12}>
-                          {parser(product.excerpt)}
+                          <Box className={classes.excerptText}>
+                            {parser(product.description)}
+                          </Box>
                         </Grid>
                       )}
                       <Box className={classes.excerptPaper}>
@@ -314,41 +329,33 @@ export default function ProductPage({ product }: IProps) {
                       <Box>
                         <PriceBox product={product} />
                       </Box>
-                      {/* <Box className={classes.catBox}> */}
-                      {/*   <CatNumber /> */}
-                      {/* </Box> */}
                     </Grid>
                   </Grid>
                 </Paper>
               </Grid>
             </Grid>
             <Grid item className={classes.under} xs={12}></Grid>
-            <Grid container>
+            <Grid container item>
               <Grid className={classes.wrapper} item xs={12} md={6}>
-                {product.video &&
-                  product.video.map((vid: string) => (
-                    <div key={vid} className={classes.third}>
-                      <ResponsivePlayer videoUrl={vid} />
-                    </div>
-                  ))}
+                <Paper>
+                  {product.video &&
+                    product.video.map((vid: string) => (
+                      <div key={vid} className={classes.third}>
+                        <ResponsivePlayer videoUrl={vid} />
+                      </div>
+                    ))}
+                </Paper>
               </Grid>
               <Grid className={classes.analogs} item xs={12} md={6}>
-                <div className={classes.first}></div>
-                <div className={classes.fifth}>
-                  <Paper className={classes.analogPaper}>
-                    <Typography variant="h6">Аналоги</Typography>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Amet dolorem reiciendis blanditiis laborum repellat,
-                    mollitia assumenda consequuntur? Eveniet voluptatum ex atque
-                    quae sunt dolor enim nihil harum ipsa facilis ratione, quo
-                    ducimus incidunt eaque nobis illum, maxime dignissimos natus
-                    esse.
-                  </Paper>
-                </div>
+                <Paper className={classes.analogPaper}>
+                  <Typography variant="h6">Аналоги</Typography>
+                  <Box>{parser(product.description)}</Box>
+                </Paper>
+                <div></div>
               </Grid>
               <Grid item className={classes.tabs} xs={12}>
                 <Paper>
-                  <ProductTabs />
+                  <ProductTabs product={product} />
                 </Paper>
               </Grid>
             </Grid>
