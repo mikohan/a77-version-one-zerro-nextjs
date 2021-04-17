@@ -26,6 +26,7 @@ import { capitalize } from '~/utils';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import lightGreen from '@material-ui/core/colors/lightGreen';
+import parser from 'html-react-parser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -98,6 +99,9 @@ const useStyles = makeStyles((theme: Theme) =>
     excerptPaper: {
       height: '100%',
       padding: theme.spacing(2),
+    },
+    excerpt: {
+      paddingLeft: theme.spacing(2),
     },
     dl: {
       display: 'flex',
@@ -270,6 +274,11 @@ export default function ProductPage({ product }: IProps) {
                       </Typography>
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
+                      {product.description && (
+                        <Grid className={classes.excerpt} item xs={12} lg={12}>
+                          {parser(product.excerpt)}
+                        </Grid>
+                      )}
                       <Box className={classes.excerptPaper}>
                         {product.attributes &&
                           product.attributes.map((attr: any) => (
