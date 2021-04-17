@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,6 +45,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  tabBar: {
+    background: theme.palette.action.hover,
+  },
 }));
 
 export default function SimpleTabs() {
@@ -56,17 +60,17 @@ export default function SimpleTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
+      <Tabs
+        className={classes.tabBar}
+        value={value}
+        onChange={handleChange}
+        aria-label="simple tabs example"
+        centered
+      >
+        <Tab label="Описание" {...a11yProps(0)} />
+        <Tab label="Характеристики" {...a11yProps(1)} />
+        <Tab label="Отзывы" {...a11yProps(2)} />
+      </Tabs>
       <TabPanel value={value} index={0}>
         Описание
       </TabPanel>
