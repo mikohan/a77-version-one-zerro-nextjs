@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
 
       justifyContent: 'center',
       [theme.breakpoints.up('lg')]: {
@@ -159,10 +160,10 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateColumns: '1fr',
       },
       [theme.breakpoints.up('md')]: {
-        gridTemplateColumns: '4fr 3fr',
+        gridTemplateColumns: '1fr',
       },
       [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: '6fr 6fr',
+        gridTemplateColumns: '1fr',
       },
     },
     side: {
@@ -212,6 +213,9 @@ const useStyles = makeStyles((theme: Theme) =>
         borderRadius: '2px',
         transform: `skewX(-20deg)`,
       },
+    },
+    analogs: {
+      paddingLeft: theme.spacing(2),
     },
   })
 );
@@ -281,8 +285,8 @@ export default function ProductPage({ product }: IProps) {
                       )}
                       <Box className={classes.excerptPaper}>
                         {product.attributes &&
-                          product.attributes.map((attr: any) => (
-                            <dl className={classes.dl}>
+                          product.attributes.map((attr: any, i: number) => (
+                            <dl key={i} className={classes.dl}>
                               <dt>
                                 <span>{attr.name}</span>
                               </dt>
@@ -313,25 +317,26 @@ export default function ProductPage({ product }: IProps) {
             </Grid>
             <Grid item className={classes.under} xs={12}></Grid>
             <Grid container>
-              <Grid className={classes.wrapper} item xs={12}>
-                <div className={classes.first}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Facilis cumque rem molestiae excepturi earum voluptate
-                  deserunt aspernatur qui non eum maxime quas incidunt facere
-                  nostrum atque, beatae animi ullam libero dolore architecto
-                  minus voluptates nesciunt vitae! Ut, molestias? Repellat optio
-                  reprehenderit quae harum repellendus dignissimos, dolore
-                  maxime expedita in. Libero?
-                </div>
-                <div className={classes.third}>
-                  <ResponsivePlayer />
-                </div>
+              <Grid className={classes.wrapper} item xs={12} md={6}>
+                {product.video &&
+                  product.video.map((vid: string) => (
+                    <div key={vid} className={classes.third}>
+                      <ResponsivePlayer videoUrl={vid} />
+                    </div>
+                  ))}
+              </Grid>
+              <Grid className={classes.analogs} item xs={12} md={6}>
+                <div className={classes.first}></div>
                 <div className={classes.fifth}>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
-                  dolorem reiciendis blanditiis laborum repellat, mollitia
-                  assumenda consequuntur? Eveniet voluptatum ex atque quae sunt
-                  dolor enim nihil harum ipsa facilis ratione, quo ducimus
-                  incidunt eaque nobis illum, maxime dignissimos natus esse.
+                  <Paper>
+                    <Typography variant="h6">Аналоги</Typography>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Amet dolorem reiciendis blanditiis laborum repellat,
+                    mollitia assumenda consequuntur? Eveniet voluptatum ex atque
+                    quae sunt dolor enim nihil harum ipsa facilis ratione, quo
+                    ducimus incidunt eaque nobis illum, maxime dignissimos natus
+                    esse.
+                  </Paper>
                 </div>
               </Grid>
             </Grid>

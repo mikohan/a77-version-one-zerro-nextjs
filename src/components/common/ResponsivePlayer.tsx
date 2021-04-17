@@ -15,12 +15,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Player = () => {
+interface IProps {
+  videoUrl: string;
+}
+
+const Player = ({ videoUrl }: IProps) => {
   const classes = useStyles();
   return (
     <div className={classes.playerWrapper}>
       <ReactPlayer
-        url="https://youtu.be/d4EHZZJBidc"
+        url={videoUrl}
         className={classes.reactPlayer}
         controls={false}
         width="100%"
