@@ -188,10 +188,7 @@ export async function getProduct(slug: string): Promise<IProduct> {
           store
         }
         bages
-        rating {
-          score
-          autouser
-        }
+        rating
         condition
       }
     }
