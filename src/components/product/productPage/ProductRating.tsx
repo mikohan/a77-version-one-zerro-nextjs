@@ -47,10 +47,13 @@ export default function SimpleRating({ ratings, productId }: IProps) {
   useEffect(() => {
     async function getRemRating() {
       const rating = await getRating(productId, userId);
-      setUserScore(parseInt(rating.score));
+      console.log(rating);
+      if (rating) {
+        setUserScore(parseInt(rating.score));
+      }
     }
     getRemRating();
-  });
+  }, [userId]);
 
   useEffect(() => {
     let initVal = 0;
@@ -66,7 +69,7 @@ export default function SimpleRating({ ratings, productId }: IProps) {
     let initFindUser = 0;
     if (findUserId) {
       initFindUser = parseInt(findUserId.score);
-      setUserScore(initFindUser);
+      /* setUserScore(initFindUser); */
       setValue(initRating);
       setQuantityState(initQ);
     }

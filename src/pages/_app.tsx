@@ -125,6 +125,7 @@ function MyApp(props: any) {
     }
 
     updateUser();
+    console.log(userUUID);
   }, []);
 
   useEffect(() => {
@@ -150,7 +151,7 @@ function MyApp(props: any) {
           <ThemeProvider theme={useTheme}>
             <CssBaseline />
             <MainLayout setIsDark={setIsDark}>
-              <Component {...pageProps} />
+              <Component {...pageProps} userUUID={userUUID} />
             </MainLayout>
           </ThemeProvider>
         </Provider>

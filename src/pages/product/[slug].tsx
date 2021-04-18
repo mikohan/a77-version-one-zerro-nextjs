@@ -243,6 +243,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   product: IProduct;
+  userUUID: string;
 }
 interface IGalery {
   original: string;
