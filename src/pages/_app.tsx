@@ -34,7 +34,7 @@ import { getMakes, getVehicles } from '~/endpoints/carsEndpoint';
 import MainLayout from '~/layouts/Main';
 import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
-/* import { createOrUpdateUser } from '~/endpoints/carsEndpoint'; */
+import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -121,20 +121,11 @@ function MyApp(props: any) {
     }
     setUserId(userUUID);
     async function updateUser() {
-      /* const autouser = await createOrUpdateUser(userUUID); */
+      const autouser = await createOrUpdateUser(userUUID);
     }
 
-    /* updateUser(); */
-    console.log('Update user triggered');
+    updateUser();
   }, []);
-
-  useEffect(() => {
-    /* async function updateUser() { */
-    /*   const autouser = await createOrUpdateUser(userId); */
-    /* } */
-    /* updateUser(); */
-    /* console.log('Update user triggered'); */
-  }, [userId]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.
