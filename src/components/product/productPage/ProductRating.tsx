@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IRating } from '~/interfaces';
 import { scoreTransformer } from '~/utils';
+import { createOrUpdateRatings } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,9 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   ratings: IRating[];
+  productId: number;
 }
 
-export default function SimpleRating({ ratings }: IProps) {
+export default function SimpleRating({ ratings, productId }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState<number | null>(0);
   const [quantityState, setQuantityState] = React.useState<number>(0);
@@ -59,6 +61,18 @@ export default function SimpleRating({ ratings }: IProps) {
       setQuantityState(initQ);
     }
   }, []);
+
+  useEffect(() => {
+    async function setRating() {
+      const rating = await createOrUpdateRatings(
+        value as number,
+        productId,
+        userId
+      );
+      console.log(rating);
+    }
+    setRating();
+  }, [value]);
 
   function handleRating(
     event: React.ChangeEvent<{} | null>,

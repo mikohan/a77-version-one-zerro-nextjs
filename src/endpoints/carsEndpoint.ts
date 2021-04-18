@@ -4,12 +4,18 @@ import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
 import { IAutoUser } from '~/interfaces/user';
 
-export async function createOrUpdateRatings(userId: string, rating: number) {
+export async function createOrUpdateRatings(
+  score: number,
+  productId: number,
+  userId: string
+) {
   const mutation = gql`
-    mutation($userId: String!) {
-      createRating(userId: $userId) {
-        user {
-          userId
+    mutation($score: Int!, $productId: ID!, $userId: String) {
+      createRating(score: $score, productId: $productId, userId: $userId) {
+        rating {
+          score
+          product
+          autouser
         }
       }
     }
@@ -17,6 +23,8 @@ export async function createOrUpdateRatings(userId: string, rating: number) {
   const promise = await client.mutate({
     mutation: mutation,
     variables: {
+      score: score,
+      productId: productId,
       userId: userId,
     },
   });
