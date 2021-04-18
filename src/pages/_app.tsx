@@ -34,6 +34,7 @@ import { getMakes, getVehicles } from '~/endpoints/carsEndpoint';
 import MainLayout from '~/layouts/Main';
 import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
+/* import { createOrUpdateUser } from '~/endpoints/carsEndpoint'; */
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -51,6 +52,8 @@ function MyApp(props: any) {
   const [cookies, setCookie] = useCookies(['userUUID']);
   const [localstorage, setLocalstorage] = useLocalStorage('userUUID', '');
   const [isDark, setIsDark] = useState(false);
+  const [userId, setUserId] = useState('');
+
   /* const useTheme = theme; */
 
   const useTheme = isDark ? darkTheme : theme;
@@ -116,7 +119,22 @@ function MyApp(props: any) {
         setLocalstorage(userUUID);
       }
     }
-  });
+    setUserId(userUUID);
+    async function updateUser() {
+      /* const autouser = await createOrUpdateUser(userUUID); */
+    }
+
+    /* updateUser(); */
+    console.log('Update user triggered');
+  }, []);
+
+  useEffect(() => {
+    /* async function updateUser() { */
+    /*   const autouser = await createOrUpdateUser(userId); */
+    /* } */
+    /* updateUser(); */
+    /* console.log('Update user triggered'); */
+  }, [userId]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -139,7 +157,6 @@ function MyApp(props: any) {
       <CookiesProvider>
         <Provider store={store}>
           <ThemeProvider theme={useTheme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <MainLayout setIsDark={setIsDark}>
               <Component {...pageProps} />

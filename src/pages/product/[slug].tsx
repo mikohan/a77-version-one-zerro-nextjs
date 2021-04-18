@@ -360,9 +360,7 @@ export default function ProductPage({ product }: IProps) {
                 <div></div>
               </Grid>
               <Grid item className={classes.tabs} xs={12}>
-                <Paper>
-                  <ProductTabs product={product} />
-                </Paper>
+                <Paper>{/* <ProductTabs product={product} /> */}</Paper>
               </Grid>
             </Grid>
           </Grid>

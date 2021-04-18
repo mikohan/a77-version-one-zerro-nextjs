@@ -2,6 +2,26 @@ import { gql } from '@apollo/client';
 import { IMake } from '~/interfaces/IMake';
 import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
+import { IAutoUser } from '~/interfaces/user';
+
+export async function createOrUpdateUser(userId: string) {
+  const mutation = gql`
+    mutation($userId: String!) {
+      createAutoUser(userId: $userId) {
+        user {
+          userId
+        }
+      }
+    }
+  `;
+  const promise = await client.mutate({
+    mutation: mutation,
+    variables: {
+      userId: userId,
+    },
+  });
+  return await promise.data.createAutoUser;
+}
 
 // const client = ...
 export async function getMake(slug: string): Promise<IMake> {

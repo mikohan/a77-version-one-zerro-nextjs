@@ -115,8 +115,6 @@ export default function Swipper({ product }: IProps) {
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
       >
         {slides}
       </Swiper>
