@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -34,19 +34,42 @@ interface IProps {
 
 export default function SimpleRating({ ratings }: IProps) {
   const classes = useStyles();
-  let initVal = 0;
-  let initQ = 0;
-  if (ratings && ratings.length) {
-    initVal = ratings.reduce((acc: number, val: IRating) => {
-      const avg = (acc + parseInt(val.score)) / ratings.length;
-      return avg;
-    }, 0);
-    initQ = ratings.length;
+  const [value, setValue] = React.useState<number | null>(0);
+  const [quantityState, setQuantityState] = React.useState<number>(0);
+  const userId = useSelector((state: IState) => state.shopNew.userId);
+  const [userScore, setUserScore] = React.useState<number | null>(0);
+  const findUserId = ratings.find((item: IRating) => item.autouser === userId);
+
+  useEffect(() => {
+    let initVal = 0;
+    let initQ = 0;
+    if (ratings && ratings.length) {
+      initVal = ratings.reduce((acc: number, val: IRating) => {
+        const avg = (acc + parseInt(val.score)) / ratings.length;
+        return avg;
+      }, 0);
+      initQ = ratings.length;
+    }
+    const initRating = Math.ceil(initVal);
+    let initFindUser = 0;
+    if (findUserId) {
+      initFindUser = parseInt(findUserId.score);
+      setUserScore(initFindUser);
+      setValue(initRating);
+      setQuantityState(initQ);
+    }
+  }, []);
+
+  function handleRating(
+    event: React.ChangeEvent<{} | null>,
+    newValue: number | null
+  ) {
+    setValue(newValue);
+    setUserScore(newValue);
+    if (userId !== findUserId?.autouser) {
+      setQuantityState(quantityState + 1);
+    }
   }
-  const initRating = Math.ceil(initVal);
-  const [value, setValue] = React.useState<number | null>(initRating);
-  const [quantityState, setQuantityState] = React.useState<number>(initQ);
-  const [clicked, setClicked] = React.useState<boolean>(false);
 
   return (
     <div className={classes.root}>
@@ -55,15 +78,7 @@ export default function SimpleRating({ ratings }: IProps) {
         size="small"
         name="simple-controlled"
         value={value}
-        readOnly={clicked}
-        onChange={(
-          event: React.ChangeEvent<{} | null>,
-          newValue: number | null
-        ) => {
-          setValue(newValue);
-          setQuantityState(quantityState + 1);
-          setClicked(true);
-        }}
+        onChange={handleRating}
       />
       {quantityState ? (
         <Typography className={classes.quantity} variant="body2">
@@ -72,11 +87,9 @@ export default function SimpleRating({ ratings }: IProps) {
       ) : (
         ''
       )}
-      {clicked && (
-        <Typography className={classes.yourScore} variant="body2">
-          Ваша оценка {value}
-        </Typography>
-      )}
+      <Typography className={classes.yourScore} variant="body2">
+        Ваша оценка {userScore}
+      </Typography>
     </div>
   );
 }
