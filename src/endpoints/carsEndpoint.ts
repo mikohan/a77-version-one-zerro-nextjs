@@ -3,6 +3,7 @@ import { IMake } from '~/interfaces/IMake';
 import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
 import { IAutoUser } from '~/interfaces/user';
+import { IRating } from '~/interfaces/product';
 
 export async function createOrUpdateRatings(
   score: number,
@@ -23,9 +24,9 @@ export async function createOrUpdateRatings(
   const promise = await client.mutate({
     mutation: mutation,
     variables: {
-      score: score,
-      productId: productId,
-      userId: userId,
+      score,
+      productId,
+      userId,
     },
   });
   return await promise.data.createRating;
@@ -117,6 +118,29 @@ export async function getVehicles(): Promise<ICar[]> {
     `,
   });
   return await promise.data.vehicles;
+}
+
+export async function getRating(
+  productId: number,
+  userId: string
+): Promise<IRating> {
+  const query = gql`
+    query rating($productId: Int!, $userId: String!) {
+      rating(productId: $productId, userId: $userId) {
+        score
+        product
+        autouser
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      productId,
+      userId,
+    },
+  });
+  return await promise.data.rating;
 }
 
 export async function getVehicle(slug: string): Promise<ICar> {

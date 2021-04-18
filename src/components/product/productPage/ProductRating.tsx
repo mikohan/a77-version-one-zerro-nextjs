@@ -6,7 +6,9 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { IRating } from '~/interfaces';
 import { scoreTransformer } from '~/utils';
-import { createOrUpdateRatings } from '~/endpoints/carsEndpoint';
+import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
+import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +42,15 @@ export default function SimpleRating({ ratings, productId }: IProps) {
   const [quantityState, setQuantityState] = React.useState<number>(0);
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);
-  const findUserId = ratings.find((item: IRating) => item.autouser === userId);
+
+  let findUserId = ratings.find((item: IRating) => item.autouser === userId);
+  useEffect(() => {
+    async function getRemRating() {
+      const rating = await getRating(productId, userId);
+      setUserScore(parseInt(rating.score));
+    }
+    getRemRating();
+  });
 
   useEffect(() => {
     let initVal = 0;
