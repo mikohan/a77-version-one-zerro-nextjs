@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
-import { ICar, IProduct } from '~/interfaces';
+import { ICar, IProduct, IRating } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 import PageHeader from '~/components/product/PageHeader';
@@ -264,6 +264,10 @@ export default function ProductPage({ product }: IProps) {
     product.model.some((car: ICar) => car.slug === currentCar.slug)
       ? true
       : false;
+  let ratings: IRating[] = [];
+  if (product.rating && product.rating?.length) {
+    ratings = product.rating;
+  }
 
   return (
     <React.Fragment>
@@ -297,10 +301,7 @@ export default function ProductPage({ product }: IProps) {
                           product.model[0].make.name
                         )} ${product.model[0].model}`}
                       </Typography>
-                      <ProductRating
-                        rating={product.rating?.score}
-                        quantity={product.rating?.quantity}
-                      />
+                      <ProductRating ratings={ratings} />
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       {product.description && (

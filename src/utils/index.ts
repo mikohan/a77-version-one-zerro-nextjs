@@ -127,3 +127,14 @@ export function searchTree(element: any, matchingTitle: any): any {
   }
   return null;
 }
+
+export function scoreTransformer(val: number) {
+  if (val === 1) {
+    return 'оценка';
+  }
+  if (val === 0 || val >= 5) {
+    return 'оценок';
+  } else if (val > 0 && val < 5) {
+    return 'оценки';
+  }
+}

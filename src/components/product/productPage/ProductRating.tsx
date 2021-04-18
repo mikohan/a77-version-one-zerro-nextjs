@@ -4,6 +4,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import { IRating } from '~/interfaces';
+import { scoreTransformer } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,21 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  rating?: number;
-  quantity?: number;
+  ratings: IRating[];
 }
 
-export default function SimpleRating({ rating, quantity }: IProps) {
+export default function SimpleRating({ ratings }: IProps) {
   const classes = useStyles();
   let initVal = 0;
   let initQ = 0;
-  if (rating) {
-    initVal = rating;
-    if (quantity) {
-      initQ = quantity;
-    }
+  if (ratings && ratings.length) {
+    initVal = ratings.reduce((acc: number, val: IRating) => {
+      const avg = (acc + parseInt(val.score)) / ratings.length;
+      return avg;
+    }, 0);
+    initQ = ratings.length;
   }
-  const [value, setValue] = React.useState<number | null>(initVal);
+  const initRating = Math.ceil(initVal);
+  const [value, setValue] = React.useState<number | null>(initRating);
   const [quantityState, setQuantityState] = React.useState<number>(initQ);
   const [clicked, setClicked] = React.useState<boolean>(false);
 
@@ -64,7 +67,7 @@ export default function SimpleRating({ rating, quantity }: IProps) {
       />
       {quantityState ? (
         <Typography className={classes.quantity} variant="body2">
-          {quantityState} оценок
+          {quantityState} {scoreTransformer(quantityState)}
         </Typography>
       ) : (
         ''

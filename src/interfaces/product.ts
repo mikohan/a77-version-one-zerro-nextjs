@@ -30,9 +30,9 @@ export interface IProductStock {
 }
 
 export interface IRating {
-  score: number;
-  quantity: number;
-  user?: string;
+  score: string;
+  quantity: string;
+  autouser?: string;
 }
 
 export interface IProduct {
@@ -65,7 +65,7 @@ export interface IProduct {
    */
   excerpt: string;
   description: string;
-  rating?: IRating;
+  rating?: IRating[];
   created_date?: Date;
   updated_date?: Date;
   // Graphic stuff
