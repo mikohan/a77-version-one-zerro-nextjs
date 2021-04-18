@@ -4,6 +4,25 @@ import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
 import { IAutoUser } from '~/interfaces/user';
 
+export async function createOrUpdateRatings(userId: string, rating: number) {
+  const mutation = gql`
+    mutation($userId: String!) {
+      createRating(userId: $userId) {
+        user {
+          userId
+        }
+      }
+    }
+  `;
+  const promise = await client.mutate({
+    mutation: mutation,
+    variables: {
+      userId: userId,
+    },
+  });
+  return await promise.data.createRating;
+}
+
 export async function createOrUpdateUser(userId: string) {
   const mutation = gql`
     mutation($userId: String!) {
