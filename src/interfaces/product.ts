@@ -65,7 +65,7 @@ export interface IProduct {
    */
   excerpt: string;
   description: string;
-  rating?: IRating[];
+  rating?: number | undefined;
   created_date?: Date;
   updated_date?: Date;
   // Graphic stuff

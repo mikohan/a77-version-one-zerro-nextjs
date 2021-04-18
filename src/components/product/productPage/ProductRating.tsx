@@ -32,60 +32,37 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  ratings: IRating[];
+  rating?: number;
   productId: number;
 }
 
-export default function SimpleRating({ ratings, productId }: IProps) {
+export default function SimpleRating({ rating, productId }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState<number | null>(0);
   const [quantityState, setQuantityState] = React.useState<number>(0);
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);
+  console.log(rating);
 
-  let findUserId = ratings.find((item: IRating) => item.autouser === userId);
+  /* const ratingS = await getRating(productId, userId); */
+  /* console.log(rating); */
+  /* } */
   useEffect(() => {
-    async function getRemRating() {
-      const rating = await getRating(productId, userId);
-      console.log(rating);
-      if (rating) {
-        setUserScore(parseInt(rating.score));
-      }
+    if (rating) {
+      setValue(rating);
     }
-    getRemRating();
-  }, [userId]);
-
-  useEffect(() => {
-    let initVal = 0;
-    let initQ = 0;
-    if (ratings && ratings.length) {
-      initVal = ratings.reduce((acc: number, val: IRating) => {
-        const avg = (acc + parseInt(val.score)) / ratings.length;
-        return avg;
-      }, 0);
-      initQ = ratings.length;
-    }
-    const initRating = Math.ceil(initVal);
-    let initFindUser = 0;
-    if (findUserId) {
-      initFindUser = parseInt(findUserId.score);
-      /* setUserScore(initFindUser); */
-      setValue(initRating);
-      setQuantityState(initQ);
-    }
-  }, []);
+  });
 
   useEffect(() => {
     async function setRating() {
-      const rating = await createOrUpdateRatings(
-        value as number,
-        productId,
-        userId
-      );
-      console.log(rating);
+      /* const ratingS = await createOrUpdateRatings( */
+      /*   value as number, */
+      /*   productId, */
+      /*   userId */
+      /* ); */
     }
     setRating();
-  }, [value]);
+  }, []);
 
   function handleRating(
     event: React.ChangeEvent<{} | null>,
@@ -93,9 +70,6 @@ export default function SimpleRating({ ratings, productId }: IProps) {
   ) {
     setValue(newValue);
     setUserScore(newValue);
-    if (userId !== findUserId?.autouser) {
-      setQuantityState(quantityState + 1);
-    }
   }
 
   return (

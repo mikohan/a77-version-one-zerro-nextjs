@@ -29,6 +29,7 @@ import lightGreen from '@material-ui/core/colors/lightGreen';
 import parser from 'html-react-parser';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import ProductRating from '~/components/product/productPage/ProductRating';
+import { getRatingAvg } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -265,10 +266,9 @@ export default function ProductPage({ product }: IProps) {
     product.model.some((car: ICar) => car.slug === currentCar.slug)
       ? true
       : false;
-  let ratings: IRating[] = [];
-  if (product.rating && product.rating?.length) {
-    ratings = product.rating;
-  }
+
+  const productrating = product.rating ? product.rating : undefined;
+  console.log(productrating);
 
   return (
     <React.Fragment>
@@ -302,7 +302,10 @@ export default function ProductPage({ product }: IProps) {
                           product.model[0].make.name
                         )} ${product.model[0].model}`}
                       </Typography>
-                      <ProductRating ratings={ratings} productId={product.id} />
+                      <ProductRating
+                        rating={productrating}
+                        productId={product.id}
+                      />
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
                       {product.description && (

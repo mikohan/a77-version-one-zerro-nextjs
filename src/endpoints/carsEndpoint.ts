@@ -143,6 +143,23 @@ export async function getRating(
   return await promise.data.rating;
 }
 
+export async function getRatingAvg(productId: number): Promise<IRating> {
+  const query = gql`
+    query ratingAvg($productId: Int!) {
+      ratingAvg(productId: $productId) {
+        ratingAvg
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      productId,
+    },
+  });
+  return await promise.data.ratingAvg;
+}
+
 export async function getVehicle(slug: string): Promise<ICar> {
   const query = gql`
     query vehicle($slug: String!) {
