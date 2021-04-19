@@ -20,6 +20,8 @@ import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import ProductRating from '~/components/product/productPage/ProductRating';
 import parser from 'html-react-parser';
+import RelatedProductSlider from '~/components/common/RelatedProductSlider';
+import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -235,18 +237,15 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   product: IProduct;
   userUUID: string;
+  relatedProducts: IProduct[];
 }
 interface IGalery {
   original: string;
   thumbnail: string;
 }
-export default function ProductPage({ product }: IProps) {
+export default function ProductPage({ product, relatedProducts }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
-  const router = useRouter();
-  /* if (router.isFallback) { */
-  /*   return <div> ... Loading</div>; */
-  /* } */
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
     { name: product.name, path: `/product/${product.slug}` },
@@ -365,6 +364,14 @@ export default function ProductPage({ product }: IProps) {
                   <ProductTabs product={product} />
                 </Paper>
               </Grid>
+              <Grid item className={classes.tabs} xs={12}>
+                <Typography variant="h6">Сопутсвующие товары</Typography>
+              </Grid>
+              <Grid item className={classes.tabs} xs={12}>
+                <Paper>
+                  <RelatedProductSlider products={relatedProducts} />
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
         </div>
@@ -379,11 +386,13 @@ export const getStaticProps: GetStaticProps = async (
   const { slug } = context.params!;
 
   const product: IProduct = await getProduct(slug as string);
+  const relatedProducts = await getPopularProductsByModel('porter1', 20);
 
   return {
     revalidate: REVALIDATE,
     props: {
       product,
+      relatedProducts,
     },
   };
 };

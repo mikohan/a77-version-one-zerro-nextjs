@@ -7,6 +7,9 @@ import { Box, Grid, Typography } from '@material-ui/core';
 import SwiperProduct from '~/components/common/SwiperProduct';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
+import { GetServerSideProps } from 'next';
+import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
+import { IProduct } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,10 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  products: IProductElasticHitsFirst;
+  products: IProduct[];
 }
 
-export default function About() {
+export default function About({ products }: IProps) {
   const classes = useStyles();
   const [state, setState] = useState('');
   return (
@@ -33,7 +36,7 @@ export default function About() {
           </Grid>
           <Grid item xs={12}>
             <Box m={5} style={{ border: '1px solid pink' }}>
-              <RelatedProductSlider />
+              <RelatedProductSlider products={products} />
             </Box>
           </Grid>
         </Grid>
@@ -41,6 +44,15 @@ export default function About() {
     </React.Fragment>
   );
 }
+export const getServerSideProps: any = async (context: any) => {
+  const relatedProducts = await getPopularProductsByModel('porter1', 20);
+
+  return {
+    props: {
+      products: relatedProducts,
+    },
+  };
+};
 
 const AboutHead = () => (
   <Head>

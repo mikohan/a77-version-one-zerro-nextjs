@@ -13,7 +13,9 @@ import { imageServerUrl } from '~/config';
 import { IProduct } from '~/interfaces';
 import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
+import { Box } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import ProductCardGrid from '~/components/common/ProductCardGrid';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 interface IProps {
-  product: IProduct[];
+  products: IProduct[];
 }
 
 interface ISlide {
@@ -60,27 +62,11 @@ export default function Swipper({ products }: IProps) {
   });
 
   const slides = [];
-  const thumbs = [];
   if (images?.length) {
-    for (let im of images) {
+    for (let prod of products) {
       slides.push(
-        <SwiperSlide key={im.image} className={classes.swiperSlide}>
-          <Image
-            layout="responsive"
-            width={900}
-            height={600}
-            src={`${imageServerUrl}${im.image}`}
-          />
-        </SwiperSlide>
-      );
-      thumbs.push(
-        <SwiperSlide key={im.thumbnail}>
-          <Image
-            layout="responsive"
-            width={150}
-            height={100}
-            src={`${imageServerUrl}${im.thumbnail}`}
-          />
+        <SwiperSlide key={prod.id} className={classes.swiperSlide}>
+          <ProductCardGrid product={prod} />
         </SwiperSlide>
       );
     }
@@ -88,22 +74,14 @@ export default function Swipper({ products }: IProps) {
     for (let i = 0; i < 10; i += 1) {
       slides.push(
         <SwiperSlide key={i + 1}>
-          <Image
-            layout="responsive"
-            width={700}
-            height={500}
-            src={`https://picsum.photos/id/${i + 1}/500/300`}
-          />
-        </SwiperSlide>
-      );
-      thumbs.push(
-        <SwiperSlide key={i + 1}>
-          <Image
-            layout="intrinsic"
-            width={150}
-            height={100}
-            src={`https://picsum.photos/id/${i + 1}/500/300`}
-          />
+          <Box style={{ width: 300, height: 500 }}>
+            <Image
+              layout="responsive"
+              width={700}
+              height={500}
+              src={`https://picsum.photos/id/${i + 1}/500/300`}
+            />
+          </Box>
         </SwiperSlide>
       );
     }
