@@ -338,14 +338,18 @@ export default function ProductPage({ product }: IProps) {
             <Grid container item>
               <Grid className={classes.wrapper} item xs={12} md={6}>
                 <Paper>
-                  {product.video ? (
+                  {product.video && product.video.length ? (
                     product.video.map((vid: string) => (
                       <div key={vid} className={classes.third}>
                         <ResponsivePlayer videoUrl={vid} />
                       </div>
                     ))
                   ) : (
-                    <div></div>
+                    <div>
+                      <ResponsivePlayer
+                        videoUrl={'https://youtu.be/a9I1oNYj26o'}
+                      />
+                    </div>
                   )}
                 </Paper>
               </Grid>
