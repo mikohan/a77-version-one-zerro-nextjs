@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { Box, Grid, Typography } from '@material-ui/core';
 import SwiperProduct from '~/components/common/SwiperProduct';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
-import { GetServerSideProps } from 'next';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
 

@@ -73,14 +73,13 @@ export default function SimpleRating({
   useEffect(() => {
     async function setServerRating() {
       let myVal = value;
-      if (!value) {
-        myVal = 0;
+      if (value) {
+        const newRating = await createOrUpdateRatings(
+          myVal as number,
+          productId,
+          userId
+        );
       }
-      const newRating = await createOrUpdateRatings(
-        myVal as number,
-        productId,
-        userId
-      );
     }
     setServerRating();
   }, [value]);
