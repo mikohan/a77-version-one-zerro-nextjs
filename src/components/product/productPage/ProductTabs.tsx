@@ -72,7 +72,19 @@ export default function SimpleTabs({ product }: IProps) {
         <Tab label="Отзывы" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Box>{parser(product.description)}</Box>
+        {product.description ? (
+          <Box>{parser(product.description)}</Box>
+        ) : (
+          <Box>
+            <Typography variant="h6" color="secondary">
+              Probably needs to set some default description
+            </Typography>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa cum
+            nostrum aliquam minima natus, officiis molestiae labore. Odio odit
+            earum cumque voluptatem, quisquam eveniet blanditiis alias
+            distinctio ipsam, quod et!
+          </Box>
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         Характеристики

@@ -9,7 +9,7 @@ import ProductPageHead from '~/components/heads/ProductPageHead';
 import { ICar, IProduct } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
-import PageHeader from '~/components/product/PageHeader';
+import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
@@ -266,7 +266,7 @@ export default function ProductPage({ product }: IProps) {
         <div className={classes.mainContainer}>
           <Grid container>
             <Grid className={classes.headerContainer} item xs={12}>
-              <PageHeader header={product.name} breads={breads} />
+              <ProductPageHeader breads={breads} />
             </Grid>
             <Grid className={classes.gridRow} container item xs={12}>
               <Grid className={classes.swipeGrid} item xs={12} md={6}>
@@ -338,12 +338,15 @@ export default function ProductPage({ product }: IProps) {
             <Grid container item>
               <Grid className={classes.wrapper} item xs={12} md={6}>
                 <Paper>
-                  {product.video &&
+                  {product.video ? (
                     product.video.map((vid: string) => (
                       <div key={vid} className={classes.third}>
                         <ResponsivePlayer videoUrl={vid} />
                       </div>
-                    ))}
+                    ))
+                  ) : (
+                    <div></div>
+                  )}
                 </Paper>
               </Grid>
               <Grid className={classes.analogs} item xs={12} md={6}>
