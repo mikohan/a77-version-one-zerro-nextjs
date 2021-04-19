@@ -34,24 +34,32 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   rating?: number;
   productId: number;
+  ratingCount?: number;
 }
 
-export default function SimpleRating({ rating, productId }: IProps) {
+export default function SimpleRating({
+  rating,
+  productId,
+  ratingCount,
+}: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState<number | null>(0);
   const [quantityState, setQuantityState] = React.useState<number>(0);
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);
-  console.log(rating);
+  console.log(rating, ratingCount);
 
   /* const ratingS = await getRating(productId, userId); */
   /* console.log(rating); */
   /* } */
   useEffect(() => {
     if (rating) {
+      if (ratingCount) {
+        setQuantityState(ratingCount);
+      }
       setValue(rating);
     }
-  });
+  }, []);
 
   useEffect(() => {
     async function setRating() {

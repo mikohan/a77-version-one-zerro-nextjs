@@ -305,6 +305,7 @@ export default function ProductPage({ product }: IProps) {
                       <ProductRating
                         rating={productrating}
                         productId={product.id}
+                        ratingCount={product.ratingCount}
                       />
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>

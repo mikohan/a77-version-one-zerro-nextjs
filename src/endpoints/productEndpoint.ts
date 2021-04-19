@@ -189,6 +189,7 @@ export async function getProduct(slug: string): Promise<IProduct> {
         }
         bages
         rating
+        ratingCount
         condition
       }
     }
