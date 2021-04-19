@@ -368,9 +368,9 @@ export default function ProductPage({ product, relatedProducts }: IProps) {
                 <Typography variant="h6">Сопутсвующие товары</Typography>
               </Grid>
               <Grid item className={classes.tabs} xs={12}>
-                <Paper>
+                <Box>
                   <RelatedProductSlider products={relatedProducts} />
-                </Paper>
+                </Box>
               </Grid>
             </Grid>
           </Grid>

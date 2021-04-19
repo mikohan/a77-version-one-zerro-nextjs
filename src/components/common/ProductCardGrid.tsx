@@ -96,7 +96,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   const classes = useStyles();
 
   const imgPath: string = product.images.length
-    ? `${imageServerUrl}${product.images[0].img500 as string}`
+    ? `${imageServerUrl}${product.images[0].img245 as string}`
     : '/images/local/defaultParts500.jpg';
 
   const stock = product.stocks.find((item: any) => item.store.id === 3);
@@ -114,8 +114,8 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         <a className={classes.a}>
           <Image
             layout="intrinsic"
-            width={245}
-            height={245}
+            width={400}
+            height={400}
             className={classes.image}
             src={imgPath}
             alt={product.full_name}

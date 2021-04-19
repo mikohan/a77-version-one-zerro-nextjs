@@ -55,7 +55,7 @@ export default function Swipper({ products }: IProps) {
 
   const classes = useStyles();
   const images = products?.map((product: IProduct) => {
-    const img = product.images[0].img245;
+    const img = product.images[0].img500;
     return {
       image: img,
     };
@@ -93,7 +93,7 @@ export default function Swipper({ products }: IProps) {
         className={classes.swiperContainer}
         id="main"
         thumbs={{ swiper: thumbSwiper }}
-        spaceBetween={5}
+        spaceBetween={10}
         slidesPerView={5}
         navigation
         pagination={{ clickable: true }}
