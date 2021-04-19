@@ -5,8 +5,8 @@ import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { Box, Grid, Typography } from '@material-ui/core';
 import SwiperProduct from '~/components/common/SwiperProduct';
-import LightBox from '~/components/common/LightBox';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +33,7 @@ export default function About() {
           </Grid>
           <Grid item xs={12}>
             <Box m={5} style={{ border: '1px solid pink' }}>
-              <SwiperProduct />
+              <RelatedProductSlider />
             </Box>
           </Grid>
         </Grid>
