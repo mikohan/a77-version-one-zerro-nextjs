@@ -47,11 +47,8 @@ export default function SimpleRating({
   const [quantityState, setQuantityState] = React.useState<number>(0);
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);
-  console.log(rating, ratingCount);
 
-  /* const ratingS = await getRating(productId, userId); */
-  /* console.log(rating); */
-  /* } */
+  // Here we are setting up initial rating of product and total scores
   useEffect(() => {
     if (rating) {
       if (ratingCount) {
@@ -61,16 +58,29 @@ export default function SimpleRating({
     }
   }, []);
 
+  // Here we trying to get rating by id and set it to state
   useEffect(() => {
-    async function setRating() {
-      /* const ratingS = await createOrUpdateRatings( */
-      /*   value as number, */
-      /*   productId, */
-      /*   userId */
-      /* ); */
+    async function getUserRating(productId: number, userId: string) {
+      const userRating = await getRating(productId, userId);
+      setUserScore(parseInt(userRating.score));
+      console.log(rating);
     }
-    setRating();
-  }, []);
+    if (userId) {
+      getUserRating(productId, userId);
+    }
+  }, [userId]);
+
+  // Here we are setting user score to database
+  useEffect(() => {
+    async function setServerRating() {
+      const newRating = await createOrUpdateRatings(
+        value as number,
+        productId,
+        userId
+      );
+    }
+    setServerRating();
+  }, [value]);
 
   function handleRating(
     event: React.ChangeEvent<{} | null>,
@@ -96,9 +106,13 @@ export default function SimpleRating({
       ) : (
         ''
       )}
-      <Typography className={classes.yourScore} variant="body2">
-        Ваша оценка {userScore}
-      </Typography>
+      {userScore ? (
+        <Typography className={classes.yourScore} variant="body2">
+          Ваша оценка {userScore}
+        </Typography>
+      ) : (
+        ' test string'
+      )}
     </div>
   );
 }
