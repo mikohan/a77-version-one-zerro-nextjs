@@ -4,11 +4,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import { IRating } from '~/interfaces';
 import { scoreTransformer } from '~/utils';
 import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
-import { useCookies } from 'react-cookie';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
