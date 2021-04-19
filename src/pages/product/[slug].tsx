@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import ProductRating from '~/components/product/productPage/ProductRating';
+import parser from 'html-react-parser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -353,7 +354,9 @@ export default function ProductPage({ product }: IProps) {
                 <div></div>
               </Grid>
               <Grid item className={classes.tabs} xs={12}>
-                <Paper>{/* <ProductTabs product={product} /> */}</Paper>
+                <Paper>
+                  <ProductTabs product={product} />
+                </Paper>
               </Grid>
             </Grid>
           </Grid>
