@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { scoreTransformer } from '~/utils';
 import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
-import { useRouter } from 'next/router';
+import { getProductRating } from '~/endpoints/productEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,20 +41,24 @@ export default function SimpleRating({
   ratingCount,
 }: IProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState<number | null>(0);
-  const [quantityState, setQuantityState] = React.useState<number>(0);
+  const [value, setValue] = React.useState<number | null>(rating as any);
+  const [quantityState, setQuantityState] = React.useState<number>(
+    ratingCount as any
+  );
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);
 
-  // Here we are setting up initial rating of product and total scores
   useEffect(() => {
-    if (rating) {
-      if (ratingCount) {
-        setQuantityState(ratingCount);
+    async function getUserRatingAsync() {
+      if (productId) {
+        const { rating, ratingCount } = await getProductRating(productId);
+        setValue(rating!);
+        setQuantityState(ratingCount!);
+        setUserScore(0);
       }
-      setValue(rating);
     }
-  }, []);
+    getUserRatingAsync();
+  }, [productId]);
 
   // Here we trying to get rating by id and set it to state
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function SimpleRating({
     if (userId) {
       getUserRating(productId, userId);
     }
-  }, [userId]);
+  }, [productId, value]);
 
   // Here we are setting user score to database
   useEffect(() => {

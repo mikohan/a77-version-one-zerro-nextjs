@@ -203,3 +203,22 @@ export async function getProduct(slug: string): Promise<IProduct> {
   const data = await promise.data.product;
   return data;
 }
+
+export async function getProductRating(productId: number): Promise<IProduct> {
+  const query = gql`
+    query productRating($productId: Int!) {
+      productRating(productId: $productId) {
+        rating
+        ratingCount
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      productId,
+    },
+  });
+  const data = await promise.data.productRating;
+  return data;
+}

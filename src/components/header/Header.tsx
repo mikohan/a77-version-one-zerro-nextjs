@@ -177,6 +177,7 @@ export default function Header({ setIsDark }: IProps) {
   const tabs = (
     <React.Fragment>
       <Tabs
+        style={{ border: '1px solid pink' }}
         value={activePage}
         onChange={handleChange}
         indicatorColor="primary"
