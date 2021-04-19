@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { containerMaxWidth, REVALIDATE } from '~/config';
-import {
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  useTheme,
-  Box,
-} from '@material-ui/core';
+import { REVALIDATE } from '~/config';
+import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
-import { ICar, IProduct, IRating } from '~/interfaces';
+import { ICar, IProduct } from '~/interfaces';
 import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 import PageHeader from '~/components/product/PageHeader';
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
-import CatNumber from '~/components/product/productPage/CatNumber';
 import PriceBox from '~/components/product/productPage/PriceBox';
 import { capitalize } from '~/utils';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import lightGreen from '@material-ui/core/colors/lightGreen';
-import parser from 'html-react-parser';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import ProductRating from '~/components/product/productPage/ProductRating';
-import { getRatingAvg } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -268,7 +257,6 @@ export default function ProductPage({ product }: IProps) {
       : false;
 
   const productrating = product.rating ? product.rating : undefined;
-  console.log(productrating);
 
   return (
     <React.Fragment>

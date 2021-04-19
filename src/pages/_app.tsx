@@ -125,7 +125,6 @@ function MyApp(props: any) {
     }
 
     updateUser();
-    console.log(userUUID);
   }, []);
 
   useEffect(() => {

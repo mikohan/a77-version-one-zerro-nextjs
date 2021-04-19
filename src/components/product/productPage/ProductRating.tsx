@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { scoreTransformer } from '~/utils';
 import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,8 +72,12 @@ export default function SimpleRating({
   // Here we are setting user score to database
   useEffect(() => {
     async function setServerRating() {
+      let myVal = value;
+      if (!value) {
+        myVal = 0;
+      }
       const newRating = await createOrUpdateRatings(
-        value as number,
+        myVal as number,
         productId,
         userId
       );
