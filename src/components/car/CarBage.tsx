@@ -38,7 +38,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         background:
           theme.palette.type === 'light'
             ? theme.palette.secondary.light
-            : theme.palette.primary.light,
+            : theme.palette.primary.main,
         '&:hover': {
           borderColor: theme.palette.action.active,
         },
