@@ -269,7 +269,7 @@ export default function CarChooseModal() {
         <ChipComponent />
       </Box>
       <Popper
-        style={{ zIndex: 5000 }}
+        style={{ zIndex: 1 }}
         id={id}
         open={open}
         anchorEl={anchorEl}
