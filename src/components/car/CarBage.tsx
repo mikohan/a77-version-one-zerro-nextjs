@@ -20,7 +20,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
     fontSize = '1.1rem';
   } else if (size === 'sm') {
     avSize = 4.5;
-    fontSize = '1rem';
+    fontSize = '0.95rem';
   }
 
   const useStyles = makeStyles((theme: Theme) =>
@@ -33,8 +33,12 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
       carBox: {
         display: 'flex',
         justifyContent: 'flex-start',
-        border: '1px solid',
-        borderColor: theme.palette.action.disabled,
+        /* border: '1px solid', */
+        /* borderColor: theme.palette.action.disabled, */
+        background:
+          theme.palette.type === 'light'
+            ? theme.palette.secondary.light
+            : theme.palette.primary.light,
         '&:hover': {
           borderColor: theme.palette.action.active,
         },
@@ -51,7 +55,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         backgroundColor: 'transparent',
       },
       text: {
-        color: theme.palette.text.secondary,
+        color: '#fff',
         fontSize: fontSize,
       },
     })
