@@ -62,8 +62,9 @@ export default function SimpleRating({
   useEffect(() => {
     async function getUserRating(productId: number, userId: string) {
       const userRating = await getRating(productId, userId);
-      setUserScore(parseInt(userRating.score));
-      console.log(rating);
+      if (userRating) {
+        setUserScore(parseInt(userRating.score));
+      }
     }
     if (userId) {
       getUserRating(productId, userId);
@@ -111,7 +112,9 @@ export default function SimpleRating({
           Ваша оценка {userScore}
         </Typography>
       ) : (
-        ' test string'
+        <Typography className={classes.yourScore} variant="body2">
+          Оцените Продукт
+        </Typography>
       )}
     </div>
   );
