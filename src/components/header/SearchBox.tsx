@@ -77,26 +77,7 @@ export default function SearchBox() {
       <Grid className={classes.root} container>
         <Hidden smDown>
           <Grid className={classes.container} item md={4} lg={3}>
-            {currentCar ? (
-              <React.Fragment>
-                <Chip
-                  icon={<CarIconComponent />}
-                  label={chipLabel}
-                  onClick={handleCurrentCar}
-                  clickable
-                  color="default"
-                  onDelete={handleCurrentCar}
-                  deleteIcon={<DoneIcon />}
-                  variant="outlined"
-                  classes={{ icon: classes.carIcon }}
-                />
-                <Box className={classes.carChoiserText}>
-                  <CarChooseModal />
-                </Box>
-              </React.Fragment>
-            ) : (
-              <CarChooseModal />
-            )}
+            <CarChooseModal />
           </Grid>
         </Hidden>
         <Grid item xs={12} md={8} lg={6}>

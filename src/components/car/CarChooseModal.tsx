@@ -15,7 +15,7 @@ import { IState } from '~/interfaces/IState';
 import { useCookies } from 'react-cookie';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { IMake } from '~/interfaces';
-import { Grid, Typography } from '@material-ui/core';
+import { Chip, SvgIcon, Grid, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { capitalize } from '~/utils';
@@ -25,6 +25,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import CarIcon from '~/assets/sedan-car-front.svg';
+import DoneIcon from '@material-ui/icons/Done';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,6 +93,10 @@ const useStyles = makeStyles((theme: Theme) =>
     myCarsText: {
       marginTop: theme.spacing(3),
       marginLeft: theme.spacing(3),
+    },
+    carIcon: {
+      fontSize: '1.5rem',
+      marginLeft: theme.spacing(2),
     },
   })
 );
@@ -218,17 +225,56 @@ export default function CarChooseModal() {
     setAnchorEl(null);
   }
 
+  let chipLabel: string = 'Выбрать Машину';
+  if (currentCar && Object.keys(currentCar).length) {
+    chipLabel = `${capitalize(currentCar.make.name)} ${capitalize(
+      currentCar.model
+    )}`;
+  }
+  function CarIconComponent() {
+    return (
+      <SvgIcon
+        className={classes.carIcon}
+        component={CarIcon}
+        viewBox="0 0 48.997 48.998"
+      ></SvgIcon>
+    );
+  }
+
+  function handleCurrentCar() {
+    console.log('In handle current car');
+  }
+
+  const ChipComponent = () => (
+    <Chip
+      icon={<CarIconComponent />}
+      label={chipLabel}
+      onClick={handleCurrentCar}
+      clickable
+      color="default"
+      onDelete={handleCurrentCar}
+      deleteIcon={<DoneIcon />}
+      variant="outlined"
+      classes={{ icon: classes.carIcon }}
+    />
+  );
+
   return (
     <div>
-      <Typography
-        variant="body2"
+      <Box
         className={classes.carButton}
         aria-describedby={id}
         onClick={handleClick}
       >
-        Выбрать машину
-      </Typography>
-      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+        <ChipComponent />
+      </Box>
+      <Popper
+        style={{ zIndex: 5000 }}
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        transition
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <div className={classes.paper}>
