@@ -311,7 +311,7 @@ export default function ProductPage({
     return (
       <React.Fragment>
         <Grid item className={classes.tabs} xs={12}>
-          <Typography variant="h6">Похожие запчасти</Typography>
+          <Typography variant="h6">Может понадобиться</Typography>
         </Grid>
         <Grid item className={classes.tabs} xs={12}>
           <Box>
@@ -425,16 +425,16 @@ export default function ProductPage({
                 </Paper>
                 <div></div>
               </Grid>
-              <Grid item className={classes.tabs} xs={12}>
-                <Paper>
-                  <ProductTabs product={product} />
-                </Paper>
-              </Grid>
               {togetherProducts && togetherProducts.length ? (
                 <TogetherProducts />
               ) : (
                 ''
               )}
+              <Grid item className={classes.tabs} xs={12}>
+                <Paper>
+                  <ProductTabs product={product} />
+                </Paper>
+              </Grid>
               {similar && similar.length ? <SimilarProducts /> : ''}
               {relatedProducts && relatedProducts.length ? (
                 <PopularParts />
