@@ -65,6 +65,52 @@ export async function getProductsBySearch(
 
   return prom.data;
 }
+export async function getSimilarProducts(
+  slug: string,
+  quantity: number
+): Promise<IProduct[]> {
+  const query = gql`
+    query similarProducts($slug: String!, $quantity: Int!) {
+      similarProducts(slug: $slug, quantity: $quantity) {
+        id
+        slug
+        name
+        fullName
+        sku
+        catNumber
+        bages
+        brand {
+          name
+          country
+        }
+        stocks {
+          price
+        }
+        engine {
+          name
+          id
+        }
+        model {
+          slug
+          model
+          make {
+            slug
+            name
+          }
+        }
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      slug,
+      quantity,
+    },
+  });
+  const data = await promise.data.similarProducts;
+  return data;
+}
 
 export async function getProductAnalogs(
   catNumber: string,
@@ -86,6 +132,10 @@ export async function getProductAnalogs(
         }
         stocks {
           price
+        }
+        engine {
+          name
+          id
         }
         model {
           slug
@@ -138,6 +188,9 @@ export async function getPopularProductsByModel(
         brand {
           name
           country
+        }
+        engine {
+          name
         }
         model {
           slug
