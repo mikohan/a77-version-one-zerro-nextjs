@@ -69,7 +69,7 @@ export async function getProductsBySearch(
 export async function getProductAnalogs(
   catNumber: string,
   productId: number
-): Promise<IProduct> {
+): Promise<IProduct[]> {
   const query = gql`
     query analogs($catNumber: String!, $productId: Int!) {
       analogs(catNumber: $catNumber, productId: $productId) {
@@ -80,6 +80,10 @@ export async function getProductAnalogs(
         sku
         catNumber
         bages
+        brand {
+          name
+          country
+        }
         stocks {
           price
         }
@@ -108,7 +112,7 @@ export async function getProductAnalogs(
 export async function getPopularProductsByModel(
   slug: string,
   quantity: number
-): Promise<IProduct> {
+): Promise<IProduct[]> {
   const query = gql`
     query popularProducts($slug: String!, $quantity: Int!) {
       popularProducts(slug: $slug, quantity: $quantity) {
@@ -130,6 +134,10 @@ export async function getPopularProductsByModel(
         }
         stocks {
           price
+        }
+        brand {
+          name
+          country
         }
         model {
           slug

@@ -25,6 +25,7 @@ import {
   getPopularProductsByModel,
   getProductAnalogs,
 } from '~/endpoints/productEndpoint';
+import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -241,7 +242,7 @@ interface IProps {
   product: IProduct;
   userUUID: string;
   relatedProducts: IProduct[];
-  analogs?: IProduct[];
+  analogs: IProduct[];
 }
 interface IGalery {
   original: string;
@@ -265,7 +266,7 @@ export default function ProductPage({
       : false;
 
   const productrating = product.rating ? product.rating : undefined;
-  console.log(analogs);
+  const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
 
   return (
     <React.Fragment>
@@ -364,7 +365,7 @@ export default function ProductPage({
               <Grid className={classes.analogs} item xs={12} md={6}>
                 <Paper className={classes.analogPaper}>
                   <Typography variant="h6">Аналоги</Typography>
-                  <Box>{parser(product.description)}</Box>
+                  <ProductAnalogs products={productAnalogs} />
                 </Paper>
                 <div></div>
               </Grid>
@@ -396,7 +397,10 @@ export const getStaticProps: GetStaticProps = async (
 
   const product: IProduct = await getProduct(slug as string);
   const relatedProducts = await getPopularProductsByModel('porter1', 20);
-  const analogs = await getProductAnalogs('491404A000', 270);
+  let analogs: IProduct[] = [];
+  if (product && product.catNumber) {
+    analogs = await getProductAnalogs(product.catNumber, product.id);
+  }
 
   return {
     revalidate: REVALIDATE,
