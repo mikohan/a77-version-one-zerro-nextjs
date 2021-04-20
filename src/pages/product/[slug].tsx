@@ -7,7 +7,11 @@ import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
 import { ICar, IProduct } from '~/interfaces';
-import { getProduct, getProductsAll } from '~/endpoints/productEndpoint';
+import {
+  getProduct,
+  getProductsAll,
+  getSimilarProducts,
+} from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import { IBread } from '~/interfaces';
@@ -243,6 +247,7 @@ interface IProps {
   userUUID: string;
   relatedProducts: IProduct[];
   analogs: IProduct[];
+  similar: IProduct[];
 }
 interface IGalery {
   original: string;
@@ -252,6 +257,7 @@ export default function ProductPage({
   product,
   relatedProducts,
   analogs,
+  similar,
 }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
@@ -267,6 +273,7 @@ export default function ProductPage({
 
   const productrating = product.rating ? product.rating : undefined;
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
+  console.log(similar);
 
   return (
     <React.Fragment>
@@ -375,7 +382,15 @@ export default function ProductPage({
                 </Paper>
               </Grid>
               <Grid item className={classes.tabs} xs={12}>
-                <Typography variant="h6">Сопутсвующие товары</Typography>
+                <Typography variant="h6">Похожие запчасти</Typography>
+              </Grid>
+              <Grid item className={classes.tabs} xs={12}>
+                <Box>
+                  <RelatedProductSlider products={similar} />
+                </Box>
+              </Grid>
+              <Grid item className={classes.tabs} xs={12}>
+                <Typography variant="h6">Популярные запчасти</Typography>
               </Grid>
               <Grid item className={classes.tabs} xs={12}>
                 <Box>
@@ -396,10 +411,15 @@ export const getStaticProps: GetStaticProps = async (
   const { slug } = context.params!;
 
   const product: IProduct = await getProduct(slug as string);
-  const relatedProducts = await getPopularProductsByModel('porter1', 20);
+
+  let models = product.model.map((car: ICar) => car.slug);
+
+  const relatedProducts = await getPopularProductsByModel(models, 20);
   let analogs: IProduct[] = [];
+  let similar: IProduct[] = [];
   if (product && product.catNumber) {
     analogs = await getProductAnalogs(product.catNumber, product.id);
+    similar = await getSimilarProducts(slug as string, 20);
   }
 
   return {
@@ -408,6 +428,7 @@ export const getStaticProps: GetStaticProps = async (
       product,
       relatedProducts,
       analogs,
+      similar,
     },
   };
 };

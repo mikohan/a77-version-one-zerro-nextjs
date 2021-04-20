@@ -65,6 +65,7 @@ export async function getProductsBySearch(
 
   return prom.data;
 }
+// similar products
 export async function getSimilarProducts(
   slug: string,
   quantity: number
@@ -79,6 +80,15 @@ export async function getSimilarProducts(
         sku
         catNumber
         bages
+        images {
+          img150
+          img245
+          img500
+          img150x150
+          img245x245
+          img500x500
+          main
+        }
         brand {
           name
           country
@@ -133,10 +143,6 @@ export async function getProductAnalogs(
         stocks {
           price
         }
-        engine {
-          name
-          id
-        }
         model {
           slug
           model
@@ -188,9 +194,6 @@ export async function getPopularProductsByModel(
         brand {
           name
           country
-        }
-        engine {
-          name
         }
         model {
           slug

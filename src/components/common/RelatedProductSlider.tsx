@@ -55,7 +55,8 @@ export default function Swipper({ products }: IProps) {
 
   const classes = useStyles();
   const images = products?.map((product: IProduct) => {
-    const img = product.images[0].img500;
+    const img =
+      product.images && product.images.length ? product.images[0].img500 : [];
     return {
       image: img,
     };
