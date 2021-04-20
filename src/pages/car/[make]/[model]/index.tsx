@@ -251,7 +251,7 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   const popularProducts = await getPopularProductsByModel(
-    modelSlug,
+    [modelSlug],
     popularProductsQuantity
   );
   const promise = await getProductsByFilters(url);

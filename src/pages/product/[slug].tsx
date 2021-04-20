@@ -274,6 +274,36 @@ export default function ProductPage({
   const productrating = product.rating ? product.rating : undefined;
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
 
+  const PopularParts = () => {
+    return (
+      <React.Fragment>
+        <Grid item className={classes.tabs} xs={12}>
+          <Typography variant="h6">Популярные запчасти</Typography>
+        </Grid>
+        <Grid item className={classes.tabs} xs={12}>
+          <Box>
+            <RelatedProductSlider products={relatedProducts} />
+          </Box>
+        </Grid>
+      </React.Fragment>
+    );
+  };
+
+  const SimilarProducts = () => {
+    return (
+      <React.Fragment>
+        <Grid item className={classes.tabs} xs={12}>
+          <Typography variant="h6">Похожие запчасти</Typography>
+        </Grid>
+        <Grid item className={classes.tabs} xs={12}>
+          <Box>
+            <RelatedProductSlider products={similar} />
+          </Box>
+        </Grid>
+      </React.Fragment>
+    );
+  };
+
   return (
     <React.Fragment>
       <ProductPageHead product={product} />
@@ -382,22 +412,12 @@ export default function ProductPage({
                   <ProductTabs product={product} />
                 </Paper>
               </Grid>
-              <Grid item className={classes.tabs} xs={12}>
-                <Typography variant="h6">Похожие запчасти</Typography>
-              </Grid>
-              <Grid item className={classes.tabs} xs={12}>
-                <Box>
-                  <RelatedProductSlider products={similar} />
-                </Box>
-              </Grid>
-              <Grid item className={classes.tabs} xs={12}>
-                <Typography variant="h6">Популярные запчасти</Typography>
-              </Grid>
-              <Grid item className={classes.tabs} xs={12}>
-                <Box>
-                  <RelatedProductSlider products={relatedProducts} />
-                </Box>
-              </Grid>
+              {similar && similar.length ? <SimilarProducts /> : ''}
+              {relatedProducts && relatedProducts.length ? (
+                <PopularParts />
+              ) : (
+                ''
+              )}
             </Grid>
           </Grid>
         </div>
@@ -415,13 +435,17 @@ export const getStaticProps: GetStaticProps = async (
 
   let models = product.model.map((car: ICar) => car.slug);
 
-  const relatedProducts = await getPopularProductsByModel(models, 20);
+  let relatedProducts: IProduct[] = [];
   let analogs: IProduct[] = [];
   let similar: IProduct[] = [];
   if (product && product.catNumber) {
-    analogs = await getProductAnalogs(product.catNumber, product.id);
+    if (product.id) {
+      analogs = await getProductAnalogs(product.catNumber, product.id);
+    }
     similar = await getSimilarProducts(slug as string, 20);
   }
+
+  //relatedProducts = await getPopularProductsByModel(models, 20);
 
   return {
     revalidate: REVALIDATE,

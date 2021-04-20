@@ -17,11 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {
-  products: IProduct[];
-}
+interface IProps {}
 
-export default function About({ products }: IProps) {
+export default function About() {
   const classes = useStyles();
   const [state, setState] = useState('');
   return (
@@ -33,9 +31,7 @@ export default function About({ products }: IProps) {
             <Typography variant="h1">{state}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Box m={5} style={{ border: '1px solid pink' }}>
-              <RelatedProductSlider products={products} />
-            </Box>
+            <Box m={5} style={{ border: '1px solid pink' }}></Box>
           </Grid>
         </Grid>
       </AnimationPage>
@@ -43,12 +39,8 @@ export default function About({ products }: IProps) {
   );
 }
 export const getServerSideProps: any = async (context: any) => {
-  const relatedProducts = await getPopularProductsByModel('porter1', 20);
-
   return {
-    props: {
-      products: relatedProducts,
-    },
+    props: {},
   };
 };
 
