@@ -53,7 +53,7 @@ export interface IProduct {
   partNumber: string;
   brand: IBrand;
   breadcrumbs?: string;
-  related: string[]; // Array of related products ids
+  related: IProduct[]; // Array of related products ids
   // Next section
   category: ICategory[];
   make?: IMake;

@@ -115,9 +115,11 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   }
 
   const price = stock ? stock?.price : null;
-  const compatable = product.model.some(
-    (item: any) => item.slug.toLowerCase() === currentCar?.slug
-  );
+  const compatable = product.model
+    ? product.model.some(
+        (item: any) => item.slug.toLowerCase() === currentCar?.slug
+      )
+    : null;
   let car: string =
     currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
 

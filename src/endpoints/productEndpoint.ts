@@ -70,7 +70,7 @@ export async function getProductsBySearch(
 export async function getTogetherProducts(slug: string): Promise<IProduct[]> {
   const query = gql`
     query togetherProduct($slug: String!) {
-      togetherProducts(slug: $slug) {
+      togetherProduct(slug: $slug) {
         id
         slug
         name
@@ -293,7 +293,33 @@ export async function getProduct(slug: string): Promise<IProduct> {
           country
           image
         }
-        related
+        related {
+          id
+          slug
+          name
+          catNumber
+          model {
+            slug
+            model
+          }
+          images {
+            img500
+            img245
+            img150
+          }
+          stocks {
+            price
+            store
+          }
+        }
+        brand {
+          name
+          country
+        }
+        model {
+          slug
+          model
+        }
         category {
           id
           name

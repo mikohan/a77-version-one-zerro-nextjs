@@ -30,6 +30,7 @@ import {
   getProductAnalogs,
 } from '~/endpoints/productEndpoint';
 import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
+import { getTogetherProducts } from '~/endpoints/productEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -274,6 +275,9 @@ export default function ProductPage({
   const productrating = product.rating ? product.rating : undefined;
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
+  const togetherProducts: IProduct[] =
+    product.related && product.related.length ? product.related : [];
+  console.log(togetherProducts);
 
   const PopularParts = () => {
     return (
@@ -299,6 +303,20 @@ export default function ProductPage({
         <Grid item className={classes.tabs} xs={12}>
           <Box>
             <RelatedProductSlider products={productSimilar} />
+          </Box>
+        </Grid>
+      </React.Fragment>
+    );
+  };
+  const TogetherProducts = () => {
+    return (
+      <React.Fragment>
+        <Grid item className={classes.tabs} xs={12}>
+          <Typography variant="h6">Похожие запчасти</Typography>
+        </Grid>
+        <Grid item className={classes.tabs} xs={12}>
+          <Box>
+            <RelatedProductSlider products={togetherProducts} />
           </Box>
         </Grid>
       </React.Fragment>
@@ -413,6 +431,11 @@ export default function ProductPage({
                   <ProductTabs product={product} />
                 </Paper>
               </Grid>
+              {togetherProducts && togetherProducts.length ? (
+                <TogetherProducts />
+              ) : (
+                ''
+              )}
               {similar && similar.length ? <SimilarProducts /> : ''}
               {relatedProducts && relatedProducts.length ? (
                 <PopularParts />
@@ -446,7 +469,6 @@ export const getStaticProps: GetStaticProps = async (
     }
     // it is working good but very slow
     // similar = await getSimilarProducts(slug as string, 20);
-    together = await getTogetherProducts(slug as string);
   }
 
   // It is working not very goog because of same products on all pages
