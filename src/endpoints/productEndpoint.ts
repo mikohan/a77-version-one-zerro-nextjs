@@ -166,12 +166,12 @@ export async function getProductAnalogs(
 }
 
 export async function getPopularProductsByModel(
-  slug: string,
+  slugs: string[],
   quantity: number
 ): Promise<IProduct[]> {
   const query = gql`
-    query popularProducts($slug: String!, $quantity: Int!) {
-      popularProducts(slug: $slug, quantity: $quantity) {
+    query popularProducts($slugs: [String], $quantity: Int!) {
+      popularProducts(slugs: $slugs, quantity: $quantity) {
         id
         slug
         name
@@ -209,7 +209,7 @@ export async function getPopularProductsByModel(
   const promise = await client.query({
     query: query,
     variables: {
-      slug: slug,
+      slugs: slugs,
       quantity: quantity,
     },
   });
