@@ -65,6 +65,60 @@ export async function getProductsBySearch(
 
   return prom.data;
 }
+
+// Together products
+export async function getTogetherProducts(slug: string): Promise<IProduct[]> {
+  const query = gql`
+    query togetherProduct($slug: String!) {
+      togetherProducts(slug: $slug) {
+        id
+        slug
+        name
+        fullName
+        sku
+        catNumber
+        bages
+        images {
+          img150
+          img245
+          img500
+          img150x150
+          img245x245
+          img500x500
+          main
+        }
+        brand {
+          name
+          country
+        }
+        stocks {
+          price
+        }
+        engine {
+          name
+          id
+        }
+        model {
+          slug
+          model
+          make {
+            slug
+            name
+          }
+        }
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      slug,
+    },
+  });
+  const data = await promise.data.togetherProduct;
+  return data;
+}
+
 // similar products
 export async function getSimilarProducts(
   slug: string,

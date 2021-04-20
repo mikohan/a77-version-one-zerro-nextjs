@@ -99,8 +99,22 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
     ? `${imageServerUrl}${product.images[0].img245 as string}`
     : '/images/local/defaultParts500.jpg';
 
-  const stock = product.stocks.find((item: any) => item.store.id === 3);
-  const price = stock?.price;
+  let stock = null;
+  if (product.stocks && product.stocks.length) {
+    try {
+      stock = product.stocks.find((item: any) => {
+        if (item.hasOwnProperty('store')) {
+          return item.store.id === 3;
+        } else {
+          return true;
+        }
+      });
+    } catch (e) {
+      console.error('Error in ProductCard for similar products', e);
+    }
+  }
+
+  const price = stock ? stock?.price : null;
   const compatable = product.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );

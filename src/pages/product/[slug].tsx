@@ -273,6 +273,7 @@ export default function ProductPage({
 
   const productrating = product.rating ? product.rating : undefined;
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
+  const productSimilar: IProduct[] = similar && similar.length ? similar : [];
 
   const PopularParts = () => {
     return (
@@ -297,7 +298,7 @@ export default function ProductPage({
         </Grid>
         <Grid item className={classes.tabs} xs={12}>
           <Box>
-            <RelatedProductSlider products={similar} />
+            <RelatedProductSlider products={productSimilar} />
           </Box>
         </Grid>
       </React.Fragment>
@@ -438,13 +439,18 @@ export const getStaticProps: GetStaticProps = async (
   let relatedProducts: IProduct[] = [];
   let analogs: IProduct[] = [];
   let similar: IProduct[] = [];
+  let together: IProduct[] = [];
   if (product && product.catNumber) {
     if (product.id) {
       analogs = await getProductAnalogs(product.catNumber, product.id);
     }
-    similar = await getSimilarProducts(slug as string, 20);
+    // it is working good but very slow
+    // similar = await getSimilarProducts(slug as string, 20);
+    together = await getTogetherProducts(slug as string);
   }
 
+  // It is working not very goog because of same products on all pages
+  // needs to change logic
   //relatedProducts = await getPopularProductsByModel(models, 20);
 
   return {
