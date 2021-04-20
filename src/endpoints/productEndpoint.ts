@@ -66,12 +66,51 @@ export async function getProductsBySearch(
   return prom.data;
 }
 
+export async function getProductAnalogs(
+  catNumber: string,
+  productId: number
+): Promise<IProduct> {
+  const query = gql`
+    query analogs($catNumber: String!, $productId: Int!) {
+      analogs(catNumber: $catNumber, productId: $productId) {
+        id
+        slug
+        name
+        fullName
+        sku
+        catNumber
+        bages
+        stocks {
+          price
+        }
+        model {
+          slug
+          model
+          make {
+            slug
+            name
+          }
+        }
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      catNumber,
+      productId,
+    },
+  });
+  const data = await promise.data.analogs;
+  return data;
+}
+
 export async function getPopularProductsByModel(
   slug: string,
   quantity: number
 ): Promise<IProduct> {
   const query = gql`
-    query vehicle($slug: String!, $quantity: Int!) {
+    query popularProducts($slug: String!, $quantity: Int!) {
       popularProducts(slug: $slug, quantity: $quantity) {
         id
         slug

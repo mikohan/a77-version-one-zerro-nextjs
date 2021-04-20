@@ -35,10 +35,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         justifyContent: 'flex-start',
         /* border: '1px solid', */
         /* borderColor: theme.palette.action.disabled, */
-        background:
-          theme.palette.type === 'light'
-            ? theme.palette.secondary.light
-            : theme.palette.primary.main,
+        background: theme.palette.action.disabled,
         '&:hover': {
           borderColor: theme.palette.action.active,
         },
@@ -55,7 +52,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
         backgroundColor: 'transparent',
       },
       text: {
-        color: '#fff',
+        color: theme.palette.background.paper,
         fontSize: fontSize,
       },
     })

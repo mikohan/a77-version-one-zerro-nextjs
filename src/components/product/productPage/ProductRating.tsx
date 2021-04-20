@@ -41,9 +41,11 @@ export default function SimpleRating({
   ratingCount,
 }: IProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState<number | null>(rating as any);
+  const initVal = rating ? rating : 0;
+  const initQ = ratingCount ? ratingCount : 0;
+  const [value, setValue] = React.useState<number | null>(initVal as any);
   const [quantityState, setQuantityState] = React.useState<number>(
-    ratingCount as any
+    initQ as any
   );
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);

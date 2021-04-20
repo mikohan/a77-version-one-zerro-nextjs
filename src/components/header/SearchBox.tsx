@@ -8,8 +8,8 @@ import CarChooseModal from '~/components/car/CarChooseModal';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
       background: theme.palette.background.paper,

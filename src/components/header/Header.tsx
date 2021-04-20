@@ -66,8 +66,17 @@ const useStyles = makeStyles((theme: Theme) =>
     switchLabel: {
       fontSize: '90%',
     },
+    tabsGrid: {
+      position: 'relative',
+    },
     switcherBox: {
       paddingRight: theme.spacing(2),
+      position: 'absolute',
+      top: theme.spacing(1.5),
+      right: theme.spacing(2),
+    },
+    searchBox: {
+      paddingTop: theme.spacing(1),
     },
   })
 );
@@ -152,7 +161,7 @@ export default function Header({ setIsDark }: IProps) {
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
-            <ListItemText>Home</ListItemText>
+            <ListItemText>ANGARA PARTS</ListItemText>
           </ListItem>
           <Divider />
           <ListItem button onClick={goContacts} selected={activePage === 3}>
@@ -177,14 +186,13 @@ export default function Header({ setIsDark }: IProps) {
   const tabs = (
     <React.Fragment>
       <Tabs
-        style={{ border: '1px solid pink' }}
         value={activePage}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
         centered
       >
-        <Tab label="Home" onClick={goHome} />
+        <Tab label="ANGARA PARTS" onClick={goHome} />
         <Tab label="Cars" onClick={goCars} />
         <Tab label="About" onClick={goAbout} />
         <Tab label="Contacts" onClick={goContacts} />
@@ -200,7 +208,7 @@ export default function Header({ setIsDark }: IProps) {
           className={classes.appbar}
           position="static"
           color="transparent"
-          elevation={1}
+          elevation={0}
         >
           <Toolbar variant="regular">
             <Grid
@@ -208,29 +216,29 @@ export default function Header({ setIsDark }: IProps) {
               justify="space-between"
               container
             >
-              <Grid item>{matches ? drawer : tabs}</Grid>
-              <Grid item>
-                <Box className={classes.switcherBox}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        color="primary"
-                        size="small"
-                        checked={isDark}
-                        onChange={isDarkHandler}
-                      />
-                    }
-                    label={isDark ? 'светлая тема' : 'темная тема'}
-                    labelPlacement="start"
-                    classes={{ label: classes.switchLabel }}
-                  />
-                </Box>
+              <Grid className={classes.tabsGrid} item container>
+                {matches ? drawer : tabs}
               </Grid>
+              <Box className={classes.switcherBox}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      color="primary"
+                      size="small"
+                      checked={isDark}
+                      onChange={isDarkHandler}
+                    />
+                  }
+                  label={isDark ? 'светлая тема' : 'темная тема'}
+                  labelPlacement="start"
+                  classes={{ label: classes.switchLabel }}
+                />
+              </Box>
             </Grid>
           </Toolbar>
         </AppBar>
       </div>
-      <Grid container>
+      <Grid container className={classes.searchBox}>
         <Grid item xs={12}>
           <SearchBox />
         </Grid>

@@ -92,11 +92,9 @@ export default function Swipper({ products }: IProps) {
       <Swiper
         className={classes.swiperContainer}
         id="main"
-        thumbs={{ swiper: thumbSwiper }}
         spaceBetween={10}
         slidesPerView={5}
         navigation
-        pagination={{ clickable: true }}
       >
         {slides}
       </Swiper>

@@ -21,7 +21,10 @@ import ProductTabs from '~/components/product/productPage/ProductTabs';
 import ProductRating from '~/components/product/productPage/ProductRating';
 import parser from 'html-react-parser';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
-import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
+import {
+  getPopularProductsByModel,
+  getProductAnalogs,
+} from '~/endpoints/productEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -238,12 +241,17 @@ interface IProps {
   product: IProduct;
   userUUID: string;
   relatedProducts: IProduct[];
+  analogs?: IProduct[];
 }
 interface IGalery {
   original: string;
   thumbnail: string;
 }
-export default function ProductPage({ product, relatedProducts }: IProps) {
+export default function ProductPage({
+  product,
+  relatedProducts,
+  analogs,
+}: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
   const breads: IBread[] = [
@@ -257,6 +265,7 @@ export default function ProductPage({ product, relatedProducts }: IProps) {
       : false;
 
   const productrating = product.rating ? product.rating : undefined;
+  console.log(analogs);
 
   return (
     <React.Fragment>
@@ -387,12 +396,14 @@ export const getStaticProps: GetStaticProps = async (
 
   const product: IProduct = await getProduct(slug as string);
   const relatedProducts = await getPopularProductsByModel('porter1', 20);
+  const analogs = await getProductAnalogs('491404A000', 270);
 
   return {
     revalidate: REVALIDATE,
     props: {
       product,
       relatedProducts,
+      analogs,
     },
   };
 };
