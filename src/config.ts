@@ -1,5 +1,4 @@
 import { ITransFilter, IFilter } from '~/interfaces';
-export * from '~/data/shopData';
 
 export const imageServerUrl = 'http://localhost:8000';
 
@@ -106,3 +105,22 @@ export const transFilter: ITransFilter = {
 
 // If priority high and higer show car model homepage if not shop product grid
 export const carHomePagePriority = 4;
+
+export const COMPANY_INFORMATION = {
+  SHOP_PHONE: '+7 (495) 646-99-53',
+  SHOP_PHONE_TWO: '+7 8 800 299-99-53',
+  SHOP_ADDRESS: 'г. Москва, Соловьиная Роща дoм 8 корпус 2',
+  SHOP_EMAIL: 'angara77@gmail.com',
+  SHOP_WORKING_HOURS: 'Ежедневно c 09:00 до 19:00',
+  SHOP_CONTACT_TEXT:
+    'Мы всегда открыты для сотрудничества и критики, Свяжитесь любым удобным способом.',
+};
+export const footerData = COMPANY_INFORMATION;
+// If product does not have description just show some dummy description
+export const DEFAULT_EXCERPT = `
+<div>
+<p>В нашем интернет магазине всегда оригинальные запчасти и качественные аналоги.</p>
+<p>Если у Вас есть вопросы по запчасти или по её качеству - звоните нашим менеджерам.</p>
+<p>тел: ${COMPANY_INFORMATION.SHOP_PHONE}</p>
+</div>
+`;

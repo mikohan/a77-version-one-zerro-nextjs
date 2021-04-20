@@ -8,7 +8,6 @@ import { Hidden } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN } from '~/config';
 import { footerData as data } from '~/config';
-import Container from '@material-ui/core/Container';
 interface IPropsCopyright {
   className?: string;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { REVALIDATE } from '~/config';
+import { DEFAULT_EXCERPT, REVALIDATE } from '~/config';
 import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
@@ -273,7 +273,6 @@ export default function ProductPage({
 
   const productrating = product.rating ? product.rating : undefined;
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
-  console.log(similar);
 
   return (
     <React.Fragment>
@@ -314,12 +313,14 @@ export default function ProductPage({
                       />
                     </Grid>
                     <Grid className={classes.excerptBox} item xs={12} lg={6}>
-                      {product.description && (
+                      {product.description ? (
                         <Grid className={classes.excerpt} item xs={12} lg={12}>
                           <Box className={classes.excerptText}>
                             {parser(product.description)}
                           </Box>
                         </Grid>
+                      ) : (
+                        parser(DEFAULT_EXCERPT)
                       )}
                       <Box className={classes.excerptPaper}>
                         {product.attributes &&
