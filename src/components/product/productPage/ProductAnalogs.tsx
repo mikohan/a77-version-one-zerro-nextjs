@@ -35,9 +35,9 @@ export default function DenseTable({ products }: IProps) {
           <TableHead>
             <TableRow>
               <TableCell>Название</TableCell>
-              <TableCell align="right">Каталог</TableCell>
-              <TableCell align="right">Бренд</TableCell>
-              <TableCell align="right">Цена</TableCell>
+              <TableCell>Каталог</TableCell>
+              <TableCell>Бренд</TableCell>
+              <TableCell>Цена</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
