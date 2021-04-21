@@ -1,3 +1,7 @@
+export interface IDimension {
+  width: number;
+  height: number;
+}
 export interface IImage {
   id: string;
   img150?: string;
@@ -9,4 +13,5 @@ export interface IImage {
   img500x500?: string;
   img800x800?: string;
   main?: boolean;
+  dimension: IDimension;
 }

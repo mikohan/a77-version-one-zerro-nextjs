@@ -11,7 +11,7 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { imageServerUrl } from '~/config';
 import { IProduct } from '~/interfaces';
-import { IImage } from '~/interfaces/IImage';
+import { IDimension, IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { SRLWrapper } from 'simple-react-lightbox';
@@ -46,6 +46,7 @@ interface IProps {
 interface ISlide {
   image: string;
   thumbnail: string;
+  dimension: IDimension;
 }
 
 export default function Swipper({ product }: IProps) {
@@ -55,6 +56,7 @@ export default function Swipper({ product }: IProps) {
   const images = product?.images.map((image: IImage) => ({
     image: image.img800,
     thumbnail: image.img150,
+    dimension: image.dimension,
   }));
   let alt: string = 'Запчасти для коммерческого и легкового транспорта';
   if (product && product.model.length) {
@@ -67,12 +69,22 @@ export default function Swipper({ product }: IProps) {
   const thumbs = [];
   if (images?.length) {
     for (let im of images) {
+      const { width, height } = Object.keys(im.dimension).length
+        ? im.dimension
+        : { width: 900, height: 600 };
+      const {
+        tmbWidth,
+        tmbHeight,
+      }: { tmbWidth: number; tmbHeight: number } = Object.keys(im.dimension)
+        .length
+        ? { tmbWidth: width / 6, tmbHeight: height / 6 }
+        : { tmbWidth: 150, tmbHeight: 100 };
       slides.push(
         <SwiperSlide key={im.image} className={classes.swiperSlide}>
           <Image
             layout="responsive"
-            width={900}
-            height={600}
+            width={width}
+            height={height}
             src={`${imageServerUrl}${im.image}`}
             alt={alt}
           />
@@ -82,8 +94,8 @@ export default function Swipper({ product }: IProps) {
         <SwiperSlide key={im.thumbnail}>
           <Image
             layout="responsive"
-            width={150}
-            height={100}
+            width={tmbWidth}
+            height={tmbHeight}
             src={`${imageServerUrl}${im.thumbnail}`}
           />
         </SwiperSlide>

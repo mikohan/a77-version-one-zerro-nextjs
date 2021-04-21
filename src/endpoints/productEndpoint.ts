@@ -360,6 +360,10 @@ export async function getProduct(slug: string): Promise<IProduct> {
           img500x500
           img800x800
           main
+          dimension {
+            width
+            height
+          }
         }
         video
         attributes {
