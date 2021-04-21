@@ -1,5 +1,5 @@
 import React from 'react';
-import { IEngine, IProduct } from '~/interfaces';
+import { IProduct } from '~/interfaces';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import parser from 'html-react-parser';
 import { DEFAULT_EXCERPT } from '~/config';
@@ -9,9 +9,7 @@ import { capitalize } from '~/utils';
 import { useSelector } from 'react-redux';
 import { ICar } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
-import { Typography, Box, Grid, Paper, SvgIcon } from '@material-ui/core';
-import { Car20Svg } from '~/svg';
-import Car from '~/pages/car';
+import { Typography, Box, Grid, Paper } from '@material-ui/core';
 import {
   FiPaymentSecurity48Svg,
   FiFreeDelivery48Svg,
