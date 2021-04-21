@@ -90,7 +90,6 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     excerptPaper: {
-      border: '1px solid green',
       height: '100%',
       paddingLeft: theme.spacing(2),
       paddingTop: theme.spacing(1),

@@ -35,6 +35,7 @@ import MainLayout from '~/layouts/Main';
 import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
 import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
+import SimpleReactLightbox from 'simple-react-lightbox';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -148,10 +149,12 @@ function MyApp(props: any) {
       <CookiesProvider>
         <Provider store={store}>
           <ThemeProvider theme={useTheme}>
-            <CssBaseline />
-            <MainLayout setIsDark={setIsDark}>
-              <Component {...pageProps} userUUID={userUUID} />
-            </MainLayout>
+            <SimpleReactLightbox>
+              <CssBaseline />
+              <MainLayout setIsDark={setIsDark}>
+                <Component {...pageProps} userUUID={userUUID} />
+              </MainLayout>
+            </SimpleReactLightbox>
           </ThemeProvider>
         </Provider>
       </CookiesProvider>

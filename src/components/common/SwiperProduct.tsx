@@ -14,6 +14,7 @@ import { IProduct } from '~/interfaces';
 import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { SRLWrapper } from 'simple-react-lightbox';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -107,17 +108,19 @@ export default function Swipper({ product }: IProps) {
 
   return (
     <React.Fragment>
-      <Swiper
-        className={classes.swiperContainer}
-        id="main"
-        thumbs={{ swiper: thumbSwiper }}
-        spaceBetween={10}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-      >
-        {slides}
-      </Swiper>
+      <SRLWrapper>
+        <Swiper
+          className={classes.swiperContainer}
+          id="main"
+          thumbs={{ swiper: thumbSwiper }}
+          spaceBetween={10}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+        >
+          {slides}
+        </Swiper>
+      </SRLWrapper>
       <Swiper
         slidesPerView={6}
         style={{ width: '100%' }}

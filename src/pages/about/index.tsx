@@ -8,6 +8,8 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
+import { SRLWrapper } from 'simple-react-lightbox';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +33,40 @@ export default function About() {
             <Typography variant="h1">{state}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Box m={5} style={{ border: '1px solid pink' }}></Box>
+            <SRLWrapper>
+              <Box m={5} style={{ border: '1px solid pink' }}>
+                <a href="/images/local/defaultParts500.jpg">
+                  <Image
+                    layout="intrinsic"
+                    src="/images/local/defaultParts500.jpg"
+                    alt="Picture of the author"
+                    width={150}
+                    height={100}
+                    // srl_gallery_image="true" // Add this if your thumbnail is not recognized
+                  />
+                </a>
+                <a href="/images/local/defaultParts245.jpg">
+                  <Image
+                    layout="intrinsic"
+                    src="/images/local/defaultParts500.jpg"
+                    alt="Picture of the author"
+                    width={150}
+                    height={100}
+                    // srl_gallery_image="true" // Add this if your thumbnail is not recognized
+                  />
+                </a>
+                <a href="/images/local/defaultParts245.jpg">
+                  <Image
+                    layout="intrinsic"
+                    src="/images/local/defaultParts500.jpg"
+                    alt="Picture of the author"
+                    width={150}
+                    height={100}
+                    // srl_gallery_image="true" // Add this if your thumbnail is not recognized
+                  />
+                </a>
+              </Box>
+            </SRLWrapper>
           </Grid>
         </Grid>
       </AnimationPage>
