@@ -9,19 +9,15 @@ import { capitalize } from '~/utils';
 import { useSelector } from 'react-redux';
 import { ICar } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
+import { Typography, Box, Grid, Paper, SvgIcon } from '@material-ui/core';
+import { Car20Svg } from '~/svg';
+import Car from '~/pages/car';
 import {
-  Chip,
-  Button,
-  Typography,
-  Box,
-  Table,
-  TableRow,
-  TableBody,
-  TableCell,
-  Hidden,
-  Grid,
-  Paper,
-} from '@material-ui/core';
+  FiPaymentSecurity48Svg,
+  FiFreeDelivery48Svg,
+  Fi24Hours48Svg,
+} from '~/svg';
+import { COMPANY_INFORMATION } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -141,6 +137,26 @@ const useStyles = makeStyles((theme: Theme) =>
         order: 2,
       },
     },
+
+    bottomIcons: {
+      padding: theme.spacing(2),
+      border: '1px solid pink',
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
+    iconItem: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: theme.spacing(5),
+      height: theme.spacing(5),
+      fill: theme.palette.secondary.main,
+    },
+    iconBox: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   })
 );
 interface IProps {
@@ -209,14 +225,24 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
             </Box>
           </Grid>
         </Grid>
-        <Box
-          style={{
-            border: '1px solid pink',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          Tegs are going here
+        <Box className={classes.bottomIcons}>
+          <Box className={classes.iconBox}>
+            <FiFreeDelivery48Svg className={classes.iconItem} />
+            <Typography variant="subtitle1">Бесплатная доставка</Typography>
+            <Typography variant="body2">
+              При заказе от &#8381; {COMPANY_INFORMATION.FREE_SHIPPING_FROM}
+            </Typography>
+          </Box>
+          <Box className={classes.iconBox}>
+            <FiPaymentSecurity48Svg className={classes.iconItem} />
+            <Typography variant="body2">Some text here</Typography>
+            <Typography variant="body2">Some text here</Typography>
+          </Box>
+          <Box className={classes.iconBox}>
+            <Fi24Hours48Svg className={classes.iconItem} />
+            <Typography variant="body2">Some text here</Typography>
+            <Typography variant="body2">Some text here</Typography>
+          </Box>
         </Box>
       </Paper>
     </div>
