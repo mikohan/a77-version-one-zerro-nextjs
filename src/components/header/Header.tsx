@@ -26,7 +26,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 
-import { HomeOutlined } from '@material-ui/icons';
+import { HomeOutlined, ThumbUp } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 

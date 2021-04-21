@@ -15,6 +15,7 @@ import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { SRLWrapper } from 'simple-react-lightbox';
+import { capitalize } from '~/utils';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,6 +56,12 @@ export default function Swipper({ product }: IProps) {
     image: image.img800,
     thumbnail: image.img150,
   }));
+  let alt: string = 'Запчасти для коммерческого и легкового транспорта';
+  if (product && product.model.length) {
+    alt = `${capitalize(product?.model[0].make.name)} ${
+      product?.model[0].model
+    } ${product?.name}`;
+  }
 
   const slides = [];
   const thumbs = [];
@@ -67,6 +74,7 @@ export default function Swipper({ product }: IProps) {
             width={900}
             height={600}
             src={`${imageServerUrl}${im.image}`}
+            alt={alt}
           />
         </SwiperSlide>
       );
@@ -87,9 +95,9 @@ export default function Swipper({ product }: IProps) {
         <SwiperSlide key={i + 1}>
           <Image
             layout="responsive"
-            width={700}
-            height={500}
-            src={`https://picsum.photos/id/${i + 1}/500/300`}
+            width={1200}
+            height={900}
+            src={`https://picsum.photos/id/${i + 1}/1200/900`}
           />
         </SwiperSlide>
       );
@@ -105,10 +113,16 @@ export default function Swipper({ product }: IProps) {
       );
     }
   }
+  const options = {
+    settings: {},
+    buttons: {
+      showDownloadButton: false,
+    },
+  };
 
   return (
     <React.Fragment>
-      <SRLWrapper>
+      <SRLWrapper options={options}>
         <Swiper
           className={classes.swiperContainer}
           id="main"
