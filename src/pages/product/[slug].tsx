@@ -17,12 +17,9 @@ import ProductPageHeader from '~/components/product/productPage/ProductPageHeade
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
-import PriceBox from '~/components/product/productPage/PriceBox';
-import { capitalize } from '~/utils';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
-import ProductRating from '~/components/product/productPage/ProductRating';
 import parser from 'html-react-parser';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
@@ -30,7 +27,7 @@ import {
   getProductAnalogs,
 } from '~/endpoints/productEndpoint';
 import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
-import { getTogetherProducts } from '~/endpoints/productEndpoint';
+import ProductPriceSideBlock from '~/components/product/productPage/ProductPriseSideBlock';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,10 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
     swiperPaper: {
       height: '100%',
     },
-    productHeaderGrid: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-    },
 
     descriptionGrid: {
       paddingLeft: theme.spacing(1),
@@ -76,91 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingRight: theme.spacing(1),
       },
     },
-    descriptionPaper: {
-      position: 'relative',
-      height: '100%',
-      padding: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-    },
-    rightSideGrid: {
-      display: 'flex',
-    },
     under: {
       height: theme.spacing(10),
-    },
-    productHeader: {
-      fontSize: '1.8rem',
-      fontWeight: 700,
-      [theme.breakpoints.down('md')]: {
-        order: 1,
-      },
-    },
-    excerptBox: {
-      paddingLeft: theme.spacing(1),
-      [theme.breakpoints.down('md')]: {
-        order: 3,
-      },
-    },
-    excerptPaper: {
-      border: '1px solid green',
-      height: '100%',
-      paddingLeft: theme.spacing(2),
-      paddingTop: theme.spacing(1),
-    },
-    excerpt: {
-      paddingLeft: theme.spacing(2),
-    },
-    excerptText: {
-      lineHeight: '1.5em',
-      maxHeight: '10em',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      position: 'relative',
-    },
-    dl: {
-      display: 'flex',
-      position: 'relative',
-      /* flexWrap: 'wrap', */
-      width: '100%',
-      alignItems: 'flex-end',
-      fontSize: '0.775rem',
-
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '0.875rem',
-      },
-      color: theme.palette.text.disabled,
-      '& > dd': {
-        width: '49%',
-        wordBreak: 'break-word',
-      },
-      '& > dt': {
-        width: '50%',
-        '& span': {
-          position: 'relative',
-          display: 'inline',
-          background: theme.palette.background.paper,
-        },
-        '&:before': {
-          content: '""',
-          display: 'block',
-          width: '60%',
-          borderBottom: '1px',
-          borderStyle: 'dotted',
-          borderColor: theme.palette.action.selected,
-          position: 'absolute',
-          bottom: '0.2rem',
-          left: 0,
-        },
-      },
-    },
-    catNumberBox: {
-      display: 'flex',
-      flexDirection: 'column',
-      [theme.breakpoints.down('md')]: {
-        order: 2,
-      },
     },
     bottomRow: {
       padding: theme.spacing(2),
@@ -201,35 +111,6 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     reactPlayer: {},
-    carBage: {
-      position: 'absolute',
-      top: theme.spacing(-1),
-      left: theme.spacing(4),
-      paddingLeft: theme.spacing(1),
-      color: () =>
-        theme.palette.type === 'light'
-          ? theme.palette.background.paper
-          : theme.palette.text.primary,
-      fontWeight: 500,
-      fontSize: '0.8rem',
-      zIndex: 0,
-      '&::before': {
-        content: '""',
-        display: 'block',
-        width: '100%',
-        position: 'absolute',
-        zIndex: -1,
-        left: theme.spacing(0.5),
-        right: theme.spacing(0.5),
-        top: 0,
-        bottom: 0,
-        background: theme.palette.primary.main,
-        /* background: */
-        /*   theme.palette.type === 'light' ? lightGreen[100] : lightGreen[700], */
-        borderRadius: '2px',
-        transform: `skewX(-20deg)`,
-      },
-    },
     analogs: {
       paddingLeft: theme.spacing(1),
       [theme.breakpoints.down('md')]: {
@@ -343,77 +224,7 @@ export default function ProductPage({
                 </Paper>
               </Grid>
               <Grid className={classes.descriptionGrid} item xs={12} md={6}>
-                <Paper className={classes.descriptionPaper}>
-                  {compability && (
-                    <div className={classes.carBage}>
-                      Подходит на {currentCar?.model}
-                    </div>
-                  )}
-                  <Grid className={classes.rightSideGrid} container>
-                    <Grid className={classes.productHeaderGrid} item xs={12}>
-                      <Typography
-                        className={classes.productHeader}
-                        variant="h1"
-                      >
-                        {`${product.name} ${capitalize(
-                          product.model[0].make.name
-                        )} ${product.model[0].model}`}
-                      </Typography>
-                      <ProductRating
-                        rating={productrating}
-                        productId={product.id}
-                        ratingCount={product.ratingCount}
-                      />
-                    </Grid>
-                    <Grid className={classes.excerptBox} item xs={12} lg={6}>
-                      {product.description ? (
-                        <Grid className={classes.excerpt} item xs={12} lg={12}>
-                          <Box className={classes.excerptText}>
-                            {parser(product.description)}
-                          </Box>
-                        </Grid>
-                      ) : (
-                        parser(DEFAULT_EXCERPT)
-                      )}
-                      {product.attributes && product.attributes.length ? (
-                        <Box className={classes.excerptPaper}>
-                          {product.attributes.map((attr: any, i: number) => (
-                            <dl key={i} className={classes.dl}>
-                              <dt>
-                                <span>{attr.name}</span>
-                              </dt>
-                              <dd>
-                                <span>{attr.value}</span>
-                              </dd>
-                            </dl>
-                          ))}
-                        </Box>
-                      ) : (
-                        ''
-                      )}
-                    </Grid>
-                    <Grid
-                      className={classes.catNumberBox}
-                      container
-                      item
-                      xs={12}
-                      lg={6}
-                    >
-                      <Box>
-                        <PriceBox product={product} />
-                      </Box>
-                    </Grid>
-                  </Grid>
-                  <Box
-                    style={{
-                      border: '1px solid pink',
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    Tegs are going here
-                  </Box>
-                </Paper>
+                <ProductPriceSideBlock product={product} />
               </Grid>
             </Grid>
             <Grid item className={classes.under} xs={12}></Grid>
