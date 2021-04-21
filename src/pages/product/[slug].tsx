@@ -12,7 +12,6 @@ import {
   getProductsAll,
   getSimilarProducts,
 } from '~/endpoints/productEndpoint';
-import { useRouter } from 'next/router';
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
@@ -20,7 +19,6 @@ import SwiperProduct from '~/components/common/SwiperProduct';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
-import parser from 'html-react-parser';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
   getPopularProductsByModel,
@@ -135,10 +133,6 @@ interface IProps {
   analogs: IProduct[];
   similar: IProduct[];
 }
-interface IGalery {
-  original: string;
-  thumbnail: string;
-}
 export default function ProductPage({
   product,
   relatedProducts,
@@ -151,13 +145,7 @@ export default function ProductPage({
     { name: 'Ангара77', path: '/' },
     { name: product.name, path: `/product/${product.slug}` },
   ];
-  const compability =
-    currentCar &&
-    product.model.some((car: ICar) => car.slug === currentCar.slug)
-      ? true
-      : false;
 
-  const productrating = product.rating ? product.rating : undefined;
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
   const togetherProducts: IProduct[] =
@@ -177,7 +165,6 @@ export default function ProductPage({
       </React.Fragment>
     );
   };
-  console.log(product.attributes);
 
   const SimilarProducts = () => {
     return (
