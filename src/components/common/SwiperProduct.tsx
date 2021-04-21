@@ -11,7 +11,7 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { imageServerUrl } from '~/config';
 import { IProduct } from '~/interfaces';
-import { IDimension, IImage } from '~/interfaces/IImage';
+import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { SRLWrapper } from 'simple-react-lightbox';
