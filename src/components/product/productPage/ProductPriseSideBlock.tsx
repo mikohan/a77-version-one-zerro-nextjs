@@ -140,8 +140,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
     bottomIcons: {
       padding: theme.spacing(2),
-      border: '1px solid pink',
       display: 'flex',
+      flexWrap: 'wrap',
       justifyContent: 'space-around',
     },
     iconItem: {
@@ -149,7 +149,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       width: theme.spacing(5),
       height: theme.spacing(5),
-      fill: theme.palette.secondary.main,
+      fill: theme.palette.secondary.light,
     },
     iconBox: {
       display: 'flex',
@@ -235,13 +235,13 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
           </Box>
           <Box className={classes.iconBox}>
             <FiPaymentSecurity48Svg className={classes.iconItem} />
-            <Typography variant="body2">Some text here</Typography>
-            <Typography variant="body2">Some text here</Typography>
+            <Typography variant="subtitle1">Безопасная оплата</Typography>
+            <Typography variant="body2">Янекс и СбреБанк</Typography>
           </Box>
           <Box className={classes.iconBox}>
             <Fi24Hours48Svg className={classes.iconItem} />
-            <Typography variant="body2">Some text here</Typography>
-            <Typography variant="body2">Some text here</Typography>
+            <Typography variant="subtitle1">Работаем 9:00-19:00</Typography>
+            <Typography variant="body2">Ежедневно</Typography>
           </Box>
         </Box>
       </Paper>
