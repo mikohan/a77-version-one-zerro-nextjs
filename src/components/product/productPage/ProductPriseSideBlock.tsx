@@ -174,78 +174,76 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
 
   const productrating = product.rating ? product.rating : undefined;
   return (
-    <div>
-      <Paper className={classes.descriptionPaper}>
-        {compability && (
-          <div className={classes.carBage}>Подходит на {currentCar?.model}</div>
-        )}
-        <Grid className={classes.rightSideGrid} container>
-          <Grid className={classes.productHeaderGrid} item xs={12}>
-            <Typography className={classes.productHeader} variant="h1">
-              {`${product.name} ${capitalize(product.model[0].make.name)} ${
-                product.model[0].model
-              }`}
-            </Typography>
-            <ProductRating
-              rating={productrating}
-              productId={product.id}
-              ratingCount={product.ratingCount}
-            />
-          </Grid>
-          <Grid className={classes.excerptBox} item xs={12} lg={6}>
-            {product.description ? (
-              <Grid className={classes.excerpt} item xs={12} lg={12}>
-                <Box className={classes.excerptText}>
-                  {parser(product.description)}
-                </Box>
-              </Grid>
-            ) : (
-              parser(DEFAULT_EXCERPT)
-            )}
-            {product.attributes && product.attributes.length ? (
-              <Box className={classes.excerptPaper}>
-                {product.attributes.map((attr: any, i: number) => (
-                  <dl key={i} className={classes.dl}>
-                    <dt>
-                      <span>{attr.name}</span>
-                    </dt>
-                    <dd>
-                      <span>{attr.value}</span>
-                    </dd>
-                  </dl>
-                ))}
-              </Box>
-            ) : (
-              ''
-            )}
-          </Grid>
-          <Grid className={classes.catNumberBox} container item xs={12} lg={6}>
-            <Box>
-              <PriceBox product={product} />
-            </Box>
-          </Grid>
+    <Paper className={classes.descriptionPaper}>
+      {compability && (
+        <div className={classes.carBage}>Подходит на {currentCar?.model}</div>
+      )}
+      <Grid className={classes.rightSideGrid} container>
+        <Grid className={classes.productHeaderGrid} item xs={12}>
+          <Typography className={classes.productHeader} variant="h1">
+            {`${product.name} ${capitalize(product.model[0].make.name)} ${
+              product.model[0].model
+            }`}
+          </Typography>
+          <ProductRating
+            rating={productrating}
+            productId={product.id}
+            ratingCount={product.ratingCount}
+          />
         </Grid>
-        <Box className={classes.bottomIcons}>
-          <Box className={classes.iconBox}>
-            <FiFreeDelivery48Svg className={classes.iconItem} />
-            <Typography variant="subtitle1">Бесплатная доставка</Typography>
-            <Typography variant="body2">
-              При заказе от &#8381; {COMPANY_INFORMATION.FREE_SHIPPING_FROM}
-            </Typography>
+        <Grid className={classes.excerptBox} item xs={12} lg={6}>
+          {product.description ? (
+            <Grid className={classes.excerpt} item xs={12} lg={12}>
+              <Box className={classes.excerptText}>
+                {parser(product.description)}
+              </Box>
+            </Grid>
+          ) : (
+            parser(DEFAULT_EXCERPT)
+          )}
+          {product.attributes && product.attributes.length ? (
+            <Box className={classes.excerptPaper}>
+              {product.attributes.map((attr: any, i: number) => (
+                <dl key={i} className={classes.dl}>
+                  <dt>
+                    <span>{attr.name}</span>
+                  </dt>
+                  <dd>
+                    <span>{attr.value}</span>
+                  </dd>
+                </dl>
+              ))}
+            </Box>
+          ) : (
+            ''
+          )}
+        </Grid>
+        <Grid className={classes.catNumberBox} container item xs={12} lg={6}>
+          <Box>
+            <PriceBox product={product} />
           </Box>
-          <Box className={classes.iconBox}>
-            <FiPaymentSecurity48Svg className={classes.iconItem} />
-            <Typography variant="subtitle1">Безопасная оплата</Typography>
-            <Typography variant="body2">Янекс и СбреБанк</Typography>
-          </Box>
-          <Box className={classes.iconBox}>
-            <Fi24Hours48Svg className={classes.iconItem} />
-            <Typography variant="subtitle1">Работаем 9:00-19:00</Typography>
-            <Typography variant="body2">Ежедневно</Typography>
-          </Box>
+        </Grid>
+      </Grid>
+      <Box className={classes.bottomIcons}>
+        <Box className={classes.iconBox}>
+          <FiFreeDelivery48Svg className={classes.iconItem} />
+          <Typography variant="subtitle1">Бесплатная доставка</Typography>
+          <Typography variant="body2">
+            При заказе от &#8381; {COMPANY_INFORMATION.FREE_SHIPPING_FROM}
+          </Typography>
         </Box>
-      </Paper>
-    </div>
+        <Box className={classes.iconBox}>
+          <FiPaymentSecurity48Svg className={classes.iconItem} />
+          <Typography variant="subtitle1">Безопасная оплата</Typography>
+          <Typography variant="body2">Янекс и СбреБанк</Typography>
+        </Box>
+        <Box className={classes.iconBox}>
+          <Fi24Hours48Svg className={classes.iconItem} />
+          <Typography variant="subtitle1">Работаем 9:00-19:00</Typography>
+          <Typography variant="body2">Ежедневно</Typography>
+        </Box>
+      </Box>
+    </Paper>
   );
 };
 
