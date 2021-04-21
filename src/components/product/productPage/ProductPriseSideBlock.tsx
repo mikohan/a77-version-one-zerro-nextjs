@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     excerptBox: {
+      paddingTop: theme.spacing(3),
       paddingLeft: theme.spacing(1),
       [theme.breakpoints.down('md')]: {
         order: 3,
@@ -149,7 +150,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       width: theme.spacing(5),
       height: theme.spacing(5),
-      fill: theme.palette.secondary.light,
+      fill:
+        theme.palette.type === 'light' ? theme.palette.secondary.light : '#fff',
     },
     iconBox: {
       display: 'flex',
