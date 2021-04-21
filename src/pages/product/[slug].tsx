@@ -80,10 +80,12 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       height: '100%',
       padding: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
     rightSideGrid: {
       display: 'flex',
-      alignItems: 'start',
     },
     under: {
       height: theme.spacing(10),
@@ -96,11 +98,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     excerptBox: {
+      paddingLeft: theme.spacing(1),
       [theme.breakpoints.down('md')]: {
         order: 3,
       },
     },
     excerptPaper: {
+      border: '1px solid green',
       height: '100%',
       paddingLeft: theme.spacing(2),
       paddingTop: theme.spacing(1),
@@ -292,6 +296,7 @@ export default function ProductPage({
       </React.Fragment>
     );
   };
+  console.log(product.attributes);
 
   const SimilarProducts = () => {
     return (
@@ -370,9 +375,9 @@ export default function ProductPage({
                       ) : (
                         parser(DEFAULT_EXCERPT)
                       )}
-                      <Box className={classes.excerptPaper}>
-                        {product.attributes &&
-                          product.attributes.map((attr: any, i: number) => (
+                      {product.attributes && product.attributes.length ? (
+                        <Box className={classes.excerptPaper}>
+                          {product.attributes.map((attr: any, i: number) => (
                             <dl key={i} className={classes.dl}>
                               <dt>
                                 <span>{attr.name}</span>
@@ -382,7 +387,10 @@ export default function ProductPage({
                               </dd>
                             </dl>
                           ))}
-                      </Box>
+                        </Box>
+                      ) : (
+                        ''
+                      )}
                     </Grid>
                     <Grid
                       className={classes.catNumberBox}
@@ -396,6 +404,15 @@ export default function ProductPage({
                       </Box>
                     </Grid>
                   </Grid>
+                  <Box
+                    style={{
+                      border: '1px solid pink',
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    Tegs are going here
+                  </Box>
                 </Paper>
               </Grid>
             </Grid>
@@ -466,7 +483,7 @@ export const getStaticProps: GetStaticProps = async (
       analogs = await getProductAnalogs(product.catNumber, product.id);
     }
     // it is working good but very slow
-    similar = await getSimilarProducts(slug as string, 20);
+    //similar = await getSimilarProducts(slug as string, 20);
   }
 
   // It is working not very goog because of same products on all pages
