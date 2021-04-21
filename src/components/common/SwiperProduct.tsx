@@ -43,11 +43,6 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 interface IProps {
   product?: IProduct;
 }
-interface ISlide {
-  image: string;
-  thumbnail: string;
-  dimension: IDimension;
-}
 
 export default function Swipper({ product }: IProps) {
   const init: any = null;
