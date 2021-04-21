@@ -2,7 +2,7 @@ import React from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { DEFAULT_EXCERPT, REVALIDATE } from '~/config';
+import { DEFAULT_EXCERPT, REVALIDATE, imageServerUrl } from '~/config';
 import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
@@ -270,8 +270,6 @@ export const getStaticProps: GetStaticProps = async (
   const { slug } = context.params!;
 
   const product: IProduct = await getProduct(slug as string);
-
-  let models = product.model.map((car: ICar) => car.slug);
 
   let relatedProducts: IProduct[] = [];
   let analogs: IProduct[] = [];
