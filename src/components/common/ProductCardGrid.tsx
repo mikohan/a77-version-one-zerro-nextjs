@@ -95,8 +95,17 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   );
   const classes = useStyles();
 
+  let imgUrl = '';
+  if (product.images && product.images.length) {
+    const regex = new RegExp('http*');
+    if (regex.test(product.images[0].img245)) {
+      imgUrl = `${product.images[0].img245}`;
+    } else {
+      imgUrl = `${imageServerUrl}${product.images[0].img245 as string}`;
+    }
+  }
   const imgPath: string = product.images.length
-    ? `${imageServerUrl}${product.images[0].img245 as string}`
+    ? imgUrl
     : '/images/local/defaultParts500.jpg';
 
   let stock = null;
