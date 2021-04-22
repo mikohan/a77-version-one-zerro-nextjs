@@ -5,12 +5,13 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import { Box, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { IProduct } from '~/interfaces';
 import { imageServerUrl } from '~/config';
 import Link from 'next/link';
 import url from '~/services/url';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,17 +21,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     [theme.breakpoints.down('md')]: {
       media: {
-        height: 140,
+        padding: theme.spacing(1),
       },
     },
     [theme.breakpoints.up('lg')]: {
       media: {
-        height: 200,
+        padding: theme.spacing(1),
       },
     },
     [theme.breakpoints.up('xxl')]: {
       media: {
-        height: 250,
+        padding: theme.spacing(1),
       },
     },
     buttonLearnPrice: {
@@ -51,11 +52,13 @@ export default function MediaCard({ product }: IProps) {
       <Link href={url.product(product.slug)}>
         <a>
           <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={`${imageServerUrl}${product.images[0].img245}`}
-              title="Contemplative Reptile"
-            />
+            <Box className={classes.media} title="Contemplative Reptile">
+              <Image
+                src={`${imageServerUrl}${product.images[0].img245}`}
+                width={245}
+                height={245}
+              />
+            </Box>
             <Hidden mdDown>
               <CardContent>
                 <Typography gutterBottom variant="body2">
