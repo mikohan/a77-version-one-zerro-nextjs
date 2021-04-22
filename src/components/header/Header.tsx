@@ -26,16 +26,9 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 
-import { HomeOutlined, ThumbUp } from '@material-ui/icons';
+import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
-
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
