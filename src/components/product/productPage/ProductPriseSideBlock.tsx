@@ -145,8 +145,8 @@ const useStyles = makeStyles((theme: Theme) =>
     iconItem: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      width: theme.spacing(5),
-      height: theme.spacing(5),
+      width: theme.spacing(4),
+      height: theme.spacing(4),
       fill:
         theme.palette.type === 'light' ? theme.palette.secondary.light : '#fff',
     },
@@ -164,13 +164,13 @@ const useStyles = makeStyles((theme: Theme) =>
     carModel: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      paddingTop: theme.spacing(0.3),
-      paddingBottom: theme.spacing(0.3),
+      paddingTop: theme.spacing(0.1),
+      marginRight: theme.spacing(0.5),
       borderRadius: '0.8rem',
       fontSize: '0.75rem',
       fontWeight: 600,
       border:
-        theme.palette.type === 'light' ? '1px solid blue' : '1px solid #fff',
+        theme.palette.type === 'light' ? '1px solid #1976d2' : '1px solid #fff',
 
       background:
         theme.palette.type === 'light'
