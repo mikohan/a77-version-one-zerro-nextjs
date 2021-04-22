@@ -98,7 +98,10 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   let imgUrl = '';
   if (product.images && product.images.length) {
     const regex = new RegExp('http*');
-    if (regex.test(product.images[0].img245)) {
+    const chk = product.images[0].img245
+      ? regex.test(product.images[0].img245)
+      : false;
+    if (chk) {
       imgUrl = `${product.images[0].img245}`;
     } else {
       imgUrl = `${imageServerUrl}${product.images[0].img245 as string}`;
