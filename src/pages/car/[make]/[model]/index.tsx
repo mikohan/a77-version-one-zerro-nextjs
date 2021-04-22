@@ -196,6 +196,7 @@ function Model(props: IModelProps) {
                 totalPages={totalPages}
                 sortedFilters={[categoriesFilter]}
                 popularProducts={popularProducts}
+                categories={categories}
               />
             ) : (
               <ModelShopList

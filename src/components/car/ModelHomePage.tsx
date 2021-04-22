@@ -1,4 +1,9 @@
-import { IFilter, IProductElasticHitsFirst, IProduct } from '~/interfaces';
+import {
+  IFilter,
+  IProductElasticHitsFirst,
+  IProduct,
+  ICategory,
+} from '~/interfaces';
 import React from 'react';
 import { Hidden, Grid } from '@material-ui/core';
 import PageHeader from '~/components/product/PageHeader';
@@ -7,6 +12,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FilterWidget from '~/components/product/FilterWidget';
 import { Box, Paper, Typography } from '@material-ui/core';
 import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
+import CategoryBlock from '~/components/car/CategoryBlock';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,9 +54,17 @@ interface IProps {
   handleDeleteFilters?(): void;
   totalPages?: number;
   popularProducts: IProduct[];
+  categories: ICategory[];
 }
 export default function ModelShopList(props: IProps) {
-  const { header, breads, count, sortedFilters, popularProducts } = props;
+  const {
+    header,
+    breads,
+    count,
+    sortedFilters,
+    popularProducts,
+    categories,
+  } = props;
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -68,18 +82,11 @@ export default function ModelShopList(props: IProps) {
           <div className={classes.contentContainer}>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
-                Расходники
+                Some stuff
               </Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
+              {categories.map((category: ICategory) => (
+                <CategoryBlock category={category} />
+              ))}
             </div>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
