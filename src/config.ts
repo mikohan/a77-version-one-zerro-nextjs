@@ -1,6 +1,8 @@
 import { ITransFilter, IFilter } from '~/interfaces';
 
 export const imageServerUrl = 'http://localhost:8000';
+//export const backServerUrl = 'http://localhost:8000'
+export const backServerUrl = 'http://192.168.0.109:8000';
 
 export const autocompleteUrls = {
   number: `http://localhost:8000/api/product/findnumber`,

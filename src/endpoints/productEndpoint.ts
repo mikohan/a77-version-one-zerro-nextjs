@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { elasticApiUrl, elasticApiSearchUrl } from '~/config';
+import { backServerUrl, elasticApiUrl, elasticApiSearchUrl } from '~/config';
 import { IProductElasticBase } from '~/interfaces/product';
-import { ICar } from '~/interfaces/ICar';
 import { IProduct } from '~/interfaces';
 import { gql } from '@apollo/client';
-import { IMake } from '~/interfaces/IMake';
 import { client } from './apolloClient';
 
 export async function getProductsByCar(
@@ -13,18 +11,16 @@ export async function getProductsByCar(
   pageSize: number,
   catSlug?: string
 ): Promise<IProductElasticBase> {
-  let url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
+  let url = `${backServerUrl}/api/product/jsontest?model=${carSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
 
   if (catSlug) {
-    url = `http://localhost:8000/api/product/jsontest?model=${carSlug}&category=${catSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
+    url = `${backServerUrl}/api/product/jsontest?model=${carSlug}&category=${catSlug}&page_from=${pageFrom}&page_size=${pageSize}`;
   }
   const prom = await axios(url);
   return prom.data;
 }
 export async function getProductsAll(): Promise<any> {
-  const prom = await axios(
-    `http://localhost:8000/api/product/jsontest?model=all`
-  );
+  const prom = await axios(`${backServerUrl}/api/product/jsontest?model=all`);
 
   return prom.data;
 }
@@ -33,7 +29,7 @@ export async function getSimilarProductsByModel(
   query: string
 ): Promise<IProductElasticBase> {
   const url = encodeURI(
-    `http://localhost:8000/api/product/similar?model=${modelSlug}&q=${query}`
+    `${backServerUrl}/api/product/similar?model=${modelSlug}&q=${query}`
   );
   const prom = await axios(url);
 
@@ -44,7 +40,7 @@ export async function getProductsByMake(
   makeSlug: string
 ): Promise<IProductElasticBase> {
   const prom = await axios(
-    `http://localhost:8000/api/product/jsontest?make=${makeSlug}`
+    `${backServerUrl}/api/product/jsontest?make=${makeSlug}`
   );
 
   return prom.data;
@@ -54,7 +50,7 @@ export async function getProductsByCarModel(
   modelSlug: string
 ): Promise<IProductElasticBase> {
   const prom = await axios(
-    `http://localhost:8000/api/product/jsontest?model=${modelSlug}`
+    `${backServerUrl}/api/product/jsontest?model=${modelSlug}`
   );
 
   return prom.data;
