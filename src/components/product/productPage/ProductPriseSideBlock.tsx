@@ -167,15 +167,17 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(0.3),
       paddingBottom: theme.spacing(0.3),
       borderRadius: '0.8rem',
-      border: theme.palette.type === 'light' ? 'none' : '1px solid #fff',
       fontSize: '0.75rem',
+      fontWeight: 600,
+      border:
+        theme.palette.type === 'light' ? '1px solid blue' : '1px solid #fff',
 
       background:
         theme.palette.type === 'light'
-          ? theme.palette.primary.main
-          : theme.palette.background.default,
+          ? '#fff'
+          : theme.palette.background.paper,
       color:
-        theme.palette.type === 'light' ? '#fff' : theme.palette.primary.main,
+        theme.palette.type === 'light' ? theme.palette.primary.main : '#fff',
     },
   })
 );
