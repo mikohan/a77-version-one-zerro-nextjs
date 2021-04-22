@@ -389,6 +389,10 @@ export async function getProduct(slug: string): Promise<IProduct> {
         rating
         ratingCount
         condition
+        breads {
+          slug
+          name
+        }
       }
     }
   `;

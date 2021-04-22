@@ -28,6 +28,7 @@ import {
 import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
 import ProductPriceSideBlock from '~/components/product/productPage/ProductPriseSideBlock';
 import { translateProducts } from '~/utils';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -134,18 +135,30 @@ interface IProps {
   relatedProducts: IProduct[];
   analogs: IProduct[];
   similar: IProduct[];
+  model: string;
+  make: string;
 }
 export default function ProductPage({
   product,
   relatedProducts,
   analogs,
   similar,
+  model,
+  make,
 }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  const catBreads = product.breads[0].map(
+    (item: { slug: string; name: string }) => ({
+      name: item.name,
+      path: url.category(make, model, item.slug),
+    })
+  );
+
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
-    { name: product.name, path: `/product/${product.slug}` },
+    ...catBreads,
+    { name: product.name, path: url.product(product.slug) },
   ];
 
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
@@ -273,6 +286,7 @@ export const getStaticProps: GetStaticProps = async (
 
   const product: IProduct = await getProduct(slug as string);
   const model = product.model.length ? product.model[0].slug : '';
+  const make = product.model.length ? product.model[0].make.slug : '';
 
   let relatedProducts: IProduct[] = [];
   let analogs: IProduct[] = [];
@@ -306,6 +320,8 @@ export const getStaticProps: GetStaticProps = async (
       relatedProducts,
       analogs,
       similar,
+      model,
+      make,
     },
   };
 };

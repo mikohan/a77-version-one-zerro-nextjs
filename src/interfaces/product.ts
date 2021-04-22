@@ -34,6 +34,10 @@ export interface IRating {
   quantity: string;
   autouser?: string;
 }
+export interface IBreads {
+  slug: string;
+  name: string;
+}
 
 export interface IProduct {
   id: number;
@@ -80,6 +84,7 @@ export interface IProduct {
   reviews?: number;
   tags?: string[];
   condition?: string;
+  breads: IBreads[][];
 }
 
 export type IProductsList = IPaginatedList<IProduct> &
