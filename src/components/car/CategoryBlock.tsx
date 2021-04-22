@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       display: 'flex',
+      flex: '2 1 auto',
       flexWrap: 'wrap',
     },
     item: {
@@ -53,10 +54,15 @@ const TreeViewComponent = ({ categories }: IProps) => {
   );
 };
 
-const CatBox = ({ categories }: IProps) => {
+interface IPropsBox extends IProps {
+  catName: string;
+}
+
+const CatBox = ({ categories, catName }: IPropsBox) => {
   const classes = useStyles();
   return (
     <React.Fragment>
+      <Typography variant="subtitle1">{catName}</Typography>
       {categories?.map((item: ICategory) => (
         <Box key={item.id}>{item.name}</Box>
       ))}
@@ -71,8 +77,8 @@ export default function ModelShopList(props: IProps) {
     <React.Fragment>
       <Grid className={classes.container} item xs={12}>
         {categories?.map((item: ICategory) => (
-          <div className={classes.item}>
-            <CatBox categories={item.children} />
+          <div key={item.id} className={classes.item}>
+            <CatBox catName={item.name} categories={item.children} />
           </div>
         ))}
       </Grid>
