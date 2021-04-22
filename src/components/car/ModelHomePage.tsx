@@ -3,6 +3,7 @@ import {
   IProductElasticHitsFirst,
   IProduct,
   ICategory,
+  ICar,
 } from '~/interfaces';
 import React from 'react';
 import { Hidden, Grid } from '@material-ui/core';
@@ -13,6 +14,7 @@ import FilterWidget from '~/components/product/FilterWidget';
 import { Box, Paper, Typography } from '@material-ui/core';
 import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
 import CategoryBlock from '~/components/car/CategoryBlock';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,6 +57,7 @@ interface IProps {
   totalPages?: number;
   popularProducts: IProduct[];
   categories: ICategory[];
+  model: ICar;
 }
 export default function ModelShopList(props: IProps) {
   const {
@@ -64,6 +67,7 @@ export default function ModelShopList(props: IProps) {
     sortedFilters,
     popularProducts,
     categories,
+    model,
   } = props;
   const classes = useStyles();
   return (
@@ -82,13 +86,13 @@ export default function ModelShopList(props: IProps) {
           <div className={classes.contentContainer}>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
-                Some stuff
+                {`Категории запчастей`}
               </Typography>
-              <CategoryBlock categories={categories} />
+              <CategoryBlock categories={categories} model={model} />
             </div>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
-                Categories
+                Популярные товары
               </Typography>
               <Typography variant="body1">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat

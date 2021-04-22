@@ -197,6 +197,7 @@ function Model(props: IModelProps) {
                 sortedFilters={[categoriesFilter]}
                 popularProducts={popularProducts}
                 categories={categories}
+                model={model}
               />
             ) : (
               <ModelShopList
