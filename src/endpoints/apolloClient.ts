@@ -6,6 +6,7 @@ import {
   from,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { backServerUrl } from '~/config';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
@@ -17,7 +18,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const link = from([
   errorLink,
-  new HttpLink({ uri: 'http://localhost:8000/product/graphql' }),
+  new HttpLink({ uri: `${backServerUrl}/product/graphql` }),
 ]);
 
 const defaultOptions: DefaultOptions = {

@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import { IMake } from '~/interfaces/IMake';
 import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
-import { IAutoUser } from '~/interfaces/user';
 import { IRating } from '~/interfaces/product';
 
 export async function createOrUpdateRatings(
