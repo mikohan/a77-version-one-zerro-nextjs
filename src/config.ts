@@ -1,18 +1,17 @@
 import { ITransFilter, IFilter } from '~/interfaces';
 
 export const imageServerUrl = 'http://localhost:8000';
-//export const backServerUrl = 'http://localhost:8000'
+// export const backServerUrl = 'http://localhost:8000';
 export const backServerUrl = 'http://192.168.0.109:8000';
 
 export const autocompleteUrls = {
-  number: `http://localhost:8000/api/product/findnumber`,
-  string: `http://localhost:8000/api/product/autocomplete`,
+  number: `${backServerUrl}/api/product/findnumber`,
+  string: `${backServerUrl}/api/product/autocomplete`,
 };
 
 export const apiUrl = 'http://localhost:8000/testcategory/';
-export const elasticApiUrl = 'http://localhost:8000/api/product/jsontest';
-export const elasticApiSearchUrl =
-  'http://localhost:8000/api/product/searchapi';
+export const elasticApiUrl = `${backServerUrl}/api/product/jsontest`;
+export const elasticApiSearchUrl = `${backServerUrl}/api/product/searchapi`;
 // export const elasticApiUrl = 'http://192.168.0.109:8000/api/product/jsontest';
 
 export const vehiclesUrl = `${apiUrl}testproducts/vehicles/`;

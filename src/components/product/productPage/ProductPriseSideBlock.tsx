@@ -159,6 +159,7 @@ const useStyles = makeStyles((theme: Theme) =>
     carModelBox: {
       display: 'flex',
       justifyContent: 'flex-start',
+      flexWrap: 'wrap',
       paddingLeft: theme.spacing(1),
     },
     carModel: {

@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     price: {
-      color: theme.palette.primary.main,
+      color:
+        theme.palette.type === 'light' ? theme.palette.primary.main : '#fff',
       fontWeight: 700,
       fontSize: '1.4rem',
       [theme.breakpoints.up('xl')]: {
