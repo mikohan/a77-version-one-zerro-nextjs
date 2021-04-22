@@ -2,6 +2,7 @@ import { IProductElasticHitsSecond } from '~/interfaces';
 import { ICategory } from '~/interfaces/category';
 import { IFilterQueryString } from '~/interfaces/filters';
 import url from '~/services/url';
+import { IProduct } from '~/interfaces';
 
 // Function for cloning objects and arrays
 export function clone(data: any): any {
@@ -137,4 +138,14 @@ export function scoreTransformer(val: number) {
   } else if (val > 0 && val < 5) {
     return 'оценки';
   }
+}
+
+// Try to translate elastic array to normal product
+
+export function translateProducts(
+  array: IProductElasticHitsSecond[]
+): IProduct[] {
+  return array.map((item: IProductElasticHitsSecond) => {
+    return item._source;
+  });
 }

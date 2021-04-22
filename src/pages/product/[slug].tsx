@@ -6,7 +6,7 @@ import { DEFAULT_EXCERPT, REVALIDATE, imageServerUrl } from '~/config';
 import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
-import { ICar, IProduct } from '~/interfaces';
+import { ICar, IProduct, IProductElasticHitsSecond } from '~/interfaces';
 import {
   getProduct,
   getProductsAll,
@@ -22,10 +22,12 @@ import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
   getPopularProductsByModel,
+  getSimilarProductsByModel,
   getProductAnalogs,
 } from '~/endpoints/productEndpoint';
 import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
 import ProductPriceSideBlock from '~/components/product/productPage/ProductPriseSideBlock';
+import { translateProducts } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -270,10 +272,11 @@ export const getStaticProps: GetStaticProps = async (
   const { slug } = context.params!;
 
   const product: IProduct = await getProduct(slug as string);
+  const model = product.model.length ? product.model[0].slug : '';
 
   let relatedProducts: IProduct[] = [];
   let analogs: IProduct[] = [];
-  let similar: IProduct[] = [];
+  let sim: IProductElasticHitsSecond[] = [];
   if (product && product.catNumber) {
     if (product.id) {
       analogs = await getProductAnalogs(product.catNumber, product.id);
@@ -281,11 +284,17 @@ export const getStaticProps: GetStaticProps = async (
     // it is working good but very slow
     try {
       // similar = await getSimilarProducts(slug as string, 20);
+      const prom = await getSimilarProductsByModel(model, product.name);
+      sim = prom.hits.hits;
     } catch (e) {
       console.error('Error ocurs in get similar products', e);
     }
   }
 
+  let similar: IProduct[] = [];
+  if (sim.length) {
+    similar = translateProducts(sim);
+  }
   // It is working not very goog because of same products on all pages
   // needs to change logic
   //relatedProducts = await getPopularProductsByModel(models, 20);

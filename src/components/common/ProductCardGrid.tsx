@@ -152,7 +152,9 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
             variant="body2"
             component="div"
           >
-            {model.model.toUpperCase()}
+            {model.hasOwnProperty('model')
+              ? model.model.toUpperCase()
+              : model.name.toUpperCase()}
           </Typography>
         ))}
       </div>

@@ -28,6 +28,17 @@ export async function getProductsAll(): Promise<any> {
 
   return prom.data;
 }
+export async function getSimilarProductsByModel(
+  modelSlug: string,
+  query: string
+): Promise<IProductElasticBase> {
+  const url = encodeURI(
+    `http://localhost:8000/api/product/similar?model=${modelSlug}&q=${query}`
+  );
+  const prom = await axios(url);
+
+  return prom.data;
+}
 
 export async function getProductsByMake(
   makeSlug: string

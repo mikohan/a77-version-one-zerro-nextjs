@@ -254,7 +254,9 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
       {carModels.length ? (
         <Grid className={classes.carModelBox} item xs={12}>
           {carModels.map((car: string) => (
-            <Box className={classes.carModel}>{car}</Box>
+            <Box className={classes.carModel} key={car}>
+              {car}
+            </Box>
           ))}
         </Grid>
       ) : (
