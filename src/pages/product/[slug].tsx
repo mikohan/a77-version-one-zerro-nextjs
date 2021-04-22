@@ -148,18 +148,26 @@ export default function ProductPage({
 }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
-  const catBreads = product.breads[0].map(
-    (item: { slug: string; name: string }) => ({
-      name: item.name,
-      path: url.category(make, model, item.slug),
-    })
-  );
+  let breads: IBread[] = [];
+  try {
+    const catBreads = product.breads[0].map(
+      (item: { slug: string; name: string }) => ({
+        name: item.name,
+        path: url.category(make, model, item.slug),
+      })
+    );
 
-  const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
-    ...catBreads,
-    { name: product.name, path: url.product(product.slug) },
-  ];
+    breads = [
+      { name: 'Ангара77', path: '/' },
+      ...catBreads,
+      { name: product.name, path: url.product(product.slug) },
+    ];
+  } catch (e) {
+    breads = [
+      { name: 'Ангара77', path: '/' },
+      { name: product.name, path: url.product(product.slug) },
+    ];
+  }
 
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
