@@ -84,9 +84,7 @@ export default function ModelShopList(props: IProps) {
               <Typography variant="h6" className={classes.blockTitle}>
                 Some stuff
               </Typography>
-              {categories.map((category: ICategory) => (
-                <CategoryBlock category={category} />
-              ))}
+              <CategoryBlock categories={categories} />
             </div>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>

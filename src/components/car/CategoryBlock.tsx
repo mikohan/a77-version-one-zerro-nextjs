@@ -17,11 +17,21 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       maxWidth: 400,
     },
-    item: {},
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    item: {
+      border: '1px solid pink',
+    },
   })
 );
 
-const FileSystemNavigator = () => {
+interface IProps {
+  categories?: ICategory[];
+}
+
+const TreeViewComponent = ({ categories }: IProps) => {
   const classes = useStyles();
 
   return (
@@ -30,36 +40,41 @@ const FileSystemNavigator = () => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
     >
-      <TreeItem nodeId="1" label="Applications">
-        <TreeItem nodeId="2" label="Calendar" />
-        <TreeItem nodeId="3" label="Chrome" />
-        <TreeItem nodeId="4" label="Webstorm" />
-      </TreeItem>
-      <TreeItem nodeId="5" label="Documents">
-        <TreeItem nodeId="10" label="OSS" />
-        <TreeItem nodeId="6" label="Material-UI">
-          <TreeItem nodeId="7" label="src">
-            <TreeItem nodeId="8" label="index.js" />
-            <TreeItem nodeId="9" label="tree-view.js" />
+      {categories?.map((item: ICategory) => (
+        <React.Fragment key={item.id}>
+          <TreeItem nodeId={item.slug} label={item.name}>
+            {item.children?.map((chil: ICategory) => (
+              <TreeItem key={chil.id} nodeId={chil.slug} label={chil.name} />
+            ))}
           </TreeItem>
-        </TreeItem>
-      </TreeItem>
+        </React.Fragment>
+      ))}
     </TreeView>
   );
 };
 
-interface IProps {
-  category: ICategory;
-}
-export default function ModelShopList(props: IProps) {
-  const { category } = props;
+const CatBox = ({ categories }: IProps) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Grid item xs={12}>
-        <div className={classes.item}>
-          <div>{category.name}</div>
-        </div>
+      {categories?.map((item: ICategory) => (
+        <Box key={item.id}>{item.name}</Box>
+      ))}
+    </React.Fragment>
+  );
+};
+
+export default function ModelShopList(props: IProps) {
+  const { categories } = props;
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <Grid className={classes.container} item xs={12}>
+        {categories?.map((item: ICategory) => (
+          <div className={classes.item}>
+            <CatBox categories={item.children} />
+          </div>
+        ))}
       </Grid>
     </React.Fragment>
   );
