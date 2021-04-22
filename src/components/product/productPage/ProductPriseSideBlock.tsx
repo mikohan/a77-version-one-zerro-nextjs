@@ -164,6 +164,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     carModel: {
       height: theme.spacing(2.5),
+      paddingTop: theme.spacing(0.1),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
       marginRight: theme.spacing(0.5),
