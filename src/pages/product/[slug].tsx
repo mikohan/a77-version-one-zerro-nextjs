@@ -279,7 +279,11 @@ export const getStaticProps: GetStaticProps = async (
       analogs = await getProductAnalogs(product.catNumber, product.id);
     }
     // it is working good but very slow
-    similar = await getSimilarProducts(slug as string, 20);
+    try {
+      // similar = await getSimilarProducts(slug as string, 20);
+    } catch (e) {
+      console.error('Error ocurs in get similar products', e);
+    }
   }
 
   // It is working not very goog because of same products on all pages

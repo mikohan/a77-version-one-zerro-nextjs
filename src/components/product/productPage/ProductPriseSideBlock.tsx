@@ -156,6 +156,27 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    carModelBox: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      paddingLeft: theme.spacing(1),
+    },
+    carModel: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+      paddingTop: theme.spacing(0.3),
+      paddingBottom: theme.spacing(0.3),
+      borderRadius: '0.8rem',
+      border: theme.palette.type === 'light' ? 'none' : '1px solid #fff',
+      fontSize: '0.75rem',
+
+      background:
+        theme.palette.type === 'light'
+          ? theme.palette.primary.main
+          : theme.palette.background.default,
+      color:
+        theme.palette.type === 'light' ? '#fff' : theme.palette.primary.main,
+    },
   })
 );
 interface IProps {
@@ -172,6 +193,11 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
       : false;
 
   const productrating = product.rating ? product.rating : undefined;
+
+  const carModels: string[] =
+    product.model && product.model.length
+      ? product.model.map((car: ICar) => car.model)
+      : [];
   return (
     <Paper className={classes.descriptionPaper}>
       {compability && (
@@ -223,6 +249,15 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
           </Box>
         </Grid>
       </Grid>
+      {carModels.length ? (
+        <Grid className={classes.carModelBox} item xs={12}>
+          {carModels.map((car: string) => (
+            <Box className={classes.carModel}>{car}</Box>
+          ))}
+        </Grid>
+      ) : (
+        ''
+      )}
       <Box className={classes.bottomIcons}>
         <Box className={classes.iconBox}>
           <FiFreeDelivery48Svg className={classes.iconItem} />
