@@ -15,6 +15,7 @@ import { Box, Paper, Typography } from '@material-ui/core';
 import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
 import CategoryBlock from '~/components/car/CategoryBlock';
 import { capitalize } from '~/utils';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       /*   gridGap: theme.spacing(3), */
       /* }, */
       '&> div': {
-        minHeight: '20rem',
+        minHeight: '10rem',
         padding: theme.spacing(3),
         background: theme.palette.background.paper,
         marginBottom: theme.spacing(3),
@@ -37,6 +38,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     blockTitle: {
       marginBottom: '2rem',
+    },
+    modelHistory: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+    },
+    carImage: {
+      minWidth: 250,
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+    textBox: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
   })
 );
@@ -86,6 +100,41 @@ export default function ModelShopList(props: IProps) {
           <div className={classes.contentContainer}>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
+                {`История модели ${capitalize(model.make.name)} ${capitalize(
+                  model.model
+                )}`}
+              </Typography>
+              <div className={classes.modelHistory}>
+                <Box className={classes.carImage}>
+                  <Image
+                    src="/images/local/carsAvatar/generic.png"
+                    width={250}
+                    height={250}
+                  />
+                </Box>
+                <Box className={classes.textBox}>
+                  <Typography variant="body2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quaerat non odio reprehenderit illo facilis doloremque odit
+                    esse est nemo alias assumenda eaque deserunt inventore quas
+                    hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                    Unde enim laborum veritatis possimus, odit vel maxime
+                    commodi, architecto recusandae inventore ipsam, saepe sit
+                    provident reiciendis accusamus rerum molestias voluptatem at
+                    dolor atque iure. Voluptas? Lorem ipsum dolor sit amet
+                    consectetur adipisicing elit. Quaerat non odio reprehenderit
+                    illo facilis doloremque odit esse est nemo alias assumenda
+                    eaque deserunt inventore quas hic sunt quae nam, mollitia,
+                    dolorum, quia maiores eveniet? Unde enim laborum veritatis
+                    possimus, odit vel maxime commodi, architecto recusandae
+                    inventore ipsam, saepe sit provident reiciendis accusamus
+                    rerum molestias voluptatem at dolor atque iure. Voluptas?
+                  </Typography>
+                </Box>
+              </div>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
                 {`Категории запчастей`}
               </Typography>
               <CategoryBlock categories={categories} model={model} />
@@ -107,7 +156,22 @@ export default function ModelShopList(props: IProps) {
             </div>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
-                Популярные товары
+                Обьемы жидкостей
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Карта ТО
               </Typography>
               <Typography variant="body1">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
