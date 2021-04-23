@@ -132,8 +132,8 @@ export default function Header({ setIsDark }: IProps) {
     router.push({ pathname: '/contacts' });
     setDrawerOpen(false);
   };
-  const goGrid = () => {
-    router.push({ pathname: '/grid' });
+  const goBlog = () => {
+    router.push({ pathname: '/blog' });
     setDrawerOpen(false);
     dispatch({ type: SET_ACTIVE_PAGE, payload: 4 });
   };
@@ -189,7 +189,7 @@ export default function Header({ setIsDark }: IProps) {
         <Tab label="Cars" onClick={goCars} />
         <Tab label="About" onClick={goAbout} />
         <Tab label="Contacts" onClick={goContacts} />
-        <Tab label="Grid Testes" onClick={goGrid} />
+        <Tab label="Блог" onClick={goBlog} />
       </Tabs>
     </React.Fragment>
   );
