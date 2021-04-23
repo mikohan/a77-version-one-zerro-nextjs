@@ -9,6 +9,7 @@ import { Grid, Typography, Box, Paper } from '@material-ui/core';
 import BlogHead from '~/components/heads/BlogHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
+import CategoryList from '~/components/blog/CategoryList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,12 +29,17 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
     },
     sidePanel: {
-      paddingTop: theme.spacing(2),
-      border: '1px solid blue',
-    },
-    searchContainer: {
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
+      paddingTop: theme.spacing(2),
+      /* border: '1px solid blue', */
+    },
+    searchContainer: {
+      marginBottom: theme.spacing(3),
+    },
+    categoriesPaper: {
+      minHeight: theme.spacing(15),
+      padding: theme.spacing(5),
     },
   })
 );
@@ -66,7 +72,9 @@ export default function Posts({ posts }: IProps) {
               <Box className={classes.searchContainer}>
                 <SearchField />
               </Box>
-              side panel
+              <Paper className={classes.categoriesPaper}>
+                <CategoryList />
+              </Paper>
             </Grid>
           </Grid>
         </div>
