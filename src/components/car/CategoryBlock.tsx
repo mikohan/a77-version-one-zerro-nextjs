@@ -63,8 +63,8 @@ const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
   return (
     <React.Fragment>
       <Typography className={classes.catTitle} variant="subtitle1">
-        <Link src={url.category(model.make.slug, model.slug, catSlug)}>
-          {catName}
+        <Link href={url.category(model.make.slug, model.slug, catSlug)}>
+          <a>{catName}</a>
         </Link>
       </Typography>
       {categories?.map((item: ICategory) => (
