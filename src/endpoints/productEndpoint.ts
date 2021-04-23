@@ -93,6 +93,10 @@ export async function getTogetherProducts(slug: string): Promise<IProduct[]> {
           img245x245
           img500x500
           main
+          dimension {
+            width
+            height
+          }
         }
         brand {
           name
@@ -149,6 +153,10 @@ export async function getSimilarProducts(
           img245x245
           img500x500
           main
+          dimension {
+            width
+            height
+          }
         }
         brand {
           name
@@ -248,6 +256,10 @@ export async function getPopularProductsByModel(
           img245x245
           img500x500
           main
+          dimension {
+            width
+            height
+          }
         }
         stocks {
           price
