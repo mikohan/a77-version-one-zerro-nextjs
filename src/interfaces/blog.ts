@@ -10,6 +10,7 @@ export interface IPage {
 export interface IPost {
   slug: string;
   title: string;
+  excerpt: string;
   text: string;
   image: string;
   partsCategory: IBlogCategory[];

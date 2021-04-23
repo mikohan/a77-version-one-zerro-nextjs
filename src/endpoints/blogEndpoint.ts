@@ -37,6 +37,7 @@ export async function getPosts(): Promise<IPost[]> {
     query posts {
       posts {
         title
+        excerpt
         slug
         image
         text
@@ -77,6 +78,7 @@ export async function getPage(slug: string): Promise<IPost[]> {
       page(slug: $slug) {
         slug
         title
+        excerpt
         text
         image
         partsCategory {
