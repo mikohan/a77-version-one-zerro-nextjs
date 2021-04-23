@@ -1,23 +1,12 @@
-import {
-  IFilter,
-  IProductElasticHitsFirst,
-  IProduct,
-  ICategory,
-  ICar,
-} from '~/interfaces';
+import { IProduct } from '~/interfaces';
 import React from 'react';
-import { Hidden, Grid } from '@material-ui/core';
-import PageHeader from '~/components/product/PageHeader';
-import LeftSideBar from '~/components/product/LeftSideBar';
+import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import FilterWidget from '~/components/product/FilterWidget';
-import { Box, Paper, Typography } from '@material-ui/core';
-import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
-import CategoryBlock from '~/components/car/CategoryBlock';
-import { capitalize } from '~/utils';
+import { Paper } from '@material-ui/core';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import Link from 'next/link';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
