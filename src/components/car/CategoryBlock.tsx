@@ -68,12 +68,14 @@ const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
         </Link>
       </Typography>
       {categories?.map((item: ICategory) => (
-        <Link href={url.category(model.make.slug, model.slug, item.slug)}>
+        <Link
+          key={item.id}
+          href={url.category(model.make.slug, model.slug, item.slug)}
+        >
           <a>
             <Chip
               className={classes.chip}
               variant="outlined"
-              key={item.id}
               size="small"
               label={item.name}
               clickable
