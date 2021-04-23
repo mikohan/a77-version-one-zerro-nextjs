@@ -17,6 +17,7 @@ import CategoryBlock from '~/components/car/CategoryBlock';
 import { capitalize } from '~/utils';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,25 +81,29 @@ export default function ModelShopList(props: IProps) {
 
             return (
               <Paper key={product.id} className={classes.smallBox}>
-                <div className={classes.imageContainer}>
-                  <Image
-                    className={classes.image}
-                    src={imgSrc as string}
-                    width={120}
-                    height={120}
-                  />
-                </div>
-                <div className={classes.textBox}>{product.name}</div>
-                <div className={classes.brand}>
-                  <div className={classes.price}>
-                    &#8381;{' '}
-                    {product.stocks && product.stocks.length
-                      ? product.stocks[0].price
-                      : 'Звоните'}
-                  </div>
+                <Link href={url.product(product.slug)}>
+                  <a>
+                    <div className={classes.imageContainer}>
+                      <Image
+                        className={classes.image}
+                        src={imgSrc as string}
+                        width={120}
+                        height={120}
+                      />
+                    </div>
+                    <div className={classes.textBox}>{product.name}</div>
+                    <div className={classes.brand}>
+                      <div className={classes.price}>
+                        &#8381;{' '}
+                        {product.stocks && product.stocks.length
+                          ? product.stocks[0].price
+                          : 'Звоните'}
+                      </div>
 
-                  <div>{product.brand.name}</div>
-                </div>
+                      <div>{product.brand.name}</div>
+                    </div>
+                  </a>
+                </Link>
               </Paper>
             );
           })}
