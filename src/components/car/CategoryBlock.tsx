@@ -54,15 +54,18 @@ interface IProps {
 
 interface IPropsBox extends IProps {
   catName: string;
+  catSlug: string;
 }
 function handleDelete() {}
 
-const CatBox = ({ categories, catName, model }: IPropsBox) => {
+const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
   const classes = useStyles();
   return (
     <React.Fragment>
       <Typography className={classes.catTitle} variant="subtitle1">
-        {catName}
+        <Link src={url.category(model.make.slug, model.slug, catSlug)}>
+          {catName}
+        </Link>
       </Typography>
       {categories?.map((item: ICategory) => (
         <Link href={url.category(model.make.slug, model.slug, item.slug)}>
@@ -82,7 +85,7 @@ const CatBox = ({ categories, catName, model }: IPropsBox) => {
   );
 };
 
-export default function ModelShopList(props: IProps) {
+export default function ModelCategoryBlock(props: IProps) {
   const { categories, model } = props;
   const classes = useStyles();
   return (
@@ -92,6 +95,7 @@ export default function ModelShopList(props: IProps) {
           <div key={item.id} className={classes.item}>
             <CatBox
               catName={item.name}
+              catSlug={item.slug}
               categories={item.children}
               model={model}
             />
