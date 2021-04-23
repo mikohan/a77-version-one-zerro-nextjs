@@ -2,24 +2,46 @@ import React from 'react';
 import Link from 'next/link';
 import { IPost } from '~/interfaces';
 import { getPosts } from '~/endpoints/blogEndpoint';
-import { containerMaxWidth, REVALIDATE } from '~/config';
+import {
+  containerMaxWidth,
+  imageServerUrl,
+  REVALIDATE,
+  BLOG_DATA,
+} from '~/config';
 import { GetStaticPropsContext } from 'next';
 import url from '~/services/url';
 import parse from 'html-react-parser';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { addMainUrlInPostImage } from '~/helpers';
 import AnimationPage from '~/components/common/AnimationPage';
-import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Typography, Container, Paper } from '@material-ui/core';
 import BlogHead from '~/components/heads/BlogHead';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      border: '1px solid pink',
       padding: theme.spacing(2),
     },
     sidePanel: {
       border: '1px solid blue',
+    },
+    paper: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+    a: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    imageContainer: {},
+    title: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      textAlign: 'center',
+    },
+    image: {
+      objectFit: 'cover',
     },
     main: {},
     some: {},
@@ -35,13 +57,31 @@ interface IPaperProps {
 }
 
 function BlogPaper({ post }: IPaperProps) {
+  const classes = useStyles();
+  console.log(post.image);
+  const img = post.image
+    ? `${imageServerUrl}${post.image}`
+    : BLOG_DATA.DEFAULT_BLOG_IMAGE;
   return (
-    <div>
+    <Paper className={classes.paper}>
       <Link href={url.post(post.slug)}>
-        <div>{post.title}</div>
+        <a className={classes.a}>
+          <Typography className={classes.title} variant="h6">
+            {post.title}
+          </Typography>
+          <div className={classes.imageContainer}>
+            <Image
+              className={classes.image}
+              src={img}
+              width={900}
+              height={600}
+            />
+          </div>
+          <div>{post.title}</div>
+        </a>
       </Link>
       <div>{parse(post.excerpt)}</div>
-    </div>
+    </Paper>
   );
 }
 

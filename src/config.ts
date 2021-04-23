@@ -117,6 +117,10 @@ export const COMPANY_INFORMATION = {
     'Мы всегда открыты для сотрудничества и критики, Свяжитесь любым удобным способом.',
   FREE_SHIPPING_FROM: 8000,
 };
+
+export const BLOG_DATA = {
+  DEFAULT_BLOG_IMAGE: '/images/local/defaultParts500.jpg',
+};
 export const footerData = COMPANY_INFORMATION;
 // If product does not have description just show some dummy description
 export const DEFAULT_EXCERPT = `
