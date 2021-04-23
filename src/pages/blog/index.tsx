@@ -5,12 +5,23 @@ import { getPosts } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
 import { GetStaticPropsContext } from 'next';
 import url from '~/services/url';
+import parse from 'html-react-parser';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    main: {
+      padding: theme.spacing(20),
+    },
+  })
+);
 
 interface IProps {
   posts: IPost[];
 }
 
 export default function Posts({ posts }: IProps) {
+  const classes = useStyles();
   return (
     <React.Fragment>
       {posts.map((post: IPost) => {
@@ -19,7 +30,7 @@ export default function Posts({ posts }: IProps) {
             <Link href={url.post(post.slug)}>
               <div>{post.title}</div>
             </Link>
-            <div>{post.text}</div>
+            <div>{parse(post.text)}</div>
           </div>
         );
       })}

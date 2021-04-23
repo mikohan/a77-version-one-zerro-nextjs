@@ -1,6 +1,7 @@
 import { ICar } from '~/interfaces/ICar';
 import cookie from 'cookie';
 import { IMake } from './interfaces/IMake';
+import { imageServerUrl } from '~/config';
 
 export function asString(query: string | string[] | undefined): string {
   if (Array.isArray(query)) {
@@ -79,4 +80,17 @@ export function conditionToRus(name: string): string {
     name = 'б/у';
   }
   return name;
+}
+
+export function addMainUrlInPostImage(postText: string): string {
+  const regex = /src="(.+?)"/;
+  const match = postText.match(regex);
+  if (match) {
+    const finStr = postText.replace(
+      regex,
+      `src="${imageServerUrl}${match![1]}"`
+    );
+    return finStr;
+  }
+  return postText;
 }

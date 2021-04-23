@@ -5,20 +5,21 @@ import { getPosts, getPost } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
 import { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 import { asString } from '~/helpers';
+import parse from 'html-react-parser';
+import { addMainUrlInPostImage } from '~/helpers';
 
 interface IProps {
   post: IPost;
 }
 
 export default function Posts({ post }: IProps) {
+  const newText = addMainUrlInPostImage(post.text);
   return (
     <React.Fragment>
-      return (
       <div>
         <div>{post.title}</div>
-        <div>{post.text}</div>
+        <div>{parse(newText)}</div>
       </div>
-      );
     </React.Fragment>
   );
 }
