@@ -77,14 +77,6 @@ export default function ModelShopList(props: IProps) {
             const imgSrc = product.images.length
               ? `${imageServerUrl}${product.images[0].img150}`
               : '/images/local/defaultParts245.png';
-            const width =
-              product.images && product.images.length
-                ? product.images[0].dimension.width / 6
-                : 120;
-            const height =
-              product.images && product.images.length
-                ? product.images[0].dimension.height / 6
-                : 120;
 
             return (
               <Paper key={product.id} className={classes.smallBox}>

@@ -149,3 +149,15 @@ export function translateProducts(
     return item._source;
   });
 }
+
+export function getImageSize(product: IProduct): number[] {
+  const width =
+    product.images && product.images.length
+      ? product.images[0].dimension.width / 6
+      : 120;
+  const height =
+    product.images && product.images.length
+      ? product.images[0].dimension.height / 6
+      : 120;
+  return [width, height];
+}
