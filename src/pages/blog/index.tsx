@@ -25,26 +25,42 @@ const useStyles = makeStyles((theme: Theme) =>
     sidePanel: {
       border: '1px solid blue',
     },
+    pageTitle: {
+      padding: theme.spacing(2),
+    },
     paper: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
+      marginTop: theme.spacing(5),
     },
     a: {
       display: 'flex',
       flexDirection: 'column',
     },
-    imageContainer: {},
     title: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       textAlign: 'center',
+      fontWeight: 600,
     },
     image: {
       objectFit: 'cover',
     },
-    main: {},
-    some: {},
+    author: {
+      color: theme.palette.text.secondary,
+      paddingLeft: theme.spacing(5),
+      paddingBottom: theme.spacing(2),
+    },
+    date: {
+      paddingLeft: theme.spacing(2),
+      fontWeight: 500,
+      color: theme.palette.primary.main,
+    },
+    excerpt: {
+      lineHeight: 1.75,
+      textIndent: theme.spacing(4),
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
   })
 );
 
@@ -58,7 +74,6 @@ interface IPaperProps {
 
 function BlogPaper({ post }: IPaperProps) {
   const classes = useStyles();
-  console.log(post.image);
   const img = post.image
     ? `${imageServerUrl}${post.image}`
     : BLOG_DATA.DEFAULT_BLOG_IMAGE;
@@ -66,21 +81,29 @@ function BlogPaper({ post }: IPaperProps) {
     <Paper className={classes.paper}>
       <Link href={url.post(post.slug)}>
         <a className={classes.a}>
-          <Typography className={classes.title} variant="h6">
-            {post.title}
-          </Typography>
-          <div className={classes.imageContainer}>
+          <div>
             <Image
               className={classes.image}
+              layout="responsive"
               src={img}
               width={900}
               height={600}
             />
           </div>
-          <div>{post.title}</div>
+          <Typography className={classes.title} variant="h4">
+            {post.title}
+          </Typography>
         </a>
       </Link>
-      <div>{parse(post.excerpt)}</div>
+      <Typography className={classes.author} variant="body2">
+        ---- {post.author}
+        <Typography className={classes.date} variant="body2" component="span">
+          {post.date}
+        </Typography>
+      </Typography>
+      <Typography className={classes.excerpt} variant="body1">
+        {post.excerpt}
+      </Typography>
     </Paper>
   );
 }
@@ -92,8 +115,11 @@ export default function Posts({ posts }: IProps) {
       <BlogHead />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
-          <Grid className={classes.main} container>
-            <Grid className={classes.some} container item xs={12} md={9}>
+          <Grid container>
+            <Grid container item xs={12} md={9}>
+              <Typography className={classes.pageTitle} variant="h1">
+                Статьи об автомобилях, ремонте, запчастях.
+              </Typography>
               <div className={classes.container}>
                 {posts.map((post: IPost) => {
                   return <BlogPaper key={post.slug} post={post} />;

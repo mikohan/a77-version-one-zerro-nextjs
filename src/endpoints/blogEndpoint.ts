@@ -11,6 +11,8 @@ export async function getPost(slug: string): Promise<IPost[]> {
         title
         text
         image
+        author
+        date
         partsCategory {
           name
           slug
@@ -41,6 +43,8 @@ export async function getPosts(): Promise<IPost[]> {
         slug
         image
         text
+        author
+        date
         partsCategory {
           name
           slug

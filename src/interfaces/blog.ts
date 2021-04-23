@@ -15,4 +15,6 @@ export interface IPost {
   image: string;
   partsCategory: IBlogCategory[];
   category: IBlogCategory[];
+  author: string;
+  date: Date;
 }
