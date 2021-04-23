@@ -149,7 +149,7 @@ export function translateProducts(
     return item._source;
   });
 }
-
+// function for gettin image width and height by passing product itselg
 export function getImageSize(product: IProduct): number[] {
   const width =
     product.images && product.images.length
