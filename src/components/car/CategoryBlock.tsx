@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '100%',
       textAlign: 'center',
       paddingBottom: theme.spacing(1),
+      fontWeight: 500,
     },
     chip: {
       marginBottom: theme.spacing(0.3),
@@ -62,15 +63,13 @@ const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Typography
-        className={classes.catTitle}
-        variant="subtitle1"
-        component="div"
-      >
-        <Link href={url.category(model.make.slug, model.slug, catSlug)}>
-          <a>{catName}</a>
-        </Link>
-      </Typography>
+      <Link href={url.category(model.make.slug, model.slug, catSlug)}>
+        <a className={classes.catTitle}>
+          <Typography variant="subtitle1" component="div">
+            {catName}
+          </Typography>
+        </a>
+      </Link>
       {categories?.map((item: ICategory) => (
         <Link
           key={item.id}

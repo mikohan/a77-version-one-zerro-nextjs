@@ -109,9 +109,9 @@ export default function ModelShopList(props: IProps) {
               <Typography variant="h6" className={classes.blockTitle}>
                 Популярные товары
               </Typography>
-              <Typography variant="body1">
+              <Box>
                 <ProductSmallGrid products={popularProducts} />
-              </Typography>
+              </Box>
             </div>
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
