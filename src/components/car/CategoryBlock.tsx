@@ -62,7 +62,11 @@ const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Typography className={classes.catTitle} variant="subtitle1">
+      <Typography
+        className={classes.catTitle}
+        variant="subtitle1"
+        component="div"
+      >
         <Link href={url.category(model.make.slug, model.slug, catSlug)}>
           <a>{catName}</a>
         </Link>
