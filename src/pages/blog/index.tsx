@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { IPost } from '~/interfaces';
 import { getPosts } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
-import { GetStaticPathsContext, GetStaticPropsContext } from 'next';
+import { GetStaticPropsContext } from 'next';
+import url from '~/services/url';
 
 interface IProps {
   posts: IPost[];
@@ -15,7 +16,9 @@ export default function Posts({ posts }: IProps) {
       {posts.map((post: IPost) => {
         return (
           <div>
-            <div>{post.title}</div>
+            <Link href={url.post(post.slug)}>
+              <div>{post.title}</div>
+            </Link>
             <div>{post.text}</div>
           </div>
         );
@@ -32,15 +35,5 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {
       posts,
     },
-  };
-}
-
-export async function getStaticPaths(context: GetStaticPathsContext) {
-  const posts = await getPosts();
-  const paths = posts.map((post: IPost) => ({ params: { post: post.slug } }));
-
-  return {
-    paths,
-    fallback: false,
   };
 }

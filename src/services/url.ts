@@ -34,6 +34,7 @@ const url: { [key: string]: any } = {
   about: () => ({
     href: `/about`,
   }),
+  post: (slug: string): IAppLinkHref => `/blog/${slug}`,
 };
 
 export default url;

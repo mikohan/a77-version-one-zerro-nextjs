@@ -20,6 +20,10 @@ const link = from([
   errorLink,
   new HttpLink({ uri: `${backServerUrl}/product/graphql` }),
 ]);
+const linkBlog = from([
+  errorLink,
+  new HttpLink({ uri: `${backServerUrl}/companypages/graphql` }),
+]);
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -34,5 +38,9 @@ const defaultOptions: DefaultOptions = {
 
 export const client = new ApolloClient({
   link: link,
+  cache: new InMemoryCache(),
+});
+export const clientBlog = new ApolloClient({
+  link: linkBlog,
   cache: new InMemoryCache(),
 });
