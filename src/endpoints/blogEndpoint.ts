@@ -1,6 +1,22 @@
 import { gql } from '@apollo/client';
 import { client, clientBlog } from './apolloClient';
-import { IPage, IPost } from '~/interfaces';
+import { IBlogCategory, IPage, IPost } from '~/interfaces';
+
+// Get blog categories
+export async function getBlogCategories(): Promise<IBlogCategory[]> {
+  const query = gql`
+    query categories {
+      categories {
+        name
+        slug
+      }
+    }
+  `;
+  const promise = await clientBlog.query({
+    query: query,
+  });
+  return promise.data.categories;
+}
 
 // Together products
 export async function getPost(slug: string): Promise<IPost[]> {
@@ -13,6 +29,10 @@ export async function getPost(slug: string): Promise<IPost[]> {
         image
         author
         date
+        car {
+          name
+          slug
+        }
         partsCategory {
           name
           slug
@@ -45,6 +65,10 @@ export async function getPosts(): Promise<IPost[]> {
         text
         author
         date
+        car {
+          name
+          slug
+        }
         partsCategory {
           name
           slug

@@ -1,6 +1,6 @@
 import React from 'react';
-import { IPost } from '~/interfaces';
-import { getPosts } from '~/endpoints/blogEndpoint';
+import { IBlogCategory, IPost } from '~/interfaces';
+import { getBlogCategories, getPosts } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -52,9 +52,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   posts: IPost[];
+  categories: IBlogCategory[];
 }
 
-export default function Posts({ posts }: IProps) {
+export default function Posts({ posts, categories }: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -82,7 +83,7 @@ export default function Posts({ posts }: IProps) {
                 <SearchField />
               </Box>
               <Paper className={classes.categoriesPaper}>
-                <CategoryList />
+                <CategoryList categories={categories} />
               </Paper>
             </Grid>
           </Grid>
@@ -94,11 +95,13 @@ export default function Posts({ posts }: IProps) {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const posts = await getPosts();
+  const categories = await getBlogCategories();
 
   return {
     revalidate: REVALIDATE,
     props: {
       posts,
+      categories,
     },
   };
 }
