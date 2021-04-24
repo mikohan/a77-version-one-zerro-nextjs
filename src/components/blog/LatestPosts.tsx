@@ -11,6 +11,8 @@ import Image from 'next/image';
 import { IPost } from '~/interfaces';
 import { Paper, Box } from '@material-ui/core';
 import { imageServerUrl } from '~/config';
+import Link from 'next/link';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,32 +73,36 @@ export default function LatestPosts({ posts }: IProps) {
         Последние публикации
       </Typography>
       {posts.map((post: IPost) => (
-        <Box key={post.slug} className={classes.item}>
-          <Box className={classes.imageBox}>
-            <Image
-              src={`${imageServerUrl}${post.image}`}
-              layout="intrinsic"
-              width={120}
-              height={100}
-            />
-          </Box>
-          <Box className={classes.content}>
-            <Typography
-              className={classes.title}
-              variant="body2"
-              component="div"
-            >
-              {post.title}
-            </Typography>
-            <Typography
-              className={classes.date}
-              variant="body2"
-              component="div"
-            >
-              {post.date}
-            </Typography>
-          </Box>
-        </Box>
+        <Link href={url.post(post.slug)}>
+          <a>
+            <Box key={post.slug} className={classes.item}>
+              <Box className={classes.imageBox}>
+                <Image
+                  src={`${imageServerUrl}${post.image}`}
+                  layout="intrinsic"
+                  width={120}
+                  height={100}
+                />
+              </Box>
+              <Box className={classes.content}>
+                <Typography
+                  className={classes.title}
+                  variant="body2"
+                  component="div"
+                >
+                  {post.title}
+                </Typography>
+                <Typography
+                  className={classes.date}
+                  variant="body2"
+                  component="div"
+                >
+                  {post.date}
+                </Typography>
+              </Box>
+            </Box>
+          </a>
+        </Link>
       ))}
     </Paper>
   );
