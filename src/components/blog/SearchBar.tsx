@@ -45,7 +45,7 @@ export default function CustomizedInputBase() {
       />
       <Divider className={classes.divider} orientation="vertical" />
       <IconButton
-        type="submit"
+        type="button"
         className={classes.iconButton}
         aria-label="search"
       >
