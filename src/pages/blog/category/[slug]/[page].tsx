@@ -18,6 +18,7 @@ import CategoryList from '~/components/blog/CategoryList';
 import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 
+const postsOnPage = 2;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -110,8 +111,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const slug = asString(context.params?.slug);
   const page = parseInt(asString(context.params?.page));
 
-  const postsOnPage = 2;
-
   const pageFrom = postsOnPage * (page - 1);
   const pageTo = pageFrom + postsOnPage;
 
@@ -119,7 +118,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const categories = await getBlogCategories();
   const total = await getTotalPosts();
   console.log(total);
-  const totalPages = total / postsOnPage;
+  const totalPages = Math.ceil(total / postsOnPage);
 
   return {
     revalidate: REVALIDATE,
@@ -132,16 +131,54 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   };
 }
 
+interface IParams {
+  slug: string;
+  page: string;
+}
+interface IPath {
+  params: IParams;
+}
+
 export async function getStaticPaths(context: GetStaticPathsContext) {
   const categories = await getBlogCategories();
   const total = await getTotalPosts();
+  const paths: any[] = [];
 
-  const paths = categories.map((category: IBlogCategory) => ({
-    params: { slug: category.slug, page: '1' },
-  }));
+  [...Array(total).keys()].map((page: number) => {
+    const row = {
+      params: {
+        slug: 'vse-kategorii',
+        page: Math.ceil((page + 1) / postsOnPage).toString(),
+      },
+    };
+    if (!paths.some((path: IPath) => path.params.page === row.params.page)) {
+      paths.push(row);
+    }
+  });
+
+  for (let category of categories) {
+    for (let page of [...Array(category.postsCount).keys()]) {
+      const row = {
+        params: {
+          slug: category.slug,
+          page: Math.ceil((page + 1) / postsOnPage).toString(),
+        },
+      };
+      if (
+        !paths.some(
+          (path: IPath) =>
+            path.params.page === row.params.page &&
+            path.params.slug === row.params.slug
+        )
+      ) {
+        paths.push(row);
+      }
+    }
+  }
+  console.log(paths);
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
