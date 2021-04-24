@@ -133,7 +133,7 @@ export default function Header({ setIsDark }: IProps) {
     setDrawerOpen(false);
   };
   const goBlog = () => {
-    router.push({ pathname: '/blog' });
+    router.push({ pathname: '/blog/category/vse-kategorii/1' });
     setDrawerOpen(false);
     dispatch({ type: SET_ACTIVE_PAGE, payload: 4 });
   };

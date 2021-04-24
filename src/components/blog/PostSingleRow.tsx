@@ -68,7 +68,7 @@ export default function BlogPaper({ post }: IPaperProps) {
 
   function handleReadMore() {
     router.push({
-      pathname: `/blog/${post.slug}`,
+      pathname: url.post(post.slug),
     });
   }
   return (

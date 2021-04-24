@@ -34,8 +34,9 @@ const url: { [key: string]: any } = {
   about: () => ({
     href: `/about`,
   }),
-  post: (slug: string): IAppLinkHref => `/blog/${slug}`,
-  blogCategory: (slug: string): IAppLinkHref => `/blog/category/${slug}`,
+  post: (slug: string): IAppLinkHref => `/blog/post/${slug}`,
+  blogCategory: (slug: string, page: number): IAppLinkHref =>
+    `/blog/category/${slug}/${page}`,
 };
 
 export default url;

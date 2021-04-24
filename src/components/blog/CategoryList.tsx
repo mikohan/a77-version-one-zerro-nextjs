@@ -44,7 +44,7 @@ export default function SimpleList({ categories }: IProps) {
     <div className={classes.root}>
       <List className={classes.list}>
         {categories.map((category: IBlogCategory) => (
-          <Link key={category.slug} href={url.blogCategory(category.slug)}>
+          <Link key={category.slug} href={url.blogCategory(category.slug, 1)}>
             <a>
               <Badge
                 classes={{
