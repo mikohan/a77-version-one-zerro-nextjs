@@ -122,24 +122,30 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   let total = 0;
   let categories: IBlogCategory[] = [];
+  let vseTotal = 0;
+  vseTotal = await getTotalPosts();
+  promiseCategories.forEach((category: IBlogCategory) => {
+    if (category.slug === 'vse-kategorii') {
+      categories.push({
+        id: category.id,
+        slug: category.slug,
+        name: category.name,
+        postsCount: vseTotal,
+      });
+    } else if (category.postsCount > 0) {
+      categories.push(category);
+    }
+  });
   if (slug === 'vse-kategorii') {
     total = await getTotalPosts();
-    promiseCategories.forEach((category: IBlogCategory) => {
-      if (category.slug === 'vse-kategorii') {
-        categories.push({
-          id: category.id,
-          slug: category.slug,
-          name: category.name,
-          postsCount: total,
-        });
-      } else if (category.postsCount > 0) {
-        categories.push(category);
-      }
-    });
+    vseTotal = total;
   } else {
-    total = categories.find((category: IBlogCategory) => category.slug === slug)
-      ?.postsCount as number;
+    const find = categories.find(
+      (category: IBlogCategory) => category.slug === slug
+    );
+    total = find?.postsCount as number;
   }
+
   const totalPages = Math.ceil(total / postsOnPage);
 
   return {

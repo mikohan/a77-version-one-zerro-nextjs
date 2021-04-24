@@ -73,9 +73,9 @@ export default function LatestPosts({ posts }: IProps) {
         Последние публикации
       </Typography>
       {posts.map((post: IPost) => (
-        <Link href={url.post(post.slug)}>
+        <Link key={post.slug} href={url.post(post.slug)}>
           <a>
-            <Box key={post.slug} className={classes.item}>
+            <Box className={classes.item}>
               <Box className={classes.imageBox}>
                 <Image
                   src={`${imageServerUrl}${post.image}`}
