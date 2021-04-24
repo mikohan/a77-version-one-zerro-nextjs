@@ -100,8 +100,14 @@ export default function Posts({ posts, categories }: IProps) {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const slug = asString(context.params?.slug);
-  const pageFrom = 1;
-  const pageTo = 3;
+  const page = parseInt(asString(context.params?.page));
+
+  const postsOnPage = 2;
+
+  const pageFrom = postsOnPage * (page - 1);
+  const pageTo = pageFrom + postsOnPage;
+  console.log(pageFrom, pageTo);
+
   const posts = await getPostsByCategory(slug, pageFrom, pageTo);
   const categories = await getBlogCategories();
 
