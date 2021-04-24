@@ -19,6 +19,7 @@ export async function getBlogCategories(): Promise<IBlogCategory[]> {
   const query = gql`
     query categories {
       categories {
+        id
         name
         slug
         postsCount
@@ -51,10 +52,12 @@ export async function getPost(slug: string): Promise<IPost[]> {
           }
         }
         partsCategory {
+          id
           name
           slug
         }
         category {
+          id
           name
           slug
         }
@@ -91,10 +94,12 @@ export async function getPosts(): Promise<IPost[]> {
           }
         }
         partsCategory {
+          id
           name
           slug
         }
         category {
+          id
           name
           slug
         }

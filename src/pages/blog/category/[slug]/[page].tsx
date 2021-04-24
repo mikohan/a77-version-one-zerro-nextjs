@@ -127,6 +127,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     promiseCategories.forEach((category: IBlogCategory) => {
       if (category.slug === 'vse-kategorii') {
         categories.push({
+          id: category.id,
           slug: category.slug,
           name: category.name,
           postsCount: total,
