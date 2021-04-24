@@ -1,8 +1,7 @@
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
 import { Badge, Typography } from '@material-ui/core';
 import { IBlogCategory } from '~/interfaces';
 import Link from 'next/link';
@@ -12,10 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
     listItem: {
+      minWidth: theme.spacing(25),
       '&:hover': {
         background: theme.palette.action.hover,
       },
