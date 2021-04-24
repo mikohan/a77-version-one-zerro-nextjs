@@ -17,6 +17,7 @@ import BlogPaper from '~/components/blog/PostSingleRow';
 import CategoryList from '~/components/blog/CategoryList';
 import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
+import LatestPosts from '~/components/blog/LatestPosts';
 
 const postsOnPage = 2;
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,10 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     searchContainer: {
       marginBottom: theme.spacing(3),
-    },
-    categoriesPaper: {
-      minHeight: theme.spacing(15),
-      padding: theme.spacing(5),
     },
     pagination: {
       display: 'flex',
@@ -103,9 +100,8 @@ export default function Posts({
               <Box className={classes.searchContainer}>
                 <SearchField />
               </Box>
-              <Paper className={classes.categoriesPaper}>
-                <CategoryList categories={categories} />
-              </Paper>
+              <CategoryList categories={categories} />
+              <LatestPosts posts={posts} />
             </Grid>
           </Grid>
         </div>
