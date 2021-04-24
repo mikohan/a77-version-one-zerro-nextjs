@@ -10,6 +10,7 @@ import BlogHead from '~/components/heads/BlogHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
 import CategoryList from '~/components/blog/CategoryList';
+import Pagination from '~/components/blog/Pagination';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,6 +42,11 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: theme.spacing(15),
       padding: theme.spacing(5),
     },
+    bottomPagination: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingBottom: theme.spacing(3),
+    },
   })
 );
 
@@ -67,6 +73,9 @@ export default function Posts({ posts }: IProps) {
                   return <BlogPaper key={post.slug} post={post} />;
                 })}
               </div>
+              <Grid className={classes.bottomPagination} item xs={12}>
+                <Pagination count={20} curPage={2} />
+              </Grid>
             </Grid>
             <Grid className={classes.sidePanel} item xs={12} md={4}>
               <Box className={classes.searchContainer}>
