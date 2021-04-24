@@ -4,8 +4,9 @@ import { IPost } from '~/interfaces';
 import { imageServerUrl, BLOG_DATA } from '~/config';
 import url from '~/services/url';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, Paper, Button } from '@material-ui/core';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
       textAlign: 'center',
       fontWeight: 600,
     },
@@ -45,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(4),
       paddingBottom: theme.spacing(4),
     },
+    readMore: {
+      marginLeft: theme.spacing(4),
+      marginBottom: theme.spacing(3),
+    },
   })
 );
 
@@ -54,9 +61,16 @@ interface IPaperProps {
 
 export default function BlogPaper({ post }: IPaperProps) {
   const classes = useStyles();
+  const router = useRouter();
   const img = post.image
     ? `${imageServerUrl}${post.image}`
     : BLOG_DATA.DEFAULT_BLOG_IMAGE;
+
+  function handleReadMore() {
+    router.push({
+      pathname: `/blog/${post.slug}`,
+    });
+  }
   return (
     <Paper className={classes.paper}>
       <Link href={url.post(post.slug)}>
@@ -84,6 +98,14 @@ export default function BlogPaper({ post }: IPaperProps) {
       <Typography className={classes.excerpt} variant="body1">
         {post.excerpt}
       </Typography>
+      <Button
+        className={classes.readMore}
+        variant="contained"
+        size="small"
+        onClick={handleReadMore}
+      >
+        Читать дальше
+      </Button>
     </Paper>
   );
 }
