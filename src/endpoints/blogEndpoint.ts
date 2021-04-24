@@ -9,6 +9,7 @@ export async function getBlogCategories(): Promise<IBlogCategory[]> {
       categories {
         name
         slug
+        postsCount
       }
     }
   `;
@@ -84,6 +85,47 @@ export async function getPosts(): Promise<IPost[]> {
     query: query,
   });
   return promise.data.posts;
+}
+
+export async function getPostsByCategory(
+  slug: string,
+  pageFrom: number,
+  pageTo: number
+): Promise<IPost[]> {
+  const query = gql`
+    query postsByCategory($slug: String!, $pageFrom: Int!, $pageTo: Int!) {
+      postsByCategory(slug: $slug, pageFrom: $pageFrom, pageTo: $pageTo) {
+        title
+        excerpt
+        slug
+        image
+        text
+        author
+        date
+        car {
+          name
+          slug
+        }
+        partsCategory {
+          name
+          slug
+        }
+        category {
+          name
+          slug
+        }
+      }
+    }
+  `;
+  const promise = await clientBlog.query({
+    query: query,
+    variables: {
+      slug,
+      pageFrom,
+      pageTo,
+    },
+  });
+  return promise.data.postsByCategory;
 }
 
 export async function getPages(): Promise<IPage[]> {

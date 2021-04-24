@@ -27,4 +27,5 @@ export interface IShopCategory extends IBaseCategory {
 
 export interface IBlogCategory extends IBaseCategory {
   type: 'blog';
+  postsCount: number;
 }

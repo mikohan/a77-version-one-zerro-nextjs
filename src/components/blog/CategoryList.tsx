@@ -2,11 +2,8 @@ import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import { Badge, Typography } from '@material-ui/core';
 import { IBlogCategory } from '~/interfaces';
 import Link from 'next/link';
 import url from '~/services/url';
@@ -18,6 +15,21 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
+    listItem: {
+      '&:hover': {
+        background: theme.palette.action.hover,
+      },
+    },
+    bagePosition: {
+      top: '25%',
+      right: '5%',
+      background: theme.palette.secondary.light,
+      fontWeight: 600,
+    },
+    list: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
   })
 );
 
@@ -25,22 +37,31 @@ interface IProps {
   categories: IBlogCategory[];
 }
 
-function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-  return <ListItem button component="a" {...props} />;
-}
-
 export default function SimpleList({ categories }: IProps) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <List component="nav" aria-label="secondary mailbox folders">
+      <List className={classes.list}>
         {categories.map((category: IBlogCategory) => (
-          <Link href={url.blogCategory(category.slug)}>
+          <Link key={category.slug} href={url.blogCategory(category.slug)}>
             <a>
-              <ListItemLink key={category.slug}>
-                <ListItemText primary={category.name} />
-              </ListItemLink>
+              <Badge
+                classes={{
+                  anchorOriginTopRightCircle: classes.bagePosition,
+                }}
+                badgeContent={category.postsCount || 3}
+                color="primary"
+                overlap="circle"
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <ListItem className={classes.listItem} key={category.slug}>
+                  <Typography variant="body1">{category.name}</Typography>
+                </ListItem>
+              </Badge>
             </a>
           </Link>
         ))}
