@@ -124,7 +124,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const categories = await getBlogCategories();
 
   let total = 0;
-  if (slug === 'vse-categorii') {
+  if (slug === 'vse-kategorii') {
     total = await getTotalPosts();
   } else {
     total = categories.find((category: IBlogCategory) => category.slug === slug)
