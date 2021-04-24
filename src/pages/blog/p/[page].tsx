@@ -2,7 +2,7 @@ import React from 'react';
 import { IPost } from '~/interfaces';
 import { getPosts } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
-import { GetStaticPropsContext } from 'next';
+import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
 import { Grid, Typography, Box, Paper } from '@material-ui/core';
@@ -10,6 +10,7 @@ import BlogHead from '~/components/heads/BlogHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
 import CategoryList from '~/components/blog/CategoryList';
+import Pagination from '~/components/blog/Pagination';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,6 +42,11 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: theme.spacing(15),
       padding: theme.spacing(5),
     },
+    pagination: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingBottom: theme.spacing(4),
+    },
   })
 );
 
@@ -67,6 +73,9 @@ export default function Posts({ posts }: IProps) {
                   return <BlogPaper key={post.slug} post={post} />;
                 })}
               </div>
+              <Grid className={classes.pagination} item xs={12}>
+                <Pagination count={20} curPage={3} />
+              </Grid>
             </Grid>
             <Grid className={classes.sidePanel} item xs={12} md={4}>
               <Box className={classes.searchContainer}>
@@ -91,5 +100,15 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {
       posts,
     },
+  };
+}
+
+export async function getStaticPaths(context: GetStaticPathsContext) {
+  const posts = await getPosts();
+  const paths = [{ params: { page: '1' } }];
+
+  return {
+    paths,
+    fallback: false,
   };
 }
