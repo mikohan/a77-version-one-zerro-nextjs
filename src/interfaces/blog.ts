@@ -1,4 +1,5 @@
 import { IBlogCategory } from './category';
+import { ICar } from '~/interfaces';
 
 export interface IPage {
   slug: string;
@@ -17,4 +18,5 @@ export interface IPost {
   category: IBlogCategory[];
   author: string;
   date: Date;
+  car: ICar[];
 }

@@ -73,6 +73,7 @@ export default function Posts({
   categorySlug,
 }: IProps) {
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <BlogHead />
