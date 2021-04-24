@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { IPost } from '~/interfaces';
+import { ICar, IPost } from '~/interfaces';
 import { imageServerUrl, BLOG_DATA } from '~/config';
 import url from '~/services/url';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, Paper, Button } from '@material-ui/core';
+import { Typography, Paper, Button, Box, Chip } from '@material-ui/core';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -52,6 +52,25 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(4),
       marginBottom: theme.spacing(3),
     },
+    partsCategory: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      paddingLeft: theme.spacing(4),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(2),
+    },
+    cars: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      paddingLeft: theme.spacing(4),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(2),
+    },
+
+    chip: {
+      marginRight: theme.spacing(1),
+      cursor: 'pointer',
+    },
   })
 );
 
@@ -95,6 +114,19 @@ export default function BlogPaper({ post }: IPaperProps) {
           {post.date}
         </Typography>
       </Typography>
+      {post.car.length ? (
+        <Box className={classes.cars}>
+          {post.car.map((car: ICar) => (
+            <Link key={car.slug} href={url.model(car.make.slug, car.slug)}>
+              <a>
+                <Chip className={classes.chip} size="small" label={car.model} />
+              </a>
+            </Link>
+          ))}
+        </Box>
+      ) : (
+        ''
+      )}
       <Typography className={classes.excerpt} variant="body1">
         {post.excerpt}
       </Typography>

@@ -43,8 +43,12 @@ export async function getPost(slug: string): Promise<IPost[]> {
         author
         date
         car {
-          name
+          model
           slug
+          make {
+            name
+            slug
+          }
         }
         partsCategory {
           name
@@ -79,8 +83,12 @@ export async function getPosts(): Promise<IPost[]> {
         author
         date
         car {
-          name
+          model
           slug
+          make {
+            name
+            slug
+          }
         }
         partsCategory {
           name
@@ -115,8 +123,12 @@ export async function getPostsByCategory(
         author
         date
         car {
-          name
+          model
           slug
+          make {
+            name
+            slug
+          }
         }
         partsCategory {
           name
