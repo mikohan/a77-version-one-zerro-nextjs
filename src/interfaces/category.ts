@@ -6,11 +6,11 @@ export interface ICategory extends IBaseCategory {
 // application
 
 export interface IBaseCategory {
-  id: number;
+  id?: number;
   type?: string;
   name: string;
   slug: string;
-  image: string | null;
+  image?: string | null;
   items?: number;
   parent?: this | null;
   children?: this[];
@@ -26,6 +26,6 @@ export interface IShopCategory extends IBaseCategory {
 }
 
 export interface IBlogCategory extends IBaseCategory {
-  type: 'blog';
+  type?: 'blog';
   postsCount: number;
 }

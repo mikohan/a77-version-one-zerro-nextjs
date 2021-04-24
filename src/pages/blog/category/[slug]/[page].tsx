@@ -121,11 +121,23 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const pageTo = pageFrom + postsOnPage;
 
   const posts = await getPostsByCategory(slug, pageFrom, pageTo);
-  const categories = await getBlogCategories();
+  const promiseCategories = await getBlogCategories();
 
   let total = 0;
+  let categories: IBlogCategory[] = [];
   if (slug === 'vse-kategorii') {
     total = await getTotalPosts();
+    promiseCategories.forEach((category: IBlogCategory) => {
+      if (category.slug === 'vse-kategorii') {
+        categories.push({
+          slug: category.slug,
+          name: category.name,
+          postsCount: total,
+        });
+      } else if (category.postsCount > 0) {
+        categories.push(category);
+      }
+    });
   } else {
     total = categories.find((category: IBlogCategory) => category.slug === slug)
       ?.postsCount as number;
