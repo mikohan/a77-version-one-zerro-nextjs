@@ -6,7 +6,7 @@ export interface ICategory extends IBaseCategory {
 // application
 
 export interface IBaseCategory {
-  id?: number;
+  id: number;
   type?: string;
   name: string;
   slug: string;
