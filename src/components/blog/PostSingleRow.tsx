@@ -104,7 +104,7 @@ export default function BlogPaper({ post }: IPaperProps) {
         size="small"
         onClick={handleReadMore}
       >
-        Читать дальше
+        Читать далее
       </Button>
     </Paper>
   );
