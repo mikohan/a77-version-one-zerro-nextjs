@@ -4,6 +4,7 @@ import {
   getBlogCategories,
   getPosts,
   getPostsByCategory,
+  getTotalPosts,
 } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
@@ -58,9 +59,16 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   posts: IPost[];
   categories: IBlogCategory[];
+  totalPages: number;
+  curPage: number;
 }
 
-export default function Posts({ posts, categories }: IProps) {
+export default function Posts({
+  posts,
+  categories,
+  totalPages,
+  curPage,
+}: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -80,7 +88,7 @@ export default function Posts({ posts, categories }: IProps) {
                 })}
               </div>
               <Grid className={classes.pagination} item xs={12}>
-                <Pagination count={20} curPage={3} />
+                <Pagination count={totalPages} curPage={curPage} />
               </Grid>
             </Grid>
             <Grid className={classes.sidePanel} item xs={12} md={4}>
@@ -106,22 +114,27 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   const pageFrom = postsOnPage * (page - 1);
   const pageTo = pageFrom + postsOnPage;
-  console.log(pageFrom, pageTo);
 
   const posts = await getPostsByCategory(slug, pageFrom, pageTo);
   const categories = await getBlogCategories();
+  const total = await getTotalPosts();
+  console.log(total);
+  const totalPages = total / postsOnPage;
 
   return {
     revalidate: REVALIDATE,
     props: {
       posts,
       categories,
+      totalPages,
+      curPage: page,
     },
   };
 }
 
 export async function getStaticPaths(context: GetStaticPathsContext) {
   const categories = await getBlogCategories();
+  const total = await getTotalPosts();
 
   const paths = categories.map((category: IBlogCategory) => ({
     params: { slug: category.slug, page: '1' },

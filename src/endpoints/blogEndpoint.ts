@@ -2,6 +2,18 @@ import { gql } from '@apollo/client';
 import { client, clientBlog } from './apolloClient';
 import { IBlogCategory, IPage, IPost } from '~/interfaces';
 
+// Total posts count
+export async function getTotalPosts(): Promise<number> {
+  const query = gql`
+    query totalPosts {
+      totalPosts
+    }
+  `;
+  const promise = await clientBlog.query({
+    query: query,
+  });
+  return promise.data.totalPosts;
+}
 // Get blog categories
 export async function getBlogCategories(): Promise<IBlogCategory[]> {
   const query = gql`
