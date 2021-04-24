@@ -62,6 +62,7 @@ interface IProps {
   categories: IBlogCategory[];
   totalPages: number;
   curPage: number;
+  categorySlug: string;
 }
 
 export default function Posts({
@@ -69,6 +70,7 @@ export default function Posts({
   categories,
   totalPages,
   curPage,
+  categorySlug,
 }: IProps) {
   const classes = useStyles();
   return (
@@ -89,7 +91,11 @@ export default function Posts({
                 })}
               </div>
               <Grid className={classes.pagination} item xs={12}>
-                <Pagination count={totalPages} curPage={curPage} />
+                <Pagination
+                  count={totalPages}
+                  curPage={curPage}
+                  categorySlug={categorySlug}
+                />
               </Grid>
             </Grid>
             <Grid className={classes.sidePanel} item xs={12} md={4}>
@@ -116,8 +122,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   const posts = await getPostsByCategory(slug, pageFrom, pageTo);
   const categories = await getBlogCategories();
-  const total = await getTotalPosts();
-  console.log(total);
+
+  let total = 0;
+  if (slug === 'vse-categorii') {
+    total = await getTotalPosts();
+  } else {
+    total = categories.find((category: IBlogCategory) => category.slug === slug)
+      ?.postsCount as number;
+  }
   const totalPages = Math.ceil(total / postsOnPage);
 
   return {
@@ -127,6 +139,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       categories,
       totalPages,
       curPage: page,
+      categorySlug: slug,
     },
   };
 }
@@ -175,10 +188,9 @@ export async function getStaticPaths(context: GetStaticPathsContext) {
       }
     }
   }
-  console.log(paths);
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 }

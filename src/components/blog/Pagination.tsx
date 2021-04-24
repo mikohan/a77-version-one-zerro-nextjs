@@ -26,9 +26,7 @@ export default function BasicPagination({
 }: IProps) {
   const classes = useStyles();
   const router = useRouter();
-  const [page, setPage] = React.useState(1);
   function handleChange(event: any, value: number) {
-    setPage(value);
     router.push({
       pathname: url.blogCategory(categorySlug, value),
     });
