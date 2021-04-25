@@ -24,6 +24,7 @@ import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
+import { getCategories } from '~/endpoints/categories';
 
 const postsOnPage = 2;
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,6 +67,7 @@ interface IProps {
   totalPages: number;
   curPage: number;
   categorySlug: string;
+  totalPosts: number;
 }
 
 export default function Posts({
@@ -74,6 +76,7 @@ export default function Posts({
   totalPages,
   curPage,
   categorySlug,
+  totalPosts,
 }: IProps) {
   const classes = useStyles();
 
@@ -134,7 +137,7 @@ export default function Posts({
                   handleKeyPress={handleKeyPress}
                 />
               </Box>
-              <CategoryList categories={categories} />
+              <CategoryList categories={categories} totalPosts={totalPosts} />
               <LatestPosts posts={posts} />
             </Grid>
           </Grid>
@@ -178,45 +181,32 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     posts = await searchPosts(safe, pageFrom, pageTo);
   }
-  let cats: IBlogCategory[] = [];
-  for (const post of posts) {
-    for (const cat of post.category) {
-      cats.push(cat);
-    }
-  }
-  const uniqueCats = distinctArray(cats);
-  console.log(uniqueCats);
-
-  const promiseCategories = await getBlogCategories();
 
   let total = 0;
   if (posts.length && posts[0].totalCount) {
     total = posts[0].totalCount;
   }
   const count = posts.length;
+  const promiseCategories = await getBlogCategories();
 
   let categories: IBlogCategory[] = [];
   promiseCategories.forEach((category: IBlogCategory) => {
-    if (category.slug === 'vse-kategorii') {
-      categories.push({
-        id: category.id,
-        slug: category.slug,
-        name: category.name,
-        postsCount: total,
-      });
-    } else if (category.postsCount > 0) {
-      categories.push(category);
+    if (category.postsCount > 0) {
+      if (!categories.some((cat: IBlogCategory) => cat.slug === category.slug))
+        categories.push(category);
     }
   });
+  const uniqueCats = distinctArray(categories);
 
   const totalPages = Math.ceil(count / postsOnPage);
 
   return {
     props: {
       posts,
-      categories,
+      categories: uniqueCats,
       totalPages,
       curPage: page,
+      totalPosts: total,
     },
   };
 }

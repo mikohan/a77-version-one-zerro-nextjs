@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {
+interface IProps extends IAllCatsProps {
   categories: IBlogCategory[];
 }
 
@@ -74,7 +74,7 @@ function AllCats({ totalPosts }: IAllCatsProps) {
   );
 }
 
-export default function SimpleList({ categories }: IProps) {
+export default function SimpleList({ categories, totalPosts }: IProps) {
   const classes = useStyles();
 
   return (
