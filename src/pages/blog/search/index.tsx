@@ -8,7 +8,11 @@ import {
   searchPosts,
 } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
-import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
+import {
+  GetStaticPropsContext,
+  GetStaticPathsContext,
+  GetServerSidePropsContext,
+} from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
 import { Grid, Typography, Box, Paper } from '@material-ui/core';
@@ -139,15 +143,15 @@ export default function Posts({
   );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const slug = asString(context.params?.slug);
-  const page = parseInt(asString(context.params?.page));
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const search = asString(context.query.search);
+  const page = parseInt(asString(context.query.page));
 
   const pageFrom = postsOnPage * (page - 1);
   const pageTo = pageFrom + postsOnPage;
   console.log(pageFrom, pageTo);
 
-  const posts = await getPostsByCategory(slug, pageFrom, pageTo);
+  const posts = await searchPosts(search, pageFrom, pageTo);
   const promiseCategories = await getBlogCategories();
 
   let total = 0;
@@ -179,7 +183,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const totalPages = Math.ceil(total / postsOnPage);
 
   return {
-    revalidate: REVALIDATE,
     props: {
       posts,
       categories,
@@ -198,45 +201,12 @@ interface IPath {
   params: IParams;
 }
 
-export async function getStaticPaths(context: GetStaticPathsContext) {
+export async function getServessrSideProps(context: GetServerSidePropsContext) {
   const categories = await getBlogCategories();
   const total = await getTotalPosts();
-  const paths: any[] = [];
-
-  [...Array(total).keys()].map((page: number) => {
-    const row = {
-      params: {
-        slug: 'vse-kategorii',
-        page: Math.ceil((page + 1) / postsOnPage).toString(),
-      },
-    };
-    if (!paths.some((path: IPath) => path.params.page === row.params.page)) {
-      paths.push(row);
-    }
-  });
-
-  for (let category of categories) {
-    for (let page of [...Array(category.postsCount).keys()]) {
-      const row = {
-        params: {
-          slug: category.slug,
-          page: Math.ceil((page + 1) / postsOnPage).toString(),
-        },
-      };
-      if (
-        !paths.some(
-          (path: IPath) =>
-            path.params.page === row.params.page &&
-            path.params.slug === row.params.slug
-        )
-      ) {
-        paths.push(row);
-      }
-    }
-  }
-
   return {
-    paths,
-    fallback: false,
+    props: {
+      posts,
+    },
   };
 }
