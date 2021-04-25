@@ -131,7 +131,7 @@ export default function BlogPaper({ post }: IPaperProps) {
       {post.category.length ? (
         <Box className={classes.cars}>
           {post.category.map((cat: IBlogCategory, i: number) => (
-            <Link key={i} href={url.blogCategory(cat.slug)}>
+            <Link key={i} href={url.blogCategory(cat.slug, 1)}>
               <a>
                 <Chip className={classes.chip} size="small" label={cat.name} />
               </a>

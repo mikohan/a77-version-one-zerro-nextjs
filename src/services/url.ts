@@ -44,7 +44,7 @@ const url: { [key: string]: any } = {
     };
   },
   post: (slug: string): IAppLinkHref => `/blog/post/${slug}`,
-  blogCategory: (slug: string, page: number): IAppLinkHref =>
+  blogCategory: (slug: string, page: number = 1): IAppLinkHref =>
     `/blog/category/${slug}/${page}`,
 };
 

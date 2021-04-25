@@ -168,7 +168,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     totalPages = Math.ceil(vseTotal / postsOnPage);
   }
 
-  if (!posts) {
+  if (posts.length == 0) {
     return {
       notFound: true,
     };
@@ -221,6 +221,6 @@ export async function getStaticPaths(context: GetStaticPathsContext) {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 }
