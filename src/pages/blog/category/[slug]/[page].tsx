@@ -63,6 +63,7 @@ interface IProps {
   curPage: number;
   categorySlug: string;
   totalPosts: number;
+  latestPosts: IPosts[];
 }
 
 export default function Posts({
@@ -72,6 +73,7 @@ export default function Posts({
   curPage,
   categorySlug,
   totalPosts,
+  latestPosts,
 }: IProps) {
   const classes = useStyles();
 
@@ -135,7 +137,7 @@ export default function Posts({
                 />
               </Box>
               <CategoryList categories={categories} totalPosts={totalPosts} />
-              <LatestPosts posts={posts} />
+              <LatestPosts posts={latestPosts} />
             </Grid>
           </Grid>
         </div>
@@ -153,6 +155,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   const posts = await getPostsByCategory(slug, pageFrom, pageTo);
   const promiseCategories = await getBlogCategories();
+  const latestPosts = await getPosts(5);
 
   let total = 0;
   let categories: IBlogCategory[] = [];
@@ -183,6 +186,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       curPage: page,
       categorySlug: slug,
       totalPosts: vseTotal,
+      latestPosts,
     },
   };
 }
