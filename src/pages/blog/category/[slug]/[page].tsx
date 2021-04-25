@@ -156,21 +156,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const posts = await getPostsByCategory(slug, pageFrom, pageTo);
   const promiseCategories = await getBlogCategories();
   const latestPosts = await getPosts(5);
+  const categories = promiseCategories
+    .slice()
+    .filter((cat: IBlogCategory) => cat.postsCount > 0);
 
   let total = 0;
-  let categories: IBlogCategory[] = [];
   let vseTotal = 0;
   vseTotal = await getTotalPosts();
-  promiseCategories.forEach((category: IBlogCategory) => {
-    if (category.postsCount > 0) {
-      categories.push(category);
-    }
-  });
 
-  const find = categories.find(
-    (category: IBlogCategory) => category.slug === slug
-  );
-  total = find?.postsCount as number;
+  const find = categories.find((cat: IBlogCategory) => cat.slug === slug);
+  total = find ? find?.postsCount : 0;
 
   let totalPages = Math.ceil(total / postsOnPage);
   if (slug === 'vse-kategorii') {
