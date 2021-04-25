@@ -57,11 +57,6 @@ export async function searchPosts(
             slug
           }
         }
-        partsCategory {
-          id
-          name
-          slug
-        }
         category {
           id
           name

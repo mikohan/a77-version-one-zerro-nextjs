@@ -24,7 +24,6 @@ import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
-import { getCategories } from '~/endpoints/categories';
 
 const postsOnPage = 2;
 const useStyles = makeStyles((theme: Theme) =>
@@ -147,23 +146,6 @@ export default function Posts({
   );
 }
 
-function distinctArray(array: IBlogCategory[]): IBlogCategory[] {
-  const result: IBlogCategory[] = [];
-  const map = new Map();
-  for (const item of array) {
-    if (!map.has(item.id)) {
-      map.set(item.id, true);
-      result.push({
-        id: item.id,
-        name: item.name,
-        slug: item.slug,
-        postsCount: item.postsCount,
-      });
-    }
-  }
-  return result;
-}
-
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const search = asString(context.query.search);
   let page = parseInt(asString(context.query.page));
@@ -175,14 +157,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     page = 1;
   }
 
-  if (!search) {
-    /* posts = await getPosts(); */
-  } else {
-    const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-    //posts = await searchPosts(safe, pageFrom, pageTo);
-  }
-  posts = await searchPosts(search, pageFrom, pageTo);
-  console.log(posts[0].category);
+  const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+  posts = await searchPosts(safe, pageFrom, pageTo);
 
   let total = 0;
   if (posts.length && posts[0].totalCount) {
