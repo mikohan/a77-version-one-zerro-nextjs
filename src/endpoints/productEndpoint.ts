@@ -24,6 +24,17 @@ export async function getProductsAll(): Promise<any> {
 
   return prom.data;
 }
+
+export async function getLatestProducts(
+  limit: number = 10
+): Promise<IProductElasticBase> {
+  const url = encodeURI(
+    `${backServerUrl}/api/product/latest?q=latest&limit=${limit}`
+  );
+  const prom = await axios(url);
+
+  return prom.data;
+}
 export async function getSimilarProductsByModel(
   modelSlug: string,
   query: string

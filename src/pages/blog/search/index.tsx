@@ -96,11 +96,12 @@ export default function Posts({
     setFound(0);
   }
   function handleSubmit() {
+    setFound(count);
     router.push({
       pathname: `/blog/search`,
       query: {
         search: search,
-        page: curPage,
+        page: 1,
       },
     });
   }
@@ -145,9 +146,7 @@ export default function Posts({
                     найдено {found} {transResults(found)}
                   </Typography>
                 ) : (
-                  <Typography variant="body1" component="span">
-                    Ничего не нашлось
-                  </Typography>
+                  ''
                 )}
               </Box>
             </Grid>

@@ -40,6 +40,7 @@ export const client = new ApolloClient({
   link: link,
   cache: new InMemoryCache(),
 });
+
 export const clientBlog = new ApolloClient({
   link: linkBlog,
   cache: new InMemoryCache(),

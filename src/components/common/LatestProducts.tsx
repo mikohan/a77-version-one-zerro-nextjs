@@ -11,6 +11,7 @@ import url from '~/services/url';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      marginTop: theme.spacing(2),
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
@@ -64,7 +65,7 @@ export default function LatestPosts({ products }: IProps) {
   return (
     <Paper className={classes.root}>
       <Typography className={classes.blockTitle} variant="h6">
-        Последние публикации
+        Последние поступления
       </Typography>
       {products.map((product: IProduct) => (
         <Link key={product.slug} href={url.product(product.slug)}>
@@ -72,7 +73,7 @@ export default function LatestPosts({ products }: IProps) {
             <Box className={classes.item}>
               <Box className={classes.imageBox}>
                 <Image
-                  src={`${imageServerUrl}${product.images[0].img150}`}
+                  src={`${product.images[0].img150}`}
                   layout="intrinsic"
                   width={120}
                   height={100}

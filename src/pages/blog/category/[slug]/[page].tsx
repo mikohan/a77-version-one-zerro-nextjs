@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IBlogCategory, IPost } from '~/interfaces';
+import { IBlogCategory, IPost, IProduct } from '~/interfaces';
 import {
   getBlogCategories,
   getPosts,
@@ -19,6 +19,9 @@ import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
+import { getLatestProducts } from '~/endpoints/productEndpoint';
+import { translateProducts } from '~/utils';
+import LatestProducts from '~/components/common/LatestProducts';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -63,6 +66,7 @@ interface IProps {
   categorySlug: string;
   totalPosts: number;
   latestPosts: IPost[];
+  latestProducts: IProduct[];
 }
 
 export default function Posts({
@@ -73,6 +77,7 @@ export default function Posts({
   categorySlug,
   totalPosts,
   latestPosts,
+  latestProducts,
 }: IProps) {
   const classes = useStyles();
 
@@ -133,6 +138,7 @@ export default function Posts({
               </Box>
               <CategoryList categories={categories} totalPosts={totalPosts} />
               <LatestPosts posts={latestPosts} />
+              <LatestProducts products={latestProducts} />
             </Grid>
           </Grid>
         </div>
@@ -142,6 +148,11 @@ export default function Posts({
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
+  const latestProductsPromise = await getLatestProducts(5);
+  const latestProducts: IProduct[] = translateProducts(
+    latestProductsPromise.hits.hits
+  );
+
   const slug = asString(context.params?.slug);
   const page = parseInt(asString(context.params?.page));
 
@@ -183,6 +194,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       categorySlug: slug,
       totalPosts: vseTotal,
       latestPosts,
+      latestProducts,
     },
   };
 }
