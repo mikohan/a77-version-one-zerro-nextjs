@@ -169,7 +169,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   );
   total = find?.postsCount as number;
 
-  const totalPages = Math.ceil(total / postsOnPage);
+  let totalPages = Math.ceil(total / postsOnPage);
+  if (slug === 'vse-kategorii') {
+    totalPages = Math.ceil(vseTotal / postsOnPage);
+  }
 
   return {
     revalidate: REVALIDATE,
