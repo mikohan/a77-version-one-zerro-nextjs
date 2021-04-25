@@ -34,6 +34,15 @@ const url: { [key: string]: any } = {
   about: () => ({
     href: `/about`,
   }),
+  blogSearch: (search: string, page: number) => {
+    return {
+      pathname: `/blog/search`,
+      query: {
+        search: search,
+        page: page,
+      },
+    };
+  },
   post: (slug: string): IAppLinkHref => `/blog/post/${slug}`,
   blogCategory: (slug: string, page: number): IAppLinkHref =>
     `/blog/category/${slug}/${page}`,

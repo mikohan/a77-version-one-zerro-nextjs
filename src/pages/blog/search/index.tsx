@@ -20,7 +20,7 @@ import BlogHead from '~/components/heads/BlogHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
 import CategoryList from '~/components/blog/CategoryList';
-import Pagination from '~/components/blog/Pagination';
+import PaginationSearch from '~/components/blog/PaginationSearch';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       paddingBottom: theme.spacing(4),
+    },
+    search: {
+      fontWeight: 700,
+      color: theme.palette.success.main,
     },
   })
 );
@@ -133,16 +137,13 @@ export default function Posts({
               <Box className={classes.pageTitle}>
                 {found ? (
                   <Typography variant="body1" component="span">
-                    Вы искали {search}{' '}
+                    Вы искали <span className={classes.search}>{search}</span>{' '}
                   </Typography>
                 ) : (
                   <Typography variant="body1" component="span">
-                    Вы ищите {search}{' '}
+                    Вы ищите <span className={classes.search}>{search}</span>{' '}
                   </Typography>
                 )}
-                <Typography variant="body1" component="span">
-                  {search}{' '}
-                </Typography>
                 {found ? (
                   <Typography variant="body1" component="span">
                     найдено {found} {transResults(found)}
@@ -161,10 +162,10 @@ export default function Posts({
                 })}
               </div>
               <Grid className={classes.pagination} item xs={12}>
-                <Pagination
+                <PaginationSearch
                   count={totalPages}
                   curPage={curPage}
-                  categorySlug={categorySlug}
+                  search={search}
                 />
               </Grid>
             </Grid>
