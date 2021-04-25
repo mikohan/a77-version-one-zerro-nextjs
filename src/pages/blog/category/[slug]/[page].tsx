@@ -203,6 +203,7 @@ function range(int: number): number[] {
 }
 
 export async function getStaticPaths(context: GetStaticPathsContext) {
+  const vseSlug = 'vse-kategorii';
   const promiseCategories = await getBlogCategories();
   const categories: IBlogCategory[] = promiseCategories
     .slice()
@@ -210,8 +211,12 @@ export async function getStaticPaths(context: GetStaticPathsContext) {
   const total = await getTotalPosts();
   const paths: any[] = [];
 
+  for (let vsePage of range(Math.ceil(total / postsOnPage))) {
+    const path = { params: { slug: vseSlug, page: (vsePage + 1).toString() } };
+    paths.push(path);
+  }
+
   for (let category of categories) {
-    console.log(category);
     for (const page of range(Math.ceil(category.postsCount / postsOnPage))) {
       const path = {
         params: { slug: category.slug, page: (page + 1).toString() },
@@ -219,39 +224,6 @@ export async function getStaticPaths(context: GetStaticPathsContext) {
       paths.push(path);
     }
   }
-  console.log(paths);
-
-  /* [...Array(total).keys()].map((page: number) => { */
-  /*   const row = { */
-  /*     params: { */
-  /*       slug: 'vse-kategorii', */
-  /*       page: Math.ceil((page + 1) / postsOnPage).toString(), */
-  /*     }, */
-  /*   }; */
-  /*   if (!paths.some((path: IPath) => path.params.page === row.params.page)) { */
-  /*     paths.push(row); */
-  /*   } */
-  /* }); */
-
-  /* for (let category of categories) { */
-  /*   for (let page of [...Array(category.postsCount).keys()]) { */
-  /*     const row = { */
-  /*       params: { */
-  /*         slug: category.slug, */
-  /*         page: Math.ceil((page + 1) / postsOnPage).toString(), */
-  /*       }, */
-  /*     }; */
-  /*     if ( */
-  /*       !paths.some( */
-  /*         (path: IPath) => */
-  /*           path.params.page === row.params.page && */
-  /*           path.params.slug === row.params.slug */
-  /*       ) */
-  /*     ) { */
-  /*       paths.push(row); */
-  /*     } */
-  /*   } */
-  /* } */
 
   return {
     paths,
