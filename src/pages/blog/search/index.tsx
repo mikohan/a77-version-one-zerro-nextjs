@@ -3,19 +3,13 @@ import { IBlogCategory, IPost } from '~/interfaces';
 import {
   getBlogCategories,
   getPosts,
-  getPostsByCategory,
-  getTotalPosts,
   searchPosts,
 } from '~/endpoints/blogEndpoint';
-import { REVALIDATE } from '~/config';
-import {
-  GetStaticPropsContext,
-  GetStaticPathsContext,
-  GetServerSidePropsContext,
-} from 'next';
+import { BLOG_DATA } from '~/config';
+import { GetServerSidePropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
-import { Grid, Typography, Box, Paper } from '@material-ui/core';
+import { Grid, Typography, Box } from '@material-ui/core';
 import BlogHead from '~/components/heads/BlogHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
@@ -25,7 +19,7 @@ import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
 
-const postsOnPage = 2;
+const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
