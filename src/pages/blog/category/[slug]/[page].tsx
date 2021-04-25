@@ -194,45 +194,67 @@ interface IPath {
   params: IParams;
 }
 
+function range(int: number): number[] {
+  const array: number[] = [];
+  for (let i = 0; i < int; i++) {
+    array.push(i);
+  }
+  return array;
+}
+
 export async function getStaticPaths(context: GetStaticPathsContext) {
-  const categories = await getBlogCategories();
+  const promiseCategories = await getBlogCategories();
+  const categories: IBlogCategory[] = promiseCategories
+    .slice()
+    .filter((cat: IBlogCategory) => cat.postsCount > 0);
   const total = await getTotalPosts();
   const paths: any[] = [];
 
-  [...Array(total).keys()].map((page: number) => {
-    const row = {
-      params: {
-        slug: 'vse-kategorii',
-        page: Math.ceil((page + 1) / postsOnPage).toString(),
-      },
-    };
-    if (!paths.some((path: IPath) => path.params.page === row.params.page)) {
-      paths.push(row);
-    }
-  });
-
   for (let category of categories) {
-    for (let page of [...Array(category.postsCount).keys()]) {
-      const row = {
-        params: {
-          slug: category.slug,
-          page: Math.ceil((page + 1) / postsOnPage).toString(),
-        },
+    console.log(category);
+    for (const page of range(Math.ceil(category.postsCount / postsOnPage))) {
+      const path = {
+        params: { slug: category.slug, page: (page + 1).toString() },
       };
-      if (
-        !paths.some(
-          (path: IPath) =>
-            path.params.page === row.params.page &&
-            path.params.slug === row.params.slug
-        )
-      ) {
-        paths.push(row);
-      }
+      paths.push(path);
     }
   }
+  console.log(paths);
+
+  /* [...Array(total).keys()].map((page: number) => { */
+  /*   const row = { */
+  /*     params: { */
+  /*       slug: 'vse-kategorii', */
+  /*       page: Math.ceil((page + 1) / postsOnPage).toString(), */
+  /*     }, */
+  /*   }; */
+  /*   if (!paths.some((path: IPath) => path.params.page === row.params.page)) { */
+  /*     paths.push(row); */
+  /*   } */
+  /* }); */
+
+  /* for (let category of categories) { */
+  /*   for (let page of [...Array(category.postsCount).keys()]) { */
+  /*     const row = { */
+  /*       params: { */
+  /*         slug: category.slug, */
+  /*         page: Math.ceil((page + 1) / postsOnPage).toString(), */
+  /*       }, */
+  /*     }; */
+  /*     if ( */
+  /*       !paths.some( */
+  /*         (path: IPath) => */
+  /*           path.params.page === row.params.page && */
+  /*           path.params.slug === row.params.slug */
+  /*       ) */
+  /*     ) { */
+  /*       paths.push(row); */
+  /*     } */
+  /*   } */
+  /* } */
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
