@@ -93,6 +93,9 @@ export default function Posts({
   const [search, setSearch] = useState(initSearch);
   const [found, setFound] = useState(initCount);
   const router = useRouter();
+  useEffect(() => {
+    setFound(count);
+  }, [count]);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
@@ -106,7 +109,6 @@ export default function Posts({
         page: curPage,
       },
     });
-    setFound(count);
   }
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
