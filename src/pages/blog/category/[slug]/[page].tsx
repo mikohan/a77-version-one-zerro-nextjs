@@ -63,7 +63,7 @@ interface IProps {
   curPage: number;
   categorySlug: string;
   totalPosts: number;
-  latestPosts: IPosts[];
+  latestPosts: IPost[];
 }
 
 export default function Posts({
