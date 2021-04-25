@@ -79,7 +79,6 @@ export default function Posts({
   useEffect(() => {
     async function getSearch() {
       const searchP = await searchPosts(search);
-      console.log(searchP);
       setLocalPosts(searchP);
     }
     getSearch();
@@ -91,8 +90,12 @@ export default function Posts({
   function handleSubmit() {
     setSubmit(true);
   }
-  console.log(search);
-  console.log(localPosts);
+  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+    e.key === 'Enter' && e.preventDefault();
+    if (search) {
+      handleSubmit();
+    }
+  }
   let showPosts;
   if (typeof window === 'undefined') {
     showPosts = posts;
@@ -130,6 +133,7 @@ export default function Posts({
                 <SearchField
                   handleSearch={handleSearch}
                   handleSubmit={handleSubmit}
+                  handleKeyPress={handleKeyPress}
                 />
               </Box>
               <CategoryList categories={categories} />

@@ -32,11 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   handleSearch(e: React.ChangeEvent<HTMLInputElement>): void;
   handleSubmit(): void;
+  handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>): void;
 }
 
 export default function CustomizedInputBase({
   handleSearch,
   handleSubmit,
+  handleKeyPress,
 }: IProps) {
   const classes = useStyles();
 
@@ -50,10 +52,7 @@ export default function CustomizedInputBase({
         className={classes.input}
         placeholder="Search Google Maps"
         inputProps={{ 'aria-label': 'search google maps' }}
-        onKeyPress={(e) => {
-          e.key === 'Enter' && e.preventDefault();
-          handleSubmit();
-        }}
+        onKeyPress={handleKeyPress}
       />
       <Divider className={classes.divider} orientation="vertical" />
       <IconButton
