@@ -36,8 +36,8 @@ export async function getBlogCategories(): Promise<IBlogCategory[]> {
 
 export async function searchPosts(search: string): Promise<IPost[]> {
   const query = gql`
-    query postSearch($search: String!) {
-      postSearch(search: $search) {
+    query postsSearch($search: String!) {
+      postsSearch(search: $search) {
         slug
         title
         text
@@ -71,7 +71,7 @@ export async function searchPosts(search: string): Promise<IPost[]> {
       search,
     },
   });
-  const data = await promise.data.postSearch;
+  const data = await promise.data.postsSearch;
   return data;
 }
 

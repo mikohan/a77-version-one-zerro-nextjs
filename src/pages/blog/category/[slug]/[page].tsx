@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IBlogCategory, IPost } from '~/interfaces';
 import {
   getBlogCategories,
   getPosts,
   getPostsByCategory,
   getTotalPosts,
+  searchPosts,
 } from '~/endpoints/blogEndpoint';
 import { REVALIDATE } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
@@ -71,6 +72,34 @@ export default function Posts({
 }: IProps) {
   const classes = useStyles();
 
+  const [localPosts, setLocalPosts] = useState(posts);
+  const [search, setSearch] = useState('');
+  const [submit, setSubmit] = useState(false);
+
+  useEffect(() => {
+    async function getSearch() {
+      const searchP = await searchPosts(search);
+      console.log(searchP);
+      setLocalPosts(searchP);
+    }
+    getSearch();
+    setSubmit(false);
+  }, [submit]);
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
+  function handleSubmit() {
+    setSubmit(true);
+  }
+  console.log(search);
+  console.log(localPosts);
+  let showPosts;
+  if (typeof window === 'undefined') {
+    showPosts = posts;
+  } else {
+    showPosts = localPosts;
+  }
+
   return (
     <React.Fragment>
       <BlogHead />
@@ -84,7 +113,7 @@ export default function Posts({
             </Grid>
             <Grid container item xs={12} md={8}>
               <div className={classes.itemContainer}>
-                {posts.map((post: IPost) => {
+                {showPosts.map((post: IPost) => {
                   return <BlogPaper key={post.slug} post={post} />;
                 })}
               </div>
@@ -98,7 +127,10 @@ export default function Posts({
             </Grid>
             <Grid className={classes.sidePanel} item xs={12} md={4}>
               <Box className={classes.searchContainer}>
-                <SearchField />
+                <SearchField
+                  handleSearch={handleSearch}
+                  handleSubmit={handleSubmit}
+                />
               </Box>
               <CategoryList categories={categories} />
               <LatestPosts posts={posts} />
