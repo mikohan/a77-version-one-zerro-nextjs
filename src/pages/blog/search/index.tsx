@@ -176,11 +176,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   if (!search) {
-    posts = await getPosts();
+    /* posts = await getPosts(); */
   } else {
     const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-    posts = await searchPosts(safe, pageFrom, pageTo);
+    //posts = await searchPosts(safe, pageFrom, pageTo);
   }
+  posts = await searchPosts(search, pageFrom, pageTo);
+  console.log(posts[0].category);
 
   let total = 0;
   if (posts.length && posts[0].totalCount) {
@@ -196,14 +198,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         categories.push(category);
     }
   });
-  const uniqueCats = distinctArray(categories);
 
   const totalPages = Math.ceil(count / postsOnPage);
 
   return {
     props: {
       posts,
-      categories: uniqueCats,
+      categories,
       totalPages,
       curPage: page,
       totalPosts: total,

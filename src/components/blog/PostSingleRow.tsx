@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ICar, IPost } from '~/interfaces';
+import { IBlogCategory, ICar, IPost } from '~/interfaces';
 import { imageServerUrl, BLOG_DATA } from '~/config';
 import url from '~/services/url';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -90,6 +90,8 @@ export default function BlogPaper({ post }: IPaperProps) {
       pathname: url.post(post.slug),
     });
   }
+
+  console.log(post.category);
   return (
     <Paper className={classes.paper}>
       <Link href={url.post(post.slug)}>
@@ -120,6 +122,19 @@ export default function BlogPaper({ post }: IPaperProps) {
             <Link key={car.slug} href={url.model(car.make.slug, car.slug)}>
               <a>
                 <Chip className={classes.chip} size="small" label={car.model} />
+              </a>
+            </Link>
+          ))}
+        </Box>
+      ) : (
+        ''
+      )}
+      {post.category.length ? (
+        <Box className={classes.cars}>
+          {post.category.map((cat: IBlogCategory) => (
+            <Link key={cat.slug} href={url.blogCategory(cat.slug)}>
+              <a>
+                <Chip className={classes.chip} size="small" label={cat.name} />
               </a>
             </Link>
           ))}
