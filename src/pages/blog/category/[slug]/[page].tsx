@@ -77,12 +77,8 @@ export default function Posts({
 }: IProps) {
   const classes = useStyles();
 
-  const [localPosts, setLocalPosts] = useState(posts);
   const [search, setSearch] = useState('');
   const router = useRouter();
-  useEffect(() => {
-    setLocalPosts(posts);
-  }, [posts]);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
@@ -116,7 +112,7 @@ export default function Posts({
             </Grid>
             <Grid container item xs={12} md={8}>
               <div className={classes.itemContainer}>
-                {localPosts.map((post: IPost) => {
+                {posts.map((post: IPost) => {
                   return <BlogPaper key={post.slug} post={post} />;
                 })}
               </div>
@@ -172,6 +168,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     totalPages = Math.ceil(vseTotal / postsOnPage);
   }
 
+  if (!posts) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     revalidate: REVALIDATE,
     props: {
@@ -184,14 +186,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       latestPosts,
     },
   };
-}
-
-interface IParams {
-  slug: string;
-  page: string;
-}
-interface IPath {
-  params: IParams;
 }
 
 function range(int: number): number[] {
