@@ -69,7 +69,7 @@ interface IProps {
   categories: IBlogCategory[];
   totalPages: number;
   curPage: number;
-  categorySlug: string;
+  latestPosts: IPost[];
   totalPosts: number;
   count: number;
   searchQuery: string;
@@ -80,7 +80,7 @@ export default function Posts({
   categories,
   totalPages,
   curPage,
-  categorySlug,
+  latestPosts,
   totalPosts,
   count,
   searchQuery,
@@ -146,7 +146,7 @@ export default function Posts({
                     Вы ищите <span className={classes.search}>{search}</span>{' '}
                   </Typography>
                 )}
-                {found ? (
+                {found && found !== 100 ? (
                   <Typography variant="body1" component="span">
                     найдено {found} {transResults(found)}
                   </Typography>
@@ -180,7 +180,7 @@ export default function Posts({
                 />
               </Box>
               <CategoryList categories={categories} totalPosts={totalPosts} />
-              <LatestPosts posts={posts} />
+              <LatestPosts posts={latestPosts} />
             </Grid>
           </Grid>
         </div>
@@ -199,6 +199,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!page) {
     page = 1;
   }
+
+  const latestPosts = await getPosts(5);
 
   const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
   posts = await searchPosts(safe, pageFrom, pageTo);
@@ -232,6 +234,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       totalPosts: total,
       count,
       searchQuery: search,
+      latestPosts,
     },
   };
 }

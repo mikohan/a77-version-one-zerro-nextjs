@@ -120,10 +120,10 @@ export async function getPost(slug: string): Promise<IPost[]> {
   return data;
 }
 
-export async function getPosts(): Promise<IPost[]> {
+export async function getPosts(limit: number = 0): Promise<IPost[]> {
   const query = gql`
-    query posts {
-      posts {
+    query posts($limit: Int!) {
+      posts(limit: $limit) {
         title
         excerpt
         slug
@@ -154,6 +154,9 @@ export async function getPosts(): Promise<IPost[]> {
   `;
   const promise = await clientBlog.query({
     query: query,
+    variables: {
+      limit,
+    },
   });
   return promise.data.posts;
 }
