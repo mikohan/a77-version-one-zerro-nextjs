@@ -5,9 +5,8 @@ import {
   getPosts,
   getPostsByCategory,
   getTotalPosts,
-  searchPosts,
 } from '~/endpoints/blogEndpoint';
-import { REVALIDATE } from '~/config';
+import { REVALIDATE, BLOG_DATA } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
@@ -21,7 +20,7 @@ import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
 
-const postsOnPage = 2;
+const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {

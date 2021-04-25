@@ -120,6 +120,7 @@ export const COMPANY_INFORMATION = {
 
 export const BLOG_DATA = {
   DEFAULT_BLOG_IMAGE: '/images/local/defaultParts500.jpg',
+  postsPerPage: 2,
 };
 export const footerData = COMPANY_INFORMATION;
 // If product does not have description just show some dummy description
