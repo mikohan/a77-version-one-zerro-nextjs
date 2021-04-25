@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { IBlogCategory, IPost } from '~/interfaces';
+import { IBlogCategory, IPost, IProduct } from '~/interfaces';
 import {
   getBlogCategories,
   getPosts,
   searchPosts,
 } from '~/endpoints/blogEndpoint';
+import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { BLOG_DATA } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -18,6 +19,8 @@ import PaginationSearch from '~/components/blog/PaginationSearch';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
+import { translateProducts } from '~/utils';
+import LatestProducts from '~/components/common/LatestProducts';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -67,6 +70,7 @@ interface IProps {
   totalPosts: number;
   count: number;
   searchQuery: string;
+  latestProducts: IProduct[];
 }
 
 export default function Posts({
@@ -78,6 +82,7 @@ export default function Posts({
   totalPosts,
   count,
   searchQuery,
+  latestProducts,
 }: IProps) {
   const classes = useStyles();
 
@@ -174,6 +179,7 @@ export default function Posts({
               </Box>
               <CategoryList categories={categories} totalPosts={totalPosts} />
               <LatestPosts posts={latestPosts} />
+              <LatestProducts products={latestProducts} />
             </Grid>
           </Grid>
         </div>
@@ -183,6 +189,10 @@ export default function Posts({
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const latestProductsPromise = await getLatestProducts(5);
+  const latestProducts: IProduct[] = translateProducts(
+    latestProductsPromise.hits.hits
+  );
   const search = asString(context.query.search);
   let page = parseInt(asString(context.query.page));
 
@@ -228,6 +238,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       count,
       searchQuery: search,
       latestPosts,
+      latestProducts,
     },
   };
 }

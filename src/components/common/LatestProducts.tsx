@@ -49,8 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1rem',
       fontWeight: 500,
     },
-    date: {
+    price: {
       color: theme.palette.text.secondary,
+      fontWeight: 700,
     },
   })
 );
@@ -88,11 +89,11 @@ export default function LatestPosts({ products }: IProps) {
                   {product.name}
                 </Typography>
                 <Typography
-                  className={classes.date}
+                  className={classes.price}
                   variant="body2"
                   component="div"
                 >
-                  {product.stocks[0].price}
+                  &#8381; {product.stocks[0].price}
                 </Typography>
               </Box>
             </Box>
