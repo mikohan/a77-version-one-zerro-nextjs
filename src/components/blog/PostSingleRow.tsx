@@ -91,7 +91,6 @@ export default function BlogPaper({ post }: IPaperProps) {
     });
   }
 
-  console.log(post.category);
   return (
     <Paper className={classes.paper}>
       <Link href={url.post(post.slug)}>

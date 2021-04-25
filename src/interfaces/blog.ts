@@ -20,4 +20,5 @@ export interface IPost {
   date: Date;
   car: ICar[];
   totalCount?: number;
+  count?: number;
 }

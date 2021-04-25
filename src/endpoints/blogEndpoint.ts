@@ -49,6 +49,7 @@ export async function searchPosts(
         author
         date
         totalCount
+        count
         car {
           model
           slug

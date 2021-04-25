@@ -67,6 +67,7 @@ interface IProps {
   curPage: number;
   categorySlug: string;
   totalPosts: number;
+  count: number;
 }
 
 export default function Posts({
@@ -76,6 +77,7 @@ export default function Posts({
   curPage,
   categorySlug,
   totalPosts,
+  count,
 }: IProps) {
   const classes = useStyles();
 
@@ -121,7 +123,7 @@ export default function Posts({
           <Grid container>
             <Grid item xs={12}>
               <Typography className={classes.pageTitle} variant="h1">
-                Вы искали "{search}" найдено {posts.length}{' '}
+                Вы искали "{search}" найдено {count}{' '}
                 {transResults(posts.length)}
               </Typography>
             </Grid>
@@ -175,7 +177,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (posts.length && posts[0].totalCount) {
     total = posts[0].totalCount;
   }
-  const count = posts.length;
+  let count: number = 0;
+  if (posts.length && posts[0].count) {
+    count = posts[0].count;
+  }
   const promiseCategories = await getBlogCategories();
 
   let categories: IBlogCategory[] = [];
@@ -195,6 +200,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       totalPages,
       curPage: page,
       totalPosts: total,
+      count,
     },
   };
 }
