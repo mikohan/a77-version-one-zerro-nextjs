@@ -42,6 +42,38 @@ interface IProps {
   categories: IBlogCategory[];
 }
 
+interface IAllCatsProps {
+  totalPosts: number;
+}
+
+function AllCats({ totalPosts }: IAllCatsProps) {
+  const classes = useStyles();
+  const slug = 'vse-kategorii';
+  const name = 'Все категории';
+  return (
+    <Link key={slug} href={url.blogCategory(slug, 1)}>
+      <a>
+        <Badge
+          classes={{
+            anchorOriginTopRightCircle: classes.bagePosition,
+          }}
+          badgeContent={totalPosts}
+          color="primary"
+          overlap="circle"
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <ListItem className={classes.listItem} key={slug}>
+            <Typography variant="body1">{name}</Typography>
+          </ListItem>
+        </Badge>
+      </a>
+    </Link>
+  );
+}
+
 export default function SimpleList({ categories }: IProps) {
   const classes = useStyles();
 
@@ -49,6 +81,7 @@ export default function SimpleList({ categories }: IProps) {
     <div className={classes.root}>
       <Paper className={classes.categoriesPaper}>
         <List className={classes.list}>
+          <AllCats totalPosts={totalPosts} />
           {categories.map((category: IBlogCategory) => (
             <Link key={category.slug} href={url.blogCategory(category.slug, 1)}>
               <a>

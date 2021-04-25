@@ -19,6 +19,7 @@ import CategoryList from '~/components/blog/CategoryList';
 import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
+import { useRouter } from 'next/router';
 
 const postsOnPage = 2;
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,6 +62,7 @@ interface IProps {
   totalPages: number;
   curPage: number;
   categorySlug: string;
+  totalPosts: number;
 }
 
 export default function Posts({
@@ -69,11 +71,13 @@ export default function Posts({
   totalPages,
   curPage,
   categorySlug,
+  totalPosts,
 }: IProps) {
   const classes = useStyles();
 
   const [localPosts, setLocalPosts] = useState(posts);
   const [search, setSearch] = useState('');
+  const router = useRouter();
   useEffect(() => {
     setLocalPosts(posts);
   }, [posts]);
@@ -82,12 +86,13 @@ export default function Posts({
     setSearch(e.target.value);
   }
   function handleSubmit() {
-    async function getSearch() {
-      const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-      const searchP = await searchPosts(safe);
-      setLocalPosts(searchP);
-    }
-    getSearch();
+    router.push({
+      pathname: `/blog/search`,
+      query: {
+        search: search,
+        page: curPage,
+      },
+    });
   }
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     e.key === 'Enter' && e.preventDefault();
@@ -129,7 +134,7 @@ export default function Posts({
                   handleKeyPress={handleKeyPress}
                 />
               </Box>
-              <CategoryList categories={categories} />
+              <CategoryList categories={categories} totalPosts={totalPosts} />
               <LatestPosts posts={posts} />
             </Grid>
           </Grid>
@@ -186,6 +191,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       totalPages,
       curPage: page,
       categorySlug: slug,
+      totalPosts: vseTotal,
     },
   };
 }

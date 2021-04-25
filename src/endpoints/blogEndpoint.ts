@@ -41,13 +41,14 @@ export async function searchPosts(
 ): Promise<IPost[]> {
   const query = gql`
     query postsSearch($search: String!, $pageFrom: Int!, $pageTo: Int!) {
-      postsSearch(search: $search) {
+      postsSearch(search: $search, pageFrom: $pageFrom, pageTo: $pageTo) {
         slug
         title
         text
         image
         author
         date
+        totalCount
         car {
           model
           slug

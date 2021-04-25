@@ -23,6 +23,7 @@ import CategoryList from '~/components/blog/CategoryList';
 import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
+import { useRouter } from 'next/router';
 
 const postsOnPage = 2;
 const useStyles = makeStyles((theme: Theme) =>
@@ -76,27 +77,27 @@ export default function Posts({
 }: IProps) {
   const classes = useStyles();
 
-  const [localPosts, setLocalPosts] = useState(posts);
   const [search, setSearch] = useState('');
-  useEffect(() => {
-    setLocalPosts(posts);
-  }, [posts]);
+  const router = useRouter();
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
   }
   function handleSubmit() {
-    async function getSearch() {
-      const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-      const searchP = await searchPosts(safe);
-      setLocalPosts(searchP);
-    }
-    getSearch();
+    router.push({
+      pathname: `/blog/search`,
+      query: {
+        search: search,
+        page: curPage,
+      },
+    });
   }
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
-    e.key === 'Enter' && e.preventDefault();
-    if (search) {
-      handleSubmit();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (search) {
+        handleSubmit();
+      }
     }
   }
 
@@ -113,7 +114,7 @@ export default function Posts({
             </Grid>
             <Grid container item xs={12} md={8}>
               <div className={classes.itemContainer}>
-                {localPosts.map((post: IPost) => {
+                {posts.map((post: IPost) => {
                   return <BlogPaper key={post.slug} post={post} />;
                 })}
               </div>
@@ -143,44 +144,72 @@ export default function Posts({
   );
 }
 
+function distinctArray(array: IBlogCategory[]): IBlogCategory[] {
+  const result: IBlogCategory[] = [];
+  const map = new Map();
+  for (const item of array) {
+    if (!map.has(item.id)) {
+      map.set(item.id, true);
+      result.push({
+        id: item.id,
+        name: item.name,
+        slug: item.slug,
+        postsCount: item.postsCount,
+      });
+    }
+  }
+  return result;
+}
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const search = asString(context.query.search);
-  const page = parseInt(asString(context.query.page));
+  let page = parseInt(asString(context.query.page));
 
   const pageFrom = postsOnPage * (page - 1);
   const pageTo = pageFrom + postsOnPage;
-  console.log(pageFrom, pageTo);
+  let posts: IPost[] = [];
+  if (!page) {
+    page = 1;
+  }
 
-  const posts = await searchPosts(search, pageFrom, pageTo);
+  if (!search) {
+    posts = await getPosts();
+  } else {
+    const safe = search.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    posts = await searchPosts(safe, pageFrom, pageTo);
+  }
+  let cats: IBlogCategory[] = [];
+  for (const post of posts) {
+    for (const cat of post.category) {
+      cats.push(cat);
+    }
+  }
+  const uniqueCats = distinctArray(cats);
+  console.log(uniqueCats);
+
   const promiseCategories = await getBlogCategories();
 
   let total = 0;
+  if (posts.length && posts[0].totalCount) {
+    total = posts[0].totalCount;
+  }
+  const count = posts.length;
+
   let categories: IBlogCategory[] = [];
-  let vseTotal = 0;
-  vseTotal = await getTotalPosts();
   promiseCategories.forEach((category: IBlogCategory) => {
     if (category.slug === 'vse-kategorii') {
       categories.push({
         id: category.id,
         slug: category.slug,
         name: category.name,
-        postsCount: vseTotal,
+        postsCount: total,
       });
     } else if (category.postsCount > 0) {
       categories.push(category);
     }
   });
-  if (slug === 'vse-kategorii') {
-    total = await getTotalPosts();
-    vseTotal = total;
-  } else {
-    const find = categories.find(
-      (category: IBlogCategory) => category.slug === slug
-    );
-    total = find?.postsCount as number;
-  }
 
-  const totalPages = Math.ceil(total / postsOnPage);
+  const totalPages = Math.ceil(count / postsOnPage);
 
   return {
     props: {
@@ -188,25 +217,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       categories,
       totalPages,
       curPage: page,
-      categorySlug: slug,
-    },
-  };
-}
-
-interface IParams {
-  slug: string;
-  page: string;
-}
-interface IPath {
-  params: IParams;
-}
-
-export async function getServessrSideProps(context: GetServerSidePropsContext) {
-  const categories = await getBlogCategories();
-  const total = await getTotalPosts();
-  return {
-    props: {
-      posts,
     },
   };
 }
