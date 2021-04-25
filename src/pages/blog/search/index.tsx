@@ -68,6 +68,7 @@ interface IProps {
   categorySlug: string;
   totalPosts: number;
   count: number;
+  searchQuery: string;
 }
 
 export default function Posts({
@@ -78,14 +79,20 @@ export default function Posts({
   categorySlug,
   totalPosts,
   count,
+  searchQuery,
 }: IProps) {
   const classes = useStyles();
 
-  const [search, setSearch] = useState('');
+  const initSearch = searchQuery ? searchQuery : '';
+  const initCount = count ? count : 0;
+
+  const [search, setSearch] = useState(initSearch);
+  const [found, setFound] = useState(initCount);
   const router = useRouter();
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
+    setFound(0);
   }
   function handleSubmit() {
     router.push({
@@ -95,6 +102,7 @@ export default function Posts({
         page: curPage,
       },
     });
+    setFound(count);
   }
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
@@ -122,10 +130,29 @@ export default function Posts({
         <div className={classes.container}>
           <Grid container>
             <Grid item xs={12}>
-              <Typography className={classes.pageTitle} variant="h1">
-                Вы искали "{search}" найдено {count}{' '}
-                {transResults(posts.length)}
-              </Typography>
+              <Box className={classes.pageTitle}>
+                {found ? (
+                  <Typography variant="body1" component="span">
+                    Вы искали {search}{' '}
+                  </Typography>
+                ) : (
+                  <Typography variant="body1" component="span">
+                    Вы ищите {search}{' '}
+                  </Typography>
+                )}
+                <Typography variant="body1" component="span">
+                  {search}{' '}
+                </Typography>
+                {found ? (
+                  <Typography variant="body1" component="span">
+                    найдено {found} {transResults(found)}
+                  </Typography>
+                ) : (
+                  <Typography variant="body1" component="span">
+                    Ничего не нашлось
+                  </Typography>
+                )}
+              </Box>
             </Grid>
             <Grid container item xs={12} md={8}>
               <div className={classes.itemContainer}>
@@ -201,6 +228,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       curPage: page,
       totalPosts: total,
       count,
+      searchQuery: search,
     },
   };
 }
