@@ -32,6 +32,49 @@ export async function getBlogCategories(): Promise<IBlogCategory[]> {
   return promise.data.categories;
 }
 
+// Search post
+
+export async function searchPosts(search: string): Promise<IPost[]> {
+  const query = gql`
+    query postSearch($search: String!) {
+      postSearch(search: $search) {
+        slug
+        title
+        text
+        image
+        author
+        date
+        car {
+          model
+          slug
+          make {
+            name
+            slug
+          }
+        }
+        partsCategory {
+          id
+          name
+          slug
+        }
+        category {
+          id
+          name
+          slug
+        }
+      }
+    }
+  `;
+  const promise = await clientBlog.query({
+    query: query,
+    variables: {
+      search,
+    },
+  });
+  const data = await promise.data.postSearch;
+  return data;
+}
+
 // Together products
 export async function getPost(slug: string): Promise<IPost[]> {
   const query = gql`
