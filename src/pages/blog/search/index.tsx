@@ -103,6 +103,16 @@ export default function Posts({
     }
   }
 
+  function transResults(num: number): string {
+    if (num === 1) {
+      return 'результат';
+    } else if (num >= 2 && num < 5) {
+      return 'результата';
+    } else {
+      return 'результатов';
+    }
+  }
+
   return (
     <React.Fragment>
       <BlogHead />
@@ -111,7 +121,8 @@ export default function Posts({
           <Grid container>
             <Grid item xs={12}>
               <Typography className={classes.pageTitle} variant="h1">
-                Статьи об автомобилях, ремонте, запчастях.
+                Вы искали "{search}" найдено {posts.length}{' '}
+                {transResults(posts.length)}
               </Typography>
             </Grid>
             <Grid container item xs={12} md={8}>
