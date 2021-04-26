@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(4),
     },
     itemContainer: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
     sidePanel: {
       paddingLeft: theme.spacing(5),
@@ -102,9 +102,11 @@ export default function Posts({
     });
   }
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
-    e.key === 'Enter' && e.preventDefault();
-    if (search) {
-      handleSubmit();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (search) {
+        handleSubmit();
+      }
     }
   }
   const breadCrumbs = [

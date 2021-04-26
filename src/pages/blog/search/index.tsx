@@ -58,7 +58,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     search: {
       fontWeight: 700,
+      fontSize: '1.2rem',
+      fontStyle: 'italic',
       color: theme.palette.success.main,
+      marginRight: theme.spacing(1),
     },
     breads: {
       paddingTop: theme.spacing(2),
