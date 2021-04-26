@@ -17,9 +17,10 @@ interface IProp {
 }
 
 export default function ProductCardGrid({ product, currentCar }: IProp) {
-  const imgPath: string = product.images.length
-    ? (product.images[0].img500 as string)
-    : '/images/local/defaultParts500.jpg';
+  const imgPath: string =
+    product.images && product.images.length
+      ? (product.images[0].img245 as string)
+      : '/images/local/defaultParts500.jpg';
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       card: {
@@ -100,23 +101,22 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   );
   const classes = useStyles();
 
-  const stock = product.stocks.find((item: any) => item.store.id === 3);
-  const price = stock?.price;
-  const compatable = product.model.some(
-    (item: any) => item.slug.toLowerCase() === currentCar?.slug
-  );
-  let car: string =
-    currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
+  const price =
+    product.stocks && product.stocks.length
+      ? product.stocks[0].price
+      : 'Звоните!';
+
+  const shortName = product.name.split(' ').slice(0, 3).join(' ');
 
   return (
     <div className={classes.card}>
-      {compatable && <ChipContainer car={car} />}
+      {/* {compatable && <ChipContainer car={car} />} */}
       <Link href={`/product/${product.slug}`}>
         <a className={classes.a}>
           <Image
             layout="intrinsic"
-            width={245}
-            height={245}
+            width={145}
+            height={100}
             className={classes.image}
             src={imgPath}
             alt={product.full_name}
@@ -127,7 +127,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         &#8381; {price}
       </Typography>
       <Typography className={classes.name} variant="subtitle1" component="div">
-        {product.full_name}
+        {shortName}
       </Typography>
       <div className={classes.models}>
         {product.model.map((model: any) => (

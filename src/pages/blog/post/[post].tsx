@@ -26,6 +26,7 @@ import Avatar from '~/components/common/AvatarImage';
 import Image from 'next/image';
 import parse from 'html-react-parser';
 import { readingTime } from '~/helpers';
+import ProductGrid from '~/components/blog/ProductGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -132,6 +133,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     min: {
       fontWeight: 900,
+    },
+    bottomProducts: {
+      border: '1px solid pink',
     },
   })
 );
@@ -252,6 +256,9 @@ export default function Posts({
               <LatestPosts posts={latestPosts} />
               <LatestProducts products={latestProducts} />
             </Grid>
+            <Grid className={classes.bottomProducts} container item xs={12}>
+              <ProductGrid products={productsToPost} />
+            </Grid>
           </Grid>
         </div>
       </AnimationPage>
@@ -278,7 +285,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   // Gegging related to post products
   const query =
     post.tags && post.tags.length ? post.tags.join(' ') : post.title;
-  const productsByTags = await getProductsByTagOrTags(query);
+  const productsByTags = await getProductsByTagOrTags(query, 30);
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
   );

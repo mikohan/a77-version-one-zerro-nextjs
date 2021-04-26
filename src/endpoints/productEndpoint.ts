@@ -50,9 +50,12 @@ export async function getSimilarProductsByModel(
 // Getting product by tag for blog or whatever
 // May use several words in query
 export async function getProductsByTagOrTags(
-  query: string
+  query: string,
+  limit: number
 ): Promise<IProductElasticBase> {
-  const url = encodeURI(`${backServerUrl}/api/product/bytag?q=${query}`);
+  const url = encodeURI(
+    `${backServerUrl}/api/product/bytag?q=${query}&limit=${limit}`
+  );
   const prom = await axios(url);
 
   return prom.data;
