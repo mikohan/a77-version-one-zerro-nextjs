@@ -114,7 +114,7 @@ export default function Posts({
             </Grid>
             <Grid justify="center" item container xs={12}>
               <Typography className={classes.pageTitle} variant="h1">
-                Статьи об автомобилях, ремонте, запчастях.
+                {post.title}
               </Typography>
             </Grid>
             <Grid container item xs={12} md={8}>
@@ -145,7 +145,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     latestProductsPromise.hits.hits
   );
 
-  const slug = asString(context.params?.slug);
+  const slug = asString(context.params?.post);
 
   const post: IPost = await getPost(slug);
   const promiseCategories = await getBlogCategories();
