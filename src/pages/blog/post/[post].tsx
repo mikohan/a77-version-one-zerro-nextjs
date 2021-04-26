@@ -23,7 +23,6 @@ import Avatar from '~/components/common/AvatarImage';
 import Image from 'next/image';
 import parse from 'html-react-parser';
 
-const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
