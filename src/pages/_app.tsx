@@ -151,7 +151,7 @@ function MyApp(props: any) {
           <ThemeProvider theme={useTheme}>
             <SimpleReactLightbox>
               <CssBaseline />
-              <MainLayout setIsDark={setIsDark}>
+              <MainLayout isDark={isDark} setIsDark={setIsDark}>
                 <Component {...pageProps} userUUID={userUUID} />
               </MainLayout>
             </SimpleReactLightbox>

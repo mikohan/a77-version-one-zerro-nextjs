@@ -121,7 +121,9 @@ export default function CarChooseModal() {
   );
   useEffect(() => {
     setSelectedMake(
-      Object.keys(currentCar!).length ? (currentCar?.make.slug as string) : ''
+      currentCar && Object.keys(currentCar!).length
+        ? (currentCar?.make.slug as string)
+        : ''
     );
     setSelectedModel(
       Object.keys(currentCar!).length ? (currentCar?.slug as string) : ''

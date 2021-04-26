@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MainLayout(props: any) {
-  const { setIsDark } = props;
+  const { isDark, setIsDark } = props;
   const classes = useStyles();
-  const isDark = useSelector((state: IState) => state.uiState.isDark);
+  // const isDark = useSelector((state: IState) => state.uiState.isDark);
   const isThemeDark = isDark ? 'dark' : 'light';
   theme.palette.type = isThemeDark;
   return (
@@ -30,7 +30,7 @@ export default function MainLayout(props: any) {
         <title>Angara && | The Best Spares Shop</title>
       </Head>
       <div className={classes.head}>
-        <Header setIsDark={setIsDark} />
+        <Header setIsDark={setIsDark} isDark={isDark} />
       </div>
       <div>{props.children}</div>
       <div>

@@ -29,6 +29,7 @@ import {
 import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
+import uselLocalStorage from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,21 +77,40 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   setIsDark(value: boolean): void;
+  isDark: boolean;
 }
 
-export default function Header({ setIsDark }: IProps) {
+export default function Header({ setIsDark, isDark }: IProps) {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      console.log('Localstorage', isLocalStorageDark);
+      setIsDark(isLocalStorageDark);
+      // dispatch(setUIThemeAction(isLocalStorageDark));
+    } catch (e) {
+      console.error('No localstorage set up', e);
+    }
+  }, []);
+
+  const [isLocalStorageDark, setIsLocalStorageDark] = uselLocalStorage(
+    'isDark',
+    false
+  );
   const activePage = useSelector(
     (state: IState) => state.uiState.activePage
   ) as number;
-  const isDark = useSelector((state: IState) => state.uiState.isDark);
+  /* const isDark = useSelector((state: IState) => state.uiState.isDark); */
+
+  console.log(isDark);
   function isDarkHandler() {
     setIsDark(!isDark);
     dispatch(setUIThemeAction(!isDark));
+    setIsLocalStorageDark(!isDark);
   }
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
