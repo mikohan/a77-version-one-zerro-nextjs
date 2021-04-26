@@ -107,41 +107,43 @@ export default function Posts({
   return (
     <React.Fragment>
       <BlogHead />
-      <div className={classes.container}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography className={classes.pageTitle} variant="h1">
-              Статьи об автомобилях, ремонте, запчастях.
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={8}>
-            <div className={classes.itemContainer}>
-              {posts.map((post: IPost) => {
-                return <BlogPaper key={post.slug} post={post} />;
-              })}
-            </div>
-            <Grid className={classes.pagination} item xs={12}>
-              <Pagination
-                count={totalPages}
-                curPage={curPage}
-                categorySlug={categorySlug}
-              />
+      <AnimationPage id="blogCategoriesPage">
+        <div className={classes.container}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography className={classes.pageTitle} variant="h1">
+                Статьи об автомобилях, ремонте, запчастях.
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} md={8}>
+              <div className={classes.itemContainer}>
+                {posts.map((post: IPost) => {
+                  return <BlogPaper key={post.slug} post={post} />;
+                })}
+              </div>
+              <Grid className={classes.pagination} item xs={12}>
+                <Pagination
+                  count={totalPages}
+                  curPage={curPage}
+                  categorySlug={categorySlug}
+                />
+              </Grid>
+            </Grid>
+            <Grid className={classes.sidePanel} item xs={12} md={4}>
+              <Box className={classes.searchContainer}>
+                <SearchField
+                  handleSearch={handleSearch}
+                  handleSubmit={handleSubmit}
+                  handleKeyPress={handleKeyPress}
+                />
+              </Box>
+              <CategoryList categories={categories} totalPosts={totalPosts} />
+              <LatestPosts posts={latestPosts} />
+              <LatestProducts products={latestProducts} />
             </Grid>
           </Grid>
-          <Grid className={classes.sidePanel} item xs={12} md={4}>
-            <Box className={classes.searchContainer}>
-              <SearchField
-                handleSearch={handleSearch}
-                handleSubmit={handleSubmit}
-                handleKeyPress={handleKeyPress}
-              />
-            </Box>
-            <CategoryList categories={categories} totalPosts={totalPosts} />
-            <LatestPosts posts={latestPosts} />
-            <LatestProducts products={latestProducts} />
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      </AnimationPage>
     </React.Fragment>
   );
 }

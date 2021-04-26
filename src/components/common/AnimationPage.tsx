@@ -4,11 +4,13 @@ import { durationPage } from '~/config';
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
+  id?: string;
 }
 
-export default function Animation({ children }: Props) {
+export default function Animation({ children, id }: Props) {
   return (
     <motion.div
+      layoutId={id}
       exit={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}

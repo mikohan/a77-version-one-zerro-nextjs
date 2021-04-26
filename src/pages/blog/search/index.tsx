@@ -132,58 +132,56 @@ export default function Posts({
   return (
     <React.Fragment>
       <BlogHead />
-      <AnimationPage>
-        <div className={classes.container}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box className={classes.pageTitle}>
-                {found ? (
-                  <Typography variant="body1" component="span">
-                    Вы искали <span className={classes.search}>{search}</span>{' '}
-                  </Typography>
-                ) : (
-                  <Typography variant="body1" component="span">
-                    Вы ищите <span className={classes.search}>{search}</span>{' '}
-                  </Typography>
-                )}
-                {found && found !== 100 ? (
-                  <Typography variant="body1" component="span">
-                    найдено {found} {transResults(found)}
-                  </Typography>
-                ) : (
-                  ''
-                )}
-              </Box>
-            </Grid>
-            <Grid container item xs={12} md={8}>
-              <div className={classes.itemContainer}>
-                {posts.map((post: IPost) => {
-                  return <BlogPaper key={post.slug} post={post} />;
-                })}
-              </div>
-              <Grid className={classes.pagination} item xs={12}>
-                <PaginationSearch
-                  count={totalPages}
-                  curPage={curPage}
-                  search={search}
-                />
-              </Grid>
-            </Grid>
-            <Grid className={classes.sidePanel} item xs={12} md={4}>
-              <Box className={classes.searchContainer}>
-                <SearchField
-                  handleSearch={handleSearch}
-                  handleSubmit={handleSubmit}
-                  handleKeyPress={handleKeyPress}
-                />
-              </Box>
-              <CategoryList categories={categories} totalPosts={totalPosts} />
-              <LatestPosts posts={latestPosts} />
-              <LatestProducts products={latestProducts} />
+      <div className={classes.container}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Box className={classes.pageTitle}>
+              {found ? (
+                <Typography variant="body1" component="span">
+                  Вы искали <span className={classes.search}>{search}</span>{' '}
+                </Typography>
+              ) : (
+                <Typography variant="body1" component="span">
+                  Вы ищите <span className={classes.search}>{search}</span>{' '}
+                </Typography>
+              )}
+              {found && found !== 100 ? (
+                <Typography variant="body1" component="span">
+                  найдено {found} {transResults(found)}
+                </Typography>
+              ) : (
+                ''
+              )}
+            </Box>
+          </Grid>
+          <Grid container item xs={12} md={8}>
+            <div className={classes.itemContainer}>
+              {posts.map((post: IPost) => {
+                return <BlogPaper key={post.slug} post={post} />;
+              })}
+            </div>
+            <Grid className={classes.pagination} item xs={12}>
+              <PaginationSearch
+                count={totalPages}
+                curPage={curPage}
+                search={search}
+              />
             </Grid>
           </Grid>
-        </div>
-      </AnimationPage>
+          <Grid className={classes.sidePanel} item xs={12} md={4}>
+            <Box className={classes.searchContainer}>
+              <SearchField
+                handleSearch={handleSearch}
+                handleSubmit={handleSubmit}
+                handleKeyPress={handleKeyPress}
+              />
+            </Box>
+            <CategoryList categories={categories} totalPosts={totalPosts} />
+            <LatestPosts posts={latestPosts} />
+            <LatestProducts products={latestProducts} />
+          </Grid>
+        </Grid>
+      </div>
     </React.Fragment>
   );
 }
