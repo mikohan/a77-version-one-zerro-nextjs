@@ -94,3 +94,9 @@ export function addMainUrlInPostImage(postText: string): string {
   }
   return postText;
 }
+// Calculate reading Time
+export function readingTime(text: string): number {
+  const readingSpeed = 225;
+  const arr = text.split(' ');
+  return Math.ceil(arr.length / readingSpeed);
+}

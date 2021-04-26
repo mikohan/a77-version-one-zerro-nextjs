@@ -22,6 +22,7 @@ import url from '~/services/url';
 import Avatar from '~/components/common/AvatarImage';
 import Image from 'next/image';
 import parse from 'html-react-parser';
+import { readingTime } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -133,6 +134,7 @@ interface IProps {
   latestPosts: IPost[];
   latestProducts: IProduct[];
   totalPosts: number;
+  readTime: number;
 }
 
 export default function Posts({
@@ -141,6 +143,7 @@ export default function Posts({
   latestPosts,
   latestProducts,
   totalPosts,
+  readTime,
 }: IProps) {
   const classes = useStyles();
 
@@ -200,7 +203,7 @@ export default function Posts({
                         <div className={classes.dateSpan}>{post.date}</div>
                       </Typography>
                       <Typography className={classes.time} variant="body2">
-                        Время чтения 20 мин
+                        Время чтения {readTime} мин
                       </Typography>
                     </Box>
                   </Grid>
@@ -266,6 +269,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       notFound: true,
     };
   }
+  const readTime: number = readingTime(post.text);
 
   return {
     revalidate: REVALIDATE,
@@ -275,6 +279,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       latestPosts,
       latestProducts,
       totalPosts,
+      readTime,
     },
   };
 }
