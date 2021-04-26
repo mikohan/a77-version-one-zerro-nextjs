@@ -21,4 +21,5 @@ export interface IPost {
   car: ICar[];
   totalCount?: number;
   count?: number;
+  tags: string[];
 }

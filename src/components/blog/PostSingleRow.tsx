@@ -148,6 +148,19 @@ export default function BlogPaper({ post }: IPaperProps) {
       ) : (
         ''
       )}
+      {post.tags.length ? (
+        <Box className={classes.cars}>
+          {post.tags.map((tag: string, i: number) => (
+            <Link key={i} href={url.blogSearch(tag, 1)}>
+              <a>
+                <Chip className={classes.chip} size="small" label={tag} />
+              </a>
+            </Link>
+          ))}
+        </Box>
+      ) : (
+        ''
+      )}
       <Typography className={classes.excerpt} variant="body1">
         {post.excerpt}
       </Typography>
