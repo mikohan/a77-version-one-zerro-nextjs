@@ -114,13 +114,7 @@ export default function Posts({
   }
   function handleSubmit() {
     setFound(count);
-    router.push({
-      pathname: `/blog/search`,
-      query: {
-        search: search,
-        page: 1,
-      },
-    });
+    router.push(url.blogSearch(search, 1));
   }
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
