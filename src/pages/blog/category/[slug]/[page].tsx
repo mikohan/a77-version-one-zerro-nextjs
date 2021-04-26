@@ -97,7 +97,7 @@ export default function Posts({
       pathname: `/blog/search`,
       query: {
         search: search,
-        page: curPage,
+        page: 1,
       },
     });
   }

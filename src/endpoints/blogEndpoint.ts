@@ -79,7 +79,7 @@ export async function searchPosts(
 }
 
 // Together products
-export async function getPost(slug: string): Promise<IPost[]> {
+export async function getPost(slug: string): Promise<IPost> {
   const query = gql`
     query post($slug: String!) {
       post(slug: $slug) {
@@ -89,6 +89,8 @@ export async function getPost(slug: string): Promise<IPost[]> {
         image
         author
         date
+        count
+        totalCount
         car {
           model
           slug
