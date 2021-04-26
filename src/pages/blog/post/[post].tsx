@@ -108,15 +108,15 @@ const useStyles = makeStyles((theme: Theme) =>
         '&  p, & div, & span': {
           fontSize: '1.6rem',
         },
-        '&  h2, & h3, & h4': {
-          fontSize: '2rem',
-        },
-        '&  h5, & h6': {
-          fontSize: '1.8rem',
-        },
       },
       '&  p, & div': {
         fontSize: '1.3rem',
+      },
+      '&  h2, & h3, & h4': {
+        fontSize: '2rem',
+      },
+      '&  h5, & h6': {
+        fontSize: '1.8rem',
       },
     },
   })
