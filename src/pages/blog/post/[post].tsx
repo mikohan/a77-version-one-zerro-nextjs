@@ -101,15 +101,20 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.disabled,
     },
     excerpt: {
+      paddingBottom: theme.spacing(4),
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.6rem',
+      },
       fontSize: '1.3rem',
     },
     text: {
+      paddingTop: theme.spacing(2),
       [theme.breakpoints.up('xxl')]: {
-        '&  p, & div, & span': {
+        '&  p, & div, & span, & li': {
           fontSize: '1.6rem',
         },
       },
-      '&  p, & div': {
+      '&  p, & div, & li, & span': {
         fontSize: '1.3rem',
       },
       '&  h2, & h3, & h4': {
