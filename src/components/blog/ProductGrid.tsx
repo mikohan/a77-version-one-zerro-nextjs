@@ -32,7 +32,7 @@ export default function ShopGrid({ products }: IProps) {
       <Grid container>
         <div className={classes.cards}>
           {products.map((product: IProduct) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.slug} product={product} />
           ))}
         </div>
       </Grid>

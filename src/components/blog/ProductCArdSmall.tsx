@@ -58,11 +58,11 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       price: {
         padding: theme.spacing(1),
         fontWeight: 600,
+        fontSize: '1rem',
       },
       name: {
-        paddingTop: theme.spacing(1),
         paddingLeft: theme.spacing(1),
-        paddingBottom: theme.spacing(1),
+        paddingRight: theme.spacing(1),
         flex: '1 0 auto',
         fontWeight: 600,
         color: theme.palette.text.secondary,
@@ -73,7 +73,8 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       },
       models: {
         paddingLeft: theme.spacing(1),
-        paddingBottom: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        paddingBottom: theme.spacing(0.5),
         display: 'flex',
         color: theme.palette.text.disabled,
       },
@@ -84,10 +85,10 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       lastRow: {
         borderTop: '1px solid',
         borderColor: theme.palette.divider,
-        paddingTop: theme.spacing(2),
+        paddingTop: theme.spacing(1),
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(3),
-        paddingBottom: theme.spacing(2),
+        paddingBottom: theme.spacing(0.5),
 
         display: 'flex',
         justifyContent: 'space-between',
@@ -115,8 +116,8 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         <a className={classes.a}>
           <Image
             layout="intrinsic"
-            width={145}
-            height={100}
+            width={160}
+            height={130}
             className={classes.image}
             src={imgPath}
             alt={product.full_name}
