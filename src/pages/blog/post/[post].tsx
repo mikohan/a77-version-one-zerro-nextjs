@@ -125,6 +125,9 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '1.8rem',
       },
     },
+    min: {
+      fontWeight: 900,
+    },
   })
 );
 
@@ -203,7 +206,8 @@ export default function Posts({
                         <div className={classes.dateSpan}>{post.date}</div>
                       </Typography>
                       <Typography className={classes.time} variant="body2">
-                        Время чтения {readTime} мин
+                        Время чтения{' '}
+                        <span className={classes.min}>~{readTime}</span> мин
                       </Typography>
                     </Box>
                   </Grid>
