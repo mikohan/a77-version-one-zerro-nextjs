@@ -21,11 +21,13 @@ import BreadCrumbs from '~/components/common/BreadCrumbs';
 import url from '~/services/url';
 import Avatar from '~/components/common/AvatarImage';
 import Image from 'next/image';
+import parse from 'html-react-parser';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
+      paddingBottom: theme.spacing(2),
       margin: '0 auto',
       [theme.breakpoints.down('lg')]: {
         maxWidth: 1400,
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     breads: {
+      paddingLeft: theme.spacing(5),
       paddingTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
@@ -48,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     sidePanel: {
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
+      paddingBottom: theme.spacing(3),
       /* border: '1px solid blue', */
     },
     searchContainer: {
@@ -56,13 +60,14 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       paddingTop: theme.spacing(5),
       paddingBottom: theme.spacing(5),
+      marginBottom: theme.spacing(3),
       [theme.breakpoints.down('md')]: {
-        paddingLeft: theme.spacing(5),
-        paddingRight: theme.spacing(5),
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
       },
       [theme.breakpoints.up('lg')]: {
-        paddingLeft: theme.spacing(10),
-        paddingRight: theme.spacing(10),
+        paddingLeft: theme.spacing(5),
+        paddingRight: theme.spacing(5),
       },
     },
     author: {
@@ -95,6 +100,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     time: {
       color: theme.palette.text.disabled,
+    },
+    excerpt: {
+      fontSize: '1.3rem',
+    },
+    text: {
+      '&  p, & div': {
+        fontSize: '1.3rem',
+      },
     },
   })
 );
@@ -179,7 +192,9 @@ export default function Posts({
 
                   <Grid container xs={12}>
                     <Grid item xs={12}>
-                      <Typography variant="body1">{post.excerpt}</Typography>
+                      <Typography className={classes.excerpt} variant="body1">
+                        {post.excerpt}
+                      </Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <Image
@@ -189,17 +204,9 @@ export default function Posts({
                         height={600}
                       />
                     </Grid>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quos est, sapiente atque provident ducimus necessitatibus in
-                    dolore iure reprehenderit eos commodi, fugiat, nemo
-                    voluptatibus asperiores quasi architecto ratione cumque
-                    similique expedita amet veniam nobis aperiam ipsum
-                    repudiandae! Molestias, provident nam explicabo fuga beatae
-                    voluptatibus omnis culpa eos dolorem minima excepturi
-                    tempore ducimus distinctio, quis itaque at maxime aperiam
-                    officiis odit. Quisquam, similique natus voluptates ad nihil
-                    harum molestiae corrupti culpa nulla sit autem totam
-                    voluptate optio, dolorum dolor facilis qui?
+                    <Grid item xs={12}>
+                      <Box className={classes.text}>{parse(post.text)}</Box>
+                    </Grid>
                   </Grid>
                 </Paper>
               </div>

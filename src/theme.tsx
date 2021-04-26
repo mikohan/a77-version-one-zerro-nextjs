@@ -49,7 +49,7 @@ const theme = createMuiTheme({
 // Complitely owerrides properties
 theme.typography.h1 = {
   [theme.breakpoints.down('xl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `Roboto, Helvetica, Arial", sans-serif`,
     fontWeight: 300,
     fontSize: '1.6rem',
     lineHeight: 1.167,
@@ -65,14 +65,14 @@ theme.typography.h1 = {
 };
 theme.typography.body1 = {
   [theme.breakpoints.up('xxl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 400,
     fontSize: '1rem',
     lineHeight: 1.5,
     letterSpacing: '0.00938em',
   },
   [theme.breakpoints.down('xl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 400,
     fontSize: '1.1rem',
     lineHeight: 1.5,
@@ -82,14 +82,14 @@ theme.typography.body1 = {
 
 theme.typography.body2 = {
   [theme.breakpoints.down('xl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 400,
     fontSize: '0.875rem',
     lineHeight: 1.43,
     letterSpacing: '0.01071em',
   },
   [theme.breakpoints.up('xxl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 400,
     fontSize: '1rem',
     lineHeight: 1.5,
@@ -98,14 +98,14 @@ theme.typography.body2 = {
 };
 theme.typography.subtitle1 = {
   [theme.breakpoints.down('xl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 300,
     fontSize: '.875rem',
     lineHeight: 1.75,
     letterSpacing: '0.00938em',
   },
   [theme.breakpoints.up('xxl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 300,
     fontSize: '1rem',
     lineHeight: 1.75,
@@ -115,14 +115,14 @@ theme.typography.subtitle1 = {
 
 theme.typography.subtitle2 = {
   [theme.breakpoints.down('xl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 300,
     fontSize: '0.75rem',
     lineHeight: 1.57,
     letterSpacing: '0.00714em',
   },
   [theme.breakpoints.up('xxl')]: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif"`,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
     fontWeight: 300,
     fontSize: '0.875rem',
     lineHeight: 1.57,
