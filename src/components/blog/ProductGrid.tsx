@@ -14,9 +14,10 @@ export default function ShopGrid({ products }: IProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       cards: {
-        minWidth: '90%',
+        minWidth: '100%',
         margin: '0 auto',
-        padding: theme.spacing(2),
+        paddingLeft: theme.spacing(5),
+        paddingRight: theme.spacing(5),
         display: 'grid',
         gridTemplateColumns: `repeat(auto-fill, minmax(150px, 1fr))`,
         gridGap: theme.spacing(4), // padding for cards in the content area

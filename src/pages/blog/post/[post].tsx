@@ -205,12 +205,13 @@ export default function Posts({
                   <Typography className={classes.pageTitle} variant="h1">
                     {post.title}
                   </Typography>
-                  <Grid className={classes.author} container xs={12}>
+                  <Grid className={classes.author} container item xs={12}>
                     <Avatar image="/images/local/A100.png" />
                     <Box className={classes.authorRightColumn}>
                       <Typography
                         className={classes.spanContainer}
                         variant="body2"
+                        component="div"
                       >
                         <div className={classes.authorSpan}>{post.author}</div>
                         <div className={classes.divider}>|</div>
@@ -223,7 +224,7 @@ export default function Posts({
                     </Box>
                   </Grid>
 
-                  <Grid container xs={12}>
+                  <Grid container>
                     <Grid item xs={12}>
                       <Typography className={classes.excerpt} variant="body1">
                         {post.excerpt}
