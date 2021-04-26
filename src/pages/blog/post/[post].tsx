@@ -14,7 +14,10 @@ import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
-import { getLatestProducts } from '~/endpoints/productEndpoint';
+import {
+  getLatestProducts,
+  getProductsByTagOrTags,
+} from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import LatestProducts from '~/components/common/LatestProducts';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
@@ -140,6 +143,7 @@ interface IProps {
   latestProducts: IProduct[];
   totalPosts: number;
   readTime: number;
+  productsToPost: IProduct[];
 }
 
 export default function Posts({
@@ -149,6 +153,7 @@ export default function Posts({
   latestProducts,
   totalPosts,
   readTime,
+  productsToPost,
 }: IProps) {
   const classes = useStyles();
 
@@ -270,6 +275,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     .filter((cat: IBlogCategory) => cat.postsCount > 0);
   const totalPosts = post.totalCount;
 
+  // Gegging related to post products
+  const query =
+    post.tags && post.tags.length ? post.tags.join(' ') : post.title;
+  const productsByTags = await getProductsByTagOrTags(query);
+  const productsToPost: IProduct[] = translateProducts(
+    productsByTags.hits.hits
+  );
+
   if (!post) {
     return {
       notFound: true,
@@ -286,6 +299,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       latestProducts,
       totalPosts,
       readTime,
+      productsToPost,
     },
   };
 }
