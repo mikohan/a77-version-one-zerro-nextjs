@@ -110,19 +110,21 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       paddingTop: theme.spacing(2),
-      [theme.breakpoints.up('xxl')]: {
-        '&  p, & div, & span, & li': {
-          fontSize: '1.6rem',
+      [theme.breakpoints.down('xl')]: {
+        '&  p, & div, & li, & a, & span': {
+          fontSize: '1.3rem',
+        },
+        '&  h2, & h3, & h4': {
+          fontSize: '2rem',
+        },
+        '&  h5, & h6': {
+          fontSize: '1.8rem',
         },
       },
-      '&  p, & div, & li, & span': {
-        fontSize: '1.3rem',
-      },
-      '&  h2, & h3, & h4': {
-        fontSize: '2rem',
-      },
-      '&  h5, & h6': {
-        fontSize: '1.8rem',
+      [theme.breakpoints.up('xl')]: {
+        '& p, & div, & span, & ul, & li, & a': {
+          fontSize: '1.6rem',
+        },
       },
     },
     min: {
@@ -266,6 +268,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const categories = promiseCategories
     .slice()
     .filter((cat: IBlogCategory) => cat.postsCount > 0);
+  console.log(categories);
   const totalPosts = post.totalCount;
 
   if (!post) {
