@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IBlogCategory, IPost, IProduct } from '~/interfaces';
 import { getBlogCategories, getPosts, getPost } from '~/endpoints/blogEndpoint';
-import { REVALIDATE, BLOG_DATA } from '~/config';
+import { REVALIDATE, BLOG_DATA, imageServerUrl } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
@@ -20,6 +20,7 @@ import LatestProducts from '~/components/common/LatestProducts';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 import url from '~/services/url';
 import Avatar from '~/components/common/AvatarImage';
+import Image from 'next/image';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -69,13 +70,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       algnItems: 'center',
     },
-    avatar: {
-      border: '1px solid blue',
+    authorRightColumn: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      paddingLeft: theme.spacing(2),
     },
     spanContainer: {
-      paddingLeft: theme.spacing(2),
       display: 'flex',
-      border: '1px solid blue',
       alignItems: 'center',
     },
     authorSpan: {
@@ -89,6 +91,9 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
+      color: theme.palette.text.disabled,
+    },
+    time: {
       color: theme.palette.text.disabled,
     },
   })
@@ -156,20 +161,34 @@ export default function Posts({
                     {post.title}
                   </Typography>
                   <Grid className={classes.author} container xs={12}>
-                    <Box className={classes.avatar}>
-                      <Avatar />
+                    <Avatar image="/images/local/A100.png" />
+                    <Box className={classes.authorRightColumn}>
+                      <Typography
+                        className={classes.spanContainer}
+                        variant="body2"
+                      >
+                        <div className={classes.authorSpan}>{post.author}</div>
+                        <div className={classes.divider}>|</div>
+                        <div className={classes.dateSpan}>{post.date}</div>
+                      </Typography>
+                      <Typography className={classes.time} variant="body2">
+                        Время чтения 20 мин
+                      </Typography>
                     </Box>
-                    <Typography
-                      className={classes.spanContainer}
-                      variant="body2"
-                    >
-                      <div className={classes.authorSpan}>{post.author}</div>
-                      <div className={classes.divider}>|</div>
-                      <div className={classes.dateSpan}>{post.date}</div>
-                    </Typography>
                   </Grid>
 
                   <Grid container xs={12}>
+                    <Grid item xs={12}>
+                      <Typography variant="body1">{post.excerpt}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Image
+                        src={`${imageServerUrl}${post.image}`}
+                        layout="responsive"
+                        width={900}
+                        height={600}
+                      />
+                    </Grid>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Quos est, sapiente atque provident ducimus necessitatibus in
                     dolore iure reprehenderit eos commodi, fugiat, nemo

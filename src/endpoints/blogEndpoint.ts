@@ -86,6 +86,7 @@ export async function getPost(slug: string): Promise<IPost> {
         slug
         title
         text
+        excerpt
         image
         author
         date
