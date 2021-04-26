@@ -297,7 +297,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
   );
-  console.log(query);
 
   if (!post) {
     return {
