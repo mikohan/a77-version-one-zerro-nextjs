@@ -47,6 +47,17 @@ export async function getSimilarProductsByModel(
   return prom.data;
 }
 
+// Getting product by tag for blog or whatever
+// May use several words in query
+export async function getProductsByTagOrTags(
+  query: string
+): Promise<IProductElasticBase> {
+  const url = encodeURI(`${backServerUrl}/api/product/bytag?q=${query}`);
+  const prom = await axios(url);
+
+  return prom.data;
+}
+
 export async function getProductsByMake(
   makeSlug: string
 ): Promise<IProductElasticBase> {
