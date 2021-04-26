@@ -21,6 +21,8 @@ import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
 import { translateProducts } from '~/utils';
 import LatestProducts from '~/components/common/LatestProducts';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
+import url from '~/services/url';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     pageTitle: {
-      padding: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
     itemContainer: {
       padding: theme.spacing(2),
@@ -57,6 +59,9 @@ const useStyles = makeStyles((theme: Theme) =>
     search: {
       fontWeight: 700,
       color: theme.palette.success.main,
+    },
+    breads: {
+      paddingTop: theme.spacing(2),
     },
   })
 );
@@ -84,6 +89,10 @@ export default function Posts({
   searchQuery,
   latestProducts,
 }: IProps) {
+  const breadCrumbs = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Блог', path: url.blog() },
+  ];
   const classes = useStyles();
 
   const initSearch = searchQuery ? searchQuery : '';
@@ -132,56 +141,66 @@ export default function Posts({
   return (
     <React.Fragment>
       <BlogHead />
-      <div className={classes.container}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Box className={classes.pageTitle}>
-              {found ? (
-                <Typography variant="body1" component="span">
-                  Вы искали <span className={classes.search}>{search}</span>{' '}
-                </Typography>
-              ) : (
-                <Typography variant="body1" component="span">
-                  Вы ищите <span className={classes.search}>{search}</span>{' '}
-                </Typography>
-              )}
-              {found && found !== 100 ? (
-                <Typography variant="body1" component="span">
-                  найдено {found} {transResults(found)}
-                </Typography>
-              ) : (
-                ''
-              )}
-            </Box>
-          </Grid>
-          <Grid container item xs={12} md={8}>
-            <div className={classes.itemContainer}>
-              {posts.map((post: IPost) => {
-                return <BlogPaper key={post.slug} post={post} />;
-              })}
-            </div>
-            <Grid className={classes.pagination} item xs={12}>
-              <PaginationSearch
-                count={totalPages}
-                curPage={curPage}
-                search={search}
-              />
+      <AnimationPage id="blogSearchPage">
+        <div className={classes.container}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Grid className={classes.breads} item xs={12}>
+                <BreadCrumbs breadCrumbs={breadCrumbs} />
+              </Grid>
+              <Grid
+                container
+                item
+                justify="center"
+                className={classes.pageTitle}
+              >
+                {found ? (
+                  <Typography variant="body1" component="span">
+                    Вы искали <span className={classes.search}>{search}</span>{' '}
+                  </Typography>
+                ) : (
+                  <Typography variant="body1" component="span">
+                    Вы ищите <span className={classes.search}>{search}</span>{' '}
+                  </Typography>
+                )}
+                {found && found !== 100 ? (
+                  <Typography variant="body1" component="span">
+                    найдено {found} {transResults(found)}
+                  </Typography>
+                ) : (
+                  ''
+                )}
+              </Grid>
+            </Grid>
+            <Grid container item xs={12} md={8}>
+              <div className={classes.itemContainer}>
+                {posts.map((post: IPost) => {
+                  return <BlogPaper key={post.slug} post={post} />;
+                })}
+              </div>
+              <Grid className={classes.pagination} item xs={12}>
+                <PaginationSearch
+                  count={totalPages}
+                  curPage={curPage}
+                  search={search}
+                />
+              </Grid>
+            </Grid>
+            <Grid className={classes.sidePanel} item xs={12} md={4}>
+              <Box className={classes.searchContainer}>
+                <SearchField
+                  handleSearch={handleSearch}
+                  handleSubmit={handleSubmit}
+                  handleKeyPress={handleKeyPress}
+                />
+              </Box>
+              <CategoryList categories={categories} totalPosts={totalPosts} />
+              <LatestPosts posts={latestPosts} />
+              <LatestProducts products={latestProducts} />
             </Grid>
           </Grid>
-          <Grid className={classes.sidePanel} item xs={12} md={4}>
-            <Box className={classes.searchContainer}>
-              <SearchField
-                handleSearch={handleSearch}
-                handleSubmit={handleSubmit}
-                handleKeyPress={handleKeyPress}
-              />
-            </Box>
-            <CategoryList categories={categories} totalPosts={totalPosts} />
-            <LatestPosts posts={latestPosts} />
-            <LatestProducts products={latestProducts} />
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      </AnimationPage>
     </React.Fragment>
   );
 }

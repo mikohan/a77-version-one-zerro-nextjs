@@ -22,7 +22,8 @@ import { useRouter } from 'next/router';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import LatestProducts from '~/components/common/LatestProducts';
-import { motion } from 'framer-motion';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
+import url from '~/services/url';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,16 +37,19 @@ const useStyles = makeStyles((theme: Theme) =>
         maxWidth: 1600,
       },
     },
+    breads: {
+      paddingTop: theme.spacing(2),
+    },
     pageTitle: {
-      padding: theme.spacing(2),
+      paddingBottom: theme.spacing(4),
     },
     itemContainer: {
-      padding: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     sidePanel: {
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
-      paddingTop: theme.spacing(2),
       /* border: '1px solid blue', */
     },
     searchContainer: {
@@ -103,6 +107,10 @@ export default function Posts({
       handleSubmit();
     }
   }
+  const breadCrumbs = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Блог', path: url.blog() },
+  ];
 
   return (
     <React.Fragment>
@@ -110,7 +118,10 @@ export default function Posts({
       <AnimationPage id="blogCategoriesPage">
         <div className={classes.container}>
           <Grid container>
-            <Grid item xs={12}>
+            <Grid className={classes.breads} item xs={12}>
+              <BreadCrumbs breadCrumbs={breadCrumbs} />
+            </Grid>
+            <Grid justify="center" item container xs={12}>
               <Typography className={classes.pageTitle} variant="h1">
                 Статьи об автомобилях, ремонте, запчастях.
               </Typography>

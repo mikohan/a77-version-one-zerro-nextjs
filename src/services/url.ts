@@ -34,6 +34,7 @@ const url: { [key: string]: any } = {
   about: () => ({
     href: `/about`,
   }),
+  blog: () => `/blog/category/vse-kategorii/1`,
   blogSearch: (search: string, page: number) => {
     return {
       pathname: `/blog/search`,

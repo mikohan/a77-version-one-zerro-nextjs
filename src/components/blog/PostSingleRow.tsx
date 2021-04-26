@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(4),
     },
     itemContainer: {
       padding: theme.spacing(2),
