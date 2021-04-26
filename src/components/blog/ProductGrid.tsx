@@ -16,8 +16,6 @@ export default function ShopGrid({ products }: IProps) {
       cards: {
         minWidth: '100%',
         margin: '0 auto',
-        paddingLeft: theme.spacing(5),
-        paddingRight: theme.spacing(5),
         display: 'grid',
         gridTemplateColumns: `repeat(auto-fill, minmax(150px, 1fr))`,
         gridGap: theme.spacing(4), // padding for cards in the content area

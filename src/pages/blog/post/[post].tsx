@@ -135,7 +135,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 900,
     },
     bottomProducts: {
-      border: '1px solid pink',
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+    },
+    mayLike: {
+      paddingBottom: theme.spacing(2),
     },
   })
 );
@@ -258,6 +262,9 @@ export default function Posts({
               <LatestProducts products={latestProducts} />
             </Grid>
             <Grid className={classes.bottomProducts} container item xs={12}>
+              <Typography className={classes.mayLike} variant="h6">
+                Вам может понравиться
+              </Typography>
               <ProductGrid products={productsToPost} />
             </Grid>
           </Grid>
@@ -290,6 +297,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
   );
+  console.log(query);
 
   if (!post) {
     return {
