@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     breads: {
       paddingTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
     pageTitle: {
       paddingBottom: theme.spacing(4),
@@ -50,10 +51,17 @@ const useStyles = makeStyles((theme: Theme) =>
     searchContainer: {
       marginBottom: theme.spacing(3),
     },
-    pagination: {
-      display: 'flex',
-      justifyContent: 'center',
-      paddingBottom: theme.spacing(4),
+    paper: {
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
+      [theme.breakpoints.down('md')]: {
+        paddingLeft: theme.spacing(5),
+        paddingRight: theme.spacing(5),
+      },
+      [theme.breakpoints.up('lg')]: {
+        paddingLeft: theme.spacing(10),
+        paddingRight: theme.spacing(10),
+      },
     },
   })
 );
@@ -101,6 +109,7 @@ export default function Posts({
   const breadCrumbs = [
     { name: 'Ангара77', path: '/' },
     { name: 'Блог', path: url.blog() },
+    { name: post.title, path: url.post(post.slug) },
   ];
 
   return (
@@ -112,13 +121,31 @@ export default function Posts({
             <Grid className={classes.breads} item xs={12}>
               <BreadCrumbs breadCrumbs={breadCrumbs} />
             </Grid>
-            <Grid justify="center" item container xs={12}>
-              <Typography className={classes.pageTitle} variant="h1">
-                {post.title}
-              </Typography>
-            </Grid>
             <Grid container item xs={12} md={8}>
-              <div className={classes.itemContainer}>{post.title}</div>
+              <div className={classes.itemContainer}>
+                <Paper className={classes.paper}>
+                  <Typography className={classes.pageTitle} variant="h1">
+                    {post.title}
+                  </Typography>
+                  <Grid container xs={12}>
+                    <Typography variant="body2">{post.author}</Typography>
+                  </Grid>
+
+                  <Grid container xs={12}>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quos est, sapiente atque provident ducimus necessitatibus in
+                    dolore iure reprehenderit eos commodi, fugiat, nemo
+                    voluptatibus asperiores quasi architecto ratione cumque
+                    similique expedita amet veniam nobis aperiam ipsum
+                    repudiandae! Molestias, provident nam explicabo fuga beatae
+                    voluptatibus omnis culpa eos dolorem minima excepturi
+                    tempore ducimus distinctio, quis itaque at maxime aperiam
+                    officiis odit. Quisquam, similique natus voluptates ad nihil
+                    harum molestiae corrupti culpa nulla sit autem totam
+                    voluptate optio, dolorum dolor facilis qui?
+                  </Grid>
+                </Paper>
+              </div>
             </Grid>
             <Grid className={classes.sidePanel} item xs={12} md={4}>
               <Box className={classes.searchContainer}>
