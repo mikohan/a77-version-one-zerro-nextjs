@@ -1,12 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { IBlogCategory, ICar, IPost } from '~/interfaces';
-import { imageServerUrl, BLOG_DATA } from '~/config';
+import { imageServerUrl, BLOG_DATA, durationPage } from '~/config';
 import url from '~/services/url';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { Typography, Paper, Button, Box, Chip } from '@material-ui/core';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,7 +96,13 @@ export default function BlogPaper({ post }: IPaperProps) {
     <Paper className={classes.paper}>
       <Link href={url.post(post.slug)}>
         <a className={classes.a}>
-          <div>
+          <motion.div
+            exit={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: durationPage }}
+            layoutId="blogPostsImage"
+          >
             <Image
               className={classes.image}
               layout="responsive"
@@ -103,7 +110,7 @@ export default function BlogPaper({ post }: IPaperProps) {
               width={900}
               height={600}
             />
-          </div>
+          </motion.div>
           <Typography className={classes.title} variant="h4">
             {post.title}
           </Typography>

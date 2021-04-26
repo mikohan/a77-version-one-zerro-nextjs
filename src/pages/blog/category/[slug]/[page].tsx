@@ -22,6 +22,7 @@ import { useRouter } from 'next/router';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import LatestProducts from '~/components/common/LatestProducts';
+import { motion } from 'framer-motion';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -106,43 +107,41 @@ export default function Posts({
   return (
     <React.Fragment>
       <BlogHead />
-      <AnimationPage>
-        <div className={classes.container}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Typography className={classes.pageTitle} variant="h1">
-                Статьи об автомобилях, ремонте, запчастях.
-              </Typography>
-            </Grid>
-            <Grid container item xs={12} md={8}>
-              <div className={classes.itemContainer}>
-                {posts.map((post: IPost) => {
-                  return <BlogPaper key={post.slug} post={post} />;
-                })}
-              </div>
-              <Grid className={classes.pagination} item xs={12}>
-                <Pagination
-                  count={totalPages}
-                  curPage={curPage}
-                  categorySlug={categorySlug}
-                />
-              </Grid>
-            </Grid>
-            <Grid className={classes.sidePanel} item xs={12} md={4}>
-              <Box className={classes.searchContainer}>
-                <SearchField
-                  handleSearch={handleSearch}
-                  handleSubmit={handleSubmit}
-                  handleKeyPress={handleKeyPress}
-                />
-              </Box>
-              <CategoryList categories={categories} totalPosts={totalPosts} />
-              <LatestPosts posts={latestPosts} />
-              <LatestProducts products={latestProducts} />
+      <div className={classes.container}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography className={classes.pageTitle} variant="h1">
+              Статьи об автомобилях, ремонте, запчастях.
+            </Typography>
+          </Grid>
+          <Grid container item xs={12} md={8}>
+            <div className={classes.itemContainer}>
+              {posts.map((post: IPost) => {
+                return <BlogPaper key={post.slug} post={post} />;
+              })}
+            </div>
+            <Grid className={classes.pagination} item xs={12}>
+              <Pagination
+                count={totalPages}
+                curPage={curPage}
+                categorySlug={categorySlug}
+              />
             </Grid>
           </Grid>
-        </div>
-      </AnimationPage>
+          <Grid className={classes.sidePanel} item xs={12} md={4}>
+            <Box className={classes.searchContainer}>
+              <SearchField
+                handleSearch={handleSearch}
+                handleSubmit={handleSubmit}
+                handleKeyPress={handleKeyPress}
+              />
+            </Box>
+            <CategoryList categories={categories} totalPosts={totalPosts} />
+            <LatestPosts posts={latestPosts} />
+            <LatestProducts products={latestProducts} />
+          </Grid>
+        </Grid>
+      </div>
     </React.Fragment>
   );
 }
