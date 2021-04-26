@@ -89,9 +89,8 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   useEffect(() => {
     try {
-      console.log('Localstorage', isLocalStorageDark);
       setIsDark(isLocalStorageDark);
-      // dispatch(setUIThemeAction(isLocalStorageDark));
+      dispatch(setUIThemeAction(isLocalStorageDark));
     } catch (e) {
       console.error('No localstorage set up', e);
     }
@@ -104,9 +103,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const activePage = useSelector(
     (state: IState) => state.uiState.activePage
   ) as number;
-  /* const isDark = useSelector((state: IState) => state.uiState.isDark); */
 
-  console.log(isDark);
   function isDarkHandler() {
     setIsDark(!isDark);
     dispatch(setUIThemeAction(!isDark));
