@@ -50,6 +50,7 @@ export async function searchPosts(
         date
         totalCount
         count
+        tags
         car {
           model
           slug
@@ -92,6 +93,7 @@ export async function getPost(slug: string): Promise<IPost> {
         date
         count
         totalCount
+        tags
         car {
           model
           slug
@@ -134,6 +136,7 @@ export async function getPosts(limit: number = 0): Promise<IPost[]> {
         text
         author
         date
+        tags
         car {
           model
           slug
@@ -179,6 +182,7 @@ export async function getPostsByCategory(
         text
         author
         date
+        tags
         car {
           model
           slug

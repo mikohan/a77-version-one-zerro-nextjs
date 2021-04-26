@@ -268,7 +268,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const categories = promiseCategories
     .slice()
     .filter((cat: IBlogCategory) => cat.postsCount > 0);
-  console.log(categories);
   const totalPosts = post.totalCount;
 
   if (!post) {
