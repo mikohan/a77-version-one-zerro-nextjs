@@ -19,6 +19,7 @@ import { translateProducts } from '~/utils';
 import LatestProducts from '~/components/common/LatestProducts';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 import url from '~/services/url';
+import Avatar from '~/components/common/AvatarImage';
 
 const postsOnPage = BLOG_DATA.postsPerPage;
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,6 +63,33 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingLeft: theme.spacing(10),
         paddingRight: theme.spacing(10),
       },
+    },
+    author: {
+      marginBottom: theme.spacing(2),
+      display: 'flex',
+      algnItems: 'center',
+    },
+    avatar: {
+      border: '1px solid blue',
+    },
+    spanContainer: {
+      paddingLeft: theme.spacing(2),
+      display: 'flex',
+      border: '1px solid blue',
+      alignItems: 'center',
+    },
+    authorSpan: {
+      fontWeight: 700,
+      color: theme.palette.text.secondary,
+    },
+    dateSpan: {
+      fontSize: '0.95rem',
+      color: theme.palette.text.disabled,
+    },
+    divider: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      color: theme.palette.text.disabled,
     },
   })
 );
@@ -127,8 +155,18 @@ export default function Posts({
                   <Typography className={classes.pageTitle} variant="h1">
                     {post.title}
                   </Typography>
-                  <Grid container xs={12}>
-                    <Typography variant="body2">{post.author}</Typography>
+                  <Grid className={classes.author} container xs={12}>
+                    <Box className={classes.avatar}>
+                      <Avatar />
+                    </Box>
+                    <Typography
+                      className={classes.spanContainer}
+                      variant="body2"
+                    >
+                      <div className={classes.authorSpan}>{post.author}</div>
+                      <div className={classes.divider}>|</div>
+                      <div className={classes.dateSpan}>{post.date}</div>
+                    </Typography>
                   </Grid>
 
                   <Grid container xs={12}>
