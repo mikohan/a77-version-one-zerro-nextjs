@@ -51,6 +51,7 @@ export async function searchPosts(
         totalCount
         count
         tags
+        excerpt
         car {
           model
           slug

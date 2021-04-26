@@ -107,6 +107,9 @@ export default function Posts({
   useEffect(() => {
     setFound(count);
   }, [count]);
+  useEffect(() => {
+    setSearch(searchQuery);
+  }, [searchQuery]);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
