@@ -28,13 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
     item: {
-      widht: '100px',
-      padding: theme.spacing(1),
+      maxWidth: theme.spacing(25),
+      border: '1px solid blue',
+      marginLeft: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
     image: {},
     title: {
-      maxWidht: theme.spacing(8),
       overflowWrap: 'break-word',
+      fontWeight: 500,
+      padding: theme.spacing(1),
       border: '2px solid pink',
     },
   })
