@@ -30,11 +30,7 @@ import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 import uselLocalStorage from '~/hooks/useLocalStorage';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuItem';
-import Link from 'next/link';
-import url from '~/services/url';
+import { CompanyMenu, ContactMenu } from '~/components/header/HeaderMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,16 +87,6 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   useEffect(() => {
     try {
@@ -172,6 +158,20 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+  // Menu stuff
+  const [
+    anchorElCompany,
+    setAnchorElCompany,
+  ] = React.useState<null | HTMLElement>(null);
+
+  const handleClickCompany = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElCompany(event.currentTarget);
+  };
+
+  const handleCloseCompany = () => {
+    setAnchorElCompany(null);
+  };
+
   const drawer = (
     <React.Fragment>
       <SwipeableDrawer
@@ -208,32 +208,13 @@ export default function Header({ setIsDark, isDark }: IProps) {
     </React.Fragment>
   );
 
-  const CompanyMenu = () => {
-    return (
-      <Menu
-        id="company"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        getContentAnchorEl={null}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <MenuItem onClick={handleClose}>
-          <Link href={url.about()}>
-            <a>О Компании</a>
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    );
-  };
-
   const tabs = (
     <React.Fragment>
-      <CompanyMenu />
+      <CompanyMenu
+        anchorEl={anchorElCompany}
+        handleClick={handleClickCompany}
+        handleClose={handleCloseCompany}
+      />
       <Tabs
         value={activePage}
         onChange={handleChange}
@@ -243,7 +224,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
       >
         <Tab label="ANGARA PARTS" onClick={goHome} />
         <Tab label="Машины" onClick={goCars} />
-        <Tab label="Компания" onClick={handleClick} />
+        <Tab label="Компания" onClick={handleClickCompany} />
         <Tab label="Контакты" onClick={goContacts} />
         <Tab label="Блог" onClick={goBlog} />
       </Tabs>
