@@ -54,6 +54,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
     },
+    paper: {
+      padding: theme.spacing(2),
+      marginBottom: theme.spacing(5),
+    },
   })
 );
 
@@ -101,116 +105,132 @@ export default function ModelShopList(props: IProps) {
       </Hidden>
       <Grid item container xs={12} md={9}>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            {`Категории запчастей`}
-          </Typography>
-          <CategoryBlock categories={categories} model={model} />
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              {`Категории запчастей`}
+            </Typography>
+            <CategoryBlock categories={categories} model={model} />
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Популярные товары
-          </Typography>
-          <Box>
-            <ProductSmallGrid products={popularProducts} />
-          </Box>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Популярные товары
+            </Typography>
+            <Box>
+              <ProductSmallGrid products={popularProducts} />
+            </Box>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            {`История модели ${capitalize(model.make.name)} ${capitalize(
-              model.model
-            )}`}
-          </Typography>
-          <Grid item container xs={12} className={classes.modelHistory}>
-            <Grid item xs={12} md={4} className={classes.carImage}>
-              <Image
-                src="/images/local/carsAvatar/generic.png"
-                width={250}
-                height={250}
-              />
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              {`История модели ${capitalize(model.make.name)} ${capitalize(
+                model.model
+              )}`}
+            </Typography>
+            <Grid item container xs={12} className={classes.modelHistory}>
+              <Grid item xs={12} md={4} className={classes.carImage}>
+                <Image
+                  src="/images/local/carsAvatar/generic.png"
+                  width={250}
+                  height={250}
+                />
+              </Grid>
+              <Grid item xs={12} md={8} className={classes.textBox}>
+                <Typography variant="body2">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quaerat non odio reprehenderit illo facilis doloremque odit
+                  esse est nemo alias assumenda eaque deserunt inventore quas
+                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
+                  architecto recusandae inventore ipsam, saepe sit provident
+                  reiciendis accusamus rerum molestias voluptatem at dolor atque
+                  iure. Voluptas? Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Quaerat non odio reprehenderit illo facilis
+                  doloremque odit esse est nemo alias assumenda eaque deserunt
+                  inventore quas hic sunt quae nam, mollitia, dolorum, quia
+                  maiores eveniet? Unde enim laborum veritatis possimus, odit
+                  vel maxime commodi, architecto recusandae inventore ipsam,
+                  saepe sit provident reiciendis accusamus rerum molestias
+                  voluptatem at dolor atque iure. Voluptas?
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={8} className={classes.textBox}>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas? Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Quaerat non odio reprehenderit illo facilis doloremque
-                odit esse est nemo alias assumenda eaque deserunt inventore quas
-                hic sunt quae nam, mollitia, dolorum, quia maiores eveniet? Unde
-                enim laborum veritatis possimus, odit vel maxime commodi,
-                architecto recusandae inventore ipsam, saepe sit provident
-                reiciendis accusamus rerum molestias voluptatem at dolor atque
-                iure. Voluptas?
-              </Typography>
-            </Grid>
-          </Grid>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Обьемы жидкостей
-          </Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat non
-            odio reprehenderit illo facilis doloremque odit esse est nemo alias
-            assumenda eaque deserunt inventore quas hic sunt quae nam, mollitia,
-            dolorum, quia maiores eveniet? Unde enim laborum veritatis possimus,
-            odit vel maxime commodi, architecto recusandae inventore ipsam,
-            saepe sit provident reiciendis accusamus rerum molestias voluptatem
-            at dolor atque iure. Voluptas?
-          </Typography>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Обьемы жидкостей
+            </Typography>
+            <Typography variant="body1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+              non odio reprehenderit illo facilis doloremque odit esse est nemo
+              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
+              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+              veritatis possimus, odit vel maxime commodi, architecto recusandae
+              inventore ipsam, saepe sit provident reiciendis accusamus rerum
+              molestias voluptatem at dolor atque iure. Voluptas?
+            </Typography>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Карта ТО
-          </Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat non
-            odio reprehenderit illo facilis doloremque odit esse est nemo alias
-            assumenda eaque deserunt inventore quas hic sunt quae nam, mollitia,
-            dolorum, quia maiores eveniet? Unde enim laborum veritatis possimus,
-            odit vel maxime commodi, architecto recusandae inventore ipsam,
-            saepe sit provident reiciendis accusamus rerum molestias voluptatem
-            at dolor atque iure. Voluptas?
-          </Typography>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Карта ТО
+            </Typography>
+            <Typography variant="body1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+              non odio reprehenderit illo facilis doloremque odit esse est nemo
+              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
+              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+              veritatis possimus, odit vel maxime commodi, architecto recusandae
+              inventore ipsam, saepe sit provident reiciendis accusamus rerum
+              molestias voluptatem at dolor atque iure. Voluptas?
+            </Typography>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Блог
-          </Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat non
-            odio reprehenderit illo facilis doloremque odit esse est nemo alias
-            assumenda eaque deserunt inventore quas hic sunt quae nam, mollitia,
-            dolorum, quia maiores eveniet? Unde enim laborum veritatis possimus,
-            odit vel maxime commodi, architecto recusandae inventore ipsam,
-            saepe sit provident reiciendis accusamus rerum molestias voluptatem
-            at dolor atque iure. Voluptas?
-          </Typography>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Блог
+            </Typography>
+            <Typography variant="body1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+              non odio reprehenderit illo facilis doloremque odit esse est nemo
+              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
+              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+              veritatis possimus, odit vel maxime commodi, architecto recusandae
+              inventore ipsam, saepe sit provident reiciendis accusamus rerum
+              molestias voluptatem at dolor atque iure. Voluptas?
+            </Typography>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Videos
-          </Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat non
-            odio reprehenderit illo facilis doloremque odit esse est nemo alias
-            assumenda eaque deserunt inventore quas hic sunt quae nam, mollitia,
-            dolorum, quia maiores eveniet? Unde enim laborum veritatis possimus,
-            odit vel maxime commodi, architecto recusandae inventore ipsam,
-            saepe sit provident reiciendis accusamus rerum molestias voluptatem
-            at dolor atque iure. Voluptas?
-          </Typography>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Videos
+            </Typography>
+            <Typography variant="body1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+              non odio reprehenderit illo facilis doloremque odit esse est nemo
+              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
+              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+              veritatis possimus, odit vel maxime commodi, architecto recusandae
+              inventore ipsam, saepe sit provident reiciendis accusamus rerum
+              molestias voluptatem at dolor atque iure. Voluptas?
+            </Typography>
+          </Paper>
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h6" className={classes.blockTitle}>
-          Вам может понравиться
-        </Typography>
-        <ProductsGrid products={productsToPost} />
+        <Paper className={classes.paper}>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Вам может понравиться
+          </Typography>
+          <ProductsGrid products={productsToPost} />
+        </Paper>
       </Grid>
     </React.Fragment>
   );

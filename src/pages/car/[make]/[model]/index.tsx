@@ -275,7 +275,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const aggregations: IAgregations = promise.aggregations;
 
   // Products by some search tags or something
-  const query = model.name ? model.name : 'двигатель';
+  const query = modelSlug ? modelSlug : 'двигатель';
   const productsByTags = await getProductsByTagOrTags(query, 30);
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
