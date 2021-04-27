@@ -48,6 +48,9 @@ const url: { [key: string]: any } = {
   /// Pages
 
   about: () => `/about`,
+  delivery: () => `/delivery`,
+  warranty: () => `/warranty`,
+  payment: () => `/payment`,
   policy: () => `/policy`,
 };
 

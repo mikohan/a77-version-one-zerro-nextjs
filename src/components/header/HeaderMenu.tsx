@@ -33,12 +33,30 @@ export const CompanyMenu = ({
           <a>О Компании</a>
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleClose}>My account</MenuItem>
-      <MenuItem onClick={handleClose}>Logout</MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.delivery()}>
+          <a>Доставка</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.warranty()}>
+          <a>Гарантии</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.payment()}>
+          <a>Оплата</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.policy()}>
+          <a>Конфиденциальность</a>
+        </Link>
+      </MenuItem>
     </Menu>
   );
 };
-export const ContactMenu = ({
+export const CategoryMenu = ({
   anchorEl,
   handleClick,
   handleClose,

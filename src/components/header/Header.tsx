@@ -30,7 +30,7 @@ import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 import uselLocalStorage from '~/hooks/useLocalStorage';
-import { CompanyMenu, ContactMenu } from '~/components/header/HeaderMenu';
+import { CompanyMenu, CategoryMenu } from '~/components/header/HeaderMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -171,6 +171,20 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const handleCloseCompany = () => {
     setAnchorElCompany(null);
   };
+  // Categories stuff
+
+  const [
+    anchorElCategory,
+    setAnchorElCategory,
+  ] = React.useState<null | HTMLElement>(null);
+
+  const handleClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElCategory(event.currentTarget);
+  };
+
+  const handleCloseCategory = () => {
+    setAnchorElCompany(null);
+  };
 
   const drawer = (
     <React.Fragment>
@@ -210,6 +224,11 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   const tabs = (
     <React.Fragment>
+      <CategoryMenu
+        anchorEl={anchorElCategory}
+        handleClick={handleClickCategory}
+        handleClose={handleCloseCategory}
+      />
       <CompanyMenu
         anchorEl={anchorElCompany}
         handleClick={handleClickCompany}
@@ -224,6 +243,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
       >
         <Tab label="ANGARA PARTS" onClick={goHome} />
         <Tab label="Машины" onClick={goCars} />
+        {/* <Tab label="Категории" onClick={handleClickCategory} /> */}
         <Tab label="Компания" onClick={handleClickCompany} />
         <Tab label="Контакты" onClick={goContacts} />
         <Tab label="Блог" onClick={goBlog} />
