@@ -18,13 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
     smallBox: {
       display: 'flex',
       flexDirection: 'column',
-      width: 150,
-      height: 220,
+      width: 180,
+      height: 250,
 
       fontSize: '0.8rem',
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '0.95rem',
-      },
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
@@ -32,8 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(0.5),
       paddingTop: theme.spacing(0.5),
       flexGrow: 1,
-      overflowWrap: 'break-word',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
       color: theme.palette.text.secondary,
+      fontSize: '0.85rem',
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '0.95rem',
+      },
     },
     brand: {
       display: 'flex',
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'uppercase',
     },
     imageContainer: {
-      height: 120,
+      height: 160,
     },
     image: {
       objectFit: 'cover',
@@ -81,8 +83,8 @@ export default function ModelShopList(props: IProps) {
                       <Image
                         className={classes.image}
                         src={imgSrc as string}
-                        width={150}
-                        height={120}
+                        width={200}
+                        height={170}
                       />
                     </div>
                     <div className={classes.textBox}>{product.name}</div>
