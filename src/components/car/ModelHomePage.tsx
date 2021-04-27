@@ -203,15 +203,12 @@ export default function ModelShopList(props: IProps) {
             <Typography variant="h6" className={classes.blockTitle}>
               Блог
             </Typography>
-            <Typography variant="body1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              non odio reprehenderit illo facilis doloremque odit esse est nemo
-              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
-              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-              veritatis possimus, odit vel maxime commodi, architecto recusandae
-              inventore ipsam, saepe sit provident reiciendis accusamus rerum
-              molestias voluptatem at dolor atque iure. Voluptas?
-            </Typography>
+            <Box className={classes.blogContainer}>
+              {postsByCar &&
+                postsByCar.map((post: IPost) => (
+                  <Box className={classes.blogItem}>{post.title}</Box>
+                ))}
+            </Box>
           </Paper>
         </Grid>
         <Grid item xs={12}>
