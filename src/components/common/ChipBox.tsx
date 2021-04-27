@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
         background:
           theme.palette.type === 'dark'
             ? fade(theme.palette.background.paper, 0.4)
-            : fade(bageGreen, 0.4),
+            : fade(theme.palette.primary.main, 0.5),
         left: '3.5px',
         right: '3.5px',
         top: 0,
