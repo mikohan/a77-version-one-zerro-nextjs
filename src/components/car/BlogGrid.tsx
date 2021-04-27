@@ -65,7 +65,6 @@ export default function ModelShopList(props: IProps) {
             <Image
               src={`${imageServerUrl}${post.image}`}
               layout="intrinsic"
-              className={classes.image}
               width={200}
               height={160}
             />
