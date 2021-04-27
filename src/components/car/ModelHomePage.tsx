@@ -13,7 +13,6 @@ import LeftSideBar from '~/components/product/LeftSideBar';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FilterWidget from '~/components/product/FilterWidget';
 import { Box, Paper, Typography } from '@material-ui/core';
-import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
 import CategoryBlock from '~/components/car/CategoryBlock';
 import { capitalize } from '~/utils';
 import Image from 'next/image';
