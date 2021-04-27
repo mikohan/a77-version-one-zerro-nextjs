@@ -4,5 +4,6 @@ export interface IMake {
   name: string;
   country: number;
   rusname?: string;
-  priority?: number;
+  priority: number | string;
+  image: string;
 }
