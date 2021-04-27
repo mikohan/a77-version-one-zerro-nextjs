@@ -68,7 +68,7 @@ export default function LatestPosts({ posts }: IProps) {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root}>
+    <Box className={classes.root}>
       <Typography className={classes.blockTitle} variant="h6">
         Последние публикации
       </Typography>
@@ -104,6 +104,6 @@ export default function LatestPosts({ posts }: IProps) {
           </a>
         </Link>
       ))}
-    </Paper>
+    </Box>
   );
 }

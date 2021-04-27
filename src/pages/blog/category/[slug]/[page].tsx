@@ -151,7 +151,9 @@ export default function Posts({
                 />
               </Box>
               <CategoryList categories={categories} totalPosts={totalPosts} />
-              <LatestPosts posts={latestPosts} />
+              <Paper>
+                <LatestPosts posts={latestPosts} />
+              </Paper>
               <LatestProducts products={latestProducts} />
             </Grid>
           </Grid>
