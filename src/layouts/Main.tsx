@@ -1,14 +1,11 @@
 import React from 'react';
-import { Grid, Container } from '@material-ui/core';
 import Head from 'next/head';
 /* import AppBar from '~/components/header/AppBar'; */
 import Header from '~/components/header/Header';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
-import { useSelector } from 'react-redux';
 import theme from '~/theme';
-import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
