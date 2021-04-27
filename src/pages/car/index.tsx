@@ -48,6 +48,11 @@ function Car(props: ICarProps) {
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
+            <Grid xs={12}>
+              <Typography variant="h1">
+                Интернет магазин запчастей ANGARA PARTS
+              </Typography>
+            </Grid>
             <Hidden smDown>
               <Grid className={classes.leftPanel} item xs={3}>
                 <PopularMakes makes={popularMakes} />

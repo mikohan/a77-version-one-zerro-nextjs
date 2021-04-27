@@ -11,14 +11,25 @@ import url from '~/services/url';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      padding: theme.spacing(2),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+    title: {
+      paddingLeft: theme.spacing(2),
     },
     makeItem: {
-      borderTop: '1px solid red',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
       display: 'flex',
       alignItems: 'center',
+      '&:hover': {
+        background: theme.palette.action.hover,
+      },
     },
     name: {
+      fontWeight: 500,
       paddingLeft: theme.spacing(2),
     },
   })
@@ -35,7 +46,9 @@ export default function LeftSidePopularWidget({ makes }: IProps): JSX.Element {
     <Paper>
       <Grid className={classes.container} container>
         <Grid item xs={12}>
-          <Typography variant="h6">Популярные Марки</Typography>
+          <Typography className={classes.title} variant="h6">
+            Популярные Марки
+          </Typography>
           {makes &&
             makes.map((make: IMake) => (
               <Link key={make.slug} href={url.make(make.slug)}>
