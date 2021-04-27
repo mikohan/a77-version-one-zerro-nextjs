@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Grid from '@material-ui/core/Grid';
 
-import { ICar } from '~/interfaces/ICar';
+import { ICar, IPost } from '~/interfaces';
 import { IFilter } from '~/interfaces/filters';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle } from '~/endpoints/carsEndpoint';
@@ -11,6 +11,7 @@ import {
   getProductsByFilters,
   getProductsByTagOrTags,
 } from '~/endpoints/productEndpoint';
+import { getPosts } from '~/endpoints/blogEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { capitalize, makeTree } from '~/utils';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -57,6 +58,7 @@ interface IModelProps {
   aggregations: IAgregations;
   popularProducts: IProduct[];
   productsToPost: IProduct[];
+  posts: IPost[];
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -78,6 +80,7 @@ function Model(props: IModelProps) {
     aggregations,
     popularProducts,
     productsToPost,
+    posts,
   } = props;
   // If car priority from config show home page otherwise show shop grid
   const showCarHomePage: boolean =
@@ -205,6 +208,7 @@ function Model(props: IModelProps) {
                 categories={categories}
                 model={model}
                 productsToPost={productsToPost}
+                posts={posts}
               />
             ) : (
               <ModelShopList
@@ -280,6 +284,7 @@ export const getServerSideProps: GetServerSideProps = async (
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
   );
+  const posts = await getPosts(5);
 
   if (!promise) {
     return {
@@ -298,6 +303,7 @@ export const getServerSideProps: GetServerSideProps = async (
       routerQuery,
       popularProducts,
       productsToPost,
+      posts,
     },
   };
 };

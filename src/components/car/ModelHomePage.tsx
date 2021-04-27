@@ -4,6 +4,7 @@ import {
   IProduct,
   ICategory,
   ICar,
+  IPost,
 } from '~/interfaces';
 import React from 'react';
 import { Hidden, Grid } from '@material-ui/core';
@@ -18,6 +19,7 @@ import { capitalize } from '~/utils';
 import Image from 'next/image';
 import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
+import LatestPosts from '~/components/blog/LatestPosts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,6 +81,7 @@ interface IProps {
   productsToPost: IProduct[];
   categories: ICategory[];
   model: ICar;
+  posts: IPost[];
 }
 export default function ModelShopList(props: IProps) {
   const {
@@ -90,6 +93,7 @@ export default function ModelShopList(props: IProps) {
     categories,
     model,
     productsToPost,
+    posts,
   } = props;
   const classes = useStyles();
   return (
@@ -100,6 +104,7 @@ export default function ModelShopList(props: IProps) {
           <LeftSideBar>
             <FilterWidget filters={sortedFilters} />
             {/* <LeftSidePopularWidget popularProducts={popularProducts} /> */}
+            <LatestPosts posts={posts} />
           </LeftSideBar>
         </Grid>
       </Hidden>
