@@ -4,6 +4,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Box, Paper, Typography } from '@material-ui/core';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
+import Link from 'next/link';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,28 +46,32 @@ export default function ModelShopList(props: IProps) {
     <React.Fragment>
       <Box className={classes.container}>
         {posts.map((post: IPost) => (
-          <Paper key={post.slug} className={classes.item}>
-            <Image
-              src={`${imageServerUrl}${post.image}`}
-              layout="intrinsic"
-              width={200}
-              height={160}
-            />
-            <Typography
-              className={classes.title}
-              variant="subtitle2"
-              component="div"
-            >
-              {post.title}
-            </Typography>
-            <Typography
-              className={classes.date}
-              variant="subtitle2"
-              component="div"
-            >
-              {post.date}
-            </Typography>
-          </Paper>
+          <Link href={url.post(post.slug)}>
+            <a>
+              <Paper key={post.slug} className={classes.item}>
+                <Image
+                  src={`${imageServerUrl}${post.image}`}
+                  layout="intrinsic"
+                  width={200}
+                  height={160}
+                />
+                <Typography
+                  className={classes.title}
+                  variant="subtitle2"
+                  component="div"
+                >
+                  {post.title}
+                </Typography>
+                <Typography
+                  className={classes.date}
+                  variant="subtitle2"
+                  component="div"
+                >
+                  {post.date}
+                </Typography>
+              </Paper>
+            </a>
+          </Link>
         ))}
       </Box>
     </React.Fragment>
