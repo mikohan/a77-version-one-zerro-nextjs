@@ -66,6 +66,9 @@ interface IProps {
 
 export default function LatestPosts({ posts }: IProps) {
   const classes = useStyles();
+  if (!posts) {
+    return <React.Fragment></React.Fragment>;
+  }
 
   return (
     <Box className={classes.root}>

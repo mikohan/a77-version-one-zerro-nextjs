@@ -13,6 +13,7 @@ import {
   Grid,
   Hidden,
   Typography,
+  Paper,
 } from '@material-ui/core';
 import Link from 'next/link';
 
@@ -23,8 +24,10 @@ import { containerMaxWidth } from '~/config';
 import CarHead from '~/components/heads/CarHead';
 import PopularMakes from '~/components/car/PopularMakesWidet';
 import Breads from '~/components/common/BreadCrumbs';
-import { IBread } from '~/interfaces';
+import { IBread, IPost } from '~/interfaces';
 import url from '~/services/url';
+import { getPosts } from '~/endpoints/blogEndpoint';
+import LatestPosts from '~/components/blog/LatestPosts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,17 +46,21 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
+    latestPosts: {
+      marginTop: theme.spacing(2),
+    },
   })
 );
 
 interface ICarProps {
   makes: IMake[];
   popularMakes: IMake[];
+  latestPosts: IPost[];
 }
 
 function Car(props: ICarProps) {
   const classes = useStyles();
-  const { makes, popularMakes } = props;
+  const { makes, popularMakes, latestPosts } = props;
 
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
@@ -76,6 +83,9 @@ function Car(props: ICarProps) {
             <Hidden smDown>
               <Grid className={classes.leftPanel} item xs={3}>
                 <PopularMakes makes={popularMakes} />
+                <Paper className={classes.latestPosts}>
+                  <LatestPosts posts={latestPosts} />
+                </Paper>
               </Grid>
             </Hidden>
             <Grid item xs={12} md={9}>
@@ -104,10 +114,13 @@ export const getStaticProps: GetServerSideProps = async () => {
     return false;
   });
 
+  const latestPosts = await getPosts();
+
   return {
     props: {
       makes: sortedMakes,
       popularMakes,
+      latestPosts,
     },
   };
 };
