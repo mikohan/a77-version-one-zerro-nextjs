@@ -1,9 +1,13 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
-import { Grid, Hidden } from '@material-ui/core';
+import { Box, Grid, Hidden, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import SearchBar from '~/components/header/SearchBar';
 import CarChooseModal from '~/components/car/CarChooseModal';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import Link from 'next/link';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,12 +35,23 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       marginLeft: theme.spacing(2),
     },
+    carButtons: {
+      minWidth: '100%',
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+    goTo: {
+      fontSize: '0.8rem',
+      color: theme.palette.text.secondary,
+    },
   })
 );
 
 export default function SearchBox() {
   const classes = useStyles();
 
+  const currentCar = useSelector((state: IState) => state.shop.currentCar);
   // Redirect to car page on click
 
   return (
@@ -44,7 +59,20 @@ export default function SearchBox() {
       <Grid className={classes.root} container>
         <Hidden smDown>
           <Grid className={classes.container} item md={4} lg={3}>
-            <CarChooseModal />
+            <Box className={classes.carButtons}>
+              {currentCar ? (
+                <Link href={url.model(currentCar?.make.slug, currentCar?.slug)}>
+                  <a>
+                    <Typography className={classes.goTo} variant="body2">
+                      Перейти в {currentCar?.model}
+                    </Typography>
+                  </a>
+                </Link>
+              ) : (
+                ''
+              )}
+              <CarChooseModal />
+            </Box>
           </Grid>
         </Hidden>
         <Grid item xs={12} md={8} lg={6}>
