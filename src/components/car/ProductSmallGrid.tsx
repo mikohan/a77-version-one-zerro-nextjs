@@ -18,16 +18,21 @@ const useStyles = makeStyles((theme: Theme) =>
     smallBox: {
       display: 'flex',
       flexDirection: 'column',
-      width: 120,
-      height: 200,
-      fontSize: '0.7rem',
+      width: 150,
+      height: 220,
+
+      fontSize: '0.8rem',
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '0.95rem',
+      },
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
     textBox: {
       paddingLeft: theme.spacing(0.5),
+      paddingTop: theme.spacing(0.5),
       flexGrow: 1,
-      overflow: 'hidden',
+      overflowWrap: 'break-word',
       color: theme.palette.text.secondary,
     },
     brand: {
@@ -69,14 +74,14 @@ export default function ModelShopList(props: IProps) {
               : '/images/local/defaultParts245.png';
 
             return (
-              <Paper key={product.id} className={classes.smallBox}>
-                <Link href={url.product(product.slug)}>
-                  <a>
+              <Link href={url.product(product.slug)}>
+                <a>
+                  <Paper key={product.id} className={classes.smallBox}>
                     <div className={classes.imageContainer}>
                       <Image
                         className={classes.image}
                         src={imgSrc as string}
-                        width={120}
+                        width={150}
                         height={120}
                       />
                     </div>
@@ -91,9 +96,9 @@ export default function ModelShopList(props: IProps) {
 
                       <div>{product.brand.name}</div>
                     </div>
-                  </a>
-                </Link>
-              </Paper>
+                  </Paper>
+                </a>
+              </Link>
             );
           })}
         </Grid>
