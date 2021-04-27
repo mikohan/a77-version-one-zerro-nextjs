@@ -32,6 +32,7 @@ import { setUIThemeAction } from '~/store/ui/UIActions';
 import uselLocalStorage from '~/hooks/useLocalStorage';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuItem';
 import Link from 'next/link';
 import url from '~/services/url';
 
@@ -207,23 +208,32 @@ export default function Header({ setIsDark, isDark }: IProps) {
     </React.Fragment>
   );
 
-  const tabs = (
-    <React.Fragment>
+  const CompanyMenu = () => {
+    return (
       <Menu
         id="company"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <MenuItem onClick={handleClose}>
           <Link href={url.about()}>
-            <a>Profile</a>
+            <a>О Компании</a>
           </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
+    );
+  };
+
+  const tabs = (
+    <React.Fragment>
+      <CompanyMenu />
       <Tabs
         value={activePage}
         onChange={handleChange}
