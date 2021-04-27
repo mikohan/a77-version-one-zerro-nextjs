@@ -1,25 +1,8 @@
-import {
-  IFilter,
-  IProductElasticHitsFirst,
-  IProduct,
-  ICategory,
-  ICar,
-  IPost,
-} from '~/interfaces';
+import { IPost } from '~/interfaces';
 import React from 'react';
-import { Hidden, Grid } from '@material-ui/core';
-import PageHeader from '~/components/product/PageHeader';
-import LeftSideBar from '~/components/product/LeftSideBar';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import FilterWidget from '~/components/product/FilterWidget';
 import { Box, Paper, Typography } from '@material-ui/core';
-import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
-import CategoryBlock from '~/components/car/CategoryBlock';
-import { capitalize } from '~/utils';
 import Image from 'next/image';
-import ProductSmallGrid from '~/components/car/ProductSmallGrid';
-import ProductsGrid from '~/components/blog/ProductGrid';
-import LatestPosts from '~/components/blog/LatestPosts';
 import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
