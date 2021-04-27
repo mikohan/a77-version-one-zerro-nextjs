@@ -1,23 +1,9 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import ShopCarGrid from '~/components/product/ShopMakeGrid';
-
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import {
-  Container,
-  List,
-  ListItem,
-  Grid,
-  Hidden,
-  Typography,
-  Paper,
-} from '@material-ui/core';
-import Link from 'next/link';
-
-import { getVehicles } from '~/endpoints/carsEndpoint';
+import { Container, Grid, Hidden, Typography, Paper } from '@material-ui/core';
 import { IMake } from '~/interfaces/IMake';
 import { getMakes } from '~/endpoints/carsEndpoint';
 import { containerMaxWidth } from '~/config';
