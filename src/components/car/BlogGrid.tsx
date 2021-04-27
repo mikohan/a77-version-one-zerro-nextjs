@@ -24,9 +24,19 @@ import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {},
-    item: {},
+    container: {
+      display: 'flex',
+    },
+    item: {
+      widht: '100px',
+      padding: theme.spacing(1),
+    },
     image: {},
+    title: {
+      maxWidht: theme.spacing(8),
+      overflowWrap: 'break-word',
+      border: '2px solid pink',
+    },
   })
 );
 
@@ -40,15 +50,21 @@ export default function ModelShopList(props: IProps) {
     <React.Fragment>
       <Box className={classes.container}>
         {posts.map((post: IPost) => (
-          <Box className={classes.item}>
+          <Box key={post.slug} className={classes.item}>
             <Image
               src={`${imageServerUrl}${post.image}`}
               layout="intrinsic"
               className={classes.image}
-              width={250}
-              height={190}
+              width={200}
+              height={160}
             />
-            <Typography variant="subtitle2">{post.title}</Typography>
+            <Typography
+              className={classes.title}
+              variant="subtitle2"
+              component="div"
+            >
+              {post.title}
+            </Typography>
           </Box>
         ))}
       </Box>

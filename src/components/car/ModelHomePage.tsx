@@ -20,6 +20,7 @@ import Image from 'next/image';
 import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
 import LatestPosts from '~/components/blog/LatestPosts';
+import BlogGrid from '~/components/car/BlogGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -203,12 +204,7 @@ export default function ModelShopList(props: IProps) {
             <Typography variant="h6" className={classes.blockTitle}>
               Блог
             </Typography>
-            <Box className={classes.blogContainer}>
-              {postsByCar &&
-                postsByCar.map((post: IPost) => (
-                  <Box className={classes.blogItem}>{post.title}</Box>
-                ))}
-            </Box>
+            {postsByCar && <BlogGrid posts={postsByCar} />}
           </Paper>
         </Grid>
         <Grid item xs={12}>
