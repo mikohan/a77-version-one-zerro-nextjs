@@ -8,6 +8,7 @@ import { Hidden } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN } from '~/config';
 import { footerData as data } from '~/config';
+import url from '~/services/url';
 interface IPropsCopyright {
   className?: string;
 }
@@ -196,60 +197,72 @@ export default function StickyFooter() {
                     ИНФОРМАЦИЯ
                   </Typography>
                   <List>
-                    <ListItem>DELIVERY</ListItem>
-                    <ListItem>ORDER</ListItem>
-                    <ListItem>RETURNS</ListItem>
-                    <ListItem>PRIVATE POLICY</ListItem>
-                    <ListItem>SITE MAP</ListItem>
+                    <Link href={url.delivery()}>
+                      <ListItem>
+                        <a>ДОСТАВКА</a>
+                      </ListItem>
+                    </Link>
+                    <Link href={url.payment()}>
+                      <ListItem>
+                        <a>ОПЛАТА</a>
+                      </ListItem>
+                    </Link>
+                    <Link href={url.warranty()}>
+                      <ListItem>
+                        <a>ГАРАНТИИ</a>
+                      </ListItem>
+                    </Link>
+                    <Link href={url.policy()}>
+                      <ListItem>
+                        <a>КОНФИДЕНЦИАЛЬНОСТЬ</a>
+                      </ListItem>
+                    </Link>
                   </List>
                 </div>
               </Hidden>
               <div>
-                <Typography
-                  className={classes.sectionHeader}
-                  variant="h5"
-                >{`\{INFORMATION\} `}</Typography>
+                <Typography className={classes.sectionHeader} variant="h5">
+                  КОМПАНИЯ
+                </Typography>
                 <List>
-                  <Link href="/about">
+                  <Link href={url.about()}>
                     <ListItem>
-                      <a>ABOUT US</a>
+                      <a>О КОМПАНИИ</a>
                     </ListItem>
                   </Link>
-                  <Link href="/contacts">
+                  <Link href={url.contacts()}>
                     <ListItem>
-                      <a>CONTACTS</a>
+                      <a>КОНТАКТЫ</a>
                     </ListItem>
                   </Link>
-                  <Link href="/car">
+                  <Link href={url.cars()}>
                     <ListItem>
-                      <a>CARS</a>
+                      <a>МАШИНЫ</a>
                     </ListItem>
                   </Link>
-                  <Link href="/grid">
+                  <Link href={url.blog()}>
                     <ListItem>
-                      <a>MAKES</a>
+                      <a>БЛОГ</a>
                     </ListItem>
                   </Link>
                 </List>
               </div>
               <div>
-                <Typography
-                  className={classes.sectionHeader}
-                  variant="h5"
-                >{`\{FOLLOW US\} `}</Typography>
+                <Typography className={classes.sectionHeader} variant="h5">
+                  СОЦИАЛЬНЫЕ СЕТИ
+                </Typography>
                 <Typography
                   className={classes.sectionSubheader}
                   variant="body1"
                 >
-                  Hi, we are always open for cooperation and suggestions,
-                  contact us in one of the ways below:
+                  {data.SHOP_CONTACT_TEXT}
                 </Typography>
                 <div>
                   <Typography
                     className={classes.sectionSubheader}
                     variant="body1"
                   >
-                    Follow us on social media
+                    Наши группы в социальных сетях
                   </Typography>
                   <div className={classes.socialMedia}>
                     <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">

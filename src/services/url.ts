@@ -3,6 +3,7 @@ import { LinkProps } from 'next/link';
 type IAppLinkHref = string | LinkProps;
 
 const url: { [key: string]: any } = {
+  cars: () => `/car`,
   model: (make: string, model: string) => `/car/${make}/${model}`,
   make: (make: string) => `/car/${make}`,
   category: (
@@ -52,6 +53,7 @@ const url: { [key: string]: any } = {
   warranty: () => `/warranty`,
   payment: () => `/payment`,
   policy: () => `/policy`,
+  contacts: () => `/contacts`,
 };
 
 export default url;
