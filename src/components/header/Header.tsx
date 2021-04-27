@@ -30,6 +30,10 @@ import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 import uselLocalStorage from '~/hooks/useLocalStorage';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Link from 'next/link';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,6 +90,16 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     try {
@@ -195,6 +209,21 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   const tabs = (
     <React.Fragment>
+      <Menu
+        id="company"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>
+          <Link href={url.about()}>
+            <a>Profile</a>
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
       <Tabs
         value={activePage}
         onChange={handleChange}
@@ -203,9 +232,9 @@ export default function Header({ setIsDark, isDark }: IProps) {
         centered
       >
         <Tab label="ANGARA PARTS" onClick={goHome} />
-        <Tab label="Cars" onClick={goCars} />
-        <Tab label="About" onClick={goAbout} />
-        <Tab label="Contacts" onClick={goContacts} />
+        <Tab label="Машины" onClick={goCars} />
+        <Tab label="Компания" onClick={handleClick} />
+        <Tab label="Контакты" onClick={goContacts} />
         <Tab label="Блог" onClick={goBlog} />
       </Tabs>
     </React.Fragment>

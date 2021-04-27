@@ -31,9 +31,7 @@ const url: { [key: string]: any } = {
     };
   },
   product: (slug: string): IAppLinkHref => `/product/${slug}`,
-  about: () => ({
-    href: `/about`,
-  }),
+
   blog: () => `/blog/category/vse-kategorii/1`,
   blogSearch: (search: string, page: number) => {
     return {
@@ -47,6 +45,10 @@ const url: { [key: string]: any } = {
   post: (slug: string): IAppLinkHref => `/blog/post/${slug}`,
   blogCategory: (slug: string, page: number = 1): IAppLinkHref =>
     `/blog/category/${slug}/${page}`,
+  /// Pages
+
+  about: () => `/about`,
+  policy: () => `/policy`,
 };
 
 export default url;
