@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       width: 180,
       height: 250,
+      [theme.breakpoints.up('xl')]: {
+        width: 200,
+        height: 270,
+      },
 
       fontSize: '0.8rem',
       marginRight: theme.spacing(1),
@@ -47,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     imageContainer: {
       height: 160,
+      [theme.breakpoints.up('xl')]: {
+        height: 170,
+      },
     },
     image: {
       objectFit: 'cover',
