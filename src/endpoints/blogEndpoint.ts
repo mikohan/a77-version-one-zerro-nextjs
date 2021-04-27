@@ -31,6 +31,52 @@ export async function getBlogCategories(): Promise<IBlogCategory[]> {
   });
   return promise.data.categories;
 }
+// Get posts by category
+export async function getPostsByCategory(
+  slug: string,
+  pageFrom: number,
+  pageTo: number
+): Promise<IPost[]> {
+  const query = gql`
+    query postsByCategory($slug: String!, $pageFrom: Int!, $pageTo: Int!) {
+      postsByCategory(slug: $slug, pageFrom: $pageFrom, pageTo: $pageTo) {
+        title
+        excerpt
+        slug
+        image
+        text
+        author
+        date
+        tags
+        car {
+          model
+          slug
+          make {
+            name
+            slug
+          }
+        }
+        partsCategory {
+          name
+          slug
+        }
+        category {
+          name
+          slug
+        }
+      }
+    }
+  `;
+  const promise = await clientBlog.query({
+    query: query,
+    variables: {
+      slug,
+      pageFrom,
+      pageTo,
+    },
+  });
+  return promise.data.postsByCategory;
+}
 
 // Search post
 
