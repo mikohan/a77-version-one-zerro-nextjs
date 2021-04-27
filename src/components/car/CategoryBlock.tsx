@@ -1,14 +1,9 @@
 import { ICar, ICategory } from '~/interfaces';
 import React from 'react';
-import { Hidden, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Box, Paper, Typography, Chip } from '@material-ui/core';
-import LeftSidePopularWidget from '~/components/product/LeftSidePopularWidet';
+import { Typography, Chip } from '@material-ui/core';
 
-import TreeView from '@material-ui/lab/TreeView';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
 import Link from 'next/link';
 import url from '~/services/url';
 
