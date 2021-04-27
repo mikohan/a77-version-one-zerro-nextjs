@@ -27,11 +27,17 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       paddingBottom: theme.spacing(1),
       fontWeight: 500,
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '1rem',
+      },
     },
     chip: {
-      marginBottom: theme.spacing(0.3),
+      marginBottom: theme.spacing(0.5),
       marginRight: theme.spacing(1),
-      fontSize: '0.7rem',
+      fontSize: '0.75rem',
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '0.9rem',
+      },
     },
   })
 );
@@ -52,8 +58,12 @@ const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
   return (
     <React.Fragment>
       <Link href={url.category(model.make.slug, model.slug, catSlug)}>
-        <a className={classes.catTitle}>
-          <Typography variant="subtitle1" component="div">
+        <a>
+          <Typography
+            className={classes.catTitle}
+            variant="subtitle1"
+            component="div"
+          >
             {catName}
           </Typography>
         </a>
