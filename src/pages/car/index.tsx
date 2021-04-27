@@ -22,6 +22,9 @@ import { getMakes } from '~/endpoints/carsEndpoint';
 import { containerMaxWidth } from '~/config';
 import CarHead from '~/components/heads/CarHead';
 import PopularMakes from '~/components/car/PopularMakesWidet';
+import Breads from '~/components/common/BreadCrumbs';
+import { IBread } from '~/interfaces';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
+    },
+    breads: {
+      paddingTop: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+    },
+    pageTitle: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
   })
 );
@@ -42,13 +55,20 @@ function Car(props: ICarProps) {
   const classes = useStyles();
   const { makes, popularMakes } = props;
 
+  const breads: IBread[] = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Машины', path: url.cars() },
+  ];
   return (
     <React.Fragment>
       <CarHead />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
-            <Grid xs={12}>
+            <Grid className={classes.breads} item xs={12}>
+              <Breads breadCrumbs={breads} />
+            </Grid>
+            <Grid className={classes.pageTitle} item xs={12}>
               <Typography variant="h1">
                 Интернет магазин запчастей ANGARA PARTS
               </Typography>
@@ -58,8 +78,7 @@ function Car(props: ICarProps) {
                 <PopularMakes makes={popularMakes} />
               </Grid>
             </Hidden>
-            <Grid style={{ border: '1px solid green' }} item xs={12} md={9}>
-              <Typography variant="h1">H1 Goes Here</Typography>
+            <Grid item xs={12} md={9}>
               <ShopCarGrid cars={makes} />
             </Grid>
           </Grid>
