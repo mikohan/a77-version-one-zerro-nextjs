@@ -31,6 +31,9 @@ import LatestPosts from '~/components/blog/LatestPosts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      paddingBottom: theme.spacing(3),
+    },
     leftPanel: {
       paddingTop: theme.spacing(2),
       paddingLeft: theme.spacing(2),
@@ -43,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
     pageTitle: {
       display: 'flex',
       justifyContent: 'center',
-      paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
     latestPosts: {
@@ -70,7 +72,7 @@ function Car(props: ICarProps) {
     <React.Fragment>
       <CarHead />
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}>
+        <Container className={classes.container} maxWidth={containerMaxWidth}>
           <Grid container>
             <Grid className={classes.breads} item xs={12}>
               <Breads breadCrumbs={breads} />
@@ -114,7 +116,7 @@ export const getStaticProps: GetServerSideProps = async () => {
     return false;
   });
 
-  const latestPosts = await getPosts();
+  const latestPosts = await getPosts(5);
 
   return {
     props: {
