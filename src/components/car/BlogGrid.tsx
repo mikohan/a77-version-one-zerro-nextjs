@@ -26,19 +26,27 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
+      flexWrap: 'wrap',
     },
     item: {
+      display: 'flex',
+      flexDirection: 'column',
       maxWidth: theme.spacing(25),
-      border: '1px solid blue',
       marginLeft: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
-    image: {},
     title: {
+      flexGrow: 1,
       overflowWrap: 'break-word',
       fontWeight: 500,
       padding: theme.spacing(1),
-      border: '2px solid pink',
+    },
+    date: {
+      paddingTop: theme.spacing(0.3),
+      paddingBottom: theme.spacing(0.3),
+      paddingLeft: theme.spacing(1),
+      color: theme.palette.text.secondary,
+      fontWeight: 500,
     },
   })
 );
@@ -53,7 +61,7 @@ export default function ModelShopList(props: IProps) {
     <React.Fragment>
       <Box className={classes.container}>
         {posts.map((post: IPost) => (
-          <Box key={post.slug} className={classes.item}>
+          <Paper key={post.slug} className={classes.item}>
             <Image
               src={`${imageServerUrl}${post.image}`}
               layout="intrinsic"
@@ -68,7 +76,14 @@ export default function ModelShopList(props: IProps) {
             >
               {post.title}
             </Typography>
-          </Box>
+            <Typography
+              className={classes.date}
+              variant="subtitle2"
+              component="div"
+            >
+              {post.date}
+            </Typography>
+          </Paper>
         ))}
       </Box>
     </React.Fragment>
