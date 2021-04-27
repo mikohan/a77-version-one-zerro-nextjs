@@ -7,7 +7,10 @@ import { ICar } from '~/interfaces/ICar';
 import { IFilter } from '~/interfaces/filters';
 import AnimationPage from '~/components/common/AnimationPage';
 import { getVehicle } from '~/endpoints/carsEndpoint';
-import { getProductsByFilters } from '~/endpoints/productEndpoint';
+import {
+  getProductsByFilters,
+  getProductsByTagOrTags,
+} from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { capitalize, makeTree } from '~/utils';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -40,6 +43,7 @@ import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
 import { popularProductsQuantity } from '~/config';
 import { Container } from '@material-ui/core';
+import { translateProducts } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -52,6 +56,7 @@ interface IModelProps {
   routerQuery: IRouterStuff;
   aggregations: IAgregations;
   popularProducts: IProduct[];
+  productsToPost: IProduct[];
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -72,6 +77,7 @@ function Model(props: IModelProps) {
     routerQuery,
     aggregations,
     popularProducts,
+    productsToPost,
   } = props;
   // If car priority from config show home page otherwise show shop grid
   const showCarHomePage: boolean =
@@ -198,6 +204,7 @@ function Model(props: IModelProps) {
                 popularProducts={popularProducts}
                 categories={categories}
                 model={model}
+                productsToPost={productsToPost}
               />
             ) : (
               <ModelShopList
@@ -267,6 +274,13 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const aggregations: IAgregations = promise.aggregations;
 
+  // Products by some search tags or something
+  const query = model.name ? model.name : 'двигатель';
+  const productsByTags = await getProductsByTagOrTags(query, 30);
+  const productsToPost: IProduct[] = translateProducts(
+    productsByTags.hits.hits
+  );
+
   if (!promise) {
     return {
       notFound: true,
@@ -283,6 +297,7 @@ export const getServerSideProps: GetServerSideProps = async (
       routerParams,
       routerQuery,
       popularProducts,
+      productsToPost,
     },
   };
 };

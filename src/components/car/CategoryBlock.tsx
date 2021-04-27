@@ -19,20 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       maxWidth: 400,
     },
-    container: {
-      display: 'grid',
-      gridTemplateColumns: '3fr 1fr 1fr 1fr',
-    },
-    firstItem: {
-      gridColumn: '1/5',
-    },
     item: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'flex-start',
-      alignContent: 'flex-start',
+      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
+      borderTop: '1px solid',
+      borderColor: theme.palette.action.selected,
     },
     catTitle: {
       minWidth: '100%',
@@ -95,16 +88,16 @@ export default function ModelCategoryBlock(props: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Grid className={classes.container} item xs={12}>
+      <Grid item container xs={12}>
         {categories?.map((item: ICategory) => (
-          <div key={item.id} className={classes.item}>
+          <Grid item xs={12} key={item.id} className={classes.item}>
             <CatBox
               catName={item.name}
               catSlug={item.slug}
               categories={item.children}
               model={model}
             />
-          </div>
+          </Grid>
         ))}
       </Grid>
     </React.Fragment>
