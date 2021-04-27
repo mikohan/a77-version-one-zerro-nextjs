@@ -168,14 +168,13 @@ export async function getPosts(limit: number = 0): Promise<IPost[]> {
   return promise.data.posts;
 }
 
-export async function getPostsByCategory(
-  slug: string,
-  pageFrom: number,
-  pageTo: number
+export async function getPostsByCar(
+  model: string,
+  limit: number
 ): Promise<IPost[]> {
   const query = gql`
-    query postsByCategory($slug: String!, $pageFrom: Int!, $pageTo: Int!) {
-      postsByCategory(slug: $slug, pageFrom: $pageFrom, pageTo: $pageTo) {
+    query postsByCar($model: String!, $limit: Int!) {
+      postsByCar(slug: model, limit: $limit) {
         title
         excerpt
         slug
@@ -206,9 +205,8 @@ export async function getPostsByCategory(
   const promise = await clientBlog.query({
     query: query,
     variables: {
-      slug,
-      pageFrom,
-      pageTo,
+      model,
+      limit,
     },
   });
   return promise.data.postsByCategory;
