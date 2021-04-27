@@ -243,9 +243,7 @@ export default function CarChooseModal() {
     );
   }
 
-  function handleCurrentCar() {
-    console.log('In handle current car');
-  }
+  function handleCurrentCar() {}
 
   const ChipComponent = () => (
     <Chip

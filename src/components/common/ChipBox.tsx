@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+      border: '1px solid red',
     },
     chipContainer: {
       position: 'absolute',
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       paddingTop: theme.spacing(0.5),
-      zIndex: 0,
+      zIndex: 1,
       '&:before': {
         zIndex: -1,
         position: 'absolute',
