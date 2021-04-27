@@ -107,7 +107,6 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   );
   let car: string =
     currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
-  console.log(compatable);
 
   return (
     <div className={classes.card}>

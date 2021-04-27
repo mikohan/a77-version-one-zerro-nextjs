@@ -86,7 +86,6 @@ export async function getProductsByFilters(
 ): Promise<IProductElasticBase> {
   const url = encodeURI(`${backServerUrl}/api/product/jsontest${finalUrl}`);
   const prom = await axios(url);
-  console.log(finalUrl);
 
   return prom.data;
 }
