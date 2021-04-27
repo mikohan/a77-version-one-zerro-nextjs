@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import Link from 'next/link';
 import url from '~/services/url';
+import { ICar } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,8 +51,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SearchBox() {
   const classes = useStyles();
+  let currentCar: ICar = {} as ICar;
+  if (typeof window !== 'undefined') {
+    currentCar = useSelector((state: IState) => state.shop.currentCar) as ICar;
+  }
 
-  const currentCar = useSelector((state: IState) => state.shop.currentCar);
   // Redirect to car page on click
 
   return (
@@ -60,7 +64,9 @@ export default function SearchBox() {
         <Hidden smDown>
           <Grid className={classes.container} item md={4} lg={3}>
             <Box className={classes.carButtons}>
-              {currentCar ? (
+              {currentCar &&
+              Object.keys(currentCar).length &&
+              currentCar.constructor === Object ? (
                 <Link href={url.model(currentCar?.make.slug, currentCar?.slug)}>
                   <a>
                     <Typography className={classes.goTo} variant="body2">
