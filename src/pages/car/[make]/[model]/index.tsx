@@ -11,7 +11,7 @@ import {
   getProductsByFilters,
   getProductsByTagOrTags,
 } from '~/endpoints/productEndpoint';
-import { getPosts } from '~/endpoints/blogEndpoint';
+import { getPosts, getPostsByCar } from '~/endpoints/blogEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { capitalize, makeTree } from '~/utils';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -285,6 +285,7 @@ export const getServerSideProps: GetServerSideProps = async (
     productsByTags.hits.hits
   );
   const posts = await getPosts(5);
+  const carPosts = await getPostsByCar(modelSlug, 10);
 
   if (!promise) {
     return {

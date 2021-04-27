@@ -170,11 +170,11 @@ export async function getPosts(limit: number = 0): Promise<IPost[]> {
 
 export async function getPostsByCar(
   model: string,
-  limit: number
+  limit: number = 10
 ): Promise<IPost[]> {
   const query = gql`
     query postsByCar($model: String!, $limit: Int!) {
-      postsByCar(slug: model, limit: $limit) {
+      postsByCar(model: $model, limit: $limit) {
         title
         excerpt
         slug
