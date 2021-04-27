@@ -209,7 +209,7 @@ export async function getPostsByCar(
       limit,
     },
   });
-  return promise.data.postsByCategory;
+  return promise.data.postsByCar;
 }
 
 export async function getPages(): Promise<IPage[]> {

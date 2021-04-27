@@ -82,6 +82,7 @@ interface IProps {
   categories: ICategory[];
   model: ICar;
   posts: IPost[];
+  postsByCar: IPost[];
 }
 export default function ModelShopList(props: IProps) {
   const {
@@ -94,6 +95,7 @@ export default function ModelShopList(props: IProps) {
     model,
     productsToPost,
     posts,
+    postsByCar,
   } = props;
   const classes = useStyles();
   return (

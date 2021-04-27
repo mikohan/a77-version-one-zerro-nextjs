@@ -59,6 +59,7 @@ interface IModelProps {
   popularProducts: IProduct[];
   productsToPost: IProduct[];
   posts: IPost[];
+  carPosts: IPost[];
 }
 export interface IBaseFilter<T extends string, V> {
   type: T;
@@ -81,6 +82,7 @@ function Model(props: IModelProps) {
     popularProducts,
     productsToPost,
     posts,
+    carPosts,
   } = props;
   // If car priority from config show home page otherwise show shop grid
   const showCarHomePage: boolean =
@@ -209,6 +211,7 @@ function Model(props: IModelProps) {
                 model={model}
                 productsToPost={productsToPost}
                 posts={posts}
+                postsByCar={carPosts}
               />
             ) : (
               <ModelShopList
@@ -305,6 +308,7 @@ export const getServerSideProps: GetServerSideProps = async (
       popularProducts,
       productsToPost,
       posts,
+      carPosts,
     },
   };
 };
