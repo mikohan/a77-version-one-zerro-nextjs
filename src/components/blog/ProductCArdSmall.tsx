@@ -116,8 +116,8 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         <a className={classes.a}>
           <Image
             layout="intrinsic"
-            width={160}
-            height={130}
+            width={180}
+            height={150}
             className={classes.image}
             src={imgPath}
             alt={product.full_name}

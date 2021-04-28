@@ -31,6 +31,7 @@ import { translateProducts } from '~/utils';
 import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
+import Divider from '~/components/common/Divider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -134,7 +135,6 @@ const useStyles = makeStyles((theme: Theme) =>
     relatedPostTitle: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
-      paddingLeft: theme.spacing(2),
     },
   })
 );
@@ -287,28 +287,36 @@ export default function ProductPage({
                   <ProductTabs product={product} />
                 </Paper>
               </Grid>
+              <Divider />
               {similar && similar.length ? <SimilarProducts /> : ''}
               {relatedProducts && relatedProducts.length ? (
-                <PopularParts />
+                <React.Fragment>
+                  <Divider />
+                  <PopularParts />
+                </React.Fragment>
               ) : (
                 ''
               )}
+              <Divider />
               <Grid item className={classes.tabs} xs={12}>
+                <Typography className={classes.relatedPostTitle} variant="h6">
+                  Полезная информация
+                </Typography>
                 <Paper>
-                  <Typography className={classes.relatedPostTitle} variant="h6">
-                    Полезная информация
-                  </Typography>
                   <RelatedPosts posts={posts} />
                 </Paper>
               </Grid>
             </Grid>
             {productsToPost && (
-              <Grid container item xs={12}>
-                <Typography className={classes.mayLike} variant="h6">
-                  Вам может понравиться
-                </Typography>
-                <ProductGrid products={productsToPost} />
-              </Grid>
+              <React.Fragment>
+                <Divider />
+                <Grid container item xs={12}>
+                  <Typography className={classes.mayLike} variant="h6">
+                    Вам может понравиться
+                  </Typography>
+                  <ProductGrid products={productsToPost} />
+                </Grid>
+              </React.Fragment>
             )}
           </Grid>
         </div>
