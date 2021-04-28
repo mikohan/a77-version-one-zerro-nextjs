@@ -29,6 +29,7 @@ import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
 import ProductPriceSideBlock from '~/components/product/productPage/ProductPriseSideBlock';
 import { translateProducts } from '~/utils';
 import url from '~/services/url';
+import ProductGrid from '~/components/blog/ProductGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,6 +127,13 @@ const useStyles = makeStyles((theme: Theme) =>
     tabs: {
       paddingTop: theme.spacing(2),
     },
+    mayLike: {
+      paddingBottom: theme.spacing(2),
+    },
+    bottomProducts: {
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+    },
   })
 );
 
@@ -135,7 +143,7 @@ interface IProps {
   relatedProducts: IProduct[];
   analogs: IProduct[];
   similar: IProduct[];
-  productsByTags: IProduct[];
+  productsToPost: IProduct[];
   model: string;
   make: string;
 }
@@ -146,7 +154,7 @@ export default function ProductPage({
   similar,
   model,
   make,
-  productsByTags,
+  productsToPost,
 }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
@@ -282,6 +290,14 @@ export default function ProductPage({
                 ''
               )}
             </Grid>
+            {productsToPost && (
+              <Grid className={classes.bottomProducts} container item xs={12}>
+                <Typography className={classes.mayLike} variant="h6">
+                  Вам может понравиться
+                </Typography>
+                <ProductGrid products={productsToPost} />
+              </Grid>
+            )}
           </Grid>
         </div>
       </AnimationPage>
@@ -327,6 +343,9 @@ export const getStaticProps: GetStaticProps = async (
       ? product.tags.join(' ')
       : `${product.name} ${product.model[0].name}`;
   const productsByTags = await getProductsByTagOrTags(query, 30);
+  const productsToPost: IProduct[] = translateProducts(
+    productsByTags.hits.hits
+  );
 
   return {
     revalidate: REVALIDATE,
@@ -337,7 +356,7 @@ export const getStaticProps: GetStaticProps = async (
       similar,
       model,
       make,
-      productsByTags,
+      productsToPost,
     },
   };
 };
