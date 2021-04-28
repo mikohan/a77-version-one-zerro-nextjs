@@ -6,6 +6,7 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import url from '~/services/url';
 import Image from 'next/image';
+import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
     },
     item: {
+      padding: theme.spacing(1),
       display: 'flex',
       minWidth: theme.spacing(20),
       alignItems: 'center',
@@ -41,25 +43,28 @@ export default function ModelBlockGrid(props: ICarProps) {
     <React.Fragment>
       <Box className={classes.container}>
         {models &&
-          models.map((model: ICar) => (
-            <Link href={url.model(make.slug, model.slug)} key={model.slug}>
-              <a className={classes.item}>
-                <Image
-                  className={classes.image}
-                  src={
-                    model && model.image
-                      ? model.image
-                      : `/images/local/carsAvatar/generic.png`
-                  }
-                  width={50}
-                  height={30}
-                />
-                <Typography className={classes.model} variant="h6">
-                  {model.model}
-                </Typography>
-              </a>
-            </Link>
-          ))}
+          models.map((model: ICar) => {
+            console.log(model.image);
+            return (
+              <Link href={url.model(make.slug, model.slug)} key={model.slug}>
+                <a className={classes.item}>
+                  <Image
+                    className={classes.image}
+                    src={
+                      model && model.image
+                        ? `${imageServerUrl}${model.image}`
+                        : `/images/local/carsAvatar/generic.png`
+                    }
+                    width={50}
+                    height={30}
+                  />
+                  <Typography className={classes.model} variant="body1">
+                    {model.model}
+                  </Typography>
+                </a>
+              </Link>
+            );
+          })}
       </Box>
     </React.Fragment>
   );
