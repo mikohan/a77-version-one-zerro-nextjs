@@ -13,14 +13,15 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       padding: theme.spacing(2),
       display: 'flex',
+      justifyContent: 'center',
       flexWrap: 'wrap',
     },
     item: {
       padding: theme.spacing(1),
+      margin: theme.spacing(1),
       display: 'flex',
       minWidth: theme.spacing(20),
       alignItems: 'center',
-      border: '1px solid blue',
     },
     image: {
       border: '1px solid pink',
@@ -56,7 +57,7 @@ export default function ModelBlockGrid(props: ICarProps) {
                         : `/images/local/carsAvatar/generic.png`
                     }
                     width={50}
-                    height={30}
+                    height={50}
                   />
                   <Typography className={classes.model} variant="body1">
                     {model.model}
