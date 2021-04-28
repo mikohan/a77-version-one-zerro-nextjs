@@ -53,21 +53,23 @@ export default function DenseTable({ posts }: IProps) {
         <Box className={classes.container}>
           {posts.map((post: IPost) => {
             return (
-              <Box className={classes.item}>
-                <Image
-                  src={`${imageServerUrl}${post.image}`}
-                  width={200}
-                  height={160}
-                />
-                <Typography
-                  className={classes.title}
-                  variant="body2"
-                  component="div"
-                >
-                  {post.title}
-                </Typography>
-                <Box className={classes.date}>{post.date}</Box>
-              </Box>
+              <Link href={url.post(post.slug)}>
+                <a className={classes.item}>
+                  <Image
+                    src={`${imageServerUrl}${post.image}`}
+                    width={200}
+                    height={160}
+                  />
+                  <Typography
+                    className={classes.title}
+                    variant="body2"
+                    component="div"
+                  >
+                    {post.title}
+                  </Typography>
+                  <Box className={classes.date}>{post.date}</Box>
+                </a>
+              </Link>
             );
           })}
         </Box>
