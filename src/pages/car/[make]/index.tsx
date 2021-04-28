@@ -20,6 +20,7 @@ import { Container, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ModelBlockGrid from '~/components/car/ModelGridBlock';
 import PopularModels from '~/components/car/PopularModelWidget';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,8 +67,17 @@ function Make(props: ICarProps) {
             <Hidden smDown>
               <Grid item xs={3}>
                 <LeftSidebar>
-                  <PopularModels models={popularModels} />
-                  <ModelList models={models} />
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Typography variant="h6">
+                        Популярные Модели {`${capitalize(make.name)}`}
+                      </Typography>
+                      <PopularModels models={popularModels} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ModelList models={models} />
+                    </Grid>
+                  </Grid>
                 </LeftSidebar>
               </Grid>
             </Hidden>

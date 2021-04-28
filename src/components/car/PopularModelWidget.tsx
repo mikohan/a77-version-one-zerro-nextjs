@@ -45,9 +45,6 @@ export default function LeftSidePopularWidget({ models }: IProps): JSX.Element {
   return (
     <Grid className={classes.container} container>
       <Grid item xs={12}>
-        <Typography className={classes.title} variant="h6">
-          Популярные Модели
-        </Typography>
         {models &&
           models.map((model: ICar) => (
             <Link
