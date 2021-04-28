@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       border: '1px solid blue',
     },
+    image: {
+      border: '1px solid pink',
+    },
+    model: {
+      paddingLeft: theme.spacing(1),
+    },
   })
 );
 interface ICarProps {
@@ -38,8 +44,19 @@ export default function ModelBlockGrid(props: ICarProps) {
           models.map((model: ICar) => (
             <Link href={url.model(make.slug, model.slug)} key={model.slug}>
               <a className={classes.item}>
-                <Image src={``} width={50} height={30} />
-                <Typography variant="h6">{model.model}</Typography>
+                <Image
+                  className={classes.image}
+                  src={
+                    model && model.image
+                      ? model.image
+                      : `/images/local/carsAvatar/generic.png`
+                  }
+                  width={50}
+                  height={30}
+                />
+                <Typography className={classes.model} variant="h6">
+                  {model.model}
+                </Typography>
               </a>
             </Link>
           ))}
