@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { containerMaxWidth, REVALIDATE } from '~/config';
+import { containerMaxWidth, REVALIDATE, COMPANY_INFORMATION } from '~/config';
 import { Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
@@ -113,7 +113,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promise = await getProductsByMake(slug);
   const products: IProductElasticHitsFirst = promise.hits;
   const popularModels: ICar[] = models.filter(
-    (model: ICar) => +model.priority > 3
+    (model: ICar) => +model.priority > COMPANY_INFORMATION.POPULARITY_MODEL
   );
 
   return {
