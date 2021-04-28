@@ -131,6 +131,11 @@ const useStyles = makeStyles((theme: Theme) =>
     mayLike: {
       paddingBottom: theme.spacing(2),
     },
+    relatedPostTitle: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+    },
   })
 );
 
@@ -290,7 +295,9 @@ export default function ProductPage({
               )}
               <Grid item className={classes.tabs} xs={12}>
                 <Paper>
-                  <Typography variant="body1">Latest posts</Typography>
+                  <Typography className={classes.relatedPostTitle} variant="h6">
+                    Полезная информация
+                  </Typography>
                   <RelatedPosts posts={posts} />
                 </Paper>
               </Grid>
