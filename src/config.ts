@@ -117,6 +117,7 @@ export const COMPANY_INFORMATION = {
     'Мы всегда открыты для сотрудничества и критики, Свяжитесь любым удобным способом.',
   FREE_SHIPPING_FROM: 8000,
 };
+export const DIVIER_HEIGTH = '5rem';
 
 export const BLOG_DATA = {
   DEFAULT_BLOG_IMAGE: '/images/local/defaultParts500.jpg',
