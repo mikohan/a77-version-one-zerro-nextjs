@@ -43,38 +43,36 @@ export default function LeftSidePopularWidget({ models }: IProps): JSX.Element {
   const classes = useStyles();
 
   return (
-    <Paper>
-      <Grid className={classes.container} container>
-        <Grid item xs={12}>
-          <Typography className={classes.title} variant="h6">
-            Популярные Модели
-          </Typography>
-          {models &&
-            models.map((model: ICar) => (
-              <Link
-                key={model.slug}
-                href={url.model(model.make.slug, model.slug)}
-              >
-                <a>
-                  <Box className={classes.makeItem}>
-                    <Image
-                      src={
-                        model && model.image
-                          ? `${imageServerUrl}${model.image}`
-                          : '/images/local/carsAvatar/generic.png'
-                      }
-                      width={75}
-                      height={60}
-                    />
-                    <Typography className={classes.name} variant="body1">
-                      {capitalize(model.model)}
-                    </Typography>
-                  </Box>
-                </a>
-              </Link>
-            ))}
-        </Grid>
+    <Grid className={classes.container} container>
+      <Grid item xs={12}>
+        <Typography className={classes.title} variant="h6">
+          Популярные Модели
+        </Typography>
+        {models &&
+          models.map((model: ICar) => (
+            <Link
+              key={model.slug}
+              href={url.model(model.make.slug, model.slug)}
+            >
+              <a>
+                <Box className={classes.makeItem}>
+                  <Image
+                    src={
+                      model && model.image
+                        ? `${imageServerUrl}${model.image}`
+                        : '/images/local/carsAvatar/generic.png'
+                    }
+                    width={75}
+                    height={60}
+                  />
+                  <Typography className={classes.name} variant="body1">
+                    {capitalize(model.model)}
+                  </Typography>
+                </Box>
+              </a>
+            </Link>
+          ))}
       </Grid>
-    </Paper>
+    </Grid>
   );
 }
