@@ -10,7 +10,7 @@ import { ICar, IProduct, IProductElasticHitsSecond } from '~/interfaces';
 import {
   getProduct,
   getProductsAll,
-  getSimilarProducts,
+  getProductsByTagOrTags,
 } from '~/endpoints/productEndpoint';
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import { IBread } from '~/interfaces';
@@ -135,6 +135,7 @@ interface IProps {
   relatedProducts: IProduct[];
   analogs: IProduct[];
   similar: IProduct[];
+  productsByTags: IProduct[];
   model: string;
   make: string;
 }
@@ -145,6 +146,7 @@ export default function ProductPage({
   similar,
   model,
   make,
+  productsByTags,
 }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
@@ -320,6 +322,11 @@ export const getStaticProps: GetStaticProps = async (
   // It is working not very goog because of same products on all pages
   // needs to change logic
   //relatedProducts = await getPopularProductsByModel(models, 20);
+  const query =
+    product.tags && product.tags.length
+      ? product.tags.join(' ')
+      : `${product.name} ${product.model[0].name}`;
+  const productsByTags = await getProductsByTagOrTags(query, 30);
 
   return {
     revalidate: REVALIDATE,
@@ -330,6 +337,7 @@ export const getStaticProps: GetStaticProps = async (
       similar,
       model,
       make,
+      productsByTags,
     },
   };
 };
