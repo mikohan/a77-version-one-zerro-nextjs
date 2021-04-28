@@ -6,7 +6,7 @@ import { DEFAULT_EXCERPT, REVALIDATE, imageServerUrl } from '~/config';
 import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
-import { ICar, IProduct, IProductElasticHitsSecond } from '~/interfaces';
+import { ICar, IPost, IProduct, IProductElasticHitsSecond } from '~/interfaces';
 import {
   getProduct,
   getProductsAll,
@@ -21,10 +21,10 @@ import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
-  getPopularProductsByModel,
   getSimilarProductsByModel,
   getProductAnalogs,
 } from '~/endpoints/productEndpoint';
+import { searchPosts } from '~/endpoints/blogEndpoint';
 import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
 import ProductPriceSideBlock from '~/components/product/productPage/ProductPriseSideBlock';
 import { translateProducts } from '~/utils';
@@ -129,10 +129,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     mayLike: {
       paddingBottom: theme.spacing(2),
-    },
-    bottomProducts: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
     },
   })
 );
@@ -289,9 +285,14 @@ export default function ProductPage({
               ) : (
                 ''
               )}
+              <Grid item className={classes.tabs} xs={12}>
+                <Paper>
+                  <Typography variant="body1">Latest posts</Typography>
+                </Paper>
+              </Grid>
             </Grid>
             {productsToPost && (
-              <Grid className={classes.bottomProducts} container item xs={12}>
+              <Grid container item xs={12}>
                 <Typography className={classes.mayLike} variant="h6">
                   Вам может понравиться
                 </Typography>
@@ -347,6 +348,13 @@ export const getStaticProps: GetStaticProps = async (
     productsByTags.hits.hits
   );
 
+  const safe = `${product.name} ${product.model[0].name}`.replace(
+    /[&\/\\#,+()$~%.'":*?<>{}]/g,
+    ''
+  );
+  let posts: IPost[] = [];
+  posts = await searchPosts(safe, 0, 20);
+
   return {
     revalidate: REVALIDATE,
     props: {
@@ -357,6 +365,7 @@ export const getStaticProps: GetStaticProps = async (
       model,
       make,
       productsToPost,
+      posts,
     },
   };
 };
