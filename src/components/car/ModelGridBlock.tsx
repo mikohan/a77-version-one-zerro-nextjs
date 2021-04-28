@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     blockPaper: {
       padding: theme.spacing(2),
+      display: 'flex',
+      flexWrap: 'wrap',
     },
     blockGrid: {
       paddingBottom: theme.spacing(5),
@@ -35,7 +37,7 @@ export default function ModelBlockGrid(props: ICarProps) {
       <Box>
         {models &&
           models.map((model: ICar) => (
-            <React.Fragment>
+            <React.Fragment key={model.slug}>
               <Typography variant="h6">{model.model}</Typography>
             </React.Fragment>
           ))}
