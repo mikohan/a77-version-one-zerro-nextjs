@@ -15,7 +15,7 @@ import { capitalize } from '~/utils';
 import { getProductsByMake } from '~/endpoints/productEndpoint';
 import { IProductElasticHitsFirst } from '~/interfaces';
 import LeftSidebar from '~/components/product/LeftSideBar';
-import ModelList from '~/components/product/ModelsList';
+import ModelList from '~/components/car/ModelsList';
 import { Container, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ModelBlockGrid from '~/components/car/ModelGridBlock';
@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     blockGrid: {
       paddingBottom: theme.spacing(5),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+    widgetItem: {
+      paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
     },
@@ -68,13 +73,16 @@ function Make(props: ICarProps) {
               <Grid item xs={3}>
                 <LeftSidebar>
                   <Grid container>
-                    <Grid item xs={12}>
+                    <Grid className={classes.widgetItem} item xs={12}>
                       <Typography variant="h6">
                         Популярные Модели {`${capitalize(make.name)}`}
                       </Typography>
                       <PopularModels models={popularModels} />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid className={classes.widgetItem} item xs={12}>
+                      <Typography variant="h6">
+                        Все Модели {`${capitalize(make.name)}`}
+                      </Typography>
                       <ModelList models={models} />
                     </Grid>
                   </Grid>
