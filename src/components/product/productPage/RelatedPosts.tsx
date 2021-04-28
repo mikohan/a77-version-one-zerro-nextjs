@@ -53,7 +53,7 @@ export default function DenseTable({ posts }: IProps) {
         <Box className={classes.container}>
           {posts.map((post: IPost) => {
             return (
-              <Link href={url.post(post.slug)}>
+              <Link key={post.slug} href={url.post(post.slug)}>
                 <a className={classes.item}>
                   <Image
                     src={`${imageServerUrl}${post.image}`}

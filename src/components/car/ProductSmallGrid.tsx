@@ -83,7 +83,7 @@ export default function ModelShopList(props: IProps) {
               : '/images/local/defaultParts245.png';
 
             return (
-              <Link href={url.product(product.slug)}>
+              <Link key={product.slug} href={url.product(product.slug)}>
                 <a>
                   <Paper key={product.id} className={classes.smallBox}>
                     <div className={classes.imageContainer}>

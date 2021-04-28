@@ -321,8 +321,11 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { slug } = context.params!;
-
   const product: IProduct = await getProduct(slug as string);
+  if (!product) {
+    return { notFound: true };
+  }
+
   const model = product.model.length ? product.model[0].slug : '';
   const make = product.model.length ? product.model[0].make.slug : '';
 
@@ -364,7 +367,7 @@ export const getStaticProps: GetStaticProps = async (
     ''
   );
   let posts: IPost[] = [];
-  posts = await searchPosts(safe, 0, 20);
+  posts = await searchPosts(safe, 0, 10);
 
   return {
     revalidate: REVALIDATE,

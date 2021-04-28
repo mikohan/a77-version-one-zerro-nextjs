@@ -46,7 +46,7 @@ export default function ModelShopList(props: IProps) {
     <React.Fragment>
       <Box className={classes.container}>
         {posts.map((post: IPost) => (
-          <Link href={url.post(post.slug)}>
+          <Link key={post.slug} href={url.post(post.slug)}>
             <a>
               <Paper key={post.slug} className={classes.item}>
                 <Image
