@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       minWidth: '100%',
       height: DIVIER_HEIGTH,
-      border: '1px solid red',
     },
   })
 );
