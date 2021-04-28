@@ -1,22 +1,8 @@
 import React from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { containerMaxWidth, REVALIDATE } from '~/config';
-import { Grid, Hidden, Typography } from '@material-ui/core';
-import AnimationPage from '~/components/common/AnimationPage';
-import CarMakeHead from '~/components/heads/carMakeHead';
-import PageHeader from '~/components/product/PageHeader';
-
 import { ICar } from '~/interfaces/ICar';
-import { IMake } from '~/interfaces/IMake';
-import { getVehiclesByMake, getMake, getMakes } from '~/endpoints/carsEndpoint';
-import ShopGrid from '~/components/product/ShopGrid';
 import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
-import { getProductsByMake } from '~/endpoints/productEndpoint';
-import { IProductElasticHitsFirst } from '~/interfaces';
-import LeftSidebar from '~/components/product/LeftSideBar';
-import ModelList from '~/components/product/ModelsList';
-import { Container, Paper } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>

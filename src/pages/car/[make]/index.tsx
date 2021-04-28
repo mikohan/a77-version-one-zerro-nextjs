@@ -18,6 +18,7 @@ import LeftSidebar from '~/components/product/LeftSideBar';
 import ModelList from '~/components/product/ModelsList';
 import { Container, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import ModelBlockGrid from '~/components/car/ModelGridBlock';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,14 +71,7 @@ function Make(props: ICarProps) {
             <Grid item xs={12} md={9}>
               <Grid className={classes.blockGrid} item xs={12}>
                 <Paper className={classes.blockPaper}>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic
-                  sit aut, necessitatibus, sed ad porro dignissimos totam error
-                  omnis quia pariatur consequatur labore repudiandae doloremque
-                  praesentium rerum! Necessitatibus, quod facilis asperiores
-                  atque nostrum recusandae perferendis expedita. Mollitia amet
-                  earum eligendi ipsam totam cupiditate adipisci cum, hic illum
-                  facilis reiciendis, architecto itaque illo consectetur! Animi
-                  omnis numquam nesciunt molestiae, architecto consequuntur.
+                  <ModelBlockGrid models={models} />
                 </Paper>
               </Grid>
               <Grid className={classes.blockGrid} item xs={12}>
