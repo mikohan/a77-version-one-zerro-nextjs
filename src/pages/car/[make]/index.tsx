@@ -5,7 +5,6 @@ import { Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
 import PageHeader from '~/components/product/PageHeader';
-
 import { ICar } from '~/interfaces/ICar';
 import { IMake } from '~/interfaces/IMake';
 import { getVehiclesByMake, getMake, getMakes } from '~/endpoints/carsEndpoint';
@@ -89,7 +88,6 @@ function Make(props: ICarProps) {
                       <ModelList models={models} />
                     </Grid>
                     <Grid className={classes.widgetItem} item xs={12}>
-                      <Typography variant="h6">Последние новости</Typography>
                       <LatestPosts posts={latestPosts} />
                     </Grid>
                   </Grid>
