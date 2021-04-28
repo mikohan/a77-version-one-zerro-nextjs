@@ -30,6 +30,7 @@ import ProductPriceSideBlock from '~/components/product/productPage/ProductPrise
 import { translateProducts } from '~/utils';
 import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
+import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -142,6 +143,7 @@ interface IProps {
   productsToPost: IProduct[];
   model: string;
   make: string;
+  posts: IPost[];
 }
 export default function ProductPage({
   product,
@@ -151,6 +153,7 @@ export default function ProductPage({
   model,
   make,
   productsToPost,
+  posts,
 }: IProps) {
   const classes = useStyles();
   const currentCar = useSelector((state: IState) => state.shop.currentCar);
@@ -288,6 +291,7 @@ export default function ProductPage({
               <Grid item className={classes.tabs} xs={12}>
                 <Paper>
                   <Typography variant="body1">Latest posts</Typography>
+                  <RelatedPosts posts={posts} />
                 </Paper>
               </Grid>
             </Grid>
