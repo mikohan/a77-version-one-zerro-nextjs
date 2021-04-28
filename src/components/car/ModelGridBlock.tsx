@@ -1,6 +1,5 @@
 import React from 'react';
-import { ICar, IMake } from '~/interfaces/ICar';
-import { IBread } from '~/interfaces/IBread';
+import { ICar, IMake } from '~/interfaces';
 import { capitalize } from '~/utils';
 import { Box, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -27,11 +26,6 @@ export default function ModelBlockGrid(props: ICarProps) {
   const classes = useStyles();
   const { models } = props;
   const make: IMake = models[0].make;
-
-  const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
-    { name: 'Name', path: `/car/${models[0].make.slug}` },
-  ];
 
   return (
     <React.Fragment>
