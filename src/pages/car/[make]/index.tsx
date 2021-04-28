@@ -19,7 +19,7 @@ import ModelList from '~/components/product/ModelsList';
 import { Container, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ModelBlockGrid from '~/components/car/ModelGridBlock';
-import PopularMakes from '~/components/car/PopularMakesWidet';
+import PopularModels from '~/components/car/PopularModelWidget';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,11 +37,12 @@ interface ICarProps {
   models: ICar[];
   make: IMake;
   products: IProductElasticHitsFirst;
+  popularModels: ICar[];
 }
 
 function Make(props: ICarProps) {
   const classes = useStyles();
-  const { make, models, products } = props;
+  const { make, models, products, popularModels } = props;
   const count = products.total.value;
 
   const breads: IBread[] = [
@@ -65,6 +66,7 @@ function Make(props: ICarProps) {
             <Hidden smDown>
               <Grid item xs={3}>
                 <LeftSidebar>
+                  <PopularModels models={popularModels} />
                   <ModelList models={models} />
                 </LeftSidebar>
               </Grid>
