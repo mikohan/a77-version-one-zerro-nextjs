@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import { Hidden, Box, Grid, TextField } from '@material-ui/core';
@@ -210,8 +210,8 @@ export default function ShopGrid({
     { value: 1, label: 'по умолчанию' },
     { value: 2, label: 'цена: сначала дешевые' },
     { value: 3, label: 'цена: сначала дорогие' },
-    { value: 4, label: 'название: А - Я' },
-    { value: 5, label: 'название: Я - А' },
+    /* { value: 4, label: 'название: А - Я' }, */
+    /* { value: 5, label: 'название: Я - А' }, */
   ];
 
   const handleGrid = () => {
@@ -285,11 +285,6 @@ export default function ShopGrid({
   delete currentUrl.model;
   delete currentUrl.category;
 
-  let srt: string = 'asc';
-  if (sort === '2') {
-    srt = 'desc';
-  }
-
   function paginationHandler(e: object, page: number) {
     router.push({
       pathname,
@@ -299,9 +294,23 @@ export default function ShopGrid({
       },
     });
   }
+  useEffect(() => {
+    if (router.query.hasOwnProperty('sort_price')) {
+      if (router.query.sort_price === 'asc') {
+        dispatch({ type: SET_SORT_VALUE, payload: '2' });
+      } else if (router.query.sort_price === 'desc') {
+        dispatch({ type: SET_SORT_VALUE, payload: '3' });
+      }
+    }
+  }, []);
 
-  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
+  useEffect(() => {
+    let srt: string = 'asc';
+    if (sort === '3') {
+      srt = 'desc';
+    } else if (sort === '2') {
+      srt = 'asc';
+    }
     delete currentUrl.sort_price;
     router.push({
       pathname,
@@ -310,6 +319,10 @@ export default function ShopGrid({
         sort_price: srt,
       },
     });
+  }, [sort]);
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
   };
 
   return (
