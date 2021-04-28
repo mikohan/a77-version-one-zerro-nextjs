@@ -160,7 +160,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'flex-start',
       flexWrap: 'wrap',
-      paddingLeft: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
     },
     carModel: {
       height: theme.spacing(2.5),
