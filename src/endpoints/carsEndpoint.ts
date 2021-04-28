@@ -190,7 +190,7 @@ export async function getVehicle(slug: string): Promise<ICar> {
   return data;
 }
 
-export async function getVehiclesByMake(slug: string): Promise<ICar> {
+export async function getVehiclesByMake(slug: string): Promise<ICar[]> {
   const query = gql`
     query vehiclesByMake($slug: String!) {
       vehiclesByMake(slug: $slug) {

@@ -19,6 +19,7 @@ import ModelList from '~/components/product/ModelsList';
 import { Container, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ModelBlockGrid from '~/components/car/ModelGridBlock';
+import PopularMakes from '~/components/car/PopularMakesWidet';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,9 +107,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug: string = context.params?.make as string;
   const make: IMake = await getMake(slug);
 
-  const models = await getVehiclesByMake(make.slug.toLowerCase());
+  const models: ICar[] = await getVehiclesByMake(make.slug.toLowerCase());
   const promise = await getProductsByMake(slug);
   const products: IProductElasticHitsFirst = promise.hits;
+  const popularModels: ICar[] = models.filter(
+    (model: ICar) => +model.priority > 3
+  );
 
   return {
     revalidate: REVALIDATE,
@@ -116,6 +120,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       models: models,
       make: make,
       products: products,
+      popularModels,
     },
   };
 };

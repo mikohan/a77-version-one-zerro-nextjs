@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
     },
     item: {
-      padding: theme.spacing(1),
       margin: theme.spacing(1),
       display: 'flex',
       minWidth: theme.spacing(20),
@@ -45,7 +44,6 @@ export default function ModelBlockGrid(props: ICarProps) {
       <Box className={classes.container}>
         {models &&
           models.map((model: ICar) => {
-            console.log(model.image);
             return (
               <Link href={url.model(make.slug, model.slug)} key={model.slug}>
                 <a className={classes.item}>
