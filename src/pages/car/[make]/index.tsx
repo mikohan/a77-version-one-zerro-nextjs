@@ -61,7 +61,6 @@ function Make(props: ICarProps) {
   const makeName = capitalize(make.name);
   const header = `Запчасти для ${makeName}`;
   const filtersResetHandlers = {
-    handleDeleteFilter: (filter: string, value: string): void => {},
     handleDeleteFilters: (): void => {},
   };
 
