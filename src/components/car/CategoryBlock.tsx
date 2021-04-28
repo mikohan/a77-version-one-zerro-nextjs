@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      borderTop: '1px solid',
-      borderColor: theme.palette.action.selected,
     },
     catTitle: {
       minWidth: '100%',

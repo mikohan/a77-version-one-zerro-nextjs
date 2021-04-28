@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Grid, Typography, Box } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
-      /* border: '1px solid blue', */
     },
     whiteBox: {
       padding: theme.spacing(2),

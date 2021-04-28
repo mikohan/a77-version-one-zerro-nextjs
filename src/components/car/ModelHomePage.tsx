@@ -105,7 +105,6 @@ export default function ModelShopList(props: IProps) {
         <Grid item xs={3}>
           <LeftSideBar>
             <FilterWidget filters={sortedFilters} />
-            {/* <LeftSidePopularWidget popularProducts={popularProducts} /> */}
             <LatestPosts posts={posts} />
           </LeftSideBar>
         </Grid>
