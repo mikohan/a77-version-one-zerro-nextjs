@@ -107,6 +107,7 @@ export function getActiveFilters(
         if (
           possibleFilters.includes(key) ||
           key === 'filters_chk' ||
+          key === 'sort_price' ||
           key === 'page'
         ) {
           if (key === 'page') {
