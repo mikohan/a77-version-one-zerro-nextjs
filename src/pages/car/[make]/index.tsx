@@ -13,7 +13,7 @@ import ShopGrid from '~/components/product/ShopGrid';
 import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
 import { getProductsByMake } from '~/endpoints/productEndpoint';
-import { IProductElasticHitsFirst } from '~/interfaces';
+import { IPost, IProductElasticHitsFirst } from '~/interfaces';
 import LeftSidebar from '~/components/product/LeftSideBar';
 import ModelList from '~/components/car/ModelsList';
 import { Container, Paper } from '@material-ui/core';
@@ -21,6 +21,8 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ModelBlockGrid from '~/components/car/ModelGridBlock';
 import PopularModels from '~/components/car/PopularModelWidget';
 import { Typography } from '@material-ui/core';
+import { getPosts } from '~/endpoints/blogEndpoint';
+import LatestPosts from '~/components/blog/LatestPosts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,11 +46,12 @@ interface ICarProps {
   make: IMake;
   products: IProductElasticHitsFirst;
   popularModels: ICar[];
+  latestPosts: IPost[];
 }
 
 function Make(props: ICarProps) {
   const classes = useStyles();
-  const { make, models, products, popularModels } = props;
+  const { make, models, products, popularModels, latestPosts } = props;
   const count = products.total.value;
 
   const breads: IBread[] = [
@@ -85,6 +88,10 @@ function Make(props: ICarProps) {
                       </Typography>
                       <ModelList models={models} />
                     </Grid>
+                    <Grid className={classes.widgetItem} item xs={12}>
+                      <Typography variant="h6">Последние новости</Typography>
+                      <LatestPosts posts={latestPosts} />
+                    </Grid>
                   </Grid>
                 </LeftSidebar>
               </Grid>
@@ -93,18 +100,6 @@ function Make(props: ICarProps) {
               <Grid className={classes.blockGrid} item xs={12}>
                 <Paper className={classes.blockPaper}>
                   <ModelBlockGrid models={models} />
-                </Paper>
-              </Grid>
-              <Grid className={classes.blockGrid} item xs={12}>
-                <Paper className={classes.blockPaper}>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic
-                  sit aut, necessitatibus, sed ad porro dignissimos totam error
-                  omnis quia pariatur consequatur labore repudiandae doloremque
-                  praesentium rerum! Necessitatibus, quod facilis asperiores
-                  atque nostrum recusandae perferendis expedita. Mollitia amet
-                  earum eligendi ipsam totam cupiditate adipisci cum, hic illum
-                  facilis reiciendis, architecto itaque illo consectetur! Animi
-                  omnis numquam nesciunt molestiae, architecto consequuntur.
                 </Paper>
               </Grid>
               <Grid item xs={12}>
@@ -133,6 +128,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const popularModels: ICar[] = models.filter(
     (model: ICar) => +model.priority > COMPANY_INFORMATION.POPULARITY_MODEL
   );
+  const latestPosts = await getPosts(5);
 
   return {
     revalidate: REVALIDATE,
@@ -141,6 +137,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       make: make,
       products: products,
       popularModels,
+      latestPosts,
     },
   };
 };
