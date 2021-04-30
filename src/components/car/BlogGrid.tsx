@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import Link from 'next/link';
 import url from '~/services/url';
+// Git comment
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
