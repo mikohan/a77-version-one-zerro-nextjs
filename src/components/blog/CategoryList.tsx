@@ -8,7 +8,6 @@ import Link from 'next/link';
 import url from '~/services/url';
 import { Paper } from '@material-ui/core';
 // Anapa commits done
-// Anapa commits done
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
