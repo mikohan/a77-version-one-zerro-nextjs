@@ -7,12 +7,23 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
-import { addMainUrlInPostImage } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: {
-      padding: theme.spacing(20),
+      padding: theme.spacing(2),
+    },
+    html: {
+      '& p, & span': {
+        fontSize: '1rem',
+      },
+      '& h2, & h3, & h4': {
+        fontSize: '1.4rem',
+      },
+      '& li, & ol': {
+        fontSize: '1.1rem',
+        fontWeight: 'bold',
+      },
     },
   })
 );
@@ -28,13 +39,13 @@ export default function About({ page }: IProps) {
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
-        <Container maxWidth={lg}>
+        <Container maxWidth="lg">
           <Grid className={classes.main} container>
             <Grid item xs={12}>
               <Typography variant="h1">{page.title}</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Box>{parse(page.textHTML)}</Box>
+              <Box className={classes.html}>{parse(page.textHTML)}</Box>
             </Grid>
           </Grid>
         </Container>
