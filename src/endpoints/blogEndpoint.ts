@@ -273,23 +273,14 @@ export async function getPages(): Promise<IPage[]> {
   return promise.data.pages;
 }
 
-export async function getPage(slug: string): Promise<IPost[]> {
+export async function getPage(slug: string): Promise<IPage> {
   const query = gql`
     query page($slug: String!) {
       page(slug: $slug) {
         slug
         title
-        excerpt
         text
-        image
-        partsCategory {
-          name
-          slug
-        }
-        category {
-          name
-          slug
-        }
+        textHTML
       }
     }
   `;
