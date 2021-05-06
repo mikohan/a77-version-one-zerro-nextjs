@@ -34,7 +34,6 @@ interface IProps {
 
 export default function About({ page }: IProps) {
   const classes = useStyles();
-  const [state, setState] = useState('');
   return (
     <React.Fragment>
       <AboutHead />
