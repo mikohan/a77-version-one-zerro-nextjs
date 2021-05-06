@@ -3,14 +3,11 @@ import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Box, Grid, Typography } from '@material-ui/core';
-import SwiperProduct from '~/components/common/SwiperProduct';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import RelatedProductSlider from '~/components/common/RelatedProductSlider';
-import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
-import { IPage, IProduct } from '~/interfaces';
-import { SRLWrapper } from 'simple-react-lightbox';
-import Image from 'next/image';
 import { getPage } from '~/endpoints/blogEndpoint';
+import parse from 'html-react-parser';
+import { IPage } from '~/interfaces';
+import { addMainUrlInPostImage } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +30,10 @@ export default function About({ page }: IProps) {
       <AnimationPage>
         <Grid className={classes.main} container>
           <Grid item xs={12}>
-            <Typography variant="h1">{state}</Typography>
+            <Typography variant="h1">{page.title}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Box>{parse(addMainUrlInPostImage(page.textHTML))}</Box>
           </Grid>
         </Grid>
       </AnimationPage>
@@ -42,7 +42,6 @@ export default function About({ page }: IProps) {
 }
 export const getStaticProps: any = async (context: any) => {
   const page = await getPage('politika-konfidentsialnosti');
-  console.log(page);
 
   return {
     props: {
