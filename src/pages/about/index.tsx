@@ -33,7 +33,7 @@ export default function About({ page }: IProps) {
             <Typography variant="h1">{page.title}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Box>{parse(addMainUrlInPostImage(page.textHTML))}</Box>
+            <Box>{parse(page.textHTML)}</Box>
           </Grid>
         </Grid>
       </AnimationPage>
