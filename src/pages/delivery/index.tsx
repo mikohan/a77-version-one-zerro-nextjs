@@ -53,7 +53,7 @@ export default function About({ page }: IProps) {
   );
 }
 export const getStaticProps: any = async (context: any) => {
-  const page = await getPage('garantija');
+  const page = await getPage('dostavka');
 
   return {
     props: {
