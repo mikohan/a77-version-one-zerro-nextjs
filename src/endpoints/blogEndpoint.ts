@@ -262,6 +262,7 @@ export async function getPages(): Promise<IPage[]> {
   const query = gql`
   pages {
     title
+    slug
     textHTML
     text
     }
