@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import parse from 'html-react-parser';
@@ -28,14 +28,16 @@ export default function About({ page }: IProps) {
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
-        <Grid className={classes.main} container>
-          <Grid item xs={12}>
-            <Typography variant="h1">{page.title}</Typography>
+        <Container maxWidth={lg}>
+          <Grid className={classes.main} container>
+            <Grid item xs={12}>
+              <Typography variant="h1">{page.title}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Box>{parse(page.textHTML)}</Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Box>{parse(page.textHTML)}</Box>
-          </Grid>
-        </Grid>
+        </Container>
       </AnimationPage>
     </React.Fragment>
   );
