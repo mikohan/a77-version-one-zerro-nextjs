@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
