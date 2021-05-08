@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       maxWidth: theme.spacing(25),
+      minHeight: theme.spacing(35),
       marginLeft: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
