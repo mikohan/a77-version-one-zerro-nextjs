@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginTop: theme.spacing(3),
       minHeight: '20rem',
-      /* background: theme.palette.background.paper, */
     },
     contentContainer: {
       paddingTop: theme.spacing(3),
@@ -24,11 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xxl')]: {
         gridTemplateColumns: `repeat(auto-fill, minmax(90%, 1fr))`,
       },
-
-      /* [theme.breakpoints.up('lg')]: { */
-      /*   gridTemplateColumns: `repeat(auto-fill, minmax(40%, 1fr))`, */
-      /*   gridGap: theme.spacing(3), */
-      /* }, */
       '&> div': {
         minHeight: '20rem',
         padding: theme.spacing(3),
@@ -40,8 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: '2rem',
     },
     carChoiser: {
-      border: '1px solid red',
       backgroundImage: `url("/images/local/defaultParts500.jpg")`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
     },
   })
 );
