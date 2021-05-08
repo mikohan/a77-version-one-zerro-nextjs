@@ -230,7 +230,6 @@ export async function getVehiclesByPriority(priority: number): Promise<ICar[]> {
         model
         year
         engine
-        count
         priority
         image
         make {

@@ -2,14 +2,15 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { GetStaticProps } from 'next';
 import { IMake } from '~/interfaces/IMake';
-import { getMakes } from '~/endpoints/carsEndpoint';
+import { getMakes, getVehiclesByPriority } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
 import { Box, Typography, Container } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 import CarChioserLong from '~/components/car/CarChoiserLong';
 import { getPosts } from '~/endpoints/blogEndpoint';
-import { IPost } from '~/interfaces';
+import { ICar, IPost } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
+import ModelBlockGrid from '~/components/car/ModelGridBlock';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,14 +46,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IHomeProps {
-  makes: IMake[];
+  models: ICar[];
   posts: IPost[];
 }
 
 export default function Home(props: IHomeProps) {
   const classes = useStyles();
 
-  const { makes, posts } = props;
+  const { posts, models } = props;
 
   return (
     <Animation>
@@ -92,16 +93,9 @@ export default function Home(props: IHomeProps) {
                 <Typography variant="h6" className={classes.blockTitle}>
                   Машины
                 </Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat non odio reprehenderit illo facilis doloremque odit
-                  esse est nemo alias assumenda eaque deserunt inventore quas
-                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
-                  architecto recusandae inventore ipsam, saepe sit provident
-                  reiciendis accusamus rerum molestias voluptatem at dolor atque
-                  iure. Voluptas?
-                </Typography>
+                <Box>
+                  <ModelBlockGrid models={models} />
+                </Box>
               </div>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>
@@ -150,9 +144,8 @@ export default function Home(props: IHomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const makes: IMake[] = await getMakes();
-
   const posts = await getPosts(20);
+  const models = await getVehiclesByPriority(3);
 
-  return { props: { makes, posts } };
+  return { props: { posts, models } };
 };
