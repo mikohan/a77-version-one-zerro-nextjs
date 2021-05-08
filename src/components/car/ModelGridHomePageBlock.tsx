@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
     },
     item: {
-      border: '1px solid pink',
+      border: '1px solid',
+      borderColor: theme.palette.action.hover,
       margin: theme.spacing(1),
       minHeight: theme.spacing(20),
       minWidth: theme.spacing(20),
@@ -26,7 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     image: {},
     model: {
-      paddingLeft: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
+      fontWeight: 500,
     },
   })
 );
