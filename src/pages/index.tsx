@@ -34,7 +34,15 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(3),
       minHeight: '20rem',
     },
-    contentContainer: {},
+    contentContainer: {
+      margin: '0 auto',
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: '85%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '75%',
+      },
+    },
     blockTitle: {
       marginBottom: '2rem',
     },
@@ -80,58 +88,51 @@ export default function Home(props: IHomeProps) {
           </Box>
         </Grid>
       </Grid>
-      <Container maxWidth={containerMaxWidth}>
-        <Grid container>
-          <Grid item xs={12}>
-            <div className={classes.contentContainer}>
-              <div>
-                <Typography variant="h6" className={classes.blockTitle}>
-                  Популярные Машины
-                </Typography>
-                <Box>
-                  <ModelBlockGrid models={models} />
-                </Box>
-              </div>
-              <div>
-                <Typography variant="h6" className={classes.blockTitle}>
-                  Расходники
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="h6" className={classes.blockTitle}>
-                  Популярные товары
-                </Typography>
-                <Box style={{ maxWidth: '100%' }}>
-                  <RelatedProductSlider products={latestProducts} />
-                </Box>
-              </div>
-              <div>
-                <Typography variant="h6" className={classes.blockTitle}>
-                  Блог
-                </Typography>
-                <Typography variant="body1">
-                  <BlogGrid posts={posts} />
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="h6" className={classes.blockTitle}>
-                  Videos
-                </Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat non odio reprehenderit illo facilis doloremque odit
-                  esse est nemo alias assumenda eaque deserunt inventore quas
-                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
-                  architecto recusandae inventore ipsam, saepe sit provident
-                  reiciendis accusamus rerum molestias voluptatem at dolor atque
-                  iure. Voluptas?
-                </Typography>
-              </div>
-            </div>
-          </Grid>
-        </Grid>
-      </Container>
+      <div className={classes.contentContainer}>
+        <div>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Популярные Машины
+          </Typography>
+          <Box>
+            <ModelBlockGrid models={models} />
+          </Box>
+        </div>
+        <div>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Расходники
+          </Typography>
+        </div>
+        <div>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Популярные товары
+          </Typography>
+          <Box>
+            <RelatedProductSlider products={latestProducts} />
+          </Box>
+        </div>
+        <div>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Блог
+          </Typography>
+          <Typography variant="body1">
+            <BlogGrid posts={posts} />
+          </Typography>
+        </div>
+        <div>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Videos
+          </Typography>
+          <Typography variant="body1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat non
+            odio reprehenderit illo facilis doloremque odit esse est nemo alias
+            assumenda eaque deserunt inventore quas hic sunt quae nam, mollitia,
+            dolorum, quia maiores eveniet? Unde enim laborum veritatis possimus,
+            odit vel maxime commodi, architecto recusandae inventore ipsam,
+            saepe sit provident reiciendis accusamus rerum molestias voluptatem
+            at dolor atque iure. Voluptas?
+          </Typography>
+        </div>
+      </div>
     </Animation>
   );
 }

@@ -58,8 +58,8 @@ export default function ModelBlockGrid(props: ICarProps) {
                         ? `${imageServerUrl}${model.image}`
                         : `/images/local/carsAvatar/generic.png`
                     }
-                    width={250}
-                    height={250}
+                    width={200}
+                    height={200}
                   />
                   <Typography className={classes.model} variant="body1">
                     {`${capitalize(model.make.name)} ${capitalize(
