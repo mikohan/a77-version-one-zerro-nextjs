@@ -13,6 +13,7 @@ import BlogGrid from '~/components/car/BlogGrid';
 import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
+import { translateProducts } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -157,7 +158,8 @@ export default function Home(props: IHomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getPosts(20);
   const models = await getVehiclesByPriority(3);
-  const latestProducts = await getLatestProducts(20);
+  const latestProds = await getLatestProducts(20);
+  const latestProducts = translateProducts(latestProds.hits.hits);
 
   return { props: { posts, models, latestProducts } };
 };
