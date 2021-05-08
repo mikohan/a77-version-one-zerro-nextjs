@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {} from '~/interfaces/product';
 import { Typography } from '@material-ui/core';
 import { IMake } from '~/interfaces/IMake';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       display: 'grid',
       gridTemplateColumns: `repeat(auto-fill, minmax(125px, 1fr))`,
-      gridAutoRows: `minmax(200px, auto)`,
+      gridAutoRows: `minmax(100px, auto)`,
       gridGap: theme.spacing(2), // padding for cards in the content area
       marginBottom: theme.spacing(5),
     },
@@ -40,22 +41,27 @@ interface IProps {
 export default function ShopCarGrid({ cars }: IProps) {
   const classes = useStyles();
   return (
-    <div className={classes.cards}>
-      {cars.map((item: IMake) => {
-        return (
-          <div key={item.id} className={classes.card}>
-            <Link href={`/car/${item.slug}`}>
-              <a className={classes.cardImageLink}>
-                <div className={classes.cardContent}>
-                  <Typography className={classes.productName} variant="h6">
-                    {item.name}
-                  </Typography>
-                </div>
-              </a>
-            </Link>
-          </div>
-        );
-      })}
-    </div>
+    <Grid container>
+      <Grid item xs={12}>
+        <div className={classes.cards}>
+          {cars.map((item: IMake) => {
+            return (
+              <div key={item.id} className={classes.card}>
+                <Link href={`/car/${item.slug}`}>
+                  <a className={classes.cardImageLink}>
+                    <div className={classes.cardContent}>
+                      <Typography className={classes.productName} variant="h6">
+                        {item.name.toUpperCase()}
+                      </Typography>
+                    </div>
+                  </a>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </Grid>
+      <Grid item xs={12}></Grid>
+    </Grid>
   );
 }
