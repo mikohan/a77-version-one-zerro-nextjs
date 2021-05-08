@@ -91,7 +91,7 @@ export default function Swipper({ products }: IProps) {
         className={classes.swiperContainer}
         id="main"
         spaceBetween={10}
-        slidesPerView={5}
+        slidesPerView={6}
         navigation
       >
         {slides}

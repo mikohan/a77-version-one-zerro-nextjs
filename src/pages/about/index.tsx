@@ -5,9 +5,7 @@ import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Box, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
-import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
-import ProdSlider from '~/components/common/ProductSlider';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import { IProduct } from '~/interfaces';
@@ -48,9 +46,7 @@ export default function About({ page, products }: IProps) {
             <Grid item xs={12}>
               <Typography variant="h1">{page.title}</Typography>
             </Grid>
-            <Grid item xs={12}>
-              <ProdSlider products={products} />
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
         </Container>
       </AnimationPage>

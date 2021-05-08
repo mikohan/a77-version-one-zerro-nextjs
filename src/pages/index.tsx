@@ -12,9 +12,7 @@ import { ICar, IPost, IProduct } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
 import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
-import ProdSlider from '~/components/common/ProductSlider';
 import { translateProducts } from '~/utils';
-import ProductCardGrid from '~/components/blog/ProductCArdSmall';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,20 +60,6 @@ export default function Home(props: IHomeProps) {
 
   const { posts, models, latestProducts } = props;
 
-  const SimilarProducts = () => {
-    return (
-      <React.Fragment>
-        <Grid item className={classes.tabs} xs={12}>
-          <Typography variant="h6">Похожие запчасти</Typography>
-        </Grid>
-        <Grid item className={classes.tabs} xs={12}>
-          <Box>
-            <ProdSlider products={latestProducts} />
-          </Box>
-        </Grid>
-      </React.Fragment>
-    );
-  };
   return (
     <Animation>
       <Grid container>
