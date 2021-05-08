@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: theme.spacing(20),
       minWidth: theme.spacing(20),
       display: 'flex',
-      alignItems: 'center',
+      flexDirection: 'column',
     },
     image: {},
     model: {
@@ -54,11 +54,13 @@ export default function ModelBlockGrid(props: ICarProps) {
                         ? `${imageServerUrl}${model.image}`
                         : `/images/local/carsAvatar/generic.png`
                     }
-                    width={50}
-                    height={50}
+                    width={250}
+                    height={250}
                   />
                   <Typography className={classes.model} variant="body1">
-                    {model.model}
+                    {`${capitalize(model.make.name)} ${capitalize(
+                      model.model
+                    )}`}
                   </Typography>
                 </a>
               </Link>
