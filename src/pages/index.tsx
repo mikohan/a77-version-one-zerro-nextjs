@@ -14,6 +14,7 @@ import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
+import Divider from '~/components/common/Divider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,15 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     blockTitle: {
-      marginBottom: '2rem',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
     },
     carChoiser: {
       backgroundImage: `url("/images/local/defaultParts500.jpg")`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-    },
-    tabs: {
-      paddingTop: theme.spacing(2),
     },
   })
 );
@@ -97,11 +96,7 @@ export default function Home(props: IHomeProps) {
             <ModelBlockGrid models={models} />
           </Box>
         </div>
-        <div>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Расходники
-          </Typography>
-        </div>
+        <Divider />
         <div>
           <Typography variant="h6" className={classes.blockTitle}>
             Популярные товары
@@ -110,6 +105,7 @@ export default function Home(props: IHomeProps) {
             <RelatedProductSlider products={latestProducts} />
           </Box>
         </div>
+        <Divider />
         <div>
           <Typography variant="h6" className={classes.blockTitle}>
             Блог
@@ -118,20 +114,7 @@ export default function Home(props: IHomeProps) {
             <BlogGrid posts={posts} />
           </Typography>
         </div>
-        <div>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Videos
-          </Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat non
-            odio reprehenderit illo facilis doloremque odit esse est nemo alias
-            assumenda eaque deserunt inventore quas hic sunt quae nam, mollitia,
-            dolorum, quia maiores eveniet? Unde enim laborum veritatis possimus,
-            odit vel maxime commodi, architecto recusandae inventore ipsam,
-            saepe sit provident reiciendis accusamus rerum molestias voluptatem
-            at dolor atque iure. Voluptas?
-          </Typography>
-        </div>
+        <Divider />
       </div>
     </Animation>
   );
