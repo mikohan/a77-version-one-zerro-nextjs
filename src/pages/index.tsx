@@ -12,6 +12,7 @@ import { ICar, IPost, IProduct } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
 import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
+import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -103,16 +104,9 @@ export default function Home(props: IHomeProps) {
                 <Typography variant="h6" className={classes.blockTitle}>
                   Расходники
                 </Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat non odio reprehenderit illo facilis doloremque odit
-                  esse est nemo alias assumenda eaque deserunt inventore quas
-                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
-                  architecto recusandae inventore ipsam, saepe sit provident
-                  reiciendis accusamus rerum molestias voluptatem at dolor atque
-                  iure. Voluptas?
-                </Typography>
+                <Box>
+                  <RelatedProductSlider products={latestProducts} />
+                </Box>
               </div>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>
