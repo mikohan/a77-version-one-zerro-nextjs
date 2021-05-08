@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       border: '1px solid pink',
-      minHeight: '300px',
     },
   })
 );
@@ -56,7 +55,7 @@ export default function Swipper({ products }: IProps) {
   const classes = useStyles();
   const images = products?.map((product: IProduct) => {
     const img =
-      product.images && product.images.length ? product.images[0].img500 : [];
+      product.images && product.images.length ? product.images[0].img245 : [];
     return {
       image: img,
     };
@@ -68,11 +67,11 @@ export default function Swipper({ products }: IProps) {
 
   function ProdCard({ product }: IProdCard) {
     const img: string = product.images.length
-      ? (product.images[0].img500 as string)
+      ? (product.images[0].img245 as string)
       : '/images/local/defaultParts245.jpg';
     return (
       <Box className={classes.item}>
-        <Image layout="responsive" width={300} height={250} src={img} />
+        <Image layout="intrinsic" width={300} height={250} src={img} />
         <Typography variant="body1">{product.name}</Typography>
       </Box>
     );

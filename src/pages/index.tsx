@@ -15,6 +15,7 @@ import { getLatestProducts } from '~/endpoints/productEndpoint';
 import ProdSlider from '~/components/common/ProductSlider';
 import { translateProducts } from '~/utils';
 import ProductCardGrid from '~/components/blog/ProductCArdSmall';
+import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,19 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(3),
       minHeight: '20rem',
     },
-    contentContainer: {
-      paddingTop: theme.spacing(3),
-      display: 'grid',
-      [theme.breakpoints.down('xxl')]: {
-        gridTemplateColumns: `repeat(auto-fill, minmax(90%, 1fr))`,
-      },
-      '&> div': {
-        minHeight: '20rem',
-        padding: theme.spacing(3),
-        background: theme.palette.background.paper,
-        marginBottom: theme.spacing(3),
-      },
-    },
+    contentContainer: {},
     blockTitle: {
       marginBottom: '2rem',
     },
@@ -123,26 +112,14 @@ export default function Home(props: IHomeProps) {
                 <Typography variant="h6" className={classes.blockTitle}>
                   Расходники
                 </Typography>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <SimilarProducts />
-                  </Grid>
-                </Grid>
               </div>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>
                   Популярные товары
                 </Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat non odio reprehenderit illo facilis doloremque odit
-                  esse est nemo alias assumenda eaque deserunt inventore quas
-                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
-                  architecto recusandae inventore ipsam, saepe sit provident
-                  reiciendis accusamus rerum molestias voluptatem at dolor atque
-                  iure. Voluptas?
-                </Typography>
+                <Box style={{ maxWidth: '100%' }}>
+                  <RelatedProductSlider products={latestProducts} />
+                </Box>
               </div>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>

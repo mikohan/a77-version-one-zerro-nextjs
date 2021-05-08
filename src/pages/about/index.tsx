@@ -7,6 +7,10 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
+import ProdSlider from '~/components/common/ProductSlider';
+import { getLatestProducts } from '~/endpoints/productEndpoint';
+import { translateProducts } from '~/utils';
+import { IProduct } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,9 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   page: IPage;
+  products: IProduct[];
 }
 
-export default function About({ page }: IProps) {
+export default function About({ page, products }: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -44,7 +49,7 @@ export default function About({ page }: IProps) {
               <Typography variant="h1">{page.title}</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Box className={classes.html}>{parse(page.textHTML)}</Box>
+              <ProdSlider products={products} />
             </Grid>
           </Grid>
         </Container>
@@ -54,10 +59,13 @@ export default function About({ page }: IProps) {
 }
 export const getStaticProps: any = async (context: any) => {
   const page = await getPage('politika-konfidentsialnosti');
+  const prods = await getLatestProducts(20);
+  const products = translateProducts(prods.hits.hits);
 
   return {
     props: {
       page,
+      products,
     },
   };
 };
