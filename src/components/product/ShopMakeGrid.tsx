@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     productName: {
       fontSize: '1.1rem',
       color: theme.palette.text.secondary,
+      fontWeight: 700,
     },
   })
 );
