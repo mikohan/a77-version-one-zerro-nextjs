@@ -221,3 +221,35 @@ export async function getVehiclesByMake(slug: string): Promise<ICar[]> {
   const data = await promise.data.vehiclesByMake;
   return data;
 }
+
+export async function getVehiclesByPriority(priority: number): Promise<ICar[]> {
+  const query = gql`
+    query vehiclesByPriority($priority: Int!) {
+      vehiclesByPriority(priority: $priority) {
+        id
+        model
+        year
+        engine
+        count
+        priority
+        image
+        make {
+          id
+          name
+          country
+          priority
+          slug
+        }
+        slug
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      priority,
+    },
+  });
+  const data = await promise.data.vehiclesByPriority;
+  return data;
+}
