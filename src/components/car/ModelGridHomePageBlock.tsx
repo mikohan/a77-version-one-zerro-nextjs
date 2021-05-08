@@ -9,66 +9,62 @@ import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		container: {
-			padding: theme.spacing(2),
-			display: 'flex',
-			justifyContent: 'center',
-			flexWrap: 'wrap',
-		},
-		item: {
-			margin: theme.spacing(1),
-			display: 'flex',
-			minWidth: theme.spacing(20),
-			alignItems: 'center',
-		},
-		image: {},
-		model: {
-			paddingLeft: theme.spacing(1),
-		},
-	})
+  createStyles({
+    container: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+    },
+    item: {
+      border: '1px solid pink',
+      margin: theme.spacing(1),
+      minHeight: theme.spacing(20),
+      minWidth: theme.spacing(20),
+      display: 'flex',
+      alignItems: 'center',
+    },
+    image: {},
+    model: {
+      paddingLeft: theme.spacing(1),
+    },
+  })
 );
 interface ICarProps {
-	models: ICar[];
+  models: ICar[];
 }
 
 export default function ModelBlockGrid(props: ICarProps) {
-	const classes = useStyles();
-	const { models } = props;
-	const make: IMake = models[0].make;
+  const classes = useStyles();
+  const { models } = props;
+  const make: IMake = models[0].make;
 
-	return (
-		<React.Fragment>
-			<Box className={classes.container}>
-				{models &&
-					models.map((model: ICar) => {
-						return (
-							<Link
-								href={url.model(make.slug, model.slug)}
-								key={model.slug}
-							>
-								<a className={classes.item}>
-									<Image
-										className={classes.image}
-										src={
-											model && model.image
-												? `${imageServerUrl}${model.image}`
-												: `/images/local/carsAvatar/generic.png`
-										}
-										width={50}
-										height={50}
-									/>
-									<Typography
-										className={classes.model}
-										variant="body1"
-									>
-										{model.model}
-									</Typography>
-								</a>
-							</Link>
-						);
-					})}
-			</Box>
-		</React.Fragment>
-	);
+  return (
+    <React.Fragment>
+      <Box className={classes.container}>
+        {models &&
+          models.map((model: ICar) => {
+            return (
+              <Link href={url.model(make.slug, model.slug)} key={model.slug}>
+                <a className={classes.item}>
+                  <Image
+                    className={classes.image}
+                    src={
+                      model && model.image
+                        ? `${imageServerUrl}${model.image}`
+                        : `/images/local/carsAvatar/generic.png`
+                    }
+                    width={50}
+                    height={50}
+                  />
+                  <Typography className={classes.model} variant="body1">
+                    {model.model}
+                  </Typography>
+                </a>
+              </Link>
+            );
+          })}
+      </Box>
+    </React.Fragment>
+  );
 }

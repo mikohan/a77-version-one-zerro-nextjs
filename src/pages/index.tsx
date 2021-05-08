@@ -10,10 +10,20 @@ import CarChioserLong from '~/components/car/CarChoiserLong';
 import { getPosts } from '~/endpoints/blogEndpoint';
 import { ICar, IPost } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
-import ModelBlockGrid from '~/components/car/ModelGridBlock';
+import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    h1: {
+      textAlign: 'center',
+      marginBottom: theme.spacing(5),
+      color:
+        theme.palette.type === 'light'
+          ? theme.palette.background.default
+          : '#fafafa',
+      fontSize: '2rem',
+      fontWeight: 700,
+    },
     topBlock: {
       display: 'flex',
       width: '100%',
@@ -62,6 +72,11 @@ export default function Home(props: IHomeProps) {
           <Box className={classes.topBlock}>
             <Container maxWidth={containerMaxWidth}>
               <Grid container>
+                <Grid item xs={12}>
+                  <Typography className={classes.h1} variant="h1">
+                    Запчасти для грузовиков и комерческого транспорта
+                  </Typography>
+                </Grid>
                 <Grid item xs={12} style={{ opacity: 0.9 }}>
                   <CarChioserLong size="lg" />
                 </Grid>
