@@ -37,10 +37,10 @@ export default function SimpleSelect({ size }: IProps) {
     formSize = 'medium';
     fontSize = '1.1rem';
     padding = '0.8rem 14px';
-  } else {
+  } else if (size === 'lg') {
     formSize = 'small';
-    fontSize = '1.3rem';
-    padding = '1rem 14px';
+    fontSize = '1.1rem';
+    padding = '0.7rem 14px';
   }
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
