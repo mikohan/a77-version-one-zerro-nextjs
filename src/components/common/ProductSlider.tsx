@@ -11,9 +11,8 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IProduct } from '~/interfaces';
 import Image from 'next/image';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import ProductCardGrid from '~/components/common/ProductCardGrid';
 
 // Import Swiper styles
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     swiperSlide: {
       height: 'auto !important',
+    },
+    item: {
+      border: '1px solid pink',
+      minHeight: '300px',
     },
   })
 );
@@ -64,9 +67,13 @@ export default function Swipper({ products }: IProps) {
   }
 
   function ProdCard({ product }: IProdCard) {
+    const img: string = product.images.length
+      ? (product.images[0].img500 as string)
+      : '/images/local/defaultParts245.jpg';
     return (
-      <Box>
-        <Box>{product.name}</Box>
+      <Box className={classes.item}>
+        <Image layout="responsive" width={300} height={250} src={img} />
+        <Typography variant="body1">{product.name}</Typography>
       </Box>
     );
   }
