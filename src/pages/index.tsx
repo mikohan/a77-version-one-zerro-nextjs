@@ -1,7 +1,7 @@
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { GetStaticProps } from 'next';
-import { IMake } from '~/interfaces/IMake';
 import { getMakes, getVehiclesByPriority } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
 import { Box, Typography, Container } from '@material-ui/core';
@@ -12,8 +12,9 @@ import { ICar, IPost, IProduct } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
 import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
-import RelatedProductSlider from '~/components/common/RelatedProductSlider';
+import ProdSlider from '~/components/common/ProductSlider';
 import { translateProducts } from '~/utils';
+import ProductCardGrid from '~/components/blog/ProductCArdSmall';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
     },
+    tabs: {
+      paddingTop: theme.spacing(2),
+    },
   })
 );
 
@@ -69,6 +73,20 @@ export default function Home(props: IHomeProps) {
 
   const { posts, models, latestProducts } = props;
 
+  const SimilarProducts = () => {
+    return (
+      <React.Fragment>
+        <Grid item className={classes.tabs} xs={12}>
+          <Typography variant="h6">Похожие запчасти</Typography>
+        </Grid>
+        <Grid item className={classes.tabs} xs={12}>
+          <Box>
+            <ProdSlider products={latestProducts} />
+          </Box>
+        </Grid>
+      </React.Fragment>
+    );
+  };
   return (
     <Animation>
       <Grid container>
@@ -105,9 +123,11 @@ export default function Home(props: IHomeProps) {
                 <Typography variant="h6" className={classes.blockTitle}>
                   Расходники
                 </Typography>
-                <Box>
-                  <RelatedProductSlider products={latestProducts} />
-                </Box>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <SimilarProducts />
+                  </Grid>
+                </Grid>
               </div>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>

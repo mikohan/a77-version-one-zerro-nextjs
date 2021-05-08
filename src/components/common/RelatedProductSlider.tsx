@@ -9,9 +9,7 @@ import SwiperCore, {
 } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { imageServerUrl } from '~/config';
 import { IProduct } from '~/interfaces';
-import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Box } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -51,7 +49,6 @@ interface ISlide {
 
 export default function Swipper({ products }: IProps) {
   const init: any = null;
-  const [thumbSwiper, setThumbSwiper] = useState(init);
 
   const classes = useStyles();
   const images = products?.map((product: IProduct) => {
