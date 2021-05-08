@@ -7,6 +7,9 @@ import Animation from '~/components/common/AnimationPage';
 import { Box, Typography, Container } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 import CarChioserLong from '~/components/car/CarChoiserLong';
+import { getPosts } from '~/endpoints/blogEndpoint';
+import { IPost } from '~/interfaces';
+import BlogGrid from '~/components/car/BlogGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,12 +46,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IHomeProps {
   makes: IMake[];
+  posts: IPost[];
 }
 
 export default function Home(props: IHomeProps) {
   const classes = useStyles();
 
-  const { makes } = props;
+  const { makes, posts } = props;
 
   return (
     <Animation>
@@ -119,14 +123,7 @@ export default function Home(props: IHomeProps) {
                   Блог
                 </Typography>
                 <Typography variant="body1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat non odio reprehenderit illo facilis doloremque odit
-                  esse est nemo alias assumenda eaque deserunt inventore quas
-                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
-                  architecto recusandae inventore ipsam, saepe sit provident
-                  reiciendis accusamus rerum molestias voluptatem at dolor atque
-                  iure. Voluptas?
+                  <BlogGrid posts={posts} />
                 </Typography>
               </div>
               <div>
@@ -155,5 +152,7 @@ export default function Home(props: IHomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const makes: IMake[] = await getMakes();
 
-  return { props: { makes } };
+  const posts = await getPosts(5);
+
+  return { props: { makes, posts } };
 };
