@@ -91,6 +91,14 @@ export default function Home(props: IHomeProps) {
             <div className={classes.contentContainer}>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>
+                  Популярные Машины
+                </Typography>
+                <Box>
+                  <ModelBlockGrid models={models} />
+                </Box>
+              </div>
+              <div>
+                <Typography variant="h6" className={classes.blockTitle}>
                   Расходники
                 </Typography>
                 <Typography variant="body1">
@@ -103,14 +111,6 @@ export default function Home(props: IHomeProps) {
                   reiciendis accusamus rerum molestias voluptatem at dolor atque
                   iure. Voluptas?
                 </Typography>
-              </div>
-              <div>
-                <Typography variant="h6" className={classes.blockTitle}>
-                  Машины
-                </Typography>
-                <Box>
-                  <ModelBlockGrid models={models} />
-                </Box>
               </div>
               <div>
                 <Typography variant="h6" className={classes.blockTitle}>
