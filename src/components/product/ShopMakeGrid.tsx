@@ -41,27 +41,22 @@ interface IProps {
 export default function ShopCarGrid({ cars }: IProps) {
   const classes = useStyles();
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <div className={classes.cards}>
-          {cars.map((item: IMake) => {
-            return (
-              <div key={item.id} className={classes.card}>
-                <Link href={`/car/${item.slug}`}>
-                  <a className={classes.cardImageLink}>
-                    <div className={classes.cardContent}>
-                      <Typography className={classes.productName} variant="h6">
-                        {item.name.toUpperCase()}
-                      </Typography>
-                    </div>
-                  </a>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </Grid>
-      <Grid item xs={12}></Grid>
-    </Grid>
+    <div className={classes.cards}>
+      {cars.map((item: IMake) => {
+        return (
+          <div key={item.id} className={classes.card}>
+            <Link href={`/car/${item.slug}`}>
+              <a className={classes.cardImageLink}>
+                <div className={classes.cardContent}>
+                  <Typography className={classes.productName} variant="h6">
+                    {item.name.toUpperCase()}
+                  </Typography>
+                </div>
+              </a>
+            </Link>
+          </div>
+        );
+      })}
+    </div>
   );
 }

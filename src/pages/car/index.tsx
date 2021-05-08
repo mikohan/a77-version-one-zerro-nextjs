@@ -10,10 +10,13 @@ import { containerMaxWidth } from '~/config';
 import CarHead from '~/components/heads/CarHead';
 import PopularMakes from '~/components/car/PopularMakesWidet';
 import Breads from '~/components/common/BreadCrumbs';
-import { IBread, IPost } from '~/interfaces';
+import { IBread, IPost, IProduct } from '~/interfaces';
 import url from '~/services/url';
 import { getPosts } from '~/endpoints/blogEndpoint';
 import LatestPosts from '~/components/blog/LatestPosts';
+import ProductGrid from '~/components/blog/ProductGrid';
+import { translateProducts } from '~/utils';
+import { getProductsByTagOrTags } from '~/endpoints/productEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
     latestPosts: {
       marginTop: theme.spacing(2),
     },
+    mayLike: {
+      paddingBottom: theme.spacing(2),
+    },
   })
 );
 
@@ -44,11 +50,12 @@ interface ICarProps {
   makes: IMake[];
   popularMakes: IMake[];
   latestPosts: IPost[];
+  products: IProduct[];
 }
 
 function Car(props: ICarProps) {
   const classes = useStyles();
-  const { makes, popularMakes, latestPosts } = props;
+  const { makes, popularMakes, latestPosts, products } = props;
 
   const breads: IBread[] = [
     { name: 'Ангара77', path: '/' },
@@ -77,7 +84,17 @@ function Car(props: ICarProps) {
               </Grid>
             </Hidden>
             <Grid item xs={12} md={9}>
-              <ShopCarGrid cars={makes} />
+              <Grid container>
+                <Grid item xs={12}>
+                  <ShopCarGrid cars={makes} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography className={classes.mayLike} variant="h6">
+                    Вам может понравиться
+                  </Typography>
+                  <ProductGrid products={products} />
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
@@ -103,12 +120,17 @@ export const getStaticProps: GetServerSideProps = async () => {
   });
 
   const latestPosts = await getPosts(5);
+  const productsByTags = await getProductsByTagOrTags('двигатель', 30);
+  const productsToPost: IProduct[] = translateProducts(
+    productsByTags.hits.hits
+  );
 
   return {
     props: {
       makes: sortedMakes,
       popularMakes,
       latestPosts,
+      products: productsToPost,
     },
   };
 };
