@@ -16,8 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginTop: theme.spacing(3),
       minHeight: '20rem',
-      widht: '100%',
-      background: theme.palette.background.paper,
+      /* background: theme.palette.background.paper, */
     },
     contentContainer: {
       paddingTop: theme.spacing(3),
@@ -40,6 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     blockTitle: {
       marginBottom: '2rem',
     },
+    carChoiser: {
+      border: '1px solid red',
+      backgroundImage: `url("/images/local/defaultParts500.jpg")`,
+    },
   })
 );
 
@@ -55,7 +58,7 @@ export default function Home(props: IHomeProps) {
   return (
     <Animation>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.carChoiser}>
           <Box className={classes.topBlock}>
             <Container maxWidth={containerMaxWidth}>
               <Grid container>

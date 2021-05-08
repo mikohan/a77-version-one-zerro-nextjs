@@ -33,7 +33,6 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
       carBox: {
         display: 'flex',
         justifyContent: 'flex-start',
-        /* border: '1px solid', */
         /* borderColor: theme.palette.action.disabled, */
         background: theme.palette.action.disabled,
         '&:hover': {
