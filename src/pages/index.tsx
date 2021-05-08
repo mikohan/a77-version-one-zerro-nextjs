@@ -152,7 +152,7 @@ export default function Home(props: IHomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const makes: IMake[] = await getMakes();
 
-  const posts = await getPosts(5);
+  const posts = await getPosts(20);
 
   return { props: { makes, posts } };
 };
