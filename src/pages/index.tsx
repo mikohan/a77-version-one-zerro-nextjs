@@ -8,9 +8,10 @@ import { Box, Typography, Container } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 import CarChioserLong from '~/components/car/CarChoiserLong';
 import { getPosts } from '~/endpoints/blogEndpoint';
-import { ICar, IPost } from '~/interfaces';
+import { ICar, IPost, IProduct } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
 import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
+import { getLatestProducts } from '~/endpoints/productEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,12 +59,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IHomeProps {
   models: ICar[];
   posts: IPost[];
+  latestProducts: IProduct[];
 }
 
 export default function Home(props: IHomeProps) {
   const classes = useStyles();
 
-  const { posts, models } = props;
+  const { posts, models, latestProducts } = props;
 
   return (
     <Animation>
@@ -161,6 +163,7 @@ export default function Home(props: IHomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getPosts(20);
   const models = await getVehiclesByPriority(3);
+  const latestProducts = await getLatestProducts(20);
 
-  return { props: { posts, models } };
+  return { props: { posts, models, latestProducts } };
 };

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     image: {},
     model: {
       paddingLeft: theme.spacing(2),
+      paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       fontWeight: 500,
     },
