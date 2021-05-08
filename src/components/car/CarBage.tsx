@@ -13,7 +13,7 @@ export default function MouseOverPopover({ size, text, carImg }: IProps) {
   let avSize = 3;
   let fontSize = '';
   if (size === 'lg') {
-    avSize = 5.7;
+    avSize = 5.6;
     fontSize = '1.26rem';
   } else if (size === 'md') {
     avSize = 4.5;
