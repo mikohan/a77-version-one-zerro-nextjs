@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { GetStaticProps } from 'next';
-import { getMakes, getVehiclesByPriority } from '~/endpoints/carsEndpoint';
+import { getVehiclesByPriority } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
 import { Box, Typography, Container } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
