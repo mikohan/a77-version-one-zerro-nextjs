@@ -62,7 +62,7 @@ export default function Home(props: IHomeProps) {
           <Box className={classes.topBlock}>
             <Container maxWidth={containerMaxWidth}>
               <Grid container>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ opacity: 0.9 }}>
                   <CarChioserLong size="lg" />
                 </Grid>
               </Grid>
