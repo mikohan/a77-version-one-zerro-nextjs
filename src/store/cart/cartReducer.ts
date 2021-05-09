@@ -95,7 +95,7 @@ function addItem(
         id: lastItemId,
         product: JSON.parse(JSON.stringify(product)),
         options: JSON.parse(JSON.stringify(options)),
-        price: product.stocks[0].price,
+        price: product.stocks[0].price || 0,
         total: product.stocks[0].price * quantity,
         quantity,
       },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IEngine, IProduct } from '~/interfaces';
+import { IEngine, IProduct, IProductStock } from '~/interfaces';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
   Chip,
@@ -106,11 +106,28 @@ interface IProps {
 const PriceBox = ({ product }: IProps) => {
   const classes = useStyles();
   // Cart stuff starts here
+  // Fake price made here
+  const stock: IProductStock = {
+    id: '23',
+    store: {
+      id: 3,
+      name: 'Angara',
+      location_city: 'Moscow',
+      location_address: 'Some address',
+    },
+    price: 3999,
+    quantity: 2,
+    availability_days: 0,
+  };
+  product.stocks.push(stock);
+
+  console.log(product.stocks);
   const dispatch = useDispatch();
   function handleAddToCart(product: IProduct) {
     console.log(product.slug);
     dispatch(cartAddItemSuccess(product, [], 1));
   }
+
   return (
     <div className={classes.container}>
       <Box className={classes.firstRow}>
