@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Button,
 } from '@material-ui/core';
 import Image from 'next/image';
 
@@ -52,6 +53,11 @@ const useStyles = makeStyles((theme: Theme) =>
     cart: {
       fontSize: '1rem',
     },
+    orderButton: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      textAlign: 'center',
+    },
   })
 );
 
@@ -74,59 +80,111 @@ export default function Cart() {
             </Grid>
             <Grid container item xs={12}>
               <Grid className={classes.gridColumn} item xs={12} md={8}>
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Фото</TableCell>
-                        <TableCell>Продукт</TableCell>
-                        <TableCell>Цена</TableCell>
-                        <TableCell>Количество</TableCell>
-                        <TableCell>Итого</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {cart.items.map((item: ICartItem) => {
-                        const img =
-                          item.product.images && item.product.images.length
-                            ? `${imageServerUrl}${
-                                item.product.images[0].img150 as string
-                              }`
-                            : '/images/local/defaultParts245.jpg';
-                        return (
-                          <TableRow>
-                            <TableCell>
-                              <Image src={img} width={120} height={100} />
-                            </TableCell>
-                            <TableCell>
-                              <Typography className={classes.cart} variant="h6">
-                                {item.product.name}{' '}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography className={classes.cart} variant="h6">
-                                &#8381; {item.product.stocks[0].price}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography className={classes.cart} variant="h6">
-                                {item.quantity}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography className={classes.cart} variant="h6">
-                                &#8381; {item.total}
-                              </Typography>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                <Paper>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Фото</TableCell>
+                          <TableCell>Продукт</TableCell>
+                          <TableCell>Цена</TableCell>
+                          <TableCell>Количество</TableCell>
+                          <TableCell>Итого</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {cart.items.map((item: ICartItem) => {
+                          const img =
+                            item.product.images && item.product.images.length
+                              ? `${imageServerUrl}${
+                                  item.product.images[0].img150 as string
+                                }`
+                              : '/images/local/defaultParts245.jpg';
+                          return (
+                            <TableRow>
+                              <TableCell>
+                                <Image src={img} width={120} height={100} />
+                              </TableCell>
+                              <TableCell>
+                                <Typography
+                                  className={classes.cart}
+                                  variant="h6"
+                                >
+                                  {item.product.name}{' '}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography
+                                  className={classes.cart}
+                                  variant="h6"
+                                >
+                                  &#8381; {item.product.stocks[0].price}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography
+                                  className={classes.cart}
+                                  variant="h6"
+                                >
+                                  {item.quantity}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography
+                                  className={classes.cart}
+                                  variant="h6"
+                                >
+                                  &#8381; {item.total}
+                                </Typography>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Paper>
               </Grid>
               <Grid className={classes.gridColumn} item xs={12} md={4}>
-                side content
+                <Paper>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="h6">Сумма Корзины</Typography>
+                          </TableCell>
+                          <TableCell></TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="body1">Доставка</Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="body1">Звоните!</Typography>
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="body1">К Оплате</Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="body1">
+                              &#8381; {cart.total}
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <Box className={classes.orderButton}>
+                    <Button variant="contained" color="primary">
+                      Оформить заказ
+                    </Button>
+                  </Box>
+                </Paper>
               </Grid>
             </Grid>
           </Grid>
