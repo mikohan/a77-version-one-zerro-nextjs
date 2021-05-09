@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IEngine, IProduct, IProductStock } from '~/interfaces';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
@@ -14,7 +14,8 @@ import {
 } from '@material-ui/core';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 import { cartAddItemSuccess } from '~/store/cart/cartAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -127,6 +128,10 @@ const PriceBox = ({ product }: IProps) => {
     console.log(product.slug);
     dispatch(cartAddItemSuccess(product, [], 1));
   }
+
+  const cart = useSelector((state: IState) => state.cart);
+
+  useEffect(() => {}, [cart]);
 
   return (
     <div className={classes.container}>
