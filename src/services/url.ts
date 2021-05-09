@@ -54,6 +54,8 @@ const url: { [key: string]: any } = {
   payment: () => `/payment`,
   policy: () => `/policy`,
   contacts: () => `/contacts`,
+  // cart and order
+  cart: () => `/cart/cart`,
 };
 
 export default url;

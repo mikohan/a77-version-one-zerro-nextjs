@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
     },
+    cart: {
+      fontSize: '1rem',
+    },
   })
 );
 
@@ -56,7 +59,10 @@ export default function Cart() {
   const classes = useStyles();
   const cart: ICart = useSelector((state: IState) => state.cart);
 
-  const breads = [{ name: 'Ангара77', path: '/' }];
+  const breads = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Корзина', path: '/cart/cart' },
+  ];
 
   return (
     <React.Fragment>
@@ -81,17 +87,37 @@ export default function Cart() {
                     </TableHead>
                     <TableBody>
                       {cart.items.map((item: ICartItem) => {
+                        const img =
+                          item.product.images && item.product.images.length
+                            ? `${imageServerUrl}${
+                                item.product.images[0].img150 as string
+                              }`
+                            : '/images/local/defaultParts245.jpg';
                         return (
                           <TableRow>
                             <TableCell>
-                              <Image
-                                src={item.product.images[0].img150 as string}
-                                width={150}
-                                height={120}
-                              />
+                              <Image src={img} width={120} height={100} />
                             </TableCell>
-                            <TableCell>jfdjfj</TableCell>
-                            <TableCell>jfdjfj</TableCell>
+                            <TableCell>
+                              <Typography className={classes.cart} variant="h6">
+                                {item.product.name}{' '}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography className={classes.cart} variant="h6">
+                                &#8381; {item.product.stocks[0].price}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography className={classes.cart} variant="h6">
+                                {item.quantity}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography className={classes.cart} variant="h6">
+                                &#8381; {item.total}
+                              </Typography>
+                            </TableCell>
                           </TableRow>
                         );
                       })}

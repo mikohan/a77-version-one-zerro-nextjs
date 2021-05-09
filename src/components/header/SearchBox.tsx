@@ -86,7 +86,9 @@ export default function SearchBox() {
         </Grid>
         <Hidden mdDown>
           <Grid className={classes.container} item xs={3}>
-            Search only for my car
+            <Link href={url.cart()}>
+              <a>Cart</a>
+            </Link>
           </Grid>
         </Hidden>
       </Grid>
