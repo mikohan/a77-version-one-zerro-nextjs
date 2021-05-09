@@ -122,7 +122,6 @@ const PriceBox = ({ product }: IProps) => {
 
   const dispatch = useDispatch();
   function handleAddToCart(product: IProduct) {
-    console.log(product.slug);
     dispatch(cartAddItemSuccess(product, [], 1));
     setInCart(true);
     setOpenSnackbar(true);
@@ -131,8 +130,7 @@ const PriceBox = ({ product }: IProps) => {
   const cart = useSelector((state: IState) => state.cart);
   const [inCart, setInCart] = useState(false);
 
-  console.log(cart.items);
-
+  // Set in cart if slug === slug products in cart
   useEffect(() => {
     for (let item of cart.items) {
       if (product.slug === item.product.slug) {
@@ -142,7 +140,7 @@ const PriceBox = ({ product }: IProps) => {
         setInCart(false);
       }
     }
-  }, [product]);
+  }, []);
   // Snackbar stuff
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
