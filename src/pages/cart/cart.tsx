@@ -21,10 +21,11 @@ import Image from 'next/image';
 
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { useRouter } from 'next/router';
+import { cartRemoveItemSuccess } from '~/store/cart/cartAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     deleteIcon: {
       color: theme.palette.secondary.main,
+      cursor: 'pointer',
     },
   })
 );
@@ -85,6 +87,7 @@ export default function Cart() {
   const classes = useStyles();
   const cart: ICart = useSelector((state: IState) => state.cart);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const breads = [
     { name: 'Ангара77', path: '/' },
@@ -95,6 +98,16 @@ export default function Cart() {
     router.push('/');
   }
 
+  function handleQuantity(
+    event: React.ChangeEvent<HTMLInputElement>,
+    item: ICartItem
+  ): void {
+    console.log(event.target.value, item);
+  }
+
+  function handleRemoveItem(itemId: number): void {
+    dispatch(cartRemoveItemSuccess(itemId));
+  }
   return (
     <React.Fragment>
       <AnimationPage>
@@ -168,6 +181,9 @@ export default function Cart() {
                                     variant="filled"
                                     type="number"
                                     size="small"
+                                    onChange={(
+                                      event: React.ChangeEvent<HTMLInputElement>
+                                    ) => handleQuantity(event, item)}
                                   ></TextField>
                                 </TableCell>
                                 <TableCell>
@@ -181,6 +197,7 @@ export default function Cart() {
                                 <TableCell align="right">
                                   <DeleteForeverIcon
                                     className={classes.deleteIcon}
+                                    onClick={() => handleRemoveItem(item.id)}
                                   />
                                 </TableCell>
                               </TableRow>
