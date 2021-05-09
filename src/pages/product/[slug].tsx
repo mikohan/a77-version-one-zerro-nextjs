@@ -32,7 +32,6 @@ import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
-import { cartAddItemSuccess } from '~/store/cart/cartAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

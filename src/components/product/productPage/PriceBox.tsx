@@ -13,6 +13,8 @@ import {
   Hidden,
 } from '@material-ui/core';
 import lightGreen from '@material-ui/core/colors/lightGreen';
+import { cartAddItemSuccess } from '~/store/cart/cartAction';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -103,6 +105,12 @@ interface IProps {
 
 const PriceBox = ({ product }: IProps) => {
   const classes = useStyles();
+  // Cart stuff starts here
+  const dispatch = useDispatch();
+  function handleAddToCart(product: IProduct) {
+    console.log(product.slug);
+    dispatch(cartAddItemSuccess(product, [], 1));
+  }
   return (
     <div className={classes.container}>
       <Box className={classes.firstRow}>
