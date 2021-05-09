@@ -8,7 +8,9 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    box: {},
+    box: {
+      background: theme.palette.success.main,
+    },
   })
 );
 
@@ -22,6 +24,11 @@ export default function SimpleSnackbar({ open, handleClose }: IProps) {
   return (
     <div>
       <Snackbar
+        ContentProps={{
+          classes: {
+            root: classes.box,
+          },
+        }}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -32,19 +39,14 @@ export default function SimpleSnackbar({ open, handleClose }: IProps) {
         message="Товар добавлен в корзину"
         action={
           <React.Fragment>
-            <Box className={classes.box}>
-              <Button color="secondary" size="small" onClick={handleClose}>
-                Закрыть
-              </Button>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </Box>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
           </React.Fragment>
         }
       />
