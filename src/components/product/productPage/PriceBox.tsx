@@ -131,15 +131,18 @@ const PriceBox = ({ product }: IProps) => {
   const cart = useSelector((state: IState) => state.cart);
   const [inCart, setInCart] = useState(false);
 
+  console.log(cart.items);
+
   useEffect(() => {
-    console.log(cart);
-    for (let prod of cart.items) {
-      if (product.id === prod.id) {
+    for (let item of cart.items) {
+      if (product.slug === item.product.slug) {
+        console.log(product.id, item.product.slug);
         setInCart(true);
+      } else {
+        setInCart(false);
       }
     }
-  }, [cart]);
-  console.log(inCart);
+  }, [product]);
   // Snackbar stuff
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
@@ -152,9 +155,6 @@ const PriceBox = ({ product }: IProps) => {
     }
 
     setOpenSnackbar(false);
-  };
-  const handleSnackbar = () => {
-    setOpenSnackbar(true);
   };
 
   return (
