@@ -24,6 +24,7 @@ import { ICart, ICartItem } from '~/store/cart/cartTypes';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,13 +51,13 @@ const useStyles = makeStyles((theme: Theme) =>
     gridColumn: {
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-    },
-    paper: {
       minHeight: theme.spacing(45),
     },
     empty: {
       minHeight: theme.spacing(45),
+      minWidth: '100%',
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -68,17 +69,31 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
       textAlign: 'center',
     },
+    emptyGoHomeText: {
+      marginBottom: theme.spacing(5),
+      fontSize: '3rem',
+      fontWeight: 500,
+      color: theme.palette.text.disabled,
+    },
+    deleteIcon: {
+      color: theme.palette.secondary.main,
+    },
   })
 );
 
 export default function Cart() {
   const classes = useStyles();
   const cart: ICart = useSelector((state: IState) => state.cart);
+  const router = useRouter();
 
   const breads = [
     { name: 'Ангара77', path: '/' },
     { name: 'Корзина', path: '/cart/cart' },
   ];
+
+  function handleGoHome() {
+    router.push('/');
+  }
 
   return (
     <React.Fragment>
@@ -88,10 +103,10 @@ export default function Cart() {
             <Grid className={classes.headerContainer} item xs={12}>
               <ProductPageHeader breads={breads} />
             </Grid>
-            <Grid container item xs={12}>
-              <Grid className={classes.gridColumn} item xs={12} md={8}>
-                <Paper className={classes.paper}>
-                  {cart.items.length ? (
+            {cart.items.length ? (
+              <Grid container item xs={12}>
+                <Grid className={classes.gridColumn} item xs={12} md={8}>
+                  <Paper>
                     <TableContainer>
                       <Table>
                         <TableHead>
@@ -164,7 +179,9 @@ export default function Cart() {
                                   </Typography>
                                 </TableCell>
                                 <TableCell align="right">
-                                  <DeleteForeverIcon />
+                                  <DeleteForeverIcon
+                                    className={classes.deleteIcon}
+                                  />
                                 </TableCell>
                               </TableRow>
                             );
@@ -172,16 +189,10 @@ export default function Cart() {
                         </TableBody>
                       </Table>
                     </TableContainer>
-                  ) : (
-                    <Box className={classes.empty}>
-                      <Typography variant="h2">Корзина Пуста</Typography>
-                    </Box>
-                  )}
-                </Paper>
-              </Grid>
-              <Grid className={classes.gridColumn} item xs={12} md={4}>
-                <Paper>
-                  {cart.items.length ? (
+                  </Paper>
+                </Grid>
+                <Grid className={classes.gridColumn} item xs={12} md={4}>
+                  <Paper>
                     <React.Fragment>
                       <TableContainer>
                         <Table>
@@ -235,14 +246,23 @@ export default function Cart() {
                         </Button>
                       </Box>
                     </React.Fragment>
-                  ) : (
-                    <Box className={classes.empty}>
-                      <Typography variant="h2">Корзина Пуста</Typography>
-                    </Box>
-                  )}
-                </Paper>
+                  </Paper>
+                </Grid>
               </Grid>
-            </Grid>
+            ) : (
+              <Box className={classes.empty}>
+                <Typography className={classes.emptyGoHomeText} variant="h2">
+                  Корзина Пуста
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleGoHome}
+                >
+                  Вернуться на Главную
+                </Button>
+              </Box>
+            )}
           </Grid>
         </div>
       </AnimationPage>
