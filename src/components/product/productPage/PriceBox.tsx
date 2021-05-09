@@ -17,6 +17,8 @@ import { cartAddItemSuccess } from '~/store/cart/cartAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
+import { useRouter } from 'next/router';
+import { ICartItem } from '~/store/cart/cartTypes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -131,16 +133,20 @@ const PriceBox = ({ product }: IProps) => {
   const [inCart, setInCart] = useState(false);
 
   // Set in cart if slug === slug products in cart
+  const router = useRouter();
   useEffect(() => {
-    for (let item of cart.items) {
-      if (product.slug === item.product.slug) {
-        console.log(product.id, item.product.slug);
+    if (cart.items.length) {
+      const find = cart.items.find(
+        (item: ICartItem) => item.product.slug === router.query.slug
+      );
+      if (find) {
         setInCart(true);
       } else {
         setInCart(false);
       }
     }
-  }, []);
+  }, [router.query.slug]);
+
   // Snackbar stuff
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
