@@ -2,6 +2,7 @@ import { ICategory } from '~/interfaces/category';
 import { ICar } from '~/interfaces/ICar';
 import { IShopState as INewShopState } from '~/store/shop/shopTypes';
 import { IMake } from '~/interfaces/IMake';
+import { ICart } from '~/store/cart/cartTypes';
 
 export interface IShopState {
   cars: ICar[];
@@ -21,4 +22,5 @@ export interface IState {
   shop: IShopState;
   shopNew: INewShopState;
   uiState: IUIstate;
+  cart: ICart;
 }
