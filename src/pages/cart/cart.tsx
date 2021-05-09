@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -29,6 +29,7 @@ import {
   cartRemoveItemSuccess,
   cartUpdateQuantitiesSuccess,
 } from '~/store/cart/cartAction';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,6 +116,12 @@ export default function Cart() {
   function handleRemoveItem(itemId: number): void {
     dispatch(cartRemoveItemSuccess(itemId));
   }
+
+  const [localStorageCart, setLocalStorageCart] = useLocalStorage('cart', null);
+  useEffect(() => {
+    setLocalStorageCart(cart);
+  }, [cart]);
+
   return (
     <React.Fragment>
       <AnimationPage>
