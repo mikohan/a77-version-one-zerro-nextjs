@@ -181,7 +181,12 @@ const PriceBox = ({ product }: IProps) => {
         </Box>
       </Hidden>
       <Box className={classes.secondRow}>
-        <Button className={classes.button} variant="contained" color="primary">
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => handleAddToCart(product)}
+        >
           В корзину
         </Button>
       </Box>
