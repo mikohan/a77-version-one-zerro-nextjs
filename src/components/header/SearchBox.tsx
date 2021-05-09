@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
-import { Box, Grid, Hidden, Typography } from '@material-ui/core';
+import { Box, Grid, Hidden, Typography, Badge } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import SearchBar from '~/components/header/SearchBar';
 import CarChooseModal from '~/components/car/CarChooseModal';
@@ -9,6 +9,7 @@ import { IState } from '~/interfaces/IState';
 import Link from 'next/link';
 import url from '~/services/url';
 import { ICar } from '~/interfaces';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,15 +47,25 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.8rem',
       color: theme.palette.text.secondary,
     },
+    shoppingCart: {
+      fontSize: '1.7rem',
+    },
   })
 );
 
 export default function SearchBox() {
   const classes = useStyles();
+  const cart = useSelector((state: IState) => state.cart);
   let currentCar: ICar = {} as ICar;
   if (typeof window !== 'undefined') {
     currentCar = useSelector((state: IState) => state.shop.currentCar) as ICar;
   }
+
+  // Mini Cart section starts
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleClickCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   // Redirect to car page on click
 
@@ -87,8 +98,15 @@ export default function SearchBox() {
         <Hidden mdDown>
           <Grid className={classes.container} item xs={3}>
             <Link href={url.cart()}>
-              <a>Cart</a>
+              <a>
+                <Badge badgeContent={cart.quantity} color="primary">
+                  <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
+                </Badge>
+              </a>
             </Link>
+            <Badge badgeContent={cart.quantity} color="primary">
+              <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
+            </Badge>
           </Grid>
         </Hidden>
       </Grid>
