@@ -16,6 +16,7 @@ import lightGreen from '@material-ui/core/colors/lightGreen';
 import { cartAddItemSuccess } from '~/store/cart/cartAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
+import Snackbar from '~/components/common/AddedToCartSnackBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '50%',
       },
       background: theme.palette.success.main,
+      '&:hover': {
+        background: theme.palette.success.dark,
+      },
     },
     chip: {
       background: () =>
@@ -121,6 +125,7 @@ const PriceBox = ({ product }: IProps) => {
     console.log(product.slug);
     dispatch(cartAddItemSuccess(product, [], 1));
     setInCart(true);
+    setOpenSnackbar(true);
   }
 
   const cart = useSelector((state: IState) => state.cart);
@@ -135,9 +140,26 @@ const PriceBox = ({ product }: IProps) => {
     }
   }, [cart]);
   console.log(inCart);
+  // Snackbar stuff
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+  const handleSnackbar = () => {
+    setOpenSnackbar(true);
+  };
 
   return (
     <div className={classes.container}>
+      <Snackbar open={openSnackbar} handleClose={handleClose} />
       <Box className={classes.firstRow}>
         <Box className={classes.priceBox}>
           <Typography className={classes.price} variant="h6">
