@@ -66,6 +66,13 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '50%',
       },
     },
+    buttonInCart: {
+      width: '100%',
+      [theme.breakpoints.between('sm', 'md')]: {
+        width: '50%',
+      },
+      background: theme.palette.success.main,
+    },
     chip: {
       background: () =>
         theme.palette.type === 'light' ? lightGreen[100] : lightGreen[700],
@@ -108,23 +115,6 @@ const PriceBox = ({ product }: IProps) => {
   const classes = useStyles();
   // Cart stuff starts here
   // Fake price made here
-  const stock: IProductStock = {
-    id: '23',
-    store: {
-      id: 3,
-      name: 'Angara',
-      location_city: 'Moscow',
-      location_address: 'Some address',
-    },
-    price: 3999,
-    quantity: 2,
-    availability_days: 0,
-  };
-
-  if (Array.isArray(product.stocks)) {
-    console.log('is array');
-    product.stocks = [...[stock]];
-  }
 
   const dispatch = useDispatch();
   function handleAddToCart(product: IProduct) {
@@ -143,7 +133,7 @@ const PriceBox = ({ product }: IProps) => {
         setInCart(true);
       }
     }
-  }, []);
+  }, [cart]);
   console.log(inCart);
 
   return (
@@ -217,12 +207,12 @@ const PriceBox = ({ product }: IProps) => {
       </Hidden>
       <Box className={classes.secondRow}>
         <Button
-          className={classes.button}
+          className={inCart ? classes.buttonInCart : classes.button}
           variant="contained"
           color="primary"
           onClick={() => handleAddToCart(product)}
         >
-          В корзину
+          {inCart ? 'В Корзине' : 'В корзину'}
         </Button>
       </Box>
     </div>
