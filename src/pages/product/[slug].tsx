@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -32,6 +32,7 @@ import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -187,6 +188,14 @@ export default function ProductPage({
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
   const togetherProducts: IProduct[] =
     product.related && product.related.length ? product.related : [];
+
+  // cart related stuff
+
+  const [localStorageCart, setLocalStorageCart] = useLocalStorage('cart', null);
+  const cart = useSelector((state: IState) => state.cart);
+  useEffect(() => {
+    setLocalStorageCart(cart);
+  }, [cart]);
 
   const PopularParts = () => {
     return (

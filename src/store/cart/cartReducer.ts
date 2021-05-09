@@ -185,8 +185,7 @@ function updateQuantities(state: ICartState, quantities: CartItemQuantity[]) {
 
   return state;
 }
-
-const initialState: ICartState = {
+let initialState: ICartState = {
   lastItemId: 0,
   quantity: 0,
   items: [],
@@ -194,6 +193,12 @@ const initialState: ICartState = {
   totals: [],
   total: 0,
 };
+
+// Here trying to set cart from localstorage if exists
+if (typeof window !== 'undefined') {
+  if (window.localStorage.hasOwnProperty('cart'))
+    initialState = JSON.parse(window.localStorage.getItem('cart') as string);
+}
 
 export const CART_NAMESPACE = 'cart';
 
