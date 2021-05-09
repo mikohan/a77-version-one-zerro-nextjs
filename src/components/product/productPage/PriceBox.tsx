@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IEngine, IProduct, IProductStock } from '~/interfaces';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
@@ -120,7 +120,9 @@ const PriceBox = ({ product }: IProps) => {
     quantity: 2,
     availability_days: 0,
   };
-  product.stocks.push(stock);
+  if (product.stocks.length === 0) {
+    product.stocks.push(stock);
+  }
 
   console.log(product.stocks);
   const dispatch = useDispatch();
@@ -130,8 +132,17 @@ const PriceBox = ({ product }: IProps) => {
   }
 
   const cart = useSelector((state: IState) => state.cart);
+  const [inCart, setInCart] = useState(false);
 
-  useEffect(() => {}, [cart]);
+  useEffect(() => {
+    console.log(cart);
+    for (let prod of cart.items) {
+      if (product.id === prod.id) {
+        setInCart(true);
+      }
+    }
+  }, [cart]);
+  console.log(inCart);
 
   return (
     <div className={classes.container}>
