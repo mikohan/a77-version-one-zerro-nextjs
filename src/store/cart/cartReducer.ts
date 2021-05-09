@@ -66,12 +66,12 @@ function calcTotals(items: ICartItem[]): ICartTotal[] {
     {
       type: 'shipping',
       title: 'SHIPPING',
-      price: 25,
+      price: 0,
     },
     {
       type: 'tax',
       title: 'TAX',
-      price: subtotal * 0.2,
+      price: 0,
     },
   ];
 }

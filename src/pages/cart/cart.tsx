@@ -25,7 +25,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { useRouter } from 'next/router';
-import { cartRemoveItemSuccess } from '~/store/cart/cartAction';
+import {
+  cartRemoveItemSuccess,
+  cartUpdateQuantitiesSuccess,
+} from '~/store/cart/cartAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -102,7 +105,11 @@ export default function Cart() {
     event: React.ChangeEvent<HTMLInputElement>,
     item: ICartItem
   ): void {
-    console.log(event.target.value, item);
+    dispatch(
+      cartUpdateQuantitiesSuccess([
+        { itemId: item.id, value: +event.target.value },
+      ])
+    );
   }
 
   function handleRemoveItem(itemId: number): void {
@@ -181,6 +188,9 @@ export default function Cart() {
                                     variant="filled"
                                     type="number"
                                     size="small"
+                                    InputProps={{
+                                      inputProps: { min: 1, max: 20 },
+                                    }}
                                     onChange={(
                                       event: React.ChangeEvent<HTMLInputElement>
                                     ) => handleQuantity(event, item)}
