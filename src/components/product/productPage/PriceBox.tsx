@@ -120,15 +120,17 @@ const PriceBox = ({ product }: IProps) => {
     quantity: 2,
     availability_days: 0,
   };
-  if (product.stocks.length === 0) {
-    product.stocks.push(stock);
+
+  if (Array.isArray(product.stocks)) {
+    console.log('is array');
+    product.stocks = [...[stock]];
   }
 
-  console.log(product.stocks);
   const dispatch = useDispatch();
   function handleAddToCart(product: IProduct) {
     console.log(product.slug);
     dispatch(cartAddItemSuccess(product, [], 1));
+    setInCart(true);
   }
 
   const cart = useSelector((state: IState) => state.cart);
@@ -141,7 +143,7 @@ const PriceBox = ({ product }: IProps) => {
         setInCart(true);
       }
     }
-  }, [cart]);
+  }, []);
   console.log(inCart);
 
   return (
