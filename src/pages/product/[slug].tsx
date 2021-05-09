@@ -16,7 +16,7 @@ import ProductPageHeader from '~/components/product/productPage/ProductPageHeade
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
@@ -32,6 +32,7 @@ import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
+import { cartAddItemSuccess } from '~/store/cart/cartAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

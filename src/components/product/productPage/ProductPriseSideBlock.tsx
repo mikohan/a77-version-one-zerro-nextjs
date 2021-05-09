@@ -183,6 +183,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+// Cart stuff starts here
+const dispatch = useDispatch();
+function handleAddToCart(product: IProduct) {
+  console.log(product.slug);
+  dispatch(cartAddItemSuccess(product, [], 1));
+}
+
 interface IProps {
   product: IProduct;
 }
