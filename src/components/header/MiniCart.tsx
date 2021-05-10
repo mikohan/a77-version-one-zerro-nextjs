@@ -18,7 +18,7 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { ICartItem } from '~/store/cart/cartTypes';
-import { imageServerUrl } from '~/config';
+import { COMPANY_INFORMATION, imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -129,6 +129,24 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
           <Box className={classes.list}>
             <Table>
               <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography
+                      className={classes.totalText}
+                      variant="subtitle1"
+                    >
+                      Доставка
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      className={classes.totalMoney}
+                      variant="subtitle1"
+                    >
+                      от &#8381;{COMPANY_INFORMATION.DELIVERY_COST_FROM}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
                 <TableRow>
                   <TableCell>
                     <Typography
