@@ -30,7 +30,7 @@ import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 import uselLocalStorage from '~/hooks/useLocalStorage';
-import { CompanyMenu, CategoryMenu } from '~/components/header/HeaderMenu';
+import { CompanyMenu, LoginMenu } from '~/components/header/HeaderMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -224,7 +224,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   const tabs = (
     <React.Fragment>
-      <CategoryMenu
+      <LoginMenu
         anchorEl={anchorElCategory}
         handleClick={handleClickCategory}
         handleClose={handleCloseCategory}
@@ -243,10 +243,10 @@ export default function Header({ setIsDark, isDark }: IProps) {
       >
         <Tab label="ANGARA PARTS" onClick={goHome} />
         <Tab label="Машины" onClick={goCars} />
-        {/* <Tab label="Категории" onClick={handleClickCategory} /> */}
         <Tab label="Компания" onClick={handleClickCompany} />
         <Tab label="Контакты" onClick={goContacts} />
         <Tab label="Блог" onClick={goBlog} />
+        <Tab label="Личный кабинет" onClick={handleClickCategory} />
       </Tabs>
     </React.Fragment>
   );

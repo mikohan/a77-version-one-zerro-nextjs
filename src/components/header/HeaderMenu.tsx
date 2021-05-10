@@ -1,6 +1,7 @@
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
 import Link from 'next/link';
 import url from '~/services/url';
 
@@ -56,7 +57,8 @@ export const CompanyMenu = ({
     </Menu>
   );
 };
-export const CategoryMenu = ({
+
+export const LoginMenu = ({
   anchorEl,
   handleClick,
   handleClose,
@@ -76,11 +78,12 @@ export const CategoryMenu = ({
     >
       <MenuItem onClick={handleClose}>
         <Link href={url.about()}>
-          <a>Directions</a>
+          <a>Войти</a>
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleClose}>My account</MenuItem>
-      <MenuItem onClick={handleClose}>Logout</MenuItem>
+      <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
+      <Divider />
+      <MenuItem onClick={handleClose}>Выйти</MenuItem>
     </Menu>
   );
 };
