@@ -9,6 +9,10 @@ const options = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
+    Providers.Yandex({
+      clientId: process.env.YANDEX_CLIENT_ID,
+      clientSecret: process.env.YANDEX_CLIENT_SECRET,
+    }),
     /* Providers.Email({ */
     /*   server: { */
     /*     host: '', */

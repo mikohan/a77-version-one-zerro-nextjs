@@ -36,7 +36,6 @@ interface IProps {
   page: IPage;
   products: IProduct[];
 }
-console.log(process.env);
 
 export default function About({ page, products }: IProps) {
   const classes = useStyles();
