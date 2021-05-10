@@ -36,6 +36,7 @@ import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
 import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
 import SimpleReactLightbox from 'simple-react-lightbox';
+import { Provider as AuthProvider } from 'next-auth/client';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -148,14 +149,16 @@ function MyApp(props: any) {
       </Head>
       <CookiesProvider>
         <Provider store={store}>
-          <ThemeProvider theme={useTheme}>
-            <SimpleReactLightbox>
-              <CssBaseline />
-              <MainLayout isDark={isDark} setIsDark={setIsDark}>
-                <Component {...pageProps} userUUID={userUUID} />
-              </MainLayout>
-            </SimpleReactLightbox>
-          </ThemeProvider>
+          <AuthProvider session={pageProps.session}>
+            <ThemeProvider theme={useTheme}>
+              <SimpleReactLightbox>
+                <CssBaseline />
+                <MainLayout isDark={isDark} setIsDark={setIsDark}>
+                  <Component {...pageProps} userUUID={userUUID} />
+                </MainLayout>
+              </SimpleReactLightbox>
+            </ThemeProvider>
+          </AuthProvider>
         </Provider>
       </CookiesProvider>
     </React.Fragment>
