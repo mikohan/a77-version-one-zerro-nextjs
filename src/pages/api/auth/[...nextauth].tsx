@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
 
 import Providers from 'next-auth/providers';
+console.log(process.env);
 
 const options = {
   providers: [
