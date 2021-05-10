@@ -19,7 +19,15 @@ import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      padding: theme.spacing(2),
+    },
+    buttonBox: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(1),
+    },
   })
 );
 
@@ -51,14 +59,33 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
           horizontal: 'center',
         }}
       >
-        <Box></Box>
-        <Link href={url.cart()}>
-          <a>
-            <Button variant="contained" className={classes.shoppingCart}>
-              Go To Cart
-            </Button>
-          </a>
-        </Link>
+        <Box className={classes.root}>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>lddll</TableCell>
+                  <TableCell>lddll</TableCell>
+                  <TableCell>lddll</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>lddll</TableCell>
+                  <TableCell>lddll</TableCell>
+                  <TableCell>lddll</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Box className={classes.buttonBox}>
+            <Link href={url.cart()}>
+              <a>
+                <Button variant="contained">Go To Cart</Button>
+              </a>
+            </Link>
+          </Box>
+        </Box>
       </Popover>
     </div>
   );
