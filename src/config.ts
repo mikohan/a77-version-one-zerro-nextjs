@@ -116,6 +116,7 @@ export const COMPANY_INFORMATION = {
   SHOP_CONTACT_TEXT:
     'Мы всегда открыты для сотрудничества и критики, Свяжитесь любым удобным способом.',
   FREE_SHIPPING_FROM: 8000,
+  DELIVERY_COST_FROM: 290,
   POPULARITY_MAKE: 2,
   POPULARITY_MODEL: 3,
 };

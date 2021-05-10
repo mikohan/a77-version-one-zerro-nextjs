@@ -41,6 +41,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
+    totalText: {
+      fontSize: '1rem',
+      fontWeight: 500,
+    },
+    totalMoney: {
+      fontSize: '1rem',
+      fontWeight: 600,
+    },
   })
 );
 
@@ -123,10 +131,20 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <Typography variant="subtitle1">lslslls</Typography>
+                    <Typography
+                      className={classes.totalText}
+                      variant="subtitle1"
+                    >
+                      Итого:
+                    </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle1">lslslls</Typography>
+                  <TableCell align="right">
+                    <Typography
+                      className={classes.totalMoney}
+                      variant="subtitle1"
+                    >
+                      &#8381;{cart.total}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -135,15 +153,25 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
           <Box className={classes.buttonBox}>
             <Link href={url.cart()}>
               <a>
-                <Button className={classes.button} variant="contained">
-                  Go To Cart
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClose}
+                >
+                  Перейти в Козину
                 </Button>
               </a>
             </Link>
             <Link href={url.cart()}>
               <a>
-                <Button className={classes.button} variant="contained">
-                  CheckOut
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClose}
+                >
+                  Оформить Заказ
                 </Button>
               </a>
             </Link>
