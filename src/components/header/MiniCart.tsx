@@ -1,7 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Link from 'next/link';
 import {
   Popover,
@@ -16,10 +14,16 @@ import {
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import url from '~/services/url';
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces/IState';
+import { ICartItem } from '~/store/cart/cartTypes';
+import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      maxWidth: '500px',
       padding: theme.spacing(2),
     },
     buttonBox: {
@@ -38,6 +42,7 @@ interface IProps {
 }
 export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
   const classes = useStyles();
+  const cart = useSelector((state: IState) => state.cart);
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -70,11 +75,28 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>lddll</TableCell>
-                  <TableCell>lddll</TableCell>
-                  <TableCell>lddll</TableCell>
-                </TableRow>
+                {cart.items.map((item: ICartItem) => {
+                  const img = item.product.images.length
+                    ? `${imageServerUrl}${item.product.images[0].img150}`
+                    : '/images/local/defaultParts245.jpg';
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Image src={img} width={70} height={50} />
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle1">
+                          {item.product.name}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle1">
+                          &#8381; {item.product.stocks[0].price}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
