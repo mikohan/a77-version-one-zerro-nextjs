@@ -10,6 +10,7 @@ import Link from 'next/link';
 import url from '~/services/url';
 import { ICar } from '~/interfaces';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import MiniCart from '~/components/header/MiniCart';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,6 +72,7 @@ export default function SearchBox() {
 
   return (
     <React.Fragment>
+      <MiniCart anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
       <Grid className={classes.root} container>
         <Hidden smDown>
           <Grid className={classes.container} item md={4} lg={3}>
@@ -104,9 +106,11 @@ export default function SearchBox() {
                 </Badge>
               </a>
             </Link>
-            <Badge badgeContent={cart.quantity} color="primary">
-              <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
-            </Badge>
+            <Box onClick={handleClickCart}>
+              <Badge badgeContent={cart.quantity} color="primary">
+                <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
+              </Badge>
+            </Box>
           </Grid>
         </Hidden>
       </Grid>

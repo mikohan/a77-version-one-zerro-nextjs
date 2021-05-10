@@ -4,28 +4,17 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 interface IProps {
-  anchorEl: HTMLElement;
-  setAnchorEl(): void;
-  handleClick(event: React.MouseEvent<HTMLButtonElement>): void;
+  anchorEl: HTMLElement | null;
+  setAnchorEl(anchor: HTMLElement | null): void;
+  /* handleClick(event: React.MouseEvent<HTMLButtonElement>): void; */
 }
-export default function SimpleMenu({
-  anchorEl,
-  setAnchorEl,
-  handleClick,
-}: IProps) {
+export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   return (
     <div>
-      <Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        Open Menu
-      </Button>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
