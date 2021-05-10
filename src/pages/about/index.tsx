@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Container } from '@material-ui/core';
+import { Button, Box, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import { IPage } from '~/interfaces';
@@ -49,7 +49,20 @@ export default function About({ page, products }: IProps) {
             <Grid item xs={12}>
               <Typography variant="h1">{page.title}</Typography>
             </Grid>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+              {session ? (
+                <div>
+                  <Typography variant="h6">
+                    Session exists signed as {session.user?.email}
+                  </Typography>
+                  <Button onClick={() => signOut()} variant="outlined">
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Typography variant="h6">There is no session</Typography>
+              )}
+            </Grid>
           </Grid>
         </Container>
       </AnimationPage>
