@@ -163,7 +163,7 @@ export default function Cart() {
                                   }`
                                 : '/images/local/defaultParts245.jpg';
                             return (
-                              <TableRow>
+                              <TableRow key={item.id}>
                                 <TableCell>
                                   <Image src={img} width={120} height={100} />
                                 </TableCell>

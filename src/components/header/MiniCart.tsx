@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonBox: {
       display: 'flex',
       justifyContent: 'center',
-      paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(1),
     },
     price: {
@@ -56,7 +55,6 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log(cart);
 
   return (
     <div>
@@ -92,7 +90,7 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
                     ? `${imageServerUrl}${item.product.images[0].img150}`
                     : '/images/local/defaultParts245.jpg';
                   return (
-                    <TableRow>
+                    <TableRow key={item.id}>
                       <TableCell>
                         <Image src={img} width={70} height={60} />
                       </TableCell>
@@ -121,9 +119,18 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
             </Table>
           </TableContainer>
           <Box className={classes.list}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-            tenetur laboriosam impedit nihil dolores id, ut quaerat dolor
-            aliquid placeat.
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="subtitle1">lslslls</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle1">lslslls</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </Box>
           <Box className={classes.buttonBox}>
             <Link href={url.cart()}>
