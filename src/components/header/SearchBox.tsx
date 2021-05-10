@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
     shoppingCart: {
       fontSize: '1.7rem',
     },
+    miniCartButton: {
+      cursor: 'pointer',
+    },
   })
 );
 
@@ -99,14 +102,7 @@ export default function SearchBox() {
         </Grid>
         <Hidden mdDown>
           <Grid className={classes.container} item xs={3}>
-            <Link href={url.cart()}>
-              <a>
-                <Badge badgeContent={cart.quantity} color="primary">
-                  <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
-                </Badge>
-              </a>
-            </Link>
-            <Box onClick={handleClickCart}>
+            <Box className={classes.miniCartButton} onClick={handleClickCart}>
               <Badge badgeContent={cart.quantity} color="primary">
                 <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
               </Badge>
