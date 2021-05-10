@@ -29,6 +29,7 @@ import {
   cartRemoveItemSuccess,
   cartUpdateQuantitiesSuccess,
 } from '~/store/cart/cartAction';
+import ConditionallyRender from '~/components/common/ConditionalRender';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -259,29 +260,31 @@ export default function Cart() {
             <Grid className={classes.headerContainer} item xs={12}>
               <ProductPageHeader breads={breads} />
             </Grid>
-            {cart.items.length ? (
-              <Grid container item xs={12}>
-                <Grid className={classes.gridColumn} item xs={12} md={8}>
-                  {/* <BigPaper /> */}
+            <ConditionallyRender client>
+              {cart.items.length ? (
+                <Grid container item xs={12}>
+                  <Grid className={classes.gridColumn} item xs={12} md={8}>
+                    <BigPaper />
+                  </Grid>
+                  <Grid className={classes.gridColumn} item xs={12} md={4}>
+                    <SmallPaper />
+                  </Grid>
                 </Grid>
-                <Grid className={classes.gridColumn} item xs={12} md={4}>
-                  {/* <SmallPaper /> */}
+              ) : (
+                <Grid container item className={classes.empty}>
+                  <Typography className={classes.emptyGoHomeText} variant="h2">
+                    Корзина Пуста
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleGoHome}
+                  >
+                    Вернуться на Главную
+                  </Button>
                 </Grid>
-              </Grid>
-            ) : (
-              <Grid container item className={classes.empty}>
-                <Typography className={classes.emptyGoHomeText} variant="h2">
-                  Корзина Пуста
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleGoHome}
-                >
-                  Вернуться на Главную
-                </Button>
-              </Grid>
-            )}
+              )}
+            </ConditionallyRender>
           </Grid>
         </div>
       </AnimationPage>
