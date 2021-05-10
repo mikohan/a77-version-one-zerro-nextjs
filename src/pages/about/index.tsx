@@ -36,6 +36,7 @@ interface IProps {
   page: IPage;
   products: IProduct[];
 }
+console.log(process.env);
 
 export default function About({ page, products }: IProps) {
   const classes = useStyles();
@@ -60,7 +61,12 @@ export default function About({ page, products }: IProps) {
                   </Button>
                 </div>
               ) : (
-                <Typography variant="h6">There is no session</Typography>
+                <div>
+                  <Typography variant="h6">There is no session</Typography>
+                  <Button variant="outlined" onClick={() => signIn()}>
+                    Sigh In
+                  </Button>
+                </div>
               )}
             </Grid>
           </Grid>
