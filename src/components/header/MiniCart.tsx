@@ -32,6 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(1),
     },
+    price: {
+      fontWeight: 500,
+    },
+    list: {
+      padding: theme.spacing(2),
+    },
+    button: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
   })
 );
 
@@ -46,6 +56,7 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  console.log(cart);
 
   return (
     <div>
@@ -69,9 +80,10 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>lddll</TableCell>
-                  <TableCell>lddll</TableCell>
-                  <TableCell>lddll</TableCell>
+                  <TableCell>Фото</TableCell>
+                  <TableCell>Название</TableCell>
+                  <TableCell>Q</TableCell>
+                  <TableCell>Сумма</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -82,7 +94,7 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
                   return (
                     <TableRow>
                       <TableCell>
-                        <Image src={img} width={70} height={50} />
+                        <Image src={img} width={70} height={60} />
                       </TableCell>
                       <TableCell>
                         <Typography variant="subtitle1">
@@ -91,7 +103,15 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
                       </TableCell>
                       <TableCell>
                         <Typography variant="subtitle1">
-                          &#8381; {item.product.stocks[0].price}
+                          {item.quantity}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          className={classes.price}
+                          variant="subtitle1"
+                        >
+                          &#8381;{item.total}
                         </Typography>
                       </TableCell>
                     </TableRow>
@@ -100,10 +120,24 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
               </TableBody>
             </Table>
           </TableContainer>
+          <Box className={classes.list}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+            tenetur laboriosam impedit nihil dolores id, ut quaerat dolor
+            aliquid placeat.
+          </Box>
           <Box className={classes.buttonBox}>
             <Link href={url.cart()}>
               <a>
-                <Button variant="contained">Go To Cart</Button>
+                <Button className={classes.button} variant="contained">
+                  Go To Cart
+                </Button>
+              </a>
+            </Link>
+            <Link href={url.cart()}>
+              <a>
+                <Button className={classes.button} variant="contained">
+                  CheckOut
+                </Button>
               </a>
             </Link>
           </Box>
