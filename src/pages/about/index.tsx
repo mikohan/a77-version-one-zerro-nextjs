@@ -9,6 +9,8 @@ import { IPage } from '~/interfaces';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import { IProduct } from '~/interfaces';
+import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +39,7 @@ interface IProps {
 
 export default function About({ page, products }: IProps) {
   const classes = useStyles();
+  const [session, loading] = useSession();
   return (
     <React.Fragment>
       <AboutHead />
