@@ -8,5 +8,16 @@ const options = {
       clientId: '',
       clientSecret: '',
     }),
+    Providers.Email({
+      server: {
+        host: '',
+        port: 0,
+        auth: {
+          user: '',
+          pass: '',
+        },
+      },
+      from: '',
+    }),
   ],
 };
