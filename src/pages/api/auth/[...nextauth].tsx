@@ -18,9 +18,9 @@ const options = {
       name: 'Custom provider',
       credentials: {
         username: {
-          label: 'username',
+          label: 'Введите Емайл',
           type: 'text',
-          placeholder: 'fjfj@fjfj.com',
+          placeholder: 'your@email.com',
         },
         password: {
           label: 'password',
@@ -30,11 +30,11 @@ const options = {
       async authorize(credentials) {
         //call api here
         const promise = await axios.post(
-          'http://localhost:8000/api/rest-auth/login/',
+          'http://localhost:8000/api/user/authenticate/',
           credentials
         );
-        console.log(promise.data);
-        const user = { name: 'mahhee', email: 'angara99@gmail.comFake' };
+        console.log(promise.data.user);
+        const user = promise.data.user;
         return user;
       },
     }),

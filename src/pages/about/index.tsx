@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, imageServerUrl, SITE_DOMAIN_FULL } from '~/config';
 import { Button, Box, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
@@ -11,6 +11,8 @@ import { translateProducts } from '~/utils';
 import { IProduct } from '~/interfaces';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/client';
+import Avatar from '@material-ui/core/Avatar';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,6 +55,13 @@ export default function About({ page, products }: IProps) {
             <Grid item xs={12}>
               {session ? (
                 <div>
+                  <Avatar>
+                    <Image
+                      src={`${imageServerUrl}${session.user?.image}`}
+                      width={50}
+                      height={50}
+                    />
+                  </Avatar>
                   <Typography variant="h6">
                     Session exists signed as {session.user?.email}
                   </Typography>
