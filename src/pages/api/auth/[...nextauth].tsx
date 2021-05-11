@@ -34,7 +34,8 @@ const options = {
           credentials
         );
         console.log(promise.data);
-        return promise.data;
+        const user = { name: 'mahhee', email: 'angara99@gmail.comFake' };
+        return user;
       },
     }),
     /* Providers.Email({ */
