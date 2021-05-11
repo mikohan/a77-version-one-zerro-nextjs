@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
+import axios from 'axios';
 
 import Providers from 'next-auth/providers';
-console.log(process.env);
 
 const options = {
   providers: [
@@ -13,6 +13,29 @@ const options = {
     Providers.Yandex({
       clientId: process.env.YANDEX_CLIENT_ID,
       clientSecret: process.env.YANDEX_CLIENT_SECRET,
+    }),
+    Providers.Credentials({
+      name: 'Custom provider',
+      credentials: {
+        username: {
+          label: 'username',
+          type: 'text',
+          placeholder: 'fjfj@fjfj.com',
+        },
+        password: {
+          label: 'password',
+          type: 'password',
+        },
+      },
+      async authorize(credentials) {
+        //call api here
+        const promise = await axios.post(
+          'http://localhost:8000/api/rest-auth/login/',
+          credentials
+        );
+        console.log(promise.data);
+        return promise.data;
+      },
     }),
     /* Providers.Email({ */
     /*   server: { */
@@ -26,6 +49,9 @@ const options = {
     /*   from: '', */
     /* }), */
   ],
+  session: {
+    jwt: true,
+  },
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) =>
