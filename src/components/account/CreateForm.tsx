@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     capcha: {
       minWidth: theme.spacing(30),
-      border: '1px solid pink',
       display: 'flex',
       justifyContent: 'space-around',
       alignItems: 'center',
     },
     bg: {
+      padding: theme.spacing(0.5),
       backgroundColor: '#e5e5f7',
       opacity: 0.7,
       backgroundImage: `repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 17px ), repeating-linear-gradient( #444cf755, #444cf7 )`,
@@ -50,8 +50,6 @@ export default function CreateForm() {
   const [number2, setNumber2] = useState(Math.ceil(Math.random() * 10));
   const [active, setActive] = useState(false);
 
-  const res = number1 + number2;
-  console.log(res);
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
     setNumber2(Math.ceil(Math.random() * 10));
@@ -59,7 +57,6 @@ export default function CreateForm() {
 
   function handleCaptcha(event: React.ChangeEvent<HTMLInputElement>) {
     const res = number1 + number2;
-    console.log(res, '=', event.target.value);
     if (res === +event.target.value) {
       setActive(true);
     } else {
@@ -118,17 +115,20 @@ export default function CreateForm() {
               <Typography variant="h6" component="span">
                 {number1}
               </Typography>
-              <span> + </span>
+              <Typography variant="h6" component="span">
+                {' '}
+                +{' '}
+              </Typography>
               <Typography variant="h5" component="span">
                 {number2}
               </Typography>
-              <span> = </span>
             </Box>
             <Box style={{ width: 100 }}>
               <TextField
                 variant="outlined"
                 size="small"
                 onChange={handleCaptcha}
+                label={<Typography variant="body2">результат</Typography>}
               />
             </Box>
           </Box>
