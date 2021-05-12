@@ -6,10 +6,17 @@ import { Button, Box, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import { IPage } from '~/interfaces';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import {
+  getProviders,
+  signIn,
+  getSession,
+  getCsrfToken,
+  useSession,
+} from 'next-auth/client';
 import Avatar from '@material-ui/core/Avatar';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
+import { GetServerSidePropsContext } from 'next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,12 +37,21 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-interface IProps {
-  page: IPage;
+// This is the recommended way for Next.js 9.3 or newer
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const providers = await getProviders();
+  const csrfToken = await getCsrfToken(context);
+  return {
+    props: { providers, csrfToken },
+  };
 }
 
-export default function Register() {
+interface IProps {
+  providers: any;
+  csrfToken: any;
+}
+
+export default function Register({ providers, csrfToken }: IProps) {
   const classes = useStyles();
   const [session, loading] = useSession();
   return (
@@ -44,7 +60,35 @@ export default function Register() {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.main} container>
-            <Grid item xs={12}></Grid>
+            <Grid className={classes.left} item md={6}>
+              <form method="post" action="/api/auth/callback/credentials">
+                <input
+                  name="csrfToken"
+                  type="hidden"
+                  defaultValue={csrfToken}
+                />
+                <label>
+                  Username
+                  <input name="username" type="text" />
+                </label>
+                <label>
+                  Password
+                  <input name="password" type="password" />
+                </label>
+                <button type="submit">Sign in</button>
+              </form>
+            </Grid>
+            <Grid item md={6}>
+              <>
+                {Object.values(providers).map((provider: any) => (
+                  <div key={provider.name}>
+                    <button onClick={() => signIn(provider.id)}>
+                      Sign in with {provider.name}
+                    </button>
+                  </div>
+                ))}
+              </>
+            </Grid>
             <Grid item xs={12}>
               {session ? (
                 <div>
@@ -62,9 +106,7 @@ export default function Register() {
                   <Typography variant="h6">
                     Session exists signed as {session.user?.email}
                   </Typography>
-                  <Button onClick={() => signOut()} variant="outlined">
-                    Sign Out
-                  </Button>
+                  <Button variant="outlined">Sign Out</Button>
                 </div>
               ) : (
                 <div>
@@ -81,15 +123,6 @@ export default function Register() {
     </React.Fragment>
   );
 }
-export const getStaticProps: any = async (context: any) => {
-  const page = await getPage('kontakty');
-
-  return {
-    props: {
-      page,
-    },
-  };
-};
 
 const RegisterHead = () => (
   <Head>
