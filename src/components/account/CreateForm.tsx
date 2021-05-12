@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Paper,
   TextField,
@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-around',
       alignItems: 'center',
     },
+    bg: {
+      backgroundColor: '#e5e5f7',
+      opacity: 0.7,
+      backgroundImage: `repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 17px ), repeating-linear-gradient( #444cf755, #444cf7 )`,
+    },
   })
 );
 
@@ -44,11 +49,22 @@ export default function CreateForm() {
   const [number1, setNumber1] = useState(Math.ceil(Math.random() * 10));
   const [number2, setNumber2] = useState(Math.ceil(Math.random() * 10));
   const [active, setActive] = useState(false);
+
   const res = number1 + number2;
   console.log(res);
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
     setNumber2(Math.ceil(Math.random() * 10));
+  }
+
+  function handleCaptcha(event: React.ChangeEvent<HTMLInputElement>) {
+    const res = number1 + number2;
+    console.log(res, '=', event.target.value);
+    if (res === +event.target.value) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
   }
 
   const classes = useStyles();
@@ -98,7 +114,7 @@ export default function CreateForm() {
             <Box>
               <CachedIcon onClick={handleRefresh} />
             </Box>
-            <Box>
+            <Box className={classes.bg}>
               <Typography variant="h6" component="span">
                 {number1}
               </Typography>
@@ -109,10 +125,19 @@ export default function CreateForm() {
               <span> = </span>
             </Box>
             <Box style={{ width: 100 }}>
-              <TextField variant="outlined" size="small" />
+              <TextField
+                variant="outlined"
+                size="small"
+                onChange={handleCaptcha}
+              />
             </Box>
           </Box>
-          <Button variant="contained" color="primary" type="submit">
+          <Button
+            disabled={!active}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
             Создать Аккаунт
           </Button>
         </Grid>
