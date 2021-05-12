@@ -65,7 +65,33 @@ export default function CreateForm() {
     setNumber2(Math.ceil(Math.random() * 10));
   }, []);
 
-  useEffect(() => {}, [sendData]);
+  useEffect(() => {
+    async function createUser() {
+      const url = `http://0.0.0.0:8000/api/rest-auth/registration/`;
+      const sendD = {
+        username: sendData.email,
+        email: email,
+        password1: password,
+        password2: password,
+      };
+      try {
+        const key = await axios.post(url, sendD);
+        console.log(key.data);
+      } catch (e) {
+        console.log(e);
+      }
+      await signIn('credentials', {
+        redirect: false,
+        username: email,
+        password: password,
+      })
+        .then((message) => console.log(message))
+        .catch((error) => console.log(error));
+    }
+    if (Object.keys(sendData).length) {
+      createUser();
+    }
+  }, [sendData]);
 
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
@@ -103,29 +129,6 @@ export default function CreateForm() {
   function handdleCreateAccount() {
     if (emailValid && passwordValid) {
       setSendData({ email, password });
-      async function createUser() {
-        const url = `http://0.0.0.0:8000/api/rest-auth/registration/`;
-        const sendD = {
-          username: sendData.email,
-          email: email,
-          password1: password,
-          password2: password,
-        };
-        try {
-          const key = await axios.post(url, sendD);
-          console.log(key.data);
-        } catch (e) {
-          console.log(e);
-        }
-        await signIn('credentials', {
-          redirect: false,
-          username: email,
-          password: password,
-        })
-          .then((message) => console.log(message))
-          .catch((error) => console.log(error));
-      }
-      createUser();
     }
   }
 
