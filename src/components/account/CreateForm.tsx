@@ -50,6 +50,8 @@ export default function CreateForm() {
   const [number1, setNumber1] = useState(Math.ceil(Math.random() * 10));
   const [number2, setNumber2] = useState(Math.ceil(Math.random() * 10));
   const [active, setActive] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
@@ -63,6 +65,15 @@ export default function CreateForm() {
     } else {
       setActive(false);
     }
+  }
+
+  function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value);
+    console.log(event.target.value);
+  }
+  function handlePassword(event: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value);
+    console.log(event.target.value);
   }
 
   const classes = useStyles();
@@ -80,6 +91,7 @@ export default function CreateForm() {
           justify="center"
         >
           <TextField
+            onChange={handleEmail}
             required
             name="username"
             label="Email"
@@ -97,6 +109,7 @@ export default function CreateForm() {
           justify="center"
         >
           <TextField
+            onChange={handlePassword}
             required
             name="password"
             label="Пароль"
