@@ -69,6 +69,10 @@ export const LoginMenu = ({
     signOut();
     handleClose();
   }
+  function handleSignIn() {
+    signIn();
+    handleClose();
+  }
   return (
     <Menu
       id="contact"
@@ -81,7 +85,7 @@ export const LoginMenu = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...props}
     >
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleSignIn}>
         <Link href={url.about()}>
           <a>Войти</a>
         </Link>
