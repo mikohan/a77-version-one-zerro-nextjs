@@ -87,7 +87,7 @@ export default function SearchBox() {
     signIn();
   }
 
-  let img = `/images/local/defaultParts245.jpg`;
+  let img = ``;
   if (session?.user?.image) {
     const test = /^http.+/.test(session?.user?.image as string);
     img = test
@@ -132,25 +132,11 @@ export default function SearchBox() {
               </Badge>
             </Box>
             {session ? (
-              <>
-                {session.user?.image ? (
-                  <Box className={classes.loginAvatar}>
-                    <Avatar className={classes.avatar} src={img}>
-                      {session.user?.image ? (
-                        <></>
-                      ) : (
-                        <div>
-                          {session && session.user
-                            ? session.user?.email!.charAt(0).toUpperCase()
-                            : 'A'}
-                        </div>
-                      )}
-                    </Avatar>
-                  </Box>
-                ) : (
-                  <span>{session.user?.email}</span>
-                )}
-              </>
+              <Box className={classes.loginAvatar}>
+                <Avatar className={classes.avatar} src={img}>
+                  {session.user?.email!.charAt(0).toUpperCase()}
+                </Avatar>
+              </Box>
             ) : (
               <Box className={classes.loginAvatar}>
                 <Typography variant="subtitle1" onClick={handleSignIn}>

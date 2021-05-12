@@ -77,6 +77,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
   if (session && session.user?.email) {
     console.log(session);
+
     //Redirect uncomment later
     /* return { */
     /*   redirect: { */
@@ -85,6 +86,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     /*   }, */
     /* }; */
   }
+
   return {
     props: { providers, csrfToken },
   };
@@ -110,15 +112,7 @@ export default function Register({ providers, csrfToken }: IProps) {
                   <Avatar>
                     {session.user?.image ? (
                       <>
-                        {/* <Image */}
-                        {/*   src={ */}
-                        {/*     /^http.+/.test(session.user?.image) */}
-                        {/*       ? `${session.user?.image}` */}
-                        {/*       : `${imageServerUrl}${session.user?.image}` */}
-                        {/*   } */}
-                        {/*   width={50} */}
-                        {/*   height={50} */}
-                        {/* /> */}
+                        <Image src={} width={50} height={50} />
                       </>
                     ) : (
                       <div>{session.user?.email?.charAt(0).toUpperCase()}</div>
