@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     bg: {
+      minWidth: theme.spacing(10),
       padding: theme.spacing(0.5),
       backgroundColor: '#e5e5f7',
       opacity: 0.7,
