@@ -95,9 +95,6 @@ export default function SearchBox() {
       : `${imageServerUrl}${session?.user?.image}`;
   }
 
-  console.log(session?.user?.image);
-  console.log(img);
-
   // Redirect to car page on click
 
   return (
@@ -135,19 +132,25 @@ export default function SearchBox() {
               </Badge>
             </Box>
             {session ? (
-              <Box className={classes.loginAvatar}>
-                <Avatar className={classes.avatar} src={img}>
-                  {session.user?.image ? (
-                    <></>
-                  ) : (
-                    <div>
-                      {session && session.user
-                        ? session.user?.email!.charAt(0).toUpperCase()
-                        : 'A'}
-                    </div>
-                  )}
-                </Avatar>
-              </Box>
+              <>
+                {session.user?.image ? (
+                  <Box className={classes.loginAvatar}>
+                    <Avatar className={classes.avatar} src={img}>
+                      {session.user?.image ? (
+                        <></>
+                      ) : (
+                        <div>
+                          {session && session.user
+                            ? session.user?.email!.charAt(0).toUpperCase()
+                            : 'A'}
+                        </div>
+                      )}
+                    </Avatar>
+                  </Box>
+                ) : (
+                  <span>{session.user?.email}</span>
+                )}
+              </>
             ) : (
               <Box className={classes.loginAvatar}>
                 <Typography variant="subtitle1" onClick={handleSignIn}>
