@@ -53,6 +53,9 @@ const options = {
   session: {
     jwt: true,
   },
+  pages: {
+    signIn: '/account/create',
+  },
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) =>
