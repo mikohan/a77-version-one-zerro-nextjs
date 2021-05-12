@@ -183,7 +183,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
   };
 
   const handleCloseCategory = () => {
-    setAnchorElCompany(null);
+    setAnchorElCategory(null);
   };
 
   const drawer = (

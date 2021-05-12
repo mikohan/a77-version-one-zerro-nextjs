@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Link from 'next/link';
 import url from '~/services/url';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 interface IProps {
   handleClick(event: React.MouseEvent<HTMLButtonElement>): void;
@@ -64,6 +65,10 @@ export const LoginMenu = ({
   handleClose,
   ...props
 }: IProps) => {
+  function handleSignOut() {
+    signOut();
+    handleClose();
+  }
   return (
     <Menu
       id="contact"
@@ -88,7 +93,7 @@ export const LoginMenu = ({
         </a>
       </Link>
       <Divider />
-      <MenuItem onClick={handleClose}>Выйти</MenuItem>
+      <MenuItem onClick={handleSignOut}>Выйти</MenuItem>
     </Menu>
   );
 };
