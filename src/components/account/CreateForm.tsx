@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Paper,
   TextField,
@@ -47,11 +47,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function CreateForm() {
-  const [number1, setNumber1] = useState(Math.ceil(Math.random() * 10));
-  const [number2, setNumber2] = useState(Math.ceil(Math.random() * 10));
+  const [number1, setNumber1] = useState(0);
+
+  const [number2, setNumber2] = useState(0);
   const [active, setActive] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
   const [password, setPassword] = useState('');
+  const [passwordValid, setPasswordValid] = useState(false);
+  useEffect(() => {
+    setNumber1(Math.ceil(Math.random() * 10));
+    setNumber2(Math.ceil(Math.random() * 10));
+  }, []);
 
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
@@ -68,12 +75,19 @@ export default function CreateForm() {
   }
 
   function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    function emailIsValid(email: string) {
+      return /\S+@\S+\.\S+/.test(email);
+    }
+    if (emailIsValid(event.target.value)) {
+      setEmailValid(true);
+    }
     setEmail(event.target.value);
-    console.log(event.target.value);
   }
   function handlePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
-    console.log(event.target.value);
+  }
+  function handdleCreateAccount() {
+    console.log(email, password);
   }
 
   const classes = useStyles();
@@ -151,6 +165,7 @@ export default function CreateForm() {
             variant="contained"
             color="primary"
             type="submit"
+            onClick={handdleCreateAccount}
           >
             Создать Аккаунт
           </Button>
