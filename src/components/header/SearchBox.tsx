@@ -87,16 +87,7 @@ export default function SearchBox() {
     signIn();
   }
 
-  let img = `/images/local/defaultParts245.jpg`;
-  useEffect(() => {
-    const test = /^http.+/.test(session?.user?.image as string);
-    img = test
-      ? (session?.user?.image as string)
-      : `${imageServerUrl}${session?.user?.image}`;
-  }, []);
-
   console.log(session?.user?.image);
-  console.log(img);
 
   // Redirect to car page on click
 
@@ -136,10 +127,13 @@ export default function SearchBox() {
             </Box>
             {session ? (
               <Box className={classes.loginAvatar}>
-                <Avatar className={classes.avatar} src={img}>
+                <Avatar
+                  className={classes.avatar}
+                  src={session?.user?.image as string}
+                >
                   {session.user?.image ? (
                     <Image
-                      src={'/images/local/defaultParts245.jpg'}
+                      src={'/images/local/defaultParts.jpg'}
                       width={40}
                       height={40}
                     />
