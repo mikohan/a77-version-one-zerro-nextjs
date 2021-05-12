@@ -9,6 +9,8 @@ import {
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CachedIcon from '@material-ui/icons/Cached';
+import axios from 'axios';
+import { signIn } from 'next-auth/client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,12 +65,7 @@ export default function CreateForm() {
     setNumber2(Math.ceil(Math.random() * 10));
   }, []);
 
-  useEffect(() => {
-    async function createUser() {
-      console.log(sendData);
-    }
-    createUser();
-  }, [sendData]);
+  useEffect(() => {}, [sendData]);
 
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
@@ -106,6 +103,29 @@ export default function CreateForm() {
   function handdleCreateAccount() {
     if (emailValid && passwordValid) {
       setSendData({ email, password });
+      async function createUser() {
+        const url = `http://0.0.0.0:8000/api/rest-auth/registration/`;
+        const sendD = {
+          username: sendData.email,
+          email: sendData.email,
+          password1: sendData.password,
+          password2: sendData.password,
+        };
+        try {
+          const key = await axios.post(url, sendD);
+          console.log(key.data);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      createUser();
+      signIn('credentials', {
+        redirect: false,
+        email: sendData.email,
+        password: sendData.password,
+      })
+        .then((error) => console.log(error))
+        .catch((error) => console.log(error));
     }
   }
 
@@ -191,6 +211,16 @@ export default function CreateForm() {
           </Button>
         </Grid>
       </Grid>
+      <Button
+        onClick={() =>
+          signIn('credentials', {
+            username: 'angara99@gmail.com',
+            password: 'manhee33338',
+          })
+        }
+      >
+        signin
+      </Button>
     </Paper>
   );
 }
