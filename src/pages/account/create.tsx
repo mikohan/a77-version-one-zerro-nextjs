@@ -76,6 +76,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const csrfToken = await getCsrfToken(context);
   const session = await getSession(context);
   if (session && session.user?.email) {
+    console.log(session);
     //Redirect uncomment later
     /* return { */
     /*   redirect: { */

@@ -128,7 +128,11 @@ export default function SearchBox() {
                 <Avatar className={classes.avatar}>
                   {session.user?.image ? (
                     <Image
-                      src={`${imageServerUrl}${session.user?.image}`}
+                      src={
+                        /^http.+/.test(session.user?.image)
+                          ? `${session.user?.image}`
+                          : `${imageServerUrl}${session.user?.image}`
+                      }
                       width={40}
                       height={40}
                     />
