@@ -8,6 +8,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import CachedIcon from '@material-ui/icons/Cached';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,14 +34,23 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: theme.spacing(30),
       border: '1px solid pink',
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       alignItems: 'center',
     },
   })
 );
 
 export default function CreateForm() {
-  const [number, setNumber] = useState(0);
+  const [number1, setNumber1] = useState(Math.ceil(Math.random() * 10));
+  const [number2, setNumber2] = useState(Math.ceil(Math.random() * 10));
+  const [active, setActive] = useState(false);
+  const res = number1 + number2;
+  console.log(res);
+  function handleRefresh() {
+    setNumber1(Math.ceil(Math.random() * 10));
+    setNumber2(Math.ceil(Math.random() * 10));
+  }
+
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -86,9 +96,17 @@ export default function CreateForm() {
         <Grid item container xs={12} className={classes.buttonGrid}>
           <Box className={classes.capcha}>
             <Box>
-              <span>{number}</span>
-              <span>+</span>
-              <span>{number}</span>
+              <CachedIcon onClick={handleRefresh} />
+            </Box>
+            <Box>
+              <Typography variant="h6" component="span">
+                {number1}
+              </Typography>
+              <span> + </span>
+              <Typography variant="h5" component="span">
+                {number2}
+              </Typography>
+              <span> = </span>
             </Box>
             <Box style={{ width: 100 }}>
               <TextField variant="outlined" size="small" />
