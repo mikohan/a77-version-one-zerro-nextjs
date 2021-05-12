@@ -34,15 +34,6 @@ const options = {
           'http://localhost:8000/api/user/authenticate/',
           credentials
         );
-        let img = `/images/local/defaultParts245.jpg`;
-        if (promise.data && promise.data.image) {
-          const test = /^http.+/.test(promise.data.image as string);
-          img = test
-            ? (promise.data.image as string)
-            : `${imageServerUrl}${promise.data.image}`;
-        }
-        promise.data.user.image = img;
-        console.log(promise.data.user);
         const user = promise.data.user;
         return user;
       },
