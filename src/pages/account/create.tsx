@@ -33,29 +33,37 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(5),
     },
     sideGrid: {
-      paddingLeft: theme.spacing(10),
-      paddingRight: theme.spacing(10),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
     left: {
-      padding: theme.spacing(10),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
     right: {
-      padding: theme.spacing(2),
+      paddingTop: theme.spacing(3),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
     paper: {
-      padding: theme.spacing(2),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
     textFieldGrid: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
-    buttonGrid: {
-      textAlign: 'right',
-    },
+    buttonGrid: {},
     buttonContainer: {
-      border: '1px solid pink',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+    },
+    providersGrid: {
+      marginTop: theme.spacing(5),
     },
     providerButton: {
       width: '100%',
@@ -179,9 +187,7 @@ export default function Register({ providers, csrfToken }: IProps) {
                   <Paper className={classes.paper}>
                     <Grid container>
                       <Grid item xs={12}>
-                        <Typography variant="h6">
-                          Зарегестрированы? Войти.
-                        </Typography>
+                        <Typography variant="h6">Создать Аккаунт</Typography>
                       </Grid>
                       <Grid
                         className={classes.textFieldGrid}
@@ -230,14 +236,14 @@ export default function Register({ providers, csrfToken }: IProps) {
                           color="primary"
                           type="submit"
                         >
-                          Войти
+                          Создать Аккаунт
                         </Button>
                       </Grid>
                     </Grid>
                   </Paper>
                 </Grid>
-                <Grid item xs={12}>
-                  <Paper className={classes.right}>
+                <Grid className={classes.providersGrid} item xs={12}>
+                  <Paper className={classes.paper}>
                     {Object.values(providers).map((provider: any) => {
                       console.log(provider.name);
                       if (provider.name === 'Custom provider') {
@@ -250,7 +256,7 @@ export default function Register({ providers, csrfToken }: IProps) {
                         >
                           <Button
                             className={classes.providerButton}
-                            variant="outlined"
+                            variant="contained"
                             color="primary"
                             onClick={() => signIn(provider.id)}
                           >
