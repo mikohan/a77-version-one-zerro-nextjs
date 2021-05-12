@@ -109,11 +109,17 @@ export default function Register({ providers, csrfToken }: IProps) {
                 <div>
                   <Avatar>
                     {session.user?.image ? (
-                      <Image
-                        src={`${imageServerUrl}${session.user?.image}`}
-                        width={50}
-                        height={50}
-                      />
+                      <>
+                        {/* <Image */}
+                        {/*   src={ */}
+                        {/*     /^http.+/.test(session.user?.image) */}
+                        {/*       ? `${session.user?.image}` */}
+                        {/*       : `${imageServerUrl}${session.user?.image}` */}
+                        {/*   } */}
+                        {/*   width={50} */}
+                        {/*   height={50} */}
+                        {/* /> */}
+                      </>
                     ) : (
                       <div>{session.user?.email?.charAt(0).toUpperCase()}</div>
                     )}

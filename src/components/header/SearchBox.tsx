@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, Hidden, Typography, Badge } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import SearchBar from '~/components/header/SearchBar';
@@ -87,6 +87,17 @@ export default function SearchBox() {
     signIn();
   }
 
+  let img = `/images/local/defaultParts245.jpg`;
+  useEffect(() => {
+    const test = /^http.+/.test(session?.user?.image as string);
+    img = test
+      ? (session?.user?.image as string)
+      : `${imageServerUrl}${session?.user?.image}`;
+  }, []);
+
+  console.log(session?.user?.image);
+  console.log(img);
+
   // Redirect to car page on click
 
   return (
@@ -125,14 +136,10 @@ export default function SearchBox() {
             </Box>
             {session ? (
               <Box className={classes.loginAvatar}>
-                <Avatar className={classes.avatar}>
+                <Avatar className={classes.avatar} src={img}>
                   {session.user?.image ? (
                     <Image
-                      src={
-                        /^http.+/.test(session.user?.image)
-                          ? `${session.user?.image}`
-                          : `${imageServerUrl}${session.user?.image}`
-                      }
+                      src={'/images/local/defaultParts245.jpg'}
                       width={40}
                       height={40}
                     />
