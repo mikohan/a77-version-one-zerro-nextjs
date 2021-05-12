@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
   Container,
+  Paper,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
@@ -27,16 +28,34 @@ import { GetServerSidePropsContext } from 'next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
-      padding: theme.spacing(2),
+    main: { paddingBottom: theme.spacing(5) },
+    headerGrid: {
+      padding: theme.spacing(5),
+    },
+    sideGrid: {
+      paddingLeft: theme.spacing(10),
+      paddingRight: theme.spacing(10),
     },
     left: {
-      border: '1px solid pink',
+      padding: theme.spacing(10),
+    },
+    right: {
       padding: theme.spacing(2),
+    },
+    textFieldGrid: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
     buttonGrid: {
       textAlign: 'right',
-      padding: theme.spacing(3),
+    },
+    buttonContainer: {
+      border: '1px solid pink',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
+    providerButton: {
+      width: '100%',
     },
   })
 );
@@ -63,7 +82,7 @@ export default function Register({ providers, csrfToken }: IProps) {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.main} container>
-            <Grid item xs={12}>
+            <Grid className={classes.headerGrid} item xs={12}>
               {session ? (
                 <div>
                   <Avatar>
@@ -87,51 +106,95 @@ export default function Register({ providers, csrfToken }: IProps) {
                 </div>
               )}
             </Grid>
-            <Grid className={classes.left} item md={6}>
-              <form method="post" action="/api/auth/callback/credentials">
-                <Grid container>
+            <Grid className={classes.sideGrid} item md={6}>
+              <Paper className={classes.left}>
+                <form method="post" action="/api/auth/callback/credentials">
                   <input
                     name="csrfToken"
                     type="hidden"
                     defaultValue={csrfToken}
                   />
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      name="username"
-                      label="Email"
-                      type="email"
-                      helperText="Ваш Емайл"
-                    />
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Typography variant="h6">
+                        Зарегестрированы? Войти.
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      className={classes.textFieldGrid}
+                      item
+                      xs={12}
+                      container
+                      justify="center"
+                    >
+                      <TextField
+                        required
+                        name="username"
+                        label="Email"
+                        type="email"
+                        helperText="Ваш Емайл"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid
+                      className={classes.textFieldGrid}
+                      item
+                      container
+                      xs={12}
+                      justify="center"
+                    >
+                      <TextField
+                        required
+                        name="password"
+                        label="Пароль"
+                        type="password"
+                        autoComplete="current-password"
+                        helperText="Ваш Пароль"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      xs={12}
+                      className={classes.buttonGrid}
+                      justify="flex-end"
+                    >
+                      <Button variant="contained" color="primary" type="submit">
+                        Войти
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      name="password"
-                      label="Пароль"
-                      type="password"
-                      autoComplete="current-password"
-                      helperText="Ваш Пароль"
-                    />
-                  </Grid>
-                  <Grid item xs={12} className={classes.buttonGrid}>
-                    <Button variant="contained" color="primary" type="submit">
-                      Sign in
-                    </Button>
-                  </Grid>
-                </Grid>
-              </form>
+                </form>
+              </Paper>
             </Grid>
-            <Grid item md={6}>
-              <>
-                {Object.values(providers).map((provider: any) => (
-                  <div key={provider.name}>
-                    <button onClick={() => signIn(provider.id)}>
-                      Sign in with {provider.name}
-                    </button>
-                  </div>
-                ))}
-              </>
+            <Grid className={classes.sideGrid} item md={6}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <Paper>jfjfjj</Paper>
+                </Grid>
+                <Grid item xs={12}>
+                  <Paper className={classes.right}>
+                    {Object.values(providers).map((provider: any) => (
+                      <div
+                        className={classes.buttonContainer}
+                        key={provider.name}
+                      >
+                        <Button
+                          className={classes.providerButton}
+                          variant="outlined"
+                          color="primary"
+                          onClick={() => signIn(provider.id)}
+                        >
+                          Войти через {provider.name}
+                        </Button>
+                      </div>
+                    ))}
+                  </Paper>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
