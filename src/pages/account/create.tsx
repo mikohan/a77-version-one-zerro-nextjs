@@ -23,17 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
     main: {
       padding: theme.spacing(2),
     },
-    html: {
-      '& p, & span': {
-        fontSize: '1rem',
-      },
-      '& h2, & h3, & h4': {
-        fontSize: '1.4rem',
-      },
-      '& li, & ol': {
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-      },
+    left: {
+      border: '1px solid pink',
     },
   })
 );
