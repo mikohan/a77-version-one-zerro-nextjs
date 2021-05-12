@@ -74,6 +74,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const providers = await getProviders();
   const csrfToken = await getCsrfToken(context);
+  const session = await getSession(context);
+  if (session && session.user?.email) {
+    //Redirect uncomment later
+    /* return { */
+    /*   redirect: { */
+    /*     permanent: false, */
+    /*     destination: '/about', */
+    /*   }, */
+    /* }; */
+  }
   return {
     props: { providers, csrfToken },
   };
