@@ -107,9 +107,9 @@ export default function CreateForm() {
         const url = `http://0.0.0.0:8000/api/rest-auth/registration/`;
         const sendD = {
           username: sendData.email,
-          email: sendData.email,
-          password1: sendData.password,
-          password2: sendData.password,
+          email: email,
+          password1: password,
+          password2: password,
         };
         try {
           const key = await axios.post(url, sendD);
@@ -117,15 +117,15 @@ export default function CreateForm() {
         } catch (e) {
           console.log(e);
         }
+        await signIn('credentials', {
+          redirect: false,
+          username: email,
+          password: password,
+        })
+          .then((message) => console.log(message))
+          .catch((error) => console.log(error));
       }
       createUser();
-      signIn('credentials', {
-        redirect: false,
-        email: sendData.email,
-        password: sendData.password,
-      })
-        .then((error) => console.log(error))
-        .catch((error) => console.log(error));
     }
   }
 
