@@ -100,6 +100,13 @@ interface IProps {
 export default function Register({ providers, csrfToken }: IProps) {
   const classes = useStyles();
   const [session, loading] = useSession();
+  let img = ``;
+  if (session?.user?.image) {
+    const test = /^http.+/.test(session?.user?.image as string);
+    img = test
+      ? (session?.user?.image as string)
+      : `${imageServerUrl}${session?.user?.image}`;
+  }
   return (
     <React.Fragment>
       <RegisterHead />
@@ -109,14 +116,8 @@ export default function Register({ providers, csrfToken }: IProps) {
             <Grid className={classes.headerGrid} item xs={12}>
               {session ? (
                 <div>
-                  <Avatar>
-                    {session.user?.image ? (
-                      <>
-                        <Image src={} width={50} height={50} />
-                      </>
-                    ) : (
-                      <div>{session.user?.email?.charAt(0).toUpperCase()}</div>
-                    )}
+                  <Avatar src={img}>
+                    {session.user?.email?.charAt(0).toUpperCase()}
                   </Avatar>
                   <Typography variant="h6">
                     Session exists signed as {session.user?.email}
