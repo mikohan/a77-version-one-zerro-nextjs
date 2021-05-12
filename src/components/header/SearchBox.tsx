@@ -126,11 +126,19 @@ export default function SearchBox() {
             {session ? (
               <Box className={classes.loginAvatar}>
                 <Avatar className={classes.avatar}>
-                  <Image
-                    src={`${imageServerUrl}${session.user?.image}`}
-                    width={40}
-                    height={40}
-                  />
+                  {session.user?.image ? (
+                    <Image
+                      src={`${imageServerUrl}${session.user?.image}`}
+                      width={40}
+                      height={40}
+                    />
+                  ) : (
+                    <div>
+                      {session && session.user
+                        ? session.user?.email!.charAt(0).toUpperCase()
+                        : 'A'}
+                    </div>
+                  )}
                 </Avatar>
               </Box>
             ) : (

@@ -49,13 +49,13 @@ export default function Register() {
             <Grid item xs={12}>
               {session ? (
                 <div>
-                  <Avatar>
-                    <Image
-                      src={`${imageServerUrl}${session.user?.image}`}
-                      width={50}
-                      height={50}
-                    />
-                  </Avatar>
+                  {/* <Avatar> */}
+                  {/*   <Image */}
+                  {/*     src={`${imageServerUrl}${session.user?.image}`} */}
+                  {/*     width={50} */}
+                  {/*     height={50} */}
+                  {/*   /> */}
+                  {/* </Avatar> */}
                   <Typography variant="h6">
                     Session exists signed as {session.user?.email}
                   </Typography>
