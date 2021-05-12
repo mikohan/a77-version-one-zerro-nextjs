@@ -56,6 +56,11 @@ const url: { [key: string]: any } = {
   contacts: () => `/contacts`,
   // cart and order
   cart: () => `/cart/cart`,
+  account: {
+    create: () => `/account/create`,
+    login: () => `/account/login`,
+    dashboard: () => `/account/dashboard`,
+  },
 };
 
 export default url;
