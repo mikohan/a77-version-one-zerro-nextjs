@@ -82,6 +82,11 @@ export const LoginMenu = ({
         </Link>
       </MenuItem>
       <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
+      <Link href={`${url.account.create()}`}>
+        <a>
+          <MenuItem onClick={handleClose}>Создать Аккаунт</MenuItem>
+        </a>
+      </Link>
       <Divider />
       <MenuItem onClick={handleClose}>Выйти</MenuItem>
     </Menu>
