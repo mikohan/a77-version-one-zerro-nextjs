@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
     right: {
       padding: theme.spacing(2),
     },
+    paper: {
+      padding: theme.spacing(2),
+    },
     textFieldGrid: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
@@ -173,25 +176,89 @@ export default function Register({ providers, csrfToken }: IProps) {
             <Grid className={classes.sideGrid} item md={6}>
               <Grid container>
                 <Grid item xs={12}>
-                  <Paper>jfjfjj</Paper>
+                  <Paper className={classes.paper}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography variant="h6">
+                          Зарегестрированы? Войти.
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        className={classes.textFieldGrid}
+                        item
+                        xs={12}
+                        container
+                        justify="center"
+                      >
+                        <TextField
+                          required
+                          name="username"
+                          label="Email"
+                          type="email"
+                          helperText="Ваш Емайл"
+                          variant="outlined"
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid
+                        className={classes.textFieldGrid}
+                        item
+                        container
+                        xs={12}
+                        justify="center"
+                      >
+                        <TextField
+                          required
+                          name="password"
+                          label="Пароль"
+                          type="password"
+                          autoComplete="current-password"
+                          helperText="Ваш Пароль"
+                          variant="outlined"
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        container
+                        xs={12}
+                        className={classes.buttonGrid}
+                        justify="flex-end"
+                      >
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                        >
+                          Войти
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Paper>
                 </Grid>
                 <Grid item xs={12}>
                   <Paper className={classes.right}>
-                    {Object.values(providers).map((provider: any) => (
-                      <div
-                        className={classes.buttonContainer}
-                        key={provider.name}
-                      >
-                        <Button
-                          className={classes.providerButton}
-                          variant="outlined"
-                          color="primary"
-                          onClick={() => signIn(provider.id)}
+                    {Object.values(providers).map((provider: any) => {
+                      console.log(provider.name);
+                      if (provider.name === 'Custom provider') {
+                        return false;
+                      }
+                      return (
+                        <div
+                          className={classes.buttonContainer}
+                          key={provider.name}
                         >
-                          Войти через {provider.name}
-                        </Button>
-                      </div>
-                    ))}
+                          <Button
+                            className={classes.providerButton}
+                            variant="outlined"
+                            color="primary"
+                            onClick={() => signIn(provider.id)}
+                          >
+                            Войти через {provider.name}
+                          </Button>
+                        </div>
+                      );
+                    })}
                   </Paper>
                 </Grid>
               </Grid>
