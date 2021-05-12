@@ -25,6 +25,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
+import CreateForm from '~/components/account/CreateForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -200,63 +201,7 @@ export default function Register({ providers, csrfToken }: IProps) {
             <Grid className={classes.sideGrid} item md={6}>
               <Grid container>
                 <Grid item xs={12}>
-                  <Paper className={classes.paper}>
-                    <Grid container>
-                      <Grid item xs={12}>
-                        <Typography variant="h6">Создать Аккаунт</Typography>
-                      </Grid>
-                      <Grid
-                        className={classes.textFieldGrid}
-                        item
-                        xs={12}
-                        container
-                        justify="center"
-                      >
-                        <TextField
-                          required
-                          name="username"
-                          label="Email"
-                          type="email"
-                          helperText="Ваш Емайл"
-                          variant="outlined"
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid
-                        className={classes.textFieldGrid}
-                        item
-                        container
-                        xs={12}
-                        justify="center"
-                      >
-                        <TextField
-                          required
-                          name="password"
-                          label="Пароль"
-                          type="password"
-                          autoComplete="current-password"
-                          helperText="Ваш Пароль"
-                          variant="outlined"
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        container
-                        xs={12}
-                        className={classes.buttonGrid}
-                        justify="flex-end"
-                      >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                        >
-                          Создать Аккаунт
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                  <CreateForm />
                 </Grid>
                 <Grid className={classes.providersGrid} item xs={12}>
                   <Paper className={classes.paper}>
