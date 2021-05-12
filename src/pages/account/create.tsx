@@ -65,6 +65,11 @@ const useStyles = makeStyles((theme: Theme) =>
     providersGrid: {
       marginTop: theme.spacing(5),
     },
+    buttonGrid: {
+      '&>*': {
+        marginBottom: theme.spacing(2),
+      },
+    },
     providerButton: {
       width: '100%',
     },
