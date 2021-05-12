@@ -24,8 +24,18 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonGrid: {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      '& > *': {
+        marginBottom: theme.spacing(2),
+      },
     },
-    capcha: {},
+    capcha: {
+      minWidth: theme.spacing(30),
+      border: '1px solid pink',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
   })
 );
 
@@ -74,7 +84,16 @@ export default function CreateForm() {
           />
         </Grid>
         <Grid item container xs={12} className={classes.buttonGrid}>
-          <Box className={classes.capcha}>fkjfjfjfjj</Box>
+          <Box className={classes.capcha}>
+            <Box>
+              <span>{number}</span>
+              <span>+</span>
+              <span>{number}</span>
+            </Box>
+            <Box style={{ width: 100 }}>
+              <TextField variant="outlined" size="small" />
+            </Box>
+          </Box>
           <Button variant="contained" color="primary" type="submit">
             Создать Аккаунт
           </Button>
