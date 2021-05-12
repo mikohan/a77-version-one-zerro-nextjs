@@ -115,14 +115,18 @@ export default function Register({ providers, csrfToken }: IProps) {
           <Grid className={classes.main} container>
             <Grid className={classes.headerGrid} item xs={12}>
               {session ? (
-                <div>
-                  <Avatar src={img}>
-                    {session.user?.email?.charAt(0).toUpperCase()}
-                  </Avatar>
-                  <Typography variant="h6">
-                    Session exists signed as {session.user?.email}
-                  </Typography>
-                </div>
+                <Grid container>
+                  <Grid item xs={4}>
+                    <Avatar src={img}>
+                      {session.user?.email?.charAt(0).toUpperCase()}
+                    </Avatar>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography variant="h6">
+                      Добро пожаловать {session.user?.email} !
+                    </Typography>
+                  </Grid>
+                </Grid>
               ) : (
                 <div>
                   <Typography variant="h6">There is no session</Typography>
