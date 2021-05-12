@@ -4,7 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Link from 'next/link';
 import url from '~/services/url';
-import { session, signIn, signOut, useSession } from 'next-auth/client';
+import { signIn, signOut, useSession } from 'next-auth/client';
 import { Avatar } from '@material-ui/core';
 
 interface IProps {

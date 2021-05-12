@@ -11,6 +11,10 @@ import url from '~/services/url';
 import { ICar } from '~/interfaces';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import MiniCart from '~/components/header/MiniCart';
+import { Avatar } from '@material-ui/core';
+import Image from 'next/image';
+import { useSession, singIn } from 'next-auth/client';
+import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,12 +58,16 @@ const useStyles = makeStyles((theme: Theme) =>
     miniCartButton: {
       cursor: 'pointer',
     },
+    loginAvatar: {
+      marginLeft: theme.spacing(2),
+    },
   })
 );
 
 export default function SearchBox() {
   const classes = useStyles();
   const cart = useSelector((state: IState) => state.cart);
+  const [session, loading] = useSession();
   let currentCar: ICar = {} as ICar;
   if (typeof window !== 'undefined') {
     currentCar = useSelector((state: IState) => state.shop.currentCar) as ICar;
@@ -107,6 +115,23 @@ export default function SearchBox() {
                 <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
               </Badge>
             </Box>
+            {session ? (
+              <Box className={classes.loginAvatar}>
+                <Avatar>
+                  <Image
+                    src={`${imageServerUrl}${session.user?.image}`}
+                    width={50}
+                    height={50}
+                  />
+                </Avatar>
+              </Box>
+            ) : (
+              <Box className={classes.loginAvatar}>
+                <Typography variant="subtitle1" onClick={handleSingIn}>
+                  Войти
+                </Typography>
+              </Box>
+            )}
           </Grid>
         </Hidden>
       </Grid>
