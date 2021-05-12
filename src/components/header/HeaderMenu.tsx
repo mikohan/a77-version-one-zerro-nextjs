@@ -4,7 +4,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Link from 'next/link';
 import url from '~/services/url';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { session, signIn, signOut, useSession } from 'next-auth/client';
+import { Avatar } from '@material-ui/core';
 
 interface IProps {
   handleClick(event: React.MouseEvent<HTMLButtonElement>): void;
@@ -65,6 +66,7 @@ export const LoginMenu = ({
   handleClose,
   ...props
 }: IProps) => {
+  const [session, loading] = useSession();
   function handleSignOut() {
     signOut();
     handleClose();
@@ -85,11 +87,15 @@ export const LoginMenu = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...props}
     >
-      <MenuItem onClick={handleSignIn}>
-        <Link href={url.about()}>
-          <a>Войти</a>
-        </Link>
-      </MenuItem>
+      {!session ? (
+        <MenuItem onClick={handleSignIn}>
+          <Link href={url.about()}>
+            <a>Войти</a>
+          </Link>
+        </MenuItem>
+      ) : (
+        <MenuItem>{session.user?.email}</MenuItem>
+      )}
       <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
       <Link href={`${url.account.create()}`}>
         <a>

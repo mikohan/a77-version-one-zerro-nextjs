@@ -42,7 +42,6 @@ interface IProps {
 export default function About({ page, products }: IProps) {
   const classes = useStyles();
   const [session, loading] = useSession();
-  console.log(session);
   return (
     <React.Fragment>
       <AboutHead />

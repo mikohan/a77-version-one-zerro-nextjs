@@ -5,6 +5,7 @@ import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Button, Box, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
+import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
 import { signIn, signOut, useSession } from 'next-auth/client';
 import Avatar from '@material-ui/core/Avatar';
