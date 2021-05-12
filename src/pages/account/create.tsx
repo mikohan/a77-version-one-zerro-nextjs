@@ -2,7 +2,14 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Button, Box, Grid, Typography, Container } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Box,
+  Grid,
+  Typography,
+  Container,
+} from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import { IPage } from '~/interfaces';
@@ -25,6 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     left: {
       border: '1px solid pink',
+      padding: theme.spacing(2),
+    },
+    buttonGrid: {
+      textAlign: 'right',
+      padding: theme.spacing(3),
     },
   })
 );
@@ -51,35 +63,6 @@ export default function Register({ providers, csrfToken }: IProps) {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.main} container>
-            <Grid className={classes.left} item md={6}>
-              <form method="post" action="/api/auth/callback/credentials">
-                <input
-                  name="csrfToken"
-                  type="hidden"
-                  defaultValue={csrfToken}
-                />
-                <label>
-                  Username
-                  <input name="username" type="text" />
-                </label>
-                <label>
-                  Password
-                  <input name="password" type="password" />
-                </label>
-                <button type="submit">Sign in</button>
-              </form>
-            </Grid>
-            <Grid item md={6}>
-              <>
-                {Object.values(providers).map((provider: any) => (
-                  <div key={provider.name}>
-                    <button onClick={() => signIn(provider.id)}>
-                      Sign in with {provider.name}
-                    </button>
-                  </div>
-                ))}
-              </>
-            </Grid>
             <Grid item xs={12}>
               {session ? (
                 <div>
@@ -97,16 +80,58 @@ export default function Register({ providers, csrfToken }: IProps) {
                   <Typography variant="h6">
                     Session exists signed as {session.user?.email}
                   </Typography>
-                  <Button variant="outlined">Sign Out</Button>
                 </div>
               ) : (
                 <div>
                   <Typography variant="h6">There is no session</Typography>
-                  <Button variant="outlined" onClick={() => signIn()}>
-                    Sigh In
-                  </Button>
                 </div>
               )}
+            </Grid>
+            <Grid className={classes.left} item md={6}>
+              <form method="post" action="/api/auth/callback/credentials">
+                <Grid container>
+                  <input
+                    name="csrfToken"
+                    type="hidden"
+                    defaultValue={csrfToken}
+                  />
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      name="username"
+                      label="Email"
+                      type="email"
+                      helperText="Ваш Емайл"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      name="password"
+                      label="Пароль"
+                      type="password"
+                      autoComplete="current-password"
+                      helperText="Ваш Пароль"
+                    />
+                  </Grid>
+                  <Grid item xs={12} className={classes.buttonGrid}>
+                    <Button variant="contained" color="primary" type="submit">
+                      Sign in
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+            </Grid>
+            <Grid item md={6}>
+              <>
+                {Object.values(providers).map((provider: any) => (
+                  <div key={provider.name}>
+                    <button onClick={() => signIn(provider.id)}>
+                      Sign in with {provider.name}
+                    </button>
+                  </div>
+                ))}
+              </>
             </Grid>
           </Grid>
         </Container>
