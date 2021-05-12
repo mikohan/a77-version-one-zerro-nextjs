@@ -1,5 +1,12 @@
-import React from 'react';
-import { Paper, TextField, Typography, Button, Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import {
+  Paper,
+  TextField,
+  Typography,
+  Button,
+  Grid,
+  Box,
+} from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -14,10 +21,16 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
+    buttonGrid: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    capcha: {},
   })
 );
 
 export default function CreateForm() {
+  const [number, setNumber] = useState(0);
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -60,13 +73,8 @@ export default function CreateForm() {
             fullWidth
           />
         </Grid>
-        <Grid
-          item
-          container
-          xs={12}
-          className={classes.buttonGrid}
-          justify="flex-end"
-        >
+        <Grid item container xs={12} className={classes.buttonGrid}>
+          <Box className={classes.capcha}>fkjfjfjfjj</Box>
           <Button variant="contained" color="primary" type="submit">
             Создать Аккаунт
           </Button>

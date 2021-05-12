@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
-    buttonGrid: {},
     buttonContainer: {
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
