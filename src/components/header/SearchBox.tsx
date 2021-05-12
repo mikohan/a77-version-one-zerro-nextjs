@@ -61,6 +61,10 @@ const useStyles = makeStyles((theme: Theme) =>
     loginAvatar: {
       marginLeft: theme.spacing(2),
     },
+    avatar: {
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+    },
   })
 );
 
@@ -78,6 +82,10 @@ export default function SearchBox() {
   const handleClickCart = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  function handleSignIn() {
+    signIn();
+  }
 
   // Redirect to car page on click
 
@@ -117,17 +125,17 @@ export default function SearchBox() {
             </Box>
             {session ? (
               <Box className={classes.loginAvatar}>
-                <Avatar>
+                <Avatar className={classes.avatar}>
                   <Image
                     src={`${imageServerUrl}${session.user?.image}`}
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                   />
                 </Avatar>
               </Box>
             ) : (
               <Box className={classes.loginAvatar}>
-                <Typography variant="subtitle1" onClick={handleSingIn}>
+                <Typography variant="subtitle1" onClick={handleSignIn}>
                   Войти
                 </Typography>
               </Box>
