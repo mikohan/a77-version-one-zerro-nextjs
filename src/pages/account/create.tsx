@@ -123,7 +123,7 @@ export default function Register({ providers, csrfToken }: IProps) {
                   </Grid>
                   <Grid item xs={8}>
                     <Typography variant="h6">
-                      Добро пожаловать {session.user?.email} !
+                      Добро пожаловать {session.user?.email}!
                     </Typography>
                   </Grid>
                 </Grid>
