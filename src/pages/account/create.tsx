@@ -245,7 +245,6 @@ export default function Register({ providers, csrfToken }: IProps) {
                 <Grid className={classes.providersGrid} item xs={12}>
                   <Paper className={classes.paper}>
                     {Object.values(providers).map((provider: any) => {
-                      console.log(provider.name);
                       if (provider.name === 'Custom provider') {
                         return false;
                       }
