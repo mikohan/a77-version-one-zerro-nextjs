@@ -55,10 +55,20 @@ export default function CreateForm() {
   const [emailValid, setEmailValid] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
+  const [sendData, setSendData] = useState(
+    {} as { email: string; password: string }
+  );
   useEffect(() => {
     setNumber1(Math.ceil(Math.random() * 10));
     setNumber2(Math.ceil(Math.random() * 10));
   }, []);
+
+  useEffect(() => {
+    async function createUser() {
+      console.log(sendData);
+    }
+    createUser();
+  }, [sendData]);
 
   function handleRefresh() {
     setNumber1(Math.ceil(Math.random() * 10));
@@ -80,14 +90,23 @@ export default function CreateForm() {
     }
     if (emailIsValid(event.target.value)) {
       setEmailValid(true);
+    } else {
+      setEmailValid(false);
     }
     setEmail(event.target.value);
   }
   function handlePassword(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.value.length > 6) {
+      setPasswordValid(true);
+    } else {
+      setPasswordValid(false);
+    }
     setPassword(event.target.value);
   }
   function handdleCreateAccount() {
-    console.log(email, password);
+    if (emailValid && passwordValid) {
+      setSendData({ email, password });
+    }
   }
 
   const classes = useStyles();
@@ -106,11 +125,12 @@ export default function CreateForm() {
         >
           <TextField
             onChange={handleEmail}
+            error={!emailValid}
             required
             name="username"
             label="Email"
             type="email"
-            helperText="Ваш Емайл"
+            helperText={emailValid ? 'Ваш Емайл' : 'Емайл не корректный'}
             variant="outlined"
             fullWidth
           />
