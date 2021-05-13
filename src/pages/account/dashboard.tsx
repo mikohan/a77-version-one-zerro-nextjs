@@ -91,7 +91,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(1),
       paddingTop: theme.spacing(3),
     },
-
+    orderTitle: {
+      paddingTop: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+    },
     main: { paddingBottom: theme.spacing(5) },
   })
 );
@@ -168,11 +171,11 @@ export default function Dashboard({ session }: IProps) {
                   </Grid>
                   <Grid className={classes.ordersGrid} item xs={12}>
                     <Paper>
+                      <Typography className={classes.orderTitle} variant="h6">
+                        Последние заказы
+                      </Typography>
                       <TableContainer>
-                        <Table
-                          className={classes.table}
-                          aria-label="simple table"
-                        >
+                        <Table aria-label="simple table">
                           <TableHead>
                             <TableRow>
                               <TableCell>Dessert (100g serving)</TableCell>
