@@ -25,6 +25,7 @@ import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingTop: theme.spacing(2),
       },
     },
+    paper: {
+      height: '100%',
+    },
     userPaper: {
       minHeight: theme.spacing(30),
       padding: theme.spacing(2),
@@ -69,8 +73,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 100,
     },
     address: {
+      height: '100%',
       minHeight: theme.spacing(30),
       padding: theme.spacing(2),
+    },
+    profileButton: {
+      marginTop: theme.spacing(2),
     },
 
     main: { paddingBottom: theme.spacing(5) },
@@ -82,6 +90,7 @@ interface IProps {
 }
 export default function Dashboard({ session }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
   /* const [session, loading] = useSession(); */
   const [errorMessage, setErrorMessage] = useState('');
   //const router = useRouter();
@@ -93,6 +102,11 @@ export default function Dashboard({ session }: IProps) {
       ? (session?.user?.image as string)
       : `${imageServerUrl}${session?.user?.image}`;
   }
+
+  // go Profile
+  function goProfile() {
+    router.push(url.account.profile());
+  }
   if (session) {
     return (
       <React.Fragment>
@@ -101,11 +115,15 @@ export default function Dashboard({ session }: IProps) {
           <Container maxWidth="lg">
             <Grid className={classes.container} container>
               <Grid className={classes.left} item container xs={12} sm={3}>
-                <DashboardLeftMenu />
+                <Grid container>
+                  <Grid item xs={12}>
+                    <DashboardLeftMenu />
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid className={classes.avatarGrid} item xs={12} md={6}>
-                  <Paper>
+                  <Paper className={classes.paper}>
                     <Box className={classes.userPaper}>
                       <Avatar className={classes.avatar} src={img}>
                         {session.user?.email?.charAt(0).toUpperCase()}
@@ -119,6 +137,13 @@ export default function Dashboard({ session }: IProps) {
                           {session.user?.username}!
                         </Typography>
                       )}
+                      <Button
+                        className={classes.profileButton}
+                        onClick={goProfile}
+                        variant="contained"
+                      >
+                        Изменить профиль
+                      </Button>
                     </Box>
                   </Paper>
                 </Grid>
