@@ -2,12 +2,9 @@ import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import { Typography } from '@material-ui/core';
+import { Typography, Paper } from '@material-ui/core';
 import { signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
@@ -40,7 +37,7 @@ export default function SimpleList() {
   }
 
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root}>
       <Typography className={classes.title} variant="h6">
         Навигация
       </Typography>
@@ -58,6 +55,6 @@ export default function SimpleList() {
           <ListItemText primary="Выйти" onClick={() => signOut()} />
         </ListItem>
       </List>
-    </div>
+    </Paper>
   );
 }

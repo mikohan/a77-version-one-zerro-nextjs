@@ -35,10 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
     left: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      border: '1px solid pink',
     },
     right: {
-      border: '1px solid pink',
       [theme.breakpoints.down('xs')]: {
         paddingTop: theme.spacing(2),
       },
