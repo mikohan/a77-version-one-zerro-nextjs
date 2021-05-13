@@ -5,15 +5,12 @@ import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import {
   TextField,
   Button,
-  Box,
   Grid,
   Typography,
   Container,
   Paper,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { getPage } from '~/endpoints/blogEndpoint';
-import { IPage } from '~/interfaces';
 import {
   getProviders,
   signIn,
@@ -22,7 +19,6 @@ import {
   useSession,
 } from 'next-auth/client';
 import Avatar from '@material-ui/core/Avatar';
-import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
