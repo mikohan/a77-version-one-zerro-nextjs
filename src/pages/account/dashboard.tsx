@@ -33,6 +33,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -122,7 +123,18 @@ export default function Dashboard({ session }: IProps) {
   function goProfile() {
     router.push(url.account.profile());
   }
-  console.log(session);
+
+  useEffect(() => {
+    async function getUser() {
+      const endUrl = 'http://0.0.0.0:8000/api/user/authenticate/';
+      const promise = await axios.post(endUrl, {
+        username: 'angara99@gmail.com',
+        passsword: 'manhee33338',
+      });
+      console.log(promise.data);
+    }
+    getUser();
+  }, []);
   if (session) {
     return (
       <React.Fragment>

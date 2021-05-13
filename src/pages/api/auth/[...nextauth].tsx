@@ -62,16 +62,18 @@ const options = {
   ],
   callbacks: {
     jwt: async (token: any, user: any) => {
-      if (user) {
-        token.accessToken = user.data.token;
-      }
-      console.log(token, 'Token', user, 'User');
-      return token;
+      //  "user" parameter is the object received from "authorize"
+      //  "token" is being send below to "session" callback...
+      //  ...so we set "user" param of "token" to object from "authorize"...
+      //  ...and return it...
+      user && (token.user = user);
+      return Promise.resolve(token); // ...here
     },
-    session: async (session: any, token: any) => {
-      session.accessToken = token.accessToken;
-      console.log(session, 'Session');
-      return session;
+    session: async (session: any, user: any) => {
+      //  "session" is current session object
+      //  below we set "user" param of "session" to value received from "jwt" callback
+      session.user = user.user;
+      return Promise.resolve(session);
     },
   },
   session: {
