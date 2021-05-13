@@ -175,15 +175,11 @@ export default function Dashboard({ session }: IProps) {
                           >
                             {session.user?.email?.charAt(0).toUpperCase()}
                           </Avatar>
-                          <Typography variant="h6">
-                            Добро пожаловать!
-                          </Typography>
-                          <Typography variant="body1">
-                            {session.user?.email}!
-                          </Typography>
-                          {session.user?.username && (
+                          <Typography variant="h6">Добро пожаловать</Typography>
+                          <Typography variant="body1">{user.email}</Typography>
+                          {user.first_name && (
                             <Typography variant="body1">
-                              {session.user?.username}!
+                              {user.first_name}!
                             </Typography>
                           )}
                           <Button
