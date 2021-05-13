@@ -23,8 +23,6 @@ import {
 import Avatar from '@material-ui/core/Avatar';
 import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
-import CreateForm from '~/components/account/CreateForm';
-import { useRouter } from 'next/router';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 
@@ -38,6 +36,23 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     right: {
       border: '1px solid pink',
+    },
+    userPaper: {
+      minHeight: theme.spacing(30),
+      padding: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '& > *': {
+        marginBottom: theme.spacing(0.5),
+        marginTop: theme.spacing(0.5),
+        border: '1px solid pink',
+      },
+    },
+    avatar: {
+      width: 100,
+      height: 100,
     },
 
     main: { paddingBottom: theme.spacing(5) },
@@ -73,13 +88,19 @@ export default function Dashboard({ session }: IProps) {
               <Grid className={classes.right} item container xs={9}>
                 <Grid className={classes.headerGrid} item xs={12} md={6}>
                   <Paper>
-                    <Box>
-                      <Avatar src={img}>
+                    <Box className={classes.userPaper}>
+                      <Avatar className={classes.avatar} src={img}>
                         {session.user?.email?.charAt(0).toUpperCase()}
                       </Avatar>
-                      <Typography variant="h6">
-                        Добро пожаловать {session.user?.email}!
+                      <Typography variant="h6">Добро пожаловать!</Typography>
+                      <Typography variant="body1">
+                        {session.user?.email}!
                       </Typography>
+                      {session.user?.username && (
+                        <Typography variant="body1">
+                          {session.user?.username}!
+                        </Typography>
+                      )}
                     </Box>
                   </Paper>
                 </Grid>
