@@ -23,53 +23,21 @@ import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import { useRouter } from 'next/router';
+import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: { paddingBottom: theme.spacing(5) },
-    headerGrid: {
-      padding: theme.spacing(5),
-    },
-    sideGrid: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+    container: {
+      paddingTop: theme.spacing(5),
     },
     left: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      border: '1px solid pink',
     },
     right: {
-      paddingTop: theme.spacing(3),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      border: '1px solid pink',
     },
-    paper: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
-    },
-    textFieldGrid: {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-    },
-    buttonContainer: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-    },
-    providersGrid: {
-      marginTop: theme.spacing(5),
-    },
-    buttonGrid: {
-      '&>*': {
-        marginBottom: theme.spacing(2),
-      },
-    },
-    providerButton: {
-      width: '100%',
-    },
+
+    main: { paddingBottom: theme.spacing(5) },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -91,30 +59,43 @@ export default function Register() {
       <DashboardHead />
       <AnimationPage>
         <Container maxWidth="lg">
-          <Grid className={classes.main} container>
-            <Grid className={classes.headerGrid} item xs={12}>
-              {session ? (
-                <Grid container>
-                  <Grid item xs={4}>
-                    <Avatar src={img}>
-                      {session.user?.email?.charAt(0).toUpperCase()}
-                    </Avatar>
+          <Grid className={classes.container} container>
+            <Grid className={classes.left} item container xs={3}>
+              <DashboardLeftMenu />
+            </Grid>
+            <Grid className={classes.right} item container xs={9}>
+              <Grid className={classes.headerGrid} item xs={12} md={6}>
+                {session ? (
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <Avatar src={img}>
+                        {session.user?.email?.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Typography variant="h6">
+                        Добро пожаловать {session.user?.email}!
+                      </Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={8}>
-                    <Typography variant="h6">
-                      Добро пожаловать {session.user?.email}!
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ) : (
-                <div>
-                  {errorMessage && (
-                    <Typography variant="h6" color="secondary">
-                      {errorMessage}
-                    </Typography>
-                  )}
-                </div>
-              )}
+                ) : (
+                  <div>
+                    {errorMessage && (
+                      <Typography variant="h6" color="secondary">
+                        {errorMessage}
+                      </Typography>
+                    )}
+                  </div>
+                )}
+              </Grid>
+              <Grid item xs={12} md={6}>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime
+                tempora nostrum itaque, dolorum quas autem molestias eligendi
+                aut tenetur adipisci perferendis earum labore, facilis nam velit
+                pariatur quo. Voluptate quod labore veritatis animi dicta
+                nostrum iure possimus quae ducimus quos? Aspernatur laudantium
+                dolor dolores. Fugiat quaerat similique nulla impedit vero.
+              </Grid>
             </Grid>
           </Grid>
         </Container>
