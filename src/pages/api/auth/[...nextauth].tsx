@@ -30,12 +30,17 @@ const options = {
       },
       async authorize(credentials) {
         //call api here
-        const promise = await axios.post(
-          'http://localhost:8000/api/user/authenticate/',
-          credentials
-        );
-        const user = promise.data.user;
-        return user;
+        try {
+          const promise = await axios.post(
+            'http://localhost:8000/api/user/authenticate/',
+            credentials
+          );
+          const user = promise.data.user;
+          return user;
+        } catch (e) {
+          console.log('FUcks up');
+          throw '/account/create?error=credentials_error';
+        }
       },
     }),
     /* Providers.Email({ */

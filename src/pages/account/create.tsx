@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
@@ -26,6 +26,7 @@ import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,8 +82,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const csrfToken = await getCsrfToken(context);
   const session = await getSession(context);
   if (session && session.user?.email) {
-    console.log(session);
-
     //Redirect uncomment later
     /* return { */
     /*   redirect: { */
@@ -105,6 +104,16 @@ interface IProps {
 export default function Register({ providers, csrfToken }: IProps) {
   const classes = useStyles();
   const [session, loading] = useSession();
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query && router.query.error === 'credentials_error') {
+      setErrorMessage(
+        'Пользователь не зарегестрирован! Попробуйте создать аккаунт.'
+      );
+    }
+  }, []);
   let img = ``;
   if (session?.user?.image) {
     const test = /^http.+/.test(session?.user?.image as string);
@@ -134,7 +143,11 @@ export default function Register({ providers, csrfToken }: IProps) {
                 </Grid>
               ) : (
                 <div>
-                  <Typography variant="h6">There is no session</Typography>
+                  {errorMessage && (
+                    <Typography variant="h6" color="secondary">
+                      {errorMessage}
+                    </Typography>
+                  )}
                 </div>
               )}
             </Grid>
