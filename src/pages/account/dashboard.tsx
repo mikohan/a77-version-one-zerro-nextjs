@@ -26,6 +26,12 @@ import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,6 +86,12 @@ const useStyles = makeStyles((theme: Theme) =>
     profileButton: {
       marginTop: theme.spacing(2),
     },
+    ordersGrid: {
+      paddingLeft: theme.spacing(2),
+
+      paddingTop: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
 
     main: { paddingBottom: theme.spacing(5) },
   })
@@ -122,33 +134,72 @@ export default function Dashboard({ session }: IProps) {
                 </Grid>
               </Grid>
               <Grid className={classes.right} item container xs={12} sm={9}>
-                <Grid className={classes.avatarGrid} item xs={12} md={6}>
-                  <Paper className={classes.paper}>
-                    <Box className={classes.userPaper}>
-                      <Avatar className={classes.avatar} src={img}>
-                        {session.user?.email?.charAt(0).toUpperCase()}
-                      </Avatar>
-                      <Typography variant="h6">Добро пожаловать!</Typography>
-                      <Typography variant="body1">
-                        {session.user?.email}!
-                      </Typography>
-                      {session.user?.username && (
-                        <Typography variant="body1">
-                          {session.user?.username}!
-                        </Typography>
-                      )}
-                      <Button
-                        className={classes.profileButton}
-                        onClick={goProfile}
-                        variant="contained"
-                      >
-                        Изменить профиль
-                      </Button>
-                    </Box>
-                  </Paper>
-                </Grid>
-                <Grid className={classes.addressGrid} item xs={12} md={6}>
-                  <Paper className={classes.address}></Paper>
+                <Grid container>
+                  <Grid item container xs={12}>
+                    <Grid className={classes.avatarGrid} item xs={12} md={6}>
+                      <Paper className={classes.paper}>
+                        <Box className={classes.userPaper}>
+                          <Avatar className={classes.avatar} src={img}>
+                            {session.user?.email?.charAt(0).toUpperCase()}
+                          </Avatar>
+                          <Typography variant="h6">
+                            Добро пожаловать!
+                          </Typography>
+                          <Typography variant="body1">
+                            {session.user?.email}!
+                          </Typography>
+                          {session.user?.username && (
+                            <Typography variant="body1">
+                              {session.user?.username}!
+                            </Typography>
+                          )}
+                          <Button
+                            className={classes.profileButton}
+                            onClick={goProfile}
+                            variant="contained"
+                          >
+                            Изменить профиль
+                          </Button>
+                        </Box>
+                      </Paper>
+                    </Grid>
+                    <Grid className={classes.addressGrid} item xs={12} md={6}>
+                      <Paper className={classes.address}></Paper>
+                    </Grid>
+                  </Grid>
+                  <Grid className={classes.ordersGrid} item xs={12}>
+                    <Paper>
+                      <TableContainer>
+                        <Table
+                          className={classes.table}
+                          aria-label="simple table"
+                        >
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Dessert (100g serving)</TableCell>
+                              <TableCell align="right">Calories</TableCell>
+                              <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                              <TableCell align="right">
+                                Carbs&nbsp;(g)
+                              </TableCell>
+                              <TableCell align="right">
+                                Protein&nbsp;(g)
+                              </TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell component="th" scope="row"></TableCell>
+                              <TableCell align="right">lorem</TableCell>
+                              <TableCell align="right">ipsum</TableCell>
+                              <TableCell align="right">dolor</TableCell>
+                              <TableCell align="right">sit</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </Paper>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
@@ -183,10 +234,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 const DashboardHead = () => (
   <Head>
-    <title key="title">
-      Заргестрироваться в интернет магазине АНГАРА запчасти для грузовиков и
-      коммерческого транспорта
-    </title>
+    <title key="title">Панель управления пользователя ANGARA77</title>
     <meta
       key="description"
       name="description"
