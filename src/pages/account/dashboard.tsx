@@ -129,7 +129,7 @@ export default function Dashboard({ session }: IProps) {
       const endUrl = 'http://0.0.0.0:8000/api/user/authenticate/';
       const promise = await axios.post(endUrl, {
         username: 'angara99@gmail.com',
-        passsword: 'manhee33338',
+        password: 'manhee33338',
       });
       console.log(promise.data);
     }
