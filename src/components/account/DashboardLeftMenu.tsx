@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import { Typography } from '@material-ui/core';
+import { signOut } from 'next-auth/client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +45,7 @@ export default function SimpleList() {
         </ListItem>
       </List>
       <Divider />
-      <List component="nav" aria-label="secondary mailbox folders">
+      <List component="nav" aria-label="secondary mailbox folders" dense>
         <ListItem button>
           <ListItemText primary="Выйти" />
         </ListItem>
