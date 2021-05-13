@@ -221,17 +221,20 @@ export default function Dashboard({ session, user }: IProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
-  const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
-  console.log(userUrl);
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Token ${session?.user?.token}`,
-    },
-  };
-  console.log(session);
-  const userPromise = await axios.get(userUrl, config);
-  const user = userPromise.data;
+  let user = {} as IUser;
+  if (session) {
+    const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
+    console.log(userUrl);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${session?.user?.token}`,
+      },
+    };
+    console.log(session);
+    const userPromise = await axios.get(userUrl, config);
+    user = userPromise.data;
+  }
   /* if (session && session.user?.email) { */
   /*   //Redirect uncomment later */
   /*   return { */
