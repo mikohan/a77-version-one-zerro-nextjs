@@ -36,6 +36,9 @@ export default function SimpleList() {
   function handleGarage() {
     router.push(url.account.garage());
   }
+  function handleProfile() {
+    router.push(url.account.profile());
+  }
 
   return (
     <div className={classes.root}>
@@ -47,7 +50,7 @@ export default function SimpleList() {
           <ListItemText primary="ГАРАЖ" onClick={handleGarage} />
         </ListItem>
         <ListItem button>
-          <ListItemText primary="ПРОФИЛЬ" />
+          <ListItemText primary="ПРОФИЛЬ" onClick={handleProfile} />
         </ListItem>
       </List>
       <Divider />
