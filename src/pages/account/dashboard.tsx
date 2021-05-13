@@ -9,7 +9,9 @@ import {
   Typography,
   Container,
   Paper,
+  Box,
 } from '@material-ui/core';
+
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
   getProviders,
@@ -24,6 +26,7 @@ import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import { useRouter } from 'next/router';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,11 +44,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
-export default function Register() {
+interface IProps {
+  session: any;
+}
+export default function Dashboard({ session }: IProps) {
   const classes = useStyles();
-  const [session, loading] = useSession();
+  /* const [session, loading] = useSession(); */
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
+  //const router = useRouter();
 
   let img = ``;
   if (session?.user?.image) {
@@ -67,18 +73,14 @@ export default function Register() {
               <Grid className={classes.right} item container xs={9}>
                 <Grid className={classes.headerGrid} item xs={12} md={6}>
                   <Paper>
-                    <Grid container>
-                      <Grid item xs={4}>
-                        <Avatar src={img}>
-                          {session.user?.email?.charAt(0).toUpperCase()}
-                        </Avatar>
-                      </Grid>
-                      <Grid item xs={8}>
-                        <Typography variant="h6">
-                          Добро пожаловать {session.user?.email}!
-                        </Typography>
-                      </Grid>
-                    </Grid>
+                    <Box>
+                      <Avatar src={img}>
+                        {session.user?.email?.charAt(0).toUpperCase()}
+                      </Avatar>
+                      <Typography variant="h6">
+                        Добро пожаловать {session.user?.email}!
+                      </Typography>
+                    </Box>
                   </Paper>
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -96,7 +98,29 @@ export default function Register() {
         </AnimationPage>
       </React.Fragment>
     );
+  } else {
+    return (
+      <React.Fragment>
+        <div>login first</div>
+      </React.Fragment>
+    );
   }
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  /* if (session && session.user?.email) { */
+  /*   //Redirect uncomment later */
+  /*   return { */
+  /*     redirect: { */
+  /*       permanent: false, */
+  /*       destination: url.account.create(), */
+  /*     }, */
+  /*   }; */
+  /* } */
+  return {
+    props: { session },
+  };
 }
 
 const DashboardHead = () => (
