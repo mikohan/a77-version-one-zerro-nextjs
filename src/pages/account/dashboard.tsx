@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     right: {
       border: '1px solid pink',
+      [theme.breakpoints.down('xs')]: {
+        paddingTop: theme.spacing(2),
+      },
     },
     avatarGrid: {
       paddingLeft: theme.spacing(1),
@@ -47,6 +50,9 @@ const useStyles = makeStyles((theme: Theme) =>
     addressGrid: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: theme.spacing(2),
+      },
     },
     userPaper: {
       minHeight: theme.spacing(30),
@@ -97,10 +103,10 @@ export default function Dashboard({ session }: IProps) {
         <AnimationPage>
           <Container maxWidth="lg">
             <Grid className={classes.container} container>
-              <Grid className={classes.left} item container xs={3}>
+              <Grid className={classes.left} item container xs={12} sm={3}>
                 <DashboardLeftMenu />
               </Grid>
-              <Grid className={classes.right} item container xs={9}>
+              <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid className={classes.avatarGrid} item xs={12} md={6}>
                   <Paper>
                     <Box className={classes.userPaper}>

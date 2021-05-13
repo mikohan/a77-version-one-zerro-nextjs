@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
     title: {
@@ -45,16 +44,16 @@ export default function SimpleList() {
       <Typography className={classes.title} variant="h6">
         Навигация
       </Typography>
-      <List component="nav" aria-label="main mailbox folders" dense>
+      <List component="nav" aria-label="main mailbox folders">
         <ListItem button>
-          <ListItemText primary="ГАРАЖ" onClick={handleGarage} />
+          <ListItemText primary="Гараж" onClick={handleGarage} />
         </ListItem>
         <ListItem button>
-          <ListItemText primary="ПРОФИЛЬ" onClick={handleProfile} />
+          <ListItemText primary="Профиль" onClick={handleProfile} />
         </ListItem>
       </List>
       <Divider />
-      <List component="nav" aria-label="secondary mailbox folders" dense>
+      <List component="nav" aria-label="secondary mailbox folders">
         <ListItem button>
           <ListItemText primary="Выйти" onClick={() => signOut()} />
         </ListItem>
