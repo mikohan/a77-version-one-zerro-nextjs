@@ -14,9 +14,9 @@ export interface IUser {
   id: number;
   username: string;
   email: string;
-  firstName: string;
-  lastName: string;
-  dataJoined: Date;
-  lastLogin: Date;
+  first_name: string;
+  last_name: string;
+  data_joined: Date;
+  last_login: Date;
   profile: IUserProfile;
 }
