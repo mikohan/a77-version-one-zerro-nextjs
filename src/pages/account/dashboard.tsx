@@ -179,23 +179,19 @@ export default function Dashboard({ session }: IProps) {
                           <TableHead>
                             <TableRow>
                               <TableCell>Dessert (100g serving)</TableCell>
-                              <TableCell align="right">Calories</TableCell>
-                              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                              <TableCell align="right">
-                                Carbs&nbsp;(g)
-                              </TableCell>
-                              <TableCell align="right">
-                                Protein&nbsp;(g)
-                              </TableCell>
+                              <TableCell align="left">Номер</TableCell>
+                              <TableCell align="left">Дата</TableCell>
+                              <TableCell align="left">Статус</TableCell>
+                              <TableCell align="left">Сумма</TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
                             <TableRow>
                               <TableCell component="th" scope="row"></TableCell>
-                              <TableCell align="right">lorem</TableCell>
-                              <TableCell align="right">ipsum</TableCell>
-                              <TableCell align="right">dolor</TableCell>
-                              <TableCell align="right">sit</TableCell>
+                              <TableCell align="left">lorem</TableCell>
+                              <TableCell align="left">ipsum</TableCell>
+                              <TableCell align="left">dolor</TableCell>
+                              <TableCell align="left">sit</TableCell>
                             </TableRow>
                           </TableBody>
                         </Table>
