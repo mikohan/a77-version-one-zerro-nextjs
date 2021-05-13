@@ -30,12 +30,23 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
     },
     left: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       border: '1px solid pink',
     },
     right: {
       border: '1px solid pink',
+    },
+    avatarGrid: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+    addressGrid: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     userPaper: {
       minHeight: theme.spacing(30),
@@ -53,6 +64,10 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       width: 100,
       height: 100,
+    },
+    address: {
+      minHeight: theme.spacing(30),
+      padding: theme.spacing(2),
     },
 
     main: { paddingBottom: theme.spacing(5) },
@@ -86,7 +101,7 @@ export default function Dashboard({ session }: IProps) {
                 <DashboardLeftMenu />
               </Grid>
               <Grid className={classes.right} item container xs={9}>
-                <Grid className={classes.headerGrid} item xs={12} md={6}>
+                <Grid className={classes.avatarGrid} item xs={12} md={6}>
                   <Paper>
                     <Box className={classes.userPaper}>
                       <Avatar className={classes.avatar} src={img}>
@@ -104,14 +119,8 @@ export default function Dashboard({ session }: IProps) {
                     </Box>
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Maxime tempora nostrum itaque, dolorum quas autem molestias
-                  eligendi aut tenetur adipisci perferendis earum labore,
-                  facilis nam velit pariatur quo. Voluptate quod labore
-                  veritatis animi dicta nostrum iure possimus quae ducimus quos?
-                  Aspernatur laudantium dolor dolores. Fugiat quaerat similique
-                  nulla impedit vero.
+                <Grid className={classes.addressGrid} item xs={12} md={6}>
+                  <Paper className={classes.address}></Paper>
                 </Grid>
               </Grid>
             </Grid>
