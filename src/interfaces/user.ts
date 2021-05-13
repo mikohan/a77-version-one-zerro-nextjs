@@ -18,4 +18,5 @@ export interface IUser {
   lastName: string;
   dataJoined: Date;
   lastLogin: Date;
+  profile: IUserProfile;
 }

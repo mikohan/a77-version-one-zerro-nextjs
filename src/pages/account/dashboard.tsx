@@ -169,7 +169,10 @@ export default function Dashboard({ session }: IProps) {
                     <Grid className={classes.avatarGrid} item xs={12} md={6}>
                       <Paper className={classes.paper}>
                         <Box className={classes.userPaper}>
-                          <Avatar className={classes.avatar} src={''}>
+                          <Avatar
+                            className={classes.avatar}
+                            src={user.profile.image}
+                          >
                             {session.user?.email?.charAt(0).toUpperCase()}
                           </Avatar>
                           <Typography variant="h6">
