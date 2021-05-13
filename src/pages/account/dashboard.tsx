@@ -54,54 +54,49 @@ export default function Register() {
       ? (session?.user?.image as string)
       : `${imageServerUrl}${session?.user?.image}`;
   }
-  return (
-    <React.Fragment>
-      <DashboardHead />
-      <AnimationPage>
-        <Container maxWidth="lg">
-          <Grid className={classes.container} container>
-            <Grid className={classes.left} item container xs={3}>
-              <DashboardLeftMenu />
-            </Grid>
-            <Grid className={classes.right} item container xs={9}>
-              <Grid className={classes.headerGrid} item xs={12} md={6}>
-                {session ? (
-                  <Grid container>
-                    <Grid item xs={4}>
-                      <Avatar src={img}>
-                        {session.user?.email?.charAt(0).toUpperCase()}
-                      </Avatar>
-                    </Grid>
-                    <Grid item xs={8}>
-                      <Typography variant="h6">
-                        Добро пожаловать {session.user?.email}!
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                ) : (
-                  <div>
-                    {errorMessage && (
-                      <Typography variant="h6" color="secondary">
-                        {errorMessage}
-                      </Typography>
-                    )}
-                  </div>
-                )}
+  if (session) {
+    return (
+      <React.Fragment>
+        <DashboardHead />
+        <AnimationPage>
+          <Container maxWidth="lg">
+            <Grid className={classes.container} container>
+              <Grid className={classes.left} item container xs={3}>
+                <DashboardLeftMenu />
               </Grid>
-              <Grid item xs={12} md={6}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime
-                tempora nostrum itaque, dolorum quas autem molestias eligendi
-                aut tenetur adipisci perferendis earum labore, facilis nam velit
-                pariatur quo. Voluptate quod labore veritatis animi dicta
-                nostrum iure possimus quae ducimus quos? Aspernatur laudantium
-                dolor dolores. Fugiat quaerat similique nulla impedit vero.
+              <Grid className={classes.right} item container xs={9}>
+                <Grid className={classes.headerGrid} item xs={12} md={6}>
+                  <Paper>
+                    <Grid container>
+                      <Grid item xs={4}>
+                        <Avatar src={img}>
+                          {session.user?.email?.charAt(0).toUpperCase()}
+                        </Avatar>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <Typography variant="h6">
+                          Добро пожаловать {session.user?.email}!
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Maxime tempora nostrum itaque, dolorum quas autem molestias
+                  eligendi aut tenetur adipisci perferendis earum labore,
+                  facilis nam velit pariatur quo. Voluptate quod labore
+                  veritatis animi dicta nostrum iure possimus quae ducimus quos?
+                  Aspernatur laudantium dolor dolores. Fugiat quaerat similique
+                  nulla impedit vero.
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Container>
-      </AnimationPage>
-    </React.Fragment>
-  );
+          </Container>
+        </AnimationPage>
+      </React.Fragment>
+    );
+  }
 }
 
 const DashboardHead = () => (
