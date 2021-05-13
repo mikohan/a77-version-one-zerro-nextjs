@@ -23,6 +23,7 @@ import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,12 +80,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
   if (session && session.user?.email) {
     //Redirect uncomment later
-    /* return { */
-    /*   redirect: { */
-    /*     permanent: false, */
-    /*     destination: '/about', */
-    /*   }, */
-    /* }; */
+    return {
+      redirect: {
+        permanent: false,
+        destination: url.account.dashboard(),
+      },
+    };
   }
 
   return {
