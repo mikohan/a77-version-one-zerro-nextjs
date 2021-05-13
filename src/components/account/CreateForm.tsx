@@ -11,6 +11,8 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CachedIcon from '@material-ui/icons/Cached';
 import axios from 'axios';
 import { signIn } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function CreateForm() {
+  const router = useRouter();
   const [number1, setNumber1] = useState(0);
 
   const [number2, setNumber2] = useState(0);
@@ -67,7 +70,7 @@ export default function CreateForm() {
 
   useEffect(() => {
     async function createUser() {
-      const url = `http://0.0.0.0:8000/api/rest-auth/registration/`;
+      const apiUrl = `http://0.0.0.0:8000/api/rest-auth/registration/`;
       const sendD = {
         username: sendData.email,
         email: email,
@@ -75,7 +78,7 @@ export default function CreateForm() {
         password2: password,
       };
       try {
-        const key = await axios.post(url, sendD);
+        const key = await axios.post(apiUrl, sendD);
         console.log(key.data);
       } catch (e) {
         console.log(e);
@@ -85,7 +88,10 @@ export default function CreateForm() {
         username: email,
         password: password,
       })
-        .then((message) => console.log(message))
+        .then((message) => {
+          console.log(message);
+          router.push(url.account.create());
+        })
         .catch((error) => console.log(error));
     }
     if (Object.keys(sendData).length) {
