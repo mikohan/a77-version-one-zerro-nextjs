@@ -9,6 +9,8 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import { Typography } from '@material-ui/core';
 import { signOut } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +32,10 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
 
 export default function SimpleList() {
   const classes = useStyles();
+  const router = useRouter();
+  function handleGarage() {
+    router.push(url.account.garage());
+  }
 
   return (
     <div className={classes.root}>
@@ -38,7 +44,7 @@ export default function SimpleList() {
       </Typography>
       <List component="nav" aria-label="main mailbox folders" dense>
         <ListItem button>
-          <ListItemText primary="ГАРАЖ" />
+          <ListItemText primary="ГАРАЖ" onClick={handleGarage} />
         </ListItem>
         <ListItem button>
           <ListItemText primary="ПРОФИЛЬ" />
@@ -47,7 +53,7 @@ export default function SimpleList() {
       <Divider />
       <List component="nav" aria-label="secondary mailbox folders" dense>
         <ListItem button>
-          <ListItemText primary="Выйти" />
+          <ListItemText primary="Выйти" onClick={() => signOut()} />
         </ListItem>
       </List>
     </div>
