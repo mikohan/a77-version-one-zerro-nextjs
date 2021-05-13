@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '& > *': {
         marginBottom: theme.spacing(0.5),
         marginTop: theme.spacing(0.5),
-        border: '1px solid pink',
       },
     },
     avatar: {
