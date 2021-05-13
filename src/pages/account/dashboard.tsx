@@ -34,6 +34,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
+import { IUser } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,6 +110,7 @@ export default function Dashboard({ session }: IProps) {
   const router = useRouter();
   /* const [session, loading] = useSession(); */
   const [errorMessage, setErrorMessage] = useState('');
+  const [user, setUser] = useState({} as IUser);
   //const router = useRouter();
 
   let img = ``;
@@ -131,10 +133,22 @@ export default function Dashboard({ session }: IProps) {
         username: 'angara99@gmail.com',
         password: 'manhee33338',
       });
-      console.log(promise.data);
+      const userUrl = `http://localhost:8000/api/user/users/${promise.data.user.id}/`;
+      console.log(promise.data.token);
+      console.log(userUrl);
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Token fad17186928a7c0da440dd6117403d6dfe3a87fa',
+        },
+      };
+      const userPromise = await axios.get(userUrl, config);
+      setUser(userPromise.data);
     }
     getUser();
   }, []);
+  console.log(user);
+
   if (session) {
     return (
       <React.Fragment>
@@ -155,7 +169,7 @@ export default function Dashboard({ session }: IProps) {
                     <Grid className={classes.avatarGrid} item xs={12} md={6}>
                       <Paper className={classes.paper}>
                         <Box className={classes.userPaper}>
-                          <Avatar className={classes.avatar} src={img}>
+                          <Avatar className={classes.avatar} src={''}>
                             {session.user?.email?.charAt(0).toUpperCase()}
                           </Avatar>
                           <Typography variant="h6">
