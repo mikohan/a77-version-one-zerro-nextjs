@@ -16,6 +16,7 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
   getProviders,
   signIn,
+  signOut,
   getSession,
   getCsrfToken,
   useSession,
@@ -121,6 +122,7 @@ export default function Dashboard({ session }: IProps) {
   function goProfile() {
     router.push(url.account.profile());
   }
+  console.log(session);
   if (session) {
     return (
       <React.Fragment>
@@ -187,7 +189,9 @@ export default function Dashboard({ session }: IProps) {
                           </TableHead>
                           <TableBody>
                             <TableRow>
-                              <TableCell component="th" scope="row"></TableCell>
+                              <TableCell component="th" scope="row">
+                                #123
+                              </TableCell>
                               <TableCell align="left">lorem</TableCell>
                               <TableCell align="left">ipsum</TableCell>
                               <TableCell align="left">dolor</TableCell>

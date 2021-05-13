@@ -36,7 +36,12 @@ const options = {
             credentials
           );
           const user = promise.data.user;
-          return user;
+          const retSession = {
+            token: promise.data.token,
+            ...user,
+          };
+          console.log(retSession);
+          return retSession;
         } catch (e) {
           console.log('FUcks up');
           throw '/account/create?error=credentials_error';
@@ -55,6 +60,20 @@ const options = {
     /*   from: '', */
     /* }), */
   ],
+  callbacks: {
+    jwt: async (token: any, user: any) => {
+      if (user) {
+        token.accessToken = user.data.token;
+      }
+      console.log(token, 'Token', user, 'User');
+      return token;
+    },
+    session: async (session: any, token: any) => {
+      session.accessToken = token.accessToken;
+      console.log(session, 'Session');
+      return session;
+    },
+  },
   session: {
     jwt: true,
   },

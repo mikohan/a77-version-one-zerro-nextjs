@@ -13,7 +13,7 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import MiniCart from '~/components/header/MiniCart';
 import { Avatar } from '@material-ui/core';
 import Image from 'next/image';
-import { useSession, signIn } from 'next-auth/client';
+import { useSession, signIn, signOut } from 'next-auth/client';
 import { imageServerUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
