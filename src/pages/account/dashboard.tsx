@@ -35,6 +35,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { IUser } from '~/interfaces';
+import { Session } from 'next-auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,49 +105,20 @@ const useStyles = makeStyles((theme: Theme) =>
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
   session: any;
+  user: IUser;
 }
-export default function Dashboard({ session }: IProps) {
+export default function Dashboard({ session, user }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   /* const [session, loading] = useSession(); */
-  const [errorMessage, setErrorMessage] = useState('');
-  const [user, setUser] = useState({} as IUser);
   //const router = useRouter();
-
-  let img = ``;
-  if (session?.user?.image) {
-    const test = /^http.+/.test(session?.user?.image as string);
-    img = test
-      ? (session?.user?.image as string)
-      : `${imageServerUrl}${session?.user?.image}`;
-  }
 
   // go Profile
   function goProfile() {
     router.push(url.account.profile());
   }
 
-  useEffect(() => {
-    async function getUser() {
-      const endUrl = 'http://0.0.0.0:8000/api/user/authenticate/';
-      const promise = await axios.post(endUrl, {
-        username: 'angara99@gmail.com',
-        password: 'manhee33338',
-      });
-      const userUrl = `http://localhost:8000/api/user/users/${promise.data.user.id}/`;
-      console.log(promise.data.token);
-      console.log(userUrl);
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Token fad17186928a7c0da440dd6117403d6dfe3a87fa',
-        },
-      };
-      const userPromise = await axios.get(userUrl, config);
-      setUser(userPromise.data);
-    }
-    getUser();
-  }, []);
+  useEffect(() => {}, []);
   console.log(user);
 
   if (session) {
@@ -171,7 +143,11 @@ export default function Dashboard({ session }: IProps) {
                         <Box className={classes.userPaper}>
                           <Avatar
                             className={classes.avatar}
-                            src={user.profile.image}
+                            src={
+                              user.hasOwnProperty('profile')
+                                ? user.profile.image
+                                : ''
+                            }
                           >
                             {session.user?.email?.charAt(0).toUpperCase()}
                           </Avatar>
@@ -244,7 +220,18 @@ export default function Dashboard({ session }: IProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
+  const session: any = await getSession(context);
+  const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
+  console.log(userUrl);
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${session?.user?.token}`,
+    },
+  };
+  console.log(session);
+  const userPromise = await axios.get(userUrl, config);
+  const user = userPromise.data;
   /* if (session && session.user?.email) { */
   /*   //Redirect uncomment later */
   /*   return { */
@@ -255,7 +242,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   /*   }; */
   /* } */
   return {
-    props: { session },
+    props: { session, user },
   };
 }
 
