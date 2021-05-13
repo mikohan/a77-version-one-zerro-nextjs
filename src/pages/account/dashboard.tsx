@@ -87,10 +87,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
     },
     ordersGrid: {
-      paddingLeft: theme.spacing(2),
-
-      paddingTop: theme.spacing(2),
-      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+      paddingTop: theme.spacing(3),
     },
 
     main: { paddingBottom: theme.spacing(5) },
