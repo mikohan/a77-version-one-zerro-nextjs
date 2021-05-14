@@ -39,10 +39,10 @@ export default function AlertDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
+            Закрыть
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
-            Agree
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>
