@@ -41,13 +41,30 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     formBox: {
+      padding: theme.spacing(5),
+      width: '100%',
+    },
+    title: {
+      paddingBottom: theme.spacing(3),
+    },
+    fieldsBox: {
+      maxWidth: '70%',
       display: 'flex',
       flexDirection: 'column',
       '& > *': {
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
-        border: '1px solid blue',
       },
+    },
+    helper: {
+      paddingBottom: theme.spacing(0.5),
+    },
+    textField: {
+      background: theme.palette.action.hover,
+    },
+    checkboxBox: {
+      display: 'flex',
+      alignItems: 'center',
     },
   })
 );
@@ -78,45 +95,77 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
-                    <Box className={classes.formBox}>
-                      <Box>
-                        <TextField
-                          label="Size"
-                          id="city"
-                          defaultValue="Small"
-                          size="small"
-                          variant="outlined"
-                        />
+                    <Paper className={classes.formBox}>
+                      <Typography className={classes.title} variant="h6">
+                        Редактировать Адрес
+                      </Typography>
+                      <Box className={classes.fieldsBox}>
+                        <Box>
+                          <Typography
+                            className={classes.helper}
+                            variant="body2"
+                          >
+                            Город
+                          </Typography>
+                          <TextField
+                            required
+                            label="Город"
+                            id="city"
+                            defaultValue="Small"
+                            size="small"
+                            variant="outlined"
+                            fullWidth
+                          />
+                        </Box>
+                        <Box>
+                          <Typography
+                            className={classes.helper}
+                            variant="body2"
+                          >
+                            Адрес
+                          </Typography>
+                          <TextField
+                            required
+                            label="Адрес"
+                            id="address"
+                            defaultValue="Small"
+                            size="small"
+                            variant="outlined"
+                            fullWidth
+                          />
+                        </Box>
+                        <Box>
+                          <Typography
+                            className={classes.helper}
+                            variant="body2"
+                          >
+                            Индекс
+                          </Typography>
+                          <TextField
+                            className={classes.textField}
+                            label="Индекс"
+                            id="zipcode"
+                            defaultValue="Small"
+                            size="small"
+                            variant="outlined"
+                            fullWidth
+                          />
+                        </Box>
                       </Box>
-                      <Box>
-                        <TextField
-                          label="Size"
-                          id="address"
-                          defaultValue="Small"
-                          size="small"
-                          variant="outlined"
-                        />
-                      </Box>
-                      <Box>
-                        <TextField
-                          label="Size"
-                          id="zipcode"
-                          defaultValue="Small"
-                          size="small"
-                          variant="outlined"
-                        />
-                      </Box>
-                      <Box>
+                      <Box className={classes.checkboxBox}>
                         <Checkbox
                           defaultChecked
                           color="primary"
                           inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />
+                        <Typography variant="body2">
+                          Сделать основным адресом
+                        </Typography>
                       </Box>
                       <Button variant="contained" color="primary">
                         Сохранить
                       </Button>
-                    </Box>
+                    </Paper>
                   </Grid>
                 </Grid>
               </Grid>
