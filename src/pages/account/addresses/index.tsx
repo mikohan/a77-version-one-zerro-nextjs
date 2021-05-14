@@ -53,35 +53,10 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingTop: theme.spacing(2),
       },
     },
-    avatarGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
     addressGrid: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing(2),
-      },
-    },
-    paper: {
-      height: '100%',
-    },
-    userPaper: {
-      minHeight: theme.spacing(30),
-      padding: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      '& > *': {
-        marginBottom: theme.spacing(0.5),
-        marginTop: theme.spacing(0.5),
-      },
-    },
-    avatar: {
-      width: 100,
-      height: 100,
+      paddingBottom: theme.spacing(2),
     },
     address: {
       height: '100%',
@@ -90,18 +65,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-    },
-    profileButton: {
-      marginTop: theme.spacing(2),
-    },
-    ordersGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      paddingTop: theme.spacing(3),
-    },
-    orderTitle: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
     },
     addressBox: {
       '&>*': {
