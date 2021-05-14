@@ -85,7 +85,10 @@ const useStyles = makeStyles((theme: Theme) =>
     address: {
       height: '100%',
       minHeight: theme.spacing(30),
-      padding: theme.spacing(2),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
     profileButton: {
       marginTop: theme.spacing(2),
@@ -99,7 +102,20 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(2),
     },
-    main: { paddingBottom: theme.spacing(5) },
+    addressBox: {
+      '&>*': {
+        paddingTop: theme.spacing(0.5),
+        paddingBottom: theme.spacing(0.5),
+      },
+    },
+    addressTitle: {
+      paddingBottom: theme.spacing(2),
+    },
+    editAddressButtonBox: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      textAlign: 'center',
+    },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -168,36 +184,59 @@ export default function Dashboard({ session, user }: IProps) {
                     </Grid>
                     <Grid className={classes.addressGrid} item xs={12} md={6}>
                       <Paper className={classes.address}>
-                        <Typography variant="h6">Адрес Доставки</Typography>
+                        <Typography
+                          className={classes.addressTitle}
+                          variant="h6"
+                        >
+                          Адрес Доставки
+                        </Typography>
                         {Object.keys(user.address_user).length ? (
-                          <Box>
-                            <Typography variant="body1">
-                              {user.address_user[0].address}
-                            </Typography>
-                            <Typography variant="body1">
-                              {user.address_user[0].city}
-                            </Typography>
-                            <Typography variant="body1">
-                              {user.address_user[0].zip_code}
-                            </Typography>
+                          <Box className={classes.addressBox}>
+                            <Box>
+                              <Typography variant="subtitle2">Адрес</Typography>
+                              <Typography variant="body1">
+                                {user.address_user[0].address}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography variant="subtitle2">Город</Typography>
+                              <Typography variant="body1">
+                                {user.address_user[0].city}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography variant="subtitle2">
+                                Индекс
+                              </Typography>
+                              <Typography variant="body1">
+                                {user.address_user[0].zip_code}
+                              </Typography>
+                            </Box>
                             {Object.keys(user.profile).length && (
-                              <React.Fragment>
+                              <Box>
                                 <Typography variant="subtitle2">
                                   Телефон
                                 </Typography>
                                 <Typography variant="body1">
                                   {user.profile.phone}
                                 </Typography>
-                              </React.Fragment>
+                              </Box>
                             )}
-                            <Typography variant="subtitle2">Телефон</Typography>
-                            <Typography variant="body1">
-                              {user.email}
-                            </Typography>
+                            <Box>
+                              <Typography variant="subtitle2">Email</Typography>
+                              <Typography variant="body1">
+                                {user.email}
+                              </Typography>
+                            </Box>
                           </Box>
                         ) : (
                           ''
                         )}
+                        <Box className={classes.editAddressButtonBox}>
+                          <Button variant="contained">
+                            Редактировать Адреса
+                          </Button>
+                        </Box>
                       </Paper>
                     </Grid>
                   </Grid>
