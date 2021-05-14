@@ -109,7 +109,6 @@ export default function EditAddress({
           Authorization: `Token ${session?.user?.token}`,
         },
       };
-      console.log(config.headers.Authorization);
 
       try {
         const promise = await axios.put(url, address, config);
