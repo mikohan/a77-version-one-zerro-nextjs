@@ -151,24 +151,39 @@ const useStyles = makeStyles((theme: Theme) =>
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
   session: any;
-  addresses: IAddress[];
+  addressesFromServer: IAddress[];
 }
-export default function Dashboard({ session, addresses }: IProps) {
+export default function Dashboard({ session, addressesFromServer }: IProps) {
   const classes = useStyles();
   const router = useRouter();
+  const [addresses, setAddresses] = useState<IAddress[]>([]);
+  useEffect(() => {
+    setAddresses(addressesFromServer);
+  }, []);
 
   function addAddress() {
     router.push(url.account.addAddress());
   }
 
-  const [openDelete, setOpenDelete] = useState(false);
-
-  function confirmDelete() {
-    setOpenDelete(true);
-  }
-  function handleConfirm(id: number) {
-    console.log('Delete item id:', id);
-    setOpenDelete(false);
+  function confirmDelete(id: number) {
+    if (confirm('Удалить адрес?')) {
+      console.log('Deleted id ', id);
+      async function deleteAddress(id: number) {
+        const url = `http://0.0.0.0:8000/api/user/addresses/${id}/`;
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${session?.user?.token}`,
+          },
+        };
+        const promise = await axios.delete(url, config);
+      }
+      deleteAddress(id);
+      const newAddresses = addresses.filter(
+        (address: IAddress) => address.id != id
+      );
+      setAddresses(newAddresses);
+    }
   }
 
   if (session) {
@@ -205,12 +220,6 @@ export default function Dashboard({ session, addresses }: IProps) {
                     </Grid>
                     {addresses.map((address: IAddress) => (
                       <React.Fragment key={address.id}>
-                        <ConfirmDelete
-                          openDelete={openDelete}
-                          setOpenDelete={setOpenDelete}
-                          handleConfirm={handleConfirm}
-                          address={address}
-                        />
                         <Grid
                           className={classes.addressGrid}
                           item
@@ -262,7 +271,7 @@ export default function Dashboard({ session, addresses }: IProps) {
                               <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={confirmDelete}
+                                onClick={() => confirmDelete(address.id)}
                               >
                                 Удалить
                               </Button>
@@ -301,7 +310,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
     const addressesPromise = await axios.get(userUrl, config);
     addresses = addressesPromise.data;
-    console.log(addresses);
   }
   /* if (session && session.user?.email) { */
   /*   //Redirect uncomment later */
@@ -313,7 +321,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   /*   }; */
   /* } */
   return {
-    props: { session, addresses },
+    props: { session, addressesFromServer: addresses },
   };
 }
 
