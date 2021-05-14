@@ -173,7 +173,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
                         </Button>
                       </Paper>
                     </Grid>
-                    {addresses.map((address: IAddress) => (
+                    {addresses.map((address: IAddress, i: number) => (
                       <React.Fragment key={address.id}>
                         <Grid
                           className={classes.addressGrid}
@@ -187,7 +187,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
                                 className={classes.addressTitle}
                                 variant="h6"
                               >
-                                Адрес Доставки
+                                Адрес #{i + 1}
                               </Typography>
                               {address.default && (
                                 <Chip size="small" label="Основной" />

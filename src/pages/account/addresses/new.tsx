@@ -10,32 +10,18 @@ import {
   Container,
   Paper,
   Box,
-  Chip,
+  Checkbox,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import {
-  getProviders,
-  signIn,
-  signOut,
-  getSession,
-  getCsrfToken,
-  useSession,
-} from 'next-auth/client';
-import Avatar from '@material-ui/core/Avatar';
+import { getSession } from 'next-auth/client';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
-import { IUser, IAddress } from '~/interfaces';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { IAddress } from '~/interfaces';
+import { userAddressesListUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +38,32 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingTop: theme.spacing(2),
       },
     },
+    formBox: {
+      padding: theme.spacing(5),
+      width: '100%',
+    },
+    title: {
+      paddingBottom: theme.spacing(3),
+    },
+    fieldsBox: {
+      maxWidth: '70%',
+      display: 'flex',
+      flexDirection: 'column',
+      '& > *': {
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+      },
+    },
+    helper: {
+      paddingBottom: theme.spacing(0.5),
+    },
+    textField: {
+      background: theme.palette.action.hover,
+    },
+    checkboxBox: {
+      display: 'flex',
+      alignItems: 'center',
+    },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -61,10 +73,48 @@ interface IProps {
 }
 export default function Dashboard({ session, addresses }: IProps) {
   const classes = useStyles();
+  const [address, setAddress] = useState<IAddress>({} as IAddress);
   const router = useRouter();
 
   function addAddress() {
     router.push(url.account.addAddress());
+  }
+  function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, city: event.target.value };
+    setAddress(newState);
+  }
+  function handleAddress(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, address: event.target.value };
+    setAddress(newState);
+  }
+  function handleZipCode(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, zip_code: event.target.value };
+    setAddress(newState);
+  }
+  function handleDefalut(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, default: event.target.checked };
+    setAddress(newState);
+  }
+  function handleSubmit() {
+    async function sendToServer() {
+      const url = `${userAddressesListUrl}`;
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${session?.user?.token}`,
+        },
+      };
+
+      try {
+        const promise = await axios.put(url, address, config);
+        if (promise) {
+          setAddress(promise.data);
+        }
+      } catch (e) {
+        console.log('Cannot update address', e);
+      }
+    }
+    sendToServer();
   }
 
   if (session) {
@@ -83,7 +133,86 @@ export default function Dashboard({ session, addresses }: IProps) {
               </Grid>
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
-                  <Grid item container xs={12}></Grid>
+                  <Grid item container xs={12}>
+                    <Paper className={classes.formBox}>
+                      <Typography className={classes.title} variant="h6">
+                        Редактировать Адрес
+                      </Typography>
+                      <Box className={classes.fieldsBox}>
+                        <Box>
+                          <Typography
+                            className={classes.helper}
+                            variant="body2"
+                          >
+                            Город
+                          </Typography>
+                          <TextField
+                            required
+                            label="Город"
+                            id="city"
+                            placeholder="Город"
+                            size="small"
+                            variant="outlined"
+                            fullWidth
+                            onChange={handleCity}
+                          />
+                        </Box>
+                        <Box>
+                          <Typography
+                            className={classes.helper}
+                            variant="body2"
+                          >
+                            Адрес
+                          </Typography>
+                          <TextField
+                            required
+                            label="Адрес"
+                            id="address"
+                            placeholder="Адрес"
+                            size="small"
+                            variant="outlined"
+                            fullWidth
+                            onChange={handleAddress}
+                          />
+                        </Box>
+                        <Box>
+                          <Typography
+                            className={classes.helper}
+                            variant="body2"
+                          >
+                            Индекс
+                          </Typography>
+                          <TextField
+                            className={classes.textField}
+                            label="Индекс"
+                            id="zipcode"
+                            placeholder="Индекс"
+                            size="small"
+                            variant="outlined"
+                            fullWidth
+                            onChange={handleZipCode}
+                          />
+                        </Box>
+                      </Box>
+                      <Box className={classes.checkboxBox}>
+                        <Checkbox
+                          onChange={handleDefalut}
+                          color="primary"
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                        <Typography variant="body2">
+                          Сделать основным адресом
+                        </Typography>
+                      </Box>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                      >
+                        Сохранить
+                      </Button>
+                    </Paper>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
