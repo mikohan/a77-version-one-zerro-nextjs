@@ -117,6 +117,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
     if (confirm('Удалить адрес?')) {
       async function deleteAddress(id: number) {
         const url = `${userAddressesListUrl}${id}/`;
+        console.log(url);
         const config = {
           headers: {
             'Content-Type': 'application/json',
@@ -124,7 +125,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
           },
         };
         try {
-          await axios.delete(url, config);
+          // await axios.delete(url, config);
         } catch (e) {
           console.error('Cannot delete user address ', e);
         }

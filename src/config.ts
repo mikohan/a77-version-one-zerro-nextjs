@@ -3,6 +3,7 @@ import { ITransFilter, IFilter } from '~/interfaces';
 export const imageServerUrl = 'http://localhost:8000';
 // export const backServerUrl = 'http://localhost:8000';
 export const backServerUrl = 'http://192.168.0.109:8000'; // url for elastic search
+export const backServerUrlRest = 'http://0.0.0.0:8000'; // url for elastic search
 
 export const autocompleteUrls = {
   number: `${backServerUrl}/api/product/findnumber`,
@@ -35,7 +36,7 @@ export const cagegoriesUrl =
 //  'http://localhost:8000/testcategory/testcategory/';
 //Here starts account endpoints
 
-export const userAddressesListUrl = `${backServerUrl}/api/user/addresses/`;
+export const userAddressesListUrl = `${backServerUrlRest}/api/user/addresses/`;
 
 export const getCategoryBySlugUrl =
   'http://localhost:8000/api/product/a77category/';
