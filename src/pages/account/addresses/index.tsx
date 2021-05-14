@@ -124,30 +124,13 @@ const useStyles = makeStyles((theme: Theme) =>
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
   session: any;
-  user: IUser;
+  addresses: IAddress[];
 }
-export default function Dashboard({ session, user }: IProps) {
+export default function Dashboard({ session, addresses }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   /* const [session, loading] = useSession(); */
   //const router = useRouter();
-
-  // go Profile
-  function goProfile() {
-    router.push(url.account.profile());
-  }
-  console.log(user);
-  let address = {} as IAddress;
-  if (user.address_user && user.address_user.length) {
-    const find = user.address_user.find(
-      (adr: IAddress) => adr.default === true
-    ) as IAddress;
-    if (find) {
-      address = find;
-    } else {
-      address = user.address_user[0];
-    }
-  }
 
   if (session) {
     return (
@@ -166,7 +149,7 @@ export default function Dashboard({ session, user }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
-                    {addresses.map((address: IAdress) => (
+                    {addresses.map((address: IAddress) => (
                       <Grid className={classes.addressGrid} item xs={12} md={6}>
                         <Paper className={classes.address}>
                           <Box className={classes.chipBox}>
@@ -178,54 +161,28 @@ export default function Dashboard({ session, user }: IProps) {
                             </Typography>
                             <Chip size="small" label="Основной" />
                           </Box>
-                          {Object.keys(user.address_user).length ? (
-                            <Box className={classes.addressBox}>
-                              <Box>
-                                <Typography variant="subtitle2">
-                                  Адрес
-                                </Typography>
-                                <Typography variant="body1">
-                                  {address?.address}
-                                </Typography>
-                              </Box>
-                              <Box>
-                                <Typography variant="subtitle2">
-                                  Город
-                                </Typography>
-                                <Typography variant="body1">
-                                  {address?.city}
-                                </Typography>
-                              </Box>
-                              <Box>
-                                <Typography variant="subtitle2">
-                                  Индекс
-                                </Typography>
-                                <Typography variant="body1">
-                                  {address?.zip_code}
-                                </Typography>
-                              </Box>
-                              {Object.keys(user.profile).length && (
-                                <Box>
-                                  <Typography variant="subtitle2">
-                                    Телефон
-                                  </Typography>
-                                  <Typography variant="body1">
-                                    {user.profile.phone}
-                                  </Typography>
-                                </Box>
-                              )}
-                              <Box>
-                                <Typography variant="subtitle2">
-                                  Email
-                                </Typography>
-                                <Typography variant="body1">
-                                  {user.email}
-                                </Typography>
-                              </Box>
+                          <Box className={classes.addressBox}>
+                            <Box>
+                              <Typography variant="subtitle2">Адрес</Typography>
+                              <Typography variant="body1">
+                                {address?.address}
+                              </Typography>
                             </Box>
-                          ) : (
-                            ''
-                          )}
+                            <Box>
+                              <Typography variant="subtitle2">Город</Typography>
+                              <Typography variant="body1">
+                                {address?.city}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography variant="subtitle2">
+                                Индекс
+                              </Typography>
+                              <Typography variant="body1">
+                                {address?.zip_code}
+                              </Typography>
+                            </Box>
+                          </Box>
                           <Box className={classes.editAddressButtonBox}>
                             <Button variant="contained">
                               Редактировать Адреса
@@ -253,7 +210,7 @@ export default function Dashboard({ session, user }: IProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
-  let user = {} as IUser;
+  let addresses = [] as IAddress[];
   if (session) {
     const userUrl = `http://0.0.0.0:8000/api/user/addresses/?user=${session?.user?.id}`;
     const config = {
@@ -262,8 +219,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         Authorization: `Token ${session?.user?.token}`,
       },
     };
-    const userPromise = await axios.get(userUrl, config);
-    user = userPromise.data;
+    const addressesPromise = await axios.get(userUrl, config);
+    addresses = addressesPromise.data;
+    console.log(addresses);
   }
   /* if (session && session.user?.email) { */
   /*   //Redirect uncomment later */
@@ -275,7 +233,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   /*   }; */
   /* } */
   return {
-    props: { session, user },
+    props: { session, addresses },
   };
 }
 
