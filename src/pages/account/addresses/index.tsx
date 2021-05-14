@@ -125,7 +125,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
           },
         };
         try {
-          // await axios.delete(url, config);
+          await axios.delete(url, config);
         } catch (e) {
           console.error('Cannot delete user address ', e);
         }
