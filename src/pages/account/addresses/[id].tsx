@@ -10,6 +10,8 @@ import {
   Paper,
   Box,
   Chip,
+  TextField,
+  Checkbox,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -36,6 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
     right: {
       [theme.breakpoints.down('xs')]: {
         paddingTop: theme.spacing(2),
+      },
+    },
+    formBox: {
+      display: 'flex',
+      flexDirection: 'column',
+      '& > *': {
+        border: '1px solid blue',
       },
     },
   })
@@ -66,7 +75,47 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
               </Grid>
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
-                  <Grid item container xs={12}></Grid>
+                  <Grid item container xs={12}>
+                    <Box className={classes.formBox}>
+                      <Box>
+                        <TextField
+                          label="Size"
+                          id="city"
+                          defaultValue="Small"
+                          size="small"
+                          variant="outlined"
+                        />
+                      </Box>
+                      <Box>
+                        <TextField
+                          label="Size"
+                          id="address"
+                          defaultValue="Small"
+                          size="small"
+                          variant="outlined"
+                        />
+                      </Box>
+                      <Box>
+                        <TextField
+                          label="Size"
+                          id="zipcode"
+                          defaultValue="Small"
+                          size="small"
+                          variant="outlined"
+                        />
+                      </Box>
+                      <Box>
+                        <Checkbox
+                          defaultChecked
+                          color="primary"
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                      </Box>
+                      <Button variant="contained" color="primary">
+                        Сохранить
+                      </Button>
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
@@ -105,7 +154,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 const AddressesdHead = () => (
   <Head>
-    <title key="title">Редактировать Адреса</title>
+    <title key="title">Редактировать Адрес</title>
     <meta
       key="description"
       name="description"
