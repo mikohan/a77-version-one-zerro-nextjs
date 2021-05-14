@@ -77,6 +77,11 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   console.log(addressFromServer);
+  const [address, setAddress] = useState<IAddress>({} as IAddress);
+
+  useEffect(() => {
+    setAddress(addressFromServer);
+  }, []);
 
   if (session) {
     return (
@@ -111,7 +116,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             required
                             label="Город"
                             id="city"
-                            defaultValue="Small"
+                            defaultValue={address.city}
                             size="small"
                             variant="outlined"
                             fullWidth
