@@ -34,7 +34,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
-import { IUser } from '~/interfaces';
+import { IUser, IAddress } from '~/interfaces';
 import { Session } from 'next-auth';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -134,6 +134,9 @@ export default function Dashboard({ session, user }: IProps) {
     router.push(url.account.profile());
   }
   console.log(user);
+  const address = user.address_user.find(
+    (address: IAddress) => address.default === true
+  );
 
   if (session) {
     return (

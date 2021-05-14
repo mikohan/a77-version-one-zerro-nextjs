@@ -15,6 +15,7 @@ export interface IAddress {
   city: string;
   zip_code: string;
   address: string;
+  default: boolean;
 }
 
 export interface IUser {
