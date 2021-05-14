@@ -50,6 +50,9 @@ export const ConfirmationServiceProvider = ({ children }: any) => {
       />
 
       <ConfirmationDialog
+        description="some"
+        title="some"
+        variant="danger"
         open={Boolean(confirmationState)}
         onSubmit={handleSubmit}
         onClose={handleClose}
