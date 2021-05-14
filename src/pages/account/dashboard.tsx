@@ -136,7 +136,6 @@ export default function Dashboard({ session, user }: IProps) {
   function goProfile() {
     router.push(url.account.profile());
   }
-  console.log(user);
   let address = {} as IAddress;
   if (user.address_user && user.address_user.length) {
     const find = user.address_user.find(
@@ -147,6 +146,9 @@ export default function Dashboard({ session, user }: IProps) {
     } else {
       address = user.address_user[0];
     }
+  }
+  function handleAddresses() {
+    router.push(url.account.addresses());
   }
 
   if (session) {
@@ -205,7 +207,7 @@ export default function Dashboard({ session, user }: IProps) {
                           >
                             Адрес Доставки
                           </Typography>
-                          <Chip size="small" label="Default" />
+                          <Chip size="small" label="Основной" />
                         </Box>
                         {Object.keys(user.address_user).length ? (
                           <Box className={classes.addressBox}>
@@ -250,7 +252,7 @@ export default function Dashboard({ session, user }: IProps) {
                           ''
                         )}
                         <Box className={classes.editAddressButtonBox}>
-                          <Button variant="contained">
+                          <Button onClick={handleAddresses} variant="contained">
                             Редактировать Адреса
                           </Button>
                         </Box>
