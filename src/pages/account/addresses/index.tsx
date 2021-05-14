@@ -35,6 +35,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { IUser, IAddress } from '~/interfaces';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -119,6 +120,23 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(1),
       textAlign: 'center',
     },
+    addAddress: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100%',
+    },
+
+    addIcon: {
+      fontSize: '5rem',
+      color: theme.palette.action.selected,
+    },
+    addButton: {
+      position: 'absolute',
+      bottom: theme.spacing(3),
+    },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -129,8 +147,10 @@ interface IProps {
 export default function Dashboard({ session, addresses }: IProps) {
   const classes = useStyles();
   const router = useRouter();
-  /* const [session, loading] = useSession(); */
-  //const router = useRouter();
+
+  function addAddress() {
+    router.push(url.account.addAddress());
+  }
 
   if (session) {
     return (
@@ -149,8 +169,20 @@ export default function Dashboard({ session, addresses }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
+                    <Grid className={classes.addressGrid} item xs={12} md={4}>
+                      <Paper className={classes.addAddress}>
+                        <AddCircleOutlineIcon className={classes.addIcon} />
+                        <Button
+                          className={classes.addButton}
+                          variant="contained"
+                          onClick={addAddress}
+                        >
+                          Добавить Адрес
+                        </Button>
+                      </Paper>
+                    </Grid>
                     {addresses.map((address: IAddress) => (
-                      <Grid className={classes.addressGrid} item xs={12} md={6}>
+                      <Grid className={classes.addressGrid} item xs={12} md={4}>
                         <Paper className={classes.address}>
                           <Box className={classes.chipBox}>
                             <Typography
@@ -159,7 +191,9 @@ export default function Dashboard({ session, addresses }: IProps) {
                             >
                               Адрес Доставки
                             </Typography>
-                            <Chip size="small" label="Основной" />
+                            {address.default && (
+                              <Chip size="small" label="Основной" />
+                            )}
                           </Box>
                           <Box className={classes.addressBox}>
                             <Box>
