@@ -9,7 +9,6 @@ import {
   Container,
   Paper,
   Box,
-  Chip,
   TextField,
   Checkbox,
 } from '@material-ui/core';
@@ -81,7 +80,6 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
   useEffect(() => {
     setAddress(addressFromServer);
   }, []);
-  console.log(address);
   function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
     const newState = { ...address, city: event.target.value };
     setAddress(newState);
@@ -94,7 +92,23 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
     const newState = { ...address, zip_code: event.target.value };
     setAddress(newState);
   }
-  console.log(address);
+  function handleDefalut(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, default: event.target.checked };
+    setAddress(newState);
+  }
+  function submitChanges() {
+    async function sendToServer() {
+      const url = `${userAddressesListUrl}${id}/`;
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${session?.user?.token}`,
+        },
+      };
+
+      const promise = await axios.put(url, config);
+    }
+  }
 
   if (session) {
     return (
@@ -175,7 +189,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                       </Box>
                       <Box className={classes.checkboxBox}>
                         <Checkbox
-                          defaultChecked
+                          onChange={handleDefalut}
                           color="primary"
                           inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />
@@ -220,7 +234,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     address = addressesPromise.data;
   }
   return {
-    props: { session, addressFromServer: address },
+    props: { session, addressFromServer: address, id },
   };
 }
 
