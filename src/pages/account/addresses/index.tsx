@@ -132,6 +132,9 @@ const useStyles = makeStyles((theme: Theme) =>
     addIcon: {
       fontSize: '5rem',
       color: theme.palette.action.selected,
+      '&:hover': {
+        cursor: 'pointer',
+      },
     },
     addButton: {
       position: 'absolute',
@@ -171,7 +174,10 @@ export default function Dashboard({ session, addresses }: IProps) {
                   <Grid item container xs={12}>
                     <Grid className={classes.addressGrid} item xs={12} md={4}>
                       <Paper className={classes.addAddress}>
-                        <AddCircleOutlineIcon className={classes.addIcon} />
+                        <AddCircleOutlineIcon
+                          onClick={addAddress}
+                          className={classes.addIcon}
+                        />
                         <Button
                           className={classes.addButton}
                           variant="contained"
