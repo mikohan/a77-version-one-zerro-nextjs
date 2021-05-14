@@ -62,6 +62,8 @@ const url: { [key: string]: any } = {
     dashboard: () => `/account/dashboard`,
     garage: () => `/account/garage`,
     addresses: () => `/account/addresses`,
+    addAddress: () => `/account/addresses/new`,
+    editAddress: (id: number) => `/account/addresses/${id}`,
   },
 };
 
