@@ -5,12 +5,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { IAddress } from '~/interfaces/address';
+import { IAddress } from '~/interfaces';
 
 interface IProps {
   openDelete: boolean;
   setOpenDelete(d: boolean): void;
-  setConfirm(d: number): void;
   address: IAddress;
   handleConfirm(id: number): void;
 }

@@ -162,19 +162,14 @@ export default function Dashboard({ session, addresses }: IProps) {
   }
 
   const [openDelete, setOpenDelete] = useState(false);
-  const [confirm, setConfirm] = useState(0);
 
   function deleteAddress(id: number) {
     setOpenDelete(true);
-    if (confirm) {
-      console.log(confirm);
-    }
   }
-  useEffect(() => {
-    if (confirm) {
-      console.log('Dlete item', confirm);
-    }
-  }, [confirm]);
+  function handleConfirm(id: number) {
+    console.log('Delete item id:', id);
+    setOpenDelete(false);
+  }
 
   if (session) {
     return (
@@ -213,8 +208,8 @@ export default function Dashboard({ session, addresses }: IProps) {
                         <ConfirmDelete
                           openDelete={openDelete}
                           setOpenDelete={setOpenDelete}
-                          setConfirm={setConfirm}
-                          id={address.id}
+                          handleConfirm={handleConfirm}
+                          address={address}
                         />
                         <Grid
                           className={classes.addressGrid}
