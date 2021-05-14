@@ -82,6 +82,9 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
     setAddress(addressFromServer);
   }, []);
   console.log(address);
+  function handleCity(event: React.ChangeEvent<HTMLInputElement>) {}
+  function handleAddress(event: React.ChangeEvent<HTMLInputElement>) {}
+  function handleZipCode(event: React.ChangeEvent<HTMLInputElement>) {}
 
   if (session) {
     return (
@@ -120,6 +123,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             size="small"
                             variant="outlined"
                             fullWidth
+                            onChange={handleCity}
                           />
                         </Box>
                         <Box>
@@ -137,6 +141,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             size="small"
                             variant="outlined"
                             fullWidth
+                            onChange={handleAddress}
                           />
                         </Box>
                         <Box>
@@ -154,6 +159,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             size="small"
                             variant="outlined"
                             fullWidth
+                            onChange={handleZipCode}
                           />
                         </Box>
                       </Box>
