@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { IAddress } from '~/interfaces';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { userAddressesListUrl } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -248,7 +249,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
   let addresses = [] as IAddress[];
   if (session) {
-    const userUrl = `http://0.0.0.0:8000/api/user/addresses/?user=${session?.user?.id}`;
+    const userUrl = `${userAddressesListUrl}?user=${session?.user?.id}`;
     const config = {
       headers: {
         'Content-Type': 'application/json',
