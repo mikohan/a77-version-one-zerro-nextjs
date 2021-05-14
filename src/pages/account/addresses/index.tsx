@@ -166,36 +166,6 @@ export default function Dashboard({ session, user }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
-                    <Grid className={classes.avatarGrid} item xs={12} md={6}>
-                      <Paper className={classes.paper}>
-                        <Box className={classes.userPaper}>
-                          <Avatar
-                            className={classes.avatar}
-                            src={
-                              user.hasOwnProperty('profile')
-                                ? user.profile.image
-                                : ''
-                            }
-                          >
-                            {session.user?.email?.charAt(0).toUpperCase()}
-                          </Avatar>
-                          <Typography variant="h6">Добро пожаловать</Typography>
-                          <Typography variant="body1">{user.email}</Typography>
-                          {user.first_name && (
-                            <Typography variant="body1">
-                              {user.first_name}!
-                            </Typography>
-                          )}
-                          <Button
-                            className={classes.profileButton}
-                            onClick={goProfile}
-                            variant="contained"
-                          >
-                            Изменить профиль
-                          </Button>
-                        </Box>
-                      </Paper>
-                    </Grid>
                     <Grid className={classes.addressGrid} item xs={12} md={6}>
                       <Paper className={classes.address}>
                         <Box className={classes.chipBox}>
@@ -256,37 +226,6 @@ export default function Dashboard({ session, user }: IProps) {
                         </Box>
                       </Paper>
                     </Grid>
-                  </Grid>
-                  <Grid className={classes.ordersGrid} item xs={12}>
-                    <Paper>
-                      <Typography className={classes.orderTitle} variant="h6">
-                        Последние заказы
-                      </Typography>
-                      <TableContainer>
-                        <Table aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Dessert (100g serving)</TableCell>
-                              <TableCell align="left">Номер</TableCell>
-                              <TableCell align="left">Дата</TableCell>
-                              <TableCell align="left">Статус</TableCell>
-                              <TableCell align="left">Сумма</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell component="th" scope="row">
-                                #123
-                              </TableCell>
-                              <TableCell align="left">lorem</TableCell>
-                              <TableCell align="left">ipsum</TableCell>
-                              <TableCell align="left">dolor</TableCell>
-                              <TableCell align="left">sit</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Paper>
                   </Grid>
                 </Grid>
               </Grid>
