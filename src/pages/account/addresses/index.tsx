@@ -137,6 +137,9 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
       setAddresses(newAddresses);
     }
   }
+  function goEditAddress(id: number) {
+    router.push(url.account.editAddress(id));
+  }
 
   if (session) {
     return (
@@ -217,7 +220,11 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
                               </Box>
                             </Box>
                             <Box className={classes.editAddressButtonBox}>
-                              <Button variant="contained" color="primary">
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => goEditAddress(address.id)}
+                              >
                                 Редактировать
                               </Button>
                               <Button
