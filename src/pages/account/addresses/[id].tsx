@@ -100,7 +100,7 @@ export default function EditAddress({
     const newState = { ...address, default: event.target.checked };
     setAddress(newState);
   }
-  function submitChanges() {
+  function handleSubmit() {
     async function sendToServer() {
       const url = `${userAddressesListUrl}${id}/`;
       const config = {
@@ -109,9 +109,18 @@ export default function EditAddress({
           Authorization: `Token ${session?.user?.token}`,
         },
       };
+      console.log(config.headers.Authorization);
 
-      const promise = await axios.put(url, config);
+      try {
+        const promise = await axios.put(url, address, config);
+        if (promise) {
+          setAddress(promise.data);
+        }
+      } catch (e) {
+        console.log('Cannot update address', e);
+      }
     }
+    sendToServer();
   }
 
   if (session) {
@@ -201,7 +210,11 @@ export default function EditAddress({
                           Сделать основным адресом
                         </Typography>
                       </Box>
-                      <Button variant="contained" color="primary">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                      >
                         Сохранить
                       </Button>
                     </Paper>
