@@ -5,27 +5,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { IAddress } from '~/interfaces/address';
 
 interface IProps {
   openDelete: boolean;
   setOpenDelete(d: boolean): void;
   setConfirm(d: number): void;
-  id: number;
+  address: IAddress;
+  handleConfirm(id: number): void;
 }
 
 export default function AlertDialog({
   openDelete,
   setOpenDelete,
-  setConfirm,
-  id,
+  address,
+  handleConfirm,
 }: IProps) {
   const handleClose = () => {
     setOpenDelete(false);
   };
-  function handleConfirm(id: number) {
-    setConfirm(id);
-    setOpenDelete(false);
-  }
 
   return (
     <div>
@@ -48,7 +46,11 @@ export default function AlertDialog({
           <Button onClick={handleClose} color="primary">
             Закрыть
           </Button>
-          <Button onClick={() => handleConfirm(id)} color="primary" autoFocus>
+          <Button
+            onClick={() => handleConfirm(address.id)}
+            color="primary"
+            autoFocus
+          >
             Удалить
           </Button>
         </DialogActions>
