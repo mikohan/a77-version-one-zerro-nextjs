@@ -117,6 +117,7 @@ export default function Dashboard({ session, user }: IProps) {
   function goProfile() {
     router.push(url.account.profile());
   }
+  console.log(user);
 
   if (session) {
     return (
@@ -166,7 +167,38 @@ export default function Dashboard({ session, user }: IProps) {
                       </Paper>
                     </Grid>
                     <Grid className={classes.addressGrid} item xs={12} md={6}>
-                      <Paper className={classes.address}></Paper>
+                      <Paper className={classes.address}>
+                        <Typography variant="h6">Адрес Доставки</Typography>
+                        {Object.keys(user.address_user).length ? (
+                          <Box>
+                            <Typography variant="body1">
+                              {user.address_user[0].address}
+                            </Typography>
+                            <Typography variant="body1">
+                              {user.address_user[0].city}
+                            </Typography>
+                            <Typography variant="body1">
+                              {user.address_user[0].zip_code}
+                            </Typography>
+                            {Object.keys(user.profile).length && (
+                              <React.Fragment>
+                                <Typography variant="subtitle2">
+                                  Телефон
+                                </Typography>
+                                <Typography variant="body1">
+                                  {user.profile.phone}
+                                </Typography>
+                              </React.Fragment>
+                            )}
+                            <Typography variant="subtitle2">Телефон</Typography>
+                            <Typography variant="body1">
+                              {user.email}
+                            </Typography>
+                          </Box>
+                        ) : (
+                          ''
+                        )}
+                      </Paper>
                     </Grid>
                   </Grid>
                   <Grid className={classes.ordersGrid} item xs={12}>

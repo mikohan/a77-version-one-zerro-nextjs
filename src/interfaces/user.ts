@@ -10,6 +10,13 @@ export interface IUserProfile {
   phone: string;
 }
 
+export interface IAddress {
+  id: number;
+  city: string;
+  zip_code: string;
+  address: string;
+}
+
 export interface IUser {
   id: number;
   username: string;
@@ -19,4 +26,5 @@ export interface IUser {
   data_joined: Date;
   last_login: Date;
   profile: IUserProfile;
+  address_user: IAddress[];
 }
