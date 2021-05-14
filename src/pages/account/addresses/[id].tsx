@@ -82,9 +82,19 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
     setAddress(addressFromServer);
   }, []);
   console.log(address);
-  function handleCity(event: React.ChangeEvent<HTMLInputElement>) {}
-  function handleAddress(event: React.ChangeEvent<HTMLInputElement>) {}
-  function handleZipCode(event: React.ChangeEvent<HTMLInputElement>) {}
+  function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, city: event.target.value };
+    setAddress(newState);
+  }
+  function handleAddress(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, address: event.target.value };
+    setAddress(newState);
+  }
+  function handleZipCode(event: React.ChangeEvent<HTMLInputElement>) {
+    const newState = { ...address, zip_code: event.target.value };
+    setAddress(newState);
+  }
+  console.log(address);
 
   if (session) {
     return (
