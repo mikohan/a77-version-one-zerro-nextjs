@@ -117,7 +117,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
     if (confirm('Удалить адрес?')) {
       console.log('Deleted id ', id);
       async function deleteAddress(id: number) {
-        const url = `http://0.0.0.0:8000/api/user/addresses/${id}/`;
+        const url = `${userAddressesListUrl}/${id}/`;
         const config = {
           headers: {
             'Content-Type': 'application/json',
