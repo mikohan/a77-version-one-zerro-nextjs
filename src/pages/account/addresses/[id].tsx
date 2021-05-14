@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       '& > *': {
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
         border: '1px solid blue',
       },
     },
