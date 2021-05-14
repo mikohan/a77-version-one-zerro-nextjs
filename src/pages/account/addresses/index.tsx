@@ -166,66 +166,74 @@ export default function Dashboard({ session, user }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
-                    <Grid className={classes.addressGrid} item xs={12} md={6}>
-                      <Paper className={classes.address}>
-                        <Box className={classes.chipBox}>
-                          <Typography
-                            className={classes.addressTitle}
-                            variant="h6"
-                          >
-                            Адрес Доставки
-                          </Typography>
-                          <Chip size="small" label="Основной" />
-                        </Box>
-                        {Object.keys(user.address_user).length ? (
-                          <Box className={classes.addressBox}>
-                            <Box>
-                              <Typography variant="subtitle2">Адрес</Typography>
-                              <Typography variant="body1">
-                                {address?.address}
-                              </Typography>
-                            </Box>
-                            <Box>
-                              <Typography variant="subtitle2">Город</Typography>
-                              <Typography variant="body1">
-                                {address?.city}
-                              </Typography>
-                            </Box>
-                            <Box>
-                              <Typography variant="subtitle2">
-                                Индекс
-                              </Typography>
-                              <Typography variant="body1">
-                                {address?.zip_code}
-                              </Typography>
-                            </Box>
-                            {Object.keys(user.profile).length && (
+                    {addresses.map((address: IAdress) => (
+                      <Grid className={classes.addressGrid} item xs={12} md={6}>
+                        <Paper className={classes.address}>
+                          <Box className={classes.chipBox}>
+                            <Typography
+                              className={classes.addressTitle}
+                              variant="h6"
+                            >
+                              Адрес Доставки
+                            </Typography>
+                            <Chip size="small" label="Основной" />
+                          </Box>
+                          {Object.keys(user.address_user).length ? (
+                            <Box className={classes.addressBox}>
                               <Box>
                                 <Typography variant="subtitle2">
-                                  Телефон
+                                  Адрес
                                 </Typography>
                                 <Typography variant="body1">
-                                  {user.profile.phone}
+                                  {address?.address}
                                 </Typography>
                               </Box>
-                            )}
-                            <Box>
-                              <Typography variant="subtitle2">Email</Typography>
-                              <Typography variant="body1">
-                                {user.email}
-                              </Typography>
+                              <Box>
+                                <Typography variant="subtitle2">
+                                  Город
+                                </Typography>
+                                <Typography variant="body1">
+                                  {address?.city}
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography variant="subtitle2">
+                                  Индекс
+                                </Typography>
+                                <Typography variant="body1">
+                                  {address?.zip_code}
+                                </Typography>
+                              </Box>
+                              {Object.keys(user.profile).length && (
+                                <Box>
+                                  <Typography variant="subtitle2">
+                                    Телефон
+                                  </Typography>
+                                  <Typography variant="body1">
+                                    {user.profile.phone}
+                                  </Typography>
+                                </Box>
+                              )}
+                              <Box>
+                                <Typography variant="subtitle2">
+                                  Email
+                                </Typography>
+                                <Typography variant="body1">
+                                  {user.email}
+                                </Typography>
+                              </Box>
                             </Box>
+                          ) : (
+                            ''
+                          )}
+                          <Box className={classes.editAddressButtonBox}>
+                            <Button variant="contained">
+                              Редактировать Адреса
+                            </Button>
                           </Box>
-                        ) : (
-                          ''
-                        )}
-                        <Box className={classes.editAddressButtonBox}>
-                          <Button variant="contained">
-                            Редактировать Адреса
-                          </Button>
-                        </Box>
-                      </Paper>
-                    </Grid>
+                        </Paper>
+                      </Grid>
+                    ))}
                   </Grid>
                 </Grid>
               </Grid>
@@ -247,7 +255,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
   let user = {} as IUser;
   if (session) {
-    const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
+    const userUrl = `http://0.0.0.0:8000/api/user/addresses/?user=${session?.user?.id}`;
     const config = {
       headers: {
         'Content-Type': 'application/json',
