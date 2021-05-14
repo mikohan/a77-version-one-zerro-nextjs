@@ -3,7 +3,6 @@ import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import {
-  TextField,
   Button,
   Grid,
   Typography,
@@ -14,29 +13,14 @@ import {
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import {
-  getProviders,
-  signIn,
-  signOut,
-  getSession,
-  getCsrfToken,
-  useSession,
-} from 'next-auth/client';
-import Avatar from '@material-ui/core/Avatar';
+import { getSession } from 'next-auth/client';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
-import { IUser, IAddress } from '~/interfaces';
+import { IAddress } from '~/interfaces';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import ConfirmDelete from '~/components/account/ConfirmDelete';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
