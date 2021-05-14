@@ -107,7 +107,10 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingBottom: theme.spacing(0.5),
       },
     },
-    chipBox: {},
+    chipBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
     addressTitle: {
       paddingBottom: theme.spacing(2),
     },
@@ -202,6 +205,7 @@ export default function Dashboard({ session, user }: IProps) {
                           >
                             Адрес Доставки
                           </Typography>
+                          <Chip size="small" label="Default" />
                         </Box>
                         {Object.keys(user.address_user).length ? (
                           <Box className={classes.addressBox}>
