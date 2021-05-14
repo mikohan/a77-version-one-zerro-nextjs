@@ -36,6 +36,7 @@ import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { IUser, IAddress } from '~/interfaces';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import ConfirmDelete from '~/components/account/ConfirmDelete';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -159,14 +160,21 @@ export default function Dashboard({ session, addresses }: IProps) {
   function addAddress() {
     router.push(url.account.addAddress());
   }
-  function deleteAddress(id: number) {
-    console.log(id);
-  }
 
-  const [openDelete, setOpenDelete] = React.useState(false);
-  const handleClickOpen = () => {
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirm, setConfirm] = useState(0);
+
+  function deleteAddress(id: number) {
     setOpenDelete(true);
-  };
+    if (confirm) {
+      console.log(confirm);
+    }
+  }
+  useEffect(() => {
+    if (confirm) {
+      console.log('Dlete item', confirm);
+    }
+  }, [confirm]);
 
   if (session) {
     return (
@@ -201,55 +209,72 @@ export default function Dashboard({ session, addresses }: IProps) {
                       </Paper>
                     </Grid>
                     {addresses.map((address: IAddress) => (
-                      <Grid className={classes.addressGrid} item xs={12} md={4}>
-                        <Paper className={classes.address}>
-                          <Box className={classes.chipBox}>
-                            <Typography
-                              className={classes.addressTitle}
-                              variant="h6"
-                            >
-                              Адрес Доставки
-                            </Typography>
-                            {address.default && (
-                              <Chip size="small" label="Основной" />
-                            )}
-                          </Box>
-                          <Box className={classes.addressBox}>
-                            <Box>
-                              <Typography variant="subtitle2">Адрес</Typography>
-                              <Typography variant="body1">
-                                {address?.address}
+                      <React.Fragment key={address.id}>
+                        <ConfirmDelete
+                          openDelete={openDelete}
+                          setOpenDelete={setOpenDelete}
+                          setConfirm={setConfirm}
+                          id={address.id}
+                        />
+                        <Grid
+                          className={classes.addressGrid}
+                          item
+                          xs={12}
+                          md={4}
+                        >
+                          <Paper className={classes.address}>
+                            <Box className={classes.chipBox}>
+                              <Typography
+                                className={classes.addressTitle}
+                                variant="h6"
+                              >
+                                Адрес Доставки
                               </Typography>
+                              {address.default && (
+                                <Chip size="small" label="Основной" />
+                              )}
                             </Box>
-                            <Box>
-                              <Typography variant="subtitle2">Город</Typography>
-                              <Typography variant="body1">
-                                {address?.city}
-                              </Typography>
+                            <Box className={classes.addressBox}>
+                              <Box>
+                                <Typography variant="subtitle2">
+                                  Адрес
+                                </Typography>
+                                <Typography variant="body1">
+                                  {address?.address}
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography variant="subtitle2">
+                                  Город
+                                </Typography>
+                                <Typography variant="body1">
+                                  {address?.city}
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography variant="subtitle2">
+                                  Индекс
+                                </Typography>
+                                <Typography variant="body1">
+                                  {address?.zip_code}
+                                </Typography>
+                              </Box>
                             </Box>
-                            <Box>
-                              <Typography variant="subtitle2">
-                                Индекс
-                              </Typography>
-                              <Typography variant="body1">
-                                {address?.zip_code}
-                              </Typography>
+                            <Box className={classes.editAddressButtonBox}>
+                              <Button variant="contained" color="primary">
+                                Редактировать
+                              </Button>
+                              <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => deleteAddress(address.id)}
+                              >
+                                Удалить
+                              </Button>
                             </Box>
-                          </Box>
-                          <Box className={classes.editAddressButtonBox}>
-                            <Button variant="contained" color="primary">
-                              Редактировать
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              onClick={() => deleteAddress(address.id)}
-                            >
-                              Удалить
-                            </Button>
-                          </Box>
-                        </Paper>
-                      </Grid>
+                          </Paper>
+                        </Grid>
+                      </React.Fragment>
                     ))}
                   </Grid>
                 </Grid>

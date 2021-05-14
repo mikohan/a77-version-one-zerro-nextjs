@@ -7,27 +7,30 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface IProps {
-  openDelete(): void;
+  openDelete: boolean;
+  setOpenDelete(d: boolean): void;
+  setConfirm(d: number): void;
+  id: number;
 }
 
-export default function AlertDialog({ openDelete }: IProps) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
+export default function AlertDialog({
+  openDelete,
+  setOpenDelete,
+  setConfirm,
+  id,
+}: IProps) {
   const handleClose = () => {
-    setOpen(false);
+    setOpenDelete(false);
   };
+  function handleConfirm(id: number) {
+    setConfirm(id);
+    setOpenDelete(false);
+  }
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={openDelete}>
-        Open alert dialog
-      </Button>
       <Dialog
-        open={open}
+        open={openDelete}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -45,7 +48,7 @@ export default function AlertDialog({ openDelete }: IProps) {
           <Button onClick={handleClose} color="primary">
             Закрыть
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={() => handleConfirm(id)} color="primary" autoFocus>
             Удалить
           </Button>
         </DialogActions>
