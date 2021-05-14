@@ -163,7 +163,7 @@ export default function Dashboard({ session, addresses }: IProps) {
 
   const [openDelete, setOpenDelete] = useState(false);
 
-  function deleteAddress(id: number) {
+  function confirmDelete() {
     setOpenDelete(true);
   }
   function handleConfirm(id: number) {
@@ -262,7 +262,7 @@ export default function Dashboard({ session, addresses }: IProps) {
                               <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => deleteAddress(address.id)}
+                                onClick={confirmDelete}
                               >
                                 Удалить
                               </Button>

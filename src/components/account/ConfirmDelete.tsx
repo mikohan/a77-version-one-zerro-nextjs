@@ -27,6 +27,7 @@ export default function AlertDialog({
   return (
     <div>
       <Dialog
+        id={address.id.toString()}
         open={openDelete}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
