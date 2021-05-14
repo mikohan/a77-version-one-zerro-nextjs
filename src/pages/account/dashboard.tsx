@@ -118,9 +118,6 @@ export default function Dashboard({ session, user }: IProps) {
     router.push(url.account.profile());
   }
 
-  useEffect(() => {}, []);
-  console.log(user);
-
   if (session) {
     return (
       <React.Fragment>
@@ -224,14 +221,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let user = {} as IUser;
   if (session) {
     const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
-    console.log(userUrl);
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${session?.user?.token}`,
       },
     };
-    console.log(session);
     const userPromise = await axios.get(userUrl, config);
     user = userPromise.data;
   }
