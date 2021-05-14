@@ -116,9 +116,14 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
     },
     editAddressButtonBox: {
+      display: 'flex',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       textAlign: 'center',
+      '& > *': {
+        marginLeft: theme.spacing(0.5),
+        marginRight: theme.spacing(0.5),
+      },
     },
     addAddress: {
       position: 'relative',
@@ -153,6 +158,9 @@ export default function Dashboard({ session, addresses }: IProps) {
 
   function addAddress() {
     router.push(url.account.addAddress());
+  }
+  function deleteAddress(id: number) {
+    console.log(id);
   }
 
   if (session) {
@@ -224,8 +232,15 @@ export default function Dashboard({ session, addresses }: IProps) {
                             </Box>
                           </Box>
                           <Box className={classes.editAddressButtonBox}>
-                            <Button variant="contained">
-                              Редактировать Адреса
+                            <Button variant="contained" color="primary">
+                              Редактировать
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              onClick={() => deleteAddress(address.id)}
+                            >
+                              Удалить
                             </Button>
                           </Box>
                         </Paper>
