@@ -311,15 +311,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const addressesPromise = await axios.get(userUrl, config);
     addresses = addressesPromise.data;
   }
-  /* if (session && session.user?.email) { */
-  /*   //Redirect uncomment later */
-  /*   return { */
-  /*     redirect: { */
-  /*       permanent: false, */
-  /*       destination: url.account.create(), */
-  /*     }, */
-  /*   }; */
-  /* } */
   return {
     props: { session, addressesFromServer: addresses },
   };
