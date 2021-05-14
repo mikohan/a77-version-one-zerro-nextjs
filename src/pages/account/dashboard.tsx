@@ -10,6 +10,7 @@ import {
   Container,
   Paper,
   Box,
+  Chip,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -22,7 +23,6 @@ import {
   useSession,
 } from 'next-auth/client';
 import Avatar from '@material-ui/core/Avatar';
-import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
@@ -35,7 +35,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { IUser, IAddress } from '~/interfaces';
-import { Session } from 'next-auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -108,6 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingBottom: theme.spacing(0.5),
       },
     },
+    chipBox: {},
     addressTitle: {
       paddingBottom: theme.spacing(2),
     },
@@ -134,9 +134,17 @@ export default function Dashboard({ session, user }: IProps) {
     router.push(url.account.profile());
   }
   console.log(user);
-  const address = user.address_user.find(
-    (address: IAddress) => address.default === true
-  );
+  let address = {} as IAddress;
+  if (user.address_user && user.address_user.length) {
+    const find = user.address_user.find(
+      (adr: IAddress) => adr.default === true
+    ) as IAddress;
+    if (find) {
+      address = find;
+    } else {
+      address = user.address_user[0];
+    }
+  }
 
   if (session) {
     return (
@@ -187,24 +195,26 @@ export default function Dashboard({ session, user }: IProps) {
                     </Grid>
                     <Grid className={classes.addressGrid} item xs={12} md={6}>
                       <Paper className={classes.address}>
-                        <Typography
-                          className={classes.addressTitle}
-                          variant="h6"
-                        >
-                          Адрес Доставки
-                        </Typography>
+                        <Box className={classes.chipBox}>
+                          <Typography
+                            className={classes.addressTitle}
+                            variant="h6"
+                          >
+                            Адрес Доставки
+                          </Typography>
+                        </Box>
                         {Object.keys(user.address_user).length ? (
                           <Box className={classes.addressBox}>
                             <Box>
                               <Typography variant="subtitle2">Адрес</Typography>
                               <Typography variant="body1">
-                                {user.address_user[0].address}
+                                {address?.address}
                               </Typography>
                             </Box>
                             <Box>
                               <Typography variant="subtitle2">Город</Typography>
                               <Typography variant="body1">
-                                {user.address_user[0].city}
+                                {address?.city}
                               </Typography>
                             </Box>
                             <Box>
@@ -212,7 +222,7 @@ export default function Dashboard({ session, user }: IProps) {
                                 Индекс
                               </Typography>
                               <Typography variant="body1">
-                                {user.address_user[0].zip_code}
+                                {address?.zip_code}
                               </Typography>
                             </Box>
                             {Object.keys(user.profile).length && (
