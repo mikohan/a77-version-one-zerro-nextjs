@@ -163,6 +163,11 @@ export default function Dashboard({ session, addresses }: IProps) {
     console.log(id);
   }
 
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpenDelete(true);
+  };
+
   if (session) {
     return (
       <React.Fragment>
