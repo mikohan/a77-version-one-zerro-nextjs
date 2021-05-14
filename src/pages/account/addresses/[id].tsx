@@ -76,12 +76,12 @@ interface IProps {
 export default function EditAddress({ session, addressFromServer }: IProps) {
   const classes = useStyles();
   const router = useRouter();
-  console.log(addressFromServer);
   const [address, setAddress] = useState<IAddress>({} as IAddress);
 
   useEffect(() => {
     setAddress(addressFromServer);
   }, []);
+  console.log(address);
 
   if (session) {
     return (
@@ -116,7 +116,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             required
                             label="Город"
                             id="city"
-                            defaultValue={address.city}
+                            defaultValue={addressFromServer.city}
                             size="small"
                             variant="outlined"
                             fullWidth
@@ -133,7 +133,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             required
                             label="Адрес"
                             id="address"
-                            defaultValue="Small"
+                            defaultValue={addressFromServer.address}
                             size="small"
                             variant="outlined"
                             fullWidth
@@ -150,7 +150,7 @@ export default function EditAddress({ session, addressFromServer }: IProps) {
                             className={classes.textField}
                             label="Индекс"
                             id="zipcode"
-                            defaultValue="Small"
+                            defaultValue={addressFromServer.zip_code}
                             size="small"
                             variant="outlined"
                             fullWidth
