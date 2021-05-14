@@ -201,6 +201,7 @@ export default function EditAddress({
                       </Box>
                       <Box className={classes.checkboxBox}>
                         <Checkbox
+                          defaultChecked={addressFromServer.default}
                           onChange={handleDefalut}
                           color="primary"
                           inputProps={{ 'aria-label': 'secondary checkbox' }}
