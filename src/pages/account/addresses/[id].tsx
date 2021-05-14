@@ -71,10 +71,14 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   session: any;
   addressFromServer: IAddress;
+  id: string | number;
 }
-export default function EditAddress({ session, addressFromServer }: IProps) {
+export default function EditAddress({
+  session,
+  addressFromServer,
+  id,
+}: IProps) {
   const classes = useStyles();
-  const router = useRouter();
   const [address, setAddress] = useState<IAddress>({} as IAddress);
 
   useEffect(() => {
