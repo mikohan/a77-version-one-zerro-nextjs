@@ -115,16 +115,19 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
 
   function confirmDelete(id: number) {
     if (confirm('Удалить адрес?')) {
-      console.log('Deleted id ', id);
       async function deleteAddress(id: number) {
-        const url = `${userAddressesListUrl}/${id}/`;
+        const url = `${userAddressesListUrl}${id}/`;
         const config = {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Token ${session?.user?.token}`,
           },
         };
-        const promise = await axios.delete(url, config);
+        try {
+          await axios.delete(url, config);
+        } catch (e) {
+          console.error('Cannot delete user address ', e);
+        }
       }
       deleteAddress(id);
       const newAddresses = addresses.filter(
