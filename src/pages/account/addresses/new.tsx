@@ -106,6 +106,8 @@ export default function Dashboard({ session }: IProps) {
   useEffect(() => {
     if (address.city && address.address) {
       setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
     }
   }, [address]);
   function handleSubmit() {

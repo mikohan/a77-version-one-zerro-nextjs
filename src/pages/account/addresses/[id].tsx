@@ -131,8 +131,6 @@ export default function EditAddress({
       setDisabledButton(false);
     }
   }, [address]);
-  console.log(disabledButton);
-  console.log(address);
 
   if (session) {
     return (
