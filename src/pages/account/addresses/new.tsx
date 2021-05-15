@@ -73,13 +73,13 @@ interface IProps {
 }
 export default function Dashboard({ session }: IProps) {
   const classes = useStyles();
+  const [empty, setEmpty] = useState<boolean>(false);
   const [address, setAddress] = useState<IAddress>({
     city: '',
     address: '',
     zip_code: '',
     default: false,
   } as IAddress);
-  const router = useRouter();
 
   function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
     const newState = { ...address, city: event.target.value };
@@ -98,6 +98,11 @@ export default function Dashboard({ session }: IProps) {
     setAddress(newState);
   }
   function handleSubmit() {
+    // Validation
+    if (!address.city) {
+      setEmpty(true);
+    }
+
     async function sendToServer() {
       const url = `${userAddressesListUrl}`;
       const config = {
@@ -122,6 +127,13 @@ export default function Dashboard({ session }: IProps) {
       }
     }
     sendToServer();
+  }
+  function handleEmpy(event: React.FocusEvent<HTMLInputElement>) {
+    /* if (event.target.value) { */
+    /*   setEmpty(false); */
+    /* } else { */
+    /*   setEmpty(true); */
+    /* } */
   }
 
   if (session) {
@@ -154,6 +166,8 @@ export default function Dashboard({ session }: IProps) {
                             Город
                           </Typography>
                           <TextField
+                            error={empty}
+                            onBlur={handleEmpy}
                             required
                             label="Город"
                             id="city"
