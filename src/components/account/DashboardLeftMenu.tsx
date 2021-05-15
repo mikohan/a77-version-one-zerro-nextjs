@@ -51,7 +51,7 @@ export default function SimpleList() {
         <MenuItem>
           <ListItemText primary="Профиль" onClick={handleProfile} />
         </MenuItem>
-        <MenuItem onClick={handleAddresses}>Addresses</MenuItem>
+        <MenuItem onClick={handleAddresses}>Мои Адреса</MenuItem>
       </List>
       <Divider />
       <List component="nav" aria-label="secondary mailbox folders">
