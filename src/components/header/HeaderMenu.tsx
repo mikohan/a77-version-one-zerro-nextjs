@@ -96,7 +96,11 @@ export const LoginMenu = ({
       ) : (
         <MenuItem>{session.user?.email}</MenuItem>
       )}
-      <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
+      <Link href={`${url.account.dashboard()}`}>
+        <a>
+          <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
+        </a>
+      </Link>
       <Link href={`${url.account.create()}`}>
         <a>
           <MenuItem onClick={handleClose}>Создать Аккаунт</MenuItem>

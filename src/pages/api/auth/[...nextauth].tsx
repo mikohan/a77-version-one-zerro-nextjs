@@ -7,14 +7,14 @@ import Providers from 'next-auth/providers';
 
 const options = {
   providers: [
-    Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    Providers.Yandex({
-      clientId: process.env.YANDEX_CLIENT_ID,
-      clientSecret: process.env.YANDEX_CLIENT_SECRET,
-    }),
+    /* Providers.GitHub({ */
+    /*   clientId: process.env.GITHUB_ID, */
+    /*   clientSecret: process.env.GITHUB_SECRET, */
+    /* }), */
+    /* Providers.Yandex({ */
+    /*   clientId: process.env.YANDEX_CLIENT_ID, */
+    /*   clientSecret: process.env.YANDEX_CLIENT_SECRET, */
+    /* }), */
     Providers.Credentials({
       name: 'Custom provider',
       credentials: {

@@ -79,7 +79,6 @@ export default function CreateForm() {
       };
       try {
         const key = await axios.post(apiUrl, sendD);
-        console.log(key.data);
       } catch (e) {
         console.log(e);
       }
