@@ -29,6 +29,9 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
 export default function SimpleList() {
   const classes = useStyles();
   const router = useRouter();
+  function handleDashboard() {
+    router.push(url.account.dashboard());
+  }
   function handleGarage() {
     router.push(url.account.garage());
   }
@@ -45,6 +48,9 @@ export default function SimpleList() {
         Навигация
       </Typography>
       <List>
+        <MenuItem>
+          <ListItemText primary="Панель управления" onClick={handleDashboard} />
+        </MenuItem>
         <MenuItem>
           <ListItemText primary="Гараж" onClick={handleGarage} />
         </MenuItem>
