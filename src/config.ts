@@ -37,6 +37,7 @@ export const cagegoriesUrl =
 //Here starts account endpoints
 
 export const userAddressesListUrl = `${backServerUrlRest}/api/user/addresses/`;
+export const userRegisterUrl = `${backServerUrlRest}/api/rest-auth/registration/`;
 
 export const getCategoryBySlugUrl =
   'http://localhost:8000/api/product/a77category/';

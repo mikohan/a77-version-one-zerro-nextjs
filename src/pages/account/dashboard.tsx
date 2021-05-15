@@ -200,62 +200,77 @@ export default function Dashboard({ session, user }: IProps) {
                     </Grid>
                     <Grid className={classes.addressGrid} item xs={12} md={6}>
                       <Paper className={classes.address}>
-                        <Box className={classes.chipBox}>
-                          <Typography
-                            className={classes.addressTitle}
-                            variant="h6"
-                          >
-                            Адрес Доставки
-                          </Typography>
-                          <Chip size="small" label="Основной" />
-                        </Box>
-                        {Object.keys(user.address_user).length ? (
-                          <Box className={classes.addressBox}>
-                            <Box>
-                              <Typography variant="subtitle2">Адрес</Typography>
-                              <Typography variant="body1">
-                                {address?.address}
+                        {Object.keys(user).length ? (
+                          <React.Fragment>
+                            <Box className={classes.chipBox}>
+                              <Typography
+                                className={classes.addressTitle}
+                                variant="h6"
+                              >
+                                Адрес Доставки
                               </Typography>
+                              <Chip size="small" label="Основной" />
                             </Box>
-                            <Box>
-                              <Typography variant="subtitle2">Город</Typography>
-                              <Typography variant="body1">
-                                {address?.city}
-                              </Typography>
-                            </Box>
-                            <Box>
-                              <Typography variant="subtitle2">
-                                Индекс
-                              </Typography>
-                              <Typography variant="body1">
-                                {address?.zip_code}
-                              </Typography>
-                            </Box>
-                            {Object.keys(user.profile).length && (
-                              <Box>
-                                <Typography variant="subtitle2">
-                                  Телефон
-                                </Typography>
-                                <Typography variant="body1">
-                                  {user.profile.phone}
-                                </Typography>
+                            {user && Object.keys(user.address_user).length ? (
+                              <Box className={classes.addressBox}>
+                                <Box>
+                                  <Typography variant="subtitle2">
+                                    Адрес
+                                  </Typography>
+                                  <Typography variant="body1">
+                                    {address?.address}
+                                  </Typography>
+                                </Box>
+                                <Box>
+                                  <Typography variant="subtitle2">
+                                    Город
+                                  </Typography>
+                                  <Typography variant="body1">
+                                    {address?.city}
+                                  </Typography>
+                                </Box>
+                                <Box>
+                                  <Typography variant="subtitle2">
+                                    Индекс
+                                  </Typography>
+                                  <Typography variant="body1">
+                                    {address?.zip_code}
+                                  </Typography>
+                                </Box>
+                                {Object.keys(user.profile).length && (
+                                  <Box>
+                                    <Typography variant="subtitle2">
+                                      Телефон
+                                    </Typography>
+                                    <Typography variant="body1">
+                                      {user.profile.phone}
+                                    </Typography>
+                                  </Box>
+                                )}
+                                <Box>
+                                  <Typography variant="subtitle2">
+                                    Email
+                                  </Typography>
+                                  <Typography variant="body1">
+                                    {user.email}
+                                  </Typography>
+                                </Box>
                               </Box>
+                            ) : (
+                              ''
                             )}
-                            <Box>
-                              <Typography variant="subtitle2">Email</Typography>
-                              <Typography variant="body1">
-                                {user.email}
-                              </Typography>
+                            <Box className={classes.editAddressButtonBox}>
+                              <Button
+                                onClick={handleAddresses}
+                                variant="contained"
+                              >
+                                Редактировать Адреса
+                              </Button>
                             </Box>
-                          </Box>
+                          </React.Fragment>
                         ) : (
                           ''
                         )}
-                        <Box className={classes.editAddressButtonBox}>
-                          <Button onClick={handleAddresses} variant="contained">
-                            Редактировать Адреса
-                          </Button>
-                        </Box>
                       </Paper>
                     </Grid>
                   </Grid>
@@ -310,15 +325,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
   let user = {} as IUser;
   if (session) {
-    const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${session?.user?.token}`,
-      },
-    };
-    const userPromise = await axios.get(userUrl, config);
-    user = userPromise.data;
+    /* const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`; */
+    /* const config = { */
+    /*   headers: { */
+    /*     'Content-Type': 'application/json', */
+    /*     Authorization: `Token ${session?.user?.token}`, */
+    /*   }, */
+    /* }; */
+    /* const userPromise = await axios.get(userUrl, config); */
+    /* user = userPromise.data; */
   }
   /* if (session && session.user?.email) { */
   /*   //Redirect uncomment later */

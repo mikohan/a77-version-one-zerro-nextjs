@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL, userRegisterUrl } from '~/config';
 import {
   TextField,
   Button,
@@ -24,6 +24,8 @@ import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import { md5 } from 'hash-wasm';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,7 +81,28 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const csrfToken = await getCsrfToken(context);
   const session = await getSession(context);
   if (session && session.user?.email) {
-    //Redirect uncomment later
+    async function createUser() {
+      try {
+        console.log(session);
+        const data = {
+          username: session?.user?.email,
+          email: session?.user?.email,
+          password1: await md5(session?.user?.email as string),
+          password2: await md5(session?.user?.email as string),
+        };
+        //const promise = await axios.post(userRegisterUrl, data);
+        //console.log(promise);
+      } catch (e) {
+        console.log(e);
+      }
+      if (providers) {
+        if (providers.hasOwnProperty('credentials')) {
+          console.log(providers.credentials);
+        }
+      }
+    } //Redirect uncomment later
+
+    createUser();
     return {
       redirect: {
         permanent: false,

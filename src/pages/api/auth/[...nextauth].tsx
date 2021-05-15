@@ -60,6 +60,10 @@ const options = {
     /* }), */
   ],
   callbacks: {
+    signIn: async (user: any, account: any, profile: any) => {
+      //console.log(user, account, profile);
+      return Promise.resolve(user);
+    },
     jwt: async (token: any, user: any) => {
       //  "user" parameter is the object received from "authorize"
       //  "token" is being send below to "session" callback...
