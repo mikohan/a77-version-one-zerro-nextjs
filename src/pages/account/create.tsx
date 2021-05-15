@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL, userRegisterUrl } from '~/config';
+import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import {
   TextField,
   Button,
@@ -24,8 +24,6 @@ import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
-import { md5 } from 'hash-wasm';
-import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,28 +78,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const providers = await getProviders();
   const csrfToken = await getCsrfToken(context);
   const session = await getSession(context);
-  async function createUser() {
-    console.log('In not providers Credentials');
-    if (providers?.hasOwnProperty('github')) {
-      console.log('In not providers Credentials');
-      try {
-        console.log(session);
-        const data = {
-          username: session?.user?.email,
-          email: session?.user?.email,
-          password1: await md5(session?.user?.email as string),
-          password2: await md5(session?.user?.email as string),
-        };
-        const promise = await axios.post(userRegisterUrl, data);
-        console.log(promise);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    if (session && session.user?.email) {
-      //createUser();
-    } //Redirect uncomment later
-
+  if (session && session.user?.email) {
+    //Redirect uncomment later
     return {
       redirect: {
         permanent: false,
