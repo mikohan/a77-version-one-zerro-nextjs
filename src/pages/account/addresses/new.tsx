@@ -22,6 +22,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { IAddress } from '~/interfaces';
 import { userAddressesListUrl } from '~/config';
+import { Session } from 'next-auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,17 +69,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
-  session: any;
-  addresses: IAddress[];
+  session: Session | any;
 }
-export default function Dashboard({ session, addresses }: IProps) {
+export default function Dashboard({ session }: IProps) {
   const classes = useStyles();
-  const [address, setAddress] = useState<IAddress>({} as IAddress);
+  const [address, setAddress] = useState<IAddress>({
+    city: '',
+    address: '',
+    zip_code: '',
+    default: false,
+  } as IAddress);
   const router = useRouter();
 
-  function addAddress() {
-    router.push(url.account.addAddress());
-  }
   function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
     const newState = { ...address, city: event.target.value };
     setAddress(newState);
@@ -105,13 +107,18 @@ export default function Dashboard({ session, addresses }: IProps) {
         },
       };
 
+      const newState = { ...address, user: session?.user?.id };
+      setAddress(newState);
+
       try {
-        const promise = await axios.put(url, address, config);
+        console.log(address);
+        console.log(config.headers.Authorization);
+        const promise = await axios.post(url, address, config);
         if (promise) {
           setAddress(promise.data);
         }
       } catch (e) {
-        console.log('Cannot update address', e);
+        console.log('Cannot create address', e);
       }
     }
     sendToServer();
@@ -136,7 +143,7 @@ export default function Dashboard({ session, addresses }: IProps) {
                   <Grid item container xs={12}>
                     <Paper className={classes.formBox}>
                       <Typography className={classes.title} variant="h6">
-                        Редактировать Адрес
+                        Добавить Адрес
                       </Typography>
                       <Box className={classes.fieldsBox}>
                         <Box>
@@ -231,35 +238,14 @@ export default function Dashboard({ session, addresses }: IProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
-  let addresses = [] as IAddress[];
-  if (session) {
-    const userUrl = `http://0.0.0.0:8000/api/user/addresses/?user=${session?.user?.id}`;
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${session?.user?.token}`,
-      },
-    };
-    const addressesPromise = await axios.get(userUrl, config);
-    addresses = addressesPromise.data;
-  }
-  /* if (session && session.user?.email) { */
-  /*   //Redirect uncomment later */
-  /*   return { */
-  /*     redirect: { */
-  /*       permanent: false, */
-  /*       destination: url.account.create(), */
-  /*     }, */
-  /*   }; */
-  /* } */
   return {
-    props: { session, addresses },
+    props: { session },
   };
 }
 
 const AddressesdHead = () => (
   <Head>
-    <title key="title">Редактировать Адреса</title>
+    <title key="title">Добавить Адреса</title>
     <meta
       key="description"
       name="description"
