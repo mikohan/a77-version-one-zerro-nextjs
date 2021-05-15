@@ -325,25 +325,25 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session: any = await getSession(context);
   let user = {} as IUser;
   if (session) {
-    const userurl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
+    const userUrl = `http://localhost:8000/api/user/users/${session?.user?.id}/`;
     const config = {
       headers: {
-        'content-type': 'application/json',
-        authorization: `token ${session?.user?.token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Token ${session?.user?.token}`,
       },
     };
-    const userpromise = await axios.get(userurl, config);
-    user = userpromise.data;
+    const userPromise = await axios.get(userUrl, config);
+    user = userPromise.data;
   }
-  if (session && session.user?.email) {
-    /*   //redirect uncomment later */
-    return {
-      redirect: {
-        permanent: false,
-        destination: url.account.create(),
-      },
-    };
-  }
+  /* if (session && session.user?.email) { */
+  /*   //Redirect uncomment later */
+  /*   return { */
+  /*     redirect: { */
+  /*       permanent: false, */
+  /*       destination: url.account.create(), */
+  /*     }, */
+  /*   }; */
+  /* } */
   return {
     props: { session, user },
   };
