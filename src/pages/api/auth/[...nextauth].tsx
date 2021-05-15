@@ -85,6 +85,10 @@ const options = {
   pages: {
     signIn: '/account/create',
   },
+  secret: process.env.AUTH_SECRET,
+  jwt: {
+    secret: process.env.AUTH_SECRET,
+  },
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) =>

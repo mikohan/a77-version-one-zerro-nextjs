@@ -80,8 +80,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const providers = await getProviders();
   const csrfToken = await getCsrfToken(context);
   const session = await getSession(context);
-  if (session && session.user?.email) {
-    async function createUser() {
+  async function createUser() {
+    console.log('In not providers Credentials');
+    if (providers?.hasOwnProperty('github')) {
+      console.log('In not providers Credentials');
       try {
         console.log(session);
         const data = {
@@ -90,19 +92,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           password1: await md5(session?.user?.email as string),
           password2: await md5(session?.user?.email as string),
         };
-        //const promise = await axios.post(userRegisterUrl, data);
-        //console.log(promise);
+        const promise = await axios.post(userRegisterUrl, data);
+        console.log(promise);
       } catch (e) {
         console.log(e);
       }
-      if (providers) {
-        if (providers.hasOwnProperty('credentials')) {
-          console.log(providers.credentials);
-        }
-      }
+    }
+    if (session && session.user?.email) {
+      //createUser();
     } //Redirect uncomment later
 
-    createUser();
     return {
       redirect: {
         permanent: false,
