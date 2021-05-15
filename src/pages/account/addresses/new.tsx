@@ -73,6 +73,7 @@ interface IProps {
 }
 export default function Dashboard({ session }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
   const [empty, setEmpty] = useState<boolean>(false);
   const [cityMessage, setCityMessage] = useState('Город');
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
@@ -109,7 +110,7 @@ export default function Dashboard({ session }: IProps) {
   }, [address]);
   function handleSubmit() {
     async function sendToServer() {
-      const url = `${userAddressesListUrl}`;
+      const addressUrl = `${userAddressesListUrl}`;
       const config = {
         headers: {
           Authorization: `Token ${session?.user?.token}`,
@@ -120,11 +121,10 @@ export default function Dashboard({ session }: IProps) {
       setAddress(newState);
 
       try {
-        console.log(address);
-        console.log(config.headers.Authorization);
-        const promise = await axios.post(url, address, config);
+        const promise = await axios.post(addressUrl, address, config);
         if (promise) {
           setAddress(promise.data);
+          router.push(url.account.addresses());
         }
       } catch (e) {
         console.log('Cannot create address', e);
