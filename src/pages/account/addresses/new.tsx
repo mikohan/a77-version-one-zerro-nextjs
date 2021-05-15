@@ -74,6 +74,8 @@ interface IProps {
 export default function Dashboard({ session }: IProps) {
   const classes = useStyles();
   const [empty, setEmpty] = useState<boolean>(false);
+  const [cityMessage, setCityMessage] = useState('Город');
+  const [disabledButton, setDisabledButton] = useState<boolean>(true);
   const [address, setAddress] = useState<IAddress>({
     city: '',
     address: '',
@@ -97,12 +99,14 @@ export default function Dashboard({ session }: IProps) {
     const newState = { ...address, default: event.target.checked };
     setAddress(newState);
   }
-  function handleSubmit() {
-    // Validation
-    if (!address.city) {
-      setEmpty(true);
-    }
 
+  // Disabling button if form fields are empty
+  useEffect(() => {
+    if (address.city && address.address) {
+      setDisabledButton(false);
+    }
+  }, [address]);
+  function handleSubmit() {
     async function sendToServer() {
       const url = `${userAddressesListUrl}`;
       const config = {
@@ -169,7 +173,7 @@ export default function Dashboard({ session }: IProps) {
                             error={empty}
                             onBlur={handleEmpy}
                             required
-                            label="Город"
+                            label={cityMessage}
                             id="city"
                             placeholder="Город"
                             size="small"
@@ -226,6 +230,7 @@ export default function Dashboard({ session }: IProps) {
                         </Typography>
                       </Box>
                       <Button
+                        disabled={disabledButton}
                         variant="contained"
                         color="primary"
                         onClick={handleSubmit}
