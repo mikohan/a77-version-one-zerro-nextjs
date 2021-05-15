@@ -40,7 +40,6 @@ const options = {
             token: promise.data.token,
             ...user,
           };
-          console.log(retSession);
           return retSession;
         } catch (e) {
           console.log('FUcks up');
