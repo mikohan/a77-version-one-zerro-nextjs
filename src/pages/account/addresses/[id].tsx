@@ -79,6 +79,7 @@ export default function EditAddress({
   id,
 }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
   const [address, setAddress] = useState<IAddress>({} as IAddress);
 
   useEffect(() => {
@@ -102,18 +103,18 @@ export default function EditAddress({
   }
   function handleSubmit() {
     async function sendToServer() {
-      const url = `${userAddressesListUrl}${id}/`;
+      const urlAddress = `${userAddressesListUrl}${id}/`;
       const config = {
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Token ${session?.user?.token}`,
         },
       };
 
       try {
-        const promise = await axios.put(url, address, config);
+        const promise = await axios.put(urlAddress, address, config);
         if (promise) {
           setAddress(promise.data);
+          router.push(url.account.addresses());
         }
       } catch (e) {
         console.log('Cannot update address', e);
