@@ -81,6 +81,7 @@ export default function EditAddress({
   const classes = useStyles();
   const router = useRouter();
   const [address, setAddress] = useState<IAddress>({} as IAddress);
+  const [disabledButton, setDisabledButton] = useState(false);
 
   useEffect(() => {
     setAddress(addressFromServer);
@@ -122,6 +123,16 @@ export default function EditAddress({
     }
     sendToServer();
   }
+  // Disabling button if form fields are empty
+  useEffect(() => {
+    if (address.city === '' || address.address === '') {
+      setDisabledButton(true);
+    } else {
+      setDisabledButton(false);
+    }
+  }, [address]);
+  console.log(disabledButton);
+  console.log(address);
 
   if (session) {
     return (
@@ -212,6 +223,7 @@ export default function EditAddress({
                         </Typography>
                       </Box>
                       <Button
+                        disabled={disabledButton}
                         variant="contained"
                         color="primary"
                         onClick={handleSubmit}
