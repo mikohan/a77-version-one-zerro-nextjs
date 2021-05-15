@@ -13,9 +13,10 @@ export interface IUserProfile {
 export interface IAddress {
   id: number;
   city: string;
-  zip_code: string;
+  zip_code: string | null;
   address: string;
   default: boolean;
+  user: number;
 }
 
 export interface IUser {

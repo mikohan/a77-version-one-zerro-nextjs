@@ -79,8 +79,9 @@ export default function Dashboard({ session }: IProps) {
   const [address, setAddress] = useState<IAddress>({
     city: '',
     address: '',
-    zip_code: '',
+    zip_code: null,
     default: false,
+    user: session?.user?.id,
   } as IAddress);
 
   function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
@@ -111,7 +112,6 @@ export default function Dashboard({ session }: IProps) {
       const url = `${userAddressesListUrl}`;
       const config = {
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Token ${session?.user?.token}`,
         },
       };
@@ -131,13 +131,6 @@ export default function Dashboard({ session }: IProps) {
       }
     }
     sendToServer();
-  }
-  function handleEmpy(event: React.FocusEvent<HTMLInputElement>) {
-    /* if (event.target.value) { */
-    /*   setEmpty(false); */
-    /* } else { */
-    /*   setEmpty(true); */
-    /* } */
   }
 
   if (session) {
@@ -171,7 +164,6 @@ export default function Dashboard({ session }: IProps) {
                           </Typography>
                           <TextField
                             error={empty}
-                            onBlur={handleEmpy}
                             required
                             label={cityMessage}
                             id="city"
