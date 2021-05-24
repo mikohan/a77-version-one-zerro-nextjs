@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { userReducer } from '~/store/users/userReducer';
 
 import { changeCarModelReducer } from './changeCarModelReducer';
 import { UIReducer } from '~/store/ui/UIReducer';
@@ -10,4 +11,5 @@ export default combineReducers({
   shopNew: shopReducer,
   uiState: UIReducer,
   cart: cartReducer,
+  user: userReducer,
 });

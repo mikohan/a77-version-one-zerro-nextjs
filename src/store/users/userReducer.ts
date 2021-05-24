@@ -18,39 +18,42 @@ import {
   USER_GOOGLE_LOGIN_SUCCESS,
   USER_GOOGLE_LOGIN_FAIL,
 } from './userActionTypes';
-import { IUserState } from '../../intefaces';
+import { IUser, IUserState } from '~/interfaces';
 import jwt from 'jsonwebtoken';
-import { IUser } from '../../intefaces/user';
 
 const dateNow = new Date();
 
-let token = localStorage.getItem('access') || null;
-let refresh = localStorage.getItem('refresh') || null;
+let access = localStorage.getItem('access') || '';
+let refresh = localStorage.getItem('refresh') || '';
 let isAuthenticated = false;
 if (refresh) {
   const decodedRefresh = jwt.decode(refresh, { complete: true });
   if (decodedRefresh?.exp < dateNow.getTime()) {
-    refresh = null;
+    refresh = '';
   }
 }
-if (token) {
-  const decoded = jwt.decode(token, { complete: true });
+if (access) {
+  const decoded = jwt.decode(access, { complete: true });
 
   if (decoded?.exp < dateNow.getTime()) {
-    token = null;
+    access = '';
   } else {
     isAuthenticated = true;
   }
 }
 
+// Trying to get user from localstorage if not empty strings
 let user: IUser | null =
   JSON.parse(localStorage.getItem('user') as string) || null;
+let email = user ? user.email : '';
+let username = user ? user.username : '';
 
 const initialState: IUserState = {
-  access: token,
+  access: access,
   refresh: refresh,
   isAuthenticated: isAuthenticated,
-  user: user,
+  email: email,
+  username: username,
 };
 
 export const userReducer = (
@@ -89,10 +92,8 @@ export const userReducer = (
         isAuthenticated: true,
         access: action.payload?.tokens.access,
         refresh: action.payload?.tokens.refresh,
-        user: {
-          email: action.payload?.email,
-          username: action.payload?.username,
-        },
+        email: action.payload?.email,
+        username: action.payload?.username,
       };
     case USER_LOADED_SUCCESS:
       return {
@@ -112,10 +113,8 @@ export const userReducer = (
         isAuthenticated: true,
         access: action.payload?.tokens.access,
         refresh: action.payload?.tokens.refresh,
-        user: {
-          email: action.payload?.email,
-          username: action.payload?.username,
-        },
+        email: action.payload?.email,
+        username: action.payload?.username,
       };
     case USER_LOGOUT:
     case USER_GOOGLE_LOGIN_FAIL:

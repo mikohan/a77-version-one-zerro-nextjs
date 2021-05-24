@@ -29,4 +29,8 @@ export interface IUser {
   last_login: Date;
   profile: IUserProfile;
   address_user: IAddress[];
+  image: string;
+  access: string | null;
+  refresh: string | null;
+  isAuthenticated: boolean | null;
 }

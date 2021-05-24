@@ -1,6 +1,6 @@
 import { ThunkDispatch } from 'redux-thunk';
 import axios from 'axios';
-import { IState, IUser } from '../../intefaces';
+import { IState } from '~/interfaces';
 
 import {
   USER_LOGIN_SUCCESS,

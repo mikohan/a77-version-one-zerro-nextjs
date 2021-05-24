@@ -18,9 +18,22 @@ interface IUIstate {
   isDark: boolean;
 }
 
+export interface IJwt {
+  access: string;
+  refresh: string;
+}
+export interface IUserState {
+  access: string;
+  refresh: string;
+  email: string;
+  username: string;
+  isAuthenticated: boolean;
+}
+
 export interface IState {
   shop: IShopState;
   shopNew: INewShopState;
   uiState: IUIstate;
   cart: ICart;
+  user: IUserState;
 }
