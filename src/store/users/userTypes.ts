@@ -1,6 +1,0 @@
-import {
-  USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAIL,
-  USER_LOADED_SUCCESS,
-  USER_LOADED_FAIL,
-} from './userActionTypes';

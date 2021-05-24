@@ -22,9 +22,13 @@ import { IUser, IUserState } from '~/interfaces';
 import jwt from 'jsonwebtoken';
 
 const dateNow = new Date();
+let access = '';
+let refresh = '';
 
-let access = localStorage.getItem('access') || '';
-let refresh = localStorage.getItem('refresh') || '';
+if (typeof window !== 'undefined') {
+  access = localStorage.getItem('access') || '';
+  refresh = localStorage.getItem('refresh') || '';
+}
 let isAuthenticated = false;
 if (refresh) {
   const decodedRefresh = jwt.decode(refresh, { complete: true });
@@ -43,8 +47,10 @@ if (access) {
 }
 
 // Trying to get user from localstorage if not empty strings
-let user: IUser | null =
-  JSON.parse(localStorage.getItem('user') as string) || null;
+let user = {} as IUser | null;
+if (typeof window !== 'undefined') {
+  user = JSON.parse(localStorage.getItem('user') as string) || null;
+}
 let email = user ? user.email : '';
 let username = user ? user.username : '';
 
