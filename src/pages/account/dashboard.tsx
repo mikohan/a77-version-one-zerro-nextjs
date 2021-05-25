@@ -126,10 +126,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
-  session: any;
   user: IUser;
 }
-export default function Dashboard() {
+export default function Dashboard({ user }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   function goProfile() {
@@ -137,25 +136,9 @@ export default function Dashboard() {
   }
   /* const [session, loading] = useSession(); */
   //const router = useRouter();
-  const authUser = useSelector((state: IState) => state.user);
-  useEffect(() => {
-    async function getUser() {
-      const userUrl = `http://localhost:8000/auth/users/${authUser.id}/`;
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authUser.access}`,
-        },
-      };
-      const userPromise = await axios.get(userUrl, config);
-      const user = userPromise.data;
-      console.log(user);
-    }
-    // getUser();
-  }, []);
-  const user = null;
+  // const authUser = useSelector((state: IState) => state.user);
 
-  if (authUser.isAuthenticated) {
+  if (user) {
     return (
       <React.Fragment>
         <DashboardHead />
@@ -177,12 +160,10 @@ export default function Dashboard() {
                         <Box className={classes.userPaper}>
                           <Avatar className={classes.avatar}></Avatar>
                           <Typography variant="h6">Добро пожаловать</Typography>
-                          <Typography variant="body1">
-                            {authUser.email}
-                          </Typography>
-                          {authUser.username && (
+                          <Typography variant="body1">{user.email}</Typography>
+                          {user.username && (
                             <Typography variant="body1">
-                              {authUser.username}!
+                              {user.username}!
                             </Typography>
                           )}
                           <Button
