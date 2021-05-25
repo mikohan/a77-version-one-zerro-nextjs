@@ -20,6 +20,7 @@ import {
 } from './userActionTypes';
 import { IUser, IUserState } from '~/interfaces';
 import jwt from 'jsonwebtoken';
+import Cookie from 'js-cookie';
 
 const dateNow = new Date();
 let access = '';
@@ -88,6 +89,13 @@ export const userReducer = (
     case USER_LOGIN_SUCCESS:
       localStorage.setItem('access', action.payload?.tokens.access!);
       localStorage.setItem('refresh', action.payload?.tokens.refresh!);
+      Cookie.set('access', action.payload?.tokens.access!);
+      Cookie.set('refresh', action.payload?.tokens.access!);
+      Cookie.set('user', {
+        id: action.payload?.id,
+        username: action.payload?.username,
+        email: action.payload?.email,
+      });
       localStorage.setItem(
         'user',
         JSON.stringify({
@@ -133,6 +141,9 @@ export const userReducer = (
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
       localStorage.removeItem('user');
+      Cookie.remove('access');
+      Cookie.remove('refresh');
+      Cookie.remove('user');
       return {
         ...state,
         isAuthenticated: false,

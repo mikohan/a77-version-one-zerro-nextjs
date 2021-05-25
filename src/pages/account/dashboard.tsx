@@ -37,6 +37,7 @@ import axios from 'axios';
 import { IUser, IAddress } from '~/interfaces';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
+import Request from 'next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -246,31 +247,24 @@ export default function Dashboard() {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let user = {} as IUser;
-  const userUrl = `http://localhost:8000/api/user/users/${64}/`;
-  console.log(context.req);
-  const access = 'fhfhf';
+  const req: any = context.req;
+  const { access, refresh, user } = req.cookies;
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-
       Authorization: `Bearer ${access}`,
     },
-
-    /* const userPromise = await axios.get(userUrl, config); */
-    /* user = userPromise.data; */
   };
-  /* if (session && session.user?.email) { */
-  /*   //Redirect uncomment later */
-  /*   return { */
-  /*     redirect: { */
-  /*       permanent: false, */
-  /*       destination: url.account.create(), */
-  /*     }, */
-  /*   }; */
-  /* } */
+  const cookieUser = JSON.parse(user);
+  let gotUser = {} as IUser;
+  const userUrl = `http://localhost:8000/api/user/users/${cookieUser.id}/`;
+  try {
+    const userPromise = await axios.get(userUrl, config);
+    gotUser = userPromise.data;
+  } catch (e) {
+    console.log('Could not get user from server', e);
+  }
   return {
-    props: { user },
+    props: { user: gotUser },
   };
 }
 
