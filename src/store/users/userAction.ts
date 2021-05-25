@@ -116,7 +116,7 @@ export const login = (email: string, password: string) => async (
     });
     //dispatch(loadUser() as any);
   } catch (e) {
-    console.log('Cant create token in actions 21 line', e);
+    console.log('Cant login and get jwt in login userAction line 119', e);
     dispatch({
       type: USER_LOGIN_FAIL,
       payload: null,

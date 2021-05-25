@@ -35,6 +35,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { IUser, IAddress } from '~/interfaces';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,32 +128,30 @@ interface IProps {
   session: any;
   user: IUser;
 }
-export default function Dashboard({ session, user }: IProps) {
+export default function Dashboard() {
   const classes = useStyles();
   const router = useRouter();
+  function goProfile() {
+    router.push(url.accont.profile());
+  }
   /* const [session, loading] = useSession(); */
   //const router = useRouter();
-
-  // go Profile
-  function goProfile() {
-    router.push(url.account.profile());
-  }
-  let address = {} as IAddress;
-  if (user.address_user && user.address_user.length) {
-    const find = user.address_user.find(
-      (adr: IAddress) => adr.default === true
-    ) as IAddress;
-    if (find) {
-      address = find;
-    } else {
-      address = user.address_user[0];
+  const authUser = useSelector((state: IState) => state.user);
+  useEffect(() => {
+    async function getUser() {
+      const userUrl = `http://localhost:8000/auth/users/${authUser.email}/`;
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authUser.access}`,
+        },
+      };
+      const userPromise = await axios.get(userUrl, config);
+      const user = userPromise.data;
     }
-  }
-  function handleAddresses() {
-    router.push(url.account.addresses());
-  }
+  }, []);
 
-  if (session) {
+  if (authUser.isAuthenticated) {
     return (
       <React.Fragment>
         <DashboardHead />
@@ -171,16 +171,7 @@ export default function Dashboard({ session, user }: IProps) {
                     <Grid className={classes.avatarGrid} item xs={12} md={6}>
                       <Paper className={classes.paper}>
                         <Box className={classes.userPaper}>
-                          <Avatar
-                            className={classes.avatar}
-                            src={
-                              user.hasOwnProperty('profile')
-                                ? user.profile.image
-                                : ''
-                            }
-                          >
-                            {session.user?.email?.charAt(0).toUpperCase()}
-                          </Avatar>
+                          <Avatar className={classes.avatar}></Avatar>
                           <Typography variant="h6">Добро пожаловать</Typography>
                           <Typography variant="body1">{user.email}</Typography>
                           {user.first_name && (
