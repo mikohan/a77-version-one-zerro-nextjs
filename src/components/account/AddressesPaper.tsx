@@ -77,6 +77,12 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingBottom: theme.spacing(0.5),
       },
     },
+    bottomAddress: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
     chipBox: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -103,6 +109,9 @@ export default function AddressesPaper({ user, addresses }: IProps) {
 
   function handleAddresses() {
     router.push(url.account.addresses());
+  }
+  function addAddress() {
+    router.push(url.account.addAddress());
   }
   if (addresses && addresses.length > 0) {
     let address = addresses.find(
@@ -164,6 +173,25 @@ export default function AddressesPaper({ user, addresses }: IProps) {
       </Paper>
     );
   } else {
-    return <div>No addresses</div>;
+    return (
+      <Paper className={classes.address}>
+        <Box className={classes.bottomAddress}>
+          <Box className={classes.chipBox}>
+            <Typography className={classes.addressTitle} variant="h6">
+              Адрес Доставки
+            </Typography>
+            <Chip size="small" label="Основной" />
+          </Box>
+          <Typography variant="h6">
+            Пока нет ни одного адреса доставки. Создать?
+          </Typography>
+          <Box className={classes.editAddressButtonBox}>
+            <Button onClick={addAddress} variant="contained">
+              Добавить Адрес
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+    );
   }
 }
