@@ -94,7 +94,7 @@ const LoginFormPaper = () => {
   }
   useEffect(() => {
     if (isAuthenticated) {
-      router.push(url.account.dashboard());
+      // router.push(url.account.dashboard());
     }
   }, [isAuthenticated]);
   console.log(email, password);

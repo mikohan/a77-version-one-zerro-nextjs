@@ -53,6 +53,7 @@ if (typeof window !== 'undefined') {
 }
 let email = user ? user.email : '';
 let username = user ? user.username : '';
+let id = user ? user.id : '';
 
 const initialState: IUserState = {
   access: access,
@@ -60,6 +61,7 @@ const initialState: IUserState = {
   isAuthenticated: isAuthenticated,
   email: email,
   username: username,
+  id: id,
 };
 
 export const userReducer = (
@@ -89,6 +91,7 @@ export const userReducer = (
       localStorage.setItem(
         'user',
         JSON.stringify({
+          id: action.payload?.id,
           username: action.payload?.username,
           email: action.payload?.email,
         })
@@ -100,6 +103,7 @@ export const userReducer = (
         refresh: action.payload?.tokens.refresh,
         email: action.payload?.email,
         username: action.payload?.username,
+        id: action.payload?.id,
       };
     case USER_LOADED_SUCCESS:
       return {

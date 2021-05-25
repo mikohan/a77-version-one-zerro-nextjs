@@ -25,6 +25,7 @@ export interface IUserData {
   username: string;
   image?: string;
   tokens: IJwt;
+  id: string | number;
 }
 
 export interface IUserLogin {

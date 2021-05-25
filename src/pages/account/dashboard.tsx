@@ -139,7 +139,7 @@ export default function Dashboard() {
   const authUser = useSelector((state: IState) => state.user);
   useEffect(() => {
     async function getUser() {
-      const userUrl = `http://localhost:8000/auth/users/${authUser.email}/`;
+      const userUrl = `http://localhost:8000/auth/users/${authUser.id}/`;
       const config = {
         headers: {
           'Content-Type': 'application/json',
@@ -148,8 +148,11 @@ export default function Dashboard() {
       };
       const userPromise = await axios.get(userUrl, config);
       const user = userPromise.data;
+      console.log(user);
     }
+    getUser();
   }, []);
+  const user = null;
 
   if (authUser.isAuthenticated) {
     return (

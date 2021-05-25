@@ -28,6 +28,7 @@ export interface IUserState {
   email: string;
   username: string;
   isAuthenticated: boolean;
+  id: string | number;
 }
 
 export interface IState {
