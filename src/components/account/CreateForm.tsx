@@ -10,9 +10,10 @@ import {
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CachedIcon from '@material-ui/icons/Cached';
 import axios from 'axios';
-import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import { signup } from '~/store/users/userAction';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,10 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CreateForm() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [number1, setNumber1] = useState(0);
 
   const [number2, setNumber2] = useState(0);
   const [active, setActive] = useState(false);
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [password, setPassword] = useState('');
@@ -84,6 +87,10 @@ export default function CreateForm() {
     }
   }
 
+  function handleUsername(event: React.ChangeEvent<HTMLInputElement>) {
+    setUserName(event.target.value);
+  }
+
   function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
     function emailIsValid(email: string) {
       return /\S+@\S+\.\S+/.test(email);
@@ -104,37 +111,9 @@ export default function CreateForm() {
     setPassword(event.target.value);
   }
   function handdleCreateAccount() {
-    if (emailValid && passwordValid) {
-      setSendData({ email, password });
-    }
-    async function createUser() {
-      const apiUrl = `http://0.0.0.0:8000/api/rest-auth/registration/`;
-      const sendD = {
-        username: sendData.email,
-        email: email,
-        password1: password,
-        password2: password,
-      };
-      try {
-        const key = await axios.post(apiUrl, sendD);
-      } catch (e) {
-        console.log(e);
-      }
-      await signIn('credentials', {
-        redirect: false,
-        username: email,
-        password: password,
-      })
-        .then((message) => {
-          console.log(message);
-          router.push(url.account.create());
-        })
-        .catch((error) => console.log(error));
-    }
-    if (Object.keys(sendData).length) {
-      createUser();
-    }
+    dispatch(signup(userName, email, password));
   }
+  console.log('Credentials in view', userName, email, password);
 
   const classes = useStyles();
   return (
@@ -151,10 +130,29 @@ export default function CreateForm() {
           justify="center"
         >
           <TextField
+            onChange={handleUsername}
+            error={false}
+            required
+            name="username"
+            label="Имя пользователя"
+            type="email"
+            helperText={emailValid ? 'Ваш Емайл' : 'Емайл не корректный'}
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
+        <Grid
+          className={classes.textFieldGrid}
+          item
+          xs={12}
+          container
+          justify="center"
+        >
+          <TextField
             onChange={handleEmail}
             error={!emailValid}
             required
-            name="username"
+            name="email"
             label="Email"
             type="email"
             helperText={emailValid ? 'Ваш Емайл' : 'Емайл не корректный'}

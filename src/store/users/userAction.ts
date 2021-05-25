@@ -178,19 +178,26 @@ export const googleLogin = (tokenId: string) => async (
 
 // USER sign up
 
-export const signup = (email: string, password: string) => async (
-  dispatch: ThunkDispatch<IState, void, IUserAction>
-) => {
-  const body = { email, password };
-  const url = `${process.env.REACT_APP_API_URL}/auth/users/`;
+export const signup = (
+  username: string,
+  email: string,
+  password: string
+) => async (dispatch: ThunkDispatch<IState, void, IUserAction>) => {
+  const body = { username, email, password };
+  // const url = `${process.env.REACT_APP_API_URL}/authentication/auth/register/`;
+  const url = `http://0.0.0.0:8000/auth/register/`;
   try {
     const res = await axios.post(url, body);
+    console.log(res.data.data);
     dispatch({
       type: USER_SIGN_UP_SUCCESS,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (e) {
-    console.log('Cant create token in actions 21 line', e);
+    console.log(
+      'Some Errors occurs while try register new user in signup on line 181 in userAction.ts',
+      e
+    );
     dispatch({
       type: USER_SIGN_UP_FAIL,
       payload: null,
