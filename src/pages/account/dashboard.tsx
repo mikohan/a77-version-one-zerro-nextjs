@@ -39,6 +39,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
 import Request from 'next';
 import AddressesPaper from '~/components/account/AddressesPaper';
+import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -228,33 +229,13 @@ export default function Dashboard({ user }: IProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const req: any = context.req;
-  const { access, refresh, user } = req.cookies;
-  if (user) {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    };
-    const cookieUser = JSON.parse(user);
-    let gotUser = {} as IUser;
-    const userUrl = `http://localhost:8000/api/user/users/${cookieUser.id}/`;
-    try {
-      const userPromise = await axios.get(userUrl, config);
-      gotUser = userPromise.data;
-    } catch (e) {
-      console.log('Could not get user from server', e);
-    }
-    return {
-      props: { user: gotUser },
-    };
-  } else {
-    return {
-      props: {
-        user: {},
-      },
-    };
-  }
+  const user = await getUserCookie(context);
+
+  return {
+    props: {
+      user,
+    },
+  };
 }
 
 const DashboardHead = () => (

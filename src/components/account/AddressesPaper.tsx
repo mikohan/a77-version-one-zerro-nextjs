@@ -3,6 +3,8 @@ import { Paper, Grid, Chip, Typography, Box, Button } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { IUser } from '~/interfaces';
 import { IAddress } from '~/interfaces';
+import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,14 +99,18 @@ interface IProps {
 
 export default function AddressesPaper({ user, addresses }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
 
   function handleAddresses() {
-    // Hnadle addresses
+    router.push(url.account.addresses());
   }
   if (addresses && addresses.length > 0) {
-    const address = addresses.find(
+    let address = addresses.find(
       (address: IAddress) => address.default === true
     );
+    if (!address) {
+      address = addresses[0];
+    }
 
     return (
       <Paper className={classes.address}>
