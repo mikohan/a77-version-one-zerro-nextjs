@@ -19,10 +19,11 @@ import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { IUser } from '~/interfaces';
-import AddressesPaper from '~/components/account/AddressesPaper';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
 import Image from 'next/image';
+import axios from 'axios';
+import { backServerUrlRest } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,15 +81,13 @@ export default function Dashboard({ user, access }: IProps) {
   }
   const addresses = user.address_user;
 
-  // console.log(user);
-
   const [userName, setUserName] = useState(user.username);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
   const [avatar, setAvatar] = useState(user.image);
-  const [avatarUpload, setAvatarUpload] = useState<File | null>(null);
+  const [avatarUpload, setAvatarUpload] = useState<{ file: File } | null>(null);
 
   function handleUserName(event: React.ChangeEvent<HTMLInputElement>) {
     setUserName(event.target.value);
@@ -107,10 +106,34 @@ export default function Dashboard({ user, access }: IProps) {
   }
   function handleAvatar(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files?.length) {
-      setAvatarUpload(event?.target?.files[0]);
+      setAvatarUpload({ file: event?.target?.files[0] });
     }
   }
-  console.log(avatarUpload);
+  async function handleSubmit() {
+    const formData = new FormData();
+
+    if (avatarUpload) {
+      formData.append('image', avatarUpload?.file!, avatarUpload?.file.name);
+    }
+    formData.append('username', userName);
+    formData.append('first_name', firstName as string);
+    formData.append('last_name', lastName as string);
+    formData.append('email', email);
+    formData.append('phone', phone as string);
+    console.log(formData);
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${access}`,
+      },
+    };
+
+    const userUrl = `${backServerUrlRest}/api/user/users/${user.id}/`;
+    console.log(userUrl);
+    const userBack = await axios.put(userUrl, formData, config);
+    console.log(userBack.data);
+  }
+  console.log(user);
 
   if (access) {
     return (
@@ -198,13 +221,21 @@ export default function Dashboard({ user, access }: IProps) {
                               </Button>
                               <Avatar className={classes.avatar}>
                                 <Image
-                                  src="/images/local/defaultParts245.jpg"
+                                  src={
+                                    avatar
+                                      ? avatar
+                                      : '/images/local/defaultParts245.jpg'
+                                  }
                                   width={200}
                                   height={200}
                                 />
                               </Avatar>
                             </Box>
-                            <Button variant="contained" color="primary">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={handleSubmit}
+                            >
                               Сохранить
                             </Button>
                           </Box>
