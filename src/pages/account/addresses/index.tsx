@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { getSession } from 'next-auth/client';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
@@ -22,6 +21,7 @@ import axios from 'axios';
 import { IAddress } from '~/interfaces';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { userAddressesListUrl } from '~/config';
+import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -98,10 +98,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
-  session: any;
+  access: string;
   addressesFromServer: IAddress[];
 }
-export default function Dashboard({ session, addressesFromServer }: IProps) {
+export default function Dashboard({ addressesFromServer, access }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   const [addresses, setAddresses] = useState<IAddress[]>([]);
@@ -120,8 +120,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
         console.log(url);
         const config = {
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${session?.user?.token}`,
+            Authorization: `Bearer ${access}`,
           },
         };
         try {
@@ -141,7 +140,7 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
     router.push(url.account.editAddress(id));
   }
 
-  if (session) {
+  if (access) {
     return (
       <React.Fragment>
         <AddressesdHead />
@@ -257,21 +256,23 @@ export default function Dashboard({ session, addressesFromServer }: IProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session: any = await getSession(context);
+  const data = await getUserCookie(context);
   let addresses = [] as IAddress[];
-  if (session) {
-    const userUrl = `${userAddressesListUrl}?user=${session?.user?.id}`;
+  let access = '';
+  if (data) {
+    access = data.access;
+    const user = data.user;
+    const userUrl = `${userAddressesListUrl}?user=${user.id}`;
     const config = {
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${session?.user?.token}`,
+        Authorization: `Bearer ${access}`,
       },
     };
     const addressesPromise = await axios.get(userUrl, config);
     addresses = addressesPromise.data;
   }
   return {
-    props: { session, addressesFromServer: addresses },
+    props: { addressesFromServer: addresses, access },
   };
 }
 

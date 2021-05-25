@@ -229,7 +229,11 @@ export default function Dashboard({ user }: IProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const user = await getUserCookie(context);
+  const data = await getUserCookie(context);
+  let user = {} as IUser;
+  if (data) {
+    user = data.user;
+  }
 
   return {
     props: {

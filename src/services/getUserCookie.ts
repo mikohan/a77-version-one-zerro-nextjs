@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export async function getUserCookie(
   context: GetServerSidePropsContext
-): Promise<IUser | false> {
+): Promise<{ user: IUser; access: string; refresh: string } | undefined> {
   const req: any = context.req;
   const { access, refresh, user } = req.cookies;
   if (user) {
@@ -22,8 +22,8 @@ export async function getUserCookie(
     } catch (e) {
       console.log('Could not get user from server', e);
     }
-    return gotUser;
+    return { user: gotUser, access: access, refresh: refresh };
   } else {
-    return false;
+    return undefined;
   }
 }
