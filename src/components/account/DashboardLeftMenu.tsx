@@ -24,10 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-  return <ListItem button component="a" {...props} />;
-}
-
 export default function SimpleList() {
   const classes = useStyles();
   const router = useRouter();
@@ -47,6 +43,7 @@ export default function SimpleList() {
 
   function handleLogOut() {
     dispatch(logout());
+    router.push(url.cars());
   }
 
   return (

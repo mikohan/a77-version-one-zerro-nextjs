@@ -115,8 +115,9 @@ const useStyles = makeStyles((theme: Theme) =>
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
   user: IUser;
+  access: string;
 }
-export default function Dashboard({ user }: IProps) {
+export default function Dashboard({ user, access }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   function goProfile() {
@@ -124,7 +125,7 @@ export default function Dashboard({ user }: IProps) {
   }
   const addresses = user.address_user;
 
-  if (user) {
+  if (access) {
     return (
       <React.Fragment>
         <DashboardHead />
@@ -216,20 +217,23 @@ export default function Dashboard({ user }: IProps) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const data = await getUserCookie(context);
   let user = {} as IUser;
+  let access = '';
   if (data) {
     user = data.user;
+    access = data.access;
   }
 
   return {
     props: {
       user,
+      access,
     },
   };
 }
 
 const DashboardHead = () => (
   <Head>
-    <title key="title">Панель управления пользователя ANGARA77</title>
+    <title key="title">Профиль пользователя ANGARA77</title>
     <meta
       key="description"
       name="description"

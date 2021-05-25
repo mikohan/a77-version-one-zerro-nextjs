@@ -3,6 +3,7 @@ import { LinkProps } from 'next/link';
 type IAppLinkHref = string | LinkProps;
 
 const url: { [key: string]: any } = {
+  home: () => `/`,
   cars: () => `/car`,
   model: (make: string, model: string) => `/car/${make}/${model}`,
   make: (make: string) => `/car/${make}`,
