@@ -184,8 +184,8 @@ export const signup = (
   password: string
 ) => async (dispatch: ThunkDispatch<IState, void, IUserAction>) => {
   const body = { username, email, password };
-  // const url = `${process.env.REACT_APP_API_URL}/authentication/auth/register/`;
-  const url = `http://0.0.0.0:8000/auth/register/`;
+  const url = `http://localhost:8000/auth/register/`;
+  console.log(process.env);
   try {
     const res = await axios.post(url, body);
     console.log(res.data.data);
@@ -204,18 +204,21 @@ export const signup = (
     });
   }
 };
-// User activation
 
-export const verify = (uid: string, token: string) => async (
+// User activation
+export const verify = (token: string) => async (
   dispatch: ThunkDispatch<IState, void, IUserAction>
 ) => {
-  const body = { uid, token };
-  const url = `${process.env.REACT_APP_API_URL}/auth/users/activation/`;
+  // const url = `${process.env.BACKEND_URL}/auth/activate/`;
+  const url = `http://localhost:8000/auth/activate/?token=${token}`;
   try {
-    const res = await axios.post(url, body);
+    const res = await axios.get(url);
+    if (res.data.data === 'Successfully activated') {
+      console.log(res.data.data, 'Email activated');
+    }
     dispatch({
       type: USER_ACTIVATION_SUCCESS,
-      payload: res.data,
+      payload: res.data.data.email,
     });
   } catch (e) {
     console.log('Cant create token in actions 21 line', e);

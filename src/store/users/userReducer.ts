@@ -136,11 +136,14 @@ export const userReducer = (
         refresh: null,
         user: null,
       };
+    case USER_ACTIVATION_SUCCESS:
+      return {
+        ...state,
+      };
     case USER_PASSWORD_RESET_SUCCESS:
     case USER_PASSWORD_RESET_FAIL:
     case USER_PASSWORD_RESET_CONFIRM_SUCCESS:
     case USER_PASSWORD_RESET_CONFIRM_FAIL:
-    case USER_ACTIVATION_SUCCESS:
     case USER_ACTIVATION_FAIL:
       return {
         ...state,

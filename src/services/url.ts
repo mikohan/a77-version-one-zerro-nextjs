@@ -58,6 +58,7 @@ const url: { [key: string]: any } = {
   cart: () => `/cart/cart`,
   account: {
     create: () => `/account/create`,
+    login: () => `/account/login`,
     profile: () => `/account/profile`,
     dashboard: () => `/account/dashboard`,
     garage: () => `/account/garage`,

@@ -113,7 +113,6 @@ export default function CreateForm() {
   function handdleCreateAccount() {
     dispatch(signup(userName, email, password));
   }
-  console.log('Credentials in view', userName, email, password);
 
   const classes = useStyles();
   return (
@@ -216,16 +215,7 @@ export default function CreateForm() {
           </Button>
         </Grid>
       </Grid>
-      <Button
-        onClick={() =>
-          signIn('credentials', {
-            username: 'angara99@gmail.com',
-            password: 'manhee33338',
-          })
-        }
-      >
-        signin
-      </Button>
+      <Button>signin</Button>
     </Paper>
   );
 }

@@ -156,68 +156,6 @@ export default function Register({ providers, csrfToken }: IProps) {
   );
 }
 
-const LoginFormPaper = () => {
-  const classes = useStyles();
-  return (
-    <Paper className={classes.left}>
-      <form method="post" action="/api/auth/callback/credentials">
-        <input name="csrfToken" type="hidden" />
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="h6">Зарегестрированы? Войти.</Typography>
-          </Grid>
-          <Grid
-            className={classes.textFieldGrid}
-            item
-            xs={12}
-            container
-            justify="center"
-          >
-            <TextField
-              required
-              name="username"
-              label="Email"
-              type="email"
-              helperText="Ваш Емайл"
-              variant="outlined"
-              fullWidth
-            />
-          </Grid>
-          <Grid
-            className={classes.textFieldGrid}
-            item
-            container
-            xs={12}
-            justify="center"
-          >
-            <TextField
-              required
-              name="password"
-              label="Пароль"
-              type="password"
-              autoComplete="current-password"
-              helperText="Ваш Пароль"
-              variant="outlined"
-              fullWidth
-            />
-          </Grid>
-          <Grid
-            item
-            container
-            xs={12}
-            className={classes.buttonGrid}
-            justify="flex-end"
-          >
-            <Button variant="contained" color="primary" type="submit">
-              Войти
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Paper>
-  );
-};
-
 const RegisterHead = () => (
   <Head>
     <title key="title">
