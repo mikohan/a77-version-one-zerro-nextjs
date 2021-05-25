@@ -38,6 +38,7 @@ import { IUser, IAddress } from '~/interfaces';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
 import Request from 'next';
+import AddressesPaper from '~/components/account/AddressesPaper';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -134,9 +135,8 @@ export default function Dashboard({ user }: IProps) {
   function goProfile() {
     router.push(url.accont.profile());
   }
-  /* const [session, loading] = useSession(); */
-  //const router = useRouter();
-  // const authUser = useSelector((state: IState) => state.user);
+  const addresses = user.address_user;
+  console.log(user);
 
   if (user) {
     return (
@@ -177,7 +177,7 @@ export default function Dashboard({ user }: IProps) {
                       </Paper>
                     </Grid>
                     <Grid className={classes.addressGrid} item xs={12} md={6}>
-                      Paper goes here
+                      <AddressesPaper user={user} addresses={addresses} />
                     </Grid>
                   </Grid>
                   <Grid className={classes.ordersGrid} item xs={12}>
@@ -230,23 +230,31 @@ export default function Dashboard({ user }: IProps) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const req: any = context.req;
   const { access, refresh, user } = req.cookies;
-  const config = {
-    headers: {
-      Authorization: `Bearer ${access}`,
-    },
-  };
-  const cookieUser = JSON.parse(user);
-  let gotUser = {} as IUser;
-  const userUrl = `http://localhost:8000/api/user/users/${cookieUser.id}/`;
-  try {
-    const userPromise = await axios.get(userUrl, config);
-    gotUser = userPromise.data;
-  } catch (e) {
-    console.log('Could not get user from server', e);
+  if (user) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    };
+    const cookieUser = JSON.parse(user);
+    let gotUser = {} as IUser;
+    const userUrl = `http://localhost:8000/api/user/users/${cookieUser.id}/`;
+    try {
+      const userPromise = await axios.get(userUrl, config);
+      gotUser = userPromise.data;
+    } catch (e) {
+      console.log('Could not get user from server', e);
+    }
+    return {
+      props: { user: gotUser },
+    };
+  } else {
+    return {
+      props: {
+        user: {},
+      },
+    };
   }
-  return {
-    props: { user: gotUser },
-  };
 }
 
 const DashboardHead = () => (

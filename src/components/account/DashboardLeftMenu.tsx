@@ -8,6 +8,8 @@ import { Typography, Paper, MenuItem } from '@material-ui/core';
 import { signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import { useDispatch } from 'react-redux';
+import { logout } from '~/store/users/userAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +31,7 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
 export default function SimpleList() {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
   function handleDashboard() {
     router.push(url.account.dashboard());
   }
@@ -40,6 +43,10 @@ export default function SimpleList() {
   }
   function handleAddresses() {
     router.push(url.account.addresses());
+  }
+
+  function handleLogOut() {
+    dispatch(logout());
   }
 
   return (
@@ -62,7 +69,7 @@ export default function SimpleList() {
       <Divider />
       <List component="nav" aria-label="secondary mailbox folders">
         <ListItem button>
-          <ListItemText primary="Выйти" onClick={() => signOut()} />
+          <ListItemText primary="Выйти" onClick={handleLogOut} />
         </ListItem>
       </List>
     </Paper>
