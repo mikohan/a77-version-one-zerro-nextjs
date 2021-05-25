@@ -20,9 +20,10 @@ import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { IAddress } from '~/interfaces';
+import { IAddress, IUser } from '~/interfaces';
 import { userAddressesListUrl } from '~/config';
 import { Session } from 'next-auth';
+import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,9 +70,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
-  session: Session | any;
+  access: string;
+  user: IUser;
 }
-export default function Dashboard({ session }: IProps) {
+export default function Dashboard({ access, user }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   const [empty, setEmpty] = useState<boolean>(false);
@@ -82,7 +84,7 @@ export default function Dashboard({ session }: IProps) {
     address: '',
     zip_code: null,
     default: false,
-    user: session?.user?.id,
+    user: user.id,
   } as IAddress);
 
   function handleCity(event: React.ChangeEvent<HTMLInputElement>) {
@@ -115,11 +117,11 @@ export default function Dashboard({ session }: IProps) {
       const addressUrl = `${userAddressesListUrl}`;
       const config = {
         headers: {
-          Authorization: `Token ${session?.user?.token}`,
+          Authorization: `Bearer ${access}`,
         },
       };
 
-      const newState = { ...address, user: session?.user?.id };
+      const newState = { ...address, user: user.id };
       setAddress(newState);
 
       try {
@@ -135,7 +137,7 @@ export default function Dashboard({ session }: IProps) {
     sendToServer();
   }
 
-  if (session) {
+  if (access) {
     return (
       <React.Fragment>
         <AddressesdHead />
@@ -250,9 +252,15 @@ export default function Dashboard({ session }: IProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session: any = await getSession(context);
+  const data = await getUserCookie(context);
+  let access = '';
+  let user = {} as IUser;
+  if (data) {
+    access = data.access;
+    user = data.user;
+  }
   return {
-    props: { session },
+    props: { access, user },
   };
 }
 
