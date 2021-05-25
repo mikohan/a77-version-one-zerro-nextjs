@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
@@ -9,6 +9,7 @@ import {
   Container,
   Paper,
   Box,
+  TextField,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -21,6 +22,7 @@ import { IUser } from '~/interfaces';
 import AddressesPaper from '~/components/account/AddressesPaper';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,82 +30,40 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(5),
       paddingBottom: theme.spacing(5),
     },
-    left: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
+    left: {},
     right: {
+      paddingLeft: theme.spacing(2),
       [theme.breakpoints.down('xs')]: {
         paddingTop: theme.spacing(2),
       },
     },
-    avatarGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-    addressGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing(2),
-      },
-    },
-    paper: {
-      height: '100%',
-    },
-    userPaper: {
-      minHeight: theme.spacing(30),
-      padding: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      '& > *': {
-        marginBottom: theme.spacing(0.5),
-        marginTop: theme.spacing(0.5),
-      },
-    },
-    avatar: {
-      width: 100,
-      height: 100,
-    },
-    address: {
-      height: '100%',
-      minHeight: theme.spacing(30),
+    profilePaper: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
-    profileButton: {
-      marginTop: theme.spacing(2),
+    pageTitle: {
+      paddingBottom: theme.spacing(3),
     },
-    ordersGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      paddingTop: theme.spacing(3),
+    form: {
+      display: 'flex',
+      justifyContent: 'center',
     },
-    orderTitle: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-    },
-    addressBox: {
+    fieldsBox: {
+      width: '60%',
       '&>*': {
-        paddingTop: theme.spacing(0.5),
-        paddingBottom: theme.spacing(0.5),
+        marginBottom: theme.spacing(3),
       },
     },
-    chipBox: {
+    image: {
       display: 'flex',
-      justifyContent: 'space-between',
+      alignItems: 'center',
     },
-    addressTitle: {
-      paddingBottom: theme.spacing(2),
-    },
-    editAddressButtonBox: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      textAlign: 'center',
+    avatar: {
+      width: theme.spacing(15),
+      height: theme.spacing(15),
+      marginLeft: theme.spacing(5),
     },
   })
 );
@@ -119,6 +79,38 @@ export default function Dashboard({ user, access }: IProps) {
     router.push(url.accont.profile());
   }
   const addresses = user.address_user;
+
+  // console.log(user);
+
+  const [userName, setUserName] = useState(user.username);
+  const [firstName, setFirstName] = useState(user.first_name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone);
+  const [avatar, setAvatar] = useState(user.image);
+  const [avatarUpload, setAvatarUpload] = useState<File | null>(null);
+
+  function handleUserName(event: React.ChangeEvent<HTMLInputElement>) {
+    setUserName(event.target.value);
+  }
+  function handleFirstName(event: React.ChangeEvent<HTMLInputElement>) {
+    setFirstName(event.target.value);
+  }
+  function handleLastName(event: React.ChangeEvent<HTMLInputElement>) {
+    setLastName(event.target.value);
+  }
+  function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value);
+  }
+  function handlePhone(event: React.ChangeEvent<HTMLInputElement>) {
+    setPhone(event.target.value);
+  }
+  function handleAvatar(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files?.length) {
+      setAvatarUpload(event?.target?.files[0]);
+    }
+  }
+  console.log(avatarUpload);
 
   if (access) {
     return (
@@ -137,8 +129,87 @@ export default function Dashboard({ user, access }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
-                    <Grid className={classes.addressGrid} item xs={12}>
-                      <AddressesPaper user={user} addresses={addresses} />
+                    <Grid item xs={12}>
+                      <Paper className={classes.profilePaper}>
+                        <Typography className={classes.pageTitle} variant="h6">
+                          Изменить Профиль
+                        </Typography>
+                        <Box className={classes.form}>
+                          <Box className={classes.fieldsBox}>
+                            <TextField
+                              id="userName"
+                              label="Ник"
+                              variant="filled"
+                              fullWidth
+                              size="small"
+                              name="username"
+                              defaultValue={userName}
+                              onChange={handleUserName}
+                            />
+                            <TextField
+                              id="firstName"
+                              label="Имя"
+                              variant="filled"
+                              fullWidth
+                              size="small"
+                              name="firstName"
+                              defaultValue={firstName}
+                              onChange={handleFirstName}
+                            />
+                            <TextField
+                              id="lastName"
+                              label="Фамилия"
+                              variant="filled"
+                              fullWidth
+                              size="small"
+                              name="lastName"
+                              defaultValue={lastName}
+                              onChange={handleLastName}
+                            />
+                            <TextField
+                              type="email"
+                              id="email"
+                              label="Email"
+                              variant="filled"
+                              fullWidth
+                              size="small"
+                              name="email"
+                              defaultValue={email}
+                              onChange={handleEmail}
+                            />
+                            <TextField
+                              id="phone"
+                              label="Телефон"
+                              variant="filled"
+                              fullWidth
+                              size="small"
+                              name="phone"
+                              defaultValue={phone}
+                              onChange={handlePhone}
+                            />
+                            <Box className={classes.image}>
+                              <Button variant="contained" component="label">
+                                Загрузить Аватар
+                                <input
+                                  onChange={handleAvatar}
+                                  type="file"
+                                  hidden
+                                />
+                              </Button>
+                              <Avatar className={classes.avatar}>
+                                <Image
+                                  src="/images/local/defaultParts245.jpg"
+                                  width={200}
+                                  height={200}
+                                />
+                              </Avatar>
+                            </Box>
+                            <Button variant="contained" color="primary">
+                              Сохранить
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Paper>
                     </Grid>
                   </Grid>
                 </Grid>

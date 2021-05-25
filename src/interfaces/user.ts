@@ -23,8 +23,8 @@ export interface IUser {
   id: number;
   username: string;
   email: string;
-  first_name: string;
-  last_name: string;
+  first_name: string | null;
+  last_name: string | null;
   data_joined: Date;
   last_login: Date;
   profile: IUserProfile;
@@ -33,4 +33,5 @@ export interface IUser {
   access: string | null;
   refresh: string | null;
   isAuthenticated: boolean | null;
+  phone: string | null;
 }
