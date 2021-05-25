@@ -23,6 +23,7 @@ import axios from 'axios';
 import { IAddress, IUser } from '~/interfaces';
 import { userAddressesListUrl } from '~/config';
 import { getUserCookie } from '~/services/getUserCookie';
+import NoLoggedIn from '~/components/account/NotLoggedIn';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -236,7 +237,7 @@ export default function EditAddress({ access, addressFromServer, id }: IProps) {
   } else {
     return (
       <React.Fragment>
-        <div>login first</div>
+        <NoLoggedIn />
       </React.Fragment>
     );
   }

@@ -17,15 +17,10 @@ import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { IUser } from '~/interfaces';
 import AddressesPaper from '~/components/account/AddressesPaper';
 import { getUserCookie } from '~/services/getUserCookie';
+import NoLoggedIn from '~/components/account/NotLoggedIn';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -142,61 +137,9 @@ export default function Dashboard({ user, access }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid item container xs={12}>
-                    <Grid className={classes.avatarGrid} item xs={12} md={6}>
-                      <Paper className={classes.paper}>
-                        <Box className={classes.userPaper}>
-                          <Avatar className={classes.avatar}></Avatar>
-                          <Typography variant="h6">Добро пожаловать</Typography>
-                          <Typography variant="body1">{user.email}</Typography>
-                          {user.username && (
-                            <Typography variant="body1">
-                              {user.username}!
-                            </Typography>
-                          )}
-                          <Button
-                            className={classes.profileButton}
-                            onClick={goProfile}
-                            variant="contained"
-                          >
-                            Изменить профиль
-                          </Button>
-                        </Box>
-                      </Paper>
-                    </Grid>
-                    <Grid className={classes.addressGrid} item xs={12} md={6}>
+                    <Grid className={classes.addressGrid} item xs={12}>
                       <AddressesPaper user={user} addresses={addresses} />
                     </Grid>
-                  </Grid>
-                  <Grid className={classes.ordersGrid} item xs={12}>
-                    <Paper>
-                      <Typography className={classes.orderTitle} variant="h6">
-                        Последние заказы
-                      </Typography>
-                      <TableContainer>
-                        <Table aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Dessert (100g serving)</TableCell>
-                              <TableCell align="left">Номер</TableCell>
-                              <TableCell align="left">Дата</TableCell>
-                              <TableCell align="left">Статус</TableCell>
-                              <TableCell align="left">Сумма</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell component="th" scope="row">
-                                #123
-                              </TableCell>
-                              <TableCell align="left">lorem</TableCell>
-                              <TableCell align="left">ipsum</TableCell>
-                              <TableCell align="left">dolor</TableCell>
-                              <TableCell align="left">sit</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Paper>
                   </Grid>
                 </Grid>
               </Grid>
@@ -206,11 +149,7 @@ export default function Dashboard({ user, access }: IProps) {
       </React.Fragment>
     );
   } else {
-    return (
-      <React.Fragment>
-        <div>login first</div>
-      </React.Fragment>
-    );
+    return <NoLoggedIn />;
   }
 }
 
