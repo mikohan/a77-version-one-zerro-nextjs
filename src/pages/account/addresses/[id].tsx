@@ -20,9 +20,9 @@ import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { IAddress } from '~/interfaces';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { IAddress, IUser } from '~/interfaces';
 import { userAddressesListUrl } from '~/config';
+import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,15 +69,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
-  session: any;
+  access: string;
   addressFromServer: IAddress;
   id: string | number;
 }
-export default function EditAddress({
-  session,
-  addressFromServer,
-  id,
-}: IProps) {
+export default function EditAddress({ access, addressFromServer, id }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   const [address, setAddress] = useState<IAddress>({} as IAddress);
@@ -107,7 +103,7 @@ export default function EditAddress({
       const urlAddress = `${userAddressesListUrl}${id}/`;
       const config = {
         headers: {
-          Authorization: `Token ${session?.user?.token}`,
+          Authorization: `Bearer ${access}`,
         },
       };
 
@@ -132,7 +128,7 @@ export default function EditAddress({
     }
   }, [address]);
 
-  if (session) {
+  if (access) {
     return (
       <React.Fragment>
         <AddressesdHead />
@@ -248,21 +244,26 @@ export default function EditAddress({
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const id = context.params?.id;
-  const session: any = await getSession(context);
+  const data = await getUserCookie(context);
+
   let address = {} as IAddress;
-  if (session) {
+  let access = '';
+  let user = {} as IUser;
+  if (data) {
+    access = data.access;
+    user = data.user;
     const userUrl = `${userAddressesListUrl}${id}/`;
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${session?.user?.token}`,
+        Authorization: `Bearer ${access}`,
       },
     };
     const addressesPromise = await axios.get(userUrl, config);
     address = addressesPromise.data;
   }
   return {
-    props: { session, addressFromServer: address, id },
+    props: { access, addressFromServer: address, id },
   };
 }
 
