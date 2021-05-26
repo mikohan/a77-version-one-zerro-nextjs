@@ -1,6 +1,8 @@
 import { ThunkDispatch } from 'redux-thunk';
 import axios from 'axios';
 import { IState } from '~/interfaces';
+import Router from 'next/router';
+import url from '~/services/url';
 
 import {
   USER_LOGIN_SUCCESS,
@@ -193,18 +195,17 @@ export const signup = (
   password: string
 ) => async (dispatch: ThunkDispatch<IState, void, IUserAction>) => {
   const body = { username, email, password };
-  const url = `http://localhost:8000/auth/register/`;
-  console.log(process.env);
+  const urlAxios = `http://localhost:8000/auth/register/`;
   try {
-    const res = await axios.post(url, body);
+    const res = await axios.post(urlAxios, body);
     dispatch({
       type: USER_SIGN_UP_SUCCESS,
       payload: res.data.data,
     });
 
     dispatch(errorAction(null));
+    Router.push(url.account.login());
   } catch (e) {
-    console.log(e.response.data);
     dispatch(errorAction(e.response.data.errors));
     console.log(
       'Some Errors occurs while try register new user in signup on line 181 in userAction.ts',

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import {
-  TextField,
+  Box,
   Button,
   Grid,
   Typography,
@@ -24,61 +24,45 @@ import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import { IUser } from '~/interfaces';
+import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: { paddingBottom: theme.spacing(5) },
-    headerGrid: {
-      padding: theme.spacing(5),
-    },
+    main: { paddingBottom: theme.spacing(5), paddingTop: theme.spacing(5) },
     sideGrid: {
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
     },
-    left: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
-    },
-    right: {
-      paddingTop: theme.spacing(3),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
-    },
     paper: {
+      height: '100%',
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
     },
-    textFieldGrid: {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-    },
-    buttonContainer: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-    },
-    providersGrid: {
-      marginTop: theme.spacing(5),
-    },
-    buttonGrid: {
+    buttonBox: {
+      paddingTop: theme.spacing(3),
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
       '&>*': {
         marginBottom: theme.spacing(2),
       },
-    },
-    providerButton: {
-      width: '100%',
     },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const providers = await getProviders();
-  const csrfToken = await getCsrfToken(context);
-  const session = await getSession(context);
-  if (session && session.user?.email) {
+  const data = await getUserCookie(context);
+  let user = {} as IUser;
+  let access = '';
+  if (data) {
+    user = data.user;
+    access = data.access;
+  }
+  if (access) {
     //Redirect uncomment later
     return {
       redirect: {
@@ -89,45 +73,34 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   return {
-    props: { providers, csrfToken },
+    props: {},
   };
 }
 
-interface IProps {
-  providers: any;
-  csrfToken: any;
-}
-
-export default function Register({ providers, csrfToken }: IProps) {
+export default function Register() {
   const classes = useStyles();
-  const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
 
-  useEffect(() => {
-    if (router.query && router.query.error === 'credentials_error') {
-      setErrorMessage(
-        'Пользователь не зарегестрирован! Попробуйте создать аккаунт.'
-      );
-    }
-  }, []);
   return (
     <React.Fragment>
       <RegisterHead />
       <AnimationPage>
         <Container maxWidth="lg">
-          <Grid className={classes.main} container>
-            <Grid className={classes.sideGrid} item md={6}></Grid>
-            <Grid className={classes.sideGrid} item md={6}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <CreateForm />
-                </Grid>
-                <Grid className={classes.providersGrid} item xs={12}>
-                  <Paper className={classes.paper}>
-                    <Button variant="contained">Google account</Button>
-                  </Paper>
-                </Grid>
-              </Grid>
+          <Grid className={classes.main} container justify="center">
+            <Grid className={classes.sideGrid} item container xs={8}>
+              <CreateForm />
+            </Grid>
+            <Grid item xs={4}>
+              <Paper className={classes.paper}>
+                <Typography variant="h6">Войти через:</Typography>
+                <Box className={classes.buttonBox}>
+                  <Button variant="contained" color="primary">
+                    Google account
+                  </Button>
+                  <Button variant="contained" color="primary">
+                    GitHub
+                  </Button>
+                </Box>
+              </Paper>
             </Grid>
           </Grid>
         </Container>

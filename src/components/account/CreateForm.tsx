@@ -117,10 +117,6 @@ export default function CreateForm() {
   }
   function handdleCreateAccount() {
     dispatch(signup(userName, email, password));
-    if (!errors) {
-      console.log('Redirect here');
-      router.push(url.account.login());
-    }
   }
 
   const errors = useSelector((state: IState) => state.user.errors);
@@ -248,7 +244,6 @@ export default function CreateForm() {
           </Button>
         </Grid>
       </Grid>
-      <Button>signin</Button>
     </Paper>
   );
 }

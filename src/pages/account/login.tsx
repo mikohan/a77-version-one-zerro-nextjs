@@ -11,13 +11,14 @@ import {
   TextField,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { GetServerSidePropsContext } from 'next';
 import { login } from '~/store/users/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { IState } from '~/interfaces';
+import { IState, IUser } from '~/interfaces';
+import { getUserCookie } from '~/services/getUserCookie';
+import { GetServerSidePropsContext } from 'next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,22 +35,29 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-// This is the recommended way for Next.js 9.3 or newer
 
-/* export const getServerSideProps = async ( */
-/*   context: GetServerSidePropsContext */
-/* ) => { */
-/*   const { token } = context.query; */
-/*   return { */
-/*     props: { */
-/*       token, */
-/*     }, */
-/*   }; */
-/* }; */
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const data = await getUserCookie(context);
+  let access = '';
+  if (data) {
+    user = data.user;
+    access = data.access;
+  }
+  if (access) {
+    return {
+      redirect: {
+        destination: url.account.dashboard(),
+        permanent: false,
+      },
+    };
+  }
 
-interface IProps {
-  token: string;
-}
+  return {
+    props: {},
+  };
+};
 
 export default function Register() {
   const classes = useStyles();
