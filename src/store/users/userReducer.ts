@@ -57,6 +57,7 @@ if (typeof window !== 'undefined') {
 let email = user ? user.email : '';
 let username = user ? user.username : '';
 let id = user ? user.id : '';
+let image = user ? user.image : null;
 
 const initialState: IUserState = {
   access: access,
@@ -66,7 +67,7 @@ const initialState: IUserState = {
   username: username,
   id: id,
   errors: null,
-  image: null,
+  image: image,
 };
 
 export const userReducer = (
@@ -136,6 +137,7 @@ export const userReducer = (
           id: action.payload?.id,
           username: action.payload?.username,
           email: action.payload?.email,
+          image: action.payload?.image,
         })
       );
       Cookie.set('access', action.payload?.tokens.access!);
@@ -144,6 +146,7 @@ export const userReducer = (
         id: action.payload?.id,
         username: action.payload?.username,
         email: action.payload?.email,
+        image: action.payload?.image,
       });
       return {
         ...state,
@@ -153,6 +156,7 @@ export const userReducer = (
         email: action.payload?.email,
         username: action.payload?.username,
         id: action.payload?.id,
+        image: action.payload?.image,
       };
     case USER_LOGOUT:
     case USER_GOOGLE_LOGIN_FAIL:

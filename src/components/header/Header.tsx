@@ -193,6 +193,15 @@ export default function Header({ setIsDark, isDark }: IProps) {
     setAnchorElCategory(null);
   };
 
+  const [myAvatar, setMyavatar] = React.useState(
+    '/images/local/default-avatar.jpg'
+  );
+  useEffect(() => {
+    if (avatar) {
+      setMyavatar(avatar);
+    }
+  }, []);
+
   const drawer = (
     <React.Fragment>
       <SwipeableDrawer
@@ -278,10 +287,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
               </Grid>
 
               <Box className={classes.switcherBox}>
-                <Avatar
-                  className={classes.avatar}
-                  src={avatar ? avatar : '/images/local/default-avatar.jpg'}
-                />
+                <Avatar className={classes.avatar} src={myAvatar} />
                 <FormControlLabel
                   control={
                     <Switch

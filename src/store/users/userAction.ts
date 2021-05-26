@@ -128,6 +128,7 @@ export const login = (email: string, password: string) => async (
     dispatch(errorAction(null));
     Router.push(url.account.dashboard());
   } catch (e) {
+    dispatch(errorAction(e.response.data.errors));
     console.log('Cant login and get jwt in login userAction line 119', e);
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -160,12 +161,15 @@ export const googleLogin = (tokenId: string) => async (
     try {
       const res = await axios.post(urlAxios, payload);
       const response = res.data;
+      console.log(response);
       dispatch({
         type: USER_GOOGLE_LOGIN_SUCCESS,
         payload: response,
       });
+      dispatch(errorAction(null));
       Router.push(url.account.dashboard());
     } catch (e) {
+      dispatch(errorAction(e.response.data.errors));
       dispatch({
         type: USER_GOOGLE_LOGIN_FAIL,
         payload: null,
@@ -228,7 +232,9 @@ export const verify = (token: string) => async (
       type: USER_ACTIVATION_SUCCESS,
       payload: res.data.data.email,
     });
+    dispatch(errorAction(null));
   } catch (e) {
+    dispatch(errorAction(e.response.data.errors));
     console.log('Cant create token in actions 21 line', e);
     dispatch({
       type: USER_ACTIVATION_FAIL,
@@ -243,6 +249,7 @@ export const logout = () => (
   dispatch({
     type: USER_LOGOUT,
   });
+  dispatch(errorAction(null));
   Router.push(url.cars());
 };
 
@@ -256,7 +263,9 @@ export const resetPassword = (email: string) => async (
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,
     });
+    dispatch(errorAction(null));
   } catch (e) {
+    dispatch(errorAction(e.response.data.errors));
     console.log('Cannot call api reset password', e);
     dispatch({
       type: USER_PASSWORD_RESET_FAIL,
@@ -278,7 +287,9 @@ export const resetPasswordConfirm = (
     dispatch({
       type: USER_PASSWORD_RESET_CONFIRM_SUCCESS,
     });
+    dispatch(errorAction(null));
   } catch (e) {
+    dispatch(errorAction(e.response.data.errors));
     console.log('Cannot call api reset password', e);
     dispatch({
       type: USER_PASSWORD_RESET_CONFIRM_FAIL,
