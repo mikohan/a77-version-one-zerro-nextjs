@@ -82,10 +82,10 @@ export default function Dashboard({ user, access }: IProps) {
   const addresses = user.address_user;
 
   const [userName, setUserName] = useState(user.username);
-  const [firstName, setFirstName] = useState(user.first_name);
-  const [lastName, setLastName] = useState(user.last_name);
+  const [firstName, setFirstName] = useState(user.first_name || '');
+  const [lastName, setLastName] = useState(user.last_name || '');
   const [email, setEmail] = useState(user.email);
-  const [phone, setPhone] = useState(user.phone);
+  const [phone, setPhone] = useState(user.phone || '');
   const [avatar, setAvatar] = useState(user.image);
   const [avatarUpload, setAvatarUpload] = useState<{ file: File } | null>(null);
 
@@ -120,7 +120,6 @@ export default function Dashboard({ user, access }: IProps) {
     formData.append('last_name', lastName as string);
     formData.append('email', email);
     formData.append('phone', phone as string);
-    console.log(formData);
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -129,9 +128,12 @@ export default function Dashboard({ user, access }: IProps) {
     };
 
     const userUrl = `${backServerUrlRest}/api/user/users/${user.id}/`;
-    console.log(userUrl);
     const userBack = await axios.put(userUrl, formData, config);
-    console.log(userBack.data);
+    setUserName(userBack.data.username);
+    setFirstName(userBack.data.first_name);
+    setLastName(userBack.data.last_name);
+    setPhone(userBack.data.phone);
+    setAvatar(userBack.data.image);
   }
 
   if (access) {
@@ -189,17 +191,6 @@ export default function Dashboard({ user, access }: IProps) {
                               onChange={handleLastName}
                             />
                             <TextField
-                              type="email"
-                              id="email"
-                              label="Email"
-                              variant="filled"
-                              fullWidth
-                              size="small"
-                              name="email"
-                              defaultValue={email}
-                              onChange={handleEmail}
-                            />
-                            <TextField
                               id="phone"
                               label="Телефон"
                               variant="filled"
@@ -218,17 +209,14 @@ export default function Dashboard({ user, access }: IProps) {
                                   hidden
                                 />
                               </Button>
-                              <Avatar className={classes.avatar}>
-                                <Image
-                                  src={
-                                    avatar
-                                      ? avatar
-                                      : '/images/local/defaultParts245.jpg'
-                                  }
-                                  width={200}
-                                  height={200}
-                                />
-                              </Avatar>
+                              <Avatar
+                                className={classes.avatar}
+                                src={
+                                  avatar
+                                    ? avatar
+                                    : '/images/local/default-avatar.jpg'
+                                }
+                              ></Avatar>
                             </Box>
                             <Button
                               variant="contained"

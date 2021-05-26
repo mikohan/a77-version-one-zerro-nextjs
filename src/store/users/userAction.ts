@@ -109,16 +109,16 @@ export const login = (email: string, password: string) => async (
 ) => {
   const body = { email, password };
   // const url = `${process.env.REACT_APP_API_URL}/auth/jwt/create/`;
-  const url = `http://localhost:8000/auth/login/`;
+  const urlAxios = `http://localhost:8000/auth/login/`;
   try {
-    const res = await axios.post(url, body);
+    const res = await axios.post(urlAxios, body);
     const result = res.data.data;
-    console.log(result);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: result,
     });
-    //dispatch(loadUser() as any);
+    dispatch(errorAction(null));
+    Router.push(url.account.dashboard());
   } catch (e) {
     console.log('Cant login and get jwt in login userAction line 119', e);
     dispatch({
