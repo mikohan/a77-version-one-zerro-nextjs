@@ -161,14 +161,7 @@ export const googleLogin = (tokenId: string) => async (
 
       dispatch({
         type: USER_GOOGLE_LOGIN_SUCCESS,
-        payload: {
-          tokens: {
-            access: response.tokens.access,
-            refresh: response.tokens.refresh,
-          },
-          email: response.email,
-          username: response.username,
-        },
+        payload: response,
       });
     } catch (e) {
       dispatch({
@@ -248,6 +241,7 @@ export const logout = () => (
   dispatch({
     type: USER_LOGOUT,
   });
+  Router.push(url.home());
 };
 
 export const resetPassword = (email: string) => async (

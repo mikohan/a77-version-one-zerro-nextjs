@@ -73,8 +73,7 @@ export const LoginMenu = ({
   const dispatch = useDispatch();
 
   function handleSignOut() {
-    dispatch(logout);
-
+    dispatch(logout());
     handleClose();
   }
   function handleSignIn() {
