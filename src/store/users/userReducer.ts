@@ -128,6 +128,13 @@ export const userReducer = (
     case USER_GOOGLE_LOGIN_SUCCESS:
       localStorage.setItem('access', action.payload?.tokens.access!);
       localStorage.setItem('refresh', action.payload?.tokens.refresh!);
+      Cookie.set('access', action.payload?.tokens.access!);
+      Cookie.set('refresh', action.payload?.tokens.access!);
+      Cookie.set('user', {
+        id: action.payload?.id,
+        username: action.payload?.username,
+        email: action.payload?.email,
+      });
       return {
         ...state,
         isAuthenticated: true,
@@ -135,6 +142,7 @@ export const userReducer = (
         refresh: action.payload?.tokens.refresh,
         email: action.payload?.email,
         username: action.payload?.username,
+        id: action.payload?.id,
       };
     case USER_LOGOUT:
     case USER_GOOGLE_LOGIN_FAIL:

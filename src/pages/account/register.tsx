@@ -14,8 +14,10 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import CreateForm from '~/components/account/CreateForm';
 import url from '~/services/url';
-import { IUser } from '~/interfaces';
+import { googleLogin } from '~/store/users/userAction';
 import { getUserCookie } from '~/services/getUserCookie';
+import GoogleLogin from 'react-google-login';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +69,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function Register() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const responseGoogle = (response: any) => {
+    console.log(response);
+    if (response) {
+      dispatch(googleLogin(response.tokenId));
+    }
+  };
   return (
     <React.Fragment>
       <RegisterHead />
@@ -87,6 +96,13 @@ export default function Register() {
                   <Button variant="contained" color="primary">
                     GitHub
                   </Button>
+                  <GoogleLogin
+                    clientId="226244999524-h2prj07pns8q7n6hf4qe9ssc5qub3lcl.apps.googleusercontent.com"
+                    buttonText="Login"
+                    cookiePolicy={'single_host_origin'}
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                  />
                 </Box>
               </Paper>
             </Grid>
