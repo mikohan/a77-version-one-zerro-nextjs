@@ -241,7 +241,7 @@ export const logout = () => (
   dispatch({
     type: USER_LOGOUT,
   });
-  Router.push(url.home());
+  Router.push(url.cars());
 };
 
 export const resetPassword = (email: string) => async (

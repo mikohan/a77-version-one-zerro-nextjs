@@ -43,7 +43,6 @@ export default function SimpleList() {
 
   function handleLogOut() {
     dispatch(logout());
-    router.push(url.cars());
   }
 
   return (

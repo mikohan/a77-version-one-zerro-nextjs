@@ -141,7 +141,7 @@ const LoginFormPaper = () => {
           justify="space-between"
           alignItems="center"
         >
-          <Link href={url.account.create()}>
+          <Link href={url.account.register()}>
             <a>
               <Typography variant="body2" color="primary">
                 Нет аккаунта? Создать.
