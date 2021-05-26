@@ -27,92 +27,8 @@ import { IUser } from '~/interfaces';
 import AddressesPaper from '~/components/account/AddressesPaper';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
+import Image from 'next/image';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      paddingTop: theme.spacing(5),
-      paddingBottom: theme.spacing(5),
-    },
-    left: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-    right: {
-      [theme.breakpoints.down('xs')]: {
-        paddingTop: theme.spacing(2),
-      },
-    },
-    avatarGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-    addressGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing(2),
-      },
-    },
-    paper: {
-      height: '100%',
-    },
-    userPaper: {
-      minHeight: theme.spacing(30),
-      padding: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      '& > *': {
-        marginBottom: theme.spacing(0.5),
-        marginTop: theme.spacing(0.5),
-      },
-    },
-    avatar: {
-      width: 100,
-      height: 100,
-    },
-    address: {
-      height: '100%',
-      minHeight: theme.spacing(30),
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-    },
-    profileButton: {
-      marginTop: theme.spacing(2),
-    },
-    ordersGrid: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      paddingTop: theme.spacing(3),
-    },
-    orderTitle: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-    },
-    addressBox: {
-      '&>*': {
-        paddingTop: theme.spacing(0.5),
-        paddingBottom: theme.spacing(0.5),
-      },
-    },
-    chipBox: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    addressTitle: {
-      paddingBottom: theme.spacing(2),
-    },
-    editAddressButtonBox: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      textAlign: 'center',
-    },
-  })
-);
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
   user: IUser;
@@ -122,7 +38,7 @@ export default function Dashboard({ user, access }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   function goProfile() {
-    router.push(url.accont.profile());
+    router.push(url.account.profile());
   }
   const addresses = user.address_user;
 
@@ -146,7 +62,17 @@ export default function Dashboard({ user, access }: IProps) {
                     <Grid className={classes.avatarGrid} item xs={12} md={6}>
                       <Paper className={classes.paper}>
                         <Box className={classes.userPaper}>
-                          <Avatar className={classes.avatar}></Avatar>
+                          <Avatar className={classes.avatar}>
+                            <Image
+                              src={
+                                user && user.image
+                                  ? user.image
+                                  : '/images/local/default-avatar.jpg'
+                              }
+                              width={200}
+                              height={200}
+                            />
+                          </Avatar>
                           <Typography variant="h6">Добро пожаловать</Typography>
                           <Typography variant="body1">{user.email}</Typography>
                           {user.username && (
@@ -259,4 +185,90 @@ const DashboardHead = () => (
     <meta key="og:image:alt" property="og:image:alt" content="Angara 77 logo" />
     <link rel="canonical" key="canonical" href={`${SITE_DOMAIN_FULL}/about`} />
   </Head>
+);
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
+    },
+    left: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+    right: {
+      [theme.breakpoints.down('xs')]: {
+        paddingTop: theme.spacing(2),
+      },
+    },
+    avatarGrid: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+    addressGrid: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: theme.spacing(2),
+      },
+    },
+    paper: {
+      height: '100%',
+    },
+    userPaper: {
+      minHeight: theme.spacing(30),
+      padding: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '& > *': {
+        marginBottom: theme.spacing(0.5),
+        marginTop: theme.spacing(0.5),
+      },
+    },
+    avatar: {
+      width: 100,
+      height: 100,
+    },
+    address: {
+      height: '100%',
+      minHeight: theme.spacing(30),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+    profileButton: {
+      marginTop: theme.spacing(2),
+    },
+    ordersGrid: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+      paddingTop: theme.spacing(3),
+    },
+    orderTitle: {
+      paddingTop: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+    },
+    addressBox: {
+      '&>*': {
+        paddingTop: theme.spacing(0.5),
+        paddingBottom: theme.spacing(0.5),
+      },
+    },
+    chipBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    addressTitle: {
+      paddingBottom: theme.spacing(2),
+    },
+    editAddressButtonBox: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      textAlign: 'center',
+    },
+  })
 );

@@ -133,7 +133,6 @@ export default function Dashboard({ user, access }: IProps) {
     const userBack = await axios.put(userUrl, formData, config);
     console.log(userBack.data);
   }
-  console.log(user);
 
   if (access) {
     return (

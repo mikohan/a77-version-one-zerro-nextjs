@@ -145,12 +145,10 @@ export default function AddressesPaper({ user, addresses }: IProps) {
                   <Typography variant="subtitle2">Индекс</Typography>
                   <Typography variant="body1">{address?.zip_code}</Typography>
                 </Box>
-                {Object.keys(user.profile).length && (
+                {Object.keys(user).length && (
                   <Box>
                     <Typography variant="subtitle2">Телефон</Typography>
-                    <Typography variant="body1">
-                      {user.profile.phone}
-                    </Typography>
+                    <Typography variant="body1">{user.phone}</Typography>
                   </Box>
                 )}
                 <Box>

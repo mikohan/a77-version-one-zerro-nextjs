@@ -6,6 +6,7 @@ import {
   Button,
   Grid,
   Box,
+  Snackbar,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import CachedIcon from '@material-ui/icons/Cached';
@@ -13,7 +14,9 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
 import { signup } from '~/store/users/userAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces';
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,7 +63,7 @@ export default function CreateForm() {
   const [active, setActive] = useState(false);
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(true);
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
   const [sendData, setSendData] = useState(
@@ -98,7 +101,9 @@ export default function CreateForm() {
     if (emailIsValid(event.target.value)) {
       setEmailValid(true);
     } else {
-      setEmailValid(false);
+      if (event.target.value.length > 10) {
+        setEmailValid(false);
+      }
     }
     setEmail(event.target.value);
   }
@@ -112,11 +117,40 @@ export default function CreateForm() {
   }
   function handdleCreateAccount() {
     dispatch(signup(userName, email, password));
+    if (!errors) {
+      console.log('Redirect here');
+      router.push(url.account.login());
+    }
   }
 
+  const errors = useSelector((state: IState) => state.user.errors);
+
   const classes = useStyles();
+
+  function returnError(errors: any) {
+    if (errors && errors.hasOwnProperty('email')) {
+      return (
+        <React.Fragment>
+          <Typography variant="h6" color="error">
+            {errors.email}
+          </Typography>
+          <Link href={url.account.login()}>
+            <a>
+              <Typography variant="body2" color="primary">
+                Попробуйте войти
+              </Typography>
+            </a>
+          </Link>
+        </React.Fragment>
+      );
+    } else {
+      return <Box>{JSON.stringify(errors)}</Box>;
+    }
+  }
+
   return (
     <Paper className={classes.paper}>
+      {errors ? returnError(errors) : ''}
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h6">Создать Аккаунт</Typography>
@@ -130,12 +164,11 @@ export default function CreateForm() {
         >
           <TextField
             onChange={handleUsername}
-            error={false}
             required
             name="username"
             label="Имя пользователя"
             type="email"
-            helperText={emailValid ? 'Ваш Емайл' : 'Емайл не корректный'}
+            helperText="Имя пользователя"
             variant="outlined"
             fullWidth
           />

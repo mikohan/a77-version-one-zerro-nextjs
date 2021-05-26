@@ -29,6 +29,7 @@ export interface IUserState {
   username: string;
   isAuthenticated: boolean;
   id: string | number;
+  errors: any;
 }
 
 export interface IState {

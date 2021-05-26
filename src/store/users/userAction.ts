@@ -21,6 +21,8 @@ import {
   USER_ACTIVATION_FAIL,
   USER_GOOGLE_LOGIN_SUCCESS,
   USER_GOOGLE_LOGIN_FAIL,
+  USER_SET_ERROR,
+  IUserError,
 } from './userActionTypes';
 
 export const checkAuthenticated = () => async (
@@ -178,6 +180,13 @@ export const googleLogin = (tokenId: string) => async (
 
 // USER sign up
 
+export function errorAction(error: any): IUserError {
+  return {
+    type: USER_SET_ERROR,
+    payload: error,
+  };
+}
+
 export const signup = (
   username: string,
   email: string,
@@ -188,12 +197,15 @@ export const signup = (
   console.log(process.env);
   try {
     const res = await axios.post(url, body);
-    console.log(res.data.data);
     dispatch({
       type: USER_SIGN_UP_SUCCESS,
       payload: res.data.data,
     });
+
+    dispatch(errorAction(null));
   } catch (e) {
+    console.log(e.response.data);
+    dispatch(errorAction(e.response.data.errors));
     console.log(
       'Some Errors occurs while try register new user in signup on line 181 in userAction.ts',
       e

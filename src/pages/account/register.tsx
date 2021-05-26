@@ -110,7 +110,6 @@ export default function Register({ providers, csrfToken }: IProps) {
       );
     }
   }, []);
-  let img = ``;
   return (
     <React.Fragment>
       <RegisterHead />
@@ -125,26 +124,7 @@ export default function Register({ providers, csrfToken }: IProps) {
                 </Grid>
                 <Grid className={classes.providersGrid} item xs={12}>
                   <Paper className={classes.paper}>
-                    {Object.values(providers).map((provider: any) => {
-                      if (provider.name === 'Custom provider') {
-                        return false;
-                      }
-                      return (
-                        <div
-                          className={classes.buttonContainer}
-                          key={provider.name}
-                        >
-                          <Button
-                            className={classes.providerButton}
-                            variant="contained"
-                            color="primary"
-                            onClick={() => signIn(provider.id)}
-                          >
-                            Войти через {provider.name}
-                          </Button>
-                        </div>
-                      );
-                    })}
+                    <Button variant="contained">Google account</Button>
                   </Paper>
                 </Grid>
               </Grid>
