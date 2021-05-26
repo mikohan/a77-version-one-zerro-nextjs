@@ -12,11 +12,9 @@ import {
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { login } from '~/store/users/userAction';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import url from '~/services/url';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { IState, IUser } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import { GetServerSidePropsContext } from 'next';
 
@@ -42,7 +40,6 @@ export const getServerSideProps = async (
   const data = await getUserCookie(context);
   let access = '';
   if (data) {
-    user = data.user;
     access = data.access;
   }
   if (access) {
@@ -79,14 +76,9 @@ export default function Register() {
 }
 const LoginFormPaper = () => {
   const classes = useStyles();
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
-  const router = useRouter();
-  const isAuthenticated = useSelector(
-    (state: IState) => state.user.isAuthenticated
-  );
 
   function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
@@ -97,15 +89,7 @@ const LoginFormPaper = () => {
 
   function handleLogin() {
     dispatch(login(email, password));
-    if (isAuthenticated) {
-    }
   }
-  useEffect(() => {
-    if (isAuthenticated) {
-      // router.push(url.account.dashboard());
-    }
-  }, [isAuthenticated]);
-  console.log(email, password);
 
   return (
     <Paper>
@@ -180,10 +164,7 @@ const LoginFormPaper = () => {
 
 const RegisterHead = () => (
   <Head>
-    <title key="title">
-      Заргестрироваться в интернет магазине АНГАРА запчасти для грузовиков и
-      коммерческого транспорта
-    </title>
+    <title key="title">Войти в личный кабинет АНГАРА</title>
     <meta
       key="description"
       name="description"
