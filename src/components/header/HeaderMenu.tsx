@@ -6,6 +6,9 @@ import Link from 'next/link';
 import url from '~/services/url';
 import { signIn, signOut, useSession } from 'next-auth/client';
 import { Avatar } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '~/interfaces';
+import { logout } from '~/store/users/userAction';
 
 interface IProps {
   handleClick(event: React.MouseEvent<HTMLButtonElement>): void;
@@ -66,13 +69,15 @@ export const LoginMenu = ({
   handleClose,
   ...props
 }: IProps) => {
-  const [session, loading] = useSession();
+  const session = useSelector((state: IState) => state.user.access);
+  const dispatch = useDispatch();
+
   function handleSignOut() {
-    signOut();
+    dispatch(logout);
+
     handleClose();
   }
   function handleSignIn() {
-    signIn();
     handleClose();
   }
   return (
@@ -88,26 +93,34 @@ export const LoginMenu = ({
       {...props}
     >
       {!session ? (
-        <MenuItem onClick={handleSignIn}>
-          <Link href={url.about()}>
-            <a>Войти</a>
+        <React.Fragment>
+          <MenuItem onClick={handleSignIn}>
+            <Link href={url.account.login()}>
+              <a>Войти</a>
+            </Link>
+          </MenuItem>
+          <Link href={url.account.register()}>
+            <a>
+              <MenuItem>Создать Аккаунт</MenuItem>
+            </a>
           </Link>
-        </MenuItem>
+        </React.Fragment>
       ) : (
-        <MenuItem>{session.user?.email}</MenuItem>
+        <React.Fragment>
+          <Link href={`${url.account.dashboard()}`}>
+            <a>
+              <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
+            </a>
+          </Link>
+          <Link href={`${url.account.register()}`}>
+            <a>
+              <MenuItem onClick={handleClose}>Empty</MenuItem>
+            </a>
+          </Link>
+          <Divider />
+          <MenuItem onClick={handleSignOut}>Выйти</MenuItem>
+        </React.Fragment>
       )}
-      <Link href={`${url.account.dashboard()}`}>
-        <a>
-          <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
-        </a>
-      </Link>
-      <Link href={`${url.account.create()}`}>
-        <a>
-          <MenuItem onClick={handleClose}>Создать Аккаунт</MenuItem>
-        </a>
-      </Link>
-      <Divider />
-      <MenuItem onClick={handleSignOut}>Выйти</MenuItem>
     </Menu>
   );
 };
