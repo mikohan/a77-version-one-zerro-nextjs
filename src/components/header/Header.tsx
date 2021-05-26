@@ -24,6 +24,7 @@ import {
   Box,
   Switch,
   FormControlLabel,
+  Avatar,
 } from '@material-ui/core';
 
 import { HomeOutlined } from '@material-ui/icons';
@@ -65,6 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     switcherBox: {
+      display: 'flex',
       paddingRight: theme.spacing(2),
       position: 'absolute',
       top: theme.spacing(1.5),
@@ -72,6 +74,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     searchBox: {
       paddingTop: theme.spacing(1),
+    },
+    avatar: {
+      width: theme.spacing(4),
+      height: theme.spacing(4),
     },
   })
 );
@@ -87,6 +93,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
+  const avatar = useSelector((state: IState) => state.user.image);
 
   useEffect(() => {
     try {
@@ -269,7 +276,12 @@ export default function Header({ setIsDark, isDark }: IProps) {
               <Grid className={classes.tabsGrid} item container>
                 {matches ? drawer : tabs}
               </Grid>
+
               <Box className={classes.switcherBox}>
+                <Avatar
+                  className={classes.avatar}
+                  src={avatar ? avatar : '/images/local/default-avatar.jpg'}
+                />
                 <FormControlLabel
                   control={
                     <Switch
