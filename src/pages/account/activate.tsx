@@ -2,17 +2,35 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Grid, Container, Button, Typography } from '@material-ui/core';
+import { Grid, Container, Button, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import { verify } from '~/store/users/userAction';
 import { useDispatch } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
+import { asString } from '~/helpers';
+import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: { paddingBottom: theme.spacing(5) },
+    main: { paddingBottom: theme.spacing(5), paddingTop: theme.spacing(5) },
+    paper: {
+      padding: theme.spacing(20),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '40vh',
+    },
+    typography: {
+      paddingBottom: theme.spacing(5),
+      color: theme.palette.success.main,
+    },
+    typogBott: {
+      paddingBottom: theme.spacing(5),
+      textAlign: 'center',
+    },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -20,7 +38,24 @@ const useStyles = makeStyles((theme: Theme) =>
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { token } = context.query;
+  let token = '';
+  if (context.query && context.query.hasOwnProperty('token')) {
+    token = asString(context.query.token);
+  }
+  const data = await getUserCookie(context);
+  let access = '';
+  if (data) {
+    access = data.access;
+  }
+  if (access) {
+    return {
+      redirect: {
+        destination: url.account.dashboard(),
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       token,
@@ -60,9 +95,23 @@ export default function Register({ token }: IProps) {
               </Grid>
             )}
             <Grid item md={12}>
-              <Button variant="contained" onClick={handleActivate}>
-                Активировать
-              </Button>
+              <Paper className={classes.paper}>
+                <Typography className={classes.typography} variant="h6">
+                  Активируте Ваш Акаунт
+                </Typography>
+                <Typography className={classes.typogBott} variant="body1">
+                  После того, как нажмете кнопку Активировать, Вы будете
+                  перенаправлены на страницу входа. Войдите в акаунт используя
+                  свой Емайл и Пароль. Спасибо что Вы с нами!
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleActivate}
+                >
+                  Активировать
+                </Button>
+              </Paper>
             </Grid>
           </Grid>
         </Container>
@@ -73,10 +122,7 @@ export default function Register({ token }: IProps) {
 
 const RegisterHead = () => (
   <Head>
-    <title key="title">
-      Заргестрироваться в интернет магазине АНГАРА запчасти для грузовиков и
-      коммерческого транспорта
-    </title>
+    <title key="title">Активация акаунта АНГАРА77</title>
     <meta
       key="description"
       name="description"

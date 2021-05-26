@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
+    form: {
+      width: '100%',
+      height: '100%',
+    },
   })
 );
 
@@ -90,6 +94,10 @@ const LoginFormPaper = () => {
   function handleLogin() {
     dispatch(login(email, password));
   }
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    handleLogin();
+  }
 
   return (
     <Paper>
@@ -97,66 +105,68 @@ const LoginFormPaper = () => {
         <Grid item xs={12}>
           <Typography variant="h6">Зарегестрированы? Войти.</Typography>
         </Grid>
-        <Grid
-          className={classes.textFieldGrid}
-          item
-          xs={12}
-          container
-          justify="center"
-        >
-          <TextField
-            required
-            name="username"
-            label="Email"
-            type="email"
-            helperText="Ваш Емайл"
-            variant="outlined"
-            fullWidth
-            onChange={handleEmail}
-          />
-        </Grid>
-        <Grid
-          className={classes.textFieldGrid}
-          item
-          container
-          xs={12}
-          justify="center"
-        >
-          <TextField
-            required
-            name="password"
-            label="Пароль"
-            type="password"
-            autoComplete="current-password"
-            helperText="Ваш Пароль"
-            variant="outlined"
-            fullWidth
-            onChange={handlePassword}
-          />
-        </Grid>
-        <Grid
-          item
-          container
-          xs={12}
-          justify="space-between"
-          alignItems="center"
-        >
-          <Link href={url.account.register()}>
-            <a>
-              <Typography variant="body2" color="primary">
-                Нет аккаунта? Создать.
-              </Typography>
-            </a>
-          </Link>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleLogin}
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <Grid
+            className={classes.textFieldGrid}
+            item
+            xs={12}
+            container
+            justify="center"
           >
-            Войти
-          </Button>
-        </Grid>
+            <TextField
+              required
+              name="username"
+              label="Email"
+              type="email"
+              helperText="Ваш Емайл"
+              variant="outlined"
+              fullWidth
+              onChange={handleEmail}
+            />
+          </Grid>
+          <Grid
+            className={classes.textFieldGrid}
+            item
+            container
+            xs={12}
+            justify="center"
+          >
+            <TextField
+              required
+              name="password"
+              label="Пароль"
+              type="password"
+              autoComplete="current-password"
+              helperText="Ваш Пароль"
+              variant="outlined"
+              fullWidth
+              onChange={handlePassword}
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            xs={12}
+            justify="space-between"
+            alignItems="center"
+          >
+            <Link href={url.account.register()}>
+              <a>
+                <Typography variant="body2" color="primary">
+                  Нет аккаунта? Создать.
+                </Typography>
+              </a>
+            </Link>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              onClick={handleLogin}
+            >
+              Войти
+            </Button>
+          </Grid>
+        </form>
       </Grid>
     </Paper>
   );

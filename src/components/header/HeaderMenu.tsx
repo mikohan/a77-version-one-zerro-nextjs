@@ -92,7 +92,7 @@ export const LoginMenu = ({
       {...props}
     >
       {!session ? (
-        <React.Fragment>
+        <div>
           <MenuItem onClick={handleSignIn}>
             <Link href={url.account.login()}>
               <a>Войти</a>
@@ -103,9 +103,9 @@ export const LoginMenu = ({
               <MenuItem>Создать Аккаунт</MenuItem>
             </a>
           </Link>
-        </React.Fragment>
+        </div>
       ) : (
-        <React.Fragment>
+        <div>
           <Link href={`${url.account.dashboard()}`}>
             <a>
               <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
@@ -118,7 +118,7 @@ export const LoginMenu = ({
           </Link>
           <Divider />
           <MenuItem onClick={handleSignOut}>Выйти</MenuItem>
-        </React.Fragment>
+        </div>
       )}
     </Menu>
   );
