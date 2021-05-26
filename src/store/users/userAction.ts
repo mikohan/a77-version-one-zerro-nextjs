@@ -204,7 +204,7 @@ export const signup = (
     });
 
     dispatch(errorAction(null));
-    Router.push(url.account.login());
+    Router.push(url.account.registerSuccess());
   } catch (e) {
     dispatch(errorAction(e.response.data.errors));
     console.log(

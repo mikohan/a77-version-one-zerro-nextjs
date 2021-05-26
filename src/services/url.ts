@@ -58,14 +58,17 @@ const url: { [key: string]: any } = {
   // cart and order
   cart: () => `/cart/cart`,
   account: {
-    create: () => `/account/create`,
-    login: () => `/account/login`,
-    profile: () => `/account/profile`,
-    dashboard: () => `/account/dashboard`,
-    garage: () => `/account/garage`,
+    activate: () => `/account/activate`,
     addresses: () => `/account/addresses`,
     addAddress: () => `/account/addresses/new`,
+    create: () => `/account/create`,
+    dashboard: () => `/account/dashboard`,
+    garage: () => `/account/garage`,
     editAddress: (id: number) => `/account/addresses/${id}`,
+    login: () => `/account/login`,
+    profile: () => `/account/profile`,
+    register: () => `/account/register`,
+    registerSuccess: () => `/account/register-success`,
   },
 };
 
