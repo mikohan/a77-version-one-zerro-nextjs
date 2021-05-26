@@ -130,6 +130,14 @@ export const userReducer = (
     case USER_GOOGLE_LOGIN_SUCCESS:
       localStorage.setItem('access', action.payload?.tokens.access!);
       localStorage.setItem('refresh', action.payload?.tokens.refresh!);
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          id: action.payload?.id,
+          username: action.payload?.username,
+          email: action.payload?.email,
+        })
+      );
       Cookie.set('access', action.payload?.tokens.access!);
       Cookie.set('refresh', action.payload?.tokens.access!);
       Cookie.set('user', {
@@ -158,10 +166,13 @@ export const userReducer = (
       Cookie.remove('user');
       return {
         ...state,
+        username: null,
+        email: null,
+        id: null,
+        image: null,
         isAuthenticated: false,
         access: null,
         refresh: null,
-        user: null,
       };
     case USER_ACTIVATION_SUCCESS:
       return {

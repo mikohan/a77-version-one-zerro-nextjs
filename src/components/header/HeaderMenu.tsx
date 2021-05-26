@@ -2,13 +2,32 @@ import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 import Link from 'next/link';
 import url from '~/services/url';
 import { signIn, signOut, useSession } from 'next-auth/client';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
 import { logout } from '~/store/users/userAction';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { capitalize } from '~/utils';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    accountMenu: {
+      minWidth: theme.spacing(35),
+    },
+    menuBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    leftAvatar: {
+      paddingLeft: theme.spacing(2),
+    },
+  })
+);
 
 interface IProps {
   handleClick(event: React.MouseEvent<HTMLButtonElement>): void;
@@ -69,8 +88,10 @@ export const LoginMenu = ({
   handleClose,
   ...props
 }: IProps) => {
+  const classes = useStyles();
   const session = useSelector((state: IState) => state.user.access);
   const dispatch = useDispatch();
+  const user = useSelector((state: IState) => state.user);
 
   function handleSignOut() {
     dispatch(logout());
@@ -90,6 +111,9 @@ export const LoginMenu = ({
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...props}
+      classes={{
+        paper: classes.accountMenu,
+      }}
     >
       {!session ? (
         <div>
@@ -108,12 +132,29 @@ export const LoginMenu = ({
         <div>
           <Link href={`${url.account.dashboard()}`}>
             <a>
-              <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Box className={classes.menuBox}>
+                  <Avatar
+                    src={
+                      user.image
+                        ? user.image
+                        : '/images/local/default-avatar.jpg'
+                    }
+                  />
+                  <Box className={classes.leftAvatar}>
+                    <Typography variant="body1">
+                      {capitalize(user.username)}
+                    </Typography>
+                    <Typography variant="body2">{user.email}</Typography>
+                  </Box>
+                </Box>
+              </MenuItem>
             </a>
           </Link>
-          <Link href={`${url.account.register()}`}>
+          <Divider />
+          <Link href={`${url.account.dashboard()}`}>
             <a>
-              <MenuItem onClick={handleClose}>Empty</MenuItem>
+              <MenuItem onClick={handleClose}>Мой Аккаунт</MenuItem>
             </a>
           </Link>
           <Divider />
