@@ -89,7 +89,6 @@ export default function Register() {
   const dispatch = useDispatch();
 
   const responseGoogle = (response: any) => {
-    console.log(response);
     if (response) {
       dispatch(googleLogin(response.tokenId));
     }
