@@ -199,8 +199,10 @@ export default function Header({ setIsDark, isDark }: IProps) {
   useEffect(() => {
     if (avatar) {
       setMyavatar(avatar);
+    } else {
+      setMyavatar('/images/local/default-avatar.jpg');
     }
-  }, []);
+  }, [avatar]);
 
   const drawer = (
     <React.Fragment>

@@ -100,6 +100,8 @@ export const userReducer = (
         id: action.payload?.id,
         username: action.payload?.username,
         email: action.payload?.email,
+        // Herre is image fucks up
+        // image: action.payload?.image,
       });
       localStorage.setItem(
         'user',
@@ -107,6 +109,7 @@ export const userReducer = (
           id: action.payload?.id,
           username: action.payload?.username,
           email: action.payload?.email,
+          // image: action.payload?.image,
         })
       );
       return {
@@ -117,6 +120,7 @@ export const userReducer = (
         email: action.payload?.email,
         username: action.payload?.username,
         id: action.payload?.id,
+        // image: action.payload?.image,
       };
     case USER_LOADED_SUCCESS:
       return {
