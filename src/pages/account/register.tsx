@@ -90,18 +90,21 @@ export default function Register() {
               <Paper className={classes.paper}>
                 <Typography variant="h6">Войти через:</Typography>
                 <Box className={classes.buttonBox}>
-                  <Button variant="contained" color="primary">
-                    Google account
-                  </Button>
-                  <Button variant="contained" color="primary">
-                    GitHub
-                  </Button>
                   <GoogleLogin
                     clientId="226244999524-h2prj07pns8q7n6hf4qe9ssc5qub3lcl.apps.googleusercontent.com"
                     buttonText="Login"
                     cookiePolicy={'single_host_origin'}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
+                    render={(renderProps: any) => (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={renderProps.onClick}
+                      >
+                        Войти через Google
+                      </Button>
+                    )}
                   />
                 </Box>
               </Paper>

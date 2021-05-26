@@ -9,6 +9,7 @@ import {
   Typography,
   Paper,
   TextField,
+  Box,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { login } from '~/store/users/userAction';
@@ -17,10 +18,16 @@ import url from '~/services/url';
 import Link from 'next/link';
 import { getUserCookie } from '~/services/getUserCookie';
 import { GetServerSidePropsContext } from 'next';
+import GoogleLogin from 'react-google-login';
+import { googleLogin } from '~/store/users/userAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     main: { paddingBottom: theme.spacing(5), paddingTop: theme.spacing(5) },
+    sideGrid: {
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+    },
     container: {
       paddingTop: theme.spacing(20),
       paddingBottom: theme.spacing(20),
@@ -34,6 +41,23 @@ const useStyles = makeStyles((theme: Theme) =>
     form: {
       width: '100%',
       height: '100%',
+    },
+    paper: {
+      height: '100%',
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+    },
+    buttonBox: {
+      paddingTop: theme.spacing(3),
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      '&>*': {
+        marginBottom: theme.spacing(2),
+      },
     },
   })
 );
@@ -62,6 +86,14 @@ export const getServerSideProps = async (
 
 export default function Register() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const responseGoogle = (response: any) => {
+    console.log(response);
+    if (response) {
+      dispatch(googleLogin(response.tokenId));
+    }
+  };
 
   return (
     <React.Fragment>
@@ -69,8 +101,31 @@ export default function Register() {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.main} container justify="center">
-            <Grid item xs={6}>
+            <Grid className={classes.sideGrid} item xs={8}>
               <LoginFormPaper />
+            </Grid>
+            <Grid item xs={4}>
+              <Paper className={classes.paper}>
+                <Typography variant="h6">Войти через:</Typography>
+                <Box className={classes.buttonBox}>
+                  <GoogleLogin
+                    clientId="226244999524-h2prj07pns8q7n6hf4qe9ssc5qub3lcl.apps.googleusercontent.com"
+                    buttonText="Login"
+                    cookiePolicy={'single_host_origin'}
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    render={(renderProps: any) => (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={renderProps.onClick}
+                      >
+                        Войти через Google
+                      </Button>
+                    )}
+                  />
+                </Box>
+              </Paper>
             </Grid>
           </Grid>
         </Container>

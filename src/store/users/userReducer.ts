@@ -18,6 +18,7 @@ import {
   USER_GOOGLE_LOGIN_SUCCESS,
   USER_GOOGLE_LOGIN_FAIL,
   USER_SET_ERROR,
+  USER_SET_AVATAR,
 } from './userActionTypes';
 import { IUser, IUserState } from '~/interfaces';
 import jwt from 'jsonwebtoken';
@@ -65,6 +66,7 @@ const initialState: IUserState = {
   username: username,
   id: id,
   errors: null,
+  image: null,
 };
 
 export const userReducer = (
@@ -177,6 +179,11 @@ export const userReducer = (
       return {
         ...state,
         errors: action.payload,
+      };
+    case USER_SET_AVATAR:
+      return {
+        ...state,
+        image: action.payload,
       };
 
     default:

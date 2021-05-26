@@ -20,6 +20,7 @@ export const USER_ACTIVATION_FAIL = 'USER_ACTIVATION_FAIL';
 export const USER_GOOGLE_LOGIN_SUCCESS = 'USER_GOOGLE_LOGIN_SUCCESS';
 export const USER_GOOGLE_LOGIN_FAIL = 'USER_GOOGLE_LOGIN_FAIL';
 export const USER_SET_ERROR = 'USER_SET_ERROR';
+export const USER_SET_AVATAR = 'USER_SET_AVATAR';
 
 export interface IUserData {
   email: string;
@@ -27,6 +28,11 @@ export interface IUserData {
   image?: string;
   tokens: IJwt;
   id: string | number;
+}
+
+export interface IUserSetAvatarAction {
+  type: typeof USER_SET_AVATAR;
+  payload: string;
 }
 
 export interface IUserError {
@@ -84,4 +90,5 @@ export type IUserAction =
   | IUserSignUpAction
   | IUserActivationAction
   | IGoogleLoginAction
-  | IUserError;
+  | IUserError
+  | IUserSetAvatarAction;

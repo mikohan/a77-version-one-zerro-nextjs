@@ -28,6 +28,8 @@ import AddressesPaper from '~/components/account/AddressesPaper';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { setAvatar } from '~/store/users/userAction';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -37,10 +39,14 @@ interface IProps {
 export default function Dashboard({ user, access }: IProps) {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
   function goProfile() {
     router.push(url.account.profile());
   }
   const addresses = user.address_user;
+  React.useEffect(() => {
+    dispatch(setAvatar(user.image));
+  }, []);
 
   if (access) {
     return (

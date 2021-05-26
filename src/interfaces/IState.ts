@@ -30,6 +30,7 @@ export interface IUserState {
   isAuthenticated: boolean;
   id: string | number;
   errors: any;
+  image: string | null;
 }
 
 export interface IState {

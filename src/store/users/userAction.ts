@@ -25,7 +25,15 @@ import {
   USER_GOOGLE_LOGIN_FAIL,
   USER_SET_ERROR,
   IUserError,
+  USER_SET_AVATAR,
 } from './userActionTypes';
+
+export function setAvatar(payload: string) {
+  return {
+    type: USER_SET_AVATAR,
+    payload: payload,
+  };
+}
 
 export const checkAuthenticated = () => async (
   dispatch: ThunkDispatch<IState, void, IUserAction>
@@ -152,8 +160,6 @@ export const googleLogin = (tokenId: string) => async (
     try {
       const res = await axios.post(urlAxios, payload);
       const response = res.data;
-      console.log(response);
-
       dispatch({
         type: USER_GOOGLE_LOGIN_SUCCESS,
         payload: response,
