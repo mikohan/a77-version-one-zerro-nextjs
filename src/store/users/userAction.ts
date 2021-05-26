@@ -148,14 +148,9 @@ export const googleLogin = (tokenId: string) => async (
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     };
-    const url = `http://localhost:8000/auth/social/google/`;
+    const urlAxios = `http://localhost:8000/auth/social/google/`;
     try {
-      const res = await axios.post(url, payload);
-      // dispatch({
-      //   type: USER_GOOGLE_LOGIN_SUCCESS,
-      //   payload: res.data,
-      // });
-      // dispatch(loadUser() as any);
+      const res = await axios.post(urlAxios, payload);
       const response = res.data;
       console.log(response);
 
@@ -163,6 +158,7 @@ export const googleLogin = (tokenId: string) => async (
         type: USER_GOOGLE_LOGIN_SUCCESS,
         payload: response,
       });
+      Router.push(url.account.dashboard());
     } catch (e) {
       dispatch({
         type: USER_GOOGLE_LOGIN_FAIL,
