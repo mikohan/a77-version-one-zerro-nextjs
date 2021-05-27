@@ -5,13 +5,13 @@ import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import Link from 'next/link';
 import url from '~/services/url';
-import { signIn, signOut, useSession } from 'next-auth/client';
 import { Avatar, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
 import { logout } from '~/store/users/userAction';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { capitalize } from '~/utils';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,10 +92,12 @@ export const LoginMenu = ({
   const session = useSelector((state: IState) => state.user.access);
   const dispatch = useDispatch();
   const user = useSelector((state: IState) => state.user);
+  const router = useRouter();
 
   function handleSignOut() {
     dispatch(logout());
     handleClose();
+    router.push(url.home());
   }
   function handleSignIn() {
     handleClose();
