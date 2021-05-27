@@ -73,6 +73,15 @@ export const getServerSideProps = async (
   const uid = req.uid;
   const token = req.token;
 
+  if (!token || !uid) {
+    return {
+      redirect: {
+        destination: url.account.login(),
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       uid,
@@ -97,7 +106,7 @@ export default function ResetPassword({ uid, token }: IProps) {
   const stateMessage = useSelector((state: IState) => state.user.message);
   const errors = useSelector((state: IState) => state.user.errors);
 
-  const initMsg = 'nit';
+  const initMsg = '';
   const [message, setMessage] = useState(initMsg);
 
   const router = useRouter();
@@ -140,6 +149,7 @@ export default function ResetPassword({ uid, token }: IProps) {
       }
     }
   }, [stateMessage, errors]);
+
   function goLogin() {
     router.push(url.account.login());
   }

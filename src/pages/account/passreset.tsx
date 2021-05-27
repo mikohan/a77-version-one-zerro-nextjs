@@ -18,6 +18,7 @@ import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { getUserCookie } from '~/services/getUserCookie';
 import { IUser, IState } from '~/interfaces';
+import { COMPANY_INFORMATION } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +47,13 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonReset: {
       marginLeft: theme.spacing(2),
       minWidth: theme.spacing(30),
+    },
+    error: {
+      color: theme.palette.error.main,
+    },
+
+    message: {
+      color: theme.palette.success.main,
     },
   })
 );
@@ -90,8 +98,7 @@ export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(true);
   const [showButton, setShowButton] = useState(true);
-  const initMsg =
-    'Откройте пожалуйста форму и введите ваш Email, после этого на почту приедет ссылка для сброса пароля.';
+  const initMsg = 'Нажмите открыть';
   const [message, setMessage] = useState(initMsg);
   const messageStore = useSelector((state: IState) => state.user.message);
   const errors = useSelector((state: IState) => state.user.errors);
@@ -127,6 +134,26 @@ export default function ResetPassword() {
     }
   }
 
+  React.useEffect(() => {
+    if (messageStore) {
+      const success: boolean = messageStore.success || false;
+      let successMsg = '';
+      if (success) {
+        successMsg = `На почту ${email} была отправлена ссылка для изменения пароля!`;
+        setMessage(successMsg);
+        setShowButton(false);
+      }
+    } else if (errors) {
+      const detail = errors.detail || '';
+      let detailMsg = '';
+      if (detail) {
+        detailMsg = `Упс что-то пошло не так, попробуйте еще раз! Или напишите админу ${COMPANY_INFORMATION.SHOP_EMAIL}`;
+        setMessage(detailMsg);
+        setShowButton(false);
+      }
+    }
+  }, [messageStore, errors]);
+
   return (
     <React.Fragment>
       <RegisterHead />
@@ -138,7 +165,10 @@ export default function ResetPassword() {
                 <Typography className={classes.typography} variant="h6">
                   Сброс пароля
                 </Typography>
-                <Typography className={classes.typogBott} variant="body1">
+                <Typography
+                  className={errors ? classes.error : classes.message}
+                  variant="body1"
+                >
                   {message}
                 </Typography>
                 {openForm && (
