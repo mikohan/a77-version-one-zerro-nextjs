@@ -12,13 +12,13 @@ import {
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
-import { verify } from '~/store/users/userAction';
-import { useDispatch } from 'react-redux';
+import { resetPassword, verify } from '~/store/users/userAction';
+import { useDispatch, useSelector } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { asString } from '~/helpers';
 import { getUserCookie } from '~/services/getUserCookie';
-import { IUser } from '~/interfaces';
+import { IUser, IState } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,10 +90,14 @@ export default function ResetPassword() {
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(true);
+  const initMsg =
+    'Откройте пожалуйста форму и введите ваш Email, после этого на почту приедет ссылка для сброса пароля.';
+  const [message, setMessage] = useState(initMsg);
 
   const router = useRouter();
   function handleOpen() {
     setOpenForm(!openForm);
+    setMessage(initMsg);
   }
   function emailIsValid(email: string) {
     return /\S+@\S+\.\S+/.test(email);
@@ -103,12 +107,14 @@ export default function ResetPassword() {
     setOpenForm(false);
     if (!emailError) {
       console.log('Submited', email);
+      dispatch(resetPassword(email));
+      setMessage(
+        `Ссылка для сброса пароля отпавлена на ${email}! Проверьте пожалуйста почту.`
+      );
     }
   }
-  function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
-
-    console.log(e.target.value);
     if (emailIsValid(e.target.value)) {
       setEmailError(false);
     } else {
@@ -128,7 +134,7 @@ export default function ResetPassword() {
                   Сброс пароля
                 </Typography>
                 <Typography className={classes.typogBott} variant="body1">
-                  Some text here
+                  {message}
                 </Typography>
                 {openForm && (
                   <form

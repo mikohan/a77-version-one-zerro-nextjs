@@ -257,9 +257,10 @@ export const resetPassword = (email: string) => async (
   dispatch: ThunkDispatch<IState, void, IUserAction>
 ) => {
   const body = { email };
-  const url = `${process.env.REACT_APP_API_URL}/auth/users/reset_password/`;
+  // const url = `${process.env.REACT_APP_API_URL}/auth/users/reset_password/`;
+  const urlAxios = `http://localhost:8000/auth/reset/`;
   try {
-    await axios.post(url, body);
+    await axios.post(urlAxios, body);
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,
     });
