@@ -31,6 +31,7 @@ export interface IUserState {
   id: string | number;
   errors: any;
   image: string | null;
+  message: any;
 }
 
 export interface IState {

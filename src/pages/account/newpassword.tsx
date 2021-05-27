@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
-import { resetPassword } from '~/store/users/userAction';
+import { resetPasswordConfirm } from '~/store/users/userAction';
 import { useDispatch } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
@@ -54,41 +54,40 @@ const useStyles = makeStyles((theme: Theme) =>
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const data = await getUserCookie(context);
-  let access = '';
-  let user = {} as IUser;
-  if (data) {
-    access = data.access;
-    user = data.user;
-  }
-  if (access) {
-    return {
-      redirect: {
-        destination: url.account.dashboard(),
-        permanent: false,
-      },
-    };
-  }
+  const req = context.query;
+  console.log(req);
+  const uid = req.uid;
+  const token = req.token;
+
+  /* if (access) { */
+  /*   return { */
+  /*     redirect: { */
+  /*       destination: url.account.dashboard(), */
+  /*       permanent: false, */
+  /*     }, */
+  /*   }; */
+  /* } */
 
   return {
     props: {
-      user,
-      access,
+      uid,
+      token,
     },
   };
 };
 
 interface IProps {
-  user: IUser;
-  access: string;
+  token: string;
+  uid: string;
 }
 
-export default function ResetPassword() {
+export default function ResetPassword({ uid, token }: IProps) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openForm, setOpenForm] = useState<boolean>(false);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(true);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(true);
+
   const initMsg =
     'Откройте пожалуйста форму и введите ваш Email, после этого на почту приедет ссылка для сброса пароля.';
   const [message, setMessage] = useState(initMsg);
@@ -98,26 +97,19 @@ export default function ResetPassword() {
     setOpenForm(!openForm);
     setMessage(initMsg);
   }
-  function emailIsValid(email: string) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setOpenForm(false);
-    if (!emailError) {
-      console.log('Submited', email);
-      dispatch(resetPassword(email));
-      setMessage(
-        `Ссылка для сброса пароля отпавлена на ${email}! Проверьте пожалуйста почту.`
-      );
+    if (!passwordError) {
+      dispatch(resetPasswordConfirm(uid, token, password));
     }
   }
   async function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(e.target.value);
-    if (emailIsValid(e.target.value)) {
-      setEmailError(false);
+    setPassword(e.target.value);
+    if (e.target.value.length > 6) {
+      setPasswordError(false);
     } else {
-      setEmailError(true);
+      setPasswordError(true);
     }
   }
 
@@ -142,20 +134,21 @@ export default function ResetPassword() {
                     onSubmit={handleSubmit}
                   >
                     <TextField
-                      error={emailError}
-                      type="email"
+                      error={passwordError}
+                      type="password"
                       variant="outlined"
-                      label="Email"
+                      label="Новый Пароль"
                       size="small"
                       fullWidth
                       onChange={handleEmail}
+                      helperText="Пароль должен быть длинее 6 знаков!"
                     />
                     <Button
                       type="submit"
                       className={classes.buttonReset}
                       variant="contained"
                       color="secondary"
-                      disabled={emailError}
+                      disabled={passwordError}
                     >
                       Сбросить пароль
                     </Button>

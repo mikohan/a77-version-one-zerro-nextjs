@@ -21,6 +21,12 @@ export const USER_GOOGLE_LOGIN_SUCCESS = 'USER_GOOGLE_LOGIN_SUCCESS';
 export const USER_GOOGLE_LOGIN_FAIL = 'USER_GOOGLE_LOGIN_FAIL';
 export const USER_SET_ERROR = 'USER_SET_ERROR';
 export const USER_SET_AVATAR = 'USER_SET_AVATAR';
+export const USER_SET_SUCCESS_MESSAGE = 'USER_SET_SUCCESS_MESSAGE';
+
+export interface IUserSuccessMessage {
+  type: typeof USER_SET_SUCCESS_MESSAGE;
+  payload: any;
+}
 
 export interface IUserData {
   email: string;
@@ -91,4 +97,5 @@ export type IUserAction =
   | IUserActivationAction
   | IGoogleLoginAction
   | IUserError
-  | IUserSetAvatarAction;
+  | IUserSetAvatarAction
+  | IUserSuccessMessage;

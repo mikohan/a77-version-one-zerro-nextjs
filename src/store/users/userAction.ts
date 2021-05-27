@@ -26,6 +26,7 @@ import {
   USER_SET_ERROR,
   IUserError,
   USER_SET_AVATAR,
+  USER_SET_SUCCESS_MESSAGE,
 } from './userActionTypes';
 
 export function setAvatar(payload: string) {
@@ -185,6 +186,12 @@ export function errorAction(error: any): IUserError {
   return {
     type: USER_SET_ERROR,
     payload: error,
+  };
+}
+export function successMessageAction(message: any): IUserAction {
+  return {
+    type: USER_SET_SUCCESS_MESSAGE,
+    payload: message,
   };
 }
 

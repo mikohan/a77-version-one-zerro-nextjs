@@ -19,6 +19,7 @@ import {
   USER_GOOGLE_LOGIN_FAIL,
   USER_SET_ERROR,
   USER_SET_AVATAR,
+  USER_SET_SUCCESS_MESSAGE,
 } from './userActionTypes';
 import { IUser, IUserState } from '~/interfaces';
 import jwt from 'jsonwebtoken';
@@ -83,6 +84,7 @@ const initialState: IUserState = {
   id: id,
   errors: null,
   image: image,
+  message: null,
 };
 
 export const userReducer = (
@@ -218,6 +220,11 @@ export const userReducer = (
       return {
         ...state,
         image: action.payload,
+      };
+    case USER_SET_SUCCESS_MESSAGE:
+      return {
+        ...state,
+        message: action.payload,
       };
 
     default:
