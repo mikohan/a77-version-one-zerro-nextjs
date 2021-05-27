@@ -36,10 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(5),
       color: theme.palette.success.main,
     },
-    typogBott: {
-      paddingBottom: theme.spacing(5),
-      textAlign: 'center',
-    },
     form: {
       marginBottom: theme.spacing(5),
       display: 'flex',
@@ -55,6 +51,16 @@ const useStyles = makeStyles((theme: Theme) =>
       '& > *': {
         marginRight: theme.spacing(1),
       },
+    },
+    message: {
+      paddingBottom: theme.spacing(5),
+      textAlign: 'center',
+      color: theme.palette.success.main,
+    },
+    error: {
+      paddingBottom: theme.spacing(5),
+      textAlign: 'center',
+      color: theme.palette.error.main,
     },
   })
 );
@@ -91,7 +97,7 @@ export default function ResetPassword({ uid, token }: IProps) {
   const stateMessage = useSelector((state: IState) => state.user.message);
   const errors = useSelector((state: IState) => state.user.errors);
 
-  const initMsg = 'init msg';
+  const initMsg = 'nit';
   const [message, setMessage] = useState(initMsg);
 
   const router = useRouter();
@@ -137,6 +143,9 @@ export default function ResetPassword({ uid, token }: IProps) {
   function goLogin() {
     router.push(url.account.login());
   }
+  function goReset() {
+    router.push(url.account.resetPassword());
+  }
 
   return (
     <React.Fragment>
@@ -151,7 +160,7 @@ export default function ResetPassword({ uid, token }: IProps) {
                 </Typography>
                 {message && (
                   <Typography
-                    className={classes.typogBott}
+                    className={errors ? classes.error : classes.message}
                     variant="body1"
                     color="secondary"
                   >
@@ -198,9 +207,25 @@ export default function ResetPassword({ uid, token }: IProps) {
                     )}
                   </Button>
                 ) : (
-                  <Button variant="contained" color="primary" onClick={goLogin}>
-                    Войти в акаунт
-                  </Button>
+                  <React.Fragment>
+                    {errors ? (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={goReset}
+                      >
+                        Сбросить пароль еще раз
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={goLogin}
+                      >
+                        Войти в акаунт
+                      </Button>
+                    )}
+                  </React.Fragment>
                 )}
                 <Box className={classes.helpers}>
                   <Link href={url.account.register()}>
@@ -210,7 +235,7 @@ export default function ResetPassword({ uid, token }: IProps) {
                       </Typography>
                     </a>
                   </Link>
-                  <Link href={url.account.reset()}>
+                  <Link href={url.account.resetPassword()}>
                     <a>
                       <Typography variant="body2" color="secondary">
                         Сбросить пароль еще раз

@@ -268,7 +268,7 @@ export const logout = () => (
   });
   dispatch(errorAction(null));
   dispatch(successMessageAction(null));
-  Router.push(url.cars());
+  // Router.push(url.cars());
 };
 
 export const resetPassword = (email: string) => async (

@@ -9,7 +9,7 @@ import { signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
 import { useDispatch } from 'react-redux';
-import { logout } from '~/store/users/userAction';
+import { logout, resetPassword } from '~/store/users/userAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +45,11 @@ export default function SimpleList() {
     dispatch(logout());
   }
 
+  function handlePassword() {
+    dispatch(logout());
+    router.push(url.account.resetPassword());
+  }
+
   return (
     <Paper className={classes.root}>
       <Typography className={classes.title} variant="h6">
@@ -61,6 +66,9 @@ export default function SimpleList() {
           <ListItemText primary="Профиль" onClick={handleProfile} />
         </MenuItem>
         <MenuItem onClick={handleAddresses}>Мои Адреса</MenuItem>
+        <MenuItem>
+          <ListItemText primary="Изменить Пароль" onClick={handlePassword} />
+        </MenuItem>
       </List>
       <Divider />
       <List component="nav" aria-label="secondary mailbox folders">

@@ -51,37 +51,37 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const data = await getUserCookie(context);
-  let access = '';
-  let user = {} as IUser;
-  if (data) {
-    access = data.access;
-    user = data.user;
-  }
-  if (access) {
-    return {
-      redirect: {
-        destination: url.account.dashboard(),
-        permanent: false,
-      },
-    };
-  }
+/* export const getServerSideProps = async ( */
+/*   context: GetServerSidePropsContext */
+/* ) => { */
+/*   const data = await getUserCookie(context); */
+/*   let access = ''; */
+/*   let user = {} as IUser; */
+/*   if (data) { */
+/*     access = data.access; */
+/*     user = data.user; */
+/*   } */
+/*   if (access) { */
+/*     return { */
+/*       redirect: { */
+/*         destination: url.account.dashboard(), */
+/*         permanent: false, */
+/*       }, */
+/*     }; */
+/*   } */
 
-  return {
-    props: {
-      user,
-      access,
-    },
-  };
-};
+/*   return { */
+/*     props: { */
+/*       user, */
+/*       access, */
+/*     }, */
+/*   }; */
+/* }; */
 
-interface IProps {
-  user: IUser;
-  access: string;
-}
+/* interface IProps { */
+/*   user: IUser; */
+/*   access: string; */
+/* } */
 
 export default function ResetPassword() {
   const classes = useStyles();

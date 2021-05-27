@@ -69,7 +69,7 @@ const url: { [key: string]: any } = {
     profile: () => `/account/profile`,
     register: () => `/account/register`,
     registerSuccess: () => `/account/register-success`,
-    reset: () => `/account/passreset`,
+    resetPassword: () => `/account/passreset`,
   },
 };
 

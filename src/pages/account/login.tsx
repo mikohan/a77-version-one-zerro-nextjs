@@ -218,7 +218,7 @@ const LoginFormPaper = () => {
                   </Typography>
                 </a>
               </Link>
-              <Link href={url.account.reset()}>
+              <Link href={url.account.resetPassword()}>
                 <a>
                   <Typography variant="body2" color="secondary">
                     Забыли пароль?
