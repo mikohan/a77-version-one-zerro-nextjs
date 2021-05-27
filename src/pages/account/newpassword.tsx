@@ -9,6 +9,7 @@ import {
   Typography,
   Paper,
   TextField,
+  Box,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
@@ -18,6 +19,7 @@ import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { getUserCookie } from '~/services/getUserCookie';
 import { IState, IUser } from '~/interfaces';
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(2),
       minWidth: theme.spacing(30),
     },
+    helpers: {
+      paddingTop: theme.spacing(5),
+      display: 'flex',
+      '& > *': {
+        marginRight: theme.spacing(1),
+      },
+    },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -55,18 +64,8 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const req = context.query;
-  console.log(req);
   const uid = req.uid;
   const token = req.token;
-
-  /* if (access) { */
-  /*   return { */
-  /*     redirect: { */
-  /*       destination: url.account.dashboard(), */
-  /*       permanent: false, */
-  /*     }, */
-  /*   }; */
-  /* } */
 
   return {
     props: {
@@ -87,13 +86,12 @@ export default function ResetPassword({ uid, token }: IProps) {
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(true);
+  const [showButton, setShowButton] = useState(true);
+
   const stateMessage = useSelector((state: IState) => state.user.message);
   const errors = useSelector((state: IState) => state.user.errors);
-  console.log(stateMessage);
-  console.log(errors);
 
-  const initMsg =
-    'Откройте пожалуйста форму и введите ваш Email, после этого на почту приедет ссылка для сброса пароля.';
+  const initMsg = 'init msg';
   const [message, setMessage] = useState(initMsg);
 
   const router = useRouter();
@@ -117,6 +115,29 @@ export default function ResetPassword({ uid, token }: IProps) {
     }
   }
 
+  React.useEffect(() => {
+    if (stateMessage) {
+      const success: boolean = stateMessage.success || false;
+      let successMsg = '';
+      if (success) {
+        successMsg = `Пароль успшно изменен! Перейти на страницу входа в акаунт.`;
+        setMessage(successMsg);
+        setShowButton(false);
+      }
+    } else if (errors) {
+      const detail = errors.detail || '';
+      let detailMsg = '';
+      if (detail) {
+        detailMsg = `Ссылка не активна. Попробуйте сбросить пароль еще раз!`;
+        setMessage(detailMsg);
+        setShowButton(false);
+      }
+    }
+  }, [stateMessage, errors]);
+  function goLogin() {
+    router.push(url.account.login());
+  }
+
   return (
     <React.Fragment>
       <RegisterHead />
@@ -128,9 +149,15 @@ export default function ResetPassword({ uid, token }: IProps) {
                 <Typography className={classes.typography} variant="h6">
                   Сброс пароля
                 </Typography>
-                <Typography className={classes.typogBott} variant="body1">
-                  {message}
-                </Typography>
+                {message && (
+                  <Typography
+                    className={classes.typogBott}
+                    variant="body1"
+                    color="secondary"
+                  >
+                    {message}
+                  </Typography>
+                )}
                 {openForm && (
                   <form
                     id="resetForm"
@@ -158,17 +185,39 @@ export default function ResetPassword({ uid, token }: IProps) {
                     </Button>
                   </form>
                 )}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleOpen}
-                >
-                  {openForm ? (
-                    <span>Закрыть форму</span>
-                  ) : (
-                    <span>Открыть форму</span>
-                  )}
-                </Button>
+                {showButton ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpen}
+                  >
+                    {openForm ? (
+                      <span>Закрыть форму</span>
+                    ) : (
+                      <span>Открыть форму</span>
+                    )}
+                  </Button>
+                ) : (
+                  <Button variant="contained" color="primary" onClick={goLogin}>
+                    Войти в акаунт
+                  </Button>
+                )}
+                <Box className={classes.helpers}>
+                  <Link href={url.account.register()}>
+                    <a>
+                      <Typography variant="body2" color="primary">
+                        Нет аккаунта? Создать.
+                      </Typography>
+                    </a>
+                  </Link>
+                  <Link href={url.account.reset()}>
+                    <a>
+                      <Typography variant="body2" color="secondary">
+                        Сбросить пароль еще раз
+                      </Typography>
+                    </a>
+                  </Link>
+                </Box>
               </Paper>
             </Grid>
           </Grid>

@@ -13,11 +13,11 @@ import {
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import { resetPassword } from '~/store/users/userAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { getUserCookie } from '~/services/getUserCookie';
-import { IUser } from '~/interfaces';
+import { IUser, IState } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,9 +89,12 @@ export default function ResetPassword() {
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(true);
+  const [showButton, setShowButton] = useState(true);
   const initMsg =
     'Откройте пожалуйста форму и введите ваш Email, после этого на почту приедет ссылка для сброса пароля.';
   const [message, setMessage] = useState(initMsg);
+  const messageStore = useSelector((state: IState) => state.user.message);
+  const errors = useSelector((state: IState) => state.user.errors);
 
   const router = useRouter();
   function handleOpen() {
@@ -104,12 +107,15 @@ export default function ResetPassword() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setOpenForm(false);
+    setShowButton(false);
     if (!emailError) {
       console.log('Submited', email);
       dispatch(resetPassword(email));
-      setMessage(
-        `Ссылка для сброса пароля отпавлена на ${email}! Проверьте пожалуйста почту.`
-      );
+      if (messageStore) {
+        setMessage(JSON.stringify(messageStore));
+      } else if (errors) {
+        JSON.stringify(errors);
+      }
     }
   }
   async function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -161,17 +167,19 @@ export default function ResetPassword() {
                     </Button>
                   </form>
                 )}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleOpen}
-                >
-                  {openForm ? (
-                    <span>Закрыть форму</span>
-                  ) : (
-                    <span>Открыть форму</span>
-                  )}
-                </Button>
+                {showButton && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpen}
+                  >
+                    {openForm ? (
+                      <span>Закрыть форму</span>
+                    ) : (
+                      <span>Открыть форму</span>
+                    )}
+                  </Button>
+                )}
               </Paper>
             </Grid>
           </Grid>
