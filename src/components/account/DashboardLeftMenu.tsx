@@ -40,6 +40,9 @@ export default function SimpleList() {
   function handleAddresses() {
     router.push(url.account.addresses());
   }
+  function handleOrders() {
+    router.push(url.account.orders());
+  }
 
   function handleLogOut() {
     dispatch(logout());
@@ -67,6 +70,9 @@ export default function SimpleList() {
         </MenuItem>
         <MenuItem>
           <ListItemText primary="Гараж" onClick={handleGarage} />
+        </MenuItem>
+        <MenuItem>
+          <ListItemText primary="Заказы" onClick={handleOrders} />
         </MenuItem>
         <MenuItem>
           <ListItemText primary="Профиль" onClick={handleProfile} />

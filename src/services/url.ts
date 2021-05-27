@@ -70,6 +70,8 @@ const url: { [key: string]: any } = {
     register: () => `/account/register`,
     registerSuccess: () => `/account/register-success`,
     resetPassword: () => `/account/passreset`,
+    orders: () => `/account/orders`,
+    order: (id: number) => `/account/orders/${id}`,
   },
 };
 
