@@ -59,6 +59,12 @@ const useStyles = makeStyles((theme: Theme) =>
         marginBottom: theme.spacing(2),
       },
     },
+    helpers: {
+      display: 'flex',
+      '& > *': {
+        marginRight: theme.spacing(1),
+      },
+    },
   })
 );
 
@@ -204,13 +210,22 @@ const LoginFormPaper = () => {
             justify="space-between"
             alignItems="center"
           >
-            <Link href={url.account.register()}>
-              <a>
-                <Typography variant="body2" color="primary">
-                  Нет аккаунта? Создать.
-                </Typography>
-              </a>
-            </Link>
+            <Box className={classes.helpers}>
+              <Link href={url.account.register()}>
+                <a>
+                  <Typography variant="body2" color="primary">
+                    Нет аккаунта? Создать.
+                  </Typography>
+                </a>
+              </Link>
+              <Link href={url.account.reset()}>
+                <a>
+                  <Typography variant="body2" color="secondary">
+                    Забыли пароль?
+                  </Typography>
+                </a>
+              </Link>
+            </Box>
             <Button
               variant="contained"
               color="primary"

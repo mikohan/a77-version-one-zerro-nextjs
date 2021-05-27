@@ -18,6 +18,7 @@ import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { asString } from '~/helpers';
 import { getUserCookie } from '~/services/getUserCookie';
+import { IUser } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,15 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(5),
       textAlign: 'center',
     },
+    form: {
+      marginBottom: theme.spacing(5),
+      display: 'flex',
+      width: theme.spacing(70),
+    },
+    buttonReset: {
+      marginLeft: theme.spacing(2),
+      minWidth: theme.spacing(30),
+    },
   })
 );
 // This is the recommended way for Next.js 9.3 or newer
@@ -45,14 +55,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  let token = '';
-  if (context.query && context.query.hasOwnProperty('token')) {
-    token = asString(context.query.token);
-  }
   const data = await getUserCookie(context);
   let access = '';
+  let user = {} as IUser;
   if (data) {
     access = data.access;
+    user = data.user;
   }
   if (access) {
     return {
@@ -65,26 +73,46 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      token,
+      user,
+      access,
     },
   };
 };
 
 interface IProps {
-  token: string;
+  user: IUser;
+  access: string;
 }
 
-export default function Register({ token }: IProps) {
+export default function ResetPassword() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [openForm, setOpenForm] = useState<boolean>(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(true);
+
   const router = useRouter();
-  function handleActivate() {
-    if (token) {
-      dispatch(verify(token));
-      router.push(url.account.login());
+  function handleOpen() {
+    setOpenForm(!openForm);
+  }
+  function emailIsValid(email: string) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setOpenForm(false);
+    if (!emailError) {
+      console.log('Submited', email);
+    }
+  }
+  function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value);
+
+    console.log(e.target.value);
+    if (emailIsValid(e.target.value)) {
+      setEmailError(false);
     } else {
-      setErrorMessage('Токен не получен, попробуйте снова');
+      setEmailError(true);
     }
   }
 
@@ -94,13 +122,6 @@ export default function Register({ token }: IProps) {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.main} container>
-            {errorMessage && (
-              <Grid>
-                <Typography variant="h6" color="error">
-                  {errorMessage}
-                </Typography>
-              </Grid>
-            )}
             <Grid item md={12}>
               <Paper className={classes.paper}>
                 <Typography className={classes.typography} variant="h6">
@@ -109,13 +130,42 @@ export default function Register({ token }: IProps) {
                 <Typography className={classes.typogBott} variant="body1">
                   Some text here
                 </Typography>
-                <TextField variant="outlined" label="Password" />
+                {openForm && (
+                  <form
+                    id="resetForm"
+                    className={classes.form}
+                    onSubmit={handleSubmit}
+                  >
+                    <TextField
+                      error={emailError}
+                      type="email"
+                      variant="outlined"
+                      label="Email"
+                      size="small"
+                      fullWidth
+                      onChange={handleEmail}
+                    />
+                    <Button
+                      type="submit"
+                      className={classes.buttonReset}
+                      variant="contained"
+                      color="secondary"
+                      disabled={emailError}
+                    >
+                      Сбросить пароль
+                    </Button>
+                  </form>
+                )}
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleActivate}
+                  onClick={handleOpen}
                 >
-                  Активировать
+                  {openForm ? (
+                    <span>Закрыть форму</span>
+                  ) : (
+                    <span>Открыть форму</span>
+                  )}
                 </Button>
               </Paper>
             </Grid>
