@@ -35,14 +35,14 @@ if (typeof window !== 'undefined') {
 let isAuthenticated = false;
 if (refresh) {
   const decodedRefresh = jwt.decode(refresh, { complete: true });
-  if (decodedRefresh?.exp < dateNow.getTime()) {
+  if (decodedRefresh?.exp * 1000 < dateNow.getTime()) {
     refresh = '';
   }
 }
 if (access) {
   const decoded = jwt.decode(access, { complete: true });
 
-  if (decoded?.payload.exp < dateNow.getTime()) {
+  if (decoded?.payload.exp * 1000 < dateNow.getTime()) {
     access = '';
   } else {
     isAuthenticated = true;
@@ -52,7 +52,7 @@ if (access) {
 try {
   const accessCook = Cookie.get('access');
   const decoded = jwt.decode(accessCook as string, { complete: true });
-  if (decoded?.payload.exp < dateNow.getTime()) {
+  if (decoded?.payload.exp * 1000 < dateNow.getTime()) {
     Cookie.remove('access');
     Cookie.remove('refresh');
     Cookie.remove('user');
