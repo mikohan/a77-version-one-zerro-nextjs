@@ -43,11 +43,17 @@ export default function SimpleList() {
 
   function handleLogOut() {
     dispatch(logout());
+    router.push(url.home());
   }
 
   function handlePassword() {
-    dispatch(logout());
-    router.push(url.account.resetPassword());
+    const con: boolean = confirm(
+      `Если нажмете ОК, то после смены пароля будет нужно Залогиниться снова!`
+    );
+    if (con) {
+      dispatch(logout());
+      router.push(url.account.resetPassword());
+    }
   }
 
   return (

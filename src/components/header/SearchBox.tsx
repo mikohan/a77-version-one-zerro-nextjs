@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Grid, Hidden, Typography, Badge } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import SearchBar from '~/components/header/SearchBar';
@@ -12,9 +12,8 @@ import { ICar } from '~/interfaces';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import MiniCart from '~/components/header/MiniCart';
 import { Avatar } from '@material-ui/core';
-import Image from 'next/image';
-import { useSession, signIn, signOut } from 'next-auth/client';
 import { imageServerUrl } from '~/config';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,7 +70,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchBox() {
   const classes = useStyles();
   const cart = useSelector((state: IState) => state.cart);
-  const [session, loading] = useSession();
   let currentCar: ICar = {} as ICar;
   if (typeof window !== 'undefined') {
     currentCar = useSelector((state: IState) => state.shop.currentCar) as ICar;
@@ -82,20 +80,6 @@ export default function SearchBox() {
   const handleClickCart = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
-  function handleSignIn() {
-    signIn();
-  }
-
-  let img = ``;
-  if (session?.user?.image) {
-    const test = /^http.+/.test(session?.user?.image as string);
-    img = test
-      ? (session?.user?.image as string)
-      : `${imageServerUrl}${session?.user?.image}`;
-  }
-
-  // Redirect to car page on click
 
   return (
     <React.Fragment>
@@ -131,19 +115,6 @@ export default function SearchBox() {
                 <ShoppingCartOutlinedIcon className={classes.shoppingCart} />
               </Badge>
             </Box>
-            {session ? (
-              <Box className={classes.loginAvatar}>
-                <Avatar className={classes.avatar} src={img}>
-                  {session.user?.email!.charAt(0).toUpperCase()}
-                </Avatar>
-              </Box>
-            ) : (
-              <Box className={classes.loginAvatar}>
-                <Typography variant="subtitle1" onClick={handleSignIn}>
-                  Войти
-                </Typography>
-              </Box>
-            )}
           </Grid>
         </Hidden>
       </Grid>
