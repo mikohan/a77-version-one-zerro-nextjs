@@ -127,9 +127,11 @@ export const login = (email: string, password: string) => async (
       payload: result,
     });
     dispatch(errorAction(null));
+    dispatch(successMessageAction(res.data));
     Router.push(url.account.dashboard());
   } catch (e) {
     dispatch(errorAction(e.response.data.errors));
+    dispatch(successMessageAction(null));
     console.log('Cant login and get jwt in login userAction line 119', e);
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -168,9 +170,12 @@ export const googleLogin = (tokenId: string) => async (
         payload: response,
       });
       dispatch(errorAction(null));
+      dispatch(successMessageAction(res.data));
       Router.push(url.account.dashboard());
     } catch (e) {
       dispatch(errorAction(e.response.data.errors));
+
+      dispatch(successMessageAction(null));
       dispatch({
         type: USER_GOOGLE_LOGIN_FAIL,
         payload: null,
@@ -210,9 +215,12 @@ export const signup = (
     });
 
     dispatch(errorAction(null));
+    dispatch(successMessageAction(res.data));
     Router.push(url.account.registerSuccess());
   } catch (e) {
     dispatch(errorAction(e.response.data.errors));
+    dispatch(successMessageAction(null));
+
     console.log(
       'Some Errors occurs while try register new user in signup on line 181 in userAction.ts',
       e
@@ -231,17 +239,19 @@ export const verify = (token: string) => async (
   // const url = `${process.env.BACKEND_URL}/auth/activate/`;
   const url = `http://localhost:8000/auth/activate/?token=${token}`;
   try {
-    const res = await axios.get(url);
-    if (res.data.data === 'Successfully activated') {
-      console.log(res.data.data, 'Email activated');
+    const response = await axios.get(url);
+    if (response.data.data === 'Successfully activated') {
+      console.log(response.data.data, 'Email activated');
     }
     dispatch({
       type: USER_ACTIVATION_SUCCESS,
-      payload: res.data.data.email,
+      payload: response.data.data.email,
     });
     dispatch(errorAction(null));
+    dispatch(successMessageAction(response.data));
   } catch (e) {
     dispatch(errorAction(e.response.data.errors));
+    dispatch(successMessageAction(null));
     console.log('Cant create token in actions 21 line', e);
     dispatch({
       type: USER_ACTIVATION_FAIL,
@@ -257,6 +267,7 @@ export const logout = () => (
     type: USER_LOGOUT,
   });
   dispatch(errorAction(null));
+  dispatch(successMessageAction(null));
   Router.push(url.cars());
 };
 
@@ -267,13 +278,15 @@ export const resetPassword = (email: string) => async (
   // const url = `${process.env.REACT_APP_API_URL}/auth/users/reset_password/`;
   const urlAxios = `http://localhost:8000/auth/reset/`;
   try {
-    await axios.post(urlAxios, body);
+    const response = await axios.post(urlAxios, body);
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,
     });
     dispatch(errorAction(null));
+    dispatch(successMessageAction(response.data));
   } catch (e) {
-    dispatch(errorAction(e.response.data.errors));
+    dispatch(errorAction(e.response.data));
+    dispatch(successMessageAction(null));
     console.log('Cannot call api reset password', e);
     dispatch({
       type: USER_PASSWORD_RESET_FAIL,
@@ -286,17 +299,18 @@ export const resetPasswordConfirm = (
   token: string,
   password: string
 ) => async (dispatch: ThunkDispatch<IState, void, IUserAction>) => {
-  const body = { uid64: uid, token: token, password: password };
+  const body = { uidb64: uid, token: token, password: password };
   const urlAxios = `http://localhost:8000/auth/newpassword/`;
   try {
-    await axios.post(urlAxios, body);
+    const response = await axios.patch(urlAxios, body);
     dispatch({
       type: USER_PASSWORD_RESET_CONFIRM_SUCCESS,
     });
     dispatch(errorAction(null));
+    dispatch(successMessageAction(response.data));
   } catch (e) {
-    dispatch(errorAction(e.response.data.errors));
-    console.log('Cannot call api reset password', e);
+    dispatch(errorAction(e.response.data));
+    dispatch(successMessageAction(null));
     dispatch({
       type: USER_PASSWORD_RESET_CONFIRM_FAIL,
       payload: null,

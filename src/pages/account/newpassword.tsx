@@ -13,11 +13,11 @@ import {
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import { resetPasswordConfirm } from '~/store/users/userAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
 import { getUserCookie } from '~/services/getUserCookie';
-import { IUser } from '~/interfaces';
+import { IState, IUser } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,6 +87,10 @@ export default function ResetPassword({ uid, token }: IProps) {
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(true);
+  const stateMessage = useSelector((state: IState) => state.user.message);
+  const errors = useSelector((state: IState) => state.user.errors);
+  console.log(stateMessage);
+  console.log(errors);
 
   const initMsg =
     'Откройте пожалуйста форму и введите ваш Email, после этого на почту приедет ссылка для сброса пароля.';
