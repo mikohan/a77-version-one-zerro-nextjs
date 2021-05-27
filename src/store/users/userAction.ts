@@ -279,12 +279,10 @@ export const resetPasswordConfirm = (
   token: string,
   password: string
 ) => async (dispatch: ThunkDispatch<IState, void, IUserAction>) => {
-  const body = { uid, token, new_password: password };
-  console.log(body);
-  const url = `${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`;
-  console.log(url);
+  const body = { uid64: uid, token: token, password: password };
+  const urlAxios = `http://localhost:8000/auth/newpassword/`;
   try {
-    await axios.post(url, body);
+    await axios.post(urlAxios, body);
     dispatch({
       type: USER_PASSWORD_RESET_CONFIRM_SUCCESS,
     });
