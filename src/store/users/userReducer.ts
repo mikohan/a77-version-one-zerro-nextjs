@@ -42,11 +42,26 @@ if (refresh) {
 if (access) {
   const decoded = jwt.decode(access, { complete: true });
 
-  if (decoded?.exp < dateNow.getTime()) {
+  if (decoded?.payload.exp < dateNow.getTime()) {
     access = '';
   } else {
     isAuthenticated = true;
   }
+}
+
+try {
+  const accessCook = Cookie.get('access');
+  const decoded = jwt.decode(accessCook as string, { complete: true });
+  if (decoded?.payload.exp < dateNow.getTime()) {
+    Cookie.remove('access');
+    Cookie.remove('refresh');
+    Cookie.remove('user');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('user');
+  }
+} catch (e) {
+  console.log(e);
 }
 
 // Trying to get user from localstorage if not empty strings
