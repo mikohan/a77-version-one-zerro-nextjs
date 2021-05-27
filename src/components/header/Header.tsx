@@ -25,13 +25,16 @@ import {
   Switch,
   FormControlLabel,
   Avatar,
+  Typography,
 } from '@material-ui/core';
 
 import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
 import { setUIThemeAction } from '~/store/ui/UIActions';
 import uselLocalStorage from '~/hooks/useLocalStorage';
+import Link from 'next/link';
 import { CompanyMenu, LoginMenu } from '~/components/header/HeaderMenu';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,9 +70,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     switcherBox: {
       display: 'flex',
+      alignItems: 'center',
       paddingRight: theme.spacing(2),
       position: 'absolute',
-      top: theme.spacing(1.5),
+      top: theme.spacing(1.2),
       right: theme.spacing(2),
     },
     searchBox: {
@@ -94,6 +98,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useDispatch();
   const avatar = useSelector((state: IState) => state.user.image);
+  const user = useSelector((state: IState) => state.user);
 
   useEffect(() => {
     try {
@@ -289,7 +294,16 @@ export default function Header({ setIsDark, isDark }: IProps) {
               </Grid>
 
               <Box className={classes.switcherBox}>
-                <Avatar className={classes.avatar} src={myAvatar} />
+                {user.access ? (
+                  <Avatar className={classes.avatar} src={myAvatar} />
+                ) : (
+                  <Link href={url.account.login()}>
+                    <a>
+                      <Typography variant="body2">Войти</Typography>
+                    </a>
+                  </Link>
+                )}
+
                 <FormControlLabel
                   control={
                     <Switch
