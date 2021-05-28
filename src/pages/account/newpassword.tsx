@@ -17,8 +17,7 @@ import { resetPasswordConfirm } from '~/store/users/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import url from '~/services/url';
 import { useRouter } from 'next/router';
-import { getUserCookie } from '~/services/getUserCookie';
-import { IState, IUser } from '~/interfaces';
+import { IState } from '~/interfaces';
 import Link from 'next/link';
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -16,8 +16,6 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
-import url from '~/services/url';
-import { useRouter } from 'next/router';
 import { IUser } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';

@@ -26,7 +26,8 @@ import { IUser } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
 import { useDispatch } from 'react-redux';
-import { setAvatar } from '~/store/users/userAction';
+import { backServerUrlRest } from '~/config';
+import axios from 'axios';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -109,11 +110,29 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     user = data.user;
     access = data.access;
   }
+  /* if (!access) { */
+  /*   return { */
+  /*     redirect: { */
+  /*       destination: url.account.login(), */
+  /*       permanent: false, */
+  /*     }, */
+  /*   }; */
+  /* } */
+
+  let orders = [];
+  if (access) {
+    const urlAxios = `${backServerUrlRest}/orders/?user=${user.id}`;
+    try {
+      const response = await axios.get(urlAxios);
+      orders = [...response.data];
+    } catch (e) {}
+  }
 
   return {
     props: {
       user,
       access,
+      orders,
     },
   };
 }
