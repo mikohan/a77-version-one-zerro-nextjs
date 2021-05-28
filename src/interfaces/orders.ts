@@ -1,5 +1,6 @@
 export interface IOrderProducts {
   id: number;
+  product_name: string;
   product_id: number;
   product_price: string | number;
   product_car: string;

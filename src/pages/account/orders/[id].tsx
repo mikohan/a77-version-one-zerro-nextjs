@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Grid, Typography, Container, Paper } from '@material-ui/core';
+import { Box, Grid, Typography, Container, Paper } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
@@ -14,7 +14,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { IUser, IOrder } from '~/interfaces';
+import { IUser, IOrder, IOrderProducts } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
 import { backServerUrlRest } from '~/config';
@@ -55,57 +55,72 @@ export default function Order({ access, order }: IProps) {
                         <Typography className={classes.orderTitle} variant="h6">
                           Мои заказы
                         </Typography>
+                        <Box>{Moment(order.date).format('d MMM YYYY')}</Box>
                         <TableContainer>
                           <Table aria-label="simple table">
                             <TableHead>
                               <TableRow>
-                                <TableCell>Дата Заказа</TableCell>
-                                <TableCell align="left">Номер</TableCell>
-                                <TableCell align="left">Статус</TableCell>
+                                <TableCell>Название</TableCell>
+                                <TableCell align="left">Бренд</TableCell>
+                                <TableCell align="left">Машина</TableCell>
+                                <TableCell align="left">Кол-во</TableCell>
+                                <TableCell align="left">Цена</TableCell>
                                 <TableCell align="left">Сумма</TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              <TableRow key={order.id}>
-                                <TableCell component="th" scope="row">
-                                  <Link href={url.account.order(order.id)}>
-                                    <a>
-                                      <Typography
-                                        className={classes.orderDate}
-                                        color="primary"
-                                        variant="body2"
-                                      >
-                                        {Moment(order.date).format(
-                                          'd MMM YYYY'
-                                        )}
-                                      </Typography>
-                                    </a>
-                                  </Link>
-                                </TableCell>
-                                <TableCell align="left">
-                                  <Link href={url.account.order(order.id)}>
-                                    <a>
-                                      <Typography
-                                        className={classes.orderRow}
-                                        variant="body2"
-                                      >
-                                        {order.number}
-                                      </Typography>
-                                    </a>
-                                  </Link>
-                                </TableCell>
-                                <TableCell align="left">
-                                  {order.status}
-                                </TableCell>
-                                <TableCell align="left">
-                                  <Typography
-                                    className={classes.orderSum}
-                                    variant="body2"
-                                  >
-                                    &#8381; {order.total}
-                                  </Typography>
-                                </TableCell>
-                              </TableRow>
+                              {order.order_products.length &&
+                                order.order_products.map(
+                                  (product: IOrderProducts) => {
+                                    return (
+                                      <TableRow key={product.product_id}>
+                                        <TableCell component="th" scope="row">
+                                          <Link href={url.product(product.id)}>
+                                            <a>
+                                              <Typography
+                                                className={classes.orderDate}
+                                                color="primary"
+                                                variant="body2"
+                                              >
+                                                {product.product_name}
+                                              </Typography>
+                                            </a>
+                                          </Link>
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          <Typography
+                                            className={classes.orderRow}
+                                            variant="body2"
+                                          >
+                                            {product.product_brand}
+                                          </Typography>
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          {product.product_car}
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          {product.qty}
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          <Typography variant="body2">
+                                            &#8381; {product.product_price}
+                                          </Typography>
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          <Typography
+                                            className={classes.orderSum}
+                                            variant="body2"
+                                          >
+                                            &#8381;{' '}
+                                            {parseFloat(
+                                              product.product_price as string
+                                            ) * product.qty}
+                                          </Typography>
+                                        </TableCell>
+                                      </TableRow>
+                                    );
+                                  }
+                                )}
                             </TableBody>
                           </Table>
                         </TableContainer>
