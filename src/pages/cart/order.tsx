@@ -34,7 +34,7 @@ interface IProps {
   access: string;
   order: IOrder;
 }
-export default function Order() {
+export default function Order({ access, user }: IProps) {
   const classes = useStyles();
 
   const router = useRouter();
@@ -53,48 +53,23 @@ export default function Order() {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.container} container>
-            <Grid className={classes.left} item container xs={12} sm={3}>
+            <Grid className={classes.left} item container xs={12} sm={7}>
               <Grid container>
                 <Grid item xs={12}>
-                  <DashboardLeftMenu />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid className={classes.right} item container xs={12} sm={9}>
-              <Grid container>
-                <Grid className={classes.ordersGrid} item xs={12}>
                   <Paper className={classes.paper}>
                     <Box className={classes.orderBox}>
-                      <Box>
-                        <Typography
-                          className={classes.orderTitle}
-                          variant="h6"
-                          color="primary"
-                        >
-                          Заказ {orderNumber}
-                        </Typography>
-                        <Typography
-                          className={classes.orderOrderDate}
-                          variant="body2"
-                        >
-                          <span className={classes.dateSpan}>
-                            Создан {Moment(today).format('d MMM YYYY')}
-                          </span>
-                          <span className={classes.sumSpan}>Сумма заказа</span>
-                          <span className={classes.span}>
-                            &#8381; {cart.total}
-                          </span>
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Button
-                          variant="contained"
-                          onClick={goBack}
-                          size="small"
-                        >
-                          Назад
-                        </Button>
-                      </Box>
+                      <Typography variant="h6" color="primary">
+                        Заказ {orderNumber}
+                      </Typography>
+                      <Typography variant="body2">
+                        <span className={classes.dateSpan}>
+                          Создан {Moment(today).format('d MMM YYYY')}
+                        </span>
+                        <span className={classes.sumSpan}>Сумма заказа</span>
+                        <span className={classes.span}>
+                          &#8381; {cart.total}
+                        </span>
+                      </Typography>
                     </Box>
                     <TableContainer>
                       <Table aria-label="simple table">
@@ -177,6 +152,19 @@ export default function Order() {
                         &#8381; {cart.total}
                       </Typography>
                     </Box>
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid className={classes.right} item container xs={12} sm={5}>
+              <Grid container>
+                <Grid className={classes.ordersGrid} item xs={12}>
+                  <Paper className={classes.paper}>
+                    <Box className={classes.orderBox}>
+                      <Typography variant="h6" color="primary">
+                        Детали заказа {orderNumber}
+                      </Typography>
+                    </Box>
                     <Box className={classes.paymentOptions}>
                       <Box>
                         <Typography variant="body2">
@@ -214,15 +202,13 @@ export default function Order() {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const id = context.params?.id || 1;
-
-  /* const data = await getUserCookie(context); */
-  /* let user = {} as IUser; */
-  /* let access = ''; */
-  /* if (data) { */
-  /*   user = data.user; */
-  /*   access = data.access; */
-  /* } */
+  const data = await getUserCookie(context);
+  let user = {} as IUser;
+  let access = '';
+  if (data) {
+    user = data.user;
+    access = data.access;
+  }
   /* if (!access) { */
   /*   return { */
   /*     redirect: { */
@@ -232,22 +218,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   /*   }; */
   /* } */
 
-  /* let order = {} as IOrder; */
-  /* if (access) { */
-  /*   const urlAxios = `${backServerUrlRest}/orders/${id}/`; */
-  /*   const config = { */
-  /*     headers: { */
-  /*       Authorization: `Bearer ${access}`, */
-  /*     }, */
-  /*   }; */
-  /*   try { */
-  /*     const response = await axios.get(urlAxios, config); */
-  /*     order = response.data; */
-  /*   } catch (e) {} */
-  /* } */
-
   return {
-    props: {},
+    props: { access, user },
   };
 }
 const useStyles = makeStyles((theme: Theme) =>
@@ -276,14 +248,12 @@ const useStyles = makeStyles((theme: Theme) =>
     orderBox: {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       paddingLeft: theme.spacing(2),
       borderBottom: '1px solid',
       borderBottomColor: theme.palette.action.selected,
-    },
-    orderTitle: {
-      paddingBottom: theme.spacing(1),
     },
     orderRow: {
       textDecoration: 'underline',
@@ -294,9 +264,6 @@ const useStyles = makeStyles((theme: Theme) =>
     orderDate: {
       fontWeight: 700,
       textDecoration: 'underline',
-    },
-    orderOrderDate: {
-      paddingTop: theme.spacing(2),
     },
     span: {
       fontWeight: 700,
