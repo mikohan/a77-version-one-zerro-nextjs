@@ -28,13 +28,15 @@ import NoLoggedIn from '~/components/account/NotLoggedIn';
 import { useDispatch } from 'react-redux';
 import { backServerUrlRest } from '~/config';
 import axios from 'axios';
+import NotLoggedIn from '~/components/account/NotLoggedIn';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
   user: IUser;
   access: string;
+  orders: IOrder[];
 }
-export default function Dashboard({ user, access }: IProps) {
+export default function Dashboard({ user, access, orders }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -56,35 +58,39 @@ export default function Dashboard({ user, access }: IProps) {
               <Grid className={classes.right} item container xs={12} sm={9}>
                 <Grid container>
                   <Grid className={classes.ordersGrid} item xs={12}>
-                    <Paper className={classes.paper}>
-                      <Typography className={classes.orderTitle} variant="h6">
-                        Последние заказы
-                      </Typography>
-                      <TableContainer>
-                        <Table aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Dessert (100g serving)</TableCell>
-                              <TableCell align="left">Номер</TableCell>
-                              <TableCell align="left">Дата</TableCell>
-                              <TableCell align="left">Статус</TableCell>
-                              <TableCell align="left">Сумма</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell component="th" scope="row">
-                                #123
-                              </TableCell>
-                              <TableCell align="left">lorem</TableCell>
-                              <TableCell align="left">ipsum</TableCell>
-                              <TableCell align="left">dolor</TableCell>
-                              <TableCell align="left">sit</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Paper>
+                    {access ? (
+                      <Paper className={classes.paper}>
+                        <Typography className={classes.orderTitle} variant="h6">
+                          Последние заказы
+                        </Typography>
+                        <TableContainer>
+                          <Table aria-label="simple table">
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>Dessert (100g serving)</TableCell>
+                                <TableCell align="left">Номер</TableCell>
+                                <TableCell align="left">Дата</TableCell>
+                                <TableCell align="left">Статус</TableCell>
+                                <TableCell align="left">Сумма</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              <TableRow>
+                                <TableCell component="th" scope="row">
+                                  #123
+                                </TableCell>
+                                <TableCell align="left">lorem</TableCell>
+                                <TableCell align="left">ipsum</TableCell>
+                                <TableCell align="left">dolor</TableCell>
+                                <TableCell align="left">sit</TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                      </Paper>
+                    ) : (
+                      <NotLoggedIn />
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
@@ -122,8 +128,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let orders: IOrder[] = [];
   if (access) {
     const urlAxios = `${backServerUrlRest}/orders/?user=${user.id}`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    };
     try {
-      const response = await axios.get(urlAxios);
+      const response = await axios.get(urlAxios, config);
       orders = [...response.data];
     } catch (e) {}
   }
