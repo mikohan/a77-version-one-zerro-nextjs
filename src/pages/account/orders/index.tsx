@@ -220,7 +220,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DashboardHead = () => (
   <Head>
-    <title key="title">Панель управления пользователя ANGARA77</title>
+    <title key="title">Заказы пользователя ANGARA77</title>
     <meta
       key="description"
       name="description"
