@@ -147,14 +147,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     user = data.user;
     access = data.access;
   }
-  /* if (!access) { */
-  /*   return { */
-  /*     redirect: { */
-  /*       destination: url.account.login(), */
-  /*       permanent: false, */
-  /*     }, */
-  /*   }; */
-  /* } */
+  if (!access) {
+    return {
+      redirect: {
+        destination: url.account.login(),
+        permanent: false,
+      },
+    };
+  }
 
   let orders: IOrder[] = [];
   if (access) {

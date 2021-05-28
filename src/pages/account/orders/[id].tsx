@@ -57,6 +57,7 @@ export default function Order({ access, order }: IProps) {
                           <Typography
                             className={classes.orderTitle}
                             variant="h6"
+                            color="primary"
                           >
                             Заказ {order.number}
                           </Typography>
@@ -188,14 +189,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     user = data.user;
     access = data.access;
   }
-  /* if (!access) { */
-  /*   return { */
-  /*     redirect: { */
-  /*       destination: url.account.login(), */
-  /*       permanent: false, */
-  /*     }, */
-  /*   }; */
-  /* } */
+  if (!access) {
+    return {
+      redirect: {
+        destination: url.account.login(),
+        permanent: false,
+      },
+    };
+  }
 
   let order = {} as IOrder;
   if (access) {
