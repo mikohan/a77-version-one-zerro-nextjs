@@ -35,6 +35,7 @@ import uselLocalStorage from '~/hooks/useLocalStorage';
 import Link from 'next/link';
 import { CompanyMenu, LoginMenu } from '~/components/header/HeaderMenu';
 import url from '~/services/url';
+import NoSsr from '@material-ui/core/NoSsr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -293,31 +294,32 @@ export default function Header({ setIsDark, isDark }: IProps) {
                 {matches ? drawer : tabs}
               </Grid>
 
-              <Box className={classes.switcherBox}>
-                {/* {user.access ? ( */}
-                {/*   <Avatar className={classes.avatar} src={myAvatar} /> */}
-                {/* ) : ( */}
-                {/*   <Link href={url.account.login()}> */}
-                {/*     <a> */}
-                {/*       <Typography variant="body2">Войти</Typography> */}
-                {/*     </a> */}
-                {/*   </Link> */}
-                {/* )} */}
-
-                <FormControlLabel
-                  control={
-                    <Switch
-                      color="primary"
-                      size="small"
-                      checked={isDark}
-                      onChange={isDarkHandler}
-                    />
-                  }
-                  label={isDark ? 'светлая тема' : 'темная тема'}
-                  labelPlacement="start"
-                  classes={{ label: classes.switchLabel }}
-                />
-              </Box>
+              <NoSsr>
+                <Box className={classes.switcherBox}>
+                  {user.access ? (
+                    <Avatar className={classes.avatar} src={myAvatar} />
+                  ) : (
+                    <Link href={url.account.login()}>
+                      <a>
+                        <Typography variant="body2">Войти</Typography>
+                      </a>
+                    </Link>
+                  )}
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        color="primary"
+                        size="small"
+                        checked={isDark}
+                        onChange={isDarkHandler}
+                      />
+                    }
+                    label={isDark ? 'светлая тема' : 'темная тема'}
+                    labelPlacement="start"
+                    classes={{ label: classes.switchLabel }}
+                  />
+                </Box>
+              </NoSsr>
             </Grid>
           </Toolbar>
         </AppBar>
