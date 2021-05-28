@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
@@ -24,10 +23,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { IUser } from '~/interfaces';
-import AddressesPaper from '~/components/account/AddressesPaper';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
-import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { setAvatar } from '~/store/users/userAction';
 
@@ -40,13 +37,6 @@ export default function Dashboard({ user, access }: IProps) {
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
-  function goProfile() {
-    router.push(url.account.profile());
-  }
-  const addresses = user.address_user;
-  React.useEffect(() => {
-    dispatch(setAvatar(user.image));
-  }, []);
 
   if (access) {
     return (
