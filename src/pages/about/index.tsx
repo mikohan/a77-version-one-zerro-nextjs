@@ -9,10 +9,6 @@ import { IPage } from '~/interfaces';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import { IProduct } from '~/interfaces';
-import Link from 'next/link';
-import { signIn, signOut, useSession } from 'next-auth/client';
-import Avatar from '@material-ui/core/Avatar';
-import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +37,6 @@ interface IProps {
 
 export default function About({ page, products }: IProps) {
   const classes = useStyles();
-  const [session, loading] = useSession();
   return (
     <React.Fragment>
       <AboutHead />
@@ -51,32 +46,7 @@ export default function About({ page, products }: IProps) {
             <Grid item xs={12}>
               <Typography variant="h1">{page.title}</Typography>
             </Grid>
-            <Grid item xs={12}>
-              {session ? (
-                <div>
-                  <Avatar>
-                    <Image
-                      src={`${imageServerUrl}${session.user?.image}`}
-                      width={50}
-                      height={50}
-                    />
-                  </Avatar>
-                  <Typography variant="h6">
-                    Session exists signed as {session.user?.email}
-                  </Typography>
-                  <Button onClick={() => signOut()} variant="outlined">
-                    Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <div>
-                  <Typography variant="h6">There is no session</Typography>
-                  <Button variant="outlined" onClick={() => signIn()}>
-                    Sigh In
-                  </Button>
-                </div>
-              )}
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
         </Container>
       </AnimationPage>

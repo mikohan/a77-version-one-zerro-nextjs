@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { getSession } from 'next-auth/client';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
@@ -22,7 +21,6 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { IAddress, IUser } from '~/interfaces';
 import { userAddressesListUrl } from '~/config';
-import { Session } from 'next-auth';
 import { getUserCookie } from '~/services/getUserCookie';
 
 const useStyles = makeStyles((theme: Theme) =>
