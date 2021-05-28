@@ -16,4 +16,5 @@ export interface IOrder {
   total: number;
   autouser: string;
   order_products: IOrderProducts[];
+  status: string;
 }

@@ -29,6 +29,7 @@ import { useDispatch } from 'react-redux';
 import { backServerUrlRest } from '~/config';
 import axios from 'axios';
 import NotLoggedIn from '~/components/account/NotLoggedIn';
+import Moment from 'moment';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -61,29 +62,41 @@ export default function Dashboard({ user, access, orders }: IProps) {
                     {access ? (
                       <Paper className={classes.paper}>
                         <Typography className={classes.orderTitle} variant="h6">
-                          Последние заказы
+                          Мои заказы
                         </Typography>
                         <TableContainer>
                           <Table aria-label="simple table">
                             <TableHead>
                               <TableRow>
-                                <TableCell>Dessert (100g serving)</TableCell>
-                                <TableCell align="left">Номер</TableCell>
+                                <TableCell>Дата Заказа</TableCell>
                                 <TableCell align="left">Дата</TableCell>
                                 <TableCell align="left">Статус</TableCell>
                                 <TableCell align="left">Сумма</TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              <TableRow>
-                                <TableCell component="th" scope="row">
-                                  #123
-                                </TableCell>
-                                <TableCell align="left">lorem</TableCell>
-                                <TableCell align="left">ipsum</TableCell>
-                                <TableCell align="left">dolor</TableCell>
-                                <TableCell align="left">sit</TableCell>
-                              </TableRow>
+                              {orders.length &&
+                                orders.map((order: IOrder) => {
+                                  Moment.locale('ru');
+                                  return (
+                                    <TableRow key={order.id}>
+                                      <TableCell component="th" scope="row">
+                                        {Moment(order.date).format(
+                                          'd MMM YYYY'
+                                        )}
+                                      </TableCell>
+                                      <TableCell align="left">
+                                        {order.number}
+                                      </TableCell>
+                                      <TableCell align="left">
+                                        {order.status}
+                                      </TableCell>
+                                      <TableCell align="left">
+                                        {order.total}
+                                      </TableCell>
+                                    </TableRow>
+                                  );
+                                })}
                             </TableBody>
                           </Table>
                         </TableContainer>
