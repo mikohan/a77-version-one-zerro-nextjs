@@ -11,13 +11,6 @@ import {
   Paper,
 } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import {
-  getProviders,
-  signIn,
-  getSession,
-  getCsrfToken,
-  useSession,
-} from 'next-auth/client';
 import Avatar from '@material-ui/core/Avatar';
 import { imageServerUrl } from '~/config';
 import { GetServerSidePropsContext } from 'next';
@@ -75,21 +68,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 // This is the recommended way for Next.js 9.3 or newer
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const providers = await getProviders();
-  const csrfToken = await getCsrfToken(context);
-  const session = await getSession(context);
-  if (session && session.user?.email) {
-    //Redirect uncomment later
-    return {
-      redirect: {
-        permanent: false,
-        destination: url.account.dashboard(),
-      },
-    };
-  }
-
   return {
-    props: { providers, csrfToken },
+    props: {},
   };
 }
 
@@ -100,7 +80,6 @@ interface IProps {
 
 export default function Register({ providers, csrfToken }: IProps) {
   const classes = useStyles();
-  const [session, loading] = useSession();
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
@@ -111,13 +90,6 @@ export default function Register({ providers, csrfToken }: IProps) {
       );
     }
   }, []);
-  let img = ``;
-  if (session?.user?.image) {
-    const test = /^http.+/.test(session?.user?.image as string);
-    img = test
-      ? (session?.user?.image as string)
-      : `${imageServerUrl}${session?.user?.image}`;
-  }
   return (
     <React.Fragment>
       <RegisterHead />
@@ -125,28 +97,12 @@ export default function Register({ providers, csrfToken }: IProps) {
         <Container maxWidth="lg">
           <Grid className={classes.main} container>
             <Grid className={classes.headerGrid} item xs={12}>
-              {session ? (
-                <Grid container>
-                  <Grid item xs={4}>
-                    <Avatar src={img}>
-                      {session.user?.email?.charAt(0).toUpperCase()}
-                    </Avatar>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <Typography variant="h6">
-                      Добро пожаловать {session.user?.email}!
-                    </Typography>
-                  </Grid>
+              <Grid container>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={8}>
+                  <Typography variant="h6"></Typography>
                 </Grid>
-              ) : (
-                <div>
-                  {errorMessage && (
-                    <Typography variant="h6" color="secondary">
-                      {errorMessage}
-                    </Typography>
-                  )}
-                </div>
-              )}
+              </Grid>
             </Grid>
             <Grid className={classes.sideGrid} item md={6}>
               <Paper className={classes.left}>
@@ -232,7 +188,6 @@ export default function Register({ providers, csrfToken }: IProps) {
                             className={classes.providerButton}
                             variant="contained"
                             color="primary"
-                            onClick={() => signIn(provider.id)}
                           >
                             Войти через {provider.name}
                           </Button>
