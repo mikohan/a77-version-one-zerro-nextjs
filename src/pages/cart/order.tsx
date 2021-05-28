@@ -165,36 +165,63 @@ export default function Order({ access, user }: IProps) {
               <Grid container>
                 <Grid className={classes.ordersGrid} item xs={12}>
                   <Paper className={classes.paper}>
-                    <Box className={classes.orderBox}>
-                      <Typography variant="h6" color="primary">
-                        Детали заказа {orderNumber}
-                      </Typography>
-                    </Box>
-                    <Box className={classes.paymentOptions}>
-                      <Box>
-                        <Typography variant="body2">
-                          Оплата наличными курьеру
-                        </Typography>
-                        <Typography variant="body2">
-                          Доставка Курьером
-                        </Typography>
-                        <Typography variant="body2">Самовывоз</Typography>
+                    <NoSsr>
+                      <Box className={classes.optionsContainer}>
+                        <Box className={classes.orderBox}>
+                          <Typography variant="h6" color="primary">
+                            Детали заказа {orderNumber}
+                          </Typography>
+                        </Box>
+                        <Box className={classes.paymentOptions}>
+                          <Typography variant="h6">Доставка</Typography>
+                          <Box>
+                            <Typography variant="body2">
+                              Оплата наличными курьеру
+                            </Typography>
+                            <Typography variant="body2">
+                              Доставка Курьером
+                            </Typography>
+                            <Typography variant="body2">Самовывоз</Typography>
+                          </Box>
+                          <Box>
+                            <Typography variant="body2">
+                              Оплата наличными курьеру
+                            </Typography>
+                            <Typography variant="body2">
+                              Доставка Курьером
+                            </Typography>
+                            <Typography variant="body2">Самовывоз</Typography>
+                          </Box>
+                        </Box>
+                        <Box className={classes.paymentOptions}>
+                          <Typography variant="h6">Оплата</Typography>
+                          <Box>
+                            <Typography variant="body2">
+                              Оплата наличными курьеру
+                            </Typography>
+                            <Typography variant="body2">
+                              Доставка Курьером
+                            </Typography>
+                            <Typography variant="body2">Самовывоз</Typography>
+                          </Box>
+                          <Box>
+                            <Typography variant="body2">
+                              Оплата наличными курьеру
+                            </Typography>
+                            <Typography variant="body2">
+                              Доставка Курьером
+                            </Typography>
+                            <Typography variant="body2">Самовывоз</Typography>
+                          </Box>
+                        </Box>
+                        <Box className={classes.beforeButtonBox}>dome</Box>
+                        <Box className={classes.placeOrderButton}>
+                          <Button variant="contained" color="primary">
+                            отправить заказ
+                          </Button>
+                        </Box>
                       </Box>
-                      <Box>
-                        <Typography variant="body2">
-                          Оплата наличными курьеру
-                        </Typography>
-                        <Typography variant="body2">
-                          Доставка Курьером
-                        </Typography>
-                        <Typography variant="body2">Самовывоз</Typography>
-                      </Box>
-                    </Box>
-                    <Box className={classes.placeOrderButton}>
-                      <Button variant="contained" color="primary">
-                        отправить заказ
-                      </Button>
-                    </Box>
+                    </NoSsr>
                   </Paper>
                 </Grid>
               </Grid>
@@ -299,8 +326,15 @@ const useStyles = makeStyles((theme: Theme) =>
     paymentOptions: {
       border: '1px solid blue',
       padding: theme.spacing(3),
+    },
+    beforeButtonBox: {
+      flexGrow: 1,
+    },
+    optionsContainer: {
+      height: '100%',
+      border: '1px solid pink',
       display: 'flex',
-      justifyContent: 'space-evenly',
+      flexDirection: 'column',
     },
   })
 );
