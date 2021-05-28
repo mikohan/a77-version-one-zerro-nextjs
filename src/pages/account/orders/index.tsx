@@ -30,6 +30,7 @@ import { backServerUrlRest } from '~/config';
 import axios from 'axios';
 import NotLoggedIn from '~/components/account/NotLoggedIn';
 import Moment from 'moment';
+import Link from 'next/link';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -69,7 +70,7 @@ export default function Dashboard({ user, access, orders }: IProps) {
                             <TableHead>
                               <TableRow>
                                 <TableCell>Дата Заказа</TableCell>
-                                <TableCell align="left">Дата</TableCell>
+                                <TableCell align="left">Номер</TableCell>
                                 <TableCell align="left">Статус</TableCell>
                                 <TableCell align="left">Сумма</TableCell>
                               </TableRow>
@@ -81,12 +82,34 @@ export default function Dashboard({ user, access, orders }: IProps) {
                                   return (
                                     <TableRow key={order.id}>
                                       <TableCell component="th" scope="row">
-                                        {Moment(order.date).format(
-                                          'd MMM YYYY'
-                                        )}
+                                        <Link
+                                          href={url.account.order(order.id)}
+                                        >
+                                          <a>
+                                            <Typography
+                                              className={classes.orderRow}
+                                              variant="body2"
+                                            >
+                                              {Moment(order.date).format(
+                                                'd MMM YYYY'
+                                              )}
+                                            </Typography>
+                                          </a>
+                                        </Link>
                                       </TableCell>
                                       <TableCell align="left">
-                                        {order.number}
+                                        <Link
+                                          href={url.account.order(order.id)}
+                                        >
+                                          <a>
+                                            <Typography
+                                              className={classes.orderRow}
+                                              variant="body2"
+                                            >
+                                              {order.number}
+                                            </Typography>
+                                          </a>
+                                        </Link>
                                       </TableCell>
                                       <TableCell align="left">
                                         {order.status}
@@ -177,6 +200,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       height: '100%',
+      padding: theme.spacing(2),
     },
     ordersGrid: {
       paddingLeft: theme.spacing(1),
@@ -185,6 +209,9 @@ const useStyles = makeStyles((theme: Theme) =>
     orderTitle: {
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(2),
+    },
+    orderRow: {
+      textDecoration: 'underline',
     },
   })
 );

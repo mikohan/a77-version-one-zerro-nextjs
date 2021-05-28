@@ -294,15 +294,15 @@ export default function Header({ setIsDark, isDark }: IProps) {
               </Grid>
 
               <Box className={classes.switcherBox}>
-                {user.access ? (
-                  <Avatar className={classes.avatar} src={myAvatar} />
-                ) : (
-                  <Link href={url.account.login()}>
-                    <a>
-                      <Typography variant="body2">Войти</Typography>
-                    </a>
-                  </Link>
-                )}
+                {/* {user.access ? ( */}
+                {/*   <Avatar className={classes.avatar} src={myAvatar} /> */}
+                {/* ) : ( */}
+                {/*   <Link href={url.account.login()}> */}
+                {/*     <a> */}
+                {/*       <Typography variant="body2">Войти</Typography> */}
+                {/*     </a> */}
+                {/*   </Link> */}
+                {/* )} */}
 
                 <FormControlLabel
                   control={
