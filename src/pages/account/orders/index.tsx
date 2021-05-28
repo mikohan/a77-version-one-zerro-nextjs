@@ -22,7 +22,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { IUser } from '~/interfaces';
+import { IUser, IOrder } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
 import { useDispatch } from 'react-redux';
@@ -119,7 +119,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   /*   }; */
   /* } */
 
-  let orders = [];
+  let orders: IOrder[] = [];
   if (access) {
     const urlAxios = `${backServerUrlRest}/orders/?user=${user.id}`;
     try {

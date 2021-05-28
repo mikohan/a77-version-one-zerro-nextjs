@@ -9,3 +9,4 @@ export * from './router';
 export * from './blog';
 export * from './user';
 export * from './IState';
+export * from './orders';
