@@ -8,7 +8,7 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
-import Table from '@material-ui/core/Table';
+import { Button, Table } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -23,6 +23,7 @@ import NotLoggedIn from '~/components/account/NotLoggedIn';
 import Moment from 'moment';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -32,7 +33,11 @@ interface IProps {
 }
 export default function Order({ access, order }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
   Moment.locale('ru');
+  function goBack() {
+    router.back();
+  }
 
   if (access) {
     return (
@@ -54,27 +59,38 @@ export default function Order({ access, order }: IProps) {
                     {access ? (
                       <Paper className={classes.paper}>
                         <Box className={classes.orderBox}>
-                          <Typography
-                            className={classes.orderTitle}
-                            variant="h6"
-                            color="primary"
-                          >
-                            Заказ {order.number}
-                          </Typography>
-                          <Typography
-                            className={classes.orderOrderDate}
-                            variant="body2"
-                          >
-                            <span className={classes.dateSpan}>
-                              Создан {Moment(order.date).format('d MMM YYYY')}
-                            </span>
-                            <span className={classes.sumSpan}>
-                              Сумма заказа
-                            </span>
-                            <span className={classes.span}>
-                              &#8381; {order.total}
-                            </span>
-                          </Typography>
+                          <Box>
+                            <Typography
+                              className={classes.orderTitle}
+                              variant="h6"
+                              color="primary"
+                            >
+                              Заказ {order.number}
+                            </Typography>
+                            <Typography
+                              className={classes.orderOrderDate}
+                              variant="body2"
+                            >
+                              <span className={classes.dateSpan}>
+                                Создан {Moment(order.date).format('d MMM YYYY')}
+                              </span>
+                              <span className={classes.sumSpan}>
+                                Сумма заказа
+                              </span>
+                              <span className={classes.span}>
+                                &#8381; {order.total}
+                              </span>
+                            </Typography>
+                          </Box>
+                          <Box>
+                            <Button
+                              variant="contained"
+                              onClick={goBack}
+                              size="small"
+                            >
+                              Назад
+                            </Button>
+                          </Box>
                         </Box>
                         <TableContainer>
                           <Table aria-label="simple table">
@@ -244,6 +260,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(1),
     },
     orderBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       paddingLeft: theme.spacing(2),
