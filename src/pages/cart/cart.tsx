@@ -30,6 +30,7 @@ import {
   cartUpdateQuantitiesSuccess,
 } from '~/store/cart/cartAction';
 import ConditionallyRender from '~/components/common/ConditionalRender';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,6 +116,10 @@ export default function Cart() {
 
   function handleRemoveItem(itemId: number): void {
     dispatch(cartRemoveItemSuccess(itemId));
+  }
+
+  function placeOrder() {
+    router.push(url.placeOrder());
   }
 
   function BigPaper() {
@@ -243,7 +248,7 @@ export default function Cart() {
             </Table>
           </TableContainer>
           <Box className={classes.orderButton}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={placeOrder}>
               Оформить заказ
             </Button>
           </Box>

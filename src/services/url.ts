@@ -57,6 +57,7 @@ const url: { [key: string]: any } = {
   contacts: () => `/contacts`,
   // cart and order
   cart: () => `/cart/cart`,
+  placeOrder: () => `/cart/order`,
   account: {
     activate: () => `/account/activate`,
     addresses: () => `/account/addresses`,

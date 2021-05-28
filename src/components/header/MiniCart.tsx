@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { ICartItem } from '~/store/cart/cartTypes';
 import { COMPANY_INFORMATION, imageServerUrl } from '~/config';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -181,7 +182,7 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
                 </Button>
               </a>
             </Link>
-            <Link href={url.cart()}>
+            <Link href={url.placeOrder()}>
               <a>
                 <Button
                   className={classes.button}
