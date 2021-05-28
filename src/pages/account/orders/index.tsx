@@ -87,7 +87,8 @@ export default function Dashboard({ user, access, orders }: IProps) {
                                         >
                                           <a>
                                             <Typography
-                                              className={classes.orderRow}
+                                              className={classes.orderDate}
+                                              color="primary"
                                               variant="body2"
                                             >
                                               {Moment(order.date).format(
@@ -115,7 +116,12 @@ export default function Dashboard({ user, access, orders }: IProps) {
                                         {order.status}
                                       </TableCell>
                                       <TableCell align="left">
-                                        {order.total}
+                                        <Typography
+                                          className={classes.orderSum}
+                                          variant="body2"
+                                        >
+                                          &#8381; {order.total}
+                                        </Typography>
                                       </TableCell>
                                     </TableRow>
                                   );
@@ -211,6 +217,13 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
     },
     orderRow: {
+      textDecoration: 'underline',
+    },
+    orderSum: {
+      fontWeight: 700,
+    },
+    orderDate: {
+      fontWeight: 700,
       textDecoration: 'underline',
     },
   })
