@@ -2,20 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import {
-  Button,
-  Grid,
-  Typography,
-  Container,
-  Paper,
-  Box,
-} from '@material-ui/core';
+import { Grid, Typography, Container, Paper } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
-import { useRouter } from 'next/router';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -25,7 +17,6 @@ import TableRow from '@material-ui/core/TableRow';
 import { IUser, IOrder } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import NoLoggedIn from '~/components/account/NotLoggedIn';
-import { useDispatch } from 'react-redux';
 import { backServerUrlRest } from '~/config';
 import axios from 'axios';
 import NotLoggedIn from '~/components/account/NotLoggedIn';
@@ -38,10 +29,8 @@ interface IProps {
   access: string;
   orders: IOrder[];
 }
-export default function Dashboard({ user, access, orders }: IProps) {
+export default function Dashboard({ access, orders }: IProps) {
   const classes = useStyles();
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   if (access) {
     return (
