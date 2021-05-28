@@ -7,6 +7,8 @@ export interface IOrderProducts {
   product_brand: string;
   qty: number;
   order: number;
+  slug: string;
+  image: string;
 }
 
 export interface IOrder {

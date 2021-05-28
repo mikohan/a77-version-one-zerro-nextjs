@@ -22,6 +22,7 @@ import axios from 'axios';
 import NotLoggedIn from '~/components/account/NotLoggedIn';
 import Moment from 'moment';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -52,15 +53,34 @@ export default function Order({ access, order }: IProps) {
                   <Grid className={classes.ordersGrid} item xs={12}>
                     {access ? (
                       <Paper className={classes.paper}>
-                        <Typography className={classes.orderTitle} variant="h6">
-                          Мои заказы
-                        </Typography>
-                        <Box>{Moment(order.date).format('d MMM YYYY')}</Box>
+                        <Box className={classes.orderBox}>
+                          <Typography
+                            className={classes.orderTitle}
+                            variant="h6"
+                          >
+                            Заказ {order.number}
+                          </Typography>
+                          <Typography
+                            className={classes.orderOrderDate}
+                            variant="body2"
+                          >
+                            <span className={classes.dateSpan}>
+                              Создан {Moment(order.date).format('d MMM YYYY')}
+                            </span>
+                            <span className={classes.sumSpan}>
+                              Сумма заказа
+                            </span>
+                            <span className={classes.span}>
+                              &#8381; {order.total}
+                            </span>
+                          </Typography>
+                        </Box>
                         <TableContainer>
                           <Table aria-label="simple table">
                             <TableHead>
                               <TableRow>
                                 <TableCell>Название</TableCell>
+                                <TableCell align="left">Фото</TableCell>
                                 <TableCell align="left">Бренд</TableCell>
                                 <TableCell align="left">Машина</TableCell>
                                 <TableCell align="left">Кол-во</TableCell>
@@ -75,7 +95,9 @@ export default function Order({ access, order }: IProps) {
                                     return (
                                       <TableRow key={product.product_id}>
                                         <TableCell component="th" scope="row">
-                                          <Link href={url.product(product.id)}>
+                                          <Link
+                                            href={url.product(product.slug)}
+                                          >
                                             <a>
                                               <Typography
                                                 className={classes.orderDate}
@@ -86,6 +108,17 @@ export default function Order({ access, order }: IProps) {
                                               </Typography>
                                             </a>
                                           </Link>
+                                        </TableCell>
+                                        <TableCell>
+                                          <Image
+                                            src={
+                                              product.image
+                                                ? product.image
+                                                : '/images/local/defaultParts245.jpg'
+                                            }
+                                            width={40}
+                                            height={40}
+                                          />
                                         </TableCell>
                                         <TableCell align="left">
                                           <Typography
@@ -209,9 +242,15 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
-    orderTitle: {
+    orderBox: {
       paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
       paddingLeft: theme.spacing(2),
+      borderBottom: '1px solid',
+      borderBottomColor: theme.palette.action.selected,
+    },
+    orderTitle: {
+      paddingBottom: theme.spacing(1),
     },
     orderRow: {
       textDecoration: 'underline',
@@ -222,6 +261,18 @@ const useStyles = makeStyles((theme: Theme) =>
     orderDate: {
       fontWeight: 700,
       textDecoration: 'underline',
+    },
+    orderOrderDate: {
+      paddingTop: theme.spacing(2),
+    },
+    span: {
+      fontWeight: 700,
+    },
+    dateSpan: {
+      marginRight: theme.spacing(2),
+    },
+    sumSpan: {
+      marginRight: theme.spacing(2),
     },
   })
 );
