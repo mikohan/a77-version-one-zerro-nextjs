@@ -26,6 +26,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
+import { ICart, ICartItem } from '~/store/cart/cartTypes';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -33,217 +34,220 @@ interface IProps {
   access: string;
   order: IOrder;
 }
-export default function Order({ access, order }: IProps) {
+export default function Order() {
   const classes = useStyles();
 
   const router = useRouter();
   const cart = useSelector((state: IState) => state.cart);
+
   Moment.locale('ru');
+  const today = Moment();
   function goBack() {
     router.back();
   }
+  const orderNumber = `A-${today.format('HHmm')}`;
 
-  if (access) {
-    return (
-      <React.Fragment>
-        <DashboardHead />
-        <AnimationPage>
-          <Container maxWidth="lg">
-            <Grid className={classes.container} container>
-              <Grid className={classes.left} item container xs={12} sm={3}>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <DashboardLeftMenu />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid className={classes.right} item container xs={12} sm={9}>
-                <Grid container>
-                  <Grid className={classes.ordersGrid} item xs={12}>
-                    {access ? (
-                      <Paper className={classes.paper}>
-                        <Box className={classes.orderBox}>
-                          <Box>
-                            <Typography
-                              className={classes.orderTitle}
-                              variant="h6"
-                              color="primary"
-                            >
-                              Заказ {order.number}
-                            </Typography>
-                            <Typography
-                              className={classes.orderOrderDate}
-                              variant="body2"
-                            >
-                              <span className={classes.dateSpan}>
-                                Создан {Moment(order.date).format('d MMM YYYY')}
-                              </span>
-                              <span className={classes.sumSpan}>
-                                Сумма заказа
-                              </span>
-                              <span className={classes.span}>
-                                &#8381; {order.total}
-                              </span>
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Button
-                              variant="contained"
-                              onClick={goBack}
-                              size="small"
-                            >
-                              Назад
-                            </Button>
-                          </Box>
-                        </Box>
-                        <TableContainer>
-                          <Table aria-label="simple table">
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>Название</TableCell>
-                                <TableCell align="left">Фото</TableCell>
-                                <TableCell align="left">Бренд</TableCell>
-                                <TableCell align="left">Машина</TableCell>
-                                <TableCell align="left">Кол-во</TableCell>
-                                <TableCell align="left">Цена</TableCell>
-                                <TableCell align="left">Сумма</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {cart.items.length &&
-                                cart.items.map((item: ICartItem) => {
-                                  return (
-                                    <TableRow key={item.id}>
-                                      <TableCell component="th" scope="row">
-                                        <Link
-                                          href={url.product(item.product.slug)}
-                                        >
-                                          <a>
-                                            <Typography
-                                              className={classes.orderDate}
-                                              color="primary"
-                                              variant="body2"
-                                            >
-                                              {item.product.name}
-                                            </Typography>
-                                          </a>
-                                        </Link>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Image
-                                          src={
-                                            item.product.images.length
-                                              ? `${imageServerUrl}${item.product.images[0].img150}`
-                                              : '/images/local/defaultParts245.jpg'
-                                          }
-                                          width={40}
-                                          height={40}
-                                        />
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        <Typography
-                                          className={classes.orderRow}
-                                          variant="body2"
-                                        >
-                                          {item.product.brand.name}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        {item.product.model[0].model}
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        {item.quantity}
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        <Typography variant="body2">
-                                          &#8381; {item.price}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        <Typography
-                                          className={classes.orderSum}
-                                          variant="body2"
-                                        >
-                                          &#8381; {item.total}
-                                        </Typography>
-                                      </TableCell>
-                                    </TableRow>
-                                  );
-                                })}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                        <Box className={classes.tableTotal}>
-                          <Typography variant="h6">Сумма заказа</Typography>
-                          <Typography className={classes.totalSum} variant="h6">
-                            &#8381; {cart.total}
-                          </Typography>
-                        </Box>
-                        <Box className={classes.placeOrderButton}>
-                          <Button variant="contained" color="primary">
-                            отправить заказ
-                          </Button>
-                        </Box>
-                      </Paper>
-                    ) : (
-                      <NotLoggedIn />
-                    )}
-                  </Grid>
+  return (
+    <React.Fragment>
+      <DashboardHead />
+      <AnimationPage>
+        <Container maxWidth="lg">
+          <Grid className={classes.container} container>
+            <Grid className={classes.left} item container xs={12} sm={3}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <DashboardLeftMenu />
                 </Grid>
               </Grid>
             </Grid>
-          </Container>
-        </AnimationPage>
-      </React.Fragment>
-    );
-  } else {
-    return (
-      <React.Fragment>
-        <NoLoggedIn />
-      </React.Fragment>
-    );
-  }
+            <Grid className={classes.right} item container xs={12} sm={9}>
+              <Grid container>
+                <Grid className={classes.ordersGrid} item xs={12}>
+                  <Paper className={classes.paper}>
+                    <Box className={classes.orderBox}>
+                      <Box>
+                        <Typography
+                          className={classes.orderTitle}
+                          variant="h6"
+                          color="primary"
+                        >
+                          Заказ {orderNumber}
+                        </Typography>
+                        <Typography
+                          className={classes.orderOrderDate}
+                          variant="body2"
+                        >
+                          <span className={classes.dateSpan}>
+                            Создан {Moment(today).format('d MMM YYYY')}
+                          </span>
+                          <span className={classes.sumSpan}>Сумма заказа</span>
+                          <span className={classes.span}>
+                            &#8381; {cart.total}
+                          </span>
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Button
+                          variant="contained"
+                          onClick={goBack}
+                          size="small"
+                        >
+                          Назад
+                        </Button>
+                      </Box>
+                    </Box>
+                    <TableContainer>
+                      <Table aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Название</TableCell>
+                            <TableCell align="left">Фото</TableCell>
+                            <TableCell align="left">Бренд</TableCell>
+                            <TableCell align="left">Машина</TableCell>
+                            <TableCell align="left">Кол-во</TableCell>
+                            <TableCell align="left">Цена</TableCell>
+                            <TableCell align="left">Сумма</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {cart.items.length &&
+                            cart.items.map((item: ICartItem) => {
+                              return (
+                                <TableRow key={item.id}>
+                                  <TableCell component="th" scope="row">
+                                    <Link href={url.product(item.product.slug)}>
+                                      <a>
+                                        <Typography
+                                          className={classes.orderDate}
+                                          color="primary"
+                                          variant="body2"
+                                        >
+                                          {item.product.name}
+                                        </Typography>
+                                      </a>
+                                    </Link>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Image
+                                      src={
+                                        item.product.images.length
+                                          ? `${imageServerUrl}${item.product.images[0].img150}`
+                                          : '/images/local/defaultParts245.jpg'
+                                      }
+                                      width={40}
+                                      height={40}
+                                    />
+                                  </TableCell>
+                                  <TableCell align="left">
+                                    <Typography
+                                      className={classes.orderRow}
+                                      variant="body2"
+                                    >
+                                      {item.product.brand.name}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell align="left">
+                                    {item.product.model[0].model}
+                                  </TableCell>
+                                  <TableCell align="left">
+                                    {item.quantity}
+                                  </TableCell>
+                                  <TableCell align="left">
+                                    <Typography variant="body2">
+                                      &#8381; {item.price}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell align="left">
+                                    <Typography
+                                      className={classes.orderSum}
+                                      variant="body2"
+                                    >
+                                      &#8381; {item.total}
+                                    </Typography>
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <Box className={classes.tableTotal}>
+                      <Typography variant="h6">Сумма заказа</Typography>
+                      <Typography className={classes.totalSum} variant="h6">
+                        &#8381; {cart.total}
+                      </Typography>
+                    </Box>
+                    <Box className={classes.paymentOptions}>
+                      <Box>
+                        <Typography variant="body2">
+                          Оплата наличными курьеру
+                        </Typography>
+                        <Typography variant="body2">
+                          Доставка Курьером
+                        </Typography>
+                        <Typography variant="body2">Самовывоз</Typography>
+                      </Box>
+                      <Box>
+                        <Typography variant="body2">
+                          Оплата наличными курьеру
+                        </Typography>
+                        <Typography variant="body2">
+                          Доставка Курьером
+                        </Typography>
+                        <Typography variant="body2">Самовывоз</Typography>
+                      </Box>
+                    </Box>
+                    <Box className={classes.placeOrderButton}>
+                      <Button variant="contained" color="primary">
+                        отправить заказ
+                      </Button>
+                    </Box>
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Container>
+      </AnimationPage>
+    </React.Fragment>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const id = context.params?.id || 1;
 
-  const data = await getUserCookie(context);
-  let user = {} as IUser;
-  let access = '';
-  if (data) {
-    user = data.user;
-    access = data.access;
-  }
-  if (!access) {
-    return {
-      redirect: {
-        destination: url.account.login(),
-        permanent: false,
-      },
-    };
-  }
+  /* const data = await getUserCookie(context); */
+  /* let user = {} as IUser; */
+  /* let access = ''; */
+  /* if (data) { */
+  /*   user = data.user; */
+  /*   access = data.access; */
+  /* } */
+  /* if (!access) { */
+  /*   return { */
+  /*     redirect: { */
+  /*       destination: url.account.login(), */
+  /*       permanent: false, */
+  /*     }, */
+  /*   }; */
+  /* } */
 
-  let order = {} as IOrder;
-  if (access) {
-    const urlAxios = `${backServerUrlRest}/orders/${id}/`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    };
-    try {
-      const response = await axios.get(urlAxios, config);
-      order = response.data;
-    } catch (e) {}
-  }
+  /* let order = {} as IOrder; */
+  /* if (access) { */
+  /*   const urlAxios = `${backServerUrlRest}/orders/${id}/`; */
+  /*   const config = { */
+  /*     headers: { */
+  /*       Authorization: `Bearer ${access}`, */
+  /*     }, */
+  /*   }; */
+  /*   try { */
+  /*     const response = await axios.get(urlAxios, config); */
+  /*     order = response.data; */
+  /*   } catch (e) {} */
+  /* } */
 
   return {
-    props: {
-      user,
-      access,
-      order,
-    },
+    props: {},
   };
 }
 const useStyles = makeStyles((theme: Theme) =>
@@ -319,6 +323,12 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(2),
       paddingRight: theme.spacing(2),
+    },
+    paymentOptions: {
+      border: '1px solid blue',
+      padding: theme.spacing(3),
+      display: 'flex',
+      justifyContent: 'space-evenly',
     },
   })
 );
