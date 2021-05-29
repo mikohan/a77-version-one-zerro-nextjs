@@ -60,7 +60,7 @@ export default function Order({ access, user }: IProps) {
 
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
-  const [address, setAddres] = useState('');
+  const [address, setAddress] = useState('');
 
   function handlePhone(event: React.ChangeEvent<HTMLInputElement>): void {
     setPhone(event.target.value);

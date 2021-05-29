@@ -31,11 +31,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -119,9 +115,15 @@ export default function OrderTabs({
 }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [valueRadio, setValueRadio] = React.useState('onGet');
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
+  };
+
+  const handleChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setValueRadio(value);
   };
 
   return (
@@ -152,20 +154,27 @@ export default function OrderTabs({
               )}
             </Box>
             <Box className={classes.paymentOptions}>
-              <Typography variant="h6">Оплата</Typography>
-              <Box>
-                <Typography variant="body2">
-                  Оплата наличными курьеру
-                </Typography>
-                <Typography variant="body2">Доставка Курьером</Typography>
-                <Typography variant="body2">Самовывоз</Typography>
-              </Box>
-              <Box>
-                <Typography variant="body2">
-                  Оплата наличными курьеру
-                </Typography>
-                <Typography variant="body2">Доставка Курьером</Typography>
-                <Typography variant="body2">Самовывоз</Typography>
+              <Box className={classes.addressRadios}>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Спобоб оплаты</FormLabel>
+                  <RadioGroup
+                    aria-label="payment"
+                    name="payment"
+                    value={valueRadio}
+                    onChange={handleChangeRadio}
+                  >
+                    <FormControlLabel
+                      value="onGet"
+                      control={<Radio />}
+                      label="Оплата при получении"
+                    />
+                    <FormControlLabel
+                      value="onLine"
+                      control={<Radio />}
+                      label="Оплата картой онлайн"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Box>
             </Box>
             <Box className={classes.beforeButtonBox}>dome</Box>
@@ -214,7 +223,7 @@ function NoUserAddress({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = (event.target as HTMLInputElement).value;
     setValue(value);
-    if (value !== 'kur') {
+    if (value === 'kur') {
       setShowFields(true);
     } else {
       setShowFields(false);
@@ -223,7 +232,7 @@ function NoUserAddress({
   return (
     <Box>
       <Box className={classes.addressRadios}>
-        <FormControl component="fieldset">
+        <FormControl id="delivery" component="fieldset">
           <FormLabel component="legend">Способ Доставки</FormLabel>
           <RadioGroup
             aria-label="gender"
