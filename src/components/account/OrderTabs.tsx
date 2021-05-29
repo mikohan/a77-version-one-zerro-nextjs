@@ -11,7 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { Button, TextField } from '@material-ui/core/';
+import { Button, Divider, TextField } from '@material-ui/core/';
 import AnimationPage from '~/components/common/AnimationPage';
 import AddressesListing from '~/components/account/AddressesListing';
 
@@ -50,11 +50,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     // backgroundColor: theme.palette.background.paper,
   },
-  paymentOptions: {
-    padding: theme.spacing(3),
-  },
   beforeButtonBox: {
-    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     flexGrow: 1,
     display: 'flex',
     justifyContent: 'flex-end',
@@ -72,25 +69,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: theme.spacing(1),
   },
   addressRadios: {
-    borderBottom: '1px solid',
-    borderBottomColor: theme.palette.action.selected,
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
   placeOrderButton: {
     display: 'flex',
     justifyContent: 'flex-end',
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(2),
-    paddingRight: theme.spacing(2),
   },
   orderBox: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(),
     paddingLeft: theme.spacing(2),
-    borderBottom: '1px solid',
-    borderBottomColor: theme.palette.action.selected,
   },
   accountButtons: {
     minHeight: '20vh',
@@ -98,6 +92,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+  },
+  divider: {
+    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(1),
   },
 }));
 
@@ -162,59 +160,61 @@ export default function OrderTabs({
       </Tabs>
       <TabPanel value={value} index={0}>
         <AnimationPage id="first-tab">
-          <Box className={classes.optionsContainer}>
-            <Box className={classes.paymentOptions}>
-              <NoUserAddress
-                user={user}
-                handlePhone={handlePhone}
-                handleCity={handleCity}
-                handleAddress={handleAddress}
-                valueDelivery={valueDelivery}
-                handleChangeDelivery={handleChangeDelivery}
-                showFields={showFields}
-                handleChangeEmail={handleChangeEmail}
-              />
+          <Box>
+            <NoUserAddress
+              user={user}
+              handlePhone={handlePhone}
+              handleCity={handleCity}
+              handleAddress={handleAddress}
+              valueDelivery={valueDelivery}
+              handleChangeDelivery={handleChangeDelivery}
+              showFields={showFields}
+              handleChangeEmail={handleChangeEmail}
+              handleChangeAddress={handleChangeAddress}
+              valueAddress={valueAddress}
+            />
+          </Box>
+          <Box>
+            <Box className={classes.addressRadios}>
+              <Divider className={classes.divider} />
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Споcоб оплаты</FormLabel>
+                {showPayment ? (
+                  <RadioGroup
+                    aria-label="payment"
+                    name="payment"
+                    value={valuePayment}
+                    onChange={handleChangePayment}
+                  >
+                    <FormControlLabel
+                      value="onGet"
+                      control={<Radio />}
+                      label="Оплата при получении"
+                    />
+                    <FormControlLabel
+                      value="onLine"
+                      control={<Radio />}
+                      label="Оплата картой онлайн"
+                    />
+                  </RadioGroup>
+                ) : (
+                  <Typography variant="body2">
+                    Уточнтите способ оплаты у менеджера
+                  </Typography>
+                )}
+              </FormControl>
             </Box>
-            <Box className={classes.paymentOptions}>
-              <Box className={classes.addressRadios}>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Споcоб оплаты</FormLabel>
-                  {showPayment ? (
-                    <RadioGroup
-                      aria-label="payment"
-                      name="payment"
-                      value={valuePayment}
-                      onChange={handleChangePayment}
-                    >
-                      <FormControlLabel
-                        value="onGet"
-                        control={<Radio />}
-                        label="Оплата при получении"
-                      />
-                      <FormControlLabel
-                        value="onLine"
-                        control={<Radio />}
-                        label="Оплата картой онлайн"
-                      />
-                    </RadioGroup>
-                  ) : (
-                    <Typography variant="body2">
-                      Уточнтите способ оплаты у менеджера
-                    </Typography>
-                  )}
-                </FormControl>
-              </Box>
-            </Box>
-            <Box className={classes.beforeButtonBox}>
-              {showOnlinePayment && (
-                <Button variant="contained">Оплатить Картой</Button>
-              )}
-            </Box>
-            <Box className={classes.placeOrderButton}>
-              <Button variant="contained" color="primary">
-                отправить заказ
-              </Button>
-            </Box>
+          </Box>
+          <Box className={classes.beforeButtonBox}>
+            {showOnlinePayment && (
+              <Button variant="contained">Оплатить Картой</Button>
+            )}
+          </Box>
+          <Divider className={classes.divider} />
+          <Box className={classes.placeOrderButton}>
+            <Button variant="contained" color="primary">
+              отправить заказ
+            </Button>
           </Box>
         </AnimationPage>
       </TabPanel>
@@ -245,6 +245,48 @@ export default function OrderTabs({
               />
             </Box>
           )}
+          <Box>
+            <Box className={classes.addressRadios}>
+              <Divider className={classes.divider} />
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Споcоб оплаты</FormLabel>
+                {showPayment ? (
+                  <RadioGroup
+                    aria-label="payment"
+                    name="payment"
+                    value={valuePayment}
+                    onChange={handleChangePayment}
+                  >
+                    <FormControlLabel
+                      value="onGet"
+                      control={<Radio />}
+                      label="Оплата при получении"
+                    />
+                    <FormControlLabel
+                      value="onLine"
+                      control={<Radio />}
+                      label="Оплата картой онлайн"
+                    />
+                  </RadioGroup>
+                ) : (
+                  <Typography variant="body2">
+                    Уточнтите способ оплаты у менеджера
+                  </Typography>
+                )}
+              </FormControl>
+            </Box>
+          </Box>
+          <Box className={classes.beforeButtonBox}>
+            {showOnlinePayment && (
+              <Button variant="contained">Оплатить Картой</Button>
+            )}
+          </Box>
+          <Divider className={classes.divider} />
+          <Box className={classes.placeOrderButton}>
+            <Button variant="contained" color="primary">
+              отправить заказ
+            </Button>
+          </Box>
         </AnimationPage>
       </TabPanel>
     </div>
