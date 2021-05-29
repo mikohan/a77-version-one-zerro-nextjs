@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, imageServerUrl, SITE_DOMAIN_FULL } from '~/config';
@@ -58,7 +58,13 @@ export default function Order({ access, user }: IProps) {
     setValueTab(newValue);
   };
 
-  console.log(user);
+  const [phone, setPhone] = useState('');
+
+  function handlePhone(event: React.ChangeEvent<HTMLInputElement>): void {
+    setPhone(event.target.value);
+  }
+
+  console.log(phone);
 
   return (
     <React.Fragment>
@@ -178,7 +184,11 @@ export default function Order({ access, user }: IProps) {
                 <Grid className={classes.ordersGrid} item xs={12}>
                   <Paper className={classes.paper}>
                     <NoSsr>
-                      <OrderTabs access={access} user={user} />
+                      <OrderTabs
+                        access={access}
+                        user={user}
+                        handlePhone={handlePhone}
+                      />
                     </NoSsr>
                   </Paper>
                 </Grid>

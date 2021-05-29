@@ -105,9 +105,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface IProps {
   access: string;
   user: IUser;
+  handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export default function OrderTabs({ access, user }: IProps) {
+export default function OrderTabs({ access, user, handlePhone }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -132,7 +133,11 @@ export default function OrderTabs({ access, user }: IProps) {
         <AnimationPage id="first-tab">
           <Box className={classes.optionsContainer}>
             <Box className={classes.paymentOptions}>
-              {!access ? <NoUserAddress /> : <Box>Some if login</Box>}
+              {!access ? (
+                <NoUserAddress handlePhone={handlePhone} />
+              ) : (
+                <Box>Some if login</Box>
+              )}
             </Box>
             <Box className={classes.paymentOptions}>
               <Typography variant="h6">Оплата</Typography>
@@ -180,11 +185,22 @@ export default function OrderTabs({ access, user }: IProps) {
   );
 }
 
-function NoUserAddress() {
+interface INoUserAddressProps {
+  handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
+}
+function NoUserAddress({ handlePhone }: INoUserAddressProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('female');
+  const [value, setValue] = React.useState('self');
+  const [showFields, setShowFields] = React.useState(false);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    const value = (event.target as HTMLInputElement).value;
+    setValue(value);
+    if (value !== 'kur') {
+      setShowFields(true);
+    } else {
+      setShowFields(false);
+    }
   };
   return (
     <Box>
@@ -198,17 +214,17 @@ function NoUserAddress() {
             onChange={handleChange}
           >
             <FormControlLabel
-              value="female"
+              value="self"
               control={<Radio />}
               label="Самовывоз"
             />
             <FormControlLabel
-              value="male"
+              value="kur"
               control={<Radio />}
               label="Доставка курьером"
             />
             <FormControlLabel
-              value="other"
+              value="post"
               control={<Radio />}
               label="Доставка Транспортной компанией"
             />
@@ -216,28 +232,46 @@ function NoUserAddress() {
         </FormControl>
       </Box>
       <Typography className={classes.addressTitle} variant="subtitle1">
-        Введите адрес Доставки
+        Введите телефон и адрес Доставки
       </Typography>
       <TextField
         className={classes.addressField}
-        label="Город Доставки"
-        id="City"
-        placeholder="Город Доставки"
-        variant="outlined"
-        size="small"
-        fullWidth
-        helperText="Город Доставки"
-      />
-      <TextField
-        className={classes.addressField}
-        label="Адрес"
-        id="address"
-        placeholder="Адрес Доставки"
+        label="Телефон"
+        id="phone"
+        placeholder="Телефон"
         variant="outlined"
         size="small"
         fullWidth
         helperText="Адрес Доставки"
+        required
+        onChange={handlePhone}
       />
+      {showFields && (
+        <React.Fragment>
+          <AnimationPage id="addressFields">
+            <TextField
+              className={classes.addressField}
+              label="Город Доставки"
+              id="City"
+              placeholder="Город Доставки"
+              variant="outlined"
+              size="small"
+              fullWidth
+              helperText="Город Доставки"
+            />
+            <TextField
+              className={classes.addressField}
+              label="Адрес"
+              id="address"
+              placeholder="Адрес Доставки"
+              variant="outlined"
+              size="small"
+              fullWidth
+              helperText="Адрес Доставки"
+            />
+          </AnimationPage>
+        </React.Fragment>
+      )}
     </Box>
   );
 }
