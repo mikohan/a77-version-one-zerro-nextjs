@@ -97,9 +97,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   user: IUser;
+  handleChangeAddress(event: React.ChangeEvent<HTMLInputElement>): void;
+  valueAddress: number;
 }
 
-export default function AddressesPaper({ user }: IProps) {
+export default function AddressesPaper({
+  user,
+  valueAddress,
+  handleChangeAddress,
+}: IProps) {
   const classes = useStyles();
   const router = useRouter();
 
@@ -118,12 +124,6 @@ export default function AddressesPaper({ user }: IProps) {
     if (!defaultAddress) {
       defaultAddress = addresses[0];
     }
-    const [valueAddress, setValueAddress] = React.useState(defaultAddress?.id);
-    const handleChangeAddress = (
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      setValueAddress(parseInt(event.target.value));
-    };
 
     return (
       <React.Fragment>

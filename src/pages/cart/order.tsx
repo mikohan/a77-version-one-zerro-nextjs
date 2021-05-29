@@ -13,27 +13,18 @@ import {
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
-import url from '~/services/url';
-import { Button, Table } from '@material-ui/core';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { IUser, IOrder, IOrderProducts } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import { backServerUrlRest } from '~/config';
 import axios from 'axios';
 import Moment from 'moment';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
-import { ICart, ICartItem } from '~/store/cart/cartTypes';
 import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
 import OrderTable from '~/components/account/OrderTable';
+import { IAddress } from '~/interfaces';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -103,6 +94,20 @@ export default function Order({ access, user }: IProps) {
       setShowPayment(true);
     }
   };
+  // Addresse choiser
+  const addresses = user.address_user || [];
+
+  let defaultAddress = addresses.find(
+    (address: IAddress) => address.default === true
+  );
+  if (!defaultAddress) {
+    defaultAddress = addresses[0];
+  }
+
+  const [valueAddress, setValueAddress] = React.useState(defaultAddress?.id);
+  const handleChangeAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueAddress(parseInt(event.target.value));
+  };
 
   return (
     <React.Fragment>
@@ -139,6 +144,8 @@ export default function Order({ access, user }: IProps) {
                         showFields={showFields}
                         showPayment={showPayment}
                         showOnlinePayment={showOnlinePayment}
+                        handleChangeAddress={handleChangeAddress}
+                        valueAddress={valueAddress}
                       />
                     </NoSsr>
                   </Paper>

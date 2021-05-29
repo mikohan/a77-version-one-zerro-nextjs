@@ -114,6 +114,8 @@ interface IProps {
   showFields: boolean;
   showPayment: boolean;
   showOnlinePayment: boolean;
+  handleChangeAddress(event: React.ChangeEvent<HTMLInputElement>): void;
+  valueAddress: number;
 }
 
 export default function OrderTabs({
@@ -129,6 +131,8 @@ export default function OrderTabs({
   showFields,
   showPayment,
   showOnlinePayment,
+  handleChangeAddress,
+  valueAddress,
 }: IProps) {
   const classes = useStyles();
   let initTab = 0;
@@ -222,7 +226,11 @@ export default function OrderTabs({
               </Button>
             </Box>
           ) : (
-            <AddressesListing user={user} />
+            <AddressesListing
+              user={user}
+              handleChangeAddress={handleChangeAddress}
+              valueAddress={valueAddress}
+            />
           )}
         </AnimationPage>
       </TabPanel>
