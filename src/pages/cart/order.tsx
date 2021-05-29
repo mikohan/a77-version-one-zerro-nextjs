@@ -51,11 +51,15 @@ export default function Order({ access, user }: IProps) {
   };
 
   const [phone, setPhone] = useState('');
+  const [valueEmail, setValueEmail] = useState('');
   const [city, setCity] = useState('');
   const [address, setAddress] = useState('');
 
   function handlePhone(event: React.ChangeEvent<HTMLInputElement>): void {
     setPhone(event.target.value);
+  }
+  function handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void {
+    setValueEmail(event.target.value);
   }
   function handleCity(event: React.ChangeEvent<HTMLInputElement>): void {
     setCity(event.target.value);
@@ -109,6 +113,8 @@ export default function Order({ access, user }: IProps) {
     setValueAddress(parseInt(event.target.value));
   };
 
+  console.log(valueEmail);
+
   return (
     <React.Fragment>
       <DashboardHead />
@@ -146,6 +152,7 @@ export default function Order({ access, user }: IProps) {
                         showOnlinePayment={showOnlinePayment}
                         handleChangeAddress={handleChangeAddress}
                         valueAddress={valueAddress}
+                        handleChangeEmail={handleChangeEmail}
                       />
                     </NoSsr>
                   </Paper>

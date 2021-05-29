@@ -83,9 +83,13 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
     },
     addressBox: {
+      padding: theme.spacing(1),
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
+      border: '1px solid',
+      borderColor: theme.palette.action.disabled,
+      borderRadius: '0.5rem',
     },
     editAddressButtonBox: {
       paddingTop: theme.spacing(3),

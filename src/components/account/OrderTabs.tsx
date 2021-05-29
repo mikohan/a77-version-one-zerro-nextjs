@@ -116,6 +116,7 @@ interface IProps {
   showOnlinePayment: boolean;
   handleChangeAddress(event: React.ChangeEvent<HTMLInputElement>): void;
   valueAddress: number;
+  handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export default function OrderTabs({
@@ -133,6 +134,7 @@ export default function OrderTabs({
   showOnlinePayment,
   handleChangeAddress,
   valueAddress,
+  handleChangeEmail,
 }: IProps) {
   const classes = useStyles();
   let initTab = 0;
@@ -163,12 +165,14 @@ export default function OrderTabs({
           <Box className={classes.optionsContainer}>
             <Box className={classes.paymentOptions}>
               <NoUserAddress
+                user={user}
                 handlePhone={handlePhone}
                 handleCity={handleCity}
                 handleAddress={handleAddress}
                 valueDelivery={valueDelivery}
                 handleChangeDelivery={handleChangeDelivery}
                 showFields={showFields}
+                handleChangeEmail={handleChangeEmail}
               />
             </Box>
             <Box className={classes.paymentOptions}>
@@ -226,11 +230,20 @@ export default function OrderTabs({
               </Button>
             </Box>
           ) : (
-            <AddressesListing
-              user={user}
-              handleChangeAddress={handleChangeAddress}
-              valueAddress={valueAddress}
-            />
+            <Box>
+              <NoUserAddress
+                user={user}
+                handlePhone={handlePhone}
+                handleCity={handleCity}
+                handleAddress={handleAddress}
+                valueDelivery={valueDelivery}
+                handleChangeDelivery={handleChangeDelivery}
+                showFields={showFields}
+                handleChangeEmail={handleChangeEmail}
+                handleChangeAddress={handleChangeAddress}
+                valueAddress={valueAddress}
+              />
+            </Box>
           )}
         </AnimationPage>
       </TabPanel>
@@ -239,20 +252,28 @@ export default function OrderTabs({
 }
 
 interface INoUserAddressProps {
+  user: IUser;
   handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
   handleCity(event: React.ChangeEvent<HTMLInputElement>): void;
   handleAddress(event: React.ChangeEvent<HTMLInputElement>): void;
   handleChangeDelivery(event: React.ChangeEvent<HTMLInputElement>): void;
   valueDelivery: string;
   showFields: boolean;
+  handleChangeAddress(event: React.ChangeEvent<HTMLInputElement>): void;
+  valueAddress: number;
+  handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 function NoUserAddress({
+  user,
   handlePhone,
   handleCity,
   handleAddress,
   valueDelivery,
   handleChangeDelivery,
   showFields,
+  handleChangeEmail,
+  handleChangeAddress,
+  valueAddress,
 }: INoUserAddressProps) {
   const classes = useStyles();
 
@@ -299,33 +320,59 @@ function NoUserAddress({
         helperText="Поле обязательно"
         required
         onChange={handlePhone}
+        defaultValue={user.phone || ''}
+      />
+      <TextField
+        className={classes.addressField}
+        label="Email"
+        id="email2"
+        placeholder="Email"
+        variant="outlined"
+        size="small"
+        fullWidth
+        helperText="Поле обязательно"
+        required
+        onChange={handleChangeEmail}
+        defaultValue={user.email || ''}
       />
       {showFields && (
         <React.Fragment>
-          <AnimationPage id="addressFields">
-            <TextField
-              className={classes.addressField}
-              label="Город Доставки"
-              id="City"
-              placeholder="Город Доставки"
-              variant="outlined"
-              size="small"
-              fullWidth
-              helperText="Город Доставки"
-              onChange={handleCity}
-            />
-            <TextField
-              className={classes.addressField}
-              label="Адрес"
-              id="address"
-              placeholder="Адрес Доставки"
-              variant="outlined"
-              size="small"
-              fullWidth
-              helperText="Адрес Доставки"
-              onChange={handleAddress}
-            />
-          </AnimationPage>
+          {Object.keys(user).length ? (
+            <div>
+              <AddressesListing
+                user={user}
+                handleChangeAddress={handleChangeAddress}
+                valueAddress={valueAddress}
+              />
+            </div>
+          ) : (
+            <div>
+              <AnimationPage id="addressFields">
+                <TextField
+                  className={classes.addressField}
+                  label="Город Доставки"
+                  id="City"
+                  placeholder="Город Доставки"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  helperText="Город Доставки"
+                  onChange={handleCity}
+                />
+                <TextField
+                  className={classes.addressField}
+                  label="Адрес"
+                  id="address"
+                  placeholder="Адрес Доставки"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  helperText="Адрес Доставки"
+                  onChange={handleAddress}
+                />
+              </AnimationPage>
+            </div>
+          )}
         </React.Fragment>
       )}
     </Box>
