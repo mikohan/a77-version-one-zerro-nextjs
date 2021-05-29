@@ -129,7 +129,11 @@ export default function OrderTabs({
   showOnlinePayment,
 }: IProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  let initTab = 0;
+  if (access && user && Object.keys(user).length) {
+    initTab = 1;
+  }
+  const [value, setValue] = React.useState(initTab);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
