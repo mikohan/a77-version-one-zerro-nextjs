@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +13,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Button, Divider, TextField } from '@material-ui/core/';
 import AnimationPage from '~/components/common/AnimationPage';
 import AddressesListing from '~/components/account/AddressesListing';
+import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -135,6 +136,7 @@ export default function OrderTabs({
   handleChangeEmail,
 }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
   let initTab = 0;
   if (access && user && Object.keys(user).length) {
     initTab = 1;
@@ -144,6 +146,12 @@ export default function OrderTabs({
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
+  function goLogin() {
+    router.push(url.account.login());
+  }
+  function goRegister() {
+    router.push(url.account.register());
+  }
 
   return (
     <div className={classes.root}>
@@ -281,10 +289,10 @@ export default function OrderTabs({
             </React.Fragment>
           ) : (
             <Box className={classes.accountButtons}>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={goLogin}>
                 Войти в Личный Кабинет
               </Button>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={goRegister}>
                 Создать Личный Кабинет
               </Button>
             </Box>
