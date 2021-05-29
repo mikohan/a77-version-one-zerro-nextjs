@@ -113,7 +113,38 @@ export default function Order({ access, user }: IProps) {
     setValueAddress(parseInt(event.target.value));
   };
 
-  console.log(valueEmail);
+  let toSend = {};
+  if (!access) {
+    toSend = {
+      phone,
+      email: valueEmail,
+      city,
+      delivery: valueDelivery,
+      payment: valuePayment,
+      user: user.id,
+      address,
+    };
+  } else {
+    toSend = {
+      phone: user.phone || phone,
+      email: user.email || valueEmail,
+      city: city
+        ? city
+        : user.address_user.find(
+            (address: IAddress) => address.id === valueAddress
+          )?.city,
+      delivery: valueDelivery,
+      payment: valuePayment,
+      user: user.id,
+      address: address
+        ? address
+        : user.address_user.find(
+            (address: IAddress) => address.id === valueAddress
+          )?.address || address,
+    };
+  }
+
+  console.log(toSend);
 
   return (
     <React.Fragment>
