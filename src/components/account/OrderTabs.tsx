@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     // backgroundColor: theme.palette.background.paper,
   },
   paymentOptions: {
-    border: '1px solid blue',
     padding: theme.spacing(3),
   },
   beforeButtonBox: {
@@ -57,7 +56,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   optionsContainer: {
     height: '100%',
-    border: '1px solid pink',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -279,7 +277,7 @@ function NoUserAddress({
         variant="outlined"
         size="small"
         fullWidth
-        helperText="Адрес Доставки"
+        helperText="Поле обязательно"
         required
         onChange={handlePhone}
       />
