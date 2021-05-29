@@ -33,6 +33,7 @@ import { IState } from '~/interfaces';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
 import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
+import OrderTable from '~/components/account/OrderTable';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -114,107 +115,7 @@ export default function Order({ access, user }: IProps) {
                 <Grid item xs={12}>
                   <AnimationPage id="order-paper-left">
                     <NoSsr>
-                      <Paper className={classes.paper}>
-                        <Box className={classes.orderBox}>
-                          <Typography variant="h6" color="primary">
-                            Заказ {orderNumber}
-                          </Typography>
-                          <Typography variant="body2">
-                            <span className={classes.dateSpan}>
-                              Создан {Moment(today).format('d MMM YYYY')}
-                            </span>
-                            <span className={classes.sumSpan}>
-                              Сумма заказа
-                            </span>
-                            <span className={classes.span}>
-                              &#8381; {cart.total}
-                            </span>
-                          </Typography>
-                        </Box>
-                        <TableContainer>
-                          <Table aria-label="simple table">
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>Название</TableCell>
-                                <TableCell align="left">Фото</TableCell>
-                                <TableCell align="left">Бренд</TableCell>
-                                <TableCell align="left">Машина</TableCell>
-                                <TableCell align="left">Кол-во</TableCell>
-                                <TableCell align="left">Цена</TableCell>
-                                <TableCell align="left">Сумма</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {cart.items.length &&
-                                cart.items.map((item: ICartItem) => {
-                                  return (
-                                    <TableRow key={item.id}>
-                                      <TableCell component="th" scope="row">
-                                        <Link
-                                          href={url.product(item.product.slug)}
-                                        >
-                                          <a>
-                                            <Typography
-                                              className={classes.orderDate}
-                                              color="primary"
-                                              variant="body2"
-                                            >
-                                              {item.product.name}
-                                            </Typography>
-                                          </a>
-                                        </Link>
-                                      </TableCell>
-                                      <TableCell>
-                                        <Image
-                                          src={
-                                            item.product.images.length
-                                              ? `${imageServerUrl}${item.product.images[0].img150}`
-                                              : '/images/local/defaultParts245.jpg'
-                                          }
-                                          width={40}
-                                          height={40}
-                                        />
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        <Typography
-                                          className={classes.orderRow}
-                                          variant="body2"
-                                        >
-                                          {item.product.brand.name}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        {item.product.model[0].model}
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        {item.quantity}
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        <Typography variant="body2">
-                                          &#8381; {item.price}
-                                        </Typography>
-                                      </TableCell>
-                                      <TableCell align="left">
-                                        <Typography
-                                          className={classes.orderSum}
-                                          variant="body2"
-                                        >
-                                          &#8381; {item.total}
-                                        </Typography>
-                                      </TableCell>
-                                    </TableRow>
-                                  );
-                                })}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                        <Box className={classes.tableTotal}>
-                          <Typography variant="h6">Сумма заказа</Typography>
-                          <Typography className={classes.totalSum} variant="h6">
-                            &#8381; {cart.total}
-                          </Typography>
-                        </Box>
-                      </Paper>
+                      <OrderTable cart={cart} orderNumber={orderNumber} />
                     </NoSsr>
                   </AnimationPage>
                 </Grid>

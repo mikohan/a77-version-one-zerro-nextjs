@@ -17,7 +17,6 @@ import Image from 'next/image';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
 
 interface IProps {
-  order: IOrder;
   orderNumber: string;
   cart: ICart;
 }
