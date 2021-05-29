@@ -104,6 +104,11 @@ interface IProps {
   handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
   handleCity(event: React.ChangeEvent<HTMLInputElement>): void;
   handleAddress(event: React.ChangeEvent<HTMLInputElement>): void;
+  handleChangePayment(event: React.ChangeEvent<HTMLInputElement>): void;
+  valuePayment: string;
+  handleChangeDelivery(event: React.ChangeEvent<HTMLInputElement>): void;
+  valueDelivery: string;
+  showFields: boolean;
 }
 
 export default function OrderTabs({
@@ -112,18 +117,17 @@ export default function OrderTabs({
   handlePhone,
   handleCity,
   handleAddress,
+  handleChangePayment,
+  valuePayment,
+  valueDelivery,
+  handleChangeDelivery,
+  showFields,
 }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [valueRadio, setValueRadio] = React.useState('onGet');
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
-  };
-
-  const handleChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setValueRadio(value);
   };
 
   return (
@@ -148,6 +152,9 @@ export default function OrderTabs({
                   handlePhone={handlePhone}
                   handleCity={handleCity}
                   handleAddress={handleAddress}
+                  valueDelivery={valueDelivery}
+                  handleChangeDelivery={handleChangeDelivery}
+                  showFields={showFields}
                 />
               ) : (
                 <Box>Some if login</Box>
@@ -160,8 +167,8 @@ export default function OrderTabs({
                   <RadioGroup
                     aria-label="payment"
                     name="payment"
-                    value={valueRadio}
-                    onChange={handleChangeRadio}
+                    value={valuePayment}
+                    onChange={handleChangePayment}
                   >
                     <FormControlLabel
                       value="onGet"
@@ -210,25 +217,20 @@ interface INoUserAddressProps {
   handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
   handleCity(event: React.ChangeEvent<HTMLInputElement>): void;
   handleAddress(event: React.ChangeEvent<HTMLInputElement>): void;
+  handleChangeDelivery(event: React.ChangeEvent<HTMLInputElement>): void;
+  valueDelivery: string;
+  showFields: boolean;
 }
 function NoUserAddress({
   handlePhone,
   handleCity,
   handleAddress,
+  valueDelivery,
+  handleChangeDelivery,
+  showFields,
 }: INoUserAddressProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('self');
-  const [showFields, setShowFields] = React.useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = (event.target as HTMLInputElement).value;
-    setValue(value);
-    if (value === 'kur') {
-      setShowFields(true);
-    } else {
-      setShowFields(false);
-    }
-  };
   return (
     <Box>
       <Box className={classes.addressRadios}>
@@ -237,8 +239,8 @@ function NoUserAddress({
           <RadioGroup
             aria-label="gender"
             name="gender1"
-            value={value}
-            onChange={handleChange}
+            value={valueDelivery}
+            onChange={handleChangeDelivery}
           >
             <FormControlLabel
               value="self"
