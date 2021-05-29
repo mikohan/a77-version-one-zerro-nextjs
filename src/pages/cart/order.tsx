@@ -32,11 +32,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
 import NoSsr from '@material-ui/core/NoSsr';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import OrderTabs from '~/components/account/OrderTabs';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -56,6 +52,11 @@ export default function Order({ access, user }: IProps) {
     router.back();
   }
   const orderNumber = `A-${today.format('HHmm')}`;
+
+  const [valueTab, setValueTab] = React.useState(2);
+  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValueTab(newValue);
+  };
 
   console.log(user);
 
@@ -177,47 +178,7 @@ export default function Order({ access, user }: IProps) {
                 <Grid className={classes.ordersGrid} item xs={12}>
                   <Paper className={classes.paper}>
                     <NoSsr>
-                      <Box className={classes.optionsContainer}>
-                        <Box className={classes.orderBox}>
-                          <Typography variant="h6" color="primary">
-                            Детали заказа {orderNumber}
-                          </Typography>
-                        </Box>
-                        <Box className={classes.paymentOptions}>
-                          {!access ? (
-                            <NoUserAddress />
-                          ) : (
-                            <Box>Some if login</Box>
-                          )}
-                        </Box>
-                        <Box className={classes.paymentOptions}>
-                          <Typography variant="h6">Оплата</Typography>
-                          <Box>
-                            <Typography variant="body2">
-                              Оплата наличными курьеру
-                            </Typography>
-                            <Typography variant="body2">
-                              Доставка Курьером
-                            </Typography>
-                            <Typography variant="body2">Самовывоз</Typography>
-                          </Box>
-                          <Box>
-                            <Typography variant="body2">
-                              Оплата наличными курьеру
-                            </Typography>
-                            <Typography variant="body2">
-                              Доставка Курьером
-                            </Typography>
-                            <Typography variant="body2">Самовывоз</Typography>
-                          </Box>
-                        </Box>
-                        <Box className={classes.beforeButtonBox}>dome</Box>
-                        <Box className={classes.placeOrderButton}>
-                          <Button variant="contained" color="primary">
-                            отправить заказ
-                          </Button>
-                        </Box>
-                      </Box>
+                      <OrderTabs access={access} user={user} />
                     </NoSsr>
                   </Paper>
                 </Grid>
@@ -227,68 +188,6 @@ export default function Order({ access, user }: IProps) {
         </Container>
       </AnimationPage>
     </React.Fragment>
-  );
-}
-
-function NoUserAddress() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState('female');
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
-  return (
-    <Box>
-      <Box className={classes.addressRadios}>
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Способ Доставки</FormLabel>
-          <RadioGroup
-            aria-label="gender"
-            name="gender1"
-            value={value}
-            onChange={handleChange}
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Самовывоз"
-            />
-            <FormControlLabel
-              value="male"
-              control={<Radio />}
-              label="Доставка курьером"
-            />
-            <FormControlLabel
-              value="other"
-              control={<Radio />}
-              label="Доставка Транспортной компанией"
-            />
-          </RadioGroup>
-        </FormControl>
-      </Box>
-      <Typography className={classes.addressTitle} variant="subtitle1">
-        Введите адрес Доставки
-      </Typography>
-      <TextField
-        className={classes.addressField}
-        label="Город Доставки"
-        id="City"
-        placeholder="Город Доставки"
-        variant="outlined"
-        size="small"
-        fullWidth
-        helperText="Город Доставки"
-      />
-      <TextField
-        className={classes.addressField}
-        label="Адрес"
-        id="address"
-        placeholder="Адрес Доставки"
-        variant="outlined"
-        size="small"
-        fullWidth
-        helperText="Адрес Доставки"
-      />
-    </Box>
   );
 }
 
@@ -336,16 +235,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
-    orderBox: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-      borderBottom: '1px solid',
-      borderBottomColor: theme.palette.action.selected,
-    },
     orderRow: {
       textDecoration: 'underline',
     },
@@ -375,34 +264,13 @@ const useStyles = makeStyles((theme: Theme) =>
     totalSum: {
       fontWeight: 700,
     },
-    placeOrderButton: {
+    orderBox: {
       display: 'flex',
-      justifyContent: 'flex-end',
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-    paymentOptions: {
-      border: '1px solid blue',
-      padding: theme.spacing(3),
-    },
-    beforeButtonBox: {
-      flexGrow: 1,
-    },
-    optionsContainer: {
-      height: '100%',
-      border: '1px solid pink',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    addressField: {
-      marginBottom: theme.spacing(1),
-    },
-    addressTitle: {
+      justifyContent: 'space-between',
+      alignItems: 'center',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
-    },
-    addressRadios: {
+      paddingLeft: theme.spacing(2),
       borderBottom: '1px solid',
       borderBottomColor: theme.palette.action.selected,
     },
