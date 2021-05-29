@@ -72,7 +72,9 @@ export default function Order({ access, user }: IProps) {
     setAddress(event.target.value);
   }
 
+  const [showPayment, setShowPayment] = React.useState(true);
   const [valuePayment, setValuePayment] = React.useState('onGet');
+
   const handleChangePayment = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setValuePayment(value);
@@ -86,6 +88,12 @@ export default function Order({ access, user }: IProps) {
       setShowFields(true);
     } else {
       setShowFields(false);
+    }
+
+    if (value === 'post') {
+      setShowPayment(false);
+    } else {
+      setShowPayment(true);
     }
   };
 
@@ -222,6 +230,7 @@ export default function Order({ access, user }: IProps) {
                         valueDelivery={valueDelivery}
                         handleChangeDelivery={handleChangeDelivery}
                         showFields={showFields}
+                        showPayment={showPayment}
                       />
                     </NoSsr>
                   </Paper>

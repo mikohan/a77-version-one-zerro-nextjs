@@ -109,6 +109,7 @@ interface IProps {
   handleChangeDelivery(event: React.ChangeEvent<HTMLInputElement>): void;
   valueDelivery: string;
   showFields: boolean;
+  showPayment: boolean;
 }
 
 export default function OrderTabs({
@@ -122,6 +123,7 @@ export default function OrderTabs({
   valueDelivery,
   handleChangeDelivery,
   showFields,
+  showPayment,
 }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -163,24 +165,30 @@ export default function OrderTabs({
             <Box className={classes.paymentOptions}>
               <Box className={classes.addressRadios}>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Спобоб оплаты</FormLabel>
-                  <RadioGroup
-                    aria-label="payment"
-                    name="payment"
-                    value={valuePayment}
-                    onChange={handleChangePayment}
-                  >
-                    <FormControlLabel
-                      value="onGet"
-                      control={<Radio />}
-                      label="Оплата при получении"
-                    />
-                    <FormControlLabel
-                      value="onLine"
-                      control={<Radio />}
-                      label="Оплата картой онлайн"
-                    />
-                  </RadioGroup>
+                  <FormLabel component="legend">Споcоб оплаты</FormLabel>
+                  {showPayment ? (
+                    <RadioGroup
+                      aria-label="payment"
+                      name="payment"
+                      value={valuePayment}
+                      onChange={handleChangePayment}
+                    >
+                      <FormControlLabel
+                        value="onGet"
+                        control={<Radio />}
+                        label="Оплата при получении"
+                      />
+                      <FormControlLabel
+                        value="onLine"
+                        control={<Radio />}
+                        label="Оплата картой онлайн"
+                      />
+                    </RadioGroup>
+                  ) : (
+                    <Typography variant="body2">
+                      Уточнтите способ оплаты у менеджера
+                    </Typography>
+                  )}
                 </FormControl>
               </Box>
             </Box>
