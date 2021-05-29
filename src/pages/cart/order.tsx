@@ -113,8 +113,8 @@ export default function Order({ access, user }: IProps) {
               <Grid container>
                 <Grid item xs={12}>
                   <AnimationPage id="order-paper-left">
-                    <Paper className={classes.paper}>
-                      <NoSsr>
+                    <NoSsr>
+                      <Paper className={classes.paper}>
                         <Box className={classes.orderBox}>
                           <Typography variant="h6" color="primary">
                             Заказ {orderNumber}
@@ -214,8 +214,8 @@ export default function Order({ access, user }: IProps) {
                             &#8381; {cart.total}
                           </Typography>
                         </Box>
-                      </NoSsr>
-                    </Paper>
+                      </Paper>
+                    </NoSsr>
                   </AnimationPage>
                 </Grid>
               </Grid>
