@@ -73,11 +73,17 @@ export default function Order({ access, user }: IProps) {
   }
 
   const [showPayment, setShowPayment] = React.useState(true);
+  const [showOnlinePayment, setShowOnlinePayment] = React.useState(false);
   const [valuePayment, setValuePayment] = React.useState('onGet');
 
   const handleChangePayment = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setValuePayment(value);
+    if (value === 'onLine') {
+      setShowOnlinePayment(true);
+    } else {
+      setShowOnlinePayment(false);
+    }
   };
   const [showFields, setShowFields] = React.useState(false);
   const [valueDelivery, setValueDelivery] = React.useState('self');
@@ -231,6 +237,7 @@ export default function Order({ access, user }: IProps) {
                         handleChangeDelivery={handleChangeDelivery}
                         showFields={showFields}
                         showPayment={showPayment}
+                        showOnlinePayment={showOnlinePayment}
                       />
                     </NoSsr>
                   </Paper>

@@ -52,7 +52,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(3),
   },
   beforeButtonBox: {
+    paddingRight: theme.spacing(2),
     flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   optionsContainer: {
     height: '100%',
@@ -108,6 +111,7 @@ interface IProps {
   valueDelivery: string;
   showFields: boolean;
   showPayment: boolean;
+  showOnlinePayment: boolean;
 }
 
 export default function OrderTabs({
@@ -122,6 +126,7 @@ export default function OrderTabs({
   handleChangeDelivery,
   showFields,
   showPayment,
+  showOnlinePayment,
 }: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -190,7 +195,11 @@ export default function OrderTabs({
                 </FormControl>
               </Box>
             </Box>
-            <Box className={classes.beforeButtonBox}>dome</Box>
+            <Box className={classes.beforeButtonBox}>
+              {showOnlinePayment && (
+                <Button variant="contained">Оплатить Картой</Button>
+              )}
+            </Box>
             <Box className={classes.placeOrderButton}>
               <Button variant="contained" color="primary">
                 отправить заказ
