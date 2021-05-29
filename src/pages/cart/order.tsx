@@ -2,11 +2,17 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, imageServerUrl, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Container, Paper } from '@material-ui/core';
+import {
+  TextField,
+  Box,
+  Grid,
+  Typography,
+  Container,
+  Paper,
+} from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
-import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import url from '~/services/url';
 import { Button, Table } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,10 +22,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { IUser, IOrder, IOrderProducts } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
-import NoLoggedIn from '~/components/account/NotLoggedIn';
 import { backServerUrlRest } from '~/config';
 import axios from 'axios';
-import NotLoggedIn from '~/components/account/NotLoggedIn';
 import Moment from 'moment';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -28,6 +32,11 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
 import NoSsr from '@material-ui/core/NoSsr';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -47,6 +56,8 @@ export default function Order({ access, user }: IProps) {
     router.back();
   }
   const orderNumber = `A-${today.format('HHmm')}`;
+
+  console.log(user);
 
   return (
     <React.Fragment>
@@ -173,25 +184,11 @@ export default function Order({ access, user }: IProps) {
                           </Typography>
                         </Box>
                         <Box className={classes.paymentOptions}>
-                          <Typography variant="h6">Доставка</Typography>
-                          <Box>
-                            <Typography variant="body2">
-                              Оплата наличными курьеру
-                            </Typography>
-                            <Typography variant="body2">
-                              Доставка Курьером
-                            </Typography>
-                            <Typography variant="body2">Самовывоз</Typography>
-                          </Box>
-                          <Box>
-                            <Typography variant="body2">
-                              Оплата наличными курьеру
-                            </Typography>
-                            <Typography variant="body2">
-                              Доставка Курьером
-                            </Typography>
-                            <Typography variant="body2">Самовывоз</Typography>
-                          </Box>
+                          {!access ? (
+                            <NoUserAddress />
+                          ) : (
+                            <Box>Some if login</Box>
+                          )}
                         </Box>
                         <Box className={classes.paymentOptions}>
                           <Typography variant="h6">Оплата</Typography>
@@ -230,6 +227,68 @@ export default function Order({ access, user }: IProps) {
         </Container>
       </AnimationPage>
     </React.Fragment>
+  );
+}
+
+function NoUserAddress() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState('female');
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+  };
+  return (
+    <Box>
+      <Box className={classes.addressRadios}>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">Способ Доставки</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            name="gender1"
+            value={value}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value="female"
+              control={<Radio />}
+              label="Самовывоз"
+            />
+            <FormControlLabel
+              value="male"
+              control={<Radio />}
+              label="Доставка курьером"
+            />
+            <FormControlLabel
+              value="other"
+              control={<Radio />}
+              label="Доставка Транспортной компанией"
+            />
+          </RadioGroup>
+        </FormControl>
+      </Box>
+      <Typography className={classes.addressTitle} variant="subtitle1">
+        Введите адрес Доставки
+      </Typography>
+      <TextField
+        className={classes.addressField}
+        label="Город Доставки"
+        id="City"
+        placeholder="Город Доставки"
+        variant="outlined"
+        size="small"
+        fullWidth
+        helperText="Город Доставки"
+      />
+      <TextField
+        className={classes.addressField}
+        label="Адрес"
+        id="address"
+        placeholder="Адрес Доставки"
+        variant="outlined"
+        size="small"
+        fullWidth
+        helperText="Адрес Доставки"
+      />
+    </Box>
   );
 }
 
@@ -335,6 +394,17 @@ const useStyles = makeStyles((theme: Theme) =>
       border: '1px solid pink',
       display: 'flex',
       flexDirection: 'column',
+    },
+    addressField: {
+      marginBottom: theme.spacing(1),
+    },
+    addressTitle: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
+    addressRadios: {
+      borderBottom: '1px solid',
+      borderBottomColor: theme.palette.action.selected,
     },
   })
 );
