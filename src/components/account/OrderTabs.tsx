@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { Button, TextField } from '@material-ui/core/';
 import AnimationPage from '~/components/common/AnimationPage';
+import AddressesListing from '~/components/account/AddressesListing';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -156,18 +157,14 @@ export default function OrderTabs({
         <AnimationPage id="first-tab">
           <Box className={classes.optionsContainer}>
             <Box className={classes.paymentOptions}>
-              {!access ? (
-                <NoUserAddress
-                  handlePhone={handlePhone}
-                  handleCity={handleCity}
-                  handleAddress={handleAddress}
-                  valueDelivery={valueDelivery}
-                  handleChangeDelivery={handleChangeDelivery}
-                  showFields={showFields}
-                />
-              ) : (
-                <Box>Some if login</Box>
-              )}
+              <NoUserAddress
+                handlePhone={handlePhone}
+                handleCity={handleCity}
+                handleAddress={handleAddress}
+                valueDelivery={valueDelivery}
+                handleChangeDelivery={handleChangeDelivery}
+                showFields={showFields}
+              />
             </Box>
             <Box className={classes.paymentOptions}>
               <Box className={classes.addressRadios}>
@@ -224,7 +221,9 @@ export default function OrderTabs({
               </Button>
             </Box>
           ) : (
-            <Box>Registered stuff</Box>
+            <Box>
+              <AddressesListing user={user} />
+            </Box>
           )}
         </AnimationPage>
       </TabPanel>
