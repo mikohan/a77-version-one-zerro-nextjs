@@ -37,6 +37,7 @@ export default function Order({ access, user }: IProps) {
 
   const router = useRouter();
   const cart = useSelector((state: IState) => state.cart);
+  const autouser = useSelector((state: IState) => state.shopNew.userId);
 
   Moment.locale('ru');
   const today = Moment();
@@ -119,10 +120,11 @@ export default function Order({ access, user }: IProps) {
       phone,
       email: valueEmail,
       city,
+      address,
       delivery: valueDelivery,
       payment: valuePayment,
       user: user.id,
-      address,
+      autouser: autouser,
     };
   } else {
     toSend = {
@@ -133,14 +135,15 @@ export default function Order({ access, user }: IProps) {
         : user.address_user.find(
             (address: IAddress) => address.id === valueAddress
           )?.city,
-      delivery: valueDelivery,
-      payment: valuePayment,
-      user: user.id,
       address: address
         ? address
         : user.address_user.find(
             (address: IAddress) => address.id === valueAddress
           )?.address || address,
+      delivery: valueDelivery,
+      payment: valuePayment,
+      user: user.id,
+      autouser: autouser,
     };
   }
 

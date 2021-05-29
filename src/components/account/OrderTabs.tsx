@@ -220,7 +220,66 @@ export default function OrderTabs({
       </TabPanel>
       <TabPanel value={value} index={1}>
         <AnimationPage id="second-tab">
-          {!access ? (
+          {access ? (
+            <React.Fragment>
+              <Box>
+                <NoUserAddress
+                  user={user}
+                  handlePhone={handlePhone}
+                  handleCity={handleCity}
+                  handleAddress={handleAddress}
+                  valueDelivery={valueDelivery}
+                  handleChangeDelivery={handleChangeDelivery}
+                  showFields={showFields}
+                  handleChangeEmail={handleChangeEmail}
+                  handleChangeAddress={handleChangeAddress}
+                  valueAddress={valueAddress}
+                />
+              </Box>
+              <Box>
+                <Box className={classes.addressRadios}>
+                  <Divider className={classes.divider} />
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">Споcоб оплаты</FormLabel>
+                    {showPayment ? (
+                      <RadioGroup
+                        aria-label="payment"
+                        name="payment"
+                        value={valuePayment}
+                        onChange={handleChangePayment}
+                      >
+                        <FormControlLabel
+                          value="onGet"
+                          control={<Radio />}
+                          label="Оплата при получении"
+                        />
+                        <FormControlLabel
+                          value="onLine"
+                          control={<Radio />}
+                          label="Оплата картой онлайн"
+                        />
+                      </RadioGroup>
+                    ) : (
+                      <Typography variant="body2">
+                        Уточнтите способ оплаты у менеджера
+                      </Typography>
+                    )}
+                  </FormControl>
+                </Box>
+              </Box>
+              <Box className={classes.beforeButtonBox}>
+                {showOnlinePayment && (
+                  <Button variant="contained">Оплатить Картой</Button>
+                )}
+              </Box>
+              <Divider className={classes.divider} />
+              <Box className={classes.placeOrderButton}>
+                <Button variant="contained" color="primary">
+                  отправить заказ
+                </Button>
+              </Box>
+            </React.Fragment>
+          ) : (
             <Box className={classes.accountButtons}>
               <Button variant="contained" color="primary">
                 Войти в Личный Кабинет
@@ -229,64 +288,7 @@ export default function OrderTabs({
                 Создать Личный Кабинет
               </Button>
             </Box>
-          ) : (
-            <Box>
-              <NoUserAddress
-                user={user}
-                handlePhone={handlePhone}
-                handleCity={handleCity}
-                handleAddress={handleAddress}
-                valueDelivery={valueDelivery}
-                handleChangeDelivery={handleChangeDelivery}
-                showFields={showFields}
-                handleChangeEmail={handleChangeEmail}
-                handleChangeAddress={handleChangeAddress}
-                valueAddress={valueAddress}
-              />
-            </Box>
           )}
-          <Box>
-            <Box className={classes.addressRadios}>
-              <Divider className={classes.divider} />
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Споcоб оплаты</FormLabel>
-                {showPayment ? (
-                  <RadioGroup
-                    aria-label="payment"
-                    name="payment"
-                    value={valuePayment}
-                    onChange={handleChangePayment}
-                  >
-                    <FormControlLabel
-                      value="onGet"
-                      control={<Radio />}
-                      label="Оплата при получении"
-                    />
-                    <FormControlLabel
-                      value="onLine"
-                      control={<Radio />}
-                      label="Оплата картой онлайн"
-                    />
-                  </RadioGroup>
-                ) : (
-                  <Typography variant="body2">
-                    Уточнтите способ оплаты у менеджера
-                  </Typography>
-                )}
-              </FormControl>
-            </Box>
-          </Box>
-          <Box className={classes.beforeButtonBox}>
-            {showOnlinePayment && (
-              <Button variant="contained">Оплатить Картой</Button>
-            )}
-          </Box>
-          <Divider className={classes.divider} />
-          <Box className={classes.placeOrderButton}>
-            <Button variant="contained" color="primary">
-              отправить заказ
-            </Button>
-          </Box>
         </AnimationPage>
       </TabPanel>
     </div>
