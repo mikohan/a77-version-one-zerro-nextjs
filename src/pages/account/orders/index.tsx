@@ -65,7 +65,7 @@ export default function Dashboard({ access, orders }: IProps) {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {orders.length &&
+                              {orders.length ? (
                                 orders.map((order: IOrder) => {
                                   Moment.locale('ru');
                                   return (
@@ -114,7 +114,15 @@ export default function Dashboard({ access, orders }: IProps) {
                                       </TableCell>
                                     </TableRow>
                                   );
-                                })}
+                                })
+                              ) : (
+                                <Typography
+                                  className={classes.noOrders}
+                                  variant="h6"
+                                >
+                                  Пока нет заказов
+                                </Typography>
+                              )}
                             </TableBody>
                           </Table>
                         </TableContainer>
@@ -214,6 +222,9 @@ const useStyles = makeStyles((theme: Theme) =>
     orderDate: {
       fontWeight: 700,
       textDecoration: 'underline',
+    },
+    noOrders: {
+      padding: theme.spacing(3),
     },
   })
 );
