@@ -106,9 +106,17 @@ interface IProps {
   access: string;
   user: IUser;
   handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
+  handleCity(event: React.ChangeEvent<HTMLInputElement>): void;
+  handleAddress(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export default function OrderTabs({ access, user, handlePhone }: IProps) {
+export default function OrderTabs({
+  access,
+  user,
+  handlePhone,
+  handleCity,
+  handleAddress,
+}: IProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -134,7 +142,11 @@ export default function OrderTabs({ access, user, handlePhone }: IProps) {
           <Box className={classes.optionsContainer}>
             <Box className={classes.paymentOptions}>
               {!access ? (
-                <NoUserAddress handlePhone={handlePhone} />
+                <NoUserAddress
+                  handlePhone={handlePhone}
+                  handleCity={handleCity}
+                  handleAddress={handleAddress}
+                />
               ) : (
                 <Box>Some if login</Box>
               )}
@@ -187,8 +199,14 @@ export default function OrderTabs({ access, user, handlePhone }: IProps) {
 
 interface INoUserAddressProps {
   handlePhone(event: React.ChangeEvent<HTMLInputElement>): void;
+  handleCity(event: React.ChangeEvent<HTMLInputElement>): void;
+  handleAddress(event: React.ChangeEvent<HTMLInputElement>): void;
 }
-function NoUserAddress({ handlePhone }: INoUserAddressProps) {
+function NoUserAddress({
+  handlePhone,
+  handleCity,
+  handleAddress,
+}: INoUserAddressProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState('self');
   const [showFields, setShowFields] = React.useState(false);
@@ -258,6 +276,7 @@ function NoUserAddress({ handlePhone }: INoUserAddressProps) {
               size="small"
               fullWidth
               helperText="Город Доставки"
+              onChange={handleCity}
             />
             <TextField
               className={classes.addressField}
@@ -268,6 +287,7 @@ function NoUserAddress({ handlePhone }: INoUserAddressProps) {
               size="small"
               fullWidth
               helperText="Адрес Доставки"
+              onChange={handleAddress}
             />
           </AnimationPage>
         </React.Fragment>

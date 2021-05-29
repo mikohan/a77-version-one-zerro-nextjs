@@ -59,9 +59,17 @@ export default function Order({ access, user }: IProps) {
   };
 
   const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddres] = useState('');
 
   function handlePhone(event: React.ChangeEvent<HTMLInputElement>): void {
     setPhone(event.target.value);
+  }
+  function handleCity(event: React.ChangeEvent<HTMLInputElement>): void {
+    setCity(event.target.value);
+  }
+  function handleAddress(event: React.ChangeEvent<HTMLInputElement>): void {
+    setAddress(event.target.value);
   }
 
   console.log(phone);
@@ -188,6 +196,8 @@ export default function Order({ access, user }: IProps) {
                         access={access}
                         user={user}
                         handlePhone={handlePhone}
+                        handleCity={handleCity}
+                        handleAddress={handleAddress}
                       />
                     </NoSsr>
                   </Paper>
