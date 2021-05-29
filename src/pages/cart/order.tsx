@@ -112,7 +112,7 @@ export default function Order({ access, user }: IProps) {
   const handleChangeAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValueAddress(parseInt(event.target.value));
   };
-
+  // Collecting data to send to server here tomorow needs to  add cart and products
   let toSend = {};
   if (!access) {
     toSend = {
@@ -144,7 +144,7 @@ export default function Order({ access, user }: IProps) {
     };
   }
 
-  console.log(toSend);
+  /* console.log(toSend); */
 
   return (
     <React.Fragment>
