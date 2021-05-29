@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Grid, Chip, Typography, Box, Button } from '@material-ui/core';
+import { Typography, Box, Button } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { IUser } from '~/interfaces';
 import { IAddress } from '~/interfaces';
@@ -76,27 +76,19 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(2),
     },
-    addressBox: {
-      '&>*': {
-        paddingTop: theme.spacing(0.5),
-        paddingBottom: theme.spacing(0.5),
-      },
-    },
     bottomAddress: {
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
     },
-    chipBox: {
+    addressBox: {
+      height: '100%',
       display: 'flex',
-      justifyContent: 'space-between',
-    },
-    addressTitle: {
-      paddingBottom: theme.spacing(2),
+      flexDirection: 'column',
     },
     editAddressButtonBox: {
-      paddingTop: theme.spacing(1),
+      paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(1),
       textAlign: 'center',
     },
@@ -134,61 +126,66 @@ export default function AddressesPaper({ user }: IProps) {
     };
 
     return (
-      <Box className={classes.address}>
-        <React.Fragment>
-          {user && Object.keys(user.address_user).length ? (
-            <Box className={classes.addressBox}>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Выбрать Адрес Доставки</FormLabel>
-                <RadioGroup
-                  aria-label="addresses"
-                  name="addresses"
-                  value={valueAddress}
-                  onChange={handleChangeAddress}
-                >
-                  {addresses.map((address: IAddress) => (
-                    <React.Fragment key={address.id}>
-                      <FormControlLabel
-                        value={address.id}
-                        control={<Radio />}
-                        label={`${address?.city} ${address?.address}`}
-                      />
-                    </React.Fragment>
-                  ))}
-                </RadioGroup>
-              </FormControl>
+      <React.Fragment>
+        {user && Object.keys(user.address_user).length ? (
+          <Box className={classes.addressBox}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Выбрать Адрес Доставки</FormLabel>
+              <RadioGroup
+                aria-label="addresses"
+                name="addresses"
+                value={valueAddress}
+                onChange={handleChangeAddress}
+              >
+                {addresses.map((address: IAddress) => (
+                  <React.Fragment key={address.id}>
+                    <FormControlLabel
+                      value={address.id}
+                      control={<Radio />}
+                      label={
+                        <Typography variant="body2">{`${address?.city} ${address?.address}`}</Typography>
+                      }
+                    />
+                  </React.Fragment>
+                ))}
+              </RadioGroup>
+            </FormControl>
+            <Box className={classes.editAddressButtonBox}>
+              <Button
+                onClick={handleAddresses}
+                variant="contained"
+                size="small"
+              >
+                Изменить Адреса
+              </Button>
             </Box>
-          ) : (
-            ''
-          )}
-          <Box className={classes.editAddressButtonBox}>
-            <Button onClick={handleAddresses} variant="contained">
-              Изменить Адреса
-            </Button>
           </Box>
-        </React.Fragment>
-      </Box>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={handleAddresses}
+          >
+            Добавить адрес доставки
+          </Button>
+        )}
+      </React.Fragment>
     );
   } else {
     return (
-      <Paper className={classes.address}>
+      <Box className={classes.address}>
         <Box className={classes.bottomAddress}>
-          <Box className={classes.chipBox}>
-            <Typography className={classes.addressTitle} variant="h6">
-              Адрес Доставки
-            </Typography>
-            <Chip size="small" label="Основной" />
-          </Box>
-          <Typography variant="h6">
+          <Typography variant="body2">
             Пока нет ни одного адреса доставки. Создать?
           </Typography>
           <Box className={classes.editAddressButtonBox}>
-            <Button onClick={addAddress} variant="contained">
+            <Button onClick={addAddress} variant="contained" size="small">
               Добавить Адрес
             </Button>
           </Box>
         </Box>
-      </Paper>
+      </Box>
     );
   }
 }

@@ -26,6 +26,7 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
+      style={{ height: '100%' }}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -221,9 +222,7 @@ export default function OrderTabs({
               </Button>
             </Box>
           ) : (
-            <Box>
-              <AddressesListing user={user} />
-            </Box>
+            <AddressesListing user={user} />
           )}
         </AnimationPage>
       </TabPanel>
