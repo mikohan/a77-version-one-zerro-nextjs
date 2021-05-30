@@ -113,7 +113,9 @@ export default function Order({ access, order }: IProps) {
                                       <TableRow key={product.product_id}>
                                         <TableCell component="th" scope="row">
                                           <Link
-                                            href={url.product(product.slug)}
+                                            href={url.product(
+                                              product.product_slug
+                                            )}
                                           >
                                             <a>
                                               <Typography
@@ -129,8 +131,8 @@ export default function Order({ access, order }: IProps) {
                                         <TableCell>
                                           <Image
                                             src={
-                                              product.image
-                                                ? product.image
+                                              product.product_image
+                                                ? product.product_image
                                                 : '/images/local/defaultParts245.jpg'
                                             }
                                             width={40}

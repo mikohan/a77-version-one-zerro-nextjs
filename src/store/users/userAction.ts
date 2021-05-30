@@ -164,7 +164,6 @@ export const googleLogin = (tokenId: string) => async (
     try {
       const res = await axios.post(urlAxios, payload);
       const response = res.data;
-      console.log(response);
       dispatch({
         type: USER_GOOGLE_LOGIN_SUCCESS,
         payload: response,

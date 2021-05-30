@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, imageServerUrl, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import {
-  TextField,
   Box,
   Grid,
-  Typography,
   Container,
   Paper,
   Button,
@@ -15,7 +13,7 @@ import {
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
-import { IAddress, IUser, IOrder, IOrderProducts } from '~/interfaces';
+import { IAddress, IUser, IOrder } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import Moment from 'moment';
 import { useRouter } from 'next/router';
@@ -24,7 +22,7 @@ import { IState } from '~/interfaces';
 import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
 import OrderTable from '~/components/account/OrderTable';
-import { ICart, ICartItem } from '~/store/cart/cartTypes';
+import { ICartItem } from '~/store/cart/cartTypes';
 import { emailIsValid } from '~/utils';
 import { sendOrder } from '~/endpoints/orderEndpoints';
 import IconButton from '@material-ui/core/IconButton';
@@ -47,15 +45,9 @@ export default function Order({ access, user }: IProps) {
 
   Moment.locale('ru');
   const today = Moment();
-  function goBack() {
-    router.back();
-  }
   const orderNumber = `A-${today.format('HHmm')}`;
 
   const [valueTab, setValueTab] = React.useState(2);
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValueTab(newValue);
-  };
 
   const [phone, setPhone] = useState('');
   const [valueEmail, setValueEmail] = useState('');
@@ -226,7 +218,7 @@ export default function Order({ access, user }: IProps) {
     }
   }
 
-  const [openSnack, setOpenSnak] = React.useState(true);
+  const [openSnack, setOpenSnak] = React.useState(false);
 
   const handleCloseSnack = (
     event: React.SyntheticEvent | React.MouseEvent,
