@@ -25,6 +25,7 @@ import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
 import OrderTable from '~/components/account/OrderTable';
 import { IAddress } from '~/interfaces';
+import { ICart, ICartItem } from '~/store/cart/cartTypes';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -114,20 +115,34 @@ export default function Order({ access, user }: IProps) {
     setValueAddress(parseInt(event.target.value));
   };
   // Collecting data to send to server here tomorow needs to  add cart and products
-  let toSend = {};
-  if (!access) {
-    toSend = {
-      phone,
-      email: valueEmail,
-      city,
-      address,
-      delivery: valueDelivery,
-      payment: valuePayment,
-      user: user.id,
-      autouser: autouser,
+  const order_products = cart.items.map((item: ICartItem) => {
+    return {
+      product_name: item.product.name,
+      product_price: item.product.stocks[0].price,
+      product_id: item.product.id,
+      product_car: item.product.model[0].model,
+      product_brand: item.product.brand.name,
+      qty: item.quantity,
     };
-  } else {
-    toSend = {
+  });
+
+  let toSend: any = {
+    phone,
+    email: valueEmail,
+    city,
+    address,
+    delivery: valueDelivery,
+    payment: valuePayment,
+    autouser: autouser,
+    user: user.id || null,
+    number: orderNumber,
+    status: 1,
+    total: cart.total,
+    order_products: order_products,
+  };
+
+  if (access) {
+    const userToSend = {
       phone: user.phone || phone,
       email: user.email || valueEmail,
       city: city
@@ -140,14 +155,11 @@ export default function Order({ access, user }: IProps) {
         : user.address_user.find(
             (address: IAddress) => address.id === valueAddress
           )?.address || address,
-      delivery: valueDelivery,
-      payment: valuePayment,
-      user: user.id,
-      autouser: autouser,
     };
+    toSend = { ...toSend, ...userToSend };
   }
 
-  /* console.log(toSend); */
+  console.log(toSend);
 
   return (
     <React.Fragment>
