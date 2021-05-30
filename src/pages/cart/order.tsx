@@ -164,7 +164,7 @@ export default function Order({ access, user }: IProps) {
     toSend = { ...toSend, ...userToSend };
   }
 
-  console.log(toSend);
+  console.log(JSON.stringify(toSend));
 
   return (
     <React.Fragment>
