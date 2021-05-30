@@ -122,6 +122,9 @@ export default function Order({ access, user }: IProps) {
       product_id: item.product.id,
       product_car: item.product.model[0].model,
       product_brand: item.product.brand.name,
+      product_image: item.product.images.length
+        ? item.product.images[0].img150
+        : null,
       qty: item.quantity,
     };
   });
@@ -136,12 +139,12 @@ export default function Order({ access, user }: IProps) {
     autouser: autouser,
     user: user.id || null,
     number: orderNumber,
-    status: 1,
-    total: cart.total,
+    status: 'ORD',
+    total_front: cart.total,
     order_products: order_products,
   };
 
-  if (access) {
+  if (access && Object.keys(user).length) {
     const userToSend = {
       phone: user.phone || phone,
       email: user.email || valueEmail,
