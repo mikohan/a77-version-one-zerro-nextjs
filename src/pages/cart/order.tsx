@@ -136,10 +136,8 @@ export default function Order({ access, user }: IProps) {
         image = img as string;
       } else {
         image = `${imageServerUrl}${item.product.images[0].img150}`;
-        console.log(image);
       }
     }
-    console.log(image);
     return {
       product_name: item.product.name,
 
