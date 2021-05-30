@@ -116,6 +116,8 @@ interface IProps {
   handleChangeAddress(event: React.ChangeEvent<HTMLInputElement>): void;
   valueAddress: number;
   handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void;
+  emailError: boolean;
+  phoneError: boolean;
 }
 
 export default function OrderTabs({
@@ -134,6 +136,8 @@ export default function OrderTabs({
   handleChangeAddress,
   valueAddress,
   handleChangeEmail,
+  emailError,
+  phoneError,
 }: IProps) {
   const classes = useStyles();
   const router = useRouter();
@@ -180,6 +184,8 @@ export default function OrderTabs({
               handleChangeEmail={handleChangeEmail}
               handleChangeAddress={handleChangeAddress}
               valueAddress={valueAddress}
+              emailError={emailError}
+              phoneError={phoneError}
             />
           </Box>
           <Box>
@@ -218,12 +224,6 @@ export default function OrderTabs({
               <Button variant="contained">Оплатить Картой</Button>
             )}
           </Box>
-          <Divider className={classes.divider} />
-          <Box className={classes.placeOrderButton}>
-            <Button variant="contained" color="primary">
-              отправить заказ
-            </Button>
-          </Box>
         </AnimationPage>
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -242,6 +242,8 @@ export default function OrderTabs({
                   handleChangeEmail={handleChangeEmail}
                   handleChangeAddress={handleChangeAddress}
                   valueAddress={valueAddress}
+                  emailError={emailError}
+                  phoneError={phoneError}
                 />
               </Box>
               <Box>
@@ -280,12 +282,6 @@ export default function OrderTabs({
                   <Button variant="contained">Оплатить Картой</Button>
                 )}
               </Box>
-              <Divider className={classes.divider} />
-              <Box className={classes.placeOrderButton}>
-                <Button variant="contained" color="primary">
-                  отправить заказ
-                </Button>
-              </Box>
             </React.Fragment>
           ) : (
             <Box className={classes.accountButtons}>
@@ -314,6 +310,8 @@ interface INoUserAddressProps {
   handleChangeAddress(event: React.ChangeEvent<HTMLInputElement>): void;
   valueAddress: number;
   handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void;
+  emailError: boolean;
+  phoneError: boolean;
 }
 function NoUserAddress({
   user,
@@ -326,6 +324,8 @@ function NoUserAddress({
   handleChangeEmail,
   handleChangeAddress,
   valueAddress,
+  emailError,
+  phoneError,
 }: INoUserAddressProps) {
   const classes = useStyles();
 
@@ -373,6 +373,7 @@ function NoUserAddress({
         required
         onChange={handlePhone}
         defaultValue={user.phone || ''}
+        error={phoneError}
       />
       <TextField
         className={classes.addressField}
@@ -386,6 +387,8 @@ function NoUserAddress({
         required
         onChange={handleChangeEmail}
         defaultValue={user.email || ''}
+        error={emailError}
+        type="email"
       />
       {showFields && (
         <React.Fragment>

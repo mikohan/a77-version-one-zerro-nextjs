@@ -9,6 +9,7 @@ import {
   Typography,
   Container,
   Paper,
+  Button,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -57,6 +58,11 @@ export default function Order({ access, user }: IProps) {
   const [address, setAddress] = useState('');
 
   function handlePhone(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (event.target.value && event.target.value.length > 5) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
+    }
     setPhone(event.target.value);
   }
   function handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -164,7 +170,19 @@ export default function Order({ access, user }: IProps) {
     toSend = { ...toSend, ...userToSend };
   }
 
-  console.log(JSON.stringify(toSend));
+  const [sendActive, setSendActive] = React.useState(true);
+  const [phoneError, setPhoneError] = React.useState(false);
+  const [emailError, setEmailError] = React.useState(false);
+
+  function handleSendOrder() {
+    if (toSend.email && toSend.phone) {
+      console.log(JSON.stringify(toSend));
+      setSendActive(false);
+    } else {
+      setSendActive(true);
+    }
+  }
+  console.log(phoneError, emailError);
 
   return (
     <React.Fragment>
@@ -204,7 +222,21 @@ export default function Order({ access, user }: IProps) {
                         handleChangeAddress={handleChangeAddress}
                         valueAddress={valueAddress}
                         handleChangeEmail={handleChangeEmail}
+                        emailError={emailError}
+                        phoneError={phoneError}
                       />
+                      <Box
+                        className={classes.sendButtonBox}
+                        onClick={handleSendOrder}
+                      >
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          disabled={sendActive}
+                        >
+                          отправить заказ
+                        </Button>
+                      </Box>
                     </NoSsr>
                   </Paper>
                 </Grid>
@@ -299,6 +331,11 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
       borderBottom: '1px solid',
       borderBottomColor: theme.palette.action.selected,
+    },
+    sendButtonBox: {
+      paddingRight: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'flex-end',
     },
   })
 );
