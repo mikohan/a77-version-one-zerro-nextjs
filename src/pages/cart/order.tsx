@@ -196,7 +196,6 @@ export default function Order({ access, user }: IProps) {
 
   async function handleSendOrder() {
     if (toSend.email && toSend.phone && emailIsValid(toSend.email)) {
-      console.log(JSON.stringify(toSend));
       const response = await sendOrder(toSend);
       if (response.status === 201) {
         setMessage('Заказ успешно отправлен!');
