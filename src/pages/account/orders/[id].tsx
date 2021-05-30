@@ -72,7 +72,7 @@ export default function Order({ access, order }: IProps) {
                               variant="body2"
                             >
                               <span className={classes.dateSpan}>
-                                Создан {Moment(order.date).format('d MMM YYYY')}
+                                Создан {Moment(order.date).format('D MMM YYYY')}
                               </span>
                               <span className={classes.sumSpan}>
                                 Сумма заказа

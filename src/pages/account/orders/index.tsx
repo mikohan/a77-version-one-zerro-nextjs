@@ -81,7 +81,7 @@ export default function Dashboard({ access, orders }: IProps) {
                                               variant="body2"
                                             >
                                               {Moment(order.date).format(
-                                                'd MMM YYYY'
+                                                'DD MMM YYYY'
                                               )}
                                             </Typography>
                                           </a>

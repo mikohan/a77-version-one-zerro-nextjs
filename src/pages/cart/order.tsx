@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL, imageServerUrl } from '~/config';
 import {
   Box,
   Grid,
@@ -126,7 +126,20 @@ export default function Order({ access, user }: IProps) {
     setValueAddress(parseInt(event.target.value));
   };
   // Collecting data to send to server here tomorow needs to  add cart and products
+
   const order_products = cart.items.map((item: ICartItem) => {
+    const regex = /(http|https)/;
+    let image = 'slslsll';
+    if (item.product.images && item.product.images.length) {
+      const img = item.product.images[0].img150;
+      if (regex.test(img as string)) {
+        image = img as string;
+      } else {
+        image = `${imageServerUrl}${item.product.images[0].img150}`;
+        console.log(image);
+      }
+    }
+    console.log(image);
     return {
       product_name: item.product.name,
 
@@ -134,9 +147,7 @@ export default function Order({ access, user }: IProps) {
       product_id: item.product.id,
       product_car: item.product.model[0].model,
       product_brand: item.product.brand.name,
-      product_image: item.product.images.length
-        ? item.product.images[0].img150
-        : null,
+      product_image: item.product.images.length ? image : null,
       product_slug: item.product.slug,
 
       qty: item.quantity,
