@@ -13,7 +13,7 @@ import {
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
-import { IUser, IOrder, IOrderProducts } from '~/interfaces';
+import { IAddress, IUser, IOrder, IOrderProducts } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import { backServerUrlRest } from '~/config';
 import axios from 'axios';
@@ -24,7 +24,6 @@ import { IState } from '~/interfaces';
 import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
 import OrderTable from '~/components/account/OrderTable';
-import { IAddress } from '~/interfaces';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
 
 // This is the recommended way for Next.js 9.3 or newer
@@ -118,6 +117,7 @@ export default function Order({ access, user }: IProps) {
   const order_products = cart.items.map((item: ICartItem) => {
     return {
       product_name: item.product.name,
+
       product_price: item.product.stocks[0].price,
       product_id: item.product.id,
       product_car: item.product.model[0].model,
@@ -125,11 +125,13 @@ export default function Order({ access, user }: IProps) {
       product_image: item.product.images.length
         ? item.product.images[0].img150
         : null,
+      product_slug: item.product.slug,
+
       qty: item.quantity,
     };
   });
 
-  let toSend: any = {
+  let toSend: IOrder = {
     phone,
     email: valueEmail,
     city,
