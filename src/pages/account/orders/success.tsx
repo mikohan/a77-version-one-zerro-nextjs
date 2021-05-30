@@ -2,23 +2,63 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Container, Paper } from '@material-ui/core';
+import { Grid, Typography, Container, Button } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 // This is the recommended way for Next.js 9.3 or newer
 export default function OrderSuccess() {
   const classes = useStyles();
   const router = useRouter();
+  function goHome() {
+    router.push(url.home());
+  }
   return (
     <React.Fragment>
       <OrderSuccessHead />
       <AnimationPage>
         <Container maxWidth="lg">
-          <Grid className={classes.container} container></Grid>
+          <Grid className={classes.container} container>
+            <Grid item xs={12}>
+              <Typography
+                className={classes.orderSuccess}
+                variant="h2"
+                align="center"
+              >
+                Заказ успешно оформлен!
+              </Typography>
+              <Typography
+                className={classes.orderSuccessSecond}
+                variant="body1"
+                align="center"
+              >
+                Менеджер свяжется с Вами в ближайщее рабочее время!
+              </Typography>
+              <Typography
+                className={classes.orderSuccess}
+                variant="h2"
+                align="center"
+              >
+                Спасиба, что остаетесь с нами!
+              </Typography>
+            </Grid>
+            <Grid
+              className={classes.buttonGrid}
+              item
+              container
+              justify="center"
+            >
+              <Button variant="contained" color="primary" onClick={goHome}>
+                Вернуться на главую
+              </Button>
+            </Grid>
+            <Grid item xs={12} container justify="center">
+              <Image src="/images/local/success.png" width={500} height={500} />
+            </Grid>
+          </Grid>
         </Container>
       </AnimationPage>
     </React.Fragment>
@@ -29,6 +69,16 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(10),
+    },
+    orderSuccess: {
+      paddingBottom: theme.spacing(2),
+      color: theme.palette.success.main,
+    },
+    orderSuccessSecond: {
+      paddingBottom: theme.spacing(2),
+    },
+    buttonGrid: {
       paddingBottom: theme.spacing(5),
     },
   })
