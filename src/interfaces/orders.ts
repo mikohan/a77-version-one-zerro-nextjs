@@ -5,19 +5,25 @@ export interface IOrderProducts {
   product_price: string | number;
   product_car: string;
   product_brand: string;
+  product_image: string | null;
+  product_slug: string;
   qty: number;
-  order: number;
-  slug: string;
-  image: string;
 }
 
 export interface IOrder {
+  order_products: IOrderProducts[];
   id: number | string;
   date: Date;
   number: string;
   user: number | string;
-  total: number;
   autouser: string;
-  order_products: IOrderProducts[];
+  total: number;
   status: string;
+  delivery: string;
+  payment: string;
+  total_front: number | null;
+  city: string | null;
+  address: string | null;
+  phone: string;
+  email: string;
 }
