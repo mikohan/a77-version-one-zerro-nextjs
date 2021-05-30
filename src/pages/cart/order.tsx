@@ -10,14 +10,13 @@ import {
   Container,
   Paper,
   Button,
+  Snackbar,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { GetServerSidePropsContext } from 'next';
 import { IAddress, IUser, IOrder, IOrderProducts } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
-import { backServerUrlRest } from '~/config';
-import axios from 'axios';
 import Moment from 'moment';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
@@ -26,6 +25,12 @@ import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
 import OrderTable from '~/components/account/OrderTable';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
+import { emailIsValid } from '~/utils';
+import { sendOrder } from '~/endpoints/orderEndpoints';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
+import url from '~/services/url';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -58,7 +63,7 @@ export default function Order({ access, user }: IProps) {
   const [address, setAddress] = useState('');
 
   function handlePhone(event: React.ChangeEvent<HTMLInputElement>): void {
-    if (event.target.value && event.target.value.length > 5) {
+    if (event.target.value && event.target.value.length > 8) {
       setPhoneError(false);
     } else {
       setPhoneError(true);
@@ -66,6 +71,15 @@ export default function Order({ access, user }: IProps) {
     setPhone(event.target.value);
   }
   function handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (
+      event.target.value &&
+      event.target.value.length > 5 &&
+      emailIsValid(event.target.value)
+    ) {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+    }
     setValueEmail(event.target.value);
   }
   function handleCity(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -174,18 +188,89 @@ export default function Order({ access, user }: IProps) {
   const [phoneError, setPhoneError] = React.useState(false);
   const [emailError, setEmailError] = React.useState(false);
 
-  function handleSendOrder() {
-    if (toSend.email && toSend.phone) {
+  React.useEffect(() => {
+    if (!phoneError && !emailError && toSend.email && toSend.phone) {
+      setSendActive(false);
+    } else {
+      setSendActive(true);
+    }
+  }, [phoneError, emailError, toSend.email, toSend.phone]);
+
+  const [message, setMessage] = React.useState(
+    'Я есть сообщение, об успехе или ошибке!'
+  );
+  type Snack = 'success' | 'error';
+  const [snackType, setSnackType] = React.useState<Snack>('success');
+
+  async function handleSendOrder() {
+    if (toSend.email && toSend.phone && emailIsValid(toSend.email)) {
       console.log(JSON.stringify(toSend));
+      const response = await sendOrder(toSend);
+      if (response.status === 201) {
+        setMessage('Заказ успешно отправлен!');
+        setOpenSnak(true);
+        setSnackType('success');
+        setTimeout(() => {
+          router.push(url.account.orderSuccess());
+        }, 5000);
+      } else {
+        setMessage(
+          'Не удалось отправить заказ. Позвоните пожалуйста менеджеру'
+        );
+        setSnackType('error');
+        setOpenSnak(true);
+      }
       setSendActive(false);
     } else {
       setSendActive(true);
     }
   }
-  console.log(phoneError, emailError);
+
+  const [openSnack, setOpenSnak] = React.useState(true);
+
+  const handleCloseSnack = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnak(false);
+  };
 
   return (
     <React.Fragment>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={openSnack}
+        autoHideDuration={5000}
+        onClose={handleCloseSnack}
+        message={message}
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleCloseSnack}>
+              UNDO
+            </Button>
+          </React.Fragment>
+        }
+      >
+        <Alert severity={snackType}>
+          {message}
+          <IconButton
+            className={classes.snackBarCloseIcon}
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleCloseSnack}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Alert>
+      </Snackbar>
       <DashboardHead />
       <AnimationPage>
         <Container maxWidth="lg">
@@ -336,6 +421,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(2),
       display: 'flex',
       justifyContent: 'flex-end',
+    },
+    snackBarCloseIcon: {
+      marginLeft: theme.spacing(2),
     },
   })
 );

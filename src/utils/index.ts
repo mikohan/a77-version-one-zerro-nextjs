@@ -161,3 +161,7 @@ export function getImageSize(product: IProduct): number[] {
       : 120;
   return [width, height];
 }
+
+export function emailIsValid(email: string) {
+  return /\S+@\S+\.\S+/.test(email);
+}
