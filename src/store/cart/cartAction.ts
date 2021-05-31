@@ -11,8 +11,15 @@ import {
   CartItemQuantity,
   CartRemoveItemAction,
   CartUpdateQuantitiesAction,
+  CART_CLEAR_CART,
+  ICartClearCartAction,
 } from '~/store/cart/cartActionTypes';
 
+export function clearCart(): ICartClearCartAction {
+  return {
+    type: CART_CLEAR_CART,
+  };
+}
 export function cartAddItemSuccess(
   product: IProduct,
   options: ICartItemOption[] = [],

@@ -12,6 +12,7 @@ import {
   CART_UPDATE_QUANTITIES,
   CartAction,
   CartItemQuantity,
+  CART_CLEAR_CART,
 } from '~/store/cart/cartActionTypes';
 
 function findItemIndex(
@@ -215,6 +216,11 @@ export function cartReducer(
 
     case CART_UPDATE_QUANTITIES:
       return updateQuantities(state, action.quantities);
+    case CART_CLEAR_CART:
+      return {
+        ...state,
+        ...initialState,
+      };
 
     default:
       return state;

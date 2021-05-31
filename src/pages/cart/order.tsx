@@ -29,6 +29,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
 import url from '~/services/url';
+import { clearCart } from '~/store/cart/cartAction';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -38,6 +39,7 @@ interface IProps {
 }
 export default function Order({ access, user }: IProps) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const router = useRouter();
   const cart = useSelector((state: IState) => state.cart);
@@ -219,6 +221,7 @@ export default function Order({ access, user }: IProps) {
         );
         setSnackType('error');
         setOpenSnak(true);
+        dispatch(clearCart());
       }
       setSendActive(false);
     } else {

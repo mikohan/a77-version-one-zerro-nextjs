@@ -5,6 +5,11 @@ import { IProduct } from '~/interfaces/product';
 export const CART_ADD_ITEM = 'CART_ADD_ITEM';
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM';
 export const CART_UPDATE_QUANTITIES = 'CART_UPDATE_QUANTITIES';
+export const CART_CLEAR_CART = 'CART_CLEAR_CART';
+
+export interface ICartClearCartAction {
+  type: typeof CART_CLEAR_CART;
+}
 
 export interface CartItemQuantity {
   itemId: number;
@@ -31,4 +36,5 @@ export interface CartUpdateQuantitiesAction {
 export type CartAction =
   | CartAddItemAction
   | CartRemoveItemAction
-  | CartUpdateQuantitiesAction;
+  | CartUpdateQuantitiesAction
+  | ICartClearCartAction;

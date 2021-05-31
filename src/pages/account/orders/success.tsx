@@ -56,7 +56,7 @@ export default function OrderSuccess() {
               </Button>
             </Grid>
             <Grid item xs={12} container justify="center">
-              <Image src="/images/local/success.png" width={500} height={500} />
+              <Image src="/images/local/success.png" width={300} height={300} />
             </Grid>
           </Grid>
         </Container>
