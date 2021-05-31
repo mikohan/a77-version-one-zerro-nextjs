@@ -16,6 +16,7 @@ import {
 } from '~/store/cart/cartActionTypes';
 
 export function clearCart(): ICartClearCartAction {
+  console.log('Triggered');
   return {
     type: CART_CLEAR_CART,
   };

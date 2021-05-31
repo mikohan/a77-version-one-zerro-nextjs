@@ -17,7 +17,7 @@ import { IAddress, IUser, IOrder } from '~/interfaces';
 import { getUserCookie } from '~/services/getUserCookie';
 import Moment from 'moment';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { IState } from '~/interfaces';
 import NoSsr from '@material-ui/core/NoSsr';
 import OrderTabs from '~/components/account/OrderTabs';
@@ -212,16 +212,16 @@ export default function Order({ access, user }: IProps) {
         setMessage('Заказ успешно отправлен!');
         setOpenSnak(true);
         setSnackType('success');
+        dispatch(clearCart());
         setTimeout(() => {
           router.push(url.account.orderSuccess());
-        }, 5000);
+        }, 3000);
       } else {
         setMessage(
           'Не удалось отправить заказ. Позвоните пожалуйста менеджеру'
         );
         setSnackType('error');
         setOpenSnak(true);
-        dispatch(clearCart());
       }
       setSendActive(false);
     } else {
