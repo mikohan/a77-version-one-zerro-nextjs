@@ -25,6 +25,7 @@ import CategoriesEightBoxes from '~/components/car/CategoriesEightBoxes';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     blockTitle: {
+      paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(1),
     },
     modelHistory: {
@@ -102,22 +103,18 @@ export default function ModelShopList(props: IProps) {
           </Grid>
 
           <Grid item xs={12}>
-            <Box>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Популярные товары
-              </Typography>
-              <Box>
-                <ProductSmallGrid products={popularProducts} />
-              </Box>
-            </Box>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Популярные товары
+            </Typography>
+            <ProductSmallGrid products={popularProducts} />
           </Grid>
           <Grid item xs={12}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              {`История модели ${capitalize(model.make.name)} ${capitalize(
+                model.model
+              )}`}
+            </Typography>
             <Paper className={classes.paper}>
-              <Typography variant="h6" className={classes.blockTitle}>
-                {`История модели ${capitalize(model.make.name)} ${capitalize(
-                  model.model
-                )}`}
-              </Typography>
               <Grid item container xs={12} className={classes.modelHistory}>
                 <Grid item xs={12} md={4} className={classes.carImage}>
                   <Image
@@ -149,10 +146,10 @@ export default function ModelShopList(props: IProps) {
             </Paper>
           </Grid>
           <Grid item xs={12}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Обьемы жидкостей
+            </Typography>
             <Paper className={classes.paper}>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Обьемы жидкостей
-              </Typography>
               <Typography variant="body1">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
                 non odio reprehenderit illo facilis doloremque odit esse est
@@ -166,10 +163,10 @@ export default function ModelShopList(props: IProps) {
             </Paper>
           </Grid>
           <Grid item xs={12}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Карта ТО
+            </Typography>
             <Paper className={classes.paper}>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Карта ТО
-              </Typography>
               <Typography variant="body1">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
                 non odio reprehenderit illo facilis doloremque odit esse est
@@ -191,12 +188,10 @@ export default function ModelShopList(props: IProps) {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Вам может понравиться
-            </Typography>
-            <ProductsGrid products={productsToPost} />
-          </Paper>
+          <Typography variant="h6" className={classes.blockTitle}>
+            Вам может понравиться
+          </Typography>
+          <ProductsGrid products={productsToPost} />
         </Grid>
       </React.Fragment>
     </React.Fragment>
