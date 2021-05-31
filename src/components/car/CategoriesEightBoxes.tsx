@@ -47,11 +47,11 @@ export default function CarModelGrid({ items, car }: IProps) {
               {item.children.slice(0, 5).map((subItem: any) => {
                 return (
                   <Link
+                    key={subItem.slug}
                     href={url.category(car.make.slug, car.slug, subItem.slug)}
                   >
                     <a>
                       <Typography
-                        key={subItem.slug}
                         className={classes.itemBody}
                         variant="body2"
                         color="primary"

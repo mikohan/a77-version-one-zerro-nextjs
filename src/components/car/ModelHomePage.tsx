@@ -96,24 +96,10 @@ export default function ModelShopList(props: IProps) {
     <React.Fragment>
       <React.Fragment>
         <PageHeader header={header} breads={breads} count={count} />
-        <Hidden smDown>
-          <Grid item xs={3}>
-            <LeftSideBar>
-              <FilterWidget filters={sortedFilters} />
-              <LatestPosts posts={posts} />
-            </LeftSideBar>
-          </Grid>
-        </Hidden>
-        <Grid item container xs={12} md={9}>
+        <Grid item container xs={12}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <Typography variant="h6" className={classes.blockTitle}>
-                {`Категории запчастей`}
-              </Typography>
-              <CategoryBlock categories={categories} model={model} />
-            </Paper>
+            <CategoriesEightBoxes items={categories} car={model} />
           </Grid>
-          <CategoriesEightBoxes items={categories} car={model} />
 
           <Grid item xs={12}>
             <Paper className={classes.paper}>
