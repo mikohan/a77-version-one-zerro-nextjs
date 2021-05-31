@@ -7,18 +7,14 @@ import {
   IPost,
 } from '~/interfaces';
 import React from 'react';
-import { Hidden, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import PageHeader from '~/components/product/PageHeader';
-import LeftSideBar from '~/components/product/LeftSideBar';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import FilterWidget from '~/components/product/FilterWidget';
-import { Box, Paper, Typography } from '@material-ui/core';
-import CategoryBlock from '~/components/car/CategoryBlock';
+import { Paper, Typography } from '@material-ui/core';
 import { capitalize } from '~/utils';
 import Image from 'next/image';
 import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
-import LatestPosts from '~/components/blog/LatestPosts';
 import BlogGrid from '~/components/car/BlogGrid';
 import CategoriesEightBoxes from '~/components/car/CategoriesEightBoxes';
 
@@ -84,12 +80,10 @@ export default function ModelShopList(props: IProps) {
     header,
     breads,
     count,
-    sortedFilters,
     popularProducts,
     categories,
     model,
     productsToPost,
-    posts,
     postsByCar,
   } = props;
   const classes = useStyles();
