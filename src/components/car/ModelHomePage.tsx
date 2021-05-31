@@ -20,35 +20,10 @@ import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
 import LatestPosts from '~/components/blog/LatestPosts';
 import BlogGrid from '~/components/car/BlogGrid';
+import CarModelPageGrid from '~/components/car/CarModelPageGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      margin: '0 auto',
-      [theme.breakpoints.down('lg')]: {
-        maxWidth: '80%',
-      },
-      [theme.breakpoints.up('xl')]: {
-        maxWidth: '90%',
-      },
-    },
-    contentContainer: {
-      display: 'grid',
-      [theme.breakpoints.down('xxl')]: {
-        gridTemplateColumns: `repeat(auto-fill, minmax(90%, 1fr))`,
-      },
-
-      /* [theme.breakpoints.up('lg')]: { */
-      /*   gridTemplateColumns: `repeat(auto-fill, minmax(40%, 1fr))`, */
-      /*   gridGap: theme.spacing(3), */
-      /* }, */
-      '&> div': {
-        minHeight: '10rem',
-        padding: theme.spacing(3),
-        background: theme.palette.background.paper,
-        marginBottom: theme.spacing(3),
-      },
-    },
     blockTitle: {
       paddingBottom: theme.spacing(1),
     },
@@ -119,7 +94,7 @@ export default function ModelShopList(props: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Grid className={classes.container} container>
+      <React.Fragment>
         <PageHeader header={header} breads={breads} count={count} />
         <Hidden smDown>
           <Grid item xs={3}>
@@ -138,35 +113,8 @@ export default function ModelShopList(props: IProps) {
               <CategoryBlock categories={categories} model={model} />
             </Paper>
           </Grid>
-          <Box className={classes.itemsGrid}>
-            <Box>
-              <Paper className={classes.itemPaper}>
-                Lorem ipsum dolor sit amet consectetur.
-              </Paper>
-            </Box>
-            <Box>
-              <Paper className={classes.itemPaper}>
-                Lorem ipsum dolor sit amet consectetur.
-              </Paper>
-            </Box>
-            <Box>
-              <Paper className={classes.itemPaper}>
-                Lorem ipsum dolor sit amet consectetur.
-              </Paper>
-            </Box>
+          <CarModelPageGrid />
 
-            <Box>
-              <Paper className={classes.itemPaper}>
-                Lorem ipsum dolor sit amet consectetur.
-              </Paper>
-            </Box>
-
-            <Box>
-              <Paper className={classes.itemPaper}>
-                Lorem ipsum dolor sit amet consectetur.
-              </Paper>
-            </Box>
-          </Box>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <Typography variant="h6" className={classes.blockTitle}>
@@ -266,7 +214,7 @@ export default function ModelShopList(props: IProps) {
             <ProductsGrid products={productsToPost} />
           </Paper>
         </Grid>
-      </Grid>
+      </React.Fragment>
     </React.Fragment>
   );
 }

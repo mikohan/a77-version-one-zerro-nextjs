@@ -43,10 +43,21 @@ import { carHomePagePriority } from '~/config';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
 import { popularProductsQuantity } from '~/config';
-import { Container } from '@material-ui/core';
 import { translateProducts } from '~/utils';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '90%',
+      },
+    },
+  })
+);
 
 interface IModelProps {
   model: ICar;
@@ -196,38 +207,36 @@ function Model(props: IModelProps) {
     <React.Fragment>
       <CarModelHead model={model} />
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}>
-          <Grid container>
-            {showCarHomePage ? (
-              <ModelHomePage
-                products={products}
-                header={header}
-                breads={breads}
-                count={count}
-                totalPages={totalPages}
-                sortedFilters={[categoriesFilter]}
-                popularProducts={popularProducts}
-                categories={categories}
-                model={model}
-                productsToPost={productsToPost}
-                posts={posts}
-                postsByCar={carPosts}
-              />
-            ) : (
-              <ModelShopList
-                header={header}
-                breads={breads}
-                count={count}
-                totalPages={totalPages}
-                sortedFilters={sortedFilters}
-                products={products}
-                handleFilterChange={handleFilterChange}
-                handleDeleteFilter={handleDeleteFilter}
-                handleDeleteFilters={handleDeleteFilters}
-              />
-            )}
-          </Grid>
-        </Container>
+        <Grid className={classes.container} container>
+          {showCarHomePage ? (
+            <ModelHomePage
+              products={products}
+              header={header}
+              breads={breads}
+              count={count}
+              totalPages={totalPages}
+              sortedFilters={[categoriesFilter]}
+              popularProducts={popularProducts}
+              categories={categories}
+              model={model}
+              productsToPost={productsToPost}
+              posts={posts}
+              postsByCar={carPosts}
+            />
+          ) : (
+            <ModelShopList
+              header={header}
+              breads={breads}
+              count={count}
+              totalPages={totalPages}
+              sortedFilters={sortedFilters}
+              products={products}
+              handleFilterChange={handleFilterChange}
+              handleDeleteFilter={handleDeleteFilter}
+              handleDeleteFilters={handleDeleteFilters}
+            />
+          )}
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );
