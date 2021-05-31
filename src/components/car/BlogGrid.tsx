@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
       gridGap: theme.spacing(1),
       marginBottom: theme.spacing(2),
     },
+    image: {
+      objectFit: 'conver',
+    },
     item: {
       height: '100%',
       display: 'flex',
@@ -53,8 +56,9 @@ export default function ModelShopList(props: IProps) {
             <a>
               <Paper key={post.slug} className={classes.item}>
                 <Image
+                  className={classes.image}
                   src={`${imageServerUrl}${post.image}`}
-                  layout="intrinsic"
+                  layout="responsive"
                   width={200}
                   height={160}
                 />

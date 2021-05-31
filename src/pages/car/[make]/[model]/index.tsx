@@ -19,7 +19,7 @@ import CarModelHead from '~/components/heads/carModelHead';
 import { IBread, IRouterStuff } from '~/interfaces';
 import { IShopCategory, IActiveFilterMy } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
-import { containerMaxWidth, pageSize } from '~/config';
+import { pageSize } from '~/config';
 import { useRouter } from 'next/router';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { createCheckFilters } from '~/services/filters/filterCreater';
