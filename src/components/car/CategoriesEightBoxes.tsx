@@ -3,6 +3,9 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Box, Paper, Typography } from '@material-ui/core';
 import { capitalize } from '~/utils';
+import url from '~/services/url';
+import Link from 'next/link';
+import { ICar } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,9 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 interface IProps {
   items: any[];
+  car: ICar;
 }
 
-export default function CarModelGrid({ items }: IProps) {
+export default function CarModelGrid({ items, car }: IProps) {
   const classes = useStyles();
   const catZapEight = items[0].children
     .filter((cat: any) => cat.children.length > 3)
@@ -40,16 +44,22 @@ export default function CarModelGrid({ items }: IProps) {
               <Typography className={classes.itemHeader} variant="subtitle1">
                 {item.name}
               </Typography>
-              {item.children.slice(0, 8).map((subItem: any) => {
+              {item.children.slice(0, 5).map((subItem: any) => {
                 return (
-                  <Typography
-                    key={subItem.slug}
-                    className={classes.itemBody}
-                    variant="subtitle2"
-                    color="primary"
+                  <Link
+                    href={url.category(car.make.slug, car.slug, subItem.slug)}
                   >
-                    {capitalize(subItem.name)}
-                  </Typography>
+                    <a>
+                      <Typography
+                        key={subItem.slug}
+                        className={classes.itemBody}
+                        variant="body2"
+                        color="primary"
+                      >
+                        {capitalize(subItem.name)}
+                      </Typography>
+                    </a>
+                  </Link>
                 );
               })}
             </Paper>
