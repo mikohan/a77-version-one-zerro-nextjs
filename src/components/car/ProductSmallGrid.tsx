@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     brandPrice: {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItes: 'center',
       padding: theme.spacing(1),
     },
     price: {
@@ -53,11 +54,12 @@ interface IProps {
 export default function ModelShopList(props: IProps) {
   const { products } = props;
   const classes = useStyles();
+  const shrinkedProducts = products.slice(0, 12);
 
   return (
     <React.Fragment>
       <Grid className={classes.container} container>
-        {products.map((product: IProduct) => {
+        {shrinkedProducts.map((product: IProduct) => {
           const imgSrc = product.images.length
             ? `${imageServerUrl}${product.images[0].img150}`
             : '/images/local/defaultParts245.png';

@@ -183,13 +183,11 @@ export default function ModelShopList(props: IProps) {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <Typography variant="h6" className={classes.blockTitle}>
-                Полезные статьи про{' '}
-                {`${capitalize(model.make.name)} ${capitalize(model.model)}`}
-              </Typography>
-              {postsByCar && <BlogGrid posts={postsByCar} />}
-            </Paper>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Полезные статьи про{' '}
+              {`${capitalize(model.make.name)} ${capitalize(model.model)}`}
+            </Typography>
+            {postsByCar && <BlogGrid posts={postsByCar} />}
           </Grid>
         </Grid>
         <Grid item xs={12}>

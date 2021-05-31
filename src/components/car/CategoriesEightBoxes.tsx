@@ -40,7 +40,7 @@ export default function CarModelGrid({ items, car }: IProps) {
       <Box className={classes.itemsGrid}>
         {catZapEight.map((item: any) => {
           return (
-            <Paper key={item} className={classes.itemPaper}>
+            <Paper key={item.slug} className={classes.itemPaper}>
               <Typography className={classes.itemHeader} variant="subtitle1">
                 {item.name}
               </Typography>

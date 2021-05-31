@@ -12,16 +12,15 @@ import url from '~/services/url';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      display: 'flex',
-      flexWrap: 'wrap',
+      display: 'grid',
+      gridTemplateColumns: `repeat(4, minmax(22%, 1fr))`,
+      gridGap: theme.spacing(1),
+      marginBottom: theme.spacing(2),
     },
     item: {
+      height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      maxWidth: theme.spacing(25),
-      minHeight: theme.spacing(35),
-      marginLeft: theme.spacing(2),
-      marginBottom: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
@@ -45,10 +44,11 @@ interface IProps {
 export default function ModelShopList(props: IProps) {
   const { posts } = props;
   const classes = useStyles();
+  const showPosts = posts.slice(0, 8);
   return (
     <React.Fragment>
       <Box className={classes.container}>
-        {posts.map((post: IPost) => (
+        {showPosts.map((post: IPost) => (
           <Link key={post.slug} href={url.post(post.slug)}>
             <a>
               <Paper key={post.slug} className={classes.item}>
@@ -60,7 +60,7 @@ export default function ModelShopList(props: IProps) {
                 />
                 <Typography
                   className={classes.title}
-                  variant="subtitle2"
+                  variant="body1"
                   component="div"
                 >
                   {post.title}
