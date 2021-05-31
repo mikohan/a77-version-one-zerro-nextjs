@@ -43,6 +43,7 @@ export default function CarModelGrid({ items }: IProps) {
               {item.children.slice(0, 8).map((subItem: any) => {
                 return (
                   <Typography
+                    key={subItem.slug}
                     className={classes.itemBody}
                     variant="subtitle2"
                     color="primary"
