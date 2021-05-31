@@ -20,7 +20,7 @@ import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
 import LatestPosts from '~/components/blog/LatestPosts';
 import BlogGrid from '~/components/car/BlogGrid';
-import CarModelPageGrid from '~/components/car/CarModelPageGrid';
+import CategoriesEightBoxes from '~/components/car/CategoriesEightBoxes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -113,7 +113,7 @@ export default function ModelShopList(props: IProps) {
               <CategoryBlock categories={categories} model={model} />
             </Paper>
           </Grid>
-          <CarModelPageGrid items={categories} />
+          <CategoriesEightBoxes items={categories} />
 
           <Grid item xs={12}>
             <Paper className={classes.paper}>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Box, Paper, Typography } from '@material-ui/core';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -10,12 +11,14 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
       gridGap: theme.spacing(1),
       marginBottom: theme.spacing(2),
-
-      '&>*': {
-        border: '1px solid blue',
-      },
     },
-    itemPaper: { padding: theme.spacing(1) },
+    itemPaper: { padding: theme.spacing(2) },
+    itemHeader: {
+      fontWeight: 700,
+    },
+    itemBody: {
+      paddingBottom: theme.spacing(0.5),
+    },
   })
 );
 interface IProps {
@@ -34,10 +37,18 @@ export default function CarModelGrid({ items }: IProps) {
         {catZapEight.map((item: any) => {
           return (
             <Paper key={item} className={classes.itemPaper}>
-              <Typography variant="subtitle1">{item.name}</Typography>
+              <Typography className={classes.itemHeader} variant="subtitle1">
+                {item.name}
+              </Typography>
               {item.children.slice(0, 8).map((subItem: any) => {
                 return (
-                  <Typography variant="subtitle2">{subItem.name}</Typography>
+                  <Typography
+                    className={classes.itemBody}
+                    variant="subtitle2"
+                    color="primary"
+                  >
+                    {capitalize(subItem.name)}
+                  </Typography>
                 );
               })}
             </Paper>
