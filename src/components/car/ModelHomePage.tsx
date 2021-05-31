@@ -102,14 +102,14 @@ export default function ModelShopList(props: IProps) {
           </Grid>
 
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
+            <Box>
               <Typography variant="h6" className={classes.blockTitle}>
                 Популярные товары
               </Typography>
               <Box>
                 <ProductSmallGrid products={popularProducts} />
               </Box>
-            </Paper>
+            </Box>
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
