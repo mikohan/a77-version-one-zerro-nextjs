@@ -42,17 +42,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
           fontWeight: 700,
         },
       },
-      a: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-        cursor: 'pointer',
-      },
       image: {
-        flexShrink: 0,
-        width: '100%',
-        height: '245px',
         objectFit: 'cover', // contain maki it small, cover make it big
       },
       price: {
@@ -65,7 +55,6 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         paddingRight: theme.spacing(1),
         flex: '1 0 auto',
         fontWeight: 600,
-        color: theme.palette.text.secondary,
         transition: '0.5s',
       },
       sku: {
@@ -115,7 +104,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       <Link href={`/product/${product.slug}`}>
         <a className={classes.a}>
           <Image
-            layout="intrinsic"
+            layout="responsive"
             width={180}
             height={150}
             className={classes.image}
@@ -127,7 +116,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       <Typography className={classes.price} variant="h6">
         &#8381; {price}
       </Typography>
-      <Typography className={classes.name} variant="subtitle1" component="div">
+      <Typography className={classes.name} variant="body2" component="div">
         {shortName}
       </Typography>
       <div className={classes.models}>

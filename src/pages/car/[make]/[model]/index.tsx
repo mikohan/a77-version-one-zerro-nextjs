@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
         maxWidth: '80%',
       },
       [theme.breakpoints.up('xl')]: {
-        maxWidth: '90%',
+        maxWidth: '70%',
       },
     },
   })
