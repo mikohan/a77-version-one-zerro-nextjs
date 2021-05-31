@@ -23,6 +23,15 @@ import BlogGrid from '~/components/car/BlogGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '90%',
+      },
+    },
     contentContainer: {
       display: 'grid',
       [theme.breakpoints.down('xxl')]: {
@@ -60,6 +69,16 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       marginBottom: theme.spacing(5),
     },
+    itemsGrid: {
+      display: 'grid',
+      gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
+      gridGap: theme.spacing(1),
+
+      '&>*': {
+        border: '1px solid blue',
+      },
+    },
+    itemPaper: { padding: theme.spacing(1) },
   })
 );
 
@@ -100,120 +119,153 @@ export default function ModelShopList(props: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <PageHeader header={header} breads={breads} count={count} />
-      <Hidden smDown>
-        <Grid item xs={3}>
-          <LeftSideBar>
-            <FilterWidget filters={sortedFilters} />
-            <LatestPosts posts={posts} />
-          </LeftSideBar>
-        </Grid>
-      </Hidden>
-      <Grid item container xs={12} md={9}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              {`Категории запчастей`}
-            </Typography>
-            <CategoryBlock categories={categories} model={model} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Популярные товары
-            </Typography>
+      <Grid className={classes.container} container>
+        <PageHeader header={header} breads={breads} count={count} />
+        <Hidden smDown>
+          <Grid item xs={3}>
+            <LeftSideBar>
+              <FilterWidget filters={sortedFilters} />
+              <LatestPosts posts={posts} />
+            </LeftSideBar>
+          </Grid>
+        </Hidden>
+        <Grid item container xs={12} md={9}>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                {`Категории запчастей`}
+              </Typography>
+              <CategoryBlock categories={categories} model={model} />
+            </Paper>
+          </Grid>
+          <Box className={classes.itemsGrid}>
             <Box>
-              <ProductSmallGrid products={popularProducts} />
+              <Paper className={classes.itemPaper}>
+                Lorem ipsum dolor sit amet consectetur.
+              </Paper>
             </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              {`История модели ${capitalize(model.make.name)} ${capitalize(
-                model.model
-              )}`}
-            </Typography>
-            <Grid item container xs={12} className={classes.modelHistory}>
-              <Grid item xs={12} md={4} className={classes.carImage}>
-                <Image
-                  src="/images/local/carsAvatar/generic.png"
-                  width={250}
-                  height={250}
-                />
+            <Box>
+              <Paper className={classes.itemPaper}>
+                Lorem ipsum dolor sit amet consectetur.
+              </Paper>
+            </Box>
+            <Box>
+              <Paper className={classes.itemPaper}>
+                Lorem ipsum dolor sit amet consectetur.
+              </Paper>
+            </Box>
+
+            <Box>
+              <Paper className={classes.itemPaper}>
+                Lorem ipsum dolor sit amet consectetur.
+              </Paper>
+            </Box>
+
+            <Box>
+              <Paper className={classes.itemPaper}>
+                Lorem ipsum dolor sit amet consectetur.
+              </Paper>
+            </Box>
+          </Box>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Популярные товары
+              </Typography>
+              <Box>
+                <ProductSmallGrid products={popularProducts} />
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                {`История модели ${capitalize(model.make.name)} ${capitalize(
+                  model.model
+                )}`}
+              </Typography>
+              <Grid item container xs={12} className={classes.modelHistory}>
+                <Grid item xs={12} md={4} className={classes.carImage}>
+                  <Image
+                    src="/images/local/carsAvatar/generic.png"
+                    width={250}
+                    height={250}
+                  />
+                </Grid>
+                <Grid item xs={12} md={8} className={classes.textBox}>
+                  <Typography variant="body2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quaerat non odio reprehenderit illo facilis doloremque odit
+                    esse est nemo alias assumenda eaque deserunt inventore quas
+                    hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
+                    Unde enim laborum veritatis possimus, odit vel maxime
+                    commodi, architecto recusandae inventore ipsam, saepe sit
+                    provident reiciendis accusamus rerum molestias voluptatem at
+                    dolor atque iure. Voluptas? Lorem ipsum dolor sit amet
+                    consectetur adipisicing elit. Quaerat non odio reprehenderit
+                    illo facilis doloremque odit esse est nemo alias assumenda
+                    eaque deserunt inventore quas hic sunt quae nam, mollitia,
+                    dolorum, quia maiores eveniet? Unde enim laborum veritatis
+                    possimus, odit vel maxime commodi, architecto recusandae
+                    inventore ipsam, saepe sit provident reiciendis accusamus
+                    rerum molestias voluptatem at dolor atque iure. Voluptas?
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={8} className={classes.textBox}>
-                <Typography variant="body2">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat non odio reprehenderit illo facilis doloremque odit
-                  esse est nemo alias assumenda eaque deserunt inventore quas
-                  hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                  Unde enim laborum veritatis possimus, odit vel maxime commodi,
-                  architecto recusandae inventore ipsam, saepe sit provident
-                  reiciendis accusamus rerum molestias voluptatem at dolor atque
-                  iure. Voluptas? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Quaerat non odio reprehenderit illo facilis
-                  doloremque odit esse est nemo alias assumenda eaque deserunt
-                  inventore quas hic sunt quae nam, mollitia, dolorum, quia
-                  maiores eveniet? Unde enim laborum veritatis possimus, odit
-                  vel maxime commodi, architecto recusandae inventore ipsam,
-                  saepe sit provident reiciendis accusamus rerum molestias
-                  voluptatem at dolor atque iure. Voluptas?
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Обьемы жидкостей
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Карта ТО
+              </Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+                non odio reprehenderit illo facilis doloremque odit esse est
+                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
+                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
+                veritatis possimus, odit vel maxime commodi, architecto
+                recusandae inventore ipsam, saepe sit provident reiciendis
+                accusamus rerum molestias voluptatem at dolor atque iure.
+                Voluptas?
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Полезные статьи про{' '}
+                {`${capitalize(model.make.name)} ${capitalize(model.model)}`}
+              </Typography>
+              {postsByCar && <BlogGrid posts={postsByCar} />}
+            </Paper>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <Typography variant="h6" className={classes.blockTitle}>
-              Обьемы жидкостей
+              Вам может понравиться
             </Typography>
-            <Typography variant="body1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              non odio reprehenderit illo facilis doloremque odit esse est nemo
-              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
-              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-              veritatis possimus, odit vel maxime commodi, architecto recusandae
-              inventore ipsam, saepe sit provident reiciendis accusamus rerum
-              molestias voluptatem at dolor atque iure. Voluptas?
-            </Typography>
+            <ProductsGrid products={productsToPost} />
           </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Карта ТО
-            </Typography>
-            <Typography variant="body1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              non odio reprehenderit illo facilis doloremque odit esse est nemo
-              alias assumenda eaque deserunt inventore quas hic sunt quae nam,
-              mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-              veritatis possimus, odit vel maxime commodi, architecto recusandae
-              inventore ipsam, saepe sit provident reiciendis accusamus rerum
-              molestias voluptatem at dolor atque iure. Voluptas?
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Полезные статьи про{' '}
-              {`${capitalize(model.make.name)} ${capitalize(model.model)}`}
-            </Typography>
-            {postsByCar && <BlogGrid posts={postsByCar} />}
-          </Paper>
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Вам может понравиться
-          </Typography>
-          <ProductsGrid products={productsToPost} />
-        </Paper>
       </Grid>
     </React.Fragment>
   );
