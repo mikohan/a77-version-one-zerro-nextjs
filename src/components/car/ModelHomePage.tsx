@@ -113,7 +113,7 @@ export default function ModelShopList(props: IProps) {
               <CategoryBlock categories={categories} model={model} />
             </Paper>
           </Grid>
-          <CarModelPageGrid />
+          <CarModelPageGrid items={categories} />
 
           <Grid item xs={12}>
             <Paper className={classes.paper}>
