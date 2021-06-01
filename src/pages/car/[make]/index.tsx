@@ -71,30 +71,30 @@ function Make(props: ICarProps) {
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
             <PageHeader header={header} breads={breads} count={count} />
-            <Hidden smDown>
-              <Grid item xs={3}>
-                <LeftSidebar>
-                  <Grid container>
-                    <Grid className={classes.widgetItem} item xs={12}>
-                      <Typography variant="h6">
-                        Популярные Модели {`${capitalize(make.name)}`}
-                      </Typography>
-                      <PopularModels models={popularModels} />
-                    </Grid>
-                    <Grid className={classes.widgetItem} item xs={12}>
-                      <Typography variant="h6">
-                        Все Модели {`${capitalize(make.name)}`}
-                      </Typography>
-                      <ModelList models={models} />
-                    </Grid>
-                    <Grid className={classes.widgetItem} item xs={12}>
-                      <LatestPosts posts={latestPosts} />
-                    </Grid>
-                  </Grid>
-                </LeftSidebar>
-              </Grid>
-            </Hidden>
-            <Grid item xs={12} md={9}>
+            {/* <Hidden smDown> */}
+            {/*   <Grid item xs={3}> */}
+            {/*     <LeftSidebar> */}
+            {/*       <Grid container> */}
+            {/*         <Grid className={classes.widgetItem} item xs={12}> */}
+            {/*           <Typography variant="h6"> */}
+            {/*             Популярные Модели {`${capitalize(make.name)}`} */}
+            {/*           </Typography> */}
+            {/*           <PopularModels models={popularModels} /> */}
+            {/*         </Grid> */}
+            {/*         <Grid className={classes.widgetItem} item xs={12}> */}
+            {/*           <Typography variant="h6"> */}
+            {/*             Все Модели {`${capitalize(make.name)}`} */}
+            {/*           </Typography> */}
+            {/*           <ModelList models={models} /> */}
+            {/*         </Grid> */}
+            {/*         <Grid className={classes.widgetItem} item xs={12}> */}
+            {/*           <LatestPosts posts={latestPosts} /> */}
+            {/*         </Grid> */}
+            {/*       </Grid> */}
+            {/*     </LeftSidebar> */}
+            {/*   </Grid> */}
+            {/* </Hidden> */}
+            <Grid item xs={12} md={12}>
               <Grid className={classes.blockGrid} item xs={12}>
                 <Paper className={classes.blockPaper}>
                   <ModelBlockGrid models={models} />

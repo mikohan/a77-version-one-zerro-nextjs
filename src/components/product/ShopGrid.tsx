@@ -304,25 +304,29 @@ export default function ShopGrid({
     }
   }, []);
 
+  const [localSort, setLocalSort] = React.useState('');
   useEffect(() => {
-    let srt: string = 'asc';
-    if (sort === '3') {
-      srt = 'desc';
-    } else if (sort === '2') {
-      srt = 'asc';
+    if (localSort) {
+      let srt: string = 'asc';
+      if (sort === '3') {
+        srt = 'desc';
+      } else if (sort === '2') {
+        srt = 'asc';
+      }
+      delete currentUrl.sort_price;
+      router.push({
+        pathname,
+        query: {
+          ...currentUrl,
+          sort_price: srt,
+        },
+      });
     }
-    delete currentUrl.sort_price;
-    router.push({
-      pathname,
-      query: {
-        ...currentUrl,
-        sort_price: srt,
-      },
-    });
-  }, [sort]);
+  }, [localSort]);
 
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: SET_SORT_VALUE, payload: event.target.value });
+    setLocalSort(event.target.value);
   };
 
   return (
