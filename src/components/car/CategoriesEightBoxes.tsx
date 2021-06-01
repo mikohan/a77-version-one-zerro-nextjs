@@ -27,13 +27,39 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   items: any[];
   car: ICar;
+  parts: boolean;
 }
 
-export default function CarModelGrid({ items, car }: IProps) {
+function flatten(items: any): any {
+  let flat: any = [];
+  items.forEach((item: any) => {
+    if (item.children.length) {
+      flat.push(...flatten(item.children));
+      flat.push();
+    } else {
+      flat.push(item);
+    }
+  });
+  return flat;
+}
+
+export default function CarModelGrid({ items, car, parts }: IProps) {
   const classes = useStyles();
-  const catZapEight = items[0].children
-    .filter((cat: any) => cat.children.length > 3)
-    .slice(0, 8);
+  let catZapEight: any = [];
+  if (parts) {
+    catZapEight = items[0].children
+      .filter((cat: any) => cat.children.length > 3)
+      .slice(0, 8);
+  } else {
+    catZapEight = items.slice(1).map((item: any) => {
+      const cats = flatten(item.children);
+      return {
+        name: item.name,
+        slug: item.slug,
+        children: cats,
+      };
+    });
+  }
 
   return (
     <React.Fragment>
@@ -44,24 +70,25 @@ export default function CarModelGrid({ items, car }: IProps) {
               <Typography className={classes.itemHeader} variant="subtitle1">
                 {item.name}
               </Typography>
-              {item.children.slice(0, 5).map((subItem: any) => {
-                return (
-                  <Link
-                    key={subItem.slug}
-                    href={url.category(car.make.slug, car.slug, subItem.slug)}
-                  >
-                    <a>
-                      <Typography
-                        className={classes.itemBody}
-                        variant="body2"
-                        color="primary"
-                      >
-                        {capitalize(subItem.name)}
-                      </Typography>
-                    </a>
-                  </Link>
-                );
-              })}
+              {item.children &&
+                item.children.slice(0, 5).map((subItem: any) => {
+                  return (
+                    <Link
+                      key={subItem.slug}
+                      href={url.category(car.make.slug, car.slug, subItem.slug)}
+                    >
+                      <a>
+                        <Typography
+                          className={classes.itemBody}
+                          variant="body2"
+                          color="primary"
+                        >
+                          {capitalize(subItem.name)}
+                        </Typography>
+                      </a>
+                    </Link>
+                  );
+                })}
             </Paper>
           );
         })}
