@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { containerMaxWidth, REVALIDATE, COMPANY_INFORMATION } from '~/config';
-import { Grid, Hidden } from '@material-ui/core';
+import { Box, Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
 import PageHeader from '~/components/product/PageHeader';
@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     blockGrid: {
       paddingBottom: theme.spacing(5),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
     },
     widgetItem: {
       paddingTop: theme.spacing(1),
@@ -96,9 +94,9 @@ function Make(props: ICarProps) {
             {/* </Hidden> */}
             <Grid item xs={12} md={12}>
               <Grid className={classes.blockGrid} item xs={12}>
-                <Paper className={classes.blockPaper}>
+                <Box className={classes.blockPaper}>
                   <ModelBlockGrid models={models} />
-                </Paper>
+                </Box>
               </Grid>
               <Grid item xs={12}>
                 {
