@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'grid',
-      gridTemplateColumns: `repeat(4, minmax(22%, 1fr))`,
+      gridTemplateColumns: `repeat(6, minmax(15%, 1fr))`,
       gridGap: theme.spacing(1),
       marginBottom: theme.spacing(2),
     },
