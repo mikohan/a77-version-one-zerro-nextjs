@@ -125,13 +125,19 @@ export default function ModelBlockGrid(props: ICarProps) {
                 <Box className={classes.categoryBox}>
                   {model.categories?.map((cat: IModCats, i: number) => {
                     return (
-                      <Typography
-                        key={`${cat.slug}-${i}`}
-                        className={classes.catItem}
-                        variant="subtitle2"
+                      <Link
+                        href={url.category(make.slug, model.slug, cat.slug)}
                       >
-                        {cat.name} ({cat.count})
-                      </Typography>
+                        <a>
+                          <Typography
+                            key={`${cat.slug}-${i}`}
+                            className={classes.catItem}
+                            variant="subtitle2"
+                          >
+                            {cat.name} ({cat.count})
+                          </Typography>
+                        </a>
+                      </Link>
                     );
                   })}
                 </Box>
