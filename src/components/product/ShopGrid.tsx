@@ -9,7 +9,6 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/ui/UITypes';
-import { compareByNameAsc, compareByNameDesc } from '~/utils';
 import ProductCardGrid from './ProductCardGrid';
 import ProductCardList from './ProductCardList';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';

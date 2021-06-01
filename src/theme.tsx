@@ -23,6 +23,7 @@ const theme = createMuiTheme({
       xxl: 2000,
     },
   },
+
   palette: {
     type: 'light',
   },
@@ -129,6 +130,8 @@ theme.typography.subtitle2 = {
     letterSpacing: '0.00714em',
   },
 };
+
+theme.shadows[1] = '0 1px 3px  rgba(0, 0, 0, 0.1)';
 
 export const darkTheme = createMuiTheme({
   ...theme,
