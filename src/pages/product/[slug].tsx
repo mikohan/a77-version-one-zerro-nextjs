@@ -297,6 +297,13 @@ export default function ProductPage({
                 </Paper>
               </Grid>
               <Divider />
+              <Grid item className={classes.tabs} xs={12}>
+                <Typography className={classes.relatedPostTitle} variant="h6">
+                  Полезная информация
+                </Typography>
+                <RelatedPosts posts={posts} />
+              </Grid>
+              <Divider />
               {similar && similar.length ? <SimilarProducts /> : ''}
               {relatedProducts && relatedProducts.length ? (
                 <React.Fragment>
@@ -306,13 +313,6 @@ export default function ProductPage({
               ) : (
                 ''
               )}
-              <Divider />
-              <Grid item className={classes.tabs} xs={12}>
-                <Typography className={classes.relatedPostTitle} variant="h6">
-                  Полезная информация
-                </Typography>
-                <RelatedPosts posts={posts} />
-              </Grid>
             </Grid>
             {productsToPost && (
               <React.Fragment>

@@ -15,6 +15,12 @@ const useStyles = makeStyles({
   table: {
     /* maxWidth: '30vw', */
   },
+  noAnalogs: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 interface IProps {
@@ -64,6 +70,12 @@ export default function DenseTable({ products }: IProps) {
       </TableContainer>
     );
   } else {
-    return <Typography variant="body1">Аналогов нет!</Typography>;
+    return (
+      <Box className={classes.noAnalogs}>
+        <Typography variant="body1">
+          Аналоги еще не завезли! Или не сделали :(
+        </Typography>
+      </Box>
+    );
   }
 }
