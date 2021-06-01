@@ -46,10 +46,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
       justifyContent: 'center',
       [theme.breakpoints.up('lg')]: {
-        maxWidth: '85%',
+        maxWidth: '80%',
       },
       [theme.breakpoints.up('xl')]: {
-        maxWidth: '75%',
+        maxWidth: '70%',
       },
     },
     headerContainer: {
@@ -311,9 +311,7 @@ export default function ProductPage({
                 <Typography className={classes.relatedPostTitle} variant="h6">
                   Полезная информация
                 </Typography>
-                <Paper>
-                  <RelatedPosts posts={posts} />
-                </Paper>
+                <RelatedPosts posts={posts} />
               </Grid>
             </Grid>
             {productsToPost && (
