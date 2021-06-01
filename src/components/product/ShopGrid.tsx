@@ -184,28 +184,6 @@ export default function ShopGrid({
 
   const classes = useStyles();
 
-  let productsSorted;
-  switch (sort) {
-    case '1':
-      productsSorted = products;
-      break;
-    case '2':
-      /* productsSorted = products.hits.sort(compareByPriceDesc); */
-      break;
-    case '3':
-      /* productsSorted = products.hits.sort(compareByPriceAsc); */
-      break;
-    case '4':
-      productsSorted = products.sort(compareByNameAsc);
-      break;
-    case '5':
-      productsSorted = products.sort(compareByNameDesc);
-      break;
-    default:
-      productsSorted = products;
-      break;
-  }
-
   const values = [
     { value: 1, label: 'по умолчанию' },
     { value: 2, label: 'цена: сначала дешевые' },
