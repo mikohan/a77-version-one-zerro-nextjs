@@ -7,6 +7,11 @@ export interface IEngine {
   image: string;
 }
 
+interface IModCats {
+  name: string;
+  slug: string;
+}
+
 export interface ICar {
   id: number;
   year?: number[];
@@ -19,6 +24,7 @@ export interface ICar {
   count?: string;
   priority: string;
   image: string;
+  categories?: IModCats[];
 }
 
 export interface IVehicle extends ICar {}

@@ -22,6 +22,7 @@ import PopularModels from '~/components/car/PopularModelWidget';
 import { Typography } from '@material-ui/core';
 import { getPosts } from '~/endpoints/blogEndpoint';
 import LatestPosts from '~/components/blog/LatestPosts';
+import { carWithCountAndCats } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,11 +45,19 @@ interface ICarProps {
   products: IProductElasticHitsFirst;
   popularModels: ICar[];
   latestPosts: IPost[];
+  carCountCat: any;
 }
 
 function Make(props: ICarProps) {
   const classes = useStyles();
-  const { make, models, products, popularModels, latestPosts } = props;
+  const {
+    make,
+    models,
+    products,
+    carCountCat,
+    popularModels,
+    latestPosts,
+  } = props;
   const count = products.total.value;
 
   const breads: IBread[] = [
@@ -95,7 +104,7 @@ function Make(props: ICarProps) {
             <Grid item xs={12} md={12}>
               <Grid className={classes.blockGrid} item xs={12}>
                 <Box className={classes.blockPaper}>
-                  <ModelBlockGrid models={models} />
+                  <ModelBlockGrid models={models} carCountCat={carCountCat} />
                 </Box>
               </Grid>
               <Grid item xs={12}>
@@ -125,6 +134,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     (model: ICar) => +model.priority > COMPANY_INFORMATION.POPULARITY_MODEL
   );
   const latestPosts = await getPosts(5);
+  const carCountCat = await carWithCountAndCats(slug);
 
   return {
     revalidate: REVALIDATE,
@@ -134,6 +144,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       products: products,
       popularModels,
       latestPosts,
+      carCountCat,
     },
   };
 };

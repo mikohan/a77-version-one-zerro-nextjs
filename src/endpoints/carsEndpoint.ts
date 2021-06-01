@@ -3,6 +3,19 @@ import { IMake } from '~/interfaces/IMake';
 import { ICar } from '~/interfaces/ICar';
 import { client } from './apolloClient';
 import { IRating } from '~/interfaces/product';
+import axios from 'axios';
+import { backServerUrl } from '~/config';
+
+export async function carWithCountAndCats(model: string, limit?: number) {
+  let url = '';
+  if (limit) {
+    url = `${backServerUrl}/api/product/by-car-count-cat?model=${model}&limit=${limit}`;
+  } else {
+    url = `${backServerUrl}/api/product/by-car-count-cat?model=${model}`;
+  }
+  const response = await axios.get(url);
+  return response.data;
+}
 
 export async function createOrUpdateRatings(
   score: number,

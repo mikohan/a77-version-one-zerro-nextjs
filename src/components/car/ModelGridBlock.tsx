@@ -18,47 +18,114 @@ const useStyles = makeStyles((theme: Theme) =>
     item: {
       padding: theme.spacing(2),
       display: 'flex',
+      justifyContent: 'space-around',
+    },
+    carBox: {
+      display: 'flex',
+      justifyContent: 'space-evenly',
       alignItems: 'center',
     },
-    image: {},
     model: {
       paddingLeft: theme.spacing(1),
+    },
+    countBox: {
+      marginLeft: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
+    categoryBox: {
+      borderTop: '1px solid',
+      borderTopColor: theme.palette.action.selected,
+      padding: theme.spacing(1),
+      display: 'flex',
+      flexWrap: 'wrap',
+      '&>*': {
+        padding: theme.spacing(0.5),
+      },
     },
   })
 );
 interface ICarProps {
   models: ICar[];
+  carCountCat: any;
 }
 
 export default function ModelBlockGrid(props: ICarProps) {
   const classes = useStyles();
-  const { models } = props;
+  const { models, carCountCat } = props;
   const make: IMake = models[0].make;
+  let cars: any = [];
+  if (carCountCat) {
+    cars = carCountCat.aggregations.cars.buckets;
+  }
+  const perekolbas = cars.map((item: any) => {
+    return {
+      model: {
+        slug: item.key,
+      },
+      categories: item.cats.buckets.map((i: any) => {
+        return {
+          name: i.key,
+          slug: i.cats.buckets[0].key,
+        };
+      }),
+    };
+  });
+
+  const newModels: any[] = [];
+
+  for (let model of models) {
+    const perekol = perekolbas.find(
+      (per: any) => model.slug === per.model.slug
+    );
+    if (perekol) {
+      newModels.push({
+        ...model,
+        categories: perekol.categories,
+      });
+    }
+  }
+
+  console.log(newModels);
 
   return (
     <React.Fragment>
       <Box className={classes.container}>
         {models &&
-          models.map((model: ICar) => {
+          newModels.map((model: ICar) => {
             return (
-              <Paper>
-                <Link href={url.model(make.slug, model.slug)} key={model.slug}>
+              <Paper key={model.slug}>
+                <Link href={url.model(make.slug, model.slug)}>
                   <a className={classes.item}>
-                    <Image
-                      className={classes.image}
-                      src={
-                        model && model.image
-                          ? `${imageServerUrl}${model.image}`
-                          : `/images/local/carsAvatar/generic.png`
-                      }
-                      width={50}
-                      height={50}
-                    />
-                    <Typography className={classes.model} variant="body1">
-                      {model.model}
-                    </Typography>
+                    <Box className={classes.carBox}>
+                      <Image
+                        src={
+                          model && model.image
+                            ? `${imageServerUrl}${model.image}`
+                            : `/images/local/carsAvatar/generic.png`
+                        }
+                        width={50}
+                        height={50}
+                      />
+                      <Typography className={classes.model} variant="body1">
+                        {model.model}
+                      </Typography>
+                    </Box>
+                    <Box className={classes.countBox}>
+                      <Typography variant="body2">Запчастей (93983)</Typography>
+                    </Box>
                   </a>
                 </Link>
+                <Box className={classes.categoryBox}>
+                  {model.categories?.map(
+                    (cat: { name: string; slug: string }) => {
+                      return (
+                        <Typography variant="subtitle2">{cat.name}</Typography>
+                      );
+                    }
+                  )}
+                </Box>
               </Paper>
             );
           })}
