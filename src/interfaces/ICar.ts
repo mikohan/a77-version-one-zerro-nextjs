@@ -7,9 +7,10 @@ export interface IEngine {
   image: string;
 }
 
-interface IModCats {
+export interface IModCats {
   name: string;
   slug: string;
+  count: number;
 }
 
 export interface ICar {

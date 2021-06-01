@@ -1,6 +1,6 @@
 import React from 'react';
 import { ICar, IMake } from '~/interfaces';
-import { capitalize } from '~/utils';
+import { IModCats } from '~/interfaces/ICar';
 import { Box, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
@@ -39,10 +39,14 @@ const useStyles = makeStyles((theme: Theme) =>
       borderTopColor: theme.palette.action.selected,
       padding: theme.spacing(1),
       display: 'flex',
+      flexDirection: 'column',
       flexWrap: 'wrap',
       '&>*': {
         padding: theme.spacing(0.5),
       },
+    },
+    catItem: {
+      fontWeight: 500,
     },
   })
 );
@@ -68,6 +72,7 @@ export default function ModelBlockGrid(props: ICarProps) {
         return {
           name: i.key,
           slug: i.cats.buckets[0].key,
+          count: i.doc_count,
         };
       }),
     };
@@ -86,8 +91,6 @@ export default function ModelBlockGrid(props: ICarProps) {
       });
     }
   }
-
-  console.log(newModels);
 
   return (
     <React.Fragment>
@@ -113,18 +116,23 @@ export default function ModelBlockGrid(props: ICarProps) {
                       </Typography>
                     </Box>
                     <Box className={classes.countBox}>
-                      <Typography variant="body2">Запчастей (93983)</Typography>
+                      <Typography variant="body2">
+                        Запчастей ({model.count})
+                      </Typography>
                     </Box>
                   </a>
                 </Link>
                 <Box className={classes.categoryBox}>
-                  {model.categories?.map(
-                    (cat: { name: string; slug: string }) => {
-                      return (
-                        <Typography variant="subtitle2">{cat.name}</Typography>
-                      );
-                    }
-                  )}
+                  {model.categories?.map((cat: IModCats) => {
+                    return (
+                      <Typography
+                        className={classes.catItem}
+                        variant="subtitle2"
+                      >
+                        {cat.name} ({cat.count})
+                      </Typography>
+                    );
+                  })}
                 </Box>
               </Paper>
             );
