@@ -3,10 +3,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { IProduct } from '~/interfaces/product';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { capitalize } from '~/utils';
-import ChipContainer from '../common/ChipBox';
-import { useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -16,7 +12,7 @@ interface IProp {
   currentCar?: ICar;
 }
 
-export default function ProductCardGrid({ product, currentCar }: IProp) {
+export default function ProductCardGrid({ product }: IProp) {
   const imgPath: string =
     product.images && product.images.length
       ? (product.images[0].img245 as string)
@@ -102,7 +98,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
     <div className={classes.card}>
       {/* {compatable && <ChipContainer car={car} />} */}
       <Link href={`/product/${product.slug}`}>
-        <a className={classes.a}>
+        <a>
           <Image
             layout="responsive"
             width={180}

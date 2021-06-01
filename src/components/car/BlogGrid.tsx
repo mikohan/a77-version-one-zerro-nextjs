@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
     image: {
-      objectFit: 'conver',
+      objectFit: 'cover',
     },
     item: {
       height: '100%',
