@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-around',
     },
     itemSily: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
       display: 'flex',
       justifyContent: 'space-around',
       alignItems: 'center',
@@ -188,7 +188,12 @@ export default function ModelBlockGrid(props: ICarProps) {
                       width={100}
                       height={100}
                     />
-                    <Typography variant="body1">{model.model}</Typography>
+                    <Box className={classes.nameBox}>
+                      <Typography variant="body1">{model.model}</Typography>
+                      <Typography variant="body2">
+                        Запчастей ({model.count})
+                      </Typography>
+                    </Box>
                   </Paper>
                 </a>
               </Link>
