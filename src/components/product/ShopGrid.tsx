@@ -60,7 +60,8 @@ export default function ShopGrid({
     createStyles({
       cards: {
         margin: '0 auto',
-        padding: theme.spacing(2),
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
         display: 'grid',
         gridTemplateColumns:
           shopGrid === 'grid'
@@ -70,8 +71,6 @@ export default function ShopGrid({
         marginBottom: theme.spacing(5),
       },
       pageBarContainer: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
         position: 'relative',
       },
       pageBarBox: {
@@ -129,8 +128,6 @@ export default function ShopGrid({
       },
       label: {},
       paginationBottom: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
         paddingBottom: theme.spacing(5),
       },
       pageBottomPaginationBox: {

@@ -78,7 +78,7 @@ function Make(props: ICarProps) {
       <AnimationPage>
         <Grid className={classes.container} container>
           <PageHeader header={header} breads={breads} count={count} />
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12}>
             <Grid className={classes.blockGrid} item xs={12}>
               <ModelBlockGrid
                 models={models}
