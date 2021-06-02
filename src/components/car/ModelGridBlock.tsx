@@ -181,7 +181,7 @@ export default function ModelBlockGrid(props: ICarProps) {
                       width={100}
                       height={100}
                     />
-                    <Box className={classes.nameBox}>
+                    <Box>
                       <Typography variant="body1">{model.model}</Typography>
                       <Typography variant="body2">
                         Запчастей ({model.count})

@@ -23,6 +23,7 @@ import { Typography } from '@material-ui/core';
 import { getPosts } from '~/endpoints/blogEndpoint';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { carWithCountAndCats } from '~/endpoints/carsEndpoint';
+import BlogGrid from '~/components/car/BlogGrid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,6 +52,7 @@ interface ICarProps {
   popularModels: ICar[];
   latestPosts: IPost[];
   carCountCat: any;
+  posts: IPost[];
 }
 
 function Make(props: ICarProps) {
@@ -60,6 +62,7 @@ function Make(props: ICarProps) {
     models,
     products,
     carCountCat,
+    posts,
     popularModels,
     latestPosts,
   } = props;
@@ -105,6 +108,12 @@ function Make(props: ICarProps) {
               </Grid>
             </Grid>
             <Grid item xs={12}>
+              <Typography variant="h6" className={classes.title}>
+                Полезные статьи про {capitalize(make.name)}
+              </Typography>
+              {posts && <BlogGrid posts={posts} />}
+            </Grid>
+            <Grid item xs={12}>
               {
                 <ShopGrid
                   products={products.hits}
@@ -131,6 +140,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   );
   const latestPosts = await getPosts(5);
   const carCountCat = await carWithCountAndCats(slug);
+  const posts = await getPosts(6);
 
   return {
     revalidate: REVALIDATE,
@@ -141,6 +151,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       popularModels,
       latestPosts,
       carCountCat,
+      posts,
     },
   };
 };
