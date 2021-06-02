@@ -2,7 +2,7 @@
 import React from 'react';
 import { ICar, IMake } from '~/interfaces';
 import { IModCats } from '~/interfaces/ICar';
-import { Box, Typography, Paper } from '@material-ui/core';
+import { Box, Typography, Paper, Grid } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import url from '~/services/url';
@@ -16,10 +16,21 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
       gridGap: theme.spacing(1),
     },
+    containerSily: {
+      display: 'grid',
+      gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
+      gridGap: theme.spacing(1),
+    },
     item: {
       padding: theme.spacing(2),
       display: 'flex',
       justifyContent: 'space-around',
+    },
+    itemSily: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
     },
     carBox: {
       display: 'flex',
@@ -103,59 +114,88 @@ export default function ModelBlockGrid(props: ICarProps) {
   }
   let retModels = !isMainCars ? silyModels : mainModels;
 
-  return (
-    <React.Fragment>
-      <Box className={classes.container}>
-        {models &&
-          retModels.map((model: ICar) => {
-            return (
-              <Paper key={model.slug}>
-                <Link href={url.model(make.slug, model.slug)}>
-                  <a className={classes.item}>
-                    <Box className={classes.carBox}>
-                      <Image
-                        src={
-                          model && model.image
-                            ? `${imageServerUrl}${model.image}`
-                            : `/images/local/carsAvatar/generic.png`
-                        }
-                        width={50}
-                        height={50}
-                      />
-                      <Typography className={classes.model} variant="body1">
-                        {model.model}
-                      </Typography>
-                    </Box>
-                    <Box className={classes.countBox}>
-                      <Typography variant="body2">
-                        Запчастей ({model.count})
-                      </Typography>
-                    </Box>
-                  </a>
-                </Link>
-                <Box className={classes.categoryBox}>
-                  {model.categories?.map((cat: IModCats, i: number) => {
-                    return (
-                      <Link
-                        href={url.category(make.slug, model.slug, cat.slug)}
-                        key={`${cat.slug}-${i}`}
-                      >
-                        <a>
-                          <Typography
-                            className={classes.catItem}
-                            variant="subtitle2"
-                          >
-                            {cat.name} ({cat.count})
-                          </Typography>
-                        </a>
-                      </Link>
-                    );
-                  })}
-                </Box>
-              </Paper>
-            );
-          })}
-      </Box>
-    </React.Fragment>
-  );
+  if (isMainCars) {
+    return (
+      <React.Fragment>
+        <Box className={classes.container}>
+          {models &&
+            retModels.map((model: ICar) => {
+              return (
+                <Paper key={model.slug}>
+                  <Link href={url.model(make.slug, model.slug)}>
+                    <a className={classes.item}>
+                      <Box className={classes.carBox}>
+                        <Image
+                          src={
+                            model && model.image
+                              ? `${imageServerUrl}${model.image}`
+                              : `/images/local/carsAvatar/generic.png`
+                          }
+                          width={100}
+                          height={100}
+                        />
+                        <Typography className={classes.model} variant="body1">
+                          {model.model}
+                        </Typography>
+                      </Box>
+                      <Box className={classes.countBox}>
+                        <Typography variant="body2">
+                          Запчастей ({model.count})
+                        </Typography>
+                      </Box>
+                    </a>
+                  </Link>
+                  <Box className={classes.categoryBox}>
+                    {model.categories?.map((cat: IModCats, i: number) => {
+                      return (
+                        <Link
+                          href={url.category(make.slug, model.slug, cat.slug)}
+                          key={`${cat.slug}-${i}`}
+                        >
+                          <a>
+                            <Typography
+                              className={classes.catItem}
+                              variant="subtitle2"
+                            >
+                              {cat.name} ({cat.count})
+                            </Typography>
+                          </a>
+                        </Link>
+                      );
+                    })}
+                  </Box>
+                </Paper>
+              );
+            })}
+        </Box>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <Box className={classes.containerSily}>
+            {silyModels.map((model: ICar) => (
+              <Link key={model.slug} href={url.model(make.slug, model.slug)}>
+                <a>
+                  <Paper className={classes.itemSily}>
+                    <Image
+                      src={
+                        model && model.image
+                          ? `${imageServerUrl}${model.image}`
+                          : `/images/local/carsAvatar/generic.png`
+                      }
+                      width={100}
+                      height={100}
+                    />
+                    <Typography variant="body1">{model.model}</Typography>
+                  </Paper>
+                </a>
+              </Link>
+            ))}
+          </Box>
+        </Grid>
+      </Grid>
+    );
+  }
 }
