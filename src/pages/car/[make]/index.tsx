@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
     blockGrid: {
       paddingBottom: theme.spacing(5),
     },
+    title: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(1),
+    },
   })
 );
 interface ICarProps {
@@ -78,13 +82,27 @@ function Make(props: ICarProps) {
       <AnimationPage>
         <Grid className={classes.container} container>
           <PageHeader header={header} breads={breads} count={count} />
-          <Grid item xs={12}>
-            <Grid className={classes.blockGrid} item xs={12}>
+          <Grid item container xs={12}>
+            <Grid item container xs={12}>
+              <Typography className={classes.title} variant="h6">
+                Машины
+              </Typography>
               <ModelBlockGrid
                 models={models}
                 carCountCat={carCountCat}
                 isMainCars
               />
+
+              <Grid className={classes.blockGrid} item xs={12}>
+                <Typography className={classes.title} variant="h6">
+                  Машины
+                </Typography>
+                <ModelBlockGrid
+                  models={models}
+                  carCountCat={carCountCat}
+                  isMainCars={false}
+                />
+              </Grid>
             </Grid>
             <Grid item xs={12}>
               {
