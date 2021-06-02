@@ -1,3 +1,4 @@
+// This component used for main model also for not main models
 import React from 'react';
 import { ICar, IMake } from '~/interfaces';
 import { IModCats } from '~/interfaces/ICar';
@@ -53,11 +54,12 @@ const useStyles = makeStyles((theme: Theme) =>
 interface ICarProps {
   models: ICar[];
   carCountCat: any;
+  isMainCars: boolean;
 }
 
 export default function ModelBlockGrid(props: ICarProps) {
   const classes = useStyles();
-  const { models, carCountCat } = props;
+  const { models, carCountCat, isMainCars } = props;
   const make: IMake = models[0].make;
   let cars: any = [];
   if (carCountCat) {
@@ -78,25 +80,34 @@ export default function ModelBlockGrid(props: ICarProps) {
     };
   });
 
-  const newModels: any[] = [];
+  const silyModels: any[] = [];
+  const mainModels: ICar[] = [];
 
   for (let model of models) {
     const perekol = perekolbas.find(
       (per: any) => model.slug === per.model.slug
     );
     if (perekol) {
-      newModels.push({
-        ...model,
-        categories: perekol.categories,
-      });
+      if (parseInt(model.priority) > 2) {
+        mainModels.push({
+          ...model,
+          categories: perekol.categories,
+        });
+      } else {
+        silyModels.push({
+          ...model,
+          categories: perekol.categories,
+        });
+      }
     }
   }
+  let retModels = !isMainCars ? silyModels : mainModels;
 
   return (
     <React.Fragment>
       <Box className={classes.container}>
         {models &&
-          newModels.map((model: ICar) => {
+          retModels.map((model: ICar) => {
             return (
               <Paper key={model.slug}>
                 <Link href={url.model(make.slug, model.slug)}>
@@ -127,10 +138,10 @@ export default function ModelBlockGrid(props: ICarProps) {
                     return (
                       <Link
                         href={url.category(make.slug, model.slug, cat.slug)}
+                        key={`${cat.slug}-${i}`}
                       >
                         <a>
                           <Typography
-                            key={`${cat.slug}-${i}`}
                             className={classes.catItem}
                             variant="subtitle2"
                           >

@@ -26,16 +26,17 @@ import { carWithCountAndCats } from '~/endpoints/carsEndpoint';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    blockPaper: {
-      padding: theme.spacing(2),
+    container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '70%',
+      },
     },
     blockGrid: {
       paddingBottom: theme.spacing(5),
-    },
-    widgetItem: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
     },
   })
 );
@@ -75,49 +76,26 @@ function Make(props: ICarProps) {
     <React.Fragment>
       <CarMakeHead make={make} />
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}>
-          <Grid container>
-            <PageHeader header={header} breads={breads} count={count} />
-            {/* <Hidden smDown> */}
-            {/*   <Grid item xs={3}> */}
-            {/*     <LeftSidebar> */}
-            {/*       <Grid container> */}
-            {/*         <Grid className={classes.widgetItem} item xs={12}> */}
-            {/*           <Typography variant="h6"> */}
-            {/*             Популярные Модели {`${capitalize(make.name)}`} */}
-            {/*           </Typography> */}
-            {/*           <PopularModels models={popularModels} /> */}
-            {/*         </Grid> */}
-            {/*         <Grid className={classes.widgetItem} item xs={12}> */}
-            {/*           <Typography variant="h6"> */}
-            {/*             Все Модели {`${capitalize(make.name)}`} */}
-            {/*           </Typography> */}
-            {/*           <ModelList models={models} /> */}
-            {/*         </Grid> */}
-            {/*         <Grid className={classes.widgetItem} item xs={12}> */}
-            {/*           <LatestPosts posts={latestPosts} /> */}
-            {/*         </Grid> */}
-            {/*       </Grid> */}
-            {/*     </LeftSidebar> */}
-            {/*   </Grid> */}
-            {/* </Hidden> */}
-            <Grid item xs={12} md={12}>
-              <Grid className={classes.blockGrid} item xs={12}>
-                <Box className={classes.blockPaper}>
-                  <ModelBlockGrid models={models} carCountCat={carCountCat} />
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                {
-                  <ShopGrid
-                    products={products.hits}
-                    filtersResetHandlers={filtersResetHandlers}
-                  />
-                }
-              </Grid>
+        <Grid className={classes.container} container>
+          <PageHeader header={header} breads={breads} count={count} />
+          <Grid item xs={12} md={12}>
+            <Grid className={classes.blockGrid} item xs={12}>
+              <ModelBlockGrid
+                models={models}
+                carCountCat={carCountCat}
+                isMainCars
+              />
+            </Grid>
+            <Grid item xs={12}>
+              {
+                <ShopGrid
+                  products={products.hits}
+                  filtersResetHandlers={filtersResetHandlers}
+                />
+              }
             </Grid>
           </Grid>
-        </Container>
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );
