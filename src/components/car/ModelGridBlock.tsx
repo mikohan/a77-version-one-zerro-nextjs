@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       gridGap: theme.spacing(1),
     },
     item: {
-      padding: theme.spacing(2),
-      display: 'flex',
-      justifyContent: 'space-around',
+      padding: theme.spacing(1),
     },
     itemSily: {
       padding: theme.spacing(1),
@@ -37,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     carBox: {
       display: 'flex',
-      justifyContent: 'space-evenly',
+      justifyContent: 'space-around',
       alignItems: 'center',
     },
     countBox: {

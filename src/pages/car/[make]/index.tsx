@@ -85,7 +85,7 @@ function Make(props: ICarProps) {
           <Grid item container xs={12}>
             <Grid item xs={12}>
               <Typography className={classes.title} variant="h6">
-                Машины
+                Наши основные Машины
               </Typography>
               <ModelBlockGrid
                 models={models}
@@ -95,7 +95,7 @@ function Make(props: ICarProps) {
 
               <Grid className={classes.blockGrid} item xs={12}>
                 <Typography className={classes.title} variant="h6">
-                  Машины
+                  Машины на которые тоже есть запчасти
                 </Typography>
                 <ModelBlockGrid
                   models={models}
