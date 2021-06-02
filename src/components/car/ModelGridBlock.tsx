@@ -32,13 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-around',
       alignItems: 'center',
     },
+    nameMainBox: {
+      paddingLeft: theme.spacing(1),
+    },
     carBox: {
       display: 'flex',
       justifyContent: 'space-evenly',
       alignItems: 'center',
-    },
-    model: {
-      paddingLeft: theme.spacing(1),
     },
     countBox: {
       marginLeft: theme.spacing(2),
@@ -53,12 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       flexWrap: 'wrap',
-      '&>*': {
-        padding: theme.spacing(0.5),
-      },
     },
     catItem: {
-      fontWeight: 500,
+      color: theme.palette.primary.main,
     },
   })
 );
@@ -134,14 +131,12 @@ export default function ModelBlockGrid(props: ICarProps) {
                           width={100}
                           height={100}
                         />
-                        <Typography className={classes.model} variant="body1">
-                          {model.model}
-                        </Typography>
-                      </Box>
-                      <Box className={classes.countBox}>
-                        <Typography variant="body2">
-                          Запчастей ({model.count})
-                        </Typography>
+                        <Box className={classes.nameMainBox}>
+                          <Typography variant="body1">{model.model}</Typography>
+                          <Typography variant="body2">
+                            Запчастей ({model.count})
+                          </Typography>
+                        </Box>
                       </Box>
                     </a>
                   </Link>
@@ -155,7 +150,7 @@ export default function ModelBlockGrid(props: ICarProps) {
                           <a>
                             <Typography
                               className={classes.catItem}
-                              variant="subtitle2"
+                              variant="body2"
                             >
                               {cat.name} ({cat.count})
                             </Typography>

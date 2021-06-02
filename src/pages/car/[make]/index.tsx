@@ -83,7 +83,7 @@ function Make(props: ICarProps) {
         <Grid className={classes.container} container>
           <PageHeader header={header} breads={breads} count={count} />
           <Grid item container xs={12}>
-            <Grid item container xs={12}>
+            <Grid item xs={12}>
               <Typography className={classes.title} variant="h6">
                 Машины
               </Typography>
