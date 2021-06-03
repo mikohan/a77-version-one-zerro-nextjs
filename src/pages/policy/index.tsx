@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(3),
     },
     html: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(5),
       '& p, & span': {
         fontSize: '1rem',
       },
