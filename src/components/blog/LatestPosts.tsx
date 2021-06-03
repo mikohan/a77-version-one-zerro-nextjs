@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       [theme.breakpoints.up('lg')]: {
         paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
       },
     },
     date: {
