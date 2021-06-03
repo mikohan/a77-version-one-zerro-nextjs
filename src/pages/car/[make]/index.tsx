@@ -114,6 +114,9 @@ function Make(props: ICarProps) {
               {posts && <BlogGrid posts={posts} />}
             </Grid>
             <Grid item xs={12}>
+              <Typography variant="h6" className={classes.title}>
+                Запчасти {capitalize(make.name)}
+              </Typography>
               {
                 <ShopGrid
                   products={products.hits}
