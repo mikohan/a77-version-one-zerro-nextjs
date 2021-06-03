@@ -244,109 +244,129 @@ export default function Order({ access, user }: IProps) {
     setOpenSnak(false);
   };
 
-  return (
-    <React.Fragment>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={openSnack}
-        autoHideDuration={5000}
-        onClose={handleCloseSnack}
-        message={message}
-        action={
-          <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleCloseSnack}>
-              UNDO
-            </Button>
-          </React.Fragment>
-        }
-      >
-        <Alert severity={snackType}>
-          {message}
-          <IconButton
-            className={classes.snackBarCloseIcon}
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={handleCloseSnack}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </Alert>
-      </Snackbar>
-      <DashboardHead />
-      <AnimationPage>
-        <Container maxWidth="lg">
-          <Grid className={classes.container} container>
-            <Grid className={classes.left} item container xs={12} sm={7}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <AnimationPage id="order-paper-left">
-                    <NoSsr>
-                      <OrderTable cart={cart} orderNumber={orderNumber} />
-                    </NoSsr>
-                  </AnimationPage>
+  if (cart && cart.items.length) {
+    return (
+      <React.Fragment>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={openSnack}
+          autoHideDuration={5000}
+          onClose={handleCloseSnack}
+          message={message}
+          action={
+            <React.Fragment>
+              <Button color="secondary" size="small" onClick={handleCloseSnack}>
+                UNDO
+              </Button>
+            </React.Fragment>
+          }
+        >
+          <Alert severity={snackType}>
+            {message}
+            <IconButton
+              className={classes.snackBarCloseIcon}
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleCloseSnack}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </Alert>
+        </Snackbar>
+        <DashboardHead />
+        <AnimationPage>
+          <Container maxWidth="lg">
+            <Grid className={classes.container} container>
+              <Grid className={classes.left} item container xs={12} sm={7}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <AnimationPage id="order-paper-left">
+                      <NoSsr>
+                        <OrderTable cart={cart} orderNumber={orderNumber} />
+                      </NoSsr>
+                    </AnimationPage>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid className={classes.right} item container xs={12} sm={5}>
+                <Grid container>
+                  <Grid className={classes.ordersGrid} item xs={12}>
+                    <Paper className={classes.paper}>
+                      <NoSsr>
+                        <OrderTabs
+                          access={access}
+                          user={user}
+                          handlePhone={handlePhone}
+                          handleCity={handleCity}
+                          handleAddress={handleAddress}
+                          handleChangePayment={handleChangePayment}
+                          valuePayment={valuePayment}
+                          valueDelivery={valueDelivery}
+                          handleChangeDelivery={handleChangeDelivery}
+                          showFields={showFields}
+                          showPayment={showPayment}
+                          showOnlinePayment={showOnlinePayment}
+                          handleChangeAddress={handleChangeAddress}
+                          valueAddress={valueAddress}
+                          handleChangeEmail={handleChangeEmail}
+                          emailError={emailError}
+                          phoneError={phoneError}
+                        />
+                        <Box
+                          className={classes.sendButtonBox}
+                          onClick={handleSendOrder}
+                        >
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={sendActive}
+                          >
+                            отправить заказ
+                          </Button>
+                        </Box>
+                        <Box className={classes.policy}>
+                          <Link href={url.policy()}>
+                            <a>
+                              <Typography variant="subtitle2" color="primary">
+                                Отправляя свои данные, я соглашаюсь с политикой
+                                конфиденциальности
+                              </Typography>
+                            </a>
+                          </Link>
+                        </Box>
+                      </NoSsr>
+                    </Paper>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid className={classes.right} item container xs={12} sm={5}>
-              <Grid container>
-                <Grid className={classes.ordersGrid} item xs={12}>
-                  <Paper className={classes.paper}>
-                    <NoSsr>
-                      <OrderTabs
-                        access={access}
-                        user={user}
-                        handlePhone={handlePhone}
-                        handleCity={handleCity}
-                        handleAddress={handleAddress}
-                        handleChangePayment={handleChangePayment}
-                        valuePayment={valuePayment}
-                        valueDelivery={valueDelivery}
-                        handleChangeDelivery={handleChangeDelivery}
-                        showFields={showFields}
-                        showPayment={showPayment}
-                        showOnlinePayment={showOnlinePayment}
-                        handleChangeAddress={handleChangeAddress}
-                        valueAddress={valueAddress}
-                        handleChangeEmail={handleChangeEmail}
-                        emailError={emailError}
-                        phoneError={phoneError}
-                      />
-                      <Box
-                        className={classes.sendButtonBox}
-                        onClick={handleSendOrder}
-                      >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          disabled={sendActive}
-                        >
-                          отправить заказ
-                        </Button>
-                      </Box>
-                      <Box className={classes.policy}>
-                        <Link href={url.policy()}>
-                          <a>
-                            <Typography variant="subtitle2" color="primary">
-                              Отправляя свои данные, я соглашаюсь с политикой
-                              конфиденциальности
-                            </Typography>
-                          </a>
-                        </Link>
-                      </Box>
-                    </NoSsr>
-                  </Paper>
-                </Grid>
-              </Grid>
+          </Container>
+        </AnimationPage>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <AnimationPage>
+          <Grid className={classes.container} container>
+            <Grid
+              className={classes.noItems}
+              item
+              container
+              xs={12}
+              justify="center"
+            >
+              <Typography variant="h3">В корзине ничего нет!</Typography>
             </Grid>
           </Grid>
-        </Container>
-      </AnimationPage>
-    </React.Fragment>
-  );
+        </AnimationPage>
+      </React.Fragment>
+    );
+  }
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -442,6 +462,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     policy: {
       marginTop: theme.spacing(2),
+    },
+    noItems: {
+      minHeight: '35vh',
     },
   })
 );
