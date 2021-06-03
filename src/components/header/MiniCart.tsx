@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { ICartItem } from '~/store/cart/cartTypes';
 import { COMPANY_INFORMATION, imageServerUrl } from '~/config';
-import { useRouter } from 'next/router';
+import NoSsr from '@material-ui/core/NoSsr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,162 +67,166 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
 
   if (cart && cart.items.length) {
     return (
-      <div>
-        <Popover
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <Box className={classes.root}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Фото</TableCell>
-                    <TableCell>Название</TableCell>
-                    <TableCell>Q</TableCell>
-                    <TableCell>Сумма</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cart.items.map((item: ICartItem) => {
-                    const img = item.product.images.length
-                      ? `${imageServerUrl}${item.product.images[0].img150}`
-                      : '/images/local/defaultParts245.jpg';
-                    return (
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          <Image src={img} width={70} height={60} />
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle1">
-                            {item.product.name}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle1">
-                            {item.quantity}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography
-                            className={classes.price}
-                            variant="subtitle1"
-                          >
-                            &#8381;{item.total}
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Box className={classes.list}>
-              <Table>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <Typography
-                        className={classes.totalText}
-                        variant="subtitle1"
-                      >
-                        Доставка
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography
-                        className={classes.totalMoney}
-                        variant="subtitle1"
-                      >
-                        от &#8381;{COMPANY_INFORMATION.DELIVERY_COST_FROM}
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Typography
-                        className={classes.totalText}
-                        variant="subtitle1"
-                      >
-                        Итого:
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography
-                        className={classes.totalMoney}
-                        variant="subtitle1"
-                      >
-                        &#8381;{cart.total}
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+      <NoSsr>
+        <div>
+          <Popover
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Box className={classes.root}>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Фото</TableCell>
+                      <TableCell>Название</TableCell>
+                      <TableCell>Q</TableCell>
+                      <TableCell>Сумма</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cart.items.map((item: ICartItem) => {
+                      const img = item.product.images.length
+                        ? `${imageServerUrl}${item.product.images[0].img150}`
+                        : '/images/local/defaultParts245.jpg';
+                      return (
+                        <TableRow key={item.id}>
+                          <TableCell>
+                            <Image src={img} width={70} height={60} />
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="subtitle1">
+                              {item.product.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="subtitle1">
+                              {item.quantity}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography
+                              className={classes.price}
+                              variant="subtitle1"
+                            >
+                              &#8381;{item.total}
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Box className={classes.list}>
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>
+                        <Typography
+                          className={classes.totalText}
+                          variant="subtitle1"
+                        >
+                          Доставка
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Typography
+                          className={classes.totalMoney}
+                          variant="subtitle1"
+                        >
+                          от &#8381;{COMPANY_INFORMATION.DELIVERY_COST_FROM}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Typography
+                          className={classes.totalText}
+                          variant="subtitle1"
+                        >
+                          Итого:
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Typography
+                          className={classes.totalMoney}
+                          variant="subtitle1"
+                        >
+                          &#8381;{cart.total}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+              <Box className={classes.buttonBox}>
+                <Link href={url.cart()}>
+                  <a>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                      onClick={handleClose}
+                    >
+                      Перейти в Козину
+                    </Button>
+                  </a>
+                </Link>
+                <Link href={url.placeOrder()}>
+                  <a>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                      onClick={handleClose}
+                    >
+                      Оформить Заказ
+                    </Button>
+                  </a>
+                </Link>
+              </Box>
             </Box>
-            <Box className={classes.buttonBox}>
-              <Link href={url.cart()}>
-                <a>
-                  <Button
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClose}
-                  >
-                    Перейти в Козину
-                  </Button>
-                </a>
-              </Link>
-              <Link href={url.placeOrder()}>
-                <a>
-                  <Button
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClose}
-                  >
-                    Оформить Заказ
-                  </Button>
-                </a>
-              </Link>
-            </Box>
-          </Box>
-        </Popover>
-      </div>
+          </Popover>
+        </div>
+      </NoSsr>
     );
   } else {
     return (
-      <div>
-        <Popover
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <Box className={classes.root}>
-            <Typography variant={classes.empty}>Корзина пуста!</Typography>
-          </Box>
-        </Popover>
-      </div>
+      <NoSsr>
+        <div>
+          <Popover
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Box className={classes.root}>
+              <Typography>Корзина пуста!</Typography>
+            </Box>
+          </Popover>
+        </div>
+      </NoSsr>
     );
   }
 }
