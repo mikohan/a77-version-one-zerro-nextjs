@@ -9,6 +9,7 @@ import {
   Paper,
   Button,
   Snackbar,
+  Typography,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -28,8 +29,9 @@ import { sendOrder } from '~/endpoints/orderEndpoints';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
-import url from '~/services/url';
 import { clearCart } from '~/store/cart/cartAction';
+import Link from 'next/link';
+import url from '~/services/url';
 
 // This is the recommended way for Next.js 9.3 or newer
 interface IProps {
@@ -325,6 +327,16 @@ export default function Order({ access, user }: IProps) {
                           отправить заказ
                         </Button>
                       </Box>
+                      <Box className={classes.policy}>
+                        <Link href={url.policy()}>
+                          <a>
+                            <Typography variant="subtitle2" color="primary">
+                              Отправляя свои данные, я соглашаюсь с политикой
+                              конфиденциальности
+                            </Typography>
+                          </a>
+                        </Link>
+                      </Box>
                     </NoSsr>
                   </Paper>
                 </Grid>
@@ -427,6 +439,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     snackBarCloseIcon: {
       marginLeft: theme.spacing(2),
+    },
+    policy: {
+      marginTop: theme.spacing(2),
     },
   })
 );
