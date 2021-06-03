@@ -34,6 +34,12 @@ interface IProps {
 
 export default function About({ page }: IProps) {
   const classes = useStyles();
+  const string = `9.4. Действующая Политика конфиденциальности размещена на странице по адресу http://angara77.com`;
+  const regex = new RegExp(
+    '(http|ftp|https)://([w_-]+(?:(?:.[w_-]+)+))([w.,@?^=%&:/~+#-]*[w@?^=%&/~+#-])?'
+  );
+  const newPage = string.replace(regex, 'http://mynew.site');
+  console.log(newPage);
   return (
     <React.Fragment>
       <AboutHead />
