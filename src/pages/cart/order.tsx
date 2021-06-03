@@ -359,6 +359,7 @@ export default function Order({ access, user }: IProps) {
               container
               xs={12}
               justify="center"
+              alignItems="center"
             >
               <Typography variant="h3">В корзине ничего нет!</Typography>
             </Grid>
