@@ -34,12 +34,9 @@ interface IProps {
 
 export default function About({ page }: IProps) {
   const classes = useStyles();
-  const string = `9.4. Действующая Политика конфиденциальности размещена на странице по адресу http://angara77.com`;
-  const regex = new RegExp(
-    '(http|ftp|https)://([w_-]+(?:(?:.[w_-]+)+))([w.,@?^=%&:/~+#-]*[w@?^=%&/~+#-])?'
-  );
-  const newPage = string.replace(regex, 'http://mynew.site');
-  console.log(newPage);
+  const string = page.textHTML;
+  const re = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/gi;
+  const newPage = string.replace(re, SITE_DOMAIN_FULL);
   return (
     <React.Fragment>
       <AboutHead />
@@ -50,7 +47,7 @@ export default function About({ page }: IProps) {
               <Typography variant="h1">{page.title}</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Box className={classes.html}>{parse(page.textHTML)}</Box>
+              <Box className={classes.html}>{parse(newPage)}</Box>
             </Grid>
           </Grid>
         </Container>
@@ -70,7 +67,7 @@ export const getStaticProps: any = async (context: any) => {
 
 const AboutHead = () => (
   <Head>
-    <title key="title">About US - History & Team | Angara Parts</title>
+    <title key="title">Политика конфиденциальности | Angara Parts</title>
     <meta
       key="description"
       name="description"
@@ -93,6 +90,6 @@ const AboutHead = () => (
     <meta key="og:image:hight" property="og:image:hight" content="630" />
 
     <meta key="og:image:alt" property="og:image:alt" content="Angara 77 logo" />
-    <link rel="canonical" key="canonical" href={`${SITE_DOMAIN_FULL}/about`} />
+    <link rel="canonical" key="canonical" href={`${SITE_DOMAIN_FULL}/policy`} />
   </Head>
 );
