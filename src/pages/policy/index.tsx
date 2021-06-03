@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Container } from '@material-ui/core';
+import { Box, Grid, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import parse from 'html-react-parser';
@@ -10,10 +10,22 @@ import { IPage } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
-      padding: theme.spacing(2),
+    container: {
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '70%',
+      },
+    },
+    title: {
+      paddingBottom: theme.spacing(3),
     },
     html: {
+      padding: theme.spacing(2),
       '& p, & span': {
         fontSize: '1rem',
       },
@@ -41,16 +53,16 @@ export default function About({ page }: IProps) {
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
-        <Container maxWidth="lg">
-          <Grid className={classes.main} container>
-            <Grid item xs={12}>
-              <Typography variant="h1">{page.title}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Box className={classes.html}>{parse(newPage)}</Box>
-            </Grid>
+        <Grid className={classes.container} container>
+          <Grid item xs={12}>
+            <Typography className={classes.title} variant="h1">
+              {page.title}
+            </Typography>
           </Grid>
-        </Container>
+          <Grid item xs={12}>
+            <Paper className={classes.html}>{parse(newPage)}</Paper>
+          </Grid>
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );
