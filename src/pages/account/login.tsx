@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(20),
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
+      position: 'relative',
     },
     textFieldGrid: {
       paddingTop: theme.spacing(2),
@@ -64,6 +65,11 @@ const useStyles = makeStyles((theme: Theme) =>
       '& > *': {
         marginRight: theme.spacing(1),
       },
+    },
+    policy: {
+      position: 'absolute',
+      bottom: theme.spacing(2),
+      left: theme.spacing(2),
     },
   })
 );
@@ -234,6 +240,16 @@ const LoginFormPaper = () => {
             >
               Войти
             </Button>
+            <Box className={classes.policy}>
+              <Link href={url.policy()}>
+                <a>
+                  <Typography variant="subtitle2" color="primary">
+                    Отправляя свои данные, я соглашаюсь с политикой
+                    конфиденциальности
+                  </Typography>
+                </a>
+              </Link>
+            </Box>
           </Grid>
         </form>
       </Grid>
