@@ -5,14 +5,14 @@ type IAppLinkHref = string | LinkProps;
 const url: { [key: string]: any } = {
   home: () => `/`,
   cars: () => `/car`,
-  model: (make: string, model: string) => `/car/${make}/${model}`,
-  make: (make: string) => `/car/${make}`,
+  model: (make: string, model: string) => `/${make}/${model}`,
+  make: (make: string) => `/${make}`,
   category: (
     make: string,
     model: string,
     categorySlug: string
   ): IAppLinkHref => {
-    return `/car/${make}/${model}/${categorySlug}`;
+    return `/${make}/${model}/${categorySlug}`;
   },
   search: () => `/search`,
   products: (
@@ -24,7 +24,7 @@ const url: { [key: string]: any } = {
     return {
       href: {
         // pathname: '/catalog/products',
-        pathname: `/car/${make}/${model}/${category}`,
+        pathname: `/${make}/${model}/${category}`,
 
         query: {
           ...filters,
