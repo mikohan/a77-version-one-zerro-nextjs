@@ -4,7 +4,7 @@ type IAppLinkHref = string | LinkProps;
 
 const url: { [key: string]: any } = {
   home: () => `/`,
-  cars: () => `/car`,
+  cars: () => `/`,
   model: (make: string, model: string) => `/${make}/${model}`,
   make: (make: string) => `/${make}`,
   category: (

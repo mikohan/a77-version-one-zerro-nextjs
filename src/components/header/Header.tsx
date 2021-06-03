@@ -147,24 +147,16 @@ export default function Header({ setIsDark, isDark }: IProps) {
   }, [activePage, pathname]);
 
   const goHome = () => {
-    router.push({ pathname: '/' });
+    router.push({ pathname: url.home() });
     setDrawerOpen(false);
     dispatch({ type: SET_ACTIVE_PAGE, payload: 0 });
   };
-  const goCars = () => {
-    router.push({ pathname: '/car' });
-    setDrawerOpen(false);
-  };
-  const goAbout = () => {
-    router.push({ pathname: '/about' });
-    setDrawerOpen(false);
-  };
   const goContacts = () => {
-    router.push({ pathname: '/contacts' });
+    router.push({ pathname: url.contacts() });
     setDrawerOpen(false);
   };
   const goBlog = () => {
-    router.push({ pathname: '/blog/category/vse-kategorii/1' });
+    router.push({ pathname: url.blogCategory('vse-kategorii', '1') });
     setDrawerOpen(false);
     dispatch({ type: SET_ACTIVE_PAGE, payload: 4 });
   };
@@ -265,11 +257,23 @@ export default function Header({ setIsDark, isDark }: IProps) {
         textColor="primary"
         centered
       >
-        <Tab label="ANGARA PARTS" onClick={goHome} />
-        <Tab label="Машины" onClick={goCars} />
+        <Link href={url.home()}>
+          <a>
+            <Tab label="ANGARA PARTS" />
+          </a>
+        </Link>
+
         <Tab label="Компания" onClick={handleClickCompany} />
-        <Tab label="Контакты" onClick={goContacts} />
-        <Tab label="Блог" onClick={goBlog} />
+        <Link href={url.contacts()}>
+          <a>
+            <Tab label="Контакты" />
+          </a>
+        </Link>
+        <Link href={url.blogCategory('vse-kategorii', '1')}>
+          <a>
+            <Tab label="Блог" />
+          </a>
+        </Link>
         <Tab label="Личный кабинет" onClick={handleClickCategory} />
       </Tabs>
     </React.Fragment>
