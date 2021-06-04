@@ -20,6 +20,7 @@ import { IState } from '~/interfaces/IState';
 import { ICartItem } from '~/store/cart/cartTypes';
 import { COMPANY_INFORMATION, imageServerUrl } from '~/config';
 import NoSsr from '@material-ui/core/NoSsr';
+// Comment for git
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -222,7 +223,7 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
             }}
           >
             <Box className={classes.root}>
-              <Typography>Корзина пуста!</Typography>
+              <Box className={classes.root}>Корзина пуста!</Box>
             </Box>
           </Popover>
         </div>
