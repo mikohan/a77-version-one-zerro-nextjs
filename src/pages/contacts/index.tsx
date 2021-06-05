@@ -2,13 +2,14 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { Box, Paper, Grid, Typography, NoSsr } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import { IPage } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
 import Link from 'next/link';
 import url from '~/services/url';
+import GoogleMap from '~/components/companyPages/GoogleMap';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -194,6 +195,11 @@ export default function About() {
               </Paper>
             </Grid>
           </Grid>
+          <NoSsr>
+            <Grid item xs={12}>
+              <GoogleMap />
+            </Grid>
+          </NoSsr>
         </Grid>
       </AnimationPage>
     </React.Fragment>
