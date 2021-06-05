@@ -187,6 +187,9 @@ export default function About() {
                   <Typography variant="h6">
                     Номер счета {COMPANY_INFORMATION.RECVIZITY.ACC}
                   </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    "ПромСвязьБанк"
+                  </Typography>
                 </Box>
               </Paper>
             </Grid>
