@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme: Theme) =>
     mapPaper: {
       padding: theme.spacing(2),
     },
+    horisontalBox: {
+      display: 'flex',
+      alignItems: 'center',
+    },
   })
 );
 
@@ -170,31 +174,31 @@ export default function About() {
                 <Typography className={classes.subtitle} variant="h5">
                   Реквизиты
                 </Typography>
-                <Box className={classes.phoneBlock}>
+                <Box>
                   <Typography variant="h6">
                     ИНН {COMPANY_INFORMATION.RECVIZITY.INN}
                   </Typography>
                 </Box>
-                <Box className={classes.phoneBlock}>
+                <Box>
                   <Typography variant="h6">
                     КПП {COMPANY_INFORMATION.RECVIZITY.KPP}
                   </Typography>
                 </Box>
-                <Box className={classes.phoneBlock}>
+                <Box>
                   <Typography variant="h6">
                     БИК {COMPANY_INFORMATION.RECVIZITY.BIK}
                   </Typography>
                 </Box>
-                <Box className={classes.phoneBlock}>
+                <Box>
                   <Typography variant="h6">
                     ОГРН {COMPANY_INFORMATION.RECVIZITY.OGRN}
                   </Typography>
                 </Box>
-                <Box className={classes.phoneBlock}>
+                <Box className={classes.horisontalBox}>
                   <Typography variant="h6">
                     Номер счета {COMPANY_INFORMATION.RECVIZITY.ACC}
                   </Typography>
-                  <Typography className={classes.secondCol} variant="body2">
+                  <Typography className={classes.secondCol} variant="body1">
                     "ПромСвязьБанк"
                   </Typography>
                 </Box>
