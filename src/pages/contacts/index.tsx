@@ -2,28 +2,44 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Container } from '@material-ui/core';
+import { Box, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
-import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
+import { COMPANY_INFORMATION } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
-      padding: theme.spacing(2),
+    container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '70%',
+      },
     },
-    html: {
-      '& p, & span': {
-        fontSize: '1rem',
-      },
-      '& h2, & h3, & h4': {
-        fontSize: '1.4rem',
-      },
-      '& li, & ol': {
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-      },
+    title: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(2),
+    },
+    paper: {
+      padding: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+    },
+    phoneTotalBox: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    phoneBlock: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      border: '1px solid blue',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    secondCol: {
+      marginLeft: theme.spacing(2),
     },
   })
 );
@@ -32,22 +48,42 @@ interface IProps {
   page: IPage;
 }
 
-export default function About({ page }: IProps) {
+export default function About() {
   const classes = useStyles();
   return (
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
-        <Container maxWidth="lg">
-          <Grid className={classes.main} container>
-            <Grid item xs={12}>
-              <Typography variant="h1">{page.title}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Box className={classes.html}>{parse(page.textHTML)}</Box>
-            </Grid>
+        <Grid className={classes.container} container>
+          <Grid item xs={12}>
+            <Typography className={classes.title} variant="h1">
+              Контакты компании {COMPANY_INFORMATION.COMPANY_NAME}
+            </Typography>
           </Grid>
-        </Container>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Box className={classes.phoneTotalBox}>
+                <Typography variant="h5">Телефоны</Typography>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_PHONE_TWO}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Звонок бесплатный!
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_PHONE}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Звонки из Москвы
+                  </Typography>
+                </Box>
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );
@@ -64,7 +100,7 @@ export const getStaticProps: any = async (context: any) => {
 
 const AboutHead = () => (
   <Head>
-    <title key="title">About US - History & Team | Angara Parts</title>
+    <title key="title">Контакты | Angara Parts</title>
     <meta
       key="description"
       name="description"
