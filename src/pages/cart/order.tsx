@@ -247,56 +247,60 @@ export default function Order({ access, user }: IProps) {
   if (cart && cart.items.length) {
     return (
       <React.Fragment>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={openSnack}
-          autoHideDuration={5000}
-          onClose={handleCloseSnack}
-          message={message}
-          action={
-            <React.Fragment>
-              <Button color="secondary" size="small" onClick={handleCloseSnack}>
-                UNDO
-              </Button>
-            </React.Fragment>
-          }
-        >
-          <Alert severity={snackType}>
-            {message}
-            <IconButton
-              className={classes.snackBarCloseIcon}
-              size="small"
-              aria-label="close"
-              color="inherit"
-              onClick={handleCloseSnack}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </Alert>
-        </Snackbar>
-        <DashboardHead />
-        <AnimationPage>
-          <Container maxWidth="lg">
-            <Grid className={classes.container} container>
-              <Grid className={classes.left} item container xs={12} sm={7}>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <AnimationPage id="order-paper-left">
-                      <NoSsr>
-                        <OrderTable cart={cart} orderNumber={orderNumber} />
-                      </NoSsr>
-                    </AnimationPage>
+        <NoSsr>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={openSnack}
+            autoHideDuration={5000}
+            onClose={handleCloseSnack}
+            message={message}
+            action={
+              <React.Fragment>
+                <Button
+                  color="secondary"
+                  size="small"
+                  onClick={handleCloseSnack}
+                >
+                  UNDO
+                </Button>
+              </React.Fragment>
+            }
+          >
+            <Alert severity={snackType}>
+              {message}
+              <IconButton
+                className={classes.snackBarCloseIcon}
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleCloseSnack}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Alert>
+          </Snackbar>
+          <DashboardHead />
+          <AnimationPage>
+            <Container maxWidth="lg">
+              <Grid className={classes.container} container>
+                <Grid className={classes.left} item container xs={12} sm={7}>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <AnimationPage id="order-paper-left">
+                        <NoSsr>
+                          <OrderTable cart={cart} orderNumber={orderNumber} />
+                        </NoSsr>
+                      </AnimationPage>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid className={classes.right} item container xs={12} sm={5}>
-                <Grid container>
-                  <Grid className={classes.ordersGrid} item xs={12}>
-                    <Paper className={classes.paper}>
-                      <NoSsr>
+                <Grid className={classes.right} item container xs={12} sm={5}>
+                  <Grid container>
+                    <Grid className={classes.ordersGrid} item xs={12}>
+                      <Paper className={classes.paper}>
                         <OrderTabs
                           access={access}
                           user={user}
@@ -338,14 +342,14 @@ export default function Order({ access, user }: IProps) {
                             </a>
                           </Link>
                         </Box>
-                      </NoSsr>
-                    </Paper>
+                      </Paper>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </Container>
-        </AnimationPage>
+            </Container>
+          </AnimationPage>
+        </NoSsr>
       </React.Fragment>
     );
   } else {
