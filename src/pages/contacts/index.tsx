@@ -58,6 +58,12 @@ const useStyles = makeStyles((theme: Theme) =>
     secondRow: {
       paddingTop: theme.spacing(2),
     },
+    mapGrid: {
+      paddingTop: theme.spacing(2),
+    },
+    mapPaper: {
+      padding: theme.spacing(2),
+    },
   })
 );
 
@@ -196,8 +202,10 @@ export default function About() {
             </Grid>
           </Grid>
           <NoSsr>
-            <Grid item xs={12}>
-              <GoogleMap />
+            <Grid className={classes.mapGrid} item xs={12}>
+              <Paper className={classes.mapPaper}>
+                <GoogleMap />
+              </Paper>
             </Grid>
           </NoSsr>
         </Grid>
