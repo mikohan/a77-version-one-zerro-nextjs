@@ -7,6 +7,8 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import { IPage } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
+import Link from 'next/link';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,7 +44,19 @@ const useStyles = makeStyles((theme: Theme) =>
     subtitle: {
       paddingBottom: theme.spacing(2),
     },
-    sideGrid: {},
+    sideGridLeft: {
+      paddingRight: theme.spacing(1),
+    },
+    sideGridRight: {
+      paddingLeft: theme.spacing(1),
+    },
+    deliveryLink: {
+      fontSize: '0.95rem',
+      color: theme.palette.primary.main,
+    },
+    secondRow: {
+      paddingTop: theme.spacing(2),
+    },
   })
 );
 
@@ -62,67 +76,120 @@ export default function About() {
               Контакты компании {COMPANY_INFORMATION.COMPANY_NAME}
             </Typography>
           </Grid>
-          <Grid className={classes.sideGrid} item xs={6}>
-            <Paper className={classes.paper}>
-              <Typography className={classes.subtitle} variant="h5">
-                Телефоны
-              </Typography>
-              <Typography variant="body2">
-                {COMPANY_INFORMATION.SHOP_CONTACT_TEXT}
-              </Typography>
-              <Box className={classes.phoneBlock}>
-                <Typography variant="h6">
-                  {COMPANY_INFORMATION.SHOP_PHONE_TWO}
+          <Grid container item xs={12}>
+            <Grid className={classes.sideGridLeft} item xs={6}>
+              <Paper className={classes.paper}>
+                <Typography className={classes.subtitle} variant="h5">
+                  Телефоны
                 </Typography>
-                <Typography className={classes.secondCol} variant="body2">
-                  Звонок бесплатный!
+                <Typography variant="body2">
+                  {COMPANY_INFORMATION.SHOP_CONTACT_TEXT}
                 </Typography>
-              </Box>
-              <Box className={classes.phoneBlock}>
-                <Typography variant="h6">
-                  {COMPANY_INFORMATION.SHOP_PHONE}
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_PHONE_TWO}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Звонок бесплатный!
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_PHONE}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Звонки из Москвы
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_PHONE_THREE}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Если не получается дозвонитсься
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid className={classes.sideGridRight} item xs={6}>
+              <Paper className={classes.paper}>
+                <Typography className={classes.subtitle} variant="h5">
+                  Адрес и Доставка
                 </Typography>
-                <Typography className={classes.secondCol} variant="body2">
-                  Звонки из Москвы
-                </Typography>
-              </Box>
-              <Box className={classes.phoneBlock}>
-                <Typography variant="h6">
-                  {COMPANY_INFORMATION.SHOP_PHONE_THREE}
-                </Typography>
-                <Typography className={classes.secondCol} variant="body2">
-                  Если не получается дозвонитсься
-                </Typography>
-              </Box>
-            </Paper>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_ADDRESS}
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_EMAIL}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Адрес для писем
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    Можно заказать доставку.{' '}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    <Link href={url.delivery()}>
+                      <a className={classes.deliveryLink}>Подробнее...</a>
+                    </Link>
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid className={classes.sideGrid} item xs={6}>
-            <Paper className={classes.paper}>
-              <Typography className={classes.subtitle} variant="h5">
-                Адрес и Доставка
-              </Typography>
-              <Box className={classes.phoneBlock}>
-                <Typography variant="h6">
-                  {COMPANY_INFORMATION.SHOP_ADDRESS}
+          <Grid className={classes.secondRow} container item xs={12}>
+            <Grid className={classes.sideGridLeft} item xs={6}>
+              <Paper className={classes.paper}>
+                <Typography className={classes.subtitle} variant="h5">
+                  График работы
                 </Typography>
-              </Box>
-              <Box className={classes.phoneBlock}>
-                <Typography variant="h6">
-                  {COMPANY_INFORMATION.SHOP_EMAIL}
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    {COMPANY_INFORMATION.SHOP_WORKING_HOURS}
+                  </Typography>
+                  <Typography className={classes.secondCol} variant="body2">
+                    Без выходных.
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid className={classes.sideGridRight} item xs={6}>
+              <Paper className={classes.paper}>
+                <Typography className={classes.subtitle} variant="h5">
+                  Реквизиты
                 </Typography>
-                <Typography className={classes.secondCol} variant="body2">
-                  Адрес для писем
-                </Typography>
-              </Box>
-              <Box className={classes.phoneBlock}>
-                <Typography variant="h6">
-                  {COMPANY_INFORMATION.SHOP_PHONE_THREE}
-                </Typography>
-                <Typography className={classes.secondCol} variant="body2">
-                  Если не получается дозвонитсься
-                </Typography>
-              </Box>
-            </Paper>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    ИНН {COMPANY_INFORMATION.RECVIZITY.INN}
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    КПП {COMPANY_INFORMATION.RECVIZITY.KPP}
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    БИК {COMPANY_INFORMATION.RECVIZITY.BIK}
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    ОГРН {COMPANY_INFORMATION.RECVIZITY.OGRN}
+                  </Typography>
+                </Box>
+                <Box className={classes.phoneBlock}>
+                  <Typography variant="h6">
+                    Номер счета {COMPANY_INFORMATION.RECVIZITY.ACC}
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
       </AnimationPage>

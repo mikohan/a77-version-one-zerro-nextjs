@@ -122,6 +122,13 @@ export const COMPANY_INFORMATION = {
   SHOP_WORKING_HOURS: 'Ежедневно c 09:00 до 19:00',
   SHOP_CONTACT_TEXT:
     'Мы всегда открыты для сотрудничества и критики, Свяжитесь любым удобным способом.',
+  RECVIZITY: {
+    INN: 7733607590,
+    KPP: 773301001,
+    BIK: '044525555',
+    OGRN: 5077746795418,
+    ACC: '40702810170030424301',
+  },
   FREE_SHIPPING_FROM: 8000,
   DELIVERY_COST_FROM: 290,
   POPULARITY_MAKE: 2,
