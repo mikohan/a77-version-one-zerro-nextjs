@@ -355,20 +355,22 @@ export default function Order({ access, user }: IProps) {
   } else {
     return (
       <React.Fragment>
-        <AnimationPage>
-          <Grid className={classes.container} container>
-            <Grid
-              className={classes.noItems}
-              item
-              container
-              xs={12}
-              justify="center"
-              alignItems="center"
-            >
-              <Typography variant="h3">В корзине ничего нет!</Typography>
+        <NoSsr>
+          <AnimationPage>
+            <Grid className={classes.container} container>
+              <Grid
+                className={classes.noItems}
+                item
+                container
+                xs={12}
+                justify="center"
+                alignItems="center"
+              >
+                <Typography variant="h3">В корзине ничего нет!</Typography>
+              </Grid>
             </Grid>
-          </Grid>
-        </AnimationPage>
+          </AnimationPage>
+        </NoSsr>
       </React.Fragment>
     );
   }
