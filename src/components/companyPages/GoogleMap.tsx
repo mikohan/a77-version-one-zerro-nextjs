@@ -1,53 +1,37 @@
 import React from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px',
+  width: '100%',
+  height: '600px',
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 55.89152,
+  lng: 37.402525,
+};
+const marker = {
+  position: center,
+  title: 'Компаня Ангара Запчасти',
+};
+const onLoad = (marker: any) => {
+  console.log(marker);
 };
 
-declare global {
-  interface Window {
-    google: any;
-  }
-}
-
 function MyComponent() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: 'YOUR_API_KEY',
-  });
-
-  const [map, setMap] = React.useState(null);
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
-  ) : (
-    <></>
+  return (
+    <LoadScript googleMapsApiKey="AIzaSyB7dVZLu07pvlk6hOO5tvU8pGaUqwbyxG8">
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={18}>
+        <>
+          <Marker
+            onLoad={onLoad}
+            position={center}
+            label={marker.title}
+            title={marker.title}
+          />
+        </>
+      </GoogleMap>
+    </LoadScript>
   );
 }
 
