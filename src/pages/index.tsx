@@ -110,9 +110,9 @@ export default function Home(props: IHomeProps) {
           <Typography variant="h6" className={classes.blockTitle}>
             Блог
           </Typography>
-          <Typography variant="body1">
+          <Box>
             <BlogGrid posts={posts} />
-          </Typography>
+          </Box>
         </div>
         <Divider />
       </div>
