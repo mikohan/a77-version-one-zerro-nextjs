@@ -4,9 +4,10 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { IPage } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
 import Image from 'next/image';
+import url from '~/services/url';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('xl')]: {
         maxWidth: '70%',
       },
+    },
+    breads: {
+      paddingTop: theme.spacing(2),
     },
     title: {
       paddingTop: theme.spacing(3),
@@ -58,18 +62,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {
-  page: IPage;
-  google_key: string;
-}
-
-export default function About({ google_key }: IProps) {
+export default function About() {
   const classes = useStyles();
+  const breadCrumbs = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Доставка', path: url.delivery() },
+  ];
   return (
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
         <Grid className={classes.container} container>
+          <Grid className={classes.breads} item xs={12}>
+            <BreadCrumbs breadCrumbs={breadCrumbs} />
+          </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
               Гарантии от компании {COMPANY_INFORMATION.COMPANY_NAME}
