@@ -126,7 +126,6 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     // setValue(newValue);
-    console.log(newValue);
     dispatch({ type: SET_ACTIVE_PAGE, payload: newValue });
   };
 
