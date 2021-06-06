@@ -132,7 +132,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
-  const pages: string[] = ['/', '/car', '/about', '/contacts', '/grid'];
+  const pages: string[] = ['/', '/about', '/contacts', '/grid'];
 
   const router = useRouter();
   const { pathname } = router;
