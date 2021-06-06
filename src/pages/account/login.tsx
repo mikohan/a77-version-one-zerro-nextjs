@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     breads: {
-      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
     textFieldGrid: {
       paddingTop: theme.spacing(2),
@@ -106,7 +106,7 @@ export default function Register() {
 
   const breadCrumbs = [
     { name: 'Ангара77', path: '/' },
-    { name: 'Логин', path: url.login() },
+    { name: 'Логин', path: url.account.login() },
   ];
 
   const responseGoogle = (response: any) => {
