@@ -2,69 +2,174 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Container } from '@material-ui/core';
+import { Box, Paper, Grid, Typography, NoSsr } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
-import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
+import { COMPANY_INFORMATION } from '~/config';
+import Link from 'next/link';
+import url from '~/services/url';
+import GoogleMap from '~/components/companyPages/GoogleMap';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
+    container: {
+      paddingBottom: theme.spacing(5),
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '70%',
+      },
+    },
+    title: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(2),
+    },
+    paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: theme.spacing(5),
+      height: '100%',
+    },
+    mapGrid: {
+      paddingTop: theme.spacing(2),
+    },
+    mapPaper: {
       padding: theme.spacing(2),
     },
-    html: {
-      '& p, & span': {
-        fontSize: '1rem',
-      },
-      '& h2, & h3, & h4': {
-        fontSize: '1.4rem',
-      },
-      '& li, & ol': {
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-      },
+    horisontalBox: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    row: {
+      paddingBottom: theme.spacing(2),
+    },
+    subtitle: {
+      paddingBottom: theme.spacing(2),
+    },
+    p: {
+      paddingBottom: theme.spacing(2),
     },
   })
 );
 
 interface IProps {
   page: IPage;
+  google_key: string;
 }
 
-export default function About({ page }: IProps) {
+export default function About({ google_key }: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
-        <Container maxWidth="lg">
-          <Grid className={classes.main} container>
-            <Grid item xs={12}>
-              <Typography variant="h1">{page.title}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Box className={classes.html}>{parse(page.textHTML)}</Box>
-            </Grid>
+        <Grid className={classes.container} container>
+          <Grid item xs={12}>
+            <Typography className={classes.title} variant="h1">
+              Гарантии от компании {COMPANY_INFORMATION.COMPANY_NAME}
+            </Typography>
           </Grid>
-        </Container>
+          <Grid className={classes.row} container item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography className={classes.subtitle} variant="h6">
+                Вы всегда можете вернуть запчасть
+              </Typography>
+              <Typography className={classes.p} variant="body1">
+                Cлучается так, что Вы заказали запчасть, а она вам не
+                понадобилась.Или мастер в автосервисе ошибся и Вы купили не то,
+                что нужно. Мы без проблем примем запчасть назад, у нас нет
+                никаких сложных процедур возврата.
+              </Typography>
+              <Typography className={classes.p} variant="body1">
+                Мы помним каждого клиента и все копии чеков храним у себя, так
+                что достаточно позвонить и привезти запчасть. Только одна
+                просьба - пожалуйста сохраните приличный вид упаковки и
+                запчасти, ведь кто-то другой будет ее покупать.
+              </Typography>
+              <Typography className={classes.p} variant="body1">
+                Для покупателей из регионов: Если вдруг мы неправильно подберем
+                Вам запчасть, то оплатим транспортные расходы за свой счет!
+              </Typography>
+              <Typography className={classes.p} variant="body1">
+                Если вы сделали онлайн оплату, то деньги возвращаются на счет с
+                которого вы оплачивали в течении 24 часов. Если вы возвращаете
+                запчасть которая не понадобилась, то мы возвращаем вам деньги,
+                но транспортные расходы на Вас. Если вы делаете возврат по нашей
+                вине(не та запчасть), то все расходы на нас.
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid className={classes.row} container item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography className={classes.subtitle} variant="h6">
+                Гарантия на запчасти
+              </Typography>
+              <Typography className={classes.p} variant="body1">
+                Мы хорошо разбираемся в запчастях и знаем запчасти каких
+                производителей лучше. Стараемся максимально точно понять
+                требования клиента. Если все же появляются какие то вопросы, мы
+                обязательно отправим Вам фото запчасти и ее размеры.
+              </Typography>
+              <Typography className={classes.p} variant="body1">
+                Отправляем посылки только после того, как Вы будете уверены, что
+                это Ваша запчасть! А после отправки посылки , мы отправим Вам
+                номер транспортной накладной, по которой вы всегда сможете
+                отследить передвижение посылки.
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid className={classes.row} container item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography className={classes.subtitle} variant="h6">
+                Отзывы о нас
+              </Typography>
+              <Grid container item xs={12}>
+                <Grid item xs={12} md={6}>
+                  <Image
+                    src="/images/local/google_rev1.png"
+                    width={759}
+                    height={765}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Image
+                    src="/images/local/yand_otzyv_1.png"
+                    width={548}
+                    height={731}
+                  />
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <NoSsr>
+            <Grid className={classes.mapGrid} item xs={12}>
+              <Paper className={classes.mapPaper}>
+                <GoogleMap google_key={google_key} />
+              </Paper>
+            </Grid>
+          </NoSsr>
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );
 }
 export const getStaticProps: any = async (context: any) => {
-  const page = await getPage('garantija');
+  const google_key = process.env.GOOGLE_MAPS_KEY;
 
   return {
     props: {
-      page,
+      google_key,
     },
   };
 };
 
 const AboutHead = () => (
   <Head>
-    <title key="title">About US - History & Team | Angara Parts</title>
+    <title key="title">Гарантия | Angara Parts</title>
     <meta
       key="description"
       name="description"
