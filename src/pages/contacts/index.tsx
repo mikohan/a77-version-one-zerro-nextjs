@@ -73,9 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
   page: IPage;
+  google_key: string;
 }
 
-export default function About() {
+export default function About({ google_key }: IProps) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -208,7 +209,7 @@ export default function About() {
           <NoSsr>
             <Grid className={classes.mapGrid} item xs={12}>
               <Paper className={classes.mapPaper}>
-                <GoogleMap />
+                <GoogleMap google_key={google_key} />
               </Paper>
             </Grid>
           </NoSsr>
@@ -219,10 +220,12 @@ export default function About() {
 }
 export const getStaticProps: any = async (context: any) => {
   const page = await getPage('kontakty');
+  const google_key = process.env.GOOGLE_MAPS_KEY;
 
   return {
     props: {
       page,
+      google_key,
     },
   };
 };

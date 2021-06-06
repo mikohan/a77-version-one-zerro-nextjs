@@ -16,9 +16,12 @@ const marker = {
 };
 const onLoad = (marker: any) => {};
 
-function MyComponent() {
+interface IProps {
+  google_key: string;
+}
+function MyComponent({ google_key }: IProps) {
   return (
-    <LoadScript googleMapsApiKey={process.env.GOOGLE_MAP_KEY as string}>
+    <LoadScript googleMapsApiKey={google_key as string}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={18}>
         <>
           <Marker
