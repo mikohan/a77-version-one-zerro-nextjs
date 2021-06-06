@@ -206,13 +206,11 @@ export default function About({ google_key }: IProps) {
               </Paper>
             </Grid>
           </Grid>
-          <NoSsr>
-            <Grid className={classes.mapGrid} item xs={12}>
-              <Paper className={classes.mapPaper}>
-                <GoogleMap google_key={google_key} />
-              </Paper>
-            </Grid>
-          </NoSsr>
+          <Grid className={classes.mapGrid} item xs={12}>
+            <Paper className={classes.mapPaper}>
+              <GoogleMap google_key={google_key} />
+            </Paper>
+          </Grid>
         </Grid>
       </AnimationPage>
     </React.Fragment>

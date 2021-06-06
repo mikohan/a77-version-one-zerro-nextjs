@@ -4,7 +4,6 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Box, Paper, Grid, Typography, NoSsr } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { getPage } from '~/endpoints/blogEndpoint';
 import { IPage } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
 import Link from 'next/link';
