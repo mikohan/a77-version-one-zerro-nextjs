@@ -2,13 +2,10 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Paper, Grid, Typography, NoSsr } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { IPage } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
-import Link from 'next/link';
-import url from '~/services/url';
-import GoogleMap from '~/components/companyPages/GoogleMap';
 import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -164,15 +161,6 @@ export default function About({ google_key }: IProps) {
     </React.Fragment>
   );
 }
-export const getStaticProps: any = async (context: any) => {
-  const google_key = process.env.GOOGLE_MAPS_KEY;
-
-  return {
-    props: {
-      google_key,
-    },
-  };
-};
 
 const AboutHead = () => (
   <Head>
