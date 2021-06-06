@@ -20,6 +20,7 @@ import { getUserCookie } from '~/services/getUserCookie';
 import { GetServerSidePropsContext } from 'next';
 import GoogleLogin from 'react-google-login';
 import { googleLogin } from '~/store/users/userAction';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
       position: 'relative',
+    },
+    breads: {
+      paddingTop: theme.spacing(2),
     },
     textFieldGrid: {
       paddingTop: theme.spacing(2),
@@ -100,6 +104,11 @@ export default function Register() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const breadCrumbs = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Логин', path: url.login() },
+  ];
+
   const responseGoogle = (response: any) => {
     if (response) {
       dispatch(googleLogin(response.tokenId));
@@ -112,6 +121,9 @@ export default function Register() {
       <AnimationPage>
         <Container maxWidth="lg">
           <Grid className={classes.main} container justify="center">
+            <Grid className={classes.breads} item xs={12}>
+              <BreadCrumbs breadCrumbs={breadCrumbs} />
+            </Grid>
             <Grid className={classes.sideGrid} item xs={8}>
               <LoginFormPaper />
             </Grid>

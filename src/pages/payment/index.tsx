@@ -4,7 +4,6 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { COMPANY_INFORMATION } from '~/config';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 import url from '~/services/url';
 
@@ -71,7 +70,7 @@ export default function About() {
   const classes = useStyles();
   const breadCrumbs = [
     { name: 'Ангара77', path: '/' },
-    { name: 'Доставка', path: url.delivery() },
+    { name: 'Оплата', path: url.payment() },
   ];
   return (
     <React.Fragment>
@@ -83,7 +82,7 @@ export default function About() {
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
-              Гарантии от компании {COMPANY_INFORMATION.COMPANY_NAME}
+              Способы оплаты
             </Typography>
           </Grid>
           <Grid className={classes.row} container item xs={12}>
