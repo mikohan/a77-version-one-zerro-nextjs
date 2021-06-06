@@ -259,7 +259,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
         />
         <Tab
           label={
-            <Link href={url.blogCategory('vse-kategorii', '1')}>Blog</Link>
+            <Link href={url.blogCategory('vse-kategorii', '1')}>Блог</Link>
           }
         />
         <Tab label="Личный кабинет" onClick={handleClickCategory} />
