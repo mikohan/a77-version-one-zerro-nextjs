@@ -126,40 +126,24 @@ export default function Header({ setIsDark, isDark }: IProps) {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     // setValue(newValue);
+    console.log(newValue);
     dispatch({ type: SET_ACTIVE_PAGE, payload: newValue });
   };
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
-  const pages: string[] = ['/', '/about', '/contacts', '/grid'];
+  const pages: string[] = ['/', '/about', '/contacts', '/blog'];
+  const company = ['/delivery', '/warranty', '/payment', '/policy'];
 
   const router = useRouter();
   const { pathname } = router;
 
-  const cur = pages.findIndex((item: string) => item === pathname);
-  // Needs to be refactored later
-  if (cur < 0) {
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 0 });
-  }
-  useEffect(() => {
-    dispatch({ type: SET_ACTIVE_PAGE, payload: cur });
-  }, [activePage, pathname]);
-
-  const goHome = () => {
-    router.push({ pathname: url.home() });
-    setDrawerOpen(false);
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 0 });
-  };
-  const goContacts = () => {
-    router.push({ pathname: url.contacts() });
-    setDrawerOpen(false);
-  };
-  const goBlog = () => {
-    router.push({ pathname: url.blogCategory('vse-kategorii', '1') });
-    setDrawerOpen(false);
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 4 });
-  };
+  const cur = pages.findIndex((item: string) => {
+    if (item !== '/') {
+      return pathname.includes(item);
+    }
+  });
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -212,14 +196,14 @@ export default function Header({ setIsDark, isDark }: IProps) {
         disableDiscovery={iOS}
       >
         <List className={classes.list}>
-          <ListItem button onClick={goHome} selected={activePage === 0}>
+          <ListItem button selected={activePage === 0}>
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
             <ListItemText>ANGARA PARTS</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button onClick={goContacts} selected={activePage === 3}>
+          <ListItem button selected={activePage === 3}>
             <ListItemIcon>
               <ContactMailIcon />
             </ListItemIcon>
@@ -257,23 +241,27 @@ export default function Header({ setIsDark, isDark }: IProps) {
         textColor="primary"
         centered
       >
-        <Link href={url.home()}>
-          <a>
-            <Tab label="ANGARA PARTS" />
-          </a>
-        </Link>
+        <Tab
+          label={
+            <Link href={url.home()}>
+              <a>ANGARA PARTS</a>
+            </Link>
+          }
+        />
 
         <Tab label="Компания" onClick={handleClickCompany} />
-        <Link href={url.contacts()}>
-          <a>
-            <Tab label="Контакты" />
-          </a>
-        </Link>
-        <Link href={url.blogCategory('vse-kategorii', '1')}>
-          <a>
-            <Tab label="Блог" />
-          </a>
-        </Link>
+        <Tab
+          label={
+            <Link href={url.contacts()}>
+              <a>Контакты</a>
+            </Link>
+          }
+        />
+        <Tab
+          label={
+            <Link href={url.blogCategory('vse-kategorii', '1')}>Blog</Link>
+          }
+        />
         <Tab label="Личный кабинет" onClick={handleClickCategory} />
       </Tabs>
     </React.Fragment>

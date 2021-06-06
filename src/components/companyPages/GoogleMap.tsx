@@ -14,9 +14,7 @@ const marker = {
   position: center,
   title: 'Компаня Ангара Запчасти',
 };
-const onLoad = (marker: any) => {
-  console.log(marker);
-};
+const onLoad = (marker: any) => {};
 
 function MyComponent() {
   return (
