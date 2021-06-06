@@ -51,6 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     p: {
       paddingBottom: theme.spacing(2),
+      '&>span': {
+        fontWeight: 700,
+      },
+    },
+    rusImg: {
+      paddingRight: theme.spacing(3),
     },
   })
 );
@@ -80,12 +86,16 @@ export default function About({ google_key }: IProps) {
 
               <Grid container>
                 <Grid item xs={6}>
-                  lorem
+                  <Image
+                    src="/images/local/moscow.jpg"
+                    width={558}
+                    height={445}
+                  />
                 </Grid>
                 <Grid item xs={6}>
                   <Typography className={classes.p} variant="body1">
-                    Доставка по городу - 290 рублей. При заказе от 8000 рублей -
-                    Доставим бесплатно!
+                    Доставка по городу - <span>290 рублей</span>. При заказе от
+                    <span> 8000 рублей</span> - Доставим <span>бесплатно</span>!
                   </Typography>
                   <Typography className={classes.p} variant="body1">
                     При возможности доставим в этот же день! В ином случае - на
@@ -106,8 +116,18 @@ export default function About({ google_key }: IProps) {
                 Доставка по России
               </Typography>
               <Grid container>
-                <Grid item xs={6}>
-                  lorem
+                <Grid
+                  className={classes.rusImg}
+                  container
+                  alignItems="center"
+                  item
+                  xs={6}
+                >
+                  <Image
+                    src="/images/local/russia.jpg"
+                    width={800}
+                    height={400}
+                  />
                 </Grid>
                 <Grid item xs={6}>
                   <Typography className={classes.p} variant="body1">
@@ -117,8 +137,9 @@ export default function About({ google_key }: IProps) {
                     стоит и т.д.
                   </Typography>
                   <Typography className={classes.p} variant="body1">
-                    Доставка до транспортной - за наш счет. В среднем стоимость
-                    доставки во все города до Урала включительно - 500 руб
+                    Доставка до транспортной - <span> за наш счет</span>. В
+                    среднем стоимость доставки во все города до Урала
+                    включительно - <span>500 руб </span>
                     Стоимость обрешетки - от 300 руб. Иногда нужна обрешетка,
                     например при отправке стекол. Это за счет клиента
                   </Typography>
@@ -138,34 +159,6 @@ export default function About({ google_key }: IProps) {
               </Grid>
             </Paper>
           </Grid>
-          <Grid className={classes.row} container item xs={12}>
-            <Paper className={classes.paper}>
-              <Typography className={classes.subtitle} variant="h6">
-                Отзывы о нас
-              </Typography>
-              <Grid container item xs={12}>
-                <Grid item xs={12} md={6}>
-                  <Image
-                    src="/images/local/google_rev1.png"
-                    width={759}
-                    height={765}
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Image
-                    src="/images/local/yand_otzyv_1.png"
-                    width={548}
-                    height={731}
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid className={classes.mapGrid} item xs={12}>
-            <Paper className={classes.mapPaper}>
-              <GoogleMap google_key={google_key} />
-            </Paper>
-          </Grid>
         </Grid>
       </AnimationPage>
     </React.Fragment>
@@ -183,7 +176,7 @@ export const getStaticProps: any = async (context: any) => {
 
 const AboutHead = () => (
   <Head>
-    <title key="title">Гарантия | Angara Parts</title>
+    <title key="title">Доставка | Angara Parts</title>
     <meta
       key="description"
       name="description"
