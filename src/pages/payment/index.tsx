@@ -2,22 +2,11 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { IPage } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
-import Image from 'next/image';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('xl')]: {
         maxWidth: '70%',
       },
+    },
+    breads: {
+      paddingTop: theme.spacing(2),
     },
     title: {
       paddingTop: theme.spacing(3),
@@ -75,18 +67,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {
-  page: IPage;
-  google_key: string;
-}
-
 export default function About() {
   const classes = useStyles();
+  const breadCrumbs = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Доставка', path: url.delivery() },
+  ];
   return (
     <React.Fragment>
       <AboutHead />
       <AnimationPage>
         <Grid className={classes.container} container>
+          <Grid className={classes.breads} item xs={12}>
+            <BreadCrumbs breadCrumbs={breadCrumbs} />
+          </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
               Гарантии от компании {COMPANY_INFORMATION.COMPANY_NAME}
@@ -148,7 +142,7 @@ export default function About() {
 
 const AboutHead = () => (
   <Head>
-    <title key="title">Доставка | Angara Parts</title>
+    <title key="title">Оплата | Angara Parts</title>
     <meta
       key="description"
       name="description"
