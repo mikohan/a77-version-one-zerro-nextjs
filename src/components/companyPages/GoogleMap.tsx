@@ -18,7 +18,7 @@ const onLoad = (marker: any) => {};
 
 function MyComponent() {
   return (
-    <LoadScript googleMapsApiKey="AIzaSyB7dVZLu07pvlk6hOO5tvU8pGaUqwbyxG8">
+    <LoadScript googleMapsApiKey={process.env.GOOGLE_MAP_KEY as string}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={18}>
         <>
           <Marker
