@@ -2,11 +2,13 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Grid, Typography, Paper } from '@material-ui/core';
+import { Grid, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import parse from 'html-react-parser';
 import { IPage } from '~/interfaces';
+import url from '~/services/url';
+import BreadCrumbs from '~/components/common/BreadCrumbs';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +48,10 @@ interface IProps {
 
 export default function About({ page }: IProps) {
   const classes = useStyles();
+  const breadCrumbs = [
+    { name: 'Ангара77', path: '/' },
+    { name: 'Политика конфидециальности', path: url.policy() },
+  ];
   const string = page.textHTML;
   const re = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/gi;
   const newPage = string.replace(re, SITE_DOMAIN_FULL);
@@ -54,6 +60,9 @@ export default function About({ page }: IProps) {
       <AboutHead />
       <AnimationPage>
         <Grid className={classes.container} container>
+          <Grid item xs={12}>
+            <BreadCrumbs breadCrumbs={breadCrumbs} />
+          </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
               {page.title}
