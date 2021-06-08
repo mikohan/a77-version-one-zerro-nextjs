@@ -268,7 +268,7 @@ const AboutHead = () => {
       <link
         rel="canonical"
         key="canonical"
-        href={`${SITE_DOMAIN_FULL}/about`}
+        href={`${SITE_DOMAIN_FULL}${url.contacts()}`}
       />
       <script
         type="application/ld+json"
