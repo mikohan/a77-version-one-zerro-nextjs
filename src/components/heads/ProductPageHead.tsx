@@ -10,6 +10,7 @@ interface IProps {
 
 export default function ProductPageHead({ product }: IProps) {
   const mk = capitalize(product.name);
+  console.log(product);
   return (
     <Head>
       <title key="title">Запчасти {mk} в наличии | Angara 77 Parts</title>
@@ -42,6 +43,55 @@ export default function ProductPageHead({ product }: IProps) {
         rel="canonical"
         key="canonical"
         href={`${SITE_DOMAIN_FULL}/about`}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org/',
+            '@type': 'Product',
+            name: 'Example product',
+            image: [
+              'https://example.com/photos/1x1/photo.jpg',
+              'https://example.com/photos/4x3/photo.jpg',
+              'https://example.com/photos/16x9/photo.jpg',
+            ],
+            description:
+              'Example product is the best example product out there. Make sure to get the one and only -- the original.',
+            sku: '0374984678',
+            mpn: '738930',
+            brand: {
+              '@type': 'Brand',
+              name: 'Example',
+            },
+            review: {
+              '@type': 'Review',
+              reviewRating: {
+                '@type': 'Rating',
+                ratingValue: '4',
+                bestRating: '5',
+              },
+              author: {
+                '@type': 'Person',
+                name: 'Hank Williams',
+              },
+            },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '4.7',
+              reviewCount: '1455',
+            },
+            offers: {
+              '@type': 'Offer',
+              url: 'https://example.com/product',
+              priceCurrency: 'USD',
+              price: '49.99',
+              priceValidUntil: '2021-11-20',
+              itemCondition: 'https://schema.org/NewCondition',
+              availability: 'https://schema.org/InStock',
+            },
+          }),
+        }}
       />
     </Head>
   );
