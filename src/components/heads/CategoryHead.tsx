@@ -1,7 +1,7 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { ICar, IMake, IProduct, ICategory } from '~/interfaces';
+import { ICar, IMake, IBread, IProduct, ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
 import url from '~/services/url';
 
@@ -9,17 +9,30 @@ interface IProps {
   model: ICar;
   category: ICategory;
   products: IProduct[];
+  breads: IBread[];
 }
 
-export default function CarModelHead({ model, category, products }: IProps) {
+export default function CarModelHead({
+  model,
+  category,
+  products,
+  breads,
+}: IProps) {
   const mk = capitalize(model.make.name);
   const md = capitalize(model.model);
   const ct = capitalize(category.name);
 
   const items = products.map((product: IProduct, i: number) => ({
     '@type': 'ListItem',
-    position: i,
+    position: i + 1,
     url: url.product(product.slug),
+  }));
+
+  const breadItems = breads.map((bread: IBread, i: number) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: bread.name,
+    item: `${SITE_DOMAIN_FULL}${bread.path}`,
   }));
 
   return (
@@ -42,8 +55,19 @@ export default function CarModelHead({ model, category, products }: IProps) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'http://schema.org',
-            numberOfItems: 3,
+            '@type': 'ItemList',
+            numberOfItems: items.length,
             itemListElement: items,
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: breadItems,
           }),
         }}
       />

@@ -196,7 +196,12 @@ export default function Cagetory(props: CategoryProps) {
   );
   return (
     <React.Fragment>
-      <CategoryHead model={model} category={category} products={headProds} />
+      <CategoryHead
+        model={model}
+        category={category}
+        products={headProds}
+        breads={breads}
+      />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
