@@ -15,6 +15,13 @@ export default function CarModelHead({ model, category, products }: IProps) {
   const mk = capitalize(model.make.name);
   const md = capitalize(model.model);
   const ct = capitalize(category.name);
+
+  const items = products.map((product: IProduct, i: number) => ({
+    '@type': 'ListItem',
+    position: i,
+    url: url.product(product.slug),
+  }));
+
   return (
     <Head>
       <title key="title">
@@ -36,13 +43,7 @@ export default function CarModelHead({ model, category, products }: IProps) {
           __html: JSON.stringify({
             '@context': 'http://schema.org',
             numberOfItems: 3,
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                url: 'https://www.example.co.uk/',
-              },
-            ],
+            itemListElement: items,
           }),
         }}
       />
