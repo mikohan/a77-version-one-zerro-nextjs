@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { IMake } from '~/interfaces';
 import { capitalize } from '~/utils';
+import url from '~/services/url';
 
 interface IProps {
   make: IMake;
@@ -21,7 +22,7 @@ export default function CarMakeHead({ make }: IProps) {
       <link
         rel="canonical"
         key="canonical"
-        href={`${SITE_DOMAIN_FULL}/about`}
+        href={`${SITE_DOMAIN_FULL}${url.make(make.slug)}`}
       />
       <script
         type="application/ld+json"
