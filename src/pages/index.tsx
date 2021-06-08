@@ -15,6 +15,7 @@ import { getLatestProducts } from '~/endpoints/productEndpoint';
 import { translateProducts } from '~/utils';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import Divider from '~/components/common/Divider';
+import HomeHead from '~/components/heads/HomeHead';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

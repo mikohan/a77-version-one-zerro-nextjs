@@ -12,36 +12,34 @@ export default function CarMakeHead({ make }: IProps) {
   const mk = capitalize(make.name);
   return (
     <Head>
-      <title key="title">Запчасти {mk} в наличии | Angara 77 Parts</title>
+      <title key="title">Запчасти для {mk} в наличии | Angara 77 Parts</title>
       <meta
         key="description"
         name="description"
         content={`Запчасти для ${mk} с доставкой и со склада в интерет магазине АНГАРА77 | Звоните ${footerData.SHOP_PHONE}!`}
       />
-      <meta
-        key="og:title"
-        property="og:title"
-        content="Get your car in perfect health | Angara Parts | About Us"
-      />
-      <meta
-        key="og:url"
-        property="og:url"
-        content={`${SITE_DOMAIN_FULL}/about`}
-      />
-      <meta key="og:image" property="og:image" content="/favicon.png" />
-      <meta key="og:image:type" property="og:image:type" content="image/png" />
-      <meta key="og:image:width" property="og:image:width" content="1200" />
-      <meta key="og:image:hight" property="og:image:hight" content="630" />
-
-      <meta
-        key="og:image:alt"
-        property="og:image:alt"
-        content="Angara 77 logo"
-      />
       <link
         rel="canonical"
         key="canonical"
         href={`${SITE_DOMAIN_FULL}/about`}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'Organization',
+            name: 'Ангара Запчасти',
+            url: SITE_DOMAIN_FULL,
+            logo: `${SITE_DOMAIN_FULL}/images/local/logo.png`,
+            foundingDate: '2007',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${SITE_DOMAIN_FULL}/search?search={search_term_string}`,
+              'query-input': 'required name=search_term_string',
+            },
+          }),
+        }}
       />
     </Head>
   );

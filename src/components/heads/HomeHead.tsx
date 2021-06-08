@@ -1,15 +1,8 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { capitalize } from '~/utils';
-import { ICar, IProduct } from '~/interfaces';
-import url from '~/services/url';
 
-interface IProps {
-  product: IProduct;
-}
-
-export default function ProductPageHead() {
+export default function HomeHead() {
   return (
     <Head>
       <title key="title">
@@ -31,14 +24,12 @@ export default function ProductPageHead() {
             name: 'Ангара Запчасти',
             url: SITE_DOMAIN_FULL,
             logo: `${SITE_DOMAIN_FULL}/images/local/logo.png`,
-            foundingDate: '1985',
-            sameAs: [
-              'https://www.facebook.com/brand/',
-              'https://twitter.com/brand',
-              'https://www.instagram.com/brand/',
-              'https://www.pinterest.co.uk/brand/',
-              'https://www.youtube.com/user/brand',
-            ],
+            foundingDate: '2007',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${SITE_DOMAIN_FULL}/search?search={search_term_string}`,
+              'query-input': 'required name=search_term_string',
+            },
           }),
         }}
       />
