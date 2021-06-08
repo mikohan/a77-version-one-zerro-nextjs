@@ -69,7 +69,7 @@ function Make(props: ICarProps) {
 
   return (
     <React.Fragment>
-      <CarMakeHead make={make} />
+      <CarMakeHead make={make} breads={breads} />
       <AnimationPage>
         <Grid className={classes.container} container>
           <PageHeader header={header} breads={breads} count={count} />
