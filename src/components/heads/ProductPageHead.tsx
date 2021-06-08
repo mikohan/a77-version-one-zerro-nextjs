@@ -10,19 +10,21 @@ interface IProps {
 }
 
 export default function ProductPageHead({ product }: IProps) {
-  console.log(product.model.map((model: ICar) => model.model));
-  const mk = capitalize(product.name);
+  const mod = product.model.map((car: ICar) => car.model);
+  const mods = mod.join(' ');
+  const mk = `${capitalize(product.name)} для ${mods}`;
   const today = new Date();
   const date = `${today.getFullYear()}-${
     today.getMonth() + 1
   }-${today.getDay()}`;
+  console.log(mk);
   return (
     <Head>
-      <title key="title">Запчасти {mk} в наличии | Angara 77 Parts</title>
+      <title key="title">{mk} в наличии | Angara 77 Parts</title>
       <meta
         key="description"
         name="description"
-        content={`Запчасти для ${mk} с доставкой и со склада в интерет магазине АНГАРА77 | Звоните ${footerData.SHOP_PHONE}!`}
+        content={`${mk} с доставкой и со склада в интерет магазине АНГАРА77 | Звоните ${footerData.SHOP_PHONE}!`}
       />
       {/* <meta */}
       {/*   key="og:title" */}
