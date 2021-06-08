@@ -252,18 +252,7 @@ const AboutHead = () => {
       <meta
         key="description"
         name="description"
-        content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
-          company and history of establishment. We are open our dors in 2001 first time`}
-      />
-      <meta
-        key="og:title"
-        property="og:title"
-        content="Get your car in perfect health | Angara Parts | About Us"
-      />
-      <meta
-        key="og:url"
-        property="og:url"
-        content={`${SITE_DOMAIN_FULL}/about`}
+        content={`Контакты Ангара Запчасти| ${footerData.SHOP_PHONE}. Информация о контактах и способах связи.`}
       />
       <link
         rel="canonical"

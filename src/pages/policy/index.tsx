@@ -99,8 +99,7 @@ const AboutHead = () => {
       <meta
         key="description"
         name="description"
-        content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
-          company and history of establishment. We are open our dors in 2001 first time`}
+        content={`Политика конфиденциальности компании Ангара Запчасти | ${footerData.SHOP_PHONE}`}
       />
       <link
         rel="canonical"
