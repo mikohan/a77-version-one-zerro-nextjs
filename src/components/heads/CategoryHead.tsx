@@ -25,7 +25,7 @@ export default function CarModelHead({
   const items = products.map((product: IProduct, i: number) => ({
     '@type': 'ListItem',
     position: i + 1,
-    url: url.product(product.slug),
+    url: `${SITE_DOMAIN_FULL}${url.product(product.slug)}`,
   }));
 
   const breadItems = breads.map((bread: IBread, i: number) => ({
@@ -48,7 +48,11 @@ export default function CarModelHead({
       <link
         rel="canonical"
         key="canonical"
-        href={url.category(model.make.slug, model.slug, category.slug)}
+        href={`${SITE_DOMAIN_FULL}${url.category(
+          model.make.slug,
+          model.slug,
+          category.slug
+        )}`}
       />
       <script
         type="application/ld+json"
