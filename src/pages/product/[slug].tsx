@@ -243,7 +243,7 @@ export default function ProductPage({
 
   return (
     <React.Fragment>
-      <ProductPageHead product={product} />
+      <ProductPageHead product={product} breads={breads} />
       <AnimationPage>
         <div className={classes.mainContainer}>
           <Grid container>
