@@ -79,7 +79,7 @@ export default function About() {
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
-              Гарантии от компании {COMPANY_INFORMATION.COMPANY_NAME}
+              Доставка {COMPANY_INFORMATION.COMPANY_NAME}
             </Typography>
           </Grid>
           <Grid className={classes.row} container item xs={12}>
