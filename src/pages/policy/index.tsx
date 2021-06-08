@@ -6,7 +6,7 @@ import { Grid, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
 import parse from 'html-react-parser';
-import { IPage } from '~/interfaces';
+import { IPage, IBread } from '~/interfaces';
 import url from '~/services/url';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 
@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
   page: IPage;
 }
+const breadCrumbs = [
+  { name: 'Ангара77', path: '/' },
+  { name: 'Политика конфидециальности', path: url.policy() },
+];
 
 export default function About({ page }: IProps) {
   const classes = useStyles();
-  const breadCrumbs = [
-    { name: 'Ангара77', path: '/' },
-    { name: 'Политика конфидециальности', path: url.policy() },
-  ];
   const string = page.textHTML;
   const re = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/gi;
   const newPage = string.replace(re, SITE_DOMAIN_FULL);
@@ -86,31 +86,37 @@ export const getStaticProps: any = async (context: any) => {
   };
 };
 
-const AboutHead = () => (
-  <Head>
-    <title key="title">Политика конфиденциальности | Angara Parts</title>
-    <meta
-      key="description"
-      name="description"
-      content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
+const AboutHead = () => {
+  const breadItems = breadCrumbs.map((bread: IBread, i: number) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: bread.name,
+    item: `${SITE_DOMAIN_FULL}${bread.path}`,
+  }));
+  return (
+    <Head>
+      <title key="title">Политика конфиденциальности | Angara Parts</title>
+      <meta
+        key="description"
+        name="description"
+        content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
           company and history of establishment. We are open our dors in 2001 first time`}
-    />
-    <meta
-      key="og:title"
-      property="og:title"
-      content="Get your car in perfect health | Angara Parts | About Us"
-    />
-    <meta
-      key="og:url"
-      property="og:url"
-      content={`${SITE_DOMAIN_FULL}/about`}
-    />
-    <meta key="og:image" property="og:image" content="/favicon.png" />
-    <meta key="og:image:type" property="og:image:type" content="image/png" />
-    <meta key="og:image:width" property="og:image:width" content="1200" />
-    <meta key="og:image:hight" property="og:image:hight" content="630" />
-
-    <meta key="og:image:alt" property="og:image:alt" content="Angara 77 logo" />
-    <link rel="canonical" key="canonical" href={`${SITE_DOMAIN_FULL}/policy`} />
-  </Head>
-);
+      />
+      <link
+        rel="canonical"
+        key="canonical"
+        href={`${SITE_DOMAIN_FULL}${url.delivery()}`}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: breadItems,
+          }),
+        }}
+      />
+    </Head>
+  );
+};
