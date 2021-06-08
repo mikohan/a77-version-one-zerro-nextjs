@@ -4,14 +4,22 @@ import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { ICar } from '~/interfaces/ICar';
 import { capitalize } from '~/utils';
 import url from '~/services/url';
+import { IBread } from '~/interfaces';
 
 interface IProps {
   model: ICar;
+  breads: IBread[];
 }
 
-export default function CarModelHead({ model }: IProps) {
+export default function CarModelHead({ model, breads }: IProps) {
   const mk = capitalize(model.make.name);
   const md = capitalize(model.model);
+  const breadItems = breads.map((bread: IBread, i: number) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: bread.name,
+    item: `${SITE_DOMAIN_FULL}${bread.path}`,
+  }));
   return (
     <Head>
       <title key="title">
@@ -42,6 +50,16 @@ export default function CarModelHead({ model }: IProps) {
               target: `${SITE_DOMAIN_FULL}/search?search={search_term_string}`,
               'query-input': 'required name=search_term_string',
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: breadItems,
           }),
         }}
       />

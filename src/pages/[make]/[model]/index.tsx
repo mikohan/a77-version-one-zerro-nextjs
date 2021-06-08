@@ -206,7 +206,7 @@ function Model(props: IModelProps) {
 
   return (
     <React.Fragment>
-      <CarModelHead model={model} />
+      <CarModelHead model={model} breads={breads} />
       <AnimationPage>
         <Grid className={classes.container} container>
           {showCarHomePage ? (
