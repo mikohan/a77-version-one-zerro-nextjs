@@ -1,16 +1,17 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { ICar, IMake, ICategory } from '~/interfaces';
+import { ICar, IMake, IProduct, ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
 import url from '~/services/url';
 
 interface IProps {
   model: ICar;
   category: ICategory;
+  products: IProduct[];
 }
 
-export default function CarModelHead({ model, category }: IProps) {
+export default function CarModelHead({ model, category, products }: IProps) {
   const mk = capitalize(model.make.name);
   const md = capitalize(model.model);
   const ct = capitalize(category.name);
@@ -34,16 +35,14 @@ export default function CarModelHead({ model, category }: IProps) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'http://schema.org',
-            '@type': 'Organization',
-            name: 'Ангара Запчасти',
-            url: SITE_DOMAIN_FULL,
-            logo: `${SITE_DOMAIN_FULL}/images/local/logo.png`,
-            foundingDate: '2007',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${SITE_DOMAIN_FULL}/search?search={search_term_string}`,
-              'query-input': 'required name=search_term_string',
-            },
+            numberOfItems: 3,
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                url: 'https://www.example.co.uk/',
+              },
+            ],
           }),
         }}
       />

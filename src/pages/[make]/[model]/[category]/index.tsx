@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
-import { searchTree } from '~/utils';
+import { searchTree, translateProducts } from '~/utils';
 
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
@@ -73,6 +73,7 @@ export default function Cagetory(props: CategoryProps) {
     routerQuery,
     routerParams,
   } = props;
+  const headProds = translateProducts(products.hits);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -195,7 +196,7 @@ export default function Cagetory(props: CategoryProps) {
   );
   return (
     <React.Fragment>
-      <CategoryHead model={model} category={category} />
+      <CategoryHead model={model} category={category} products={headProds} />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>
