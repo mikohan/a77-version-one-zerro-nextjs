@@ -18,7 +18,7 @@ export default function CarModelHead({ breads }: IProps) {
   return (
     <Head>
       <title key="title">
-        Блог компании ${COMPANY_INFORMATION.COMPANY_NAME}
+        Блог компании {COMPANY_INFORMATION.COMPANY_NAME}
       </title>
       <meta
         key="description"

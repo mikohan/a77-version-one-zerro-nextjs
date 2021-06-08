@@ -9,7 +9,7 @@ interface IProps {
   post: IPost;
 }
 
-export default function CarModelHead({ breads }: IProps) {
+export default function CarModelHead({ breads, post }: IProps) {
   const breadItems = breads.map((bread: IBread, i: number) => ({
     '@type': 'ListItem',
     position: i + 1,
@@ -18,9 +18,7 @@ export default function CarModelHead({ breads }: IProps) {
   }));
   return (
     <Head>
-      <title key="title">
-        Блог компании ${COMPANY_INFORMATION.COMPANY_NAME}
-      </title>
+      <title key="title">{post.title}</title>
       <meta
         key="description"
         name="description"
@@ -29,7 +27,7 @@ export default function CarModelHead({ breads }: IProps) {
       <link
         rel="canonical"
         key="canonical"
-        href={`${SITE_DOMAIN_FULL}${url.blog()}`}
+        href={`${SITE_DOMAIN_FULL}${url.post(post.slug)}`}
       />
       <script
         type="application/ld+json"
@@ -47,25 +45,29 @@ export default function CarModelHead({ breads }: IProps) {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
-            headline: '14 Ways Json Can Improve Your SEO',
-            alternativeHeadline: 'and the women who love them',
-            image: 'http://example.com/image.jpg',
-            award: 'Best article ever written',
-            editor: 'John Doe',
-            genre: 'search engine optimization',
-            keywords: 'seo sales b2b',
-            wordcount: '1120',
-            publisher: 'Book Publisher Inc',
-            url: 'http://www.example.com',
-            datePublished: '2015-09-20',
-            dateCreated: '2015-09-20',
-            dateModified: '2015-09-20',
-            description: 'We love to do stuff to help people and stuff',
-            articleBody:
-              'You can paste your entire post in here, and yes it can get really really long.',
+            mainEntityOfPage: `${SITE_DOMAIN_FULL}${url.post(post.slug)}`,
+            headline: post.title,
+            alternativeHeadline: post.title,
+            image: post.image,
+            genre: 'Автомобили ремонт и запчасти',
+            keywords: post.tags.join(' '),
+            publisher: {
+              '@type': 'Organization',
+              name: COMPANY_INFORMATION.COMPANY_NAME,
+              logo: {
+                '@type': 'imageObject',
+                url: `${SITE_DOMAIN_FULL}/image/local/logo.png`,
+              },
+            },
+            url: `${SITE_DOMAIN_FULL}${url.post(post.slug)}`,
+            datePublished: post.date,
+            dateCreated: post.date,
+            dateModified: post.date,
+            description: post.excerpt,
+            articleBody: post.text,
             author: {
               '@type': 'Person',
-              name: 'Steve',
+              name: COMPANY_INFORMATION.COMPANY_NAME,
             },
           }),
         }}
