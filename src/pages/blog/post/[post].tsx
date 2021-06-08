@@ -6,7 +6,7 @@ import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
 import { Grid, Typography, Box, Paper } from '@material-ui/core';
-import BlogHead from '~/components/heads/BlogHead';
+import BlogPostHead from '~/components/heads/BlogPostHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
 import CategoryList from '~/components/blog/CategoryList';
@@ -196,7 +196,7 @@ export default function Posts({
 
   return (
     <React.Fragment>
-      <BlogHead />
+      <BlogPostHead breads={breadCrumbs} />
       <AnimationPage id="blogCategoriesPage">
         <div className={classes.container}>
           <Grid container>

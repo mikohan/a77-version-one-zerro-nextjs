@@ -116,7 +116,7 @@ export default function Posts({
 
   return (
     <React.Fragment>
-      <BlogHead />
+      <BlogHead breads={breadCrumbs} />
       <AnimationPage id="blogCategoriesPage">
         <div className={classes.container}>
           <Grid container>

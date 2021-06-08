@@ -113,7 +113,7 @@ export const transFilter: ITransFilter = {
 export const carHomePagePriority = 4;
 
 export const COMPANY_INFORMATION = {
-  COMPANY_NAME: 'Ангара',
+  COMPANY_NAME: 'Ангара Запчасти',
   SHOP_PHONE: '+7 (495) 646-99-53',
   SHOP_PHONE_TWO: '8 (800) 299-99-53',
   SHOP_PHONE_THREE: '+7 (926) 515-38-74',
