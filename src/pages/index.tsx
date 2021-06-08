@@ -68,55 +68,58 @@ export default function Home(props: IHomeProps) {
   const { posts, models, latestProducts } = props;
 
   return (
-    <Animation>
-      <Grid container>
-        <Grid item xs={12} className={classes.carChoiser}>
-          <Box className={classes.topBlock}>
-            <Container maxWidth={containerMaxWidth}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <Typography className={classes.h1} variant="h1">
-                    Запчасти для грузовиков и комерческого транспорта
-                  </Typography>
+    <React.Fragment>
+      <HomeHead />
+      <Animation>
+        <Grid container>
+          <Grid item xs={12} className={classes.carChoiser}>
+            <Box className={classes.topBlock}>
+              <Container maxWidth={containerMaxWidth}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <Typography className={classes.h1} variant="h1">
+                      Запчасти для грузовиков и комерческого транспорта
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} style={{ opacity: 0.9 }}>
+                    <CarChioserLong size="lg" />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} style={{ opacity: 0.9 }}>
-                  <CarChioserLong size="lg" />
-                </Grid>
-              </Grid>
-            </Container>
-          </Box>
+              </Container>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-      <div className={classes.contentContainer}>
-        <div>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Популярные Машины
-          </Typography>
-          <Box>
-            <ModelBlockGrid models={models} />
-          </Box>
+        <div className={classes.contentContainer}>
+          <div>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Популярные Машины
+            </Typography>
+            <Box>
+              <ModelBlockGrid models={models} />
+            </Box>
+          </div>
+          <Divider />
+          <div>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Популярные товары
+            </Typography>
+            <Box>
+              <RelatedProductSlider products={latestProducts} />
+            </Box>
+          </div>
+          <Divider />
+          <div>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Блог
+            </Typography>
+            <Box>
+              <BlogGrid posts={posts} />
+            </Box>
+          </div>
+          <Divider />
         </div>
-        <Divider />
-        <div>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Популярные товары
-          </Typography>
-          <Box>
-            <RelatedProductSlider products={latestProducts} />
-          </Box>
-        </div>
-        <Divider />
-        <div>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Блог
-          </Typography>
-          <Box>
-            <BlogGrid posts={posts} />
-          </Box>
-        </div>
-        <Divider />
-      </div>
-    </Animation>
+      </Animation>
+    </React.Fragment>
   );
 }
 
