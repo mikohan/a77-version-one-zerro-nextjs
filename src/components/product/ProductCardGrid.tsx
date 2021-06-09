@@ -9,8 +9,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItem, cartAddItemSuccess } from '~/store/cart/cartAction';
-import { IState } from '~/interfaces';
-import useLocalStorage from '~/hooks/useLocalStorage';
+import Snackbar from '~/components/common/AddedToCartSnackBar';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -127,7 +126,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   function handleAddToCart() {
     dispatch(cartAddItemSuccess(product._source, [], 1));
     /* setInCart(true); */
-    /* setOpenSnackbar(true); */
+    setOpenSnackbar(true);
   }
 
   return (
