@@ -185,7 +185,7 @@ export default function Cagetory(props: CategoryProps) {
   );
   return (
     <React.Fragment>
-      <SearchHead searchQuery={'replace for real search later'} />
+      <SearchHead searchQuery={search} />
       <AnimationPage>
         <Container maxWidth={containerMaxWidth}>
           <Grid container>

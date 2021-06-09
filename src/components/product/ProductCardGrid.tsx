@@ -3,13 +3,12 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { capitalize } from '~/utils';
 import ChipContainer from '../common/ChipBox';
-import { useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
 import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { cartAddItem } from '~/store/cart/cartAction';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -108,6 +107,15 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   let car: string =
     currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
 
+  const dispatch = useDispatch();
+
+  function handleAddToCart() {
+    console.log(product._source);
+    dispatch(cartAddItem(product._source, [], 1));
+    /* setInCart(true); */
+    /* setOpenSnackbar(true); */
+  }
+
   return (
     <div className={classes.card}>
       {compatable && <ChipContainer car={car} />}
@@ -145,7 +153,10 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         <Typography className={classes.sku} variant="body2" component="div">
           {product._source.brand.name.toUpperCase()}
         </Typography>
-        <ShoppingCartOutlinedIcon className={classes.cartIcon} />
+        <ShoppingCartOutlinedIcon
+          className={classes.cartIcon}
+          onClick={handleAddToCart}
+        />
       </div>
     </div>
   );
