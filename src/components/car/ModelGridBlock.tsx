@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
     },
     catItem: {
-      // color: theme.palette.primary.main,
+      color:
+        theme.palette.type === 'light' ? theme.palette.primary.main : 'inherit',
     },
   })
 );
