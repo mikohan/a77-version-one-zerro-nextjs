@@ -12,6 +12,7 @@ import { cartAddItem, cartAddItemSuccess } from '~/store/cart/cartAction';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
 import { IState } from '~/interfaces';
 import { ICartItem } from '~/store/cart/cartTypes';
+import { Button } from '@material-ui/core';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -97,6 +98,21 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         fontSize: '1.5rem',
         color: theme.palette.text.disabled,
         transition: '0.5s',
+      },
+      inCart: {
+        maxWidth: theme.spacing(12),
+        maxHeight: theme.spacing(3),
+        fontSize: '0.7rem',
+        background: theme.palette.success.main,
+        color:
+          theme.palette.type === 'light'
+            ? theme.palette.background.paper
+            : 'inherit',
+      },
+      toCart: {
+        width: theme.spacing(13),
+        maxHeight: theme.spacing(3),
+        fontSize: '0.7rem',
       },
     })
   );
@@ -188,12 +204,22 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
           {product._source.brand.name.toUpperCase()}
         </Typography>
         {inCart ? (
-          <div>В Корзине</div>
+          <Button variant="contained" className={classes.inCart}>
+            В Корзине
+          </Button>
         ) : (
-          <ShoppingCartOutlinedIcon
-            className={classes.cartIcon}
+          /* <ShoppingCartOutlinedIcon */
+          /*   className={classes.cartIcon} */
+          /*   onClick={handleAddToCart} */
+          /* /> */
+          <Button
+            variant="contained"
+            className={classes.toCart}
             onClick={handleAddToCart}
-          />
+            color="primary"
+          >
+            В Корзину
+          </Button>
         )}
       </div>
     </div>
