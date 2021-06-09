@@ -189,14 +189,6 @@ export default function ProductPage({
   const togetherProducts: IProduct[] =
     product.related && product.related.length ? product.related : [];
 
-  // cart related stuff
-
-  const [localStorageCart, setLocalStorageCart] = useLocalStorage('cart', null);
-  const cart = useSelector((state: IState) => state.cart);
-  useEffect(() => {
-    setLocalStorageCart(cart);
-  }, [cart]);
-
   const PopularParts = () => {
     return (
       <React.Fragment>

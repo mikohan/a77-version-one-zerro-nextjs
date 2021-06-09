@@ -119,7 +119,7 @@ function addItem(
   const totals = calcTotals(newItems);
   const total = calcTotal(subtotal, totals);
 
-  return {
+  const newCart = {
     ...state,
     lastItemId,
     subtotal,
@@ -128,6 +128,11 @@ function addItem(
     items: newItems,
     quantity: calcQuantity(newItems),
   };
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  }
+  return newCart;
 }
 
 function removeItem(state: ICartState, itemId: number) {
@@ -137,8 +142,7 @@ function removeItem(state: ICartState, itemId: number) {
   const subtotal = calcSubtotal(newItems);
   const totals = calcTotals(newItems);
   const total = calcTotal(subtotal, totals);
-
-  return {
+  const newCart = {
     ...state,
     items: newItems,
     quantity: calcQuantity(newItems),
@@ -146,6 +150,11 @@ function removeItem(state: ICartState, itemId: number) {
     totals,
     total,
   };
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  }
+
+  return newCart;
 }
 
 function updateQuantities(state: ICartState, quantities: CartItemQuantity[]) {
@@ -162,11 +171,13 @@ function updateQuantities(state: ICartState, quantities: CartItemQuantity[]) {
 
     needUpdate = true;
 
-    return {
+    const newCart = {
       ...item,
       quantity: quantity.value,
       total: quantity.value * item.price,
     };
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    return newCart;
   });
 
   if (needUpdate) {

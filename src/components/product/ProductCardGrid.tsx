@@ -7,8 +7,10 @@ import ChipContainer from '../common/ChipBox';
 import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItem, cartAddItemSuccess } from '~/store/cart/cartAction';
+import { IState } from '~/interfaces';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -109,8 +111,20 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
 
   const dispatch = useDispatch();
 
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
   function handleAddToCart() {
-    console.log(product._source);
     dispatch(cartAddItemSuccess(product._source, [], 1));
     /* setInCart(true); */
     /* setOpenSnackbar(true); */
@@ -118,6 +132,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
 
   return (
     <div className={classes.card}>
+      <Snackbar open={openSnackbar} handleClose={handleClose} />
       {compatable && <ChipContainer car={car} />}
       <Link href={`/product/${product._source.slug}`}>
         <a className={classes.a}>
