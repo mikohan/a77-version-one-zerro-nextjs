@@ -28,6 +28,7 @@ import { useRouter } from 'next/router';
 import {
   cartRemoveItemSuccess,
   cartUpdateQuantitiesSuccess,
+  clearCart,
 } from '~/store/cart/cartAction';
 import ConditionallyRender from '~/components/common/ConditionalRender';
 import url from '~/services/url';
@@ -86,6 +87,13 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
       cursor: 'pointer',
     },
+    bottomRow: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
   })
 );
 
@@ -94,6 +102,7 @@ export default function Cart() {
   const cart: ICart = useSelector((state: IState) => state.cart);
   const router = useRouter();
   const dispatch = useDispatch();
+  useEffect(() => {}, [cart]);
 
   const breads = [
     { name: 'Ангара77', path: '/' },
@@ -121,6 +130,12 @@ export default function Cart() {
 
   function placeOrder() {
     router.push(url.placeOrder());
+  }
+  function handleClearCart() {
+    const clear = confirm('Точно очистить корзину?');
+    if (clear) {
+      dispatch(clearCart());
+    }
   }
 
   function BigPaper() {
@@ -202,6 +217,18 @@ export default function Cart() {
             </TableBody>
           </Table>
         </TableContainer>
+        <Grid container>
+          <Grid className={classes.bottomRow} item xs={12}>
+            <Button
+              size="small"
+              color="secondary"
+              variant="contained"
+              onClick={handleClearCart}
+            >
+              Очистить корзину
+            </Button>
+          </Grid>
+        </Grid>
       </Paper>
     );
   }

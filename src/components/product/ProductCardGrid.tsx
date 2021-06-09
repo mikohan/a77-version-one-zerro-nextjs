@@ -164,7 +164,6 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
     }
   }, [cart]);
 
-  console.log(inCart);
   return (
     <div className={classes.card}>
       <Snackbar open={openSnackbar} handleClose={handleClose} />
