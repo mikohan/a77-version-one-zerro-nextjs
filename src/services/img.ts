@@ -6,7 +6,7 @@ export default function imgUrlrebuilder(img: string): string {
   if (regex.test(img as string)) {
     image = img as string;
   } else {
-    image = `${imageServerUrl}${image}`;
+    image = `${imageServerUrl}${img}`;
   }
   return image;
 }

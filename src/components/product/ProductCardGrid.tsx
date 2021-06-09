@@ -8,7 +8,7 @@ import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
-import { cartAddItem } from '~/store/cart/cartAction';
+import { cartAddItem, cartAddItemSuccess } from '~/store/cart/cartAction';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -111,7 +111,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
 
   function handleAddToCart() {
     console.log(product._source);
-    dispatch(cartAddItem(product._source, [], 1));
+    dispatch(cartAddItemSuccess(product._source, [], 1));
     /* setInCart(true); */
     /* setOpenSnackbar(true); */
   }

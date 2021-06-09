@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { IProductElasticHitsSecond } from '~/interfaces/product';
+import { IProductElasticHitsSecond, IProduct } from '~/interfaces/product';
 import { Hidden, Box, Grid, TextField } from '@material-ui/core';
 import { prodCardSize } from '~/config';
 import AppsIcon from '@material-ui/icons/Apps';
@@ -15,7 +15,7 @@ import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 import Button from '@material-ui/core/Button';
 import FilterDrawer from '~/components/product/FilterDrawer';
 import Chip from '@material-ui/core/Chip';
-import { capitalize } from '~/utils';
+import { capitalize, translateProducts } from '~/utils';
 import Typography from '@material-ui/core/Typography';
 import ProductCardGridSkeleton from './ProductCardGridSkeleton';
 import ProductCardListSkeleton from './ProductCardListSkeleton';

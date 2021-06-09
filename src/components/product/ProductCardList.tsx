@@ -7,6 +7,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ChipBox from '~/components/common/ChipBox';
 import { ICar } from '~/interfaces';
 import Image from 'next/image';
+import { translateProducts } from '~/utils';
 
 interface IProp {
   product: IProductElasticHitsSecond;

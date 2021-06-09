@@ -18,8 +18,9 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { ICartItem } from '~/store/cart/cartTypes';
-import { COMPANY_INFORMATION, imageServerUrl } from '~/config';
+import { COMPANY_INFORMATION } from '~/config';
 import NoSsr from '@material-ui/core/NoSsr';
+import imgRebuilder from '~/services/img';
 // Comment for git
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -99,7 +100,9 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
                   <TableBody>
                     {cart.items.map((item: ICartItem) => {
                       const img = item.product.images.length
-                        ? `${imageServerUrl}${item.product.images[0].img150}`
+                        ? `${imgRebuilder(
+                            item.product.images[0].img150 as string
+                          )}`
                         : '/images/local/defaultParts245.jpg';
                       return (
                         <TableRow key={item.id}>
