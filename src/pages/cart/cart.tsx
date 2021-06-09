@@ -94,6 +94,23 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
       paddingRight: theme.spacing(2),
     },
+    quantityCell: {},
+    quantityField: {
+      display: 'flex',
+    },
+    symbols: {
+      paddingRight: theme.spacing(2),
+    },
+    symbol: {
+      textAlign: 'center',
+      width: theme.spacing(3),
+      fontSize: '1.2rem',
+      color: theme.palette.primary.main,
+      fontWeight: 'bold',
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
   })
 );
 
@@ -122,6 +139,34 @@ export default function Cart() {
         { itemId: item.id, value: +event.target.value },
       ])
     );
+  }
+  function handleQuantityAdd(id: number): void {
+    const newVal = cart.items.find((item: ICartItem) => item.id === id);
+    if (newVal) {
+      dispatch(
+        cartUpdateQuantitiesSuccess([
+          {
+            itemId: id,
+            value: newVal.quantity + 1,
+          },
+        ])
+      );
+    }
+  }
+  function handleQuantitySubstract(id: number): void {
+    const newVal = cart.items.find((item: ICartItem) => item.id === id);
+    if (newVal) {
+      if (newVal.quantity > 1) {
+        dispatch(
+          cartUpdateQuantitiesSuccess([
+            {
+              itemId: id,
+              value: newVal.quantity - 1,
+            },
+          ])
+        );
+      }
+    }
   }
 
   function handleRemoveItem(itemId: number): void {
@@ -186,19 +231,35 @@ export default function Cart() {
                         &#8381; {item.product.stocks[0].price}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      <TextField
-                        defaultValue={item.quantity}
-                        variant="filled"
-                        type="number"
-                        size="small"
-                        InputProps={{
-                          inputProps: { min: 1, max: 20 },
-                        }}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLInputElement>
-                        ) => handleQuantity(event, item)}
-                      ></TextField>
+                    <TableCell className={classes.quantityCell}>
+                      <Box className={classes.quantityField}>
+                        <Box className={classes.symbols}>
+                          <Box
+                            className={classes.symbol}
+                            onClick={() => handleQuantityAdd(item.id)}
+                          >
+                            +
+                          </Box>
+                          <Box
+                            className={classes.symbol}
+                            onClick={() => handleQuantitySubstract(item.id)}
+                          >
+                            -
+                          </Box>
+                        </Box>
+                        <TextField
+                          defaultValue={item.quantity}
+                          variant="filled"
+                          type="number"
+                          size="small"
+                          InputProps={{
+                            inputProps: { min: 1, max: 20 },
+                          }}
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) => handleQuantity(event, item)}
+                        ></TextField>
+                      </Box>
                     </TableCell>
                     <TableCell>
                       <Typography className={classes.cart} variant="body1">
