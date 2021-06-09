@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     itemBody: {
       paddingBottom: theme.spacing(0.5),
+      color:
+        theme.palette.type === 'light' ? theme.palette.primary.main : 'inherit',
     },
   })
 );
@@ -81,7 +83,6 @@ export default function CarModelGrid({ items, car, parts }: IProps) {
                         <Typography
                           className={classes.itemBody}
                           variant="body2"
-                          color="primary"
                         >
                           {capitalize(subItem.name)}
                         </Typography>
