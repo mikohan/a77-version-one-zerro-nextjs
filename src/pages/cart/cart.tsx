@@ -31,6 +31,7 @@ import {
 } from '~/store/cart/cartAction';
 import ConditionallyRender from '~/components/common/ConditionalRender';
 import url from '~/services/url';
+import imgUrl from '~/services/img';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -153,9 +154,7 @@ export default function Cart() {
               {cart.items.map((item: ICartItem) => {
                 const img =
                   item.product.images && item.product.images.length
-                    ? `${imageServerUrl}${
-                        item.product.images[0].img150 as string
-                      }`
+                    ? `${imgUrl(item.product.images[0].img150 as string)}`
                     : '/images/local/defaultParts245.jpg';
                 return (
                   <TableRow key={item.id}>

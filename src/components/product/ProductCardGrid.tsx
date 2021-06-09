@@ -10,6 +10,8 @@ import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItem, cartAddItemSuccess } from '~/store/cart/cartAction';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
+import { IState } from '~/interfaces';
+import { ICartItem } from '~/store/cart/cartTypes';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -111,7 +113,14 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   const dispatch = useDispatch();
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [inCart, setInCart] = React.useState<boolean>(false);
+  const cart = useSelector((state: IState) => state.cart);
+  const slugsInCart: string[] = [];
+  cart.items.forEach((item: ICartItem) => {
+    slugsInCart.push(item.product.slug);
+  });
 
+  // setInCart(slugsInCart);
   const handleClose = (
     event: React.SyntheticEvent | React.MouseEvent,
     reason?: string
@@ -125,10 +134,21 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
 
   function handleAddToCart() {
     dispatch(cartAddItemSuccess(product._source, [], 1));
-    /* setInCart(true); */
+
     setOpenSnackbar(true);
   }
 
+  React.useEffect(() => {
+    if (
+      cart.items.find(
+        (item: ICartItem) => item.product.id === product._source.id
+      )
+    ) {
+      setInCart(true);
+    }
+  }, [cart]);
+
+  console.log(inCart);
   return (
     <div className={classes.card}>
       <Snackbar open={openSnackbar} handleClose={handleClose} />
@@ -167,10 +187,14 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         <Typography className={classes.sku} variant="body2" component="div">
           {product._source.brand.name.toUpperCase()}
         </Typography>
-        <ShoppingCartOutlinedIcon
-          className={classes.cartIcon}
-          onClick={handleAddToCart}
-        />
+        {inCart ? (
+          <div>В Корзине</div>
+        ) : (
+          <ShoppingCartOutlinedIcon
+            className={classes.cartIcon}
+            onClick={handleAddToCart}
+          />
+        )}
       </div>
     </div>
   );
