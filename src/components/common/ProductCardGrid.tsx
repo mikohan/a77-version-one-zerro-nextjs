@@ -8,6 +8,9 @@ import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
+import { cartAddItem } from '~/store/cart/cartAction';
+import { useDispatch } from 'react-redux';
+import Snackbar from '~/components/common/AddedToCartSnackBar';
 
 interface IProp {
   product: IProduct;
@@ -134,9 +137,28 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
     : null;
   let car: string =
     currentCar && currentCar.hasOwnProperty('model') ? currentCar.model : '';
+  const dispatch = useDispatch();
+
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
+  function handleAddToCart() {
+    dispatch(cartAddItem(product, [], 1));
+    setOpenSnackbar(true);
+  }
 
   return (
     <div className={classes.card}>
+      <Snackbar open={openSnackbar} handleClose={handleClose} />
       {compatable && <ChipContainer car={car} />}
       <Link href={`/product/${product.slug}`}>
         <a className={classes.a}>
@@ -174,7 +196,10 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         <Typography className={classes.sku} variant="body2" component="div">
           {product.brand ? product.brand.name.toUpperCase() : 'ORIGINAL'}
         </Typography>
-        <ShoppingCartOutlinedIcon className={classes.cartIcon} />
+        <ShoppingCartOutlinedIcon
+          onClick={handleAddToCart}
+          className={classes.cartIcon}
+        />
       </div>
     </div>
   );

@@ -229,8 +229,7 @@ export function cartReducer(
       return updateQuantities(state, action.quantities);
     case CART_CLEAR_CART:
       if (typeof window !== 'undefined') {
-        if (window.localStorage.hasOwnProperty('cart'))
-          window.localStorage.removeItem('cart');
+        window.localStorage.removeItem('cart');
       }
       return {
         ...state,

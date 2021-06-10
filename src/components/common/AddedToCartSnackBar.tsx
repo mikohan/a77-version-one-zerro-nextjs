@@ -3,13 +3,16 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Box from '@material-ui/core/Box';
+import { Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     box: {
       background: theme.palette.success.main,
+    },
+    text: {
+      color: '#fff',
     },
   })
 );
@@ -36,7 +39,11 @@ export default function SimpleSnackbar({ open, handleClose }: IProps) {
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Товар добавлен в корзину"
+        message={
+          <Typography className={classes.text} variant="body2">
+            Товар добален в корзину
+          </Typography>
+        }
         action={
           <React.Fragment>
             <IconButton
@@ -45,7 +52,7 @@ export default function SimpleSnackbar({ open, handleClose }: IProps) {
               color="inherit"
               onClick={handleClose}
             >
-              <CloseIcon fontSize="small" />
+              <CloseIcon className={classes.text} fontSize="small" />
             </IconButton>
           </React.Fragment>
         }
