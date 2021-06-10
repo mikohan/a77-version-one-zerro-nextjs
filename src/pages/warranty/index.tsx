@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
     },
     paper: {
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(5),
@@ -53,6 +54,17 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
     },
     p: {
+      paddingBottom: theme.spacing(2),
+    },
+    leftImage: {
+      textAlign: 'center',
+      paddingRight: theme.spacing(1),
+    },
+    rightImage: {
+      textAlign: 'center',
+      paddingLeft: theme.spacing(1),
+    },
+    revTitle: {
       paddingBottom: theme.spacing(2),
     },
   })
@@ -133,23 +145,35 @@ export default function About({ google_key }: IProps) {
           </Grid>
           <Grid className={classes.row} container item xs={12}>
             <Paper className={classes.paper}>
-              <Typography className={classes.subtitle} variant="h6">
-                Отзывы о нас
-              </Typography>
-              <Grid container item xs={12}>
-                <Grid item xs={12} md={6}>
-                  <Image
-                    src="/images/local/google_rev1.png"
-                    width={759}
-                    height={765}
-                  />
+              <Grid container>
+                <Grid item xs={12}>
+                  <Typography className={classes.subtitle} variant="h6">
+                    Отзывы о нас
+                  </Typography>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  <Image
-                    src="/images/local/yand_otzyv_1.png"
-                    width={548}
-                    height={731}
-                  />
+                <Grid item xs={12} md={6} justify="center">
+                  <Box className={classes.leftImage}>
+                    <Typography className={classes.revTitle} variant="h6">
+                      Гугл
+                    </Typography>
+                    <Image
+                      src="/images/local/google_rev1.png"
+                      width={759}
+                      height={765}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6} justify="center">
+                  <Box className={classes.rightImage}>
+                    <Typography className={classes.revTitle} variant="h6">
+                      Яндекс
+                    </Typography>
+                    <Image
+                      src="/images/local/yand_otzyv_1.png"
+                      width={548}
+                      height={731}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </Paper>
