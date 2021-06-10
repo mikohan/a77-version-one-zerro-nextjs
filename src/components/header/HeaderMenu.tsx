@@ -53,31 +53,31 @@ export const CompanyMenu = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...props}
     >
-      <MenuItem onClick={handleClose}>
-        <Link href={url.about()}>
-          <a>О Компании</a>
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <Link href={url.delivery()}>
-          <a>Доставка</a>
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <Link href={url.warranty()}>
-          <a>Гарантии</a>
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <Link href={url.payment()}>
-          <a>Оплата</a>
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <Link href={url.policy()}>
-          <a>Конфиденциальность</a>
-        </Link>
-      </MenuItem>
+      <Link href={url.about()}>
+        <a>
+          <MenuItem onClick={handleClose}>О Компании</MenuItem>
+        </a>
+      </Link>
+      <Link href={url.delivery()}>
+        <a>
+          <MenuItem onClick={handleClose}>Доставка</MenuItem>
+        </a>
+      </Link>
+      <Link href={url.warranty()}>
+        <a>
+          <MenuItem onClick={handleClose}>Гарантии</MenuItem>
+        </a>
+      </Link>
+      <Link href={url.payment()}>
+        <a>
+          <MenuItem onClick={handleClose}>Оплата</MenuItem>
+        </a>
+      </Link>
+      <Link href={url.policy()}>
+        <a>
+          <MenuItem onClick={handleClose}>Конфиденциальность</MenuItem>
+        </a>
+      </Link>
     </Menu>
   );
 };
