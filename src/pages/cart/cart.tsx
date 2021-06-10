@@ -33,6 +33,7 @@ import {
 import ConditionallyRender from '~/components/common/ConditionalRender';
 import url from '~/services/url';
 import imgUrl from '~/services/img';
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -222,9 +223,11 @@ export default function Cart() {
                       <Image src={img} width={120} height={100} />
                     </TableCell>
                     <TableCell>
-                      <Typography className={classes.cart} variant="body1">
-                        {item.product.name}{' '}
-                      </Typography>
+                      <Link href={url.product(item.product.slug)}>
+                        <Typography className={classes.cart} variant="body1">
+                          {item.product.name}
+                        </Typography>
+                      </Link>
                     </TableCell>
                     <TableCell>
                       <Typography className={classes.cart} variant="body1">
