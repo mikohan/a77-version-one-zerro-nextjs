@@ -53,6 +53,7 @@ interface CategoryProps {
   routerQuery: IRouterStuff;
   routerParams: IRouterStuff;
 }
+import { capitalize } from '~/utils';
 import CarChoiser from '~/components/car/CarChoiserLong';
 
 export default function Cagetory(props: CategoryProps) {
@@ -71,7 +72,7 @@ export default function Cagetory(props: CategoryProps) {
   );
   const search = routerQuery.search;
 
-  const header = `${search} Have found or not have found `;
+  const header = search ? `${capitalize(search)}` : '';
   const count = products.total.value;
 
   /* const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({ */

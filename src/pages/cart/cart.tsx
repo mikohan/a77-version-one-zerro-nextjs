@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { DEFAULT_EXCERPT, REVALIDATE, imageServerUrl } from '~/config';
+import { REVALIDATE } from '~/config';
 import {
   Grid,
   Paper,
