@@ -211,10 +211,6 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
             В Корзине
           </Button>
         ) : (
-          /* <ShoppingCartOutlinedIcon */
-          /*   className={classes.cartIcon} */
-          /*   onClick={handleAddToCart} */
-          /* /> */
           <Button
             variant="contained"
             className={classes.toCart}
