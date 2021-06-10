@@ -67,7 +67,7 @@ export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
     setAnchorEl(null);
   };
 
-  if (cart && cart.items.length) {
+  if (cart && cart.items && cart.items.length) {
     return (
       <NoSsr>
         <div>
