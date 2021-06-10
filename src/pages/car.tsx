@@ -71,9 +71,7 @@ function Car(props: ICarProps) {
               <Breads breadCrumbs={breads} />
             </Grid>
             <Grid className={classes.pageTitle} item xs={12}>
-              <Typography variant="h1">
-                Интернет магазин запчастей ANGARA PARTS
-              </Typography>
+              <Typography variant="h1">Марки машин</Typography>
             </Grid>
             <Hidden smDown>
               <Grid className={classes.leftPanel} item xs={3}>
@@ -119,7 +117,7 @@ export const getStaticProps: GetServerSideProps = async () => {
     return false;
   });
 
-  const latestPosts = await getPosts(5);
+  const latestPosts = await getPosts(6);
   const productsByTags = await getProductsByTagOrTags('двигатель', 30);
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits

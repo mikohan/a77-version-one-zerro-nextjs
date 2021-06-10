@@ -1,9 +1,8 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
-import {} from '~/interfaces/product';
 import { Typography } from '@material-ui/core';
 import { IMake } from '~/interfaces/IMake';
-import { Grid } from '@material-ui/core';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,7 +45,7 @@ export default function ShopCarGrid({ cars }: IProps) {
       {cars.map((item: IMake) => {
         return (
           <div key={item.id} className={classes.card}>
-            <Link href={`/car/${item.slug}`}>
+            <Link href={url.make(item.slug)}>
               <a className={classes.cardImageLink}>
                 <div className={classes.cardContent}>
                   <Typography className={classes.productName} variant="h6">

@@ -356,7 +356,7 @@ export default function Cart() {
               <ProductPageHeader breads={breads} />
             </Grid>
             <ConditionallyRender client>
-              {cart.items.length ? (
+              {cart.items && cart.items.length ? (
                 <Grid container item xs={12}>
                   <Grid className={classes.gridColumn} item xs={12} md={8}>
                     <BigPaper />

@@ -132,9 +132,11 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   const [inCart, setInCart] = React.useState<boolean>(false);
   const cart = useSelector((state: IState) => state.cart);
   const slugsInCart: string[] = [];
-  cart.items.forEach((item: ICartItem) => {
-    slugsInCart.push(item.product.slug);
-  });
+  if (cart && cart.items) {
+    cart.items.forEach((item: ICartItem) => {
+      slugsInCart.push(item.product.slug);
+    });
+  }
 
   // setInCart(slugsInCart);
   const handleClose = (
@@ -156,6 +158,8 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
 
   React.useEffect(() => {
     if (
+      cart &&
+      cart.items &&
       cart.items.find(
         (item: ICartItem) => item.product.id === product._source.id
       )
