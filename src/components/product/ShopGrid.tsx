@@ -24,6 +24,7 @@ import url from '~/services/url';
 import { asString, conditionToRus } from '~/helpers';
 import { transFilter } from '~/config';
 import { booleanToRus } from '~/helpers';
+import { shopResetFilters } from '~/store/shop/shopActions';
 
 interface IProps {
   products: IProductElasticHitsSecond[];
@@ -258,6 +259,10 @@ export default function ShopGrid({
   delete currentUrl.make;
   delete currentUrl.model;
   delete currentUrl.category;
+
+  useEffect(() => {
+    dispatch(shopResetFilters());
+  }, []);
 
   function paginationHandler(e: object, page: number) {
     router.push({
