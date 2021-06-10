@@ -247,6 +247,13 @@ export default function Header({ setIsDark, isDark }: IProps) {
             </Link>
           }
         />
+        <Tab
+          label={
+            <Link href={url.cars()}>
+              <a>Машины</a>
+            </Link>
+          }
+        />
 
         <Tab label="Компания" onClick={handleClickCompany} />
         <Tab
