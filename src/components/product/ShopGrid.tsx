@@ -261,7 +261,7 @@ export default function ShopGrid({
   delete currentUrl.category;
 
   useEffect(() => {
-    dispatch(shopResetFilters());
+    handleDeleteFilters();
   }, []);
 
   function paginationHandler(e: object, page: number) {
@@ -273,15 +273,15 @@ export default function ShopGrid({
       },
     });
   }
-  useEffect(() => {
-    if (router.query.hasOwnProperty('sort_price')) {
-      if (router.query.sort_price === 'asc') {
-        dispatch({ type: SET_SORT_VALUE, payload: '2' });
-      } else if (router.query.sort_price === 'desc') {
-        dispatch({ type: SET_SORT_VALUE, payload: '3' });
-      }
-    }
-  }, []);
+  /* useEffect(() => { */
+  /*   if (router.query.hasOwnProperty('sort_price')) { */
+  /*     if (router.query.sort_price === 'asc') { */
+  /*       dispatch({ type: SET_SORT_VALUE, payload: '2' }); */
+  /*     } else if (router.query.sort_price === 'desc') { */
+  /*       dispatch({ type: SET_SORT_VALUE, payload: '3' }); */
+  /*     } */
+  /*   } */
+  /* }, []); */
 
   const [localSort, setLocalSort] = React.useState('');
   useEffect(() => {
