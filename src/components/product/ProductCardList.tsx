@@ -7,7 +7,12 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ChipBox from '~/components/common/ChipBox';
 import { ICar } from '~/interfaces';
 import Image from 'next/image';
-import { translateProducts } from '~/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartAddItem } from '~/store/cart/cartAction';
+import { IState } from '~/interfaces';
+import { ICartItem } from '~/store/cart/cartTypes';
+import Snackbar from '~/components/common/AddedToCartSnackBar';
+import { Button } from '@material-ui/core';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -112,6 +117,21 @@ export default function ComplexGrid({ product, currentCar }: IProp) {
       productSku: {
         color: theme.palette.text.disabled,
       },
+      inCart: {
+        maxWidth: theme.spacing(12),
+        maxHeight: theme.spacing(3),
+        fontSize: '0.7rem',
+        background: theme.palette.success.main,
+        color:
+          theme.palette.type === 'light'
+            ? theme.palette.background.paper
+            : 'inherit',
+      },
+      toCart: {
+        width: theme.spacing(13),
+        maxHeight: theme.spacing(3),
+        fontSize: '0.7rem',
+      },
     })
   );
   const classes = useStyles();
@@ -121,34 +141,89 @@ export default function ComplexGrid({ product, currentCar }: IProp) {
   const stock = product._source.stocks.find((item: any) => item.store.id === 3);
   const price = stock?.price;
 
+  const dispatch = useDispatch();
+
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [inCart, setInCart] = React.useState<boolean>(false);
+  const cart = useSelector((state: IState) => state.cart);
+  const slugsInCart: string[] = [];
+  if (cart && cart.items) {
+    cart.items.forEach((item: ICartItem) => {
+      slugsInCart.push(item.product.slug);
+    });
+  }
+
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
+  function handleAddToCart() {
+    dispatch(cartAddItem(product._source, [], 1));
+
+    setOpenSnackbar(true);
+  }
+
+  React.useEffect(() => {
+    if (
+      cart &&
+      cart.items &&
+      cart.items.find(
+        (item: ICartItem) => item.product.id === product._source.id
+      )
+    ) {
+      setInCart(true);
+    }
+  }, [cart]);
+
   return (
-    <div key={product._id} className={classes.card}>
-      <a className={classes.cardImageLink}>
-        {compatable && <ChipBox car={currentCar?.model} />}
-        <Image
-          layout="intrinsic"
-          width={350}
-          height={245}
-          src={imgPath}
-          alt={product._source.full_name}
-        />
-      </a>
-      <div className={classes.cardContent}>
-        <Typography className={classes.productName} variant="h6">
-          {product._source.name}
-        </Typography>
-        <Typography className={classes.productSku} variant="body2">
-          SKU: {product._source.cat_number}
-        </Typography>
-      </div>
-      <div className={classes.cardInfo}>
-        <Typography variant="h6">&#8381; {price}</Typography>
-        <div>
-          <IconButton color="primary" aria-label="add to shopping cart">
-            <AddShoppingCartIcon className={classes.shoppingCartIcon} />
-          </IconButton>
+    <React.Fragment>
+      <Snackbar open={openSnackbar} handleClose={handleClose} />
+      <div key={product._id} className={classes.card}>
+        <a className={classes.cardImageLink}>
+          {compatable && <ChipBox car={currentCar?.model} />}
+          <Image
+            layout="intrinsic"
+            width={350}
+            height={245}
+            src={imgPath}
+            alt={product._source.full_name}
+          />
+        </a>
+        <div className={classes.cardContent}>
+          <Typography className={classes.productName} variant="h6">
+            {product._source.name}
+          </Typography>
+          <Typography className={classes.productSku} variant="body2">
+            SKU: {product._source.cat_number}
+          </Typography>
+        </div>
+        <div className={classes.cardInfo}>
+          <Typography variant="h6">&#8381; {price}</Typography>
+          <div>
+            {inCart ? (
+              <Button variant="contained" className={classes.inCart}>
+                В Корзине
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                className={classes.toCart}
+                onClick={handleAddToCart}
+                color="primary"
+              >
+                В Корзину
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
