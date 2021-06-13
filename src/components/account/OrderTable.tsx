@@ -15,6 +15,7 @@ import Moment from 'moment';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ICart, ICartItem } from '~/store/cart/cartTypes';
+import imgUrlRebuild from '~/services/img';
 
 interface IProps {
   orderNumber: string;
@@ -74,7 +75,9 @@ export default function OrderTable({ cart, orderNumber }: IProps) {
                       <Image
                         src={
                           item.product.images.length
-                            ? `${imageServerUrl}${item.product.images[0].img150}`
+                            ? `${imgUrlRebuild(
+                                item.product.images[0].img150 as string
+                              )}`
                             : '/images/local/defaultParts245.jpg'
                         }
                         width={40}
