@@ -76,7 +76,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  page: IPage;
   google_key: string;
 }
 const breadCrumbs = [
@@ -228,12 +227,10 @@ export default function About({ google_key }: IProps) {
   );
 }
 export const getStaticProps: any = async (context: any) => {
-  const page = await getPage('kontakty');
   const google_key = process.env.GOOGLE_MAPS_KEY;
 
   return {
     props: {
-      page,
       google_key,
     },
   };
