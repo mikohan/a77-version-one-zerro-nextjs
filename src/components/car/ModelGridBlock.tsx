@@ -8,6 +8,7 @@ import Link from 'next/link';
 import url from '~/services/url';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
+import imgUrl from '~/services/img';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,16 +116,16 @@ export default function ModelBlockGrid(props: ICarProps) {
       <React.Fragment>
         <Box className={classes.container}>
           {models &&
-            retModels.map((model: ICar) => {
+            retModels.map((model: ICar, i: number) => {
               return (
-                <Paper key={model.slug}>
+                <Paper key={`${i}-${model.slug}`}>
                   <Link href={url.model(make.slug, model.slug)}>
                     <a className={classes.item}>
                       <Box className={classes.carBox}>
                         <Image
                           src={
                             model && model.image
-                              ? `${imageServerUrl}${model.image}`
+                              ? `${imgUrl(model.image as string)}`
                               : `/images/local/carsAvatar/generic.png`
                           }
                           width={100}
@@ -169,14 +170,17 @@ export default function ModelBlockGrid(props: ICarProps) {
       <Grid container>
         <Grid item xs={12}>
           <Box className={classes.containerSily}>
-            {silyModels.map((model: ICar) => (
-              <Link key={model.slug} href={url.model(make.slug, model.slug)}>
+            {silyModels.map((model: ICar, i: number) => (
+              <Link
+                key={`${i}-${model.slug}`}
+                href={url.model(make.slug, model.slug)}
+              >
                 <a>
                   <Paper className={classes.itemSily}>
                     <Image
                       src={
                         model && model.image
-                          ? `${imageServerUrl}${model.image}`
+                          ? `${imgUrl(model.image as string)}`
                           : `/images/local/carsAvatar/generic.png`
                       }
                       width={100}
