@@ -15,16 +15,8 @@ import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    accountMenu: {
-      minWidth: theme.spacing(35),
-    },
-    menuBox: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    leftAvatar: {
-      paddingLeft: theme.spacing(2),
+    a: {
+      width: '100%',
     },
   })
 );
@@ -41,6 +33,7 @@ export const CompanyMenu = ({
   handleClose,
   ...props
 }: IProps) => {
+  const classes = useStyles();
   return (
     <Menu
       id="company"
@@ -53,31 +46,31 @@ export const CompanyMenu = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...props}
     >
-      <Link href={url.about()}>
-        <a>
-          <MenuItem onClick={handleClose}>О Компании</MenuItem>
-        </a>
-      </Link>
-      <Link href={url.delivery()}>
-        <a>
-          <MenuItem onClick={handleClose}>Доставка</MenuItem>
-        </a>
-      </Link>
-      <Link href={url.warranty()}>
-        <a>
-          <MenuItem onClick={handleClose}>Гарантии</MenuItem>
-        </a>
-      </Link>
-      <Link href={url.payment()}>
-        <a>
-          <MenuItem onClick={handleClose}>Оплата</MenuItem>
-        </a>
-      </Link>
-      <Link href={url.policy()}>
-        <a>
-          <MenuItem onClick={handleClose}>Конфиденциальность</MenuItem>
-        </a>
-      </Link>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.about()}>
+          <a className={classes.a}>О Компании</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.delivery()}>
+          <a className={classes.a}>Доставка</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.warranty()}>
+          <a className={classes.a}>Гарантии</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.payment()}>
+          <a className={classes.a}>Оплата</a>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Link href={url.policy()}>
+          <a className={classes.a}>Конфиденциальность</a>
+        </Link>
+      </MenuItem>
     </Menu>
   );
 };
