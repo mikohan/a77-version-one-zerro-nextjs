@@ -106,9 +106,6 @@ export const LoginMenu = ({
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...props}
-      classes={{
-        paper: classes.accountMenu,
-      }}
     >
       {!session ? (
         <div>
@@ -128,7 +125,7 @@ export const LoginMenu = ({
           <Link href={`${url.account.dashboard()}`}>
             <a>
               <MenuItem onClick={handleClose}>
-                <Box className={classes.menuBox}>
+                <Box>
                   <Avatar
                     src={
                       user.image
@@ -136,7 +133,7 @@ export const LoginMenu = ({
                         : '/images/local/default-avatar.jpg'
                     }
                   />
-                  <Box className={classes.leftAvatar}>
+                  <Box>
                     <Typography variant="body1">
                       {capitalize(user.username)}
                     </Typography>
