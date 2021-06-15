@@ -131,6 +131,10 @@ const PriceBox = ({ product }: IProps) => {
 
   const cart = useSelector((state: IState) => state.cart);
   const [inCart, setInCart] = useState(false);
+  const price =
+    product.stocks && product.stocks.length && product.stocks[0].price !== 0
+      ? product.stocks[0].price
+      : false;
 
   // Set in cart if slug === slug products in cart
   const router = useRouter();
@@ -166,9 +170,15 @@ const PriceBox = ({ product }: IProps) => {
       <Snackbar open={openSnackbar} handleClose={handleClose} />
       <Box className={classes.firstRow}>
         <Box className={classes.priceBox}>
-          <Typography className={classes.price} variant="h6">
-            <span>&#8381;</span> 5967
-          </Typography>
+          {price ? (
+            <Typography className={classes.price} variant="h6">
+              <span>&#8381;</span> {price}
+            </Typography>
+          ) : (
+            <Typography className={classes.price} variant="h6">
+              <span>Звоните!</span>
+            </Typography>
+          )}
         </Box>
         <Box className={classes.priceSide}>
           <Chip

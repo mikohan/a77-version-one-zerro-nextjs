@@ -118,8 +118,12 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
   );
   const classes = useStyles();
 
-  const stock = product._source.stocks.find((item: any) => item.store.id === 3);
-  const price = stock?.price;
+  const price =
+    product._source.stocks &&
+    product._source.stocks.length &&
+    product._source.stocks[0].price !== 0
+      ? product._source.stocks[0].price
+      : false;
   const compatable = product._source.model.some(
     (item: any) => item.slug.toLowerCase() === currentCar?.slug
   );
@@ -185,7 +189,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
         </a>
       </Link>
       <Typography className={classes.price} variant="h6">
-        &#8381; {price}
+        {price ? <span>&#8381; {price}</span> : 'Звоните!'}
       </Typography>
       <Typography className={classes.name} variant="subtitle1" component="div">
         {product._source.full_name}
