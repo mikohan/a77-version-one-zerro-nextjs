@@ -2,6 +2,7 @@ import { ICar } from '~/interfaces/ICar';
 import cookie from 'cookie';
 import { IMake } from './interfaces/IMake';
 import { imageServerUrl } from '~/config';
+// Comment for gh
 
 export function asString(query: string | string[] | undefined): string {
   if (Array.isArray(query)) {
