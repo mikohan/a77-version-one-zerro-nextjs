@@ -983,6 +983,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@corex/deepmerge@^2.6.20":
+  version "2.6.20"
+  resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-2.6.20.tgz#a72d1cb5a101fd11160815b96f499a588362ba5b"
+  integrity sha512-oZZxwDtV0bf8VPcSIhZPvdBFUkVIC8zRblUjrrVAsbGRiqUuZJfoXw2M6NDiIXWcUCfOqbkFND6Yf3b9ej9AjA==
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.npmjs.org/@emotion/hash/-/hash-0.8.0.tgz"
@@ -2640,6 +2645,11 @@ data-uri-to-buffer@3.0.0:
   dependencies:
     buffer-from "^1.1.1"
 
+date-fns@^2.9.0:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
+  integrity sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==
+
 debug@4, debug@^4.1.0:
   version "4.3.1"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz"
@@ -3033,6 +3043,11 @@ escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
+
+escape-string-regexp@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
+  integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
 eslint-scope@^4.0.3:
   version "4.0.3"
@@ -4322,6 +4337,13 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+matcher@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/matcher/-/matcher-4.0.0.tgz#a42a05a09aaed92e2d241eb91fddac689461ea51"
+  integrity sha512-S6x5wmcDmsDRRU/c2dkccDwQPXoFczc5+HpQ2lON8pnvHlnvHAHj5WlLVvw6n6vNyHuVugYrFohYxbS+pvFpKQ==
+  dependencies:
+    escape-string-regexp "^4.0.0"
+
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.npmjs.org/md5.js/-/md5.js-1.3.5.tgz"
@@ -4577,6 +4599,15 @@ next-redux-wrapper@*:
   resolved "https://registry.npmjs.org/next-redux-wrapper/-/next-redux-wrapper-6.0.2.tgz"
   integrity sha512-I9CnIYhQwI/qEoNdc9VAPjIyuq4rFFhCTa4rKhoDHWEVHGB1DXZy8TAyGpwvWizESd8IoTI/OKlP6bFpCbXsOw==
 
+next-sitemap@^1.6.116:
+  version "1.6.116"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.6.116.tgz#9bfe8bd220118a5b84693ea2f88d5dda555c2996"
+  integrity sha512-UvxjiJ8X02h6aaGnZiRueSaacVWznzGnmMi6CqLRf9oxvA+Pg/Q28vMfTJTsOdQ7otWM6HVwHAMeJH/ZzjBnQg==
+  dependencies:
+    "@corex/deepmerge" "^2.6.20"
+    matcher "^4.0.0"
+    minimist "^1.2.5"
+
 next-tick@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/next-tick/-/next-tick-1.0.0.tgz"
@@ -4633,6 +4664,13 @@ next@10.0.3:
     webpack-sources "1.4.3"
   optionalDependencies:
     sharp "0.26.2"
+
+nextjs-sitemap-generator@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/nextjs-sitemap-generator/-/nextjs-sitemap-generator-1.3.1.tgz#a5da5b23a581d69c2df14bb7fa10224520f4514f"
+  integrity sha512-QH4EDS17L8h7IHD3D7tW7+eDX9qLJloDaBPOM+t3R1nsM7xofI4EXwXgboB9EbEp0be5YYU3MHKxg/9guiEcKw==
+  dependencies:
+    date-fns "^2.9.0"
 
 node-abi@^2.7.0:
   version "2.19.3"
