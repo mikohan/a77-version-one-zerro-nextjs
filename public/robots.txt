@@ -1,1 +1,5 @@
 # Here will be robots txt file
+User-agent: *
+Allow: /
+
+Sitemap: http://localhost:3245/api/sitemap
