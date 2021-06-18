@@ -15,7 +15,9 @@ import {
   IProductElasticHitsFirst,
   IProductElasticHitsSecond,
   ICar,
+  IPost,
 } from '~/interfaces';
+import { getPosts, getBlogCategories } from '~/endpoints/blogEndpoint';
 // import { SitemapStream, streamToPromise } from "sitemap";
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { Readable } = require('stream');
@@ -60,7 +62,7 @@ export default async (req: any, res: any) => {
         links.push({
           url: `${vehicle.make.slug}/${vehicle.slug}/${category.slug}`,
           changefreq: 'daily',
-          priority: 0.9,
+          priority: 0.7,
         });
       }
     }
@@ -74,23 +76,34 @@ export default async (req: any, res: any) => {
       });
     });
 
-    // getAllPostSlugs().map((post) => {
-    //   links.push({
-    //     url: `/blog/${post.params.slug}`,
-    //     changefreq: 'daily',
-    //     priority: 0.9,
-    //   });
-    // });
-
-    // Add other pages
-    const pages = ['/courses', '/contact', '/newsletter', '/blog'];
-    pages.map((url) => {
+    const blogCats = await getBlogCategories();
+    blogCats.map((cat: any) => {
       links.push({
-        url,
+        url: `/blog/category/${cat.slug}`,
+        changefreq: 'daily',
+        priority: 0.8,
+      });
+    });
+    const posts = await getPosts();
+    posts.map((post: IPost) => {
+      links.push({
+        url: `/blog/post/${post.slug}`,
         changefreq: 'daily',
         priority: 0.9,
       });
     });
+
+    // Add other pages
+    const pages = ['/about', '/contact', '/warranty', '/delivery', '/delivery'];
+    pages.map((url) => {
+      links.push({
+        url,
+        changefreq: 'daily',
+        priority: 0.3,
+      });
+    });
+
+    // console.log(links.length, 'Lenght of links');
 
     // Create a stream to write to
     const stream = new SitemapStream({
