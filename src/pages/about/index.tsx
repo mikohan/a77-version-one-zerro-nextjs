@@ -7,7 +7,6 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 import url from '~/services/url';
 import { IBread } from '~/interfaces';
-//Comment to gh
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
