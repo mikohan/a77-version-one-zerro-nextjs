@@ -1,9 +1,9 @@
 import { ITransFilter, IFilter } from '~/interfaces';
 
+//export const imageServerUrl = 'http://localhost:8000';
 export const imageServerUrl = 'http://localhost:8000';
-//export const backServerUrl = 'http://localhost:8000';
-export const backServerUrl = 'https://angara77.ru';
-// export const backServerUrl = 'http://192.168.0.109:8000'; // url for elastic search
+// export const backServerUrl = 'https://angara77.ru';
+export const backServerUrl = 'http://localhost:8000'; // url for elastic search
 export const backServerUrlRest = 'http://0.0.0.0:8000'; // url for elastic search
 
 export const autocompleteUrls = {
