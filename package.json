@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev -p 3245",
     "build": "next build",
-    "start": "next start -p 3245"
+    "start": "next start -p 3245",
+    "export": "npm run build && next export"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
