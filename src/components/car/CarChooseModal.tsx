@@ -25,7 +25,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import CarIcon from '~/assets/sedan-car-front.svg';
+import CarIcon from '../../assets/sedan-car-front.svg';
 import DoneIcon from '@material-ui/icons/Done';
 import { Box } from '@material-ui/core';
 
