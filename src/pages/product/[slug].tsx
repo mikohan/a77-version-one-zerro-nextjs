@@ -324,6 +324,9 @@ export default function ProductPage({
   );
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
@@ -360,19 +363,23 @@ export const getStaticProps: GetStaticProps = async (
   // It is working not very goog because of same products on all pages
   // needs to change logic
   //relatedProducts = await getPopularProductsByModel(models, 20);
+  let prodModel: string | undefined = '';
+  if (product.model && product.model.length) {
+    prodModel = product.model[0]?.name?.replace(
+      /[&\/\\#,+()$~%.'":*?<>{}]/g,
+      ''
+    );
+  }
   const query =
     product.tags && product.tags.length
       ? product.tags.join(' ')
-      : `${product.name} ${product.model[0].name}`;
+      : `${product.name} ${prodModel}`;
   const productsByTags = await getProductsByTagOrTags(query, 30);
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
   );
 
-  const safe = `${product.name} ${product.model[0].name}`.replace(
-    /[&\/\\#,+()$~%.'":*?<>{}]/g,
-    ''
-  );
+  const safe = `${product.name} ${prodModel}`;
   let posts: IPost[] = [];
   posts = await searchPosts(safe, 0, 10);
 

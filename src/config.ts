@@ -4,6 +4,8 @@ export const imageServerUrl = 'https://angara77.ru';
 //export const imageServerUrl = 'http://localhost:8000';
 export const backServerUrl = 'https://angara77.ru';
 //export const backServerUrl = 'http://localhost:8000'; // url for elastic search
+
+// Edn of server conf
 export const backServerUrlRest = 'http://0.0.0.0:8000'; // url for elastic search
 
 export const autocompleteUrls = {

@@ -211,9 +211,11 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
       <Grid className={classes.rightSideGrid} container>
         <Grid className={classes.productHeaderGrid} item xs={12}>
           <Typography className={classes.productHeader} variant="h1">
-            {`${product.name} ${capitalize(product.model[0].make.name)} ${
-              product.model[0].model
-            }`}
+            {product.model.length
+              ? `${product.name} ${capitalize(product.model[0].make.name)} ${
+                  product.model[0].model
+                }`
+              : `${product.name}`}
           </Typography>
           <ProductRating
             rating={productrating}
