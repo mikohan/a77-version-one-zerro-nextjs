@@ -1,7 +1,7 @@
 import { ITransFilter, IFilter } from '~/interfaces';
 
-import { backServerUrl } from './config_local';
-export * from './config_local';
+import { backServerUrl, imageServerUrl } from './config_local';
+export { backServerUrl, imageServerUrl };
 
 // Edn of server conf
 export const backServerUrlRest = 'http://0.0.0.0:8000'; // url for elastic search
