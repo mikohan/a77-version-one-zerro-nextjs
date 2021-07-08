@@ -4,7 +4,7 @@ import { backServerUrl, imageServerUrl } from '~/config_local';
 export { backServerUrl, imageServerUrl };
 
 // Edn of server conf
-export const backServerUrlRest = 'http://0.0.0.0:8000'; // url for elastic search
+export const backServerUrlRest = backServerUrl; // url for elastic search
 
 export const autocompleteUrls = {
   number: `${backServerUrl}/api/product/findnumber`,
