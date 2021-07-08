@@ -309,7 +309,6 @@ export default function Dashboard({ user, access }: IProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const data = await getUserCookie(context);
-  console.log(data);
   let user = {} as IUser;
   let access = '';
   if (data) {
