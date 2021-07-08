@@ -1,6 +1,6 @@
 import { ITransFilter, IFilter } from '~/interfaces';
 
-import { backServerUrl, imageServerUrl } from './config_local';
+import { backServerUrl, imageServerUrl } from '~/config_local';
 export { backServerUrl, imageServerUrl };
 
 // Edn of server conf
