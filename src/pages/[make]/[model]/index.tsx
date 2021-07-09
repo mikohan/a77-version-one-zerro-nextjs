@@ -255,6 +255,10 @@ export const getServerSideProps: GetServerSideProps = async (
     routerParams as IRouterStuff
   );
 
+  if (!model) {
+    return { notFound: true };
+  }
+
   const str: string = asString(context.query.page as string);
   const page: number = parseInt(str) || 1;
 
