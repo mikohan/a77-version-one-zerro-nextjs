@@ -1,6 +1,25 @@
-interface IOldData {
+export interface IOldData {
   [key: string]: string;
 }
+export const car_links: IOldData = {
+  '/zapchasti-Porter/1/': '/cars/hyundai/porter1',
+  '/zapchasti-porter2/5/': '/cars/hyundai/porter2',
+  '/zapchasti-starex/3/': '/cars/hyundai/stareks',
+  '/zapchasti-HD/2/': '/cars/hyundai/hd72',
+  '/zapchasti-bongo/15/': '/cars/hyundai/bongo3',
+  '/zapchasti-transit/6/': '/cars/hyundai/tranzit',
+  '/zapchasti-ducato/10/': '/cars/hyundai/dukato',
+  '/zapchasti-volvo/12/': '/cars/hyundai/fh',
+  '/zapchasti-solaris/14/': '/cars/hyundai/soljaris',
+  '/zapchasti-sonata/22/': '/cars/hyundai/stareks',
+  '/zapchasti-rio/20/': '/cars/hyundai/rio',
+  '/zapchasti-optima/18/': '/cars/hyundai/rio',
+  '/zapchasti-sorento/23/': '/cars/hyundai/sorento',
+  '/zapchasti-sportage/24/': '/cars/hyundai/sorento',
+  '/zapchasti-santafe/21/': '/cars/hyundai/terakan',
+  '/zapchasti-kyron/17/': '/cars/hyundai/aktion',
+  '/zapchasti-rexton/19/': '/cars/hyundai/aktion',
+};
 
 export const ang_subcategories: IOldData = {
   '1': 'amortizator-podveski',

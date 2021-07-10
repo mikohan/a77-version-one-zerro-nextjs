@@ -3,7 +3,12 @@ import { GetServerSideProps } from 'next';
 import url from '~/services/url';
 import { getVehicle } from '~/endpoints/carsEndpoint';
 import { getProductByOneC } from '~/endpoints/productEndpoint';
-import { cars, ang_subcategories, big_cats } from '~/data/redirectData';
+import {
+  cars,
+  ang_subcategories,
+  big_cats,
+  car_links,
+} from '~/data/redirectData';
 import { parts_uniq } from '~/data/parts_uniq_link_one';
 
 function Make() {
@@ -19,7 +24,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       params = arr[0].split('-');
     }
   }
-  console.log(params);
 
   // old category and subcat redirect
   if (params[0] === 'category') {
@@ -44,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  // Porter parts redirect
+  // Porter old parts redirect
   if (params[0] === 'porter') {
     try {
       const onec = parseInt(params[2]);
@@ -60,6 +64,38 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         notFound: true,
       };
     }
+  }
+
+  // New cars part redirect
+  if (params[0] === 'part') {
+    const arr: string[] = str?.all as any;
+    const link: string = arr[2];
+
+    try {
+      const onec = parseInt(parts_uniq[link]);
+      const prom = await getProductByOneC(onec);
+      return {
+        redirect: {
+          permanent: true,
+          destination: url.product(prom.slug),
+        },
+      };
+    } catch (e) {
+      return {
+        notFound: true,
+      };
+    }
+    //do stuff
+  }
+
+  console.log(params);
+  if (params[0] === 'zapchasti') {
+    return {
+      redirect: {
+        permanent: true,
+        destination: car_links[params[1]],
+      },
+    };
   }
 
   return {
