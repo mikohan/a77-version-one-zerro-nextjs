@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //do stuff
   }
 
-  console.log(params);
+  console.log(car_links[params[1]]);
   if (params[0] === 'zapchasti') {
     return {
       redirect: {
