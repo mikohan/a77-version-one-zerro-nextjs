@@ -315,6 +315,130 @@ export async function getPopularProductsByModel(
   return data;
 }
 
+export async function getProductByOneC(oneCId: number): Promise<IProduct> {
+  const query = gql`
+    query productOneC($onec: Int!) {
+      productOneC(onec: $onec) {
+        id
+        slug
+        name
+        name2
+        fullName
+        oneCId
+        sku
+        active
+        unit
+        catNumber
+        oemNumber
+        brand {
+          id
+          slug
+          name
+          country
+          image
+        }
+        related {
+          id
+          slug
+          name
+          catNumber
+          model {
+            slug
+            model
+          }
+          images {
+            img500
+            img245
+            img150
+          }
+          stocks {
+            price
+            store
+          }
+        }
+        brand {
+          name
+          country
+        }
+        model {
+          slug
+          model
+        }
+        category {
+          id
+          name
+          slug
+          parent
+        }
+        model {
+          id
+          model
+          slug
+          image
+          priority
+          rusname
+          make {
+            slug
+            name
+            id
+            country
+          }
+        }
+        engine {
+          id
+          name
+          image
+        }
+        excerpt
+        description
+        createdDate
+        updatedDate
+        hasPhoto
+        images {
+          img150
+          img245
+          img500
+          img800
+          img150x150
+          img245x245
+          img500x500
+          img800x800
+          main
+          dimension {
+            width
+            height
+          }
+        }
+        video
+        attributes {
+          name
+          value
+        }
+        stocks {
+          price
+          store
+        }
+        bages
+        rating
+        ratingCount
+        condition
+        breads {
+          slug
+          name
+        }
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+    variables: {
+      onec: oneCId,
+    },
+  });
+  const data = await promise.data.productOneC;
+  return data;
+}
+
 export async function getProduct(slug: string): Promise<IProduct> {
   const query = gql`
     query product($slug: String!) {
