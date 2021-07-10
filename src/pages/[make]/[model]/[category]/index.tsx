@@ -247,19 +247,32 @@ export const getServerSideProps: GetServerSideProps = async (
   );
   const { category, model } = context.params!;
   const modelSlug: string = model as string;
-  if (!category) {
-    return {
-      notFound: true,
-    };
-  }
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
   const mod: ICar = await getVehicle(modelSlug);
 
+  if (!mod) {
+    return {
+      notFound: true,
+    };
+  }
+
   const slug: string = asString(category);
 
   // Comment out for building next time here and in static paths
-  const cat: ICategory = await getCategoryBySlugGQL(slug);
+  let cat = {} as ICategory;
+  try {
+    cat = await getCategoryBySlugGQL(slug);
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
+  if (!cat) {
+    return {
+      notFound: true,
+    };
+  }
   //pagination part
   const str: string = asString(context.query.page as string);
   const page: number = parseInt(str) || 1;
@@ -282,6 +295,11 @@ export const getServerSideProps: GetServerSideProps = async (
     url = `?model=${model}&category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
   const promise = await getProductsByFilters(url);
+  if (!promise) {
+    return {
+      notFound: true,
+    };
+  }
 
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
@@ -304,11 +322,6 @@ export const getServerSideProps: GetServerSideProps = async (
     console.log('Fucks up in ', e);
   }
 
-  if (!promise) {
-    return {
-      notFound: true,
-    };
-  }
   return {
     props: {
       car: {},
