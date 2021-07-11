@@ -322,6 +322,16 @@ export const getServerSideProps: GetServerSideProps = async (
     promise.aggregations.categories.buckets;
   let products: IProductElasticHitsFirst = promise.hits;
   const prodCount: number = products.total.value;
+  if (!products) {
+    return {
+      notFound: true,
+    };
+  }
+  if (!cat) {
+    return {
+      notFound: true,
+    };
+  }
 
   const totalPages = Math.ceil(prodCount / pageSize);
 
@@ -337,6 +347,9 @@ export const getServerSideProps: GetServerSideProps = async (
   } catch (e) {
     catRet = null;
     console.log('Fucks up in ', e);
+    return {
+      notFound: true,
+    };
   }
 
   return {

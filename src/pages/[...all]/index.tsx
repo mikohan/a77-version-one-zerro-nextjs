@@ -9,6 +9,7 @@ import {
   big_cats,
   car_links,
 } from '~/data/redirectData';
+import { new_cat } from '~/data/new_cats';
 import { parts_uniq } from '~/data/parts_uniq_link_one';
 
 function Make() {
@@ -91,6 +92,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       redirect: {
         permanent: true,
         destination: car_links[params[1]],
+      },
+    };
+  } else if (
+    params[0] === 'cat' ||
+    params[0] === 'group' ||
+    params[0] === 'sub'
+  ) {
+    console.log(params[0], params);
+    const car_slug: string = cars[params[1]];
+    const car = await getVehicle(car_slug);
+    const category_slug: string = new_cat[params[2]];
+    return {
+      redirect: {
+        permanent: true,
+        destination: url.category(car.make.slug, car.slug, category_slug),
       },
     };
   }
