@@ -20,10 +20,11 @@ const useStyles = makeStyles((theme: Theme) =>
       border: '1px solid',
       borderColor: theme.palette.action.hover,
       margin: theme.spacing(1),
-      minHeight: theme.spacing(20),
-      minWidth: theme.spacing(20),
+      minHeight: theme.spacing(12),
+      minWidth: theme.spacing(12),
       display: 'flex',
       flexDirection: 'column',
+      padding: theme.spacing(3),
     },
     image: {},
     model: {
@@ -58,8 +59,8 @@ export default function ModelBlockGrid(props: ICarProps) {
                         ? `${imageServerUrl}${model.image}`
                         : `/images/local/carsAvatar/generic.png`
                     }
-                    width={200}
-                    height={200}
+                    width={150}
+                    height={150}
                   />
                   <Typography className={classes.model} variant="body1">
                     {`${capitalize(model.make.name)} ${capitalize(
