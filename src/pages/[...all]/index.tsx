@@ -99,7 +99,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     params[0] === 'group' ||
     params[0] === 'sub'
   ) {
-    console.log(params[0], params);
     const car_slug: string = cars[params[1]];
     const car = await getVehicle(car_slug);
     const category_slug: string = new_cat[params[2]];
