@@ -44,6 +44,22 @@ import {
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 import { Container } from '@material-ui/core';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '70%',
+      },
+      paddingBottom: theme.spacing(3),
+    },
+  })
+);
 
 interface CategoryProps {
   category: IShopCategory;
@@ -74,6 +90,7 @@ export default function Cagetory(props: CategoryProps) {
     routerParams,
   } = props;
   const headProds = translateProducts(products.hits);
+  const classes = useStyles();
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -203,7 +220,7 @@ export default function Cagetory(props: CategoryProps) {
         breads={breads}
       />
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}>
+        <Container className={classes.container}>
           <Grid container>
             <PageHeader header={header} breads={breads} count={count} />
             <Hidden smDown>

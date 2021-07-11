@@ -21,6 +21,13 @@ import { getProductsByTagOrTags } from '~/endpoints/productEndpoint';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '70%',
+      },
       paddingBottom: theme.spacing(3),
     },
     leftPanel: {
