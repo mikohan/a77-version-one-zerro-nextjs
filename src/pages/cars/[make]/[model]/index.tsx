@@ -42,7 +42,7 @@ import ModelHomePage from '~/components/car/ModelHomePage';
 import { carHomePagePriority } from '~/config';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
-import { popularProductsQuantity } from '~/config';
+import { popularProductsQuantity, carShowText } from '~/config';
 import { translateProducts } from '~/utils';
 import url from '~/services/url';
 
@@ -97,8 +97,7 @@ function Model(props: IModelProps) {
     carPosts,
   } = props;
   // If car priority from config show home page otherwise show shop grid
-  const showCarHomePage: boolean =
-    parseInt(model.priority) >= carHomePagePriority ? true : false;
+  const showCarHomePage: boolean = model.weight >= carShowText ? true : false;
 
   const dispatch = useDispatch();
   const router = useRouter();

@@ -117,6 +117,7 @@ export async function getVehicles(): Promise<ICar[]> {
           engine
           priority
           image
+          weight
           make {
             id
             name
@@ -182,6 +183,7 @@ export async function getVehicle(slug: string): Promise<ICar> {
         engine
         priority
         image
+        weight
         make {
           id
           name
@@ -214,6 +216,7 @@ export async function getVehiclesByMake(slug: string): Promise<ICar[]> {
         count
         priority
         image
+        weight
         make {
           id
           name
@@ -245,6 +248,7 @@ export async function getVehiclesByPriority(priority: number): Promise<ICar[]> {
         engine
         priority
         image
+        weight
         make {
           id
           name

@@ -114,6 +114,8 @@ export const transFilter: ITransFilter = {
 export const carHomePagePriority = 4;
 // Threshold when cars becoms ours or not
 export const MODEL_PRIORITY = 3;
+// Show car Home treshold weight (range 0-99)
+export const carShowText = 90;
 
 export const COMPANY_INFORMATION = {
   COMPANY_NAME: 'Ангара Запчасти',

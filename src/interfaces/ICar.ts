@@ -18,6 +18,7 @@ export interface ICar {
   year?: number[];
   make: IMake;
   model: string;
+  weight: number;
   name?: string;
   runsname?: string;
   engine?: IEngine[];
