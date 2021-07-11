@@ -9,18 +9,19 @@ import url from '~/services/url';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import imgUrl from '~/services/img';
+import { MODEL_PRIORITY } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'grid',
       gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
-      gridGap: theme.spacing(1),
+      gridGap: theme.spacing(3),
     },
     containerSily: {
       display: 'grid',
       gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
-      gridGap: theme.spacing(1),
+      gridGap: theme.spacing(3),
     },
     item: {
       padding: theme.spacing(1),
@@ -48,7 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
     categoryBox: {
       borderTop: '1px solid',
       borderTopColor: theme.palette.action.selected,
-      padding: theme.spacing(1),
+      paddingLeft: theme.spacing(3),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
       display: 'flex',
       flexDirection: 'column',
       flexWrap: 'wrap',
@@ -56,6 +59,9 @@ const useStyles = makeStyles((theme: Theme) =>
     catItem: {
       color:
         theme.palette.type === 'light' ? theme.palette.primary.main : 'inherit',
+    },
+    modelHeader: {
+      fontWeight: 600,
     },
   })
 );
@@ -96,7 +102,7 @@ export default function ModelBlockGrid(props: ICarProps) {
       (per: any) => model.slug === per.model.slug
     );
     if (perekol) {
-      if (parseInt(model.priority) > 2) {
+      if (parseInt(model.priority) > MODEL_PRIORITY) {
         mainModels.push({
           ...model,
           categories: perekol.categories,
@@ -132,7 +138,12 @@ export default function ModelBlockGrid(props: ICarProps) {
                           height={100}
                         />
                         <Box className={classes.nameMainBox}>
-                          <Typography variant="body1">{model.model}</Typography>
+                          <Typography
+                            className={classes.modelHeader}
+                            variant="body1"
+                          >
+                            {model.model}
+                          </Typography>
                           <Typography variant="body2">
                             Запчастей ({model.count})
                           </Typography>

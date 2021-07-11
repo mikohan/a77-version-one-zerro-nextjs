@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
     swiperSlide: {
       height: 'auto !important',
     },
+    sliderItem: {
+      paddingLeft: theme.spacing(1.2),
+      paddingRight: theme.spacing(1.2),
+    },
   })
 );
 
@@ -64,7 +68,9 @@ export default function Swipper({ products }: IProps) {
     for (let prod of products) {
       slides.push(
         <SwiperSlide key={prod.id} className={classes.swiperSlide}>
-          <ProductCardGrid product={prod} />
+          <div className={classes.sliderItem}>
+            <ProductCardGrid product={prod} />
+          </div>
         </SwiperSlide>
       );
     }

@@ -11,9 +11,9 @@ import { imageServerUrl } from '~/config';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      padding: theme.spacing(2),
+      paddingTop: theme.spacing(2),
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       flexWrap: 'wrap',
     },
     item: {

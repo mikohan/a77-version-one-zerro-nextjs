@@ -112,6 +112,8 @@ export const transFilter: ITransFilter = {
 
 // If priority high and higer show car model homepage if not shop product grid
 export const carHomePagePriority = 4;
+// Threshold when cars becoms ours or not
+export const MODEL_PRIORITY = 3;
 
 export const COMPANY_INFORMATION = {
   COMPANY_NAME: 'Ангара Запчасти',

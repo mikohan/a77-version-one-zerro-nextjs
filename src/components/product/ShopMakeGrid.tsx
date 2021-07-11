@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'grid',
       gridTemplateColumns: `repeat(auto-fill, minmax(125px, 1fr))`,
       gridAutoRows: `minmax(100px, auto)`,
-      gridGap: theme.spacing(2), // padding for cards in the content area
+      gridGap: theme.spacing(3), // padding for cards in the content area
       marginBottom: theme.spacing(5),
     },
     card: {
