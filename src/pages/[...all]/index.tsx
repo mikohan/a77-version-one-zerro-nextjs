@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Porter old parts redirect
-  if (params[0] === 'porter') {
+  else if (params[0] === 'porter') {
     try {
       const onec = parseInt(params[2]);
       const prom = await getProductByOneC(onec);
@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // New cars part redirect
-  if (params[0] === 'part') {
+  else if (params[0] === 'part') {
     const arr: string[] = str?.all as any;
     const link: string = arr[2];
 
@@ -86,10 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
     //do stuff
-  }
-
-  console.log(car_links[params[1]]);
-  if (params[0] === 'zapchasti') {
+  } else if (params[0] === 'zapchasti') {
     return {
       redirect: {
         permanent: true,
