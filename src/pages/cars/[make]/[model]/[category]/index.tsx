@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('xl')]: {
         maxWidth: '85%',
       },
+      [theme.breakpoints.up('xxl')]: {
+        maxWidth: '75%',
+      },
       paddingBottom: theme.spacing(3),
     },
   })
