@@ -45,8 +45,6 @@ export default function SimpleSelect({ size }: IProps) {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       container: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
         paddingBottom: theme.spacing(2),
       },
       paper: {

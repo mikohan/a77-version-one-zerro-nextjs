@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
 import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
@@ -141,6 +141,18 @@ export default function Cagetory(props: CategoryProps) {
     }
   }
 
+  /* function setModel() { */
+  /*   if (carSlug === 'портер1') { */
+  /*     if (!router.asPath.includes('car_models')) { */
+  /*       if (!router.asPath.includes('?')) { */
+  /*         router.push(`${router.asPath}?car_models=${carSlug}`); */
+  /*       } else { */
+  /*         router.push(`${router.asPath}&car_models=${carSlug}`); */
+  /*       } */
+  /*     } */
+  /*   } */
+  /* } */
+
   /* const activeFilters: IActiveFilterMy[] = getActiveFilters( */
   /*   /1* routerParams, *1/ */
   /*   routerQuery, */
@@ -232,6 +244,14 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const routerQuery = context.query;
+  let carSlug: string = '';
+  try {
+    const cook: any = context.req;
+    const car = JSON.parse(cook.cookies.currentCar);
+    carSlug = car.slug;
+  } catch (e) {
+    console.log('Error in get car from cookies', e);
+  }
 
   // Probably needs to go ouside this file
   // Cleaning filters from pages and main url params
@@ -264,8 +284,12 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?&page_from=${page_from}&page_size=${pageSize}`;
   }
+
+  /* if (carSlug) { */
+  /*   url += `${url}&car_models=портер1`; */
+  /* } */
+  // console.log(url);
   const promise = await getProductsBySearch(url);
-  /* const promise = await getProductsAll(); */
 
   const categories: IAggregationCategory[] =
     promise.aggregations.categories.buckets;
