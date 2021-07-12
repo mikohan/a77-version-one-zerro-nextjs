@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
-import { Button, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
 import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
@@ -54,8 +54,28 @@ interface CategoryProps {
 }
 import { capitalize } from '~/utils';
 import CarChoiser from '~/components/car/CarChoiserLong';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      margin: '0 auto',
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '85%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        maxWidth: '80%',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        maxWidth: '75%',
+      },
+      paddingBottom: theme.spacing(3),
+    },
+  })
+);
 
 export default function Cagetory(props: CategoryProps) {
+  const classes = useStyles();
   const { products, aggregations, totalPages, routerQuery } = props;
 
   const dispatch = useDispatch();
@@ -199,7 +219,7 @@ export default function Cagetory(props: CategoryProps) {
     <React.Fragment>
       <SearchHead searchQuery={search} />
       <AnimationPage>
-        <Container maxWidth={containerMaxWidth}>
+        <Box className={classes.container}>
           <Grid container>
             <PageHeader header={header} breads={breads} count={count} />
             <Hidden smDown>
@@ -234,7 +254,7 @@ export default function Cagetory(props: CategoryProps) {
               </Grid>
             </Grid>
           </Grid>
-        </Container>
+        </Box>
       </AnimationPage>
     </React.Fragment>
   );

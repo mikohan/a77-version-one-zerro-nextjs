@@ -51,10 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       margin: '0 auto',
       [theme.breakpoints.down('lg')]: {
-        maxWidth: '90%',
+        maxWidth: '85%',
       },
       [theme.breakpoints.up('xl')]: {
-        maxWidth: '85%',
+        maxWidth: '80%',
       },
       [theme.breakpoints.up('xxl')]: {
         maxWidth: '75%',
