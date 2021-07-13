@@ -408,7 +408,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const promise = await getProductsAll();
   const prods = promise.hits.hits;
   let paths: IPaths[] = [];
+  let i = 0;
   for (let prod of prods) {
+    if (i > 10) {
+      break;
+    }
+    i++;
     if (prod._source.slug) {
       paths.push({ params: { slug: prod._source.slug } });
     } else {

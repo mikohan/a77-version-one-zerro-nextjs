@@ -201,7 +201,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   return {
-    revalidate: REVALIDATE,
+    revalidate: 5, //REVALIDATE,
     props: {
       posts,
       categories,
