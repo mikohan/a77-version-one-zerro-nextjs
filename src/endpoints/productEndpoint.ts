@@ -62,10 +62,12 @@ export async function getProductsByTagOrTags(
 }
 
 export async function getProductsByMake(
-  makeSlug: string
+  makeSlug: string,
+  page_size: number = 20,
+  page_from: number = 0
 ): Promise<IProductElasticBase> {
   const prom = await axios(
-    `${backServerUrl}/api/product/jsontest?make=${makeSlug}`
+    `${backServerUrl}/api/product/jsontest?make=${makeSlug}&page_size=${page_size}&page_from=${page_from}`
   );
 
   return prom.data;

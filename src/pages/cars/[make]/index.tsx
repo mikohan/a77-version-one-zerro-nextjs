@@ -1,6 +1,6 @@
 import React from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { REVALIDATE } from '~/config';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { REVALIDATE, pageSize } from '~/config';
 import { Grid } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
@@ -20,6 +20,7 @@ import { getPosts } from '~/endpoints/blogEndpoint';
 import { carWithCountAndCats } from '~/endpoints/carsEndpoint';
 import BlogGrid from '~/components/car/BlogGrid';
 import url from '~/services/url';
+import { asString } from '~/helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,11 +50,13 @@ interface ICarProps {
   latestPosts: IPost[];
   carCountCat: any;
   posts: IPost[];
+  totalPages: number;
 }
 
 function Make(props: ICarProps) {
   const classes = useStyles();
-  const { make, models, products, carCountCat, posts } = props;
+  const { make, models, products, carCountCat, posts, totalPages } = props;
+
   const count = products.total.value;
 
   const breads: IBread[] = [
@@ -109,6 +112,7 @@ function Make(props: ICarProps) {
                 <ShopGrid
                   products={products.hits}
                   filtersResetHandlers={filtersResetHandlers}
+                  totalPages={totalPages}
                 />
               }
             </Grid>
@@ -119,38 +123,48 @@ function Make(props: ICarProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug: string = context.params?.make as string;
   const make: IMake = await getMake(slug);
 
+  const str: string = asString(context.query.page as string);
+  const page: number = parseInt(str) || 1;
+
+  const page_from = pageSize * (page - 1);
+
   const models: ICar[] = await getVehiclesByMake(make.slug.toLowerCase());
-  const promise = await getProductsByMake(slug);
+  const promise = await getProductsByMake(slug, pageSize, page_from);
   const products: IProductElasticHitsFirst = promise.hits;
   const carCountCat = await carWithCountAndCats(slug);
   const posts = await getPosts(6);
 
+  const prodCount: number = products.total.value;
+
+  const totalPages = Math.ceil(prodCount / pageSize);
+
   return {
-    revalidate: REVALIDATE,
+    // revalidate: 5, //REVALIDATE,
     props: {
       models: models,
       make: make,
       products: products,
       carCountCat,
       posts,
+      totalPages,
     },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const makes: IMake[] = await getMakes();
-  const paths = makes.map((make: any) => {
-    return { params: { make: make.slug } };
-  });
+/* export const getStaticPaths: GetStaticPaths = async () => { */
+/*   const makes: IMake[] = await getMakes(); */
+/*   const paths = makes.map((make: any) => { */
+/*     return { params: { make: make.slug } }; */
+/*   }); */
 
-  return {
-    fallback: 'blocking',
-    paths: paths,
-  };
-};
+/*   return { */
+/*     fallback: 'blocking', */
+/*     paths: paths, */
+/*   }; */
+/* }; */
 
 export default Make;

@@ -102,7 +102,7 @@ export default function ModelBlockGrid(props: ICarProps) {
       (per: any) => model.slug === per.model.slug
     );
     if (perekol) {
-      if (parseInt(model.priority) > MODEL_PRIORITY) {
+      if (parseInt(model.priority) >= MODEL_PRIORITY) {
         mainModels.push({
           ...model,
           categories: perekol.categories,
@@ -115,6 +115,7 @@ export default function ModelBlockGrid(props: ICarProps) {
       }
     }
   }
+
   let retModels = !isMainCars ? silyModels : mainModels;
 
   if (isMainCars) {

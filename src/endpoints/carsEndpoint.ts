@@ -9,9 +9,9 @@ import { backServerUrl } from '~/config';
 export async function carWithCountAndCats(model: string, limit?: number) {
   let url = '';
   if (limit) {
-    url = `${backServerUrl}/api/product/by-car-count-cat?model=${model}&limit=${limit}`;
+    url = `${backServerUrl}/api/product/by-car-count-cat?make=${model}&limit=${limit}`;
   } else {
-    url = `${backServerUrl}/api/product/by-car-count-cat?model=${model}`;
+    url = `${backServerUrl}/api/product/by-car-count-cat?make=${model}`;
   }
   const response = await axios.get(url);
   return response.data;
