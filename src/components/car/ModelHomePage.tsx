@@ -131,7 +131,9 @@ export default function ModelShopList(props: IProps) {
                   />
                 </Grid>
                 <Grid item xs={12} md={8} className={classes.textBox}>
-                  <Box>{parse(model.history as string)}</Box>
+                  <Box>
+                    {model.history ? parse(model.history as string) : ''}
+                  </Box>
                 </Grid>
               </Grid>
             </Paper>
@@ -141,7 +143,7 @@ export default function ModelShopList(props: IProps) {
               Обьемы жидкостей
             </Typography>
             <Paper className={classes.paper}>
-              <Box>{parse(model.liquids as string)}</Box>
+              <Box>{model.liquids ? parse(model.liquids as string) : ''}</Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -149,7 +151,7 @@ export default function ModelShopList(props: IProps) {
               Карта ТО
             </Typography>
             <Paper className={classes.paper}>
-              <Box>{parse(model.liquids as string)}</Box>
+              <Box>{model.liquids ? parse(model.liquids as string) : ''}</Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
