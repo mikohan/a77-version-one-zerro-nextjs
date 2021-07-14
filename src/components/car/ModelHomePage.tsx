@@ -7,7 +7,7 @@ import {
   IPost,
 } from '~/interfaces';
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import PageHeader from '~/components/product/PageHeader';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
@@ -17,6 +17,7 @@ import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
 import BlogGrid from '~/components/car/BlogGrid';
 import CategoriesEightBoxes from '~/components/car/CategoriesEightBoxes';
+import parse from 'html-react-parser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -130,23 +131,7 @@ export default function ModelShopList(props: IProps) {
                   />
                 </Grid>
                 <Grid item xs={12} md={8} className={classes.textBox}>
-                  <Typography variant="body2">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quaerat non odio reprehenderit illo facilis doloremque odit
-                    esse est nemo alias assumenda eaque deserunt inventore quas
-                    hic sunt quae nam, mollitia, dolorum, quia maiores eveniet?
-                    Unde enim laborum veritatis possimus, odit vel maxime
-                    commodi, architecto recusandae inventore ipsam, saepe sit
-                    provident reiciendis accusamus rerum molestias voluptatem at
-                    dolor atque iure. Voluptas? Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Quaerat non odio reprehenderit
-                    illo facilis doloremque odit esse est nemo alias assumenda
-                    eaque deserunt inventore quas hic sunt quae nam, mollitia,
-                    dolorum, quia maiores eveniet? Unde enim laborum veritatis
-                    possimus, odit vel maxime commodi, architecto recusandae
-                    inventore ipsam, saepe sit provident reiciendis accusamus
-                    rerum molestias voluptatem at dolor atque iure. Voluptas?
-                  </Typography>
+                  <Box>{parse(model.history as string)}</Box>
                 </Grid>
               </Grid>
             </Paper>
@@ -156,16 +141,7 @@ export default function ModelShopList(props: IProps) {
               Обьемы жидкостей
             </Typography>
             <Paper className={classes.paper}>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
+              <Box>{parse(model.liquids as string)}</Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -173,16 +149,7 @@ export default function ModelShopList(props: IProps) {
               Карта ТО
             </Typography>
             <Paper className={classes.paper}>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                non odio reprehenderit illo facilis doloremque odit esse est
-                nemo alias assumenda eaque deserunt inventore quas hic sunt quae
-                nam, mollitia, dolorum, quia maiores eveniet? Unde enim laborum
-                veritatis possimus, odit vel maxime commodi, architecto
-                recusandae inventore ipsam, saepe sit provident reiciendis
-                accusamus rerum molestias voluptatem at dolor atque iure.
-                Voluptas?
-              </Typography>
+              <Box>{parse(model.liquids as string)}</Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>

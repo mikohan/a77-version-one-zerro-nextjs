@@ -184,6 +184,9 @@ export async function getVehicle(slug: string): Promise<ICar> {
         priority
         image
         weight
+        history
+        liquids
+        to
         make {
           id
           name

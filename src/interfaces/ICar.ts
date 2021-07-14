@@ -27,6 +27,9 @@ export interface ICar {
   priority: string;
   image: string;
   categories?: IModCats[];
+  history: String | null;
+  liquids: String | null;
+  to: String | null;
 }
 
 export interface IVehicle extends ICar {}
