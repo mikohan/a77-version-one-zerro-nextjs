@@ -50,3 +50,4 @@ export const clientBlog = new ApolloClient({
   defaultOptions: defaultOptions,
   connectToDevTools: true,
 });
+// comment
