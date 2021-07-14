@@ -37,11 +37,16 @@ const defaultOptions: DefaultOptions = {
 };
 
 export const client = new ApolloClient({
+  ssrMode: true,
   link: link,
   cache: new InMemoryCache(),
+  connectToDevTools: true,
 });
 
 export const clientBlog = new ApolloClient({
+  ssrMode: true,
   link: linkBlog,
   cache: new InMemoryCache(),
+  defaultOptions: defaultOptions,
+  connectToDevTools: true,
 });
