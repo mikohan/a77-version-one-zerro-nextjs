@@ -5,7 +5,7 @@ import { REVALIDATE, BLOG_DATA, imageServerUrl } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
-import { Grid, Typography, Box, Paper } from '@material-ui/core';
+import { Grid, Typography, Box, Paper, Hidden } from '@material-ui/core';
 import BlogPostHead from '~/components/heads/BlogPostHead';
 import SearchField from '~/components/blog/SearchBar';
 import BlogPaper from '~/components/blog/PostSingleRow';
@@ -261,12 +261,14 @@ export default function Posts({
               <LatestPosts posts={latestPosts} />
               <LatestProducts products={latestProducts} />
             </Grid>
-            <Grid className={classes.bottomProducts} container item xs={12}>
-              <Typography className={classes.mayLike} variant="h6">
-                Вам может понравиться
-              </Typography>
-              <ProductGrid products={productsToPost} />
-            </Grid>
+            <Hidden smDown>
+              <Grid className={classes.bottomProducts} container item xs={12}>
+                <Typography className={classes.mayLike} variant="h6">
+                  Вам может понравиться
+                </Typography>
+                <ProductGrid products={productsToPost} />
+              </Grid>
+            </Hidden>
           </Grid>
         </div>
       </AnimationPage>
