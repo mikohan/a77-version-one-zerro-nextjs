@@ -151,7 +151,7 @@ export default function ModelShopList(props: IProps) {
               Карта ТО
             </Typography>
             <Paper className={classes.paper}>
-              <Box>{model.liquids ? parse(model.liquids as string) : ''}</Box>
+              <Box>{model.liquids ? parse(model.to as string) : ''}</Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
