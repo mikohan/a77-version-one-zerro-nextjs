@@ -306,7 +306,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const readTime: number = readingTime(post.text);
 
   return {
-    revalidate: REVALIDATE,
+    revalidate: 5, //REVALIDATE,
     props: {
       post,
       categories,
