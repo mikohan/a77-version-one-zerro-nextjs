@@ -55,7 +55,10 @@ const useStyles = makeStyles((theme: Theme) =>
     itemPaper: { padding: theme.spacing(1) },
     modelTable: {
       '&> table ': {
-        fontSize: '1.2rem',
+        fontSize: '1rem',
+        [theme.breakpoints.up('xl')]: {
+          fontSize: '1.1rem',
+        },
         width: '100%',
         borderCollapse: 'collapse',
       },
@@ -72,10 +75,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     history: {
       '& p': {
-        fontSize: '1.2rem',
+        fontSize: '1rem',
+        [theme.breakpoints.up('lg')]: {
+          fontSize: '1.1rem',
+        },
       },
       '& ul': {
-        fontSize: '1.2rem',
+        fontSize: '1rem',
+        [theme.breakpoints.up('xl')]: {
+          fontSize: '1.1rem',
+        },
         textDecoration: 'none',
       },
     },
