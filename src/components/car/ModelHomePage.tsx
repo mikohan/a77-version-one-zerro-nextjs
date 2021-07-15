@@ -18,6 +18,7 @@ import ProductsGrid from '~/components/blog/ProductGrid';
 import BlogGrid from '~/components/car/BlogGrid';
 import CategoriesEightBoxes from '~/components/car/CategoriesEightBoxes';
 import parse from 'html-react-parser';
+import { imageServerUrl } from '~/config_local';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,28 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     itemPaper: { padding: theme.spacing(1) },
+    modelTable: {
+      '&> table ': {
+        fontSize: '1.2rem',
+        width: '100%',
+        borderCollapse: 'collapse',
+      },
+      '&> table > tbody > tr > td': {
+        border: '1px solid #cccccc',
+        padding: theme.spacing(1),
+      },
+      '&  table, & th': {
+        border: '1px solid #cccccc',
+      },
+      '& tr': {
+        height: theme.spacing(5),
+      },
+    },
+    history: {
+      '& p': {
+        fontSize: '1.2rem',
+      },
+    },
   })
 );
 
@@ -88,6 +111,7 @@ export default function ModelShopList(props: IProps) {
     postsByCar,
   } = props;
   const classes = useStyles();
+  console.log(model.image);
   return (
     <React.Fragment>
       <React.Fragment>
@@ -125,13 +149,17 @@ export default function ModelShopList(props: IProps) {
               <Grid item container xs={12} className={classes.modelHistory}>
                 <Grid item xs={12} md={4} className={classes.carImage}>
                   <Image
-                    src="/images/local/carsAvatar/generic.png"
+                    src={
+                      model.image
+                        ? `${imageServerUrl}${model.image}`
+                        : '/images/local/carsAvatar/generic.png'
+                    }
                     width={250}
                     height={250}
                   />
                 </Grid>
                 <Grid item xs={12} md={8} className={classes.textBox}>
-                  <Box>
+                  <Box className={classes.history}>
                     {model.history ? parse(model.history as string) : ''}
                   </Box>
                 </Grid>
@@ -143,7 +171,9 @@ export default function ModelShopList(props: IProps) {
               Обьемы жидкостей
             </Typography>
             <Paper className={classes.paper}>
-              <Box>{model.liquids ? parse(model.liquids as string) : ''}</Box>
+              <Box className={classes.modelTable}>
+                {model.liquids ? parse(model.liquids as string) : ''}
+              </Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -151,7 +181,9 @@ export default function ModelShopList(props: IProps) {
               Карта ТО
             </Typography>
             <Paper className={classes.paper}>
-              <Box>{model.liquids ? parse(model.to as string) : ''}</Box>
+              <Box className={classes.modelTable}>
+                {model.liquids ? parse(model.to as string) : ''}
+              </Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
