@@ -80,13 +80,12 @@ const useStyles = makeStyles((theme: Theme) =>
           fontSize: '1.1rem',
         },
       },
-      '& ul': {
-        listStyle: 'none',
-      },
       '& ul>li': {
         fontSize: '1rem',
+        fontWeight: 500,
         [theme.breakpoints.up('xl')]: {
           fontSize: '1.1rem',
+          fontWeight: 500,
         },
       },
     },
