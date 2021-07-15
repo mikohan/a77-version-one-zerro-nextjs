@@ -74,6 +74,10 @@ const useStyles = makeStyles((theme: Theme) =>
       '& p': {
         fontSize: '1.2rem',
       },
+      '& ul': {
+        fontSize: '1.2rem',
+        textDecoration: 'none',
+      },
     },
   })
 );
