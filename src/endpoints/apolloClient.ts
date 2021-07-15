@@ -41,7 +41,7 @@ export const client = new ApolloClient({
   link: link,
   cache: new InMemoryCache(),
   connectToDevTools: true,
-  defaultOptions: defaultOptions,
+  //defaultOptions: defaultOptions,
 });
 
 export const clientBlog = new ApolloClient({
