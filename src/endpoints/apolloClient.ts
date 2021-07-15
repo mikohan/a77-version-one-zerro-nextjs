@@ -28,7 +28,7 @@ const linkBlog = from([
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: 'no-cache',
-    errorPolicy: 'ignore',
+    errorPolicy: 'all',
   },
   query: {
     fetchPolicy: 'no-cache',
@@ -41,6 +41,7 @@ export const client = new ApolloClient({
   link: link,
   cache: new InMemoryCache(),
   connectToDevTools: true,
+  defaultOptions: defaultOptions,
 });
 
 export const clientBlog = new ApolloClient({
