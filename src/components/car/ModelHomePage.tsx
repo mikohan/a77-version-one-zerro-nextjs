@@ -125,7 +125,6 @@ export default function ModelShopList(props: IProps) {
     postsByCar,
   } = props;
   const classes = useStyles();
-  console.log(model.image);
   return (
     <React.Fragment>
       <React.Fragment>
