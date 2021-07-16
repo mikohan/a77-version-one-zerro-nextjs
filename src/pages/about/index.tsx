@@ -7,6 +7,12 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
 import url from '~/services/url';
 import { IBread } from '~/interfaces';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,6 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
+    table: {
+      minWidth: '100%',
+    },
   })
 );
 const breadCrumbs = [
@@ -88,9 +97,70 @@ export default function About() {
           </Grid>
           <Grid className={classes.row} container item xs={12}>
             <Paper className={classes.paper}>
-              <Typography className={classes.subtitle} variant="h6">
-                Something about company
-              </Typography>
+              <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+
+                  <TableBody>
+
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        Название
+                      </TableCell>
+                      <TableCell align="right">
+                        Общество с ограниченной ответственностью "АНГАРА"
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        ИНН
+                      </TableCell>
+                      <TableCell align="right">
+                        7733607590
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        КПП
+                      </TableCell>
+                      <TableCell align="right">
+                        773301001
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        Банк
+                      </TableCell>
+                      <TableCell align="right">
+                        ПАО "ПРОМСВЯЗЬБАНК" Г.МОСКВА
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        БИК
+                      </TableCell>
+                      <TableCell align="right">
+                        044525555
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        ОГРН
+                      </TableCell>
+                      <TableCell align="right">
+                        5077746795418
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        Номер счета
+                      </TableCell>
+                      <TableCell align="right">
+                        40702810170030424301
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
               <Grid className={classes.payment} item xs={12}></Grid>
             </Paper>
           </Grid>
