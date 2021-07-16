@@ -62,7 +62,7 @@ export default function ModelShopList(props: IProps) {
                 />
                 <Typography
                   className={classes.title}
-                  variant="body1"
+                  variant="body2"
                   component="div"
                 >
                   {post.title}
