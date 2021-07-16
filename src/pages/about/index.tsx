@@ -54,6 +54,12 @@ const useStyles = makeStyles((theme: Theme) =>
     row: {
       paddingBottom: theme.spacing(2),
     },
+    revLeft: {
+      paddingRight: theme.spacing(1),
+    },
+    revRight: {
+      paddingLeft: theme.spacing(1),
+    },
     subtitle: {
       paddingBottom: theme.spacing(2),
     },
@@ -102,20 +108,51 @@ export default function About() {
           <Grid className={classes.row} container item xs={12}>
             <Paper className={classes.paper}>
               <Grid className={classes.payment} item xs={12}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum
-                optio nemo, praesentium quo suscipit corporis quod tenetur
-                sapiente dolorem minus quae natus itaque aliquid tempora
-                quibusdam vero nam soluta inventore ad molestiae at sit nisi
-                commodi. Praesentium autem quae pariatur consequatur omnis vero
-                eveniet soluta veniam quos enim sed officia, quo debitis nihil
-                tempora dolorum quas quidem laboriosam non libero placeat beatae
-                similique quam. Sapiente porro odit dolorem sequi debitis,
-                delectus fugit illo ullam facere aut ad maiores iste. Esse
-                libero aliquam explicabo at fuga recusandae repudiandae nesciunt
-                et nobis. Veniam officia quos vitae labore aperiam voluptates
-                optio temporibus molestiae!
+                <Typography variant="body1">
+                  Находите все нужные запчасти в одном месте.
+                </Typography>
+                <Typography variant="body1">
+                  Верните запчасти в любой момент, если взяли лишнее или если
+                  запчасти не понадобились. Процедура проста - покажите чек и
+                  сразу же вернем деньги.
+                </Typography>
+                <Typography variant="body1">
+                  Покупайте только качественные запчасти, мы подскажем - на чем
+                  остановить свой выбор
+                </Typography>
+                <Typography variant="body1">
+                  Купите все необходимое для ремонта или ТО, даже если в сервисе
+                  забыли о какой нибудь мелочи
+                </Typography>
               </Grid>
             </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className={classes.title} variant="h1">
+              Лучше всего о нашей компании расскажут наши клиенты:
+            </Typography>
+          </Grid>
+          <Grid className={classes.row} container item xs={12}>
+            <Grid className={classes.revLeft} item xs={6}>
+              <Paper className={classes.paper}>
+                <Image
+                  src="/images/local/google_otz_new.png"
+                  width={600}
+                  height={833}
+                  layout="responsive"
+                />
+              </Paper>
+            </Grid>
+            <Grid className={classes.revRight} item xs={6}>
+              <Paper className={classes.paper}>
+                <Image
+                  src="/images/local/yand_otz_new.png"
+                  width={600}
+                  height={833}
+                  layout="responsive"
+                />
+              </Paper>
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
