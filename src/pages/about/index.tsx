@@ -13,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
       minWidth: '100%',
+      '& td, & th': {
+        fontSize: '1rem',
+      },
     },
   })
 );
@@ -92,83 +96,11 @@ export default function About() {
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.title} variant="h1">
-              Способы оплаты
+              O Компании
             </Typography>
           </Grid>
           <Grid className={classes.row} container item xs={12}>
             <Paper className={classes.paper}>
-              <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
-
-                  <TableBody>
-
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        Название
-                      </TableCell>
-                      <TableCell align="right">
-                        Общество с ограниченной ответственностью "АНГАРА"
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        ИНН
-                      </TableCell>
-                      <TableCell align="right">
-                        7733607590
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        КПП
-                      </TableCell>
-                      <TableCell align="right">
-                        773301001
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        Банк
-                      </TableCell>
-                      <TableCell align="right">
-                        ПАО "ПРОМСВЯЗЬБАНК" Г.МОСКВА
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        БИК
-                      </TableCell>
-                      <TableCell align="right">
-                        044525555
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        ОГРН
-                      </TableCell>
-                      <TableCell align="right">
-                        5077746795418
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        Номер счета
-                      </TableCell>
-                      <TableCell align="right">
-                        40702810170030424301
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <Grid className={classes.payment} item xs={12}></Grid>
-            </Paper>
-          </Grid>
-          <Grid className={classes.row} container item xs={12}>
-            <Paper className={classes.paper}>
-              <Typography className={classes.subtitle} variant="h6">
-                Как оплатить товар из регионов?
-              </Typography>
               <Grid className={classes.payment} item xs={12}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum
                 optio nemo, praesentium quo suscipit corporis quod tenetur
@@ -182,6 +114,83 @@ export default function About() {
                 libero aliquam explicabo at fuga recusandae repudiandae nesciunt
                 et nobis. Veniam officia quos vitae labore aperiam voluptates
                 optio temporibus molestiae!
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className={classes.title} variant="h1">
+              Реквизиты
+            </Typography>
+          </Grid>
+          <Grid className={classes.row} container item xs={12}>
+            <Paper className={classes.paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableBody>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Название
+                    </TableCell>
+                    <TableCell align="right">
+                      Общество с ограниченной ответственностью "АНГАРА"
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      ИНН
+                    </TableCell>
+                    <TableCell align="right">7733607590</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      КПП
+                    </TableCell>
+                    <TableCell align="right">773301001</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Банк
+                    </TableCell>
+                    <TableCell align="right">
+                      ПАО "ПРОМСВЯЗЬБАНК" Г.МОСКВА
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      БИК
+                    </TableCell>
+                    <TableCell align="right">044525555</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      ОГРН
+                    </TableCell>
+                    <TableCell align="right">5077746795418</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Номер счета
+                    </TableCell>
+                    <TableCell align="right">40702810170030424301</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+              <Grid className={classes.payment} item xs={12}></Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className={classes.title} variant="h1">
+              Сертификаты
+            </Typography>
+          </Grid>
+          <Grid className={classes.row} container item xs={12}>
+            <Paper className={classes.paper}>
+              <Grid className={classes.payment} item xs={12}>
+                <Image
+                  src="/images/local/ang_sert_big.jpg"
+                  layout="responsive"
+                  width={900}
+                  height={1200}
+                />
               </Grid>
             </Paper>
           </Grid>

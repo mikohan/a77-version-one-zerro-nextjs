@@ -8,6 +8,7 @@ public/img
 config_local.ts
 # testing
 /coverage
+package-lock.json
 
 # next.js
 /.next/
