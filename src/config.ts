@@ -1,7 +1,11 @@
 import { ITransFilter, IFilter } from '~/interfaces';
 
-import { backServerUrl, imageServerUrl } from '~/config_local';
-export { backServerUrl, imageServerUrl };
+import {
+  backServerUrl,
+  imageServerUrl,
+  SITE_DOMAIN_FULL,
+} from '~/config_local';
+export { backServerUrl, imageServerUrl, SITE_DOMAIN_FULL };
 
 // Edn of server conf
 export const backServerUrlRest = backServerUrl; // url for elastic search
@@ -55,7 +59,6 @@ export const cookiesAge = {
 export const firstSlug = 'car';
 
 export const SITE_DOMAIN = 'ANGARA77.COM';
-export const SITE_DOMAIN_FULL = 'https://angara77.com';
 // Changes product card size in the products grid
 export const prodCardSize = 225;
 export const defaultShopPageLayout = 'grid';
