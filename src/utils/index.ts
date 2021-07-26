@@ -165,3 +165,33 @@ export function getImageSize(product: IProduct): number[] {
 export function emailIsValid(email: string) {
   return /\S+@\S+\.\S+/.test(email);
 }
+
+export function removeTags(str: string) {
+  if (str === null || str === '') return false;
+  else str = str.toString();
+
+  // Regular expression to identify HTML tags in
+  // the input string. Replacing the identified
+  // HTML tag with a null string.
+  return str.replace(/(<([^>]+)>)/gi, '');
+}
+export function escapeHtml(unsafe: string) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+export function stripHtml(unsafe: string) {
+  return unsafe
+    .replace('&amp;', '')
+    .replace('&lt;', '')
+    .replace('&gt;', '')
+    .replace('&nbsp;', '')
+    .replace('&#039;', '')
+    .replace(/\//g, ' ')
+    .replace(/\-/g, ' ')
+    .replace(/\n/g, '')
+    .replace(/\&/g, '');
+}
