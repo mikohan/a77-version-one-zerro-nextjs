@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
 import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
@@ -69,6 +69,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       paddingBottom: theme.spacing(3),
     },
+    notFound: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: theme.spacing(30),
+    },
   })
 );
 
@@ -101,19 +107,6 @@ export default function Cagetory(props: CategoryProps) {
     { name: 'Ангара77', path: '/' },
     { name: search, path: url.search(search) },
   ];
-
-  // Make array for brands filter
-
-  //************************ Filters Section Starts here**********************************************
-
-  /* const categoriesFilter: IFilter = { */
-  /*   type: 'category', */
-  /*   name: 'Категории', */
-  /*   slug: 'category', */
-  /*   value: 'dvigatel', */
-  /*   path: orderedCatBreads, */
-  /*   items: categories, */
-  /* }; */
 
   /* // ************************** Price filters ********************* */
   let minPrice: number = 0;
@@ -194,6 +187,21 @@ export default function Cagetory(props: CategoryProps) {
     undefined,
     search
   );
+
+  function NotFound() {
+    return (
+      <React.Fragment>
+        <Grid container>
+          <Grid item xs={12} justify="center">
+            <Paper className={classes.notFound}>
+              <Typography variant="h4">Ничего не найдено :(</Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <SearchHead searchQuery={search} />
@@ -227,7 +235,7 @@ export default function Cagetory(props: CategoryProps) {
                       }}
                     />
                   ) : (
-                    <div>No stuff</div>
+                    <NotFound />
                   )}
                 </Grid>
               </Grid>
