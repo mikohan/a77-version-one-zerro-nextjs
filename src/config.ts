@@ -128,6 +128,8 @@ export const COMPANY_INFORMATION = {
   SHOP_ADDRESS: 'г. Москва, Соловьиная Роща дoм 8 корпус 2',
   SHOP_EMAIL: 'angara77@gmail.com',
   SHOP_WORKING_HOURS: 'Ежедневно c 09:00 до 19:00',
+  SHOP_WORKING_HOURS_FROM: '09:00',
+  SHOP_WORKING_HOURS_TO: '19:00',
   SHOP_CONTACT_TEXT:
     'Мы всегда открыты для сотрудничества и критики, Свяжитесь любым удобным способом.',
   RECVIZITY: {

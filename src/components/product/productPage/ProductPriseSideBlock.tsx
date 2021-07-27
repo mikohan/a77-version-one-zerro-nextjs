@@ -278,11 +278,14 @@ const ProductPriceSideBlock = ({ product }: IProps) => {
         <Box className={classes.iconBox}>
           <FiPaymentSecurity48Svg className={classes.iconItem} />
           <Typography variant="subtitle1">Безопасная оплата</Typography>
-          <Typography variant="body2">Янекс и СбреБанк</Typography>
+          <Typography variant="body2">Яндекс и СберБанк</Typography>
         </Box>
         <Box className={classes.iconBox}>
           <Fi24Hours48Svg className={classes.iconItem} />
-          <Typography variant="subtitle1">Работаем 9:00-19:00</Typography>
+          <Typography variant="subtitle1">
+            Работаем {COMPANY_INFORMATION.SHOP_WORKING_HOURS_FROM}-
+            {COMPANY_INFORMATION.SHOP_WORKING_HOURS_TO}
+          </Typography>
           <Typography variant="body2">Ежедневно</Typography>
         </Box>
       </Box>
