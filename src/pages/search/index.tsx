@@ -6,9 +6,8 @@ import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
-import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
+import { IAgregations } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
-import { makeTree } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
 import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
@@ -28,14 +27,13 @@ import {
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
-import { containerMaxWidth, pageSize } from '~/config';
+import { pageSize } from '~/config';
 import {
   makeHandleDeleteFilter,
   makeHandleDeleteFilters,
   makeHandleFilterChange,
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
-import { Container } from '@material-ui/core';
 
 interface CategoryProps {
   category: IShopCategory;
@@ -89,7 +87,7 @@ export default function Cagetory(props: CategoryProps) {
   const filtersFromStore = useSelector(
     (state: IState) => state.shopNew.filters
   );
-  const search = routerQuery.search;
+  let search = routerQuery.search;
 
   const header = search ? `${capitalize(search)}` : '';
   const count = products.total.value;
@@ -146,9 +144,9 @@ export default function Cagetory(props: CategoryProps) {
   );
   // ************************** End filters *********************
 
-  const possibleFilters: string[] = sortedFilters.map(
-    (item: IFilter) => item.slug
-  );
+  /* const possibleFilters: string[] = sortedFilters.map( */
+  /*   (item: IFilter) => item.slug */
+  /* ); */
 
   // Getting filters from state redux
   const activeFilters: IActiveFilterMy[] = [];
@@ -160,25 +158,6 @@ export default function Cagetory(props: CategoryProps) {
       });
     }
   }
-
-  /* function setModel() { */
-  /*   if (carSlug === 'портер1') { */
-  /*     if (!router.asPath.includes('car_models')) { */
-  /*       if (!router.asPath.includes('?')) { */
-  /*         router.push(`${router.asPath}?car_models=${carSlug}`); */
-  /*       } else { */
-  /*         router.push(`${router.asPath}&car_models=${carSlug}`); */
-  /*       } */
-  /*     } */
-  /*   } */
-  /* } */
-
-  /* const activeFilters: IActiveFilterMy[] = getActiveFilters( */
-  /*   /1* routerParams, *1/ */
-  /*   routerQuery, */
-  /*   filtersFromStore, */
-  /*   possibleFilters */
-  /* ); */
 
   // Putting filters from url to store
   useEffect(() => {
@@ -264,7 +243,7 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const routerQuery = context.query;
-  let carSlug: string = '';
+  /* let carSlug: string = ''; */
 
   // Probably needs to go ouside this file
   // Cleaning filters from pages and main url params
@@ -298,14 +277,10 @@ export const getServerSideProps: GetServerSideProps = async (
     url = `?&page_from=${page_from}&page_size=${pageSize}`;
   }
 
-  /* if (carSlug) { */
-  /*   url += `${url}&car_models=портер1`; */
-  /* } */
-  // console.log(url);
   const promise = await getProductsBySearch(url);
 
-  const categories: IAggregationCategory[] =
-    promise.aggregations.categories.buckets;
+  /* const categories: IAggregationCategory[] = */
+  /*   promise.aggregations.categories.buckets; */
   let products: IProductElasticHitsFirst = promise.hits;
   const prodCount: number = products.total.value;
 
@@ -313,7 +288,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const aggregations: IAgregations = promise.aggregations;
 
-  const localCatTree: ICategory[] = makeTree(categories);
+  /* const localCatTree: ICategory[] = makeTree(categories); */
 
   if (!promise) {
     return {

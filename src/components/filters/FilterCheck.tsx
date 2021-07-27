@@ -1,4 +1,5 @@
 import React from 'react';
+
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -7,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ICheckFilterValue } from '~/interfaces/filters';
 import { booleanToRus, conditionToRus } from '~/helpers';
+import { useSelector } from 'react-redux';
+import { IState } from '~/interfaces';
 
 // Helper functions need to refactor
 
