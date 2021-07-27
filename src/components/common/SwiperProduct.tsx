@@ -104,7 +104,7 @@ export default function Swipper({ product }: IProps) {
             layout="responsive"
             width={1200}
             height={900}
-            src={`https://picsum.photos/id/${i + 1}/1200/900`}
+            src={`/images/local/defaultParts1200.jpg`}
           />
         </SwiperSlide>
       );
@@ -114,7 +114,7 @@ export default function Swipper({ product }: IProps) {
             layout="intrinsic"
             width={150}
             height={100}
-            src={`https://picsum.photos/id/${i + 1}/500/300`}
+            src={`/images/local/defaultParts245.jpg`}
           />
         </SwiperSlide>
       );
