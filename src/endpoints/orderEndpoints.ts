@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { IOrder } from '~/interfaces';
-import { backServerUrlRest } from '~/config';
+import { backServerUrl } from '~/config';
 
 export async function sendOrder(order: IOrder): Promise<any> {
-  const urlAxios = `${backServerUrlRest}/orders/`;
+  const urlAxios = `${backServerUrl}/orders/`;
   const response = await axios.post(urlAxios, order);
   return response;
 }
