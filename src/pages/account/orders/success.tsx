@@ -42,7 +42,7 @@ export default function OrderSuccess() {
                 variant="h2"
                 align="center"
               >
-                Спасиба, что остаетесь с нами!
+                Спасибо, что остаетесь с нами!
               </Typography>
             </Grid>
             <Grid
