@@ -249,6 +249,13 @@ export default function Header({ setIsDark, isDark }: IProps) {
         />
         <Tab
           label={
+            <Link href={url.homeOld()}>
+              <a>Старый сайт</a>
+            </Link>
+          }
+        />
+        <Tab
+          label={
             <Link href={url.cars()}>
               <a>Машины</a>
             </Link>
