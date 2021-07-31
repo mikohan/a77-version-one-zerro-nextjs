@@ -36,6 +36,8 @@ import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
 import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
 import SimpleReactLightbox from 'simple-react-lightbox';
+import * as gtag from '~/services/gtag';
+import { useRouter } from 'next/router';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -55,10 +57,12 @@ function MyApp(props: any) {
   const [isDark, setIsDark] = useState(false);
   const [userId, setUserId] = useState('');
 
+  const isProduction = process.env.NODE_ENV === 'production';
+
   /* const useTheme = theme; */
 
   const useTheme = isDark ? darkTheme : theme;
-
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       const res = await getVehicles();
@@ -84,6 +88,17 @@ function MyApp(props: any) {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      /* invoke analytics function only for production */
+      if (isProduction) gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   useEffect(() => {
     let lastCars: ICar[] = [];

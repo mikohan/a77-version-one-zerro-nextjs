@@ -3,13 +3,39 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '~/theme';
 
+import { GA_TRACKING_ID } from '~/services/gtag';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default class MyDocument extends Document {
   pageProps = this.props!;
   render() {
     return (
       <Html lang="en">
         <Head>
-          {/* PWA primary color */}
+          {/* enable analytics script only for production */}
+          {isProduction && (
+            <>
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+              />
+              <script
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+                }}
+              />
+            </>
+          )}
+
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/favicon.png" />
           <link
