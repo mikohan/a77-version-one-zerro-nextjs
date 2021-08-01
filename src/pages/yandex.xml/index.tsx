@@ -32,9 +32,12 @@ export const getServerSideProps = async ({ res }: any) => {
     ) {
       if (p.stocks.length) {
         let pictures = '';
-        p.images.forEach((img: any) => {
+        for (let [i, img] of p.images.entries()) {
+          if (i === 9) {
+            break;
+          }
           pictures += '<picture>' + img.img800 + '</picture>\n';
-        });
+        }
         offer += `<offer id="${p.id}">
                     <name>${p.name} ${capitalize(p.model[0].name)}</name>
                     <url>${SITE_DOMAIN_FULL}/product/${
