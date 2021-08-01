@@ -63,7 +63,14 @@ export const getServerSideProps = async ({ res }: any) => {
                     <vendorCode>${p.cat_number}</vendorCode>
                     <description>${p.description}</description>
                     <delivery>true</delivery>
-                    <local_delivery_cost>${delivery_cost}</local_delivery_cost>
+                        <pickup>true</pickup>
+                        <delivery-options>
+                            <option cost="${delivery_cost}" days="1" order-before="18"/>
+                        </delivery-options>
+                        <pickup-options>
+                            <option cost="0" days="1"/>                        
+                        </pickup-options>
+                        <store>true</store>   
                 </offer>\n`;
         count++;
       }
@@ -93,9 +100,6 @@ export const getServerSideProps = async ({ res }: any) => {
             <categories>
             ${cats}
             </categories>
-            <delivery-options>
-                <option cost="${delivery_cost}" days="1"/>
-            </delivery-options>
             <offers>
             ${offer}
             </offers>
