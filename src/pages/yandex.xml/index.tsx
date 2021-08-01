@@ -11,8 +11,14 @@ import { stripHtml } from '~/utils';
 const Sitemap = () => {
   return <div>Yandex page</div>;
 };
-
-const now = Date.now();
+const formatedTimestamp = () => {
+  const d = new Date();
+  const date = d.toISOString().split('T')[0];
+  const time = d.toTimeString().split(' ')[0];
+  return `${date} ${time}`;
+};
+const current = formatedTimestamp();
+const delivery_cost = COMPANY_INFORMATION.DELIVERY_COST_FROM;
 
 export const getServerSideProps = async ({ res }: any) => {
   const products = await getProductsAll();
@@ -57,9 +63,7 @@ export const getServerSideProps = async ({ res }: any) => {
                     <vendorCode>${p.cat_number}</vendorCode>
                     <description>${p.description}</description>
                     <delivery>true</delivery>
-                    <local_delivery_cost>${
-                      COMPANY_INFORMATION.DELIVERY_COST_FROM
-                    }</local_delivery_cost>
+                    <local_delivery_cost>${delivery_cost}</local_delivery_cost>
                 </offer>\n`;
         count++;
       }
@@ -78,7 +82,7 @@ export const getServerSideProps = async ({ res }: any) => {
   console.log('Total products in yandex: ', count);
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <yml_catalog date="${now}">
+    <yml_catalog date="${current}">
         <shop>
             <name>Ангара</name>
             <company>Запчасти для грузовиков и автобусов</company>
@@ -90,7 +94,7 @@ export const getServerSideProps = async ({ res }: any) => {
             ${cats}
             </categories>
             <delivery-options>
-                <option cost="200" days="1"/>
+                <option cost="${delivery_cost}" days="1"/>
             </delivery-options>
             <offers>
             ${offer}
