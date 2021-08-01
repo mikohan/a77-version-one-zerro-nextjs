@@ -12,6 +12,8 @@ const Sitemap = () => {
   return <div>Yandex page</div>;
 };
 
+const now = Date.now();
+
 export const getServerSideProps = async ({ res }: any) => {
   const products = await getProductsAll();
 
@@ -76,7 +78,7 @@ export const getServerSideProps = async ({ res }: any) => {
   console.log('Total products in yandex: ', count);
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <yml_catalog date="2020-11-22T14:37:38+03:00">
+    <yml_catalog date="${now}">
         <shop>
             <name>Ангара</name>
             <company>Запчасти для грузовиков и автобусов</company>
