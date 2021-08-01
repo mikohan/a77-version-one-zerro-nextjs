@@ -30,11 +30,12 @@ export const getServerSideProps = async ({ res }: any) => {
       p.category &&
       p.category.length
     ) {
-      if (p.stocks.length) {
+      if (p.stocks.length && p.stocks.price && p.stock.price !== 0) {
         let pictures = '';
-        for (let [i, img] of p.images.entries()) {
-          if (i === 9) {
-            break;
+        for (let [j, img] of p.images.entries()) {
+          if (j >= 9) {
+            continue;
+            // break;
           }
           pictures += '<picture>' + img.img800 + '</picture>\n';
         }
