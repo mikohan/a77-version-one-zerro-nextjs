@@ -29,19 +29,33 @@ const dateNow = new Date();
 let access = '';
 let refresh = '';
 
+function decode(token: string): any {
+  const decodedJWT = jwt.decode(token, { complete: true });
+
+  if (decodedJWT === null) {
+    // deal with null
+  } else if (typeof decodedJWT === 'string') {
+    // deal with string
+  } else {
+    const issuer = (decodedJWT as any).payload.iss; // cast to `any` type
+  }
+
+  return {};
+}
+
 if (typeof window !== 'undefined') {
   access = localStorage.getItem('access') || '';
   refresh = localStorage.getItem('refresh') || '';
 }
 let isAuthenticated = false;
 if (refresh) {
-  const decodedRefresh = jwt.decode(refresh, { complete: true });
+  const decodedRefresh = decode(refresh);
   if (decodedRefresh?.exp * 1000 < dateNow.getTime()) {
     refresh = '';
   }
 }
 if (access) {
-  const decoded = jwt.decode(access, { complete: true });
+  const decoded = decode(access);
 
   if (decoded?.payload.exp * 1000 < dateNow.getTime()) {
     access = '';
@@ -52,7 +66,7 @@ if (access) {
 
 try {
   const accessCook = Cookie.get('access');
-  const decoded = jwt.decode(accessCook as string, { complete: true });
+  const decoded = decode(accessCook as string);
   if (decoded?.payload.exp * 1000 < dateNow.getTime()) {
     Cookie.remove('access');
     Cookie.remove('refresh');

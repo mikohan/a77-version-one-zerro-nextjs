@@ -16,7 +16,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@react-google-maps/api": "^2.2.0",
     "@svgr/webpack": "^5.5.0",
-    "@types/jsonwebtoken": "^8.5.1",
+    "@types/jsonwebtoken": "^8.5.4",
     "axios": "^0.21.0",
     "browserslist": "^4.16.4",
     "classnames": "^2.2.6",
@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.11",
+    "@types/gtag.js": "^0.0.7",
     "@types/next-redux-wrapper": "^3.0.0",
     "@types/node": "^14.14.10",
     "@types/nprogress": "^0.2.0",
