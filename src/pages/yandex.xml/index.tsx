@@ -48,7 +48,9 @@ export const getServerSideProps = async ({ res }: any) => {
           pictures += '<picture>' + img.img800 + '</picture>\n';
         }
         offer += `<offer id="${p.id}">
-                    <name>${p.name} ${capitalize(p.model[0].name)}</name>
+                    <name>${p.name} ${capitalize(
+          p.model[0].make.name
+        )} ${capitalize(p.model[0].name)}</name>
                     <url>${SITE_DOMAIN_FULL}/product/${
           p.slug
         }?utm_source=market.yandex.ru</url>
