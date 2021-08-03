@@ -4,6 +4,7 @@ import { IProductElasticBase } from '~/interfaces/product';
 import { IProduct } from '~/interfaces';
 import { gql } from '@apollo/client';
 import { client } from './apolloClient';
+// Comment
 
 export async function getProductsByCar(
   carSlug: string,
