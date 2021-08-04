@@ -313,38 +313,40 @@ export default function ShopGrid({
       <FilterDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
       <Grid container>
         <Grid item container xs={12}>
-          <Grid className={classes.pageBarContainer} item xs={12}>
-            <Box className={classes.pageBarBox}>
-              <Box className={classes.iconsBoxContainer}>
-                <Hidden mdUp>
-                  <Button
-                    onClick={toggleDrawer}
-                    variant="outlined"
-                    color="primary"
-                    className={classes.filterButton}
-                    startIcon={<FilterIcon color="primary" />}
-                  >
-                    ФИЛЬТРЫ
-                  </Button>
-                </Hidden>
-                <AppsIcon className={classes.iconGrid} onClick={handleGrid} />
-                <MenuIcon className={classes.iconList} onClick={handleList} />
-              </Box>
-              <Box className={classes.selectForm}>
-                <Select />
-              </Box>
-              <Hidden mdDown>
-                <Box>
-                  <Pagination
-                    onChange={paginationHandler}
-                    count={totalPages}
-                    page={page}
-                    color="primary"
-                  />
+          <Hidden smDown>
+            <Grid className={classes.pageBarContainer} item xs={12}>
+              <Box className={classes.pageBarBox}>
+                <Box className={classes.iconsBoxContainer}>
+                  <Hidden mdUp>
+                    <Button
+                      onClick={toggleDrawer}
+                      variant="outlined"
+                      color="primary"
+                      className={classes.filterButton}
+                      startIcon={<FilterIcon color="primary" />}
+                    >
+                      ФИЛЬТРЫ
+                    </Button>
+                  </Hidden>
+                  <AppsIcon className={classes.iconGrid} onClick={handleGrid} />
+                  <MenuIcon className={classes.iconList} onClick={handleList} />
                 </Box>
-              </Hidden>
-            </Box>
-          </Grid>
+                <Box className={classes.selectForm}>
+                  <Select />
+                </Box>
+                <Hidden mdDown>
+                  <Box>
+                    <Pagination
+                      onChange={paginationHandler}
+                      count={totalPages}
+                      page={page}
+                      color="primary"
+                    />
+                  </Box>
+                </Hidden>
+              </Box>
+            </Grid>
+          </Hidden>
           {filtersBarOpen && (
             <Grid className={classes.pageBarContainer} item xs={12}>
               <Typography className={classes.dividerBox} variant="body2">

@@ -8,6 +8,9 @@ import { capitalize } from '~/utils';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
+      display: 'flex',
+      justifyContent: 'start',
+      flexWrap: 'wrap',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
@@ -39,7 +42,7 @@ export default function BreadCrumbs({ breadCrumbs }: IProps) {
 
   return (
     <React.Fragment>
-      <Box className={classes.container} display="flex" justifyContent="start">
+      <Box className={classes.container}>
         {breadCrumbs.map((item: IBread, i: number) => (
           <React.Fragment key={item.path}>
             <Box component="span">

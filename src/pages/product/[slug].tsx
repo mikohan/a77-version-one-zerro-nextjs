@@ -3,7 +3,7 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { DEFAULT_EXCERPT, REVALIDATE, imageServerUrl } from '~/config';
-import { Grid, Paper, Typography, Box } from '@material-ui/core';
+import { Hidden, Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
 import { ICar, IPost, IProduct, IProductElasticHitsSecond } from '~/interfaces';
@@ -288,24 +288,29 @@ export default function ProductPage({
                   <ProductTabs product={product} />
                 </Paper>
               </Grid>
+              <Hidden smDown>
+                <Divider />
+                <Grid item className={classes.tabs} xs={12}>
+                  <Typography className={classes.relatedPostTitle} variant="h6">
+                    Полезная информация
+                  </Typography>
+                  <RelatedPosts posts={posts} />
+                </Grid>
+              </Hidden>
               <Divider />
-              <Grid item className={classes.tabs} xs={12}>
-                <Typography className={classes.relatedPostTitle} variant="h6">
-                  Полезная информация
-                </Typography>
-                <RelatedPosts posts={posts} />
-              </Grid>
-              <Divider />
-              {similar && similar.length ? <SimilarProducts /> : ''}
-              {relatedProducts && relatedProducts.length ? (
-                <React.Fragment>
-                  <Divider />
-                  <PopularParts />
-                </React.Fragment>
-              ) : (
-                ''
-              )}
+              <Hidden smDown>
+                {similar && similar.length ? <SimilarProducts /> : ''}
+                {relatedProducts && relatedProducts.length ? (
+                  <React.Fragment>
+                    <Divider />
+                    <PopularParts />
+                  </React.Fragment>
+                ) : (
+                  ''
+                )}
+              </Hidden>
             </Grid>
+
             {productsToPost && (
               <React.Fragment>
                 <Divider />
