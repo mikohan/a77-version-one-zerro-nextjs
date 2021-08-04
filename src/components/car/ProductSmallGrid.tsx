@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'grid',
-      gridTemplateColumns: `repeat(6, minmax(15%, 1fr))`,
+      gridTemplateColumns: `repeat(auto-fit, minmax(300px, 1fr))`,
       gridGap: theme.spacing(4),
       marginBottom: theme.spacing(2),
     },
