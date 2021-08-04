@@ -7,7 +7,6 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import url from '~/services/url';
 import Image from 'next/image';
-import { imageServerUrl } from '~/config';
 import imgUrl from '~/services/img';
 import { MODEL_PRIORITY } from '~/config';
 
