@@ -1,5 +1,5 @@
 # Here will be robots txt file
 User-agent: *
-Allow: /
+Disallow: /
 
 sitemap: http://localhost:3245/api/sitemap
