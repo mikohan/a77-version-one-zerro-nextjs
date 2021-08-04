@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { GetStaticProps } from 'next';
 import { getVehiclesByPriority } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
-import { Box, Typography, Container } from '@material-ui/core';
+import { Box, Typography, Container, Hidden } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 import CarChioserLong from '~/components/car/CarChoiserLong';
 import { getPosts } from '~/endpoints/blogEndpoint';
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: '20rem',
     },
     contentContainer: {
+      padding: theme.spacing(3),
       margin: '0 auto',
       [theme.breakpoints.up('lg')]: {
         maxWidth: '85%',
@@ -100,24 +101,26 @@ export default function Home(props: IHomeProps) {
             </Box>
           </div>
           <Divider />
-          <div>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Популярные товары
-            </Typography>
-            <Box>
-              <RelatedProductSlider products={latestProducts} />
-            </Box>
-          </div>
-          <Divider />
-          <div>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Блог
-            </Typography>
-            <Box>
-              <BlogGrid posts={posts} />
-            </Box>
-          </div>
-          <Divider />
+          <Hidden smDown>
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Популярные товары
+              </Typography>
+              <Box>
+                <RelatedProductSlider products={latestProducts} />
+              </Box>
+            </div>
+            <Divider />
+            <div>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Блог
+              </Typography>
+              <Box>
+                <BlogGrid posts={posts} />
+              </Box>
+            </div>
+            <Divider />
+          </Hidden>
         </div>
       </Animation>
     </React.Fragment>
