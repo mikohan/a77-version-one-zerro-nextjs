@@ -8,7 +8,7 @@ export default function CarHead() {
     <Head>
       <title key="title">
         {' '}
-        Запчасти для Автомоилей в интернет магазине | Angara Parts
+        Запчасти для Коммерческого Транспорта | Angara Parts
       </title>
       <meta
         key="description"

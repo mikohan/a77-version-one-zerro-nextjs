@@ -14,8 +14,6 @@ export default function HomeHead() {
         name="description"
         content={`Запчасти с доставкой и со склада в интерет магазине АНГАРА77 | Звоните ${footerData.SHOP_PHONE}!`}
       />
-      <meta name="robots" content="noindex, nofollow" />
-
       <link rel="canonical" key="canonical" href={`${SITE_DOMAIN_FULL}`} />
       <script
         type="application/ld+json"
