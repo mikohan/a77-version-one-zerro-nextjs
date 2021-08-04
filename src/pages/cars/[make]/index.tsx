@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 import { REVALIDATE, pageSize } from '~/config';
-import { Grid } from '@material-ui/core';
+import { Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
 import PageHeader from '~/components/product/PageHeader';
@@ -104,18 +104,18 @@ function Make(props: ICarProps) {
               </Typography>
               {posts && <BlogGrid posts={posts} />}
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h6" className={classes.title}>
-                Запчасти {capitalize(make.name)}
-              </Typography>
-              {
+            <Hidden smDown>
+              <Grid item xs={12}>
+                <Typography variant="h6" className={classes.title}>
+                  Запчасти {capitalize(make.name)}
+                </Typography>
                 <ShopGrid
                   products={products.hits}
                   filtersResetHandlers={filtersResetHandlers}
                   totalPages={totalPages}
                 />
-              }
-            </Grid>
+              </Grid>
+            </Hidden>
           </Grid>
         </Grid>
       </AnimationPage>

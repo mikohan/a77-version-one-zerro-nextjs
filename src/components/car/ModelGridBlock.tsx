@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'grid',
-      gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
+      gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`,
       gridGap: theme.spacing(3),
     },
     containerSily: {
       display: 'grid',
-      gridTemplateColumns: `repeat(4, minmax(20%, 1fr))`,
+      gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`,
       gridGap: theme.spacing(3),
     },
     item: {
