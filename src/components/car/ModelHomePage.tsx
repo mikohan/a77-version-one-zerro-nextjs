@@ -7,7 +7,7 @@ import {
   IPost,
 } from '~/interfaces';
 import React from 'react';
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, Hidden } from '@material-ui/core';
 import PageHeader from '~/components/product/PageHeader';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
@@ -152,67 +152,71 @@ export default function ModelShopList(props: IProps) {
               car={model}
             />
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              {`История модели ${capitalize(model.make.name)} ${capitalize(
-                model.model
-              )}`}
-            </Typography>
-            <Paper className={classes.paper}>
-              <Grid item container xs={12} className={classes.modelHistory}>
-                <Grid item xs={12} md={4} className={classes.carImage}>
-                  <Image
-                    src={
-                      model.image
-                        ? `${imageServerUrl}${model.image}`
-                        : '/images/local/carsAvatar/generic.png'
-                    }
-                    width={250}
-                    height={250}
-                  />
+          <Hidden smDown>
+            <Grid item xs={12}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                {`История модели ${capitalize(model.make.name)} ${capitalize(
+                  model.model
+                )}`}
+              </Typography>
+              <Paper className={classes.paper}>
+                <Grid item container xs={12} className={classes.modelHistory}>
+                  <Grid item xs={12} md={4} className={classes.carImage}>
+                    <Image
+                      src={
+                        model.image
+                          ? `${imageServerUrl}${model.image}`
+                          : '/images/local/carsAvatar/generic.png'
+                      }
+                      width={250}
+                      height={250}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={8} className={classes.textBox}>
+                    <Box className={classes.history}>
+                      {model.history ? parse(model.history as string) : ''}
+                    </Box>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={8} className={classes.textBox}>
-                  <Box className={classes.history}>
-                    {model.history ? parse(model.history as string) : ''}
-                  </Box>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Обьемы жидкостей
-            </Typography>
-            <Paper className={classes.paper}>
-              <Box className={classes.modelTable}>
-                {model.liquids ? parse(model.liquids as string) : ''}
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Карта ТО
-            </Typography>
-            <Paper className={classes.paper}>
-              <Box className={classes.modelTable}>
-                {model.liquids ? parse(model.to as string) : ''}
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Полезные статьи про{' '}
-              {`${capitalize(model.make.name)} ${capitalize(model.model)}`}
-            </Typography>
-            {postsByCar && <BlogGrid posts={postsByCar} />}
-          </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Обьемы жидкостей
+              </Typography>
+              <Paper className={classes.paper}>
+                <Box className={classes.modelTable}>
+                  {model.liquids ? parse(model.liquids as string) : ''}
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Карта ТО
+              </Typography>
+              <Paper className={classes.paper}>
+                <Box className={classes.modelTable}>
+                  {model.liquids ? parse(model.to as string) : ''}
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Полезные статьи про{' '}
+                {`${capitalize(model.make.name)} ${capitalize(model.model)}`}
+              </Typography>
+              {postsByCar && <BlogGrid posts={postsByCar} />}
+            </Grid>
+          </Hidden>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6" className={classes.blockTitle}>
-            Вам может понравиться
-          </Typography>
-          <ProductsGrid products={productsToPost} />
-        </Grid>
+        <Hidden smDown>
+          <Grid item xs={12}>
+            <Typography variant="h6" className={classes.blockTitle}>
+              Вам может понравиться
+            </Typography>
+            <ProductsGrid products={productsToPost} />
+          </Grid>
+        </Hidden>
       </React.Fragment>
     </React.Fragment>
   );
