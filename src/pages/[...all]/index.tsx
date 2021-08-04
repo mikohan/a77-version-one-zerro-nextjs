@@ -1,3 +1,4 @@
+// Index rename for testing
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import url from '~/services/url';
