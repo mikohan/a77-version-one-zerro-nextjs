@@ -36,6 +36,7 @@ import Link from 'next/link';
 import { CompanyMenu, LoginMenu } from '~/components/header/HeaderMenu';
 import url from '~/services/url';
 import NoSsr from '@material-ui/core/NoSsr';
+import { COMPANY_INFORMATION } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -199,7 +200,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
             <ListItemIcon>
               <HomeOutlined />
             </ListItemIcon>
-            <ListItemText>ANGARA PARTS</ListItemText>
+            <ListItemText>{COMPANY_INFORMATION.COMPANY_NAME_LOGO}</ListItemText>
           </ListItem>
           <Divider />
           <ListItem button selected={activePage === 3}>
