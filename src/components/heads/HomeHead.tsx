@@ -7,8 +7,8 @@ export default function HomeHead() {
     <Head>
       <title key="title">
         Интернет магазин запчастей для коммерческого транспорта |{' '}
-        {COMPANY_INFORMATION.COMPANY_NAME_ENG}
-        Parts
+        {COMPANY_INFORMATION.COMPANY_NAME_ENG} - $
+        {COMPANY_INFORMATION.COMPANY_WEBSITE}
       </title>
       <meta
         key="description"
