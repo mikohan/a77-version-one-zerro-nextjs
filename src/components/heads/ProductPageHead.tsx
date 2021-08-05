@@ -1,6 +1,6 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL, COMPANY_INFORMATION } from '~/config';
 import { capitalize } from '~/utils';
 import { IBread, ICar, IProduct } from '~/interfaces';
 import url from '~/services/url';
@@ -45,7 +45,7 @@ export default function ProductPageHead({ product, breads }: IProps) {
             '@type': 'Product',
             name: `${mk}`,
             image: product.images.map((img: any) => img.img245),
-            description: `Запчасти для ${mk} с доставкой и со склада в интерет магазине АНГАРА77 | Звоните ${footerData.SHOP_PHONE}!`,
+            description: `Запчасти для ${mk} с доставкой и со склада в интерет магазине ${COMPANY_INFORMATION.COMPANY_NAME_ENG} | Звоните ${footerData.SHOP_PHONE}!`,
             sku: product.sku,
             mpn: product.catNumber,
             brand: {
