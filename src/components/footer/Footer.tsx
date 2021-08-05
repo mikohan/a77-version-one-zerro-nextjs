@@ -6,7 +6,7 @@ import MLink from '@material-ui/core/Link';
 import { List, ListItem } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
-import { SITE_DOMAIN } from '~/config';
+import { SITE_DOMAIN, COMPANY_INFORMATION } from '~/config';
 import { footerData as data } from '~/config';
 import url from '~/services/url';
 interface IPropsCopyright {
@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
       paddingRight: '3rem',
       paddingLeft: '3rem',
     },
@@ -108,6 +109,9 @@ const useStyles = makeStyles((theme: Theme) =>
         width: theme.spacing(6),
         height: theme.spacing(6),
       },
+    },
+    ip: {
+      color: theme.palette.grey[500],
     },
     copyright: {
       alignSelf: 'center',
@@ -302,6 +306,11 @@ export default function StickyFooter() {
           <div className={classes.bottomLine}>
             <div className={classes.copyright}>
               <Copyright className={classes.copyColor} />
+            </div>
+            <div className={classes.ip}>
+              <Typography variant="body1">
+                {COMPANY_INFORMATION.RECVIZITY.NAME}
+              </Typography>
             </div>
             <div className={classes.payments}>
               <img src="/images/local/visa.svg" alt="visa icon" />

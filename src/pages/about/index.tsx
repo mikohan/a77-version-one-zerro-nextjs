@@ -10,10 +10,9 @@ import { IBread } from '~/interfaces';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Image from 'next/image';
+import { COMPANY_INFORMATION } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -168,7 +167,7 @@ export default function About() {
                       Название
                     </TableCell>
                     <TableCell align="right">
-                      Общество с ограниченной ответственностью "АНГАРА"
+                      {COMPANY_INFORMATION.RECVIZITY.NAME}
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -177,12 +176,15 @@ export default function About() {
                     </TableCell>
                     <TableCell align="right">7733607590</TableCell>
                   </TableRow>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      КПП
-                    </TableCell>
-                    <TableCell align="right">773301001</TableCell>
-                  </TableRow>
+                  {COMPANY_INFORMATION.RECVIZITY.KPP && (
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        КПП
+                      </TableCell>
+                      <TableCell align="right">773301001</TableCell>
+                    </TableRow>
+                  )}
+
                   <TableRow>
                     <TableCell component="th" scope="row">
                       Банк
