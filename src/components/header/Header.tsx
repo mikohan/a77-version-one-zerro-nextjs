@@ -244,7 +244,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
         <Tab
           label={
             <Link href={url.home()}>
-              <a>ANGARA PARTS</a>
+              <a>{COMPANY_INFORMATION.COMPANY_NAME_LOGO}</a>
             </Link>
           }
         />
