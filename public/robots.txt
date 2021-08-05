@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-sitemap: http://localhost:3245/sitemap.xml
+sitemap: http://partshub.ru/sitemap.xml
