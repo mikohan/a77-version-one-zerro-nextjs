@@ -1,19 +1,19 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { capitalize } from '~/utils';
+import { COMPANY_INFORMATION, footerData, SITE_DOMAIN_FULL } from '~/config';
 
 export default function CarHead() {
   return (
     <Head>
       <title key="title">
         {' '}
-        Запчасти для Коммерческого Транспорта | Angara Parts
+        Запчасти для Коммерческого Транспорта |{' '}
+        {COMPANY_INFORMATION.COMPANY_NAME_ENG}
       </title>
       <meta
         key="description"
         name="description"
-        content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
+        content={`${COMPANY_INFORMATION.COMPANY_NAME_ENG} | ${footerData.SHOP_PHONE} Information about our
           company and history of establishment. We are open our dors in 2001 first time`}
       />
       <meta

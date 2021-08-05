@@ -122,6 +122,7 @@ export const carShowText = 90;
 
 export const COMPANY_INFORMATION = {
   COMPANY_NAME: 'Партс Хаб',
+  COMPANY_NAME_ENG: 'PartsHub',
   SHOP_PHONE: '+7 (495) 201-87-85',
   SHOP_PHONE_TWO: '+7 (495) 777-93-75',
   SHOP_PHONE_THREE: '+7 (926) 515-38-74',

@@ -1,6 +1,6 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { COMPANY_INFORMATION, footerData, SITE_DOMAIN_FULL } from '~/config';
 import { ICar, IMake, IBread, IProduct, ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
 import url from '~/services/url';
@@ -38,12 +38,13 @@ export default function CarModelHead({
   return (
     <Head>
       <title key="title">
-        {ct} на {mk} {md} В Наличии | Angara Parts
+        {ct} на {mk} {md} В Наличии | {COMPANY_INFORMATION.COMPANY_NAME_ENG}
       </title>
       <meta
         key="description"
         name="description"
-        content={`${ct} на ${mk} ${md} В Наличии в Интернет Магазине Ангара 77. Доставка и Самовывоз в Москве | ${footerData.SHOP_PHONE} `}
+        content={`${ct} на ${mk} ${md} В Наличии в Интернет Магазине ${COMPANY_INFORMATION.COMPANY_NAME}.
+        Доставка и Самовывоз в Москве | ${footerData.SHOP_PHONE} `}
       />
       <link
         rel="canonical"
