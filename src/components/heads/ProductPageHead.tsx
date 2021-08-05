@@ -26,7 +26,9 @@ export default function ProductPageHead({ product, breads }: IProps) {
   }));
   return (
     <Head>
-      <title key="title">{mk} в наличии | Angara 77 Parts</title>
+      <title key="title">
+        {mk} в наличии | {COMPANY_INFORMATION.COMPANY_NAME_ENG}
+      </title>
       <meta
         key="description"
         name="description"
