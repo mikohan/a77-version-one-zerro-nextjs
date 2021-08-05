@@ -63,7 +63,6 @@ export default function About({ page }: IProps) {
     reCompanyName,
     COMPANY_INFORMATION.RECVIZITY.NAME
   );
-  console.log(COMPANY_INFORMATION.RECVIZITY.NAME);
 
   return (
     <React.Fragment>
