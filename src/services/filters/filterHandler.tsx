@@ -121,7 +121,7 @@ export function getActiveFilters(
           }
         } else {
           const e = new Error(
-            'Some bullshit in query strint here the point to make redirect to 404'
+            'Some bullshit in query strint here the point to make redirect to 404, servises/filters/filterHandler'
           );
           throw e;
         }

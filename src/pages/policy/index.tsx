@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { COMPANY_INFORMATION, footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Grid, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
@@ -54,7 +54,17 @@ export default function About({ page }: IProps) {
   const classes = useStyles();
   const string = page.textHTML;
   const re = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/gi;
+  const reCompany = /ООО/giu;
+  const reCompanyName = /Ангара/gi;
+
   const newPage = string.replace(re, SITE_DOMAIN_FULL);
+  let newPage2 = newPage.replace(reCompany, '');
+  newPage2 = newPage2.replace(
+    reCompanyName,
+    COMPANY_INFORMATION.RECVIZITY.NAME
+  );
+  console.log(COMPANY_INFORMATION.RECVIZITY.NAME);
+
   return (
     <React.Fragment>
       <AboutHead />
@@ -69,7 +79,7 @@ export default function About({ page }: IProps) {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Paper className={classes.html}>{parse(newPage)}</Paper>
+            <Paper className={classes.html}>{parse(newPage2)}</Paper>
           </Grid>
         </Grid>
       </AnimationPage>
