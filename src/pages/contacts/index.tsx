@@ -34,13 +34,14 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       display: 'flex',
       flexDirection: 'column',
-      padding: theme.spacing(5),
+      padding: theme.spacing(3),
       height: '100%',
     },
     phoneBlock: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       display: 'flex',
+      flexWrap: 'wrap',
       alignItems: 'center',
     },
     secondCol: {
@@ -50,17 +51,20 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
     },
     sideGridLeft: {
-      paddingRight: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      [theme.breakpoints.up('md')]: {
+        paddingLefg: theme.spacing(1),
+      },
     },
     sideGridRight: {
-      paddingLeft: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(1),
+      },
     },
     deliveryLink: {
       fontSize: '0.95rem',
       color: theme.palette.primary.main,
-    },
-    secondRow: {
-      paddingTop: theme.spacing(2),
     },
     mapGrid: {
       paddingTop: theme.spacing(2),
@@ -70,7 +74,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     horisontalBox: {
       display: 'flex',
+      flexWrap: 'wrap',
       alignItems: 'center',
+    },
+    envelop: {
+      paddingTop: theme.spacing(2),
     },
   })
 );
@@ -99,7 +107,7 @@ export default function About({ google_key }: IProps) {
             </Typography>
           </Grid>
           <Grid container item xs={12}>
-            <Grid className={classes.sideGridLeft} item xs={6}>
+            <Grid className={classes.sideGridLeft} item sm={12} md={6}>
               <Paper className={classes.paper}>
                 <Typography className={classes.subtitle} variant="h5">
                   Телефоны
@@ -133,7 +141,7 @@ export default function About({ google_key }: IProps) {
                 </Box>
               </Paper>
             </Grid>
-            <Grid className={classes.sideGridRight} item xs={6}>
+            <Grid className={classes.sideGridRight} item sm={12} md={6}>
               <Paper className={classes.paper}>
                 <Typography className={classes.subtitle} variant="h5">
                   Адрес и Доставка
@@ -165,7 +173,7 @@ export default function About({ google_key }: IProps) {
             </Grid>
           </Grid>
           <Grid className={classes.secondRow} container item xs={12}>
-            <Grid className={classes.sideGridLeft} item xs={6}>
+            <Grid className={classes.sideGridLeft} item sm={12} md={6}>
               <Paper className={classes.paper}>
                 <Typography className={classes.subtitle} variant="h5">
                   График работы
@@ -180,7 +188,7 @@ export default function About({ google_key }: IProps) {
                 </Box>
               </Paper>
             </Grid>
-            <Grid className={classes.sideGridRight} item xs={6}>
+            <Grid className={classes.sideGridRight} item sm={12} md={6}>
               <Paper className={classes.paper}>
                 <Typography className={classes.subtitle} variant="h5">
                   Реквизиты
