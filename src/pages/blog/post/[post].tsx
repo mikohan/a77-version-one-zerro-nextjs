@@ -146,6 +146,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         '& img': {
           objectFit: 'cover',
+          maxWidht: '350px',
         },
       },
     },
