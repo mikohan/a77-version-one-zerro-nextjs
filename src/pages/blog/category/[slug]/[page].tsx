@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(4),
     },
     itemContainer: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     sidePanel: {
       paddingLeft: theme.spacing(5),
@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       paddingBottom: theme.spacing(4),
+    },
+    headCont: {
+      paddingLeft: theme.spacing(2),
     },
   })
 );
@@ -118,8 +121,8 @@ export default function Posts({
     <React.Fragment>
       <BlogHead breads={breadCrumbs} />
       <AnimationPage id="blogCategoriesPage">
-        <div className={classes.container}>
-          <Grid container>
+        <Grid container className={classes.container}>
+          <Grid className={classes.headCont} container>
             <Grid className={classes.breads} item xs={12}>
               <BreadCrumbs breadCrumbs={breadCrumbs} />
             </Grid>
@@ -128,36 +131,36 @@ export default function Posts({
                 Статьи об автомобилях, ремонте, запчастях.
               </Typography>
             </Grid>
-            <Grid container item xs={12} md={8}>
-              <div className={classes.itemContainer}>
-                {posts.map((post: IPost) => {
-                  return <BlogPaper key={post.slug} post={post} />;
-                })}
-              </div>
-              <Grid className={classes.pagination} item xs={12}>
-                <Pagination
-                  count={totalPages}
-                  curPage={curPage}
-                  categorySlug={categorySlug}
-                />
-              </Grid>
-            </Grid>
-            <Grid className={classes.sidePanel} item xs={12} md={4}>
-              <Box className={classes.searchContainer}>
-                <SearchField
-                  handleSearch={handleSearch}
-                  handleSubmit={handleSubmit}
-                  handleKeyPress={handleKeyPress}
-                />
-              </Box>
-              <CategoryList categories={categories} totalPosts={totalPosts} />
-              <Paper>
-                <LatestPosts posts={latestPosts} />
-              </Paper>
-              <LatestProducts products={latestProducts} />
+          </Grid>
+          <Grid container item sm={12} md={8}>
+            <div className={classes.itemContainer}>
+              {posts.map((post: IPost) => {
+                return <BlogPaper key={post.slug} post={post} />;
+              })}
+            </div>
+            <Grid className={classes.pagination} item xs={12}>
+              <Pagination
+                count={totalPages}
+                curPage={curPage}
+                categorySlug={categorySlug}
+              />
             </Grid>
           </Grid>
-        </div>
+          <Grid className={classes.sidePanel} item sm={12} md={4}>
+            <Box className={classes.searchContainer}>
+              <SearchField
+                handleSearch={handleSearch}
+                handleSubmit={handleSubmit}
+                handleKeyPress={handleKeyPress}
+              />
+            </Box>
+            <CategoryList categories={categories} totalPosts={totalPosts} />
+            <Paper>
+              <LatestPosts posts={latestPosts} />
+            </Paper>
+            <LatestProducts products={latestProducts} />
+          </Grid>
+        </Grid>
       </AnimationPage>
     </React.Fragment>
   );
