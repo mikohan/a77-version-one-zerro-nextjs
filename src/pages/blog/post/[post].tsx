@@ -144,6 +144,9 @@ const useStyles = makeStyles((theme: Theme) =>
         '&  h5, & h6': {
           fontSize: '1rem',
         },
+        '& img': {
+          objectFit: 'cover',
+        },
       },
     },
     min: {
