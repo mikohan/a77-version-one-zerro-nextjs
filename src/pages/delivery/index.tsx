@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import { Hidden, Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { COMPANY_INFORMATION } from '~/config';
 import Image from 'next/image';
@@ -89,14 +89,16 @@ export default function About() {
               </Typography>
 
               <Grid container>
-                <Grid item xs={6}>
-                  <Image
-                    src="/images/local/moscow.jpg"
-                    width={558}
-                    height={445}
-                  />
-                </Grid>
-                <Grid item xs={6}>
+                <Hidden smDown>
+                  <Grid item xs={6}>
+                    <Image
+                      src="/images/local/moscow.jpg"
+                      width={558}
+                      height={445}
+                    />
+                  </Grid>
+                </Hidden>
+                <Grid item sm={12} md={6}>
                   <Typography className={classes.p} variant="body1">
                     Доставка по городу - <span>290 рублей</span>. При заказе от
                     <span> 8000 рублей</span> - Доставим <span>бесплатно</span>!
@@ -120,20 +122,22 @@ export default function About() {
                 Доставка по России
               </Typography>
               <Grid container>
-                <Grid
-                  className={classes.rusImg}
-                  container
-                  alignItems="center"
-                  item
-                  xs={6}
-                >
-                  <Image
-                    src="/images/local/russia.jpg"
-                    width={800}
-                    height={400}
-                  />
-                </Grid>
-                <Grid item xs={6}>
+                <Hidden smDown>
+                  <Grid
+                    className={classes.rusImg}
+                    container
+                    alignItems="center"
+                    item
+                    xs={6}
+                  >
+                    <Image
+                      src="/images/local/russia.jpg"
+                      width={800}
+                      height={400}
+                    />
+                  </Grid>
+                </Hidden>
+                <Grid item sm={12} md={6}>
                   <Typography className={classes.p} variant="body1">
                     Первое, что Вам нужно сделать - это позвонить нам, или
                     заказать звонок, или связаться любым удобным способом. Мы
