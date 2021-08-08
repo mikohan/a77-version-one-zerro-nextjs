@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IBlogCategory, IPost, IProduct } from '~/interfaces';
 import { getBlogCategories, getPosts, getPost } from '~/endpoints/blogEndpoint';
-import { REVALIDATE, BLOG_DATA, imageServerUrl } from '~/config';
+import { REVALIDATE, imageServerUrl } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
 import { Grid, Typography, Box, Paper, Hidden } from '@material-ui/core';
 import BlogPostHead from '~/components/heads/BlogPostHead';
 import SearchField from '~/components/blog/SearchBar';
-import BlogPaper from '~/components/blog/PostSingleRow';
 import CategoryList from '~/components/blog/CategoryList';
-import Pagination from '~/components/blog/Pagination';
 import { asString } from '~/helpers';
 import LatestPosts from '~/components/blog/LatestPosts';
 import { useRouter } from 'next/router';
@@ -111,8 +109,14 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '1.6rem',
       },
       fontSize: '1.3rem',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '1rem',
+      },
     },
     text: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      overflow: 'hidden',
       paddingTop: theme.spacing(2),
       [theme.breakpoints.down('xl')]: {
         '&  p, & div, & li, & a, & span': {
@@ -128,6 +132,17 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('xl')]: {
         '& p, & div, & span, & ul, & li, & a': {
           fontSize: '1.6rem',
+        },
+      },
+      [theme.breakpoints.down('sm')]: {
+        '&  p, & div, & li, & a, & span': {
+          fontSize: '0.9rem',
+        },
+        '&  h2, & h3, & h4': {
+          fontSize: '1.2rem',
+        },
+        '&  h5, & h6': {
+          fontSize: '1rem',
         },
       },
     },
@@ -203,7 +218,7 @@ export default function Posts({
             <Grid className={classes.breads} item xs={12}>
               <BreadCrumbs breadCrumbs={breadCrumbs} />
             </Grid>
-            <Grid container item xs={12} md={8}>
+            <Grid container item sm={12} md={8}>
               <div className={classes.itemContainer}>
                 <Paper className={classes.paper}>
                   <Typography className={classes.pageTitle} variant="h1">
@@ -249,18 +264,20 @@ export default function Posts({
                 </Paper>
               </div>
             </Grid>
-            <Grid className={classes.sidePanel} item xs={12} md={4}>
-              <Box className={classes.searchContainer}>
-                <SearchField
-                  handleSearch={handleSearch}
-                  handleSubmit={handleSubmit}
-                  handleKeyPress={handleKeyPress}
-                />
-              </Box>
-              <CategoryList categories={categories} totalPosts={totalPosts} />
-              <LatestPosts posts={latestPosts} />
-              <LatestProducts products={latestProducts} />
-            </Grid>
+            <Hidden mdDown>
+              <Grid className={classes.sidePanel} item sm={12} md={4}>
+                <Box className={classes.searchContainer}>
+                  <SearchField
+                    handleSearch={handleSearch}
+                    handleSubmit={handleSubmit}
+                    handleKeyPress={handleKeyPress}
+                  />
+                </Box>
+                <CategoryList categories={categories} totalPosts={totalPosts} />
+                <LatestPosts posts={latestPosts} />
+                <LatestProducts products={latestProducts} />
+              </Grid>
+            </Hidden>
             <Hidden smDown>
               <Grid className={classes.bottomProducts} container item xs={12}>
                 <Typography className={classes.mayLike} variant="h6">

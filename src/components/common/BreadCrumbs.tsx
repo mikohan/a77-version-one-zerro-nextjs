@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         background: theme.palette.action.selected,
       },
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: theme.spacing(2),
+      },
     },
     slash: {
       marginRight: theme.spacing(0.5),
