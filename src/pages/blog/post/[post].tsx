@@ -284,13 +284,21 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   const slug = asString(context.params?.post);
 
-  const post: IPost = await getPost(slug);
+  let post = {} as IPost;
+  let totalPosts: number | undefined = 0;
+  try {
+    post = await getPost(slug);
+    totalPosts = post.totalCount;
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
   const promiseCategories = await getBlogCategories();
   const latestPosts = await getPosts(5);
   const categories = promiseCategories
     .slice()
     .filter((cat: IBlogCategory) => cat.postsCount > 0);
-  const totalPosts = post.totalCount;
 
   // Gegging related to post products
   const query =
