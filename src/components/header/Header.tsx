@@ -196,18 +196,24 @@ export default function Header({ setIsDark, isDark }: IProps) {
         disableDiscovery={iOS}
       >
         <List className={classes.list}>
-          <ListItem button selected={activePage === 0}>
-            <ListItemIcon>
-              <HomeOutlined />
-            </ListItemIcon>
-            <ListItemText>{COMPANY_INFORMATION.COMPANY_NAME_LOGO}</ListItemText>
-          </ListItem>
+          <Link href="/">
+            <ListItem onClick={toggleDrawer} button selected={activePage === 0}>
+              <ListItemIcon>
+                <HomeOutlined />
+              </ListItemIcon>
+              <ListItemText>
+                {COMPANY_INFORMATION.COMPANY_NAME_LOGO}
+              </ListItemText>
+            </ListItem>
+          </Link>
           <Divider />
           <ListItem button selected={activePage === 3}>
             <ListItemIcon>
               <ContactMailIcon />
             </ListItemIcon>
-            <ListItemText>Contacts</ListItemText>
+            <Link href="/contacts">
+              <ListItemText onClick={toggleDrawer}>Контакты</ListItemText>
+            </Link>
           </ListItem>
         </List>
       </SwipeableDrawer>
