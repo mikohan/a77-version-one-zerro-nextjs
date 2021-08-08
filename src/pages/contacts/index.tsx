@@ -172,7 +172,7 @@ export default function About({ google_key }: IProps) {
               </Paper>
             </Grid>
           </Grid>
-          <Grid className={classes.secondRow} container item xs={12}>
+          <Grid container item xs={12}>
             <Grid className={classes.sideGridLeft} item sm={12} md={6}>
               <Paper className={classes.paper}>
                 <Typography className={classes.subtitle} variant="h5">
