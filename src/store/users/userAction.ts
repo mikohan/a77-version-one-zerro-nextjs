@@ -162,6 +162,7 @@ export const googleLogin = (tokenId: string) => async (
       },
     };
     const urlAxios = `${backServerUrl}/auth/social/google/`;
+    console.log(urlAxios);
     try {
       const res = await axios.post(urlAxios, payload);
       const response = res.data;

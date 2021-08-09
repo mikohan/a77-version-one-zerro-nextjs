@@ -132,7 +132,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const models = await getVehiclesByPriority(3);
   const latestProds = await getLatestProducts(20);
   const latestProducts = translateProducts(latestProds.hits.hits);
-  console.log(process.env);
 
   return { props: { posts, models, latestProducts } };
 };
