@@ -21,7 +21,6 @@ import { GetServerSidePropsContext } from 'next';
 import GoogleLogin from 'react-google-login';
 import { googleLogin } from '~/store/users/userAction';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
-// Comment for gh
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
