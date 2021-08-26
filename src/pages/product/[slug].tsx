@@ -162,7 +162,7 @@ export default function ProductPage({
   posts,
 }: IProps) {
   const classes = useStyles();
-  const currentCar = useSelector((state: IState) => state.shop.currentCar);
+  //const currentCar = useSelector((state: IState) => state.shop.currentCar);
   let breads: IBread[] = [];
   try {
     const catBreads = product.breads[0].map(
