@@ -80,11 +80,11 @@ function MyApp(props: any) {
         currentCarFromCookies = JSON.parse(
           window.localStorage.getItem('currentCar') as string
         );
+
+        store.dispatch(setCurrentCarAction(currentCarFromCookies));
       } catch (e) {
         currentCarFromCookies = undefined;
       }
-
-      store.dispatch(setCurrentCarAction(currentCarFromCookies));
     };
     fetchData();
   }, []);
