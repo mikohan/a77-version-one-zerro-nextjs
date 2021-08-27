@@ -58,6 +58,7 @@ function MyApp(props: any) {
   const [userId, setUserId] = useState('');
 
   const isProduction = process.env.NODE_ENV === 'production';
+  // some comment
 
   /* const useTheme = theme; */
 
