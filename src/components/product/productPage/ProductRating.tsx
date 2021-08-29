@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  rating?: number;
+  rating?: number | null;
   productId: number;
   ratingCount?: number;
 }
@@ -107,6 +107,11 @@ export default function SimpleRating({
         value={value}
         onChange={handleRating}
       />
+      {rating && (
+        <Typography className={classes.quantity} variant="body2">
+          {rating} / 5
+        </Typography>
+      )}
       {quantityState ? (
         <Typography className={classes.quantity} variant="body2">
           {quantityState} {scoreTransformer(quantityState)}

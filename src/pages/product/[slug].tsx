@@ -180,6 +180,7 @@ export default function ProductPage({
       { name: product.name, path: url.product(product.slug) },
     ];
   }
+  console.log(product.rating, product.ratingCount);
 
   const productAnalogs: IProduct[] = analogs && analogs.length ? analogs : [];
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
