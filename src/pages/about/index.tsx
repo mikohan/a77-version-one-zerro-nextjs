@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 const breadCrumbs = [
-  { name: 'Ангара77', path: '/' },
+  { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
   { name: 'О Компании', path: url.about() },
 ];
 

@@ -6,7 +6,7 @@ import {
   searchPosts,
 } from '~/endpoints/blogEndpoint';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
-import { BLOG_DATA } from '~/config';
+import { BLOG_DATA, COMPANY_INFORMATION } from '~/config';
 import { GetServerSidePropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
@@ -93,7 +93,7 @@ export default function Posts({
   latestProducts,
 }: IProps) {
   const breadCrumbs = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
     { name: 'Блог', path: url.blog() },
   ];
   const classes = useStyles();
