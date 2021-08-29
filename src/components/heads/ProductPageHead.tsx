@@ -56,8 +56,8 @@ export default function ProductPageHead({ product, breads }: IProps) {
             },
             aggregateRating: {
               '@type': 'AggregateRating',
-              ratingValue: product.rating,
-              ratingCount: product.ratingCount,
+              ratingValue: product.rating ? product.rating : 0,
+              ratingCount: product.ratingCount ? product.ratingCount : 0,
             },
             offers: {
               '@type': 'Offer',
