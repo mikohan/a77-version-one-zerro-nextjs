@@ -1,13 +1,13 @@
 import React from 'react';
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
-import { REVALIDATE, pageSize } from '~/config';
+import { GetServerSideProps } from 'next';
+import { COMPANY_INFORMATION, pageSize } from '~/config';
 import { Grid, Hidden } from '@material-ui/core';
 import AnimationPage from '~/components/common/AnimationPage';
 import CarMakeHead from '~/components/heads/carMakeHead';
 import PageHeader from '~/components/product/PageHeader';
 import { ICar } from '~/interfaces/ICar';
 import { IMake } from '~/interfaces/IMake';
-import { getVehiclesByMake, getMake, getMakes } from '~/endpoints/carsEndpoint';
+import { getVehiclesByMake, getMake } from '~/endpoints/carsEndpoint';
 import ShopGrid from '~/components/product/ShopGrid';
 import { IBread } from '~/interfaces/IBread';
 import { capitalize } from '~/utils';
@@ -60,7 +60,7 @@ function Make(props: ICarProps) {
   const count = products.total.value;
 
   const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_LOGO}`, path: '/' },
     { name: make.name, path: url.make(make.slug) },
   ];
   const makeName = capitalize(make.name);

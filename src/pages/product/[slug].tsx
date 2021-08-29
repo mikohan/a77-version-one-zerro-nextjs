@@ -170,13 +170,13 @@ export default function ProductPage({
     );
 
     breads = [
-      { name: `${COMPANY_INFORMATION.COMPANY_NAME}`, path: '/' },
+      { name: `${COMPANY_INFORMATION.COMPANY_NAME_LOGO}`, path: '/' },
       ...catBreads,
       { name: product.name, path: url.product(product.slug) },
     ];
   } catch (e) {
     breads = [
-      { name: `${COMPANY_INFORMATION.COMPANY_NAME}`, path: '/' },
+      { name: `${COMPANY_INFORMATION.COMPANY_NAME_LOGO}`, path: '/' },
       { name: product.name, path: url.product(product.slug) },
     ];
   }
