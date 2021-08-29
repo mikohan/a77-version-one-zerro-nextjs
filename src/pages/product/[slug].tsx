@@ -188,7 +188,6 @@ export default function ProductPage({
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
   const togetherProducts: IProduct[] =
     product.related && product.related.length ? product.related : [];
-  console.log(product);
 
   const PopularParts = () => {
     return (

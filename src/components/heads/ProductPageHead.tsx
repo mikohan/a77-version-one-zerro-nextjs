@@ -8,8 +8,6 @@ import url from '~/services/url';
 interface IProps {
   product: IProduct;
   breads: IBread[];
-  rating: number | undefined | null;
-  votes: number | undefined | null;
 }
 
 export default function ProductPageHead({ product, breads }: IProps) {
