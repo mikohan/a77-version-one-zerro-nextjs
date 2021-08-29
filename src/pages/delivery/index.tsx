@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 const breadCrumbs: IBread[] = [
-  { name: 'Ангара77', path: '/' },
+  { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
   { name: 'Доставка', path: url.delivery() },
 ];
 
