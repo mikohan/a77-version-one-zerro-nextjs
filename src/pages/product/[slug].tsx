@@ -236,12 +236,7 @@ export default function ProductPage({
 
   return (
     <React.Fragment>
-      <ProductPageHead
-        product={product}
-        breads={breads}
-        rating={product.rating}
-        votes={product.ratingCount}
-      />
+      <ProductPageHead product={product} breads={breads} />
       <AnimationPage>
         <div className={classes.mainContainer}>
           <Grid container>
