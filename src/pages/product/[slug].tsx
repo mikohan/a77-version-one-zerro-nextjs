@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { DEFAULT_EXCERPT, REVALIDATE, imageServerUrl } from '~/config';
+import { COMPANY_INFORMATION, REVALIDATE } from '~/config';
 import { Hidden, Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
@@ -16,8 +16,6 @@ import ProductPageHeader from '~/components/product/productPage/ProductPageHeade
 import { IBread } from '~/interfaces';
 import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
-import { useSelector } from 'react-redux';
-import { IState } from '~/interfaces/IState';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
@@ -32,7 +30,6 @@ import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
-import useLocalStorage from '~/hooks/useLocalStorage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -173,13 +170,13 @@ export default function ProductPage({
     );
 
     breads = [
-      { name: 'Ангара77', path: '/' },
+      { name: `${COMPANY_INFORMATION.COMPANY_NAME}`, path: '/' },
       ...catBreads,
       { name: product.name, path: url.product(product.slug) },
     ];
   } catch (e) {
     breads = [
-      { name: 'Ангара77', path: '/' },
+      { name: `${COMPANY_INFORMATION.COMPANY_NAME}`, path: '/' },
       { name: product.name, path: url.product(product.slug) },
     ];
   }
