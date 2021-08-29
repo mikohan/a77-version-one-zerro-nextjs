@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL, COMPANY_INFORMATION } from '~/config';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 const breadCrumbs = [
-  { name: 'Ангара77', path: '/' },
+  { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
   { name: 'Оплата', path: url.payment() },
 ];
 

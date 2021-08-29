@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
-import { Box, Paper, Grid, Typography, NoSsr } from '@material-ui/core';
+import { Box, Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { IPage, IBread } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
@@ -77,7 +77,7 @@ interface IProps {
   google_key: string;
 }
 const breadCrumbs = [
-  { name: 'Ангара77', path: '/' },
+  { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
   { name: 'Гарантии', path: url.warranty() },
 ];
 

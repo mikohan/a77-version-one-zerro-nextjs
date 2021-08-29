@@ -46,7 +46,7 @@ interface IProps {
   page: IPage;
 }
 const breadCrumbs = [
-  { name: 'Ангара77', path: '/' },
+  { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
   { name: 'Политика конфидециальности', path: url.policy() },
 ];
 
