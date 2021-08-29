@@ -94,7 +94,7 @@ export default function SimpleRating({
   useEffect(() => {
     async function getUserRating() {
       const userRating = await getRating(productId, userId);
-      console.log(userRating);
+      //console.log(userRating);
       if (userRating) {
         setUserScore(parseInt(userRating.score));
       } else {
