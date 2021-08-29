@@ -188,6 +188,7 @@ export default function ProductPage({
   const productSimilar: IProduct[] = similar && similar.length ? similar : [];
   const togetherProducts: IProduct[] =
     product.related && product.related.length ? product.related : [];
+  console.log(product);
 
   const PopularParts = () => {
     return (
@@ -235,7 +236,12 @@ export default function ProductPage({
 
   return (
     <React.Fragment>
-      <ProductPageHead product={product} breads={breads} />
+      <ProductPageHead
+        product={product}
+        breads={breads}
+        rating={product.rating}
+        votes={product.ratingCount}
+      />
       <AnimationPage>
         <div className={classes.mainContainer}>
           <Grid container>

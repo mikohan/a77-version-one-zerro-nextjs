@@ -8,6 +8,8 @@ import url from '~/services/url';
 interface IProps {
   product: IProduct;
   breads: IBread[];
+  rating: number | undefined | null;
+  votes: number | undefined | null;
 }
 
 export default function ProductPageHead({ product, breads }: IProps) {
@@ -32,7 +34,7 @@ export default function ProductPageHead({ product, breads }: IProps) {
       <meta
         key="description"
         name="description"
-        content={`${mk} с доставкой и со склада в интерет магазине АНГАРА77 | Звоните ${footerData.SHOP_PHONE}!`}
+        content={`${mk} с доставкой и со склада в интерет магазине ${COMPANY_INFORMATION.COMPANY_NAME_LOGO} | Звоните ${footerData.SHOP_PHONE}!`}
       />
       <link
         rel="canonical"
@@ -56,8 +58,8 @@ export default function ProductPageHead({ product, breads }: IProps) {
             },
             aggregateRating: {
               '@type': 'AggregateRating',
-              ratingValue: product.rating || 5,
-              ratingCount: product.ratingCount || 1,
+              ratingValue: product.rating,
+              ratingCount: product.ratingCount,
             },
             offers: {
               '@type': 'Offer',
@@ -69,7 +71,7 @@ export default function ProductPageHead({ product, breads }: IProps) {
               availability: 'https://schema.org/InStock',
               seller: {
                 '@type': 'Organization',
-                name: 'АНГАРА Запчасти',
+                name: `${COMPANY_INFORMATION.COMPANY_NAME}`,
               },
             },
           }),
