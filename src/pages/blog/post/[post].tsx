@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IBlogCategory, IPost, IProduct } from '~/interfaces';
 import { getBlogCategories, getPosts, getPost } from '~/endpoints/blogEndpoint';
-import { REVALIDATE, imageServerUrl } from '~/config';
+import { REVALIDATE, imageServerUrl, COMPANY_INFORMATION } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
@@ -208,7 +208,7 @@ export default function Posts({
     }
   }
   const breadCrumbs = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
     { name: 'Блог', path: url.blog() },
     { name: post.title, path: url.post(post.slug) },
   ];

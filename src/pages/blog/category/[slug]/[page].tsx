@@ -6,7 +6,7 @@ import {
   getPostsByCategory,
   getTotalPosts,
 } from '~/endpoints/blogEndpoint';
-import { REVALIDATE, BLOG_DATA } from '~/config';
+import { COMPANY_INFORMATION, BLOG_DATA } from '~/config';
 import { GetStaticPropsContext, GetStaticPathsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import AnimationPage from '~/components/common/AnimationPage';
@@ -113,7 +113,7 @@ export default function Posts({
     }
   }
   const breadCrumbs = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
     { name: 'Блог', path: url.blog() },
   ];
 
