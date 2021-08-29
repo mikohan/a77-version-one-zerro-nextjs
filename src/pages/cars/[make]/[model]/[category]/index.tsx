@@ -34,7 +34,7 @@ import {
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
-import { containerMaxWidth, pageSize } from '~/config';
+import { COMPANY_INFORMATION, pageSize } from '~/config';
 import {
   getActiveFilters,
   makeHandleDeleteFilter,
@@ -120,7 +120,7 @@ export default function Cagetory(props: CategoryProps) {
   }));
 
   const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
     { name: model.make.name, path: url.make(model.make.slug) },
     { name: model.model, path: url.model(model.make.slug, model.slug) },
     ...catBreads,

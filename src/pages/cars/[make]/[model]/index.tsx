@@ -39,7 +39,7 @@ import {
 import { asString } from '~/helpers';
 import ModelShopList from '~/components/car/ModelShopList';
 import ModelHomePage from '~/components/car/ModelHomePage';
-import { carHomePagePriority } from '~/config';
+import { COMPANY_INFORMATION } from '~/config';
 import { getPopularProductsByModel } from '~/endpoints/productEndpoint';
 import { IProduct } from '~/interfaces';
 import { popularProductsQuantity, carShowText } from '~/config';
@@ -116,7 +116,7 @@ function Model(props: IModelProps) {
   const header = `Запчасти для ${makeName} ${modelName}`;
   const count: number = products.total.value;
   const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
     { name: model.make.name, path: url.make(model.make.slug) },
     { name: model.model, path: url.model(model.make.slug, model.slug) },
   ];
