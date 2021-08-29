@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { footerData, SITE_DOMAIN_FULL } from '~/config';
+import { footerData, SITE_DOMAIN_FULL, COMPANY_INFORMATION } from '~/config';
 import {
   Grid,
   Container,
@@ -105,7 +105,7 @@ export default function Register() {
   const dispatch = useDispatch();
 
   const breadCrumbs = [
-    { name: 'Ангара77', path: '/' },
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
     { name: 'Логин', path: url.account.login() },
   ];
 

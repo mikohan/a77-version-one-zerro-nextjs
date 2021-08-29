@@ -4,8 +4,7 @@ import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
 import { Box, Paper, Grid, Typography } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { getPage } from '~/endpoints/blogEndpoint';
-import { IPage, IBread } from '~/interfaces';
+import { IBread } from '~/interfaces';
 import { COMPANY_INFORMATION } from '~/config';
 import Link from 'next/link';
 import url from '~/services/url';
@@ -87,7 +86,7 @@ interface IProps {
   google_key: string;
 }
 const breadCrumbs = [
-  { name: 'Ангара77', path: '/' },
+  { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
   { name: 'Контакты', path: url.contacts() },
 ];
 
