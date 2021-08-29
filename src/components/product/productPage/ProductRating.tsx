@@ -7,6 +7,7 @@ import { IState } from '~/interfaces/IState';
 import { scoreTransformer } from '~/utils';
 import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
 import { getProductRating } from '~/endpoints/productEndpoint';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,46 +50,63 @@ export default function SimpleRating({
   );
   const userId = useSelector((state: IState) => state.shopNew.userId);
   const [userScore, setUserScore] = React.useState<number | null>(0);
+  const router = useRouter();
 
-  useEffect(() => {
-    async function getUserRatingAsync() {
-      if (productId) {
-        const { rating, ratingCount } = await getProductRating(productId);
-        setValue(rating!);
-        setQuantityState(ratingCount!);
-        setUserScore(0);
-      }
-    }
-    getUserRatingAsync();
-  }, [productId]);
+  /* useEffect(() => { */
+  /*   async function getUserRatingAsync() { */
+  /*     if (productId) { */
+  /*       const { rating, ratingCount } = await getProductRating(productId); */
+  /*       setValue(rating!); */
+  /*       setQuantityState(ratingCount!); */
+  /*       setUserScore(0); */
+  /*     } */
+  /*   } */
+  /*   getUserRatingAsync(); */
+  /* }, [productId]); */
 
-  // Here we trying to get rating by id and set it to state
+  /* // Here we trying to get rating by id and set it to state */
+  /* useEffect(() => { */
+  /*   async function getUserRating(productId: number, userId: string) { */
+  /*     const userRating = await getRating(productId, userId); */
+  /*     if (userRating) { */
+  /*       setUserScore(parseInt(userRating.score)); */
+  /*     } */
+  /*   } */
+  /*   if (userId) { */
+  /*     getUserRating(productId, userId); */
+  /*   } */
+  /* }, [productId, value]); */
+
+  /* // Here we are setting user score to database */
+  /* useEffect(() => { */
+  /*   async function setServerRating() { */
+  /*     let myVal = value; */
+  /*     if (value) { */
+  /*       const newRating = await createOrUpdateRatings( */
+  /*         myVal as number, */
+  /*         productId, */
+  /*         userId */
+  /*       ); */
+  /*     } */
+  /*   } */
+  /*   setServerRating(); */
+  /* }, [value]); */
   useEffect(() => {
-    async function getUserRating(productId: number, userId: string) {
+    async function getUserRating() {
       const userRating = await getRating(productId, userId);
+      console.log(userRating);
       if (userRating) {
         setUserScore(parseInt(userRating.score));
+      } else {
+        setUserScore(null);
       }
     }
-    if (userId) {
-      getUserRating(productId, userId);
+    try {
+      getUserRating();
+    } catch (e) {
+      console.log(e, 'In trying to get user rating');
     }
-  }, [productId, value]);
-
-  // Here we are setting user score to database
-  useEffect(() => {
-    async function setServerRating() {
-      let myVal = value;
-      if (value) {
-        const newRating = await createOrUpdateRatings(
-          myVal as number,
-          productId,
-          userId
-        );
-      }
-    }
-    setServerRating();
-  }, [value]);
+  }, [userId, router]);
 
   function handleRating(
     event: React.ChangeEvent<{} | null>,
@@ -96,6 +114,17 @@ export default function SimpleRating({
   ) {
     setValue(newValue);
     setUserScore(newValue);
+    async function setServerRating() {
+      let myVal = value;
+      if (value) {
+        const newRating = await createOrUpdateRatings(
+          newValue as number,
+          productId,
+          userId
+        );
+      }
+    }
+    setServerRating();
   }
 
   return (
