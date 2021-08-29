@@ -61,7 +61,7 @@ export default function ProductPageHead({ product, breads }: IProps) {
             },
             offers: {
               '@type': 'Offer',
-              url: 'https://example.com/product',
+              url: `${url.product(product.slug)}`,
               priceCurrency: 'RUB',
               price: product.stocks[0].price,
               priceValidUntil: date,
