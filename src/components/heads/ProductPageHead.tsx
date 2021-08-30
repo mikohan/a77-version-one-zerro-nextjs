@@ -58,7 +58,7 @@ export default function ProductPageHead({ product, breads }: IProps) {
             '@context': 'https://schema.org/',
             '@type': 'Product',
             name: `${mk}`,
-            image: product.images.map((img: any) => img.img245),
+            image: image,
             description: `Запчасти для ${mk} с доставкой и со склада в интерет магазине ${COMPANY_INFORMATION.COMPANY_NAME_ENG} | Звоните ${footerData.SHOP_PHONE}!`,
             sku: product.sku,
             mpn: product.catNumber,
