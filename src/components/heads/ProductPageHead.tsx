@@ -35,7 +35,6 @@ export default function ProductPageHead({ product, breads }: IProps) {
           return `${imageServerUrl}${img.img245}`;
         })
       : [`${SITE_DOMAIN_FULL}/images/local/defaultParts245.jpg`];
-  console.log(image);
   return (
     <Head>
       <title key="title">
