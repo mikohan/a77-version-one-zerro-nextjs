@@ -253,7 +253,7 @@ export default function ProductPage({
                 <Paper>
                   {product.video && product.video.length ? (
                     product.video.map((vid: string) => (
-                      <div key={vid} className={classes.third}>
+                      <div key={vid}>
                         <ResponsivePlayer videoUrl={vid} />
                       </div>
                     ))
