@@ -103,9 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
     second: {
       background: theme.palette.action.selected,
     },
-    third: {
-      background: 'rgba(0,180,204,0.2)',
-    },
+    third: {},
     fifth: {
       background: 'rgba(0, 180, 100, 0.2)',
     },
@@ -251,7 +249,7 @@ export default function ProductPage({
             </Grid>
             <Grid item className={classes.under} xs={12}></Grid>
             <Grid container item>
-              <Grid className={classes.wrapper} item xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <Paper>
                   {product.video && product.video.length ? (
                     product.video.map((vid: string) => (
