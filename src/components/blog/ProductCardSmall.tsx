@@ -120,6 +120,7 @@ export default function ProductCardGrid({ product }: IProp) {
       <Link href={`/product/${product.slug}`}>
         <a>
           <Image
+            placeholder="blur"
             layout="responsive"
             width={180}
             height={150}
