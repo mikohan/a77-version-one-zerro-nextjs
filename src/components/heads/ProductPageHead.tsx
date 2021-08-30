@@ -1,6 +1,11 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
-import { footerData, SITE_DOMAIN_FULL, COMPANY_INFORMATION } from '~/config';
+import {
+  footerData,
+  SITE_DOMAIN_FULL,
+  imageServerUrl,
+  COMPANY_INFORMATION,
+} from '~/config';
 import { capitalize } from '~/utils';
 import { IBread, ICar, IProduct } from '~/interfaces';
 import url from '~/services/url';
@@ -24,6 +29,13 @@ export default function ProductPageHead({ product, breads }: IProps) {
     name: bread.name,
     item: `${SITE_DOMAIN_FULL}${bread.path}`,
   }));
+  const image =
+    product.images && product.images.length
+      ? product.images.map((img) => {
+          return `${imageServerUrl}${img.img245}`;
+        })
+      : [`${SITE_DOMAIN_FULL}/images/local/defaultParts245.jpg`];
+  console.log(image);
   return (
     <Head>
       <title key="title">
