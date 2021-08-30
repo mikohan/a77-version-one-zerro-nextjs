@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { scoreTransformer } from '~/utils';
 import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
-import { getProductRating } from '~/endpoints/productEndpoint';
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -105,7 +104,7 @@ export default function SimpleRating({
     } catch (e) {
       console.log(e, 'In trying to get user rating');
     }
-  }, [userId, router]);
+  }, [userId, router, productId]);
 
   function handleRating(
     event: React.ChangeEvent<{} | null>,
