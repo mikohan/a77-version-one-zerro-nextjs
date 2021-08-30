@@ -42,9 +42,9 @@ export default function SimpleRating({
   ratingCount,
 }: IProps) {
   const classes = useStyles();
-  const initVal = rating ? rating : 0;
+  //const initVal = rating ? rating : 0;
   const initQ = ratingCount ? ratingCount : 0;
-  const [value, setValue] = React.useState<number | null>(initVal as any);
+  const [value, setValue] = React.useState<number | null>(5);
   const [quantityState, setQuantityState] = React.useState<number>(
     initQ as any
   );
@@ -94,7 +94,6 @@ export default function SimpleRating({
   useEffect(() => {
     async function getUserRating() {
       const userRating = await getRating(productId, userId);
-      //console.log(userRating);
       if (userRating) {
         setUserScore(parseInt(userRating.score));
       } else {
@@ -115,10 +114,9 @@ export default function SimpleRating({
     setValue(newValue);
     setUserScore(newValue);
     async function setServerRating() {
-      let myVal = value;
-      if (value) {
+      if (newValue) {
         const newRating = await createOrUpdateRatings(
-          newValue as number,
+          Math.ceil(newValue),
           productId,
           userId
         );
