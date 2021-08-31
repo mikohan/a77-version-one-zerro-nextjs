@@ -412,7 +412,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   let paths: IPaths[] = [];
   let i = 0;
   for (let prod of prods) {
-    if (i > 10000) {
+    if (i > 100) {
       break;
     }
     i++;
