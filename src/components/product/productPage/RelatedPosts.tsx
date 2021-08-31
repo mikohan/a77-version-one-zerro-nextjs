@@ -57,6 +57,7 @@ export default function DenseTable({ posts }: IProps) {
                 <Link href={url.post(post.slug)}>
                   <a className={classes.item}>
                     <Image
+                      placeholder="blur"
                       src={`${imageServerUrl}${post.image}`}
                       width={200}
                       height={160}
