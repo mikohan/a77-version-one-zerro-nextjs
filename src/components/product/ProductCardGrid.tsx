@@ -179,6 +179,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       <Link href={`/product/${product._source.slug}`}>
         <a className={classes.a}>
           <Image
+            placeholder="blur"
             layout="intrinsic"
             width={245}
             height={245}
