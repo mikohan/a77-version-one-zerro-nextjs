@@ -30,6 +30,7 @@ export const getServerSideProps = async ({ res }: any) => {
     const p = prod._source;
 
     let brand = p.brand ? stripHtml(p.brand.name) : null;
+    let vendorCode = `${p.cat_number}-${brand}`;
 
     if (
       p.images &&
@@ -62,8 +63,10 @@ export const getServerSideProps = async ({ res }: any) => {
                     ${pictures}
                     <model>${capitalize(p.model[0].name)}</model>
                     <vendor>${brand}</vendor>
-                    <vendorCode>${p.cat_number}</vendorCode>
+                    <vendorCode>${vendorCode}</vendorCode>
                     <description>${p.description}</description>
+                    <dimensions>42/53/89</dimensions>
+                    <weight>9.5</weight>
                     <delivery>true</delivery>
                         <pickup>true</pickup>
                         <delivery-options>
