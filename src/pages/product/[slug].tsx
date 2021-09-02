@@ -285,15 +285,6 @@ export default function ProductPage({
                   <ProductTabs product={product} />
                 </Paper>
               </Grid>
-              <Hidden smDown>
-                <Divider />
-                <Grid item className={classes.tabs} xs={12}>
-                  <Typography className={classes.relatedPostTitle} variant="h6">
-                    Полезная информация
-                  </Typography>
-                  <RelatedPosts posts={posts} />
-                </Grid>
-              </Hidden>
               <Divider />
               <Hidden smDown>
                 {similar && similar.length ? <SimilarProducts /> : ''}
@@ -319,6 +310,15 @@ export default function ProductPage({
                 </Grid>
               </React.Fragment>
             )}
+            <Hidden smDown>
+              <Divider />
+              <Grid item className={classes.tabs} xs={12}>
+                <Typography className={classes.relatedPostTitle} variant="h6">
+                  Полезная информация
+                </Typography>
+                <RelatedPosts posts={posts} />
+              </Grid>
+            </Hidden>
           </Grid>
         </div>
       </AnimationPage>
