@@ -1,7 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
 import { searchTree, translateProducts } from '~/utils';
-
 import { Grid } from '@material-ui/core';
 import { ICar } from '~/interfaces/ICar';
 import { getCategoryBySlugGQL } from '~/endpoints/categories';
