@@ -110,7 +110,8 @@ export function getActiveFilters(
           key === 'sort_price' ||
           key === 'page'
         ) {
-          if (key === 'page') {
+          // Added utm here
+          if (key === 'page' || key === 'utm') {
             continue;
           }
           if (value !== '') {
