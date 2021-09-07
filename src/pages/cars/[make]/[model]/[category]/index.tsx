@@ -301,7 +301,10 @@ export const getServerSideProps: GetServerSideProps = async (
 
   let url = '';
 
-  if (Object.entries(filtersQuery).length > 0) {
+  if (
+    Object.entries(filtersQuery).length > 0 &&
+    !Object.keys(filtersQuery).find((key: string) => key === 'utm')
+  ) {
     let filUrl = '';
     let amp = '&';
     Object.entries(filtersQuery).forEach(([filter, value], i) => {

@@ -156,7 +156,10 @@ export function makeHandleFilterChange(
         (item: IActiveFilterMy) => item.filterSlug === 'price'
       );
       if (idx === -1) {
-        activeFilters.push({ filterSlug: 'price', filterValues: [itemName] });
+        activeFilters.push({
+          filterSlug: 'price',
+          filterValues: [itemName],
+        });
       } else {
         activeFilters[idx].filterValues = [itemName];
       }
