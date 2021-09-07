@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { ICheckFilterValue } from '~/interfaces/filters';
 import { booleanToRus, conditionToRus } from '~/helpers';
-import { useSelector } from 'react-redux';
-import { IState } from '~/interfaces';
 
 // Helper functions need to refactor
 
