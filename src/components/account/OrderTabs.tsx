@@ -17,6 +17,8 @@ import { useRouter } from 'next/router';
 import url from '~/services/url';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import redirect from 'nextjs-redirect';
+import { ICart } from '~/store/cart/cartTypes';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -120,6 +122,8 @@ interface IProps {
   handleChangeEmail(event: React.ChangeEvent<HTMLInputElement>): void;
   emailError: boolean;
   phoneError: boolean;
+  orderNumber: string;
+  cart: ICart;
 }
 
 export default function OrderTabs({
@@ -140,6 +144,8 @@ export default function OrderTabs({
   handleChangeEmail,
   emailError,
   phoneError,
+  cart,
+  orderNumber,
 }: IProps) {
   const classes = useStyles();
   const router = useRouter();
@@ -161,12 +167,18 @@ export default function OrderTabs({
 
   const onlinePayment = async () => {
     console.log('Clidked');
+    const value = cart.total;
+
     const headers = {
       'Idempotence-Key': uuidv4(),
     };
+    const auth = {
+      username: '831231',
+      password: 'live_SNCQBi_CAyv6nkWaSAiGXscKUBuoI9POx9lilgV92jI',
+    };
     const data = {
       amount: {
-        value: '1.00',
+        value: value,
         currency: 'RUB',
       },
       capture: true,
@@ -174,19 +186,21 @@ export default function OrderTabs({
         type: 'redirect',
         return_url: 'https://partshub.ru',
       },
-      description: 'Заказ №1',
+      description: orderNumber,
     };
-    const res = await axios.post('https://api.yookassa.ru/v3/payments', data, {
-      headers: headers,
-      auth: {
-        username: '831231',
-        password: 'live_SNCQBi_CAyv6nkWaSAiGXscKUBuoI9POx9lilgV92jI',
-      },
-    });
 
-    console.log(res.data);
-    const { confirmation_url } = res.data.confirmation;
-    router.push(confirmation_url);
+    const res = await axios
+      .post('http://localhost:3245/api/payment', data, {
+        headers: headers,
+        auth: auth,
+      })
+      .catch((e) => {
+        throw new Error('Cnnot proceed payment');
+      });
+    const url = res.data.confirmation.confirmation_url;
+    if (url) {
+      document.location.href = url;
+    }
   };
 
   return (

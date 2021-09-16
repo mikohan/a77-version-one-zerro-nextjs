@@ -320,6 +320,8 @@ export default function Order({ access, user }: IProps) {
                           handleChangeEmail={handleChangeEmail}
                           emailError={emailError}
                           phoneError={phoneError}
+                          orderNumber={orderNumber}
+                          cart={cart}
                         />
                         <Box
                           className={classes.sendButtonBox}
