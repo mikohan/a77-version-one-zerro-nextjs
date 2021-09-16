@@ -15,6 +15,8 @@ import AnimationPage from '~/components/common/AnimationPage';
 import AddressesListing from '~/components/account/AddressesListing';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -157,6 +159,36 @@ export default function OrderTabs({
     router.push(url.account.register());
   }
 
+  const onlinePayment = async () => {
+    console.log('Clidked');
+    const headers = {
+      'Idempotence-Key': uuidv4(),
+    };
+    const data = {
+      amount: {
+        value: '1.00',
+        currency: 'RUB',
+      },
+      capture: true,
+      confirmation: {
+        type: 'redirect',
+        return_url: 'https://partshub.ru',
+      },
+      description: 'Заказ №1',
+    };
+    const res = await axios.post('https://api.yookassa.ru/v3/payments', data, {
+      headers: headers,
+      auth: {
+        username: '831231',
+        password: 'live_SNCQBi_CAyv6nkWaSAiGXscKUBuoI9POx9lilgV92jI',
+      },
+    });
+
+    console.log(res.data);
+    const { confirmation_url } = res.data.confirmation;
+    router.push(confirmation_url);
+  };
+
   return (
     <div className={classes.root}>
       <Tabs
@@ -279,7 +311,9 @@ export default function OrderTabs({
               </Box>
               <Box className={classes.beforeButtonBox}>
                 {showOnlinePayment && (
-                  <Button variant="contained">Оплатить Картой</Button>
+                  <Button onClick={onlinePayment} variant="contained">
+                    Оплатить Картой
+                  </Button>
                 )}
               </Box>
             </React.Fragment>
