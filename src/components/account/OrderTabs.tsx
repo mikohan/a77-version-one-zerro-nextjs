@@ -124,6 +124,8 @@ interface IProps {
   phoneError: boolean;
   orderNumber: string;
   cart: ICart;
+  disabled: boolean;
+  handleSendOrder(): void;
 }
 
 export default function OrderTabs({
@@ -146,6 +148,8 @@ export default function OrderTabs({
   phoneError,
   cart,
   orderNumber,
+  disabled,
+  handleSendOrder,
 }: IProps) {
   const classes = useStyles();
   const router = useRouter();
@@ -193,6 +197,7 @@ export default function OrderTabs({
       });
     const url = res.data.confirmation.confirmation_url;
     if (url) {
+      handleSendOrder();
       document.location.href = url;
     }
   };
@@ -261,7 +266,13 @@ export default function OrderTabs({
           </Box>
           <Box className={classes.beforeButtonBox}>
             {showOnlinePayment && (
-              <Button variant="contained">Оплатить Картой</Button>
+              <Button
+                onClick={onlinePayment}
+                variant="contained"
+                disabled={disabled}
+              >
+                Оплатить Картой
+              </Button>
             )}
           </Box>
         </AnimationPage>
@@ -319,7 +330,11 @@ export default function OrderTabs({
               </Box>
               <Box className={classes.beforeButtonBox}>
                 {showOnlinePayment && (
-                  <Button onClick={onlinePayment} variant="contained">
+                  <Button
+                    onClick={onlinePayment}
+                    variant="contained"
+                    disabled={disabled}
+                  >
                     Оплатить Картой
                   </Button>
                 )}

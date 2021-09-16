@@ -51,8 +51,6 @@ export default function Order({ access, user }: IProps) {
   const today = Moment();
   const orderNumber = `A-${today.format('HHmm')}`;
 
-  const [valueTab, setValueTab] = React.useState(2);
-
   const [phone, setPhone] = useState('');
   const [valueEmail, setValueEmail] = useState('');
   const [city, setCity] = useState('');
@@ -94,8 +92,10 @@ export default function Order({ access, user }: IProps) {
     setValuePayment(value);
     if (value === 'onLine') {
       setShowOnlinePayment(true);
+      setShowSendOrder(false);
     } else {
       setShowOnlinePayment(false);
+      setShowSendOrder(true);
     }
   };
   const [showFields, setShowFields] = React.useState(false);
@@ -208,29 +208,49 @@ export default function Order({ access, user }: IProps) {
   const [snackType, setSnackType] = React.useState<Snack>('success');
 
   async function handleSendOrder() {
+    const response = await sendOrder(toSend);
+    if (response.status === 201) {
+      setMessage('Заказ успешно отправлен!');
+      setOpenSnak(true);
+      setSnackType('success');
+      dispatch(clearCart());
+      setTimeout(() => {
+        router.push(url.account.orderSuccess());
+      }, 3000);
+    } else {
+      setMessage('Не удалось отправить заказ. Позвоните пожалуйста менеджеру');
+      setSnackType('error');
+      setOpenSnak(true);
+    }
+    setSendActive(false);
     if (toSend.email && toSend.phone && emailIsValid(toSend.email)) {
-      console.log(JSON.stringify(toSend));
-      const response = await sendOrder(toSend);
-      if (response.status === 201) {
-        setMessage('Заказ успешно отправлен!');
-        setOpenSnak(true);
-        setSnackType('success');
-        dispatch(clearCart());
-        setTimeout(() => {
-          router.push(url.account.orderSuccess());
-        }, 3000);
-      } else {
-        setMessage(
-          'Не удалось отправить заказ. Позвоните пожалуйста менеджеру'
-        );
-        setSnackType('error');
-        setOpenSnak(true);
+      /* console.log(JSON.stringify(toSend)); */
+      try {
+        const response = await sendOrder(toSend);
+        if (response.status === 201) {
+          setMessage('Заказ успешно отправлен!');
+          setOpenSnak(true);
+          setSnackType('success');
+          dispatch(clearCart());
+          setTimeout(() => {
+            router.push(url.account.orderSuccess());
+          }, 3000);
+        } else {
+          setMessage(
+            'Не удалось отправить заказ. Позвоните пожалуйста менеджеру'
+          );
+          setSnackType('error');
+          setOpenSnak(true);
+        }
+        setSendActive(false);
+      } catch (e) {
+        console.log(e);
       }
-      setSendActive(false);
     } else {
       setSendActive(true);
     }
   }
+  const [showSendOrder, setShowSendOrder] = React.useState(true);
 
   const [openSnack, setOpenSnak] = React.useState(false);
 
@@ -322,29 +342,38 @@ export default function Order({ access, user }: IProps) {
                           phoneError={phoneError}
                           orderNumber={orderNumber}
                           cart={cart}
+                          disabled={sendActive}
+                          handleSendOrder={handleSendOrder}
                         />
-                        <Box
-                          className={classes.sendButtonBox}
-                          onClick={handleSendOrder}
-                        >
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            disabled={sendActive}
-                          >
-                            отправить заказ
-                          </Button>
-                        </Box>
-                        <Box className={classes.policy}>
-                          <Link href={url.policy()}>
-                            <a>
-                              <Typography variant="subtitle2" color="primary">
-                                Отправляя свои данные, я соглашаюсь с политикой
-                                конфиденциальности
-                              </Typography>
-                            </a>
-                          </Link>
-                        </Box>
+                        {showSendOrder && (
+                          <React.Fragment>
+                            <Box
+                              className={classes.sendButtonBox}
+                              onClick={handleSendOrder}
+                            >
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                disabled={sendActive}
+                              >
+                                отправить заказ
+                              </Button>
+                            </Box>
+                            <Box className={classes.policy}>
+                              <Link href={url.policy()}>
+                                <a>
+                                  <Typography
+                                    variant="subtitle2"
+                                    color="primary"
+                                  >
+                                    Отправляя свои данные, я соглашаюсь с
+                                    политикой конфиденциальности
+                                  </Typography>
+                                </a>
+                              </Link>
+                            </Box>
+                          </React.Fragment>
+                        )}
                       </Paper>
                     </Grid>
                   </Grid>
