@@ -1005,6 +1005,13 @@
   resolved "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.4.tgz"
   integrity sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==
 
+"@google-pay/button-react@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@google-pay/button-react/-/button-react-2.6.0.tgz#b8ed21c8765310912500edd5ba79a1c2d9a07e42"
+  integrity sha512-0NgQndvcsug5lvXfQPakPPS2pBUj47VQtIFlXtKHc5e+IyZ6dsqKR/ng15esXJvcGG6Migrl3mcdIrypEHZ3Iw==
+  dependencies:
+    "@types/googlepay" "^0.6.3"
+
 "@googlemaps/js-api-loader@1.11.4":
   version "1.11.4"
   resolved "https://registry.npmjs.org/@googlemaps/js-api-loader/-/js-api-loader-1.11.4.tgz"
@@ -1282,6 +1289,11 @@
   version "0.3.3"
   resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.3.3.tgz"
   integrity sha512-LKVP3cgXBT9RYj+t+9FDKwS5tdI+rPBXaNSkma7hvqy35lc7mAokC2zsqWJH0LaqIt3B962nuYI77hsJoT1gow==
+
+"@types/googlepay@^0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.6.3.tgz#4e716556b904c9af5263255bf872b81ee4073d4d"
+  integrity sha512-mA9d9UoSAKbfcP3xYvTtpyBTxFytu1bwjquy8oZdZPG8z0xnfQwtmTI4F44ptyz8OBWiCmvBj8QR0Rb2D/hQXg==
 
 "@types/gtag.js@^0.0.7":
   version "0.0.7"
