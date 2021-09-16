@@ -17,8 +17,8 @@ import { useRouter } from 'next/router';
 import url from '~/services/url';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import redirect from 'nextjs-redirect';
 import { ICart } from '~/store/cart/cartTypes';
+import { SITE_DOMAIN_FULL, YANDEX_CREDENTIALS } from '~/config';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -166,15 +166,10 @@ export default function OrderTabs({
   }
 
   const onlinePayment = async () => {
-    console.log('Clidked');
     const value = cart.total;
 
     const headers = {
       'Idempotence-Key': uuidv4(),
-    };
-    const auth = {
-      username: '831231',
-      password: 'live_SNCQBi_CAyv6nkWaSAiGXscKUBuoI9POx9lilgV92jI',
     };
     const data = {
       amount: {
@@ -184,15 +179,14 @@ export default function OrderTabs({
       capture: true,
       confirmation: {
         type: 'redirect',
-        return_url: 'https://partshub.ru',
+        return_url: SITE_DOMAIN_FULL,
       },
       description: orderNumber,
     };
 
     const res = await axios
-      .post('http://localhost:3245/api/payment', data, {
+      .post(`${SITE_DOMAIN_FULL}/api/payment`, data, {
         headers: headers,
-        auth: auth,
       })
       .catch((e) => {
         throw new Error('Cnnot proceed payment');
