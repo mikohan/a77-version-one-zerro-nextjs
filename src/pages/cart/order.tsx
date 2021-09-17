@@ -348,6 +348,7 @@ export default function Order({ access, user }: IProps) {
                           cart={cart}
                           disabled={sendActive}
                           handleSendOrder={handleSendOrder}
+                          loadOrder={loadOrder}
                         />
                         {showSendOrder && (
                           <React.Fragment>

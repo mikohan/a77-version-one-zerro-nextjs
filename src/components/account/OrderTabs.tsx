@@ -18,9 +18,9 @@ import url from '~/services/url';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ICart } from '~/store/cart/cartTypes';
-import { SITE_DOMAIN_FULL, YANDEX_CREDENTIALS } from '~/config';
+import { SITE_DOMAIN_FULL } from '~/config';
 import { useDispatch } from 'react-redux';
-import { clearCart } from '~/store/cart/cartAction';
+import { CircularProgress } from '@material-ui/core';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -128,6 +128,7 @@ interface IProps {
   cart: ICart;
   disabled: boolean;
   handleSendOrder(pushUrl?: string): void;
+  loadOrder: boolean;
 }
 
 export default function OrderTabs({
@@ -152,6 +153,7 @@ export default function OrderTabs({
   orderNumber,
   disabled,
   handleSendOrder,
+  loadOrder,
 }: IProps) {
   const classes = useStyles();
   const router = useRouter();
@@ -270,17 +272,23 @@ export default function OrderTabs({
               </FormControl>
             </Box>
           </Box>
-          <Box className={classes.beforeButtonBox}>
-            {showOnlinePayment && (
-              <Button
-                onClick={onlinePayment}
-                variant="contained"
-                disabled={disabled}
-              >
-                Оплатить Картой
-              </Button>
-            )}
-          </Box>
+          {loadOrder ? (
+            <Box>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Box className={classes.beforeButtonBox}>
+              {showOnlinePayment && (
+                <Button
+                  onClick={onlinePayment}
+                  variant="contained"
+                  disabled={disabled}
+                >
+                  Оплатить Картой
+                </Button>
+              )}
+            </Box>
+          )}
         </AnimationPage>
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -334,17 +342,21 @@ export default function OrderTabs({
                   </FormControl>
                 </Box>
               </Box>
-              <Box className={classes.beforeButtonBox}>
-                {showOnlinePayment && (
-                  <Button
-                    onClick={onlinePayment}
-                    variant="contained"
-                    disabled={disabled}
-                  >
-                    Оплатить Картой
-                  </Button>
-                )}
-              </Box>
+              {loadOrder ? (
+                <CircularProgress />
+              ) : (
+                <Box className={classes.beforeButtonBox}>
+                  {showOnlinePayment && (
+                    <Button
+                      onClick={onlinePayment}
+                      variant="contained"
+                      disabled={disabled}
+                    >
+                      Оплатить Картой
+                    </Button>
+                  )}
+                </Box>
+              )}
             </React.Fragment>
           ) : (
             <Box className={classes.accountButtons}>
