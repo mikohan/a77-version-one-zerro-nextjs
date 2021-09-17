@@ -101,6 +101,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const dispatch = useDispatch();
   const avatar = useSelector((state: IState) => state.user.image);
   const user = useSelector((state: IState) => state.user);
+  const cart = useSelector((state: IState) => state.cart);
 
   useEffect(() => {
     try {
@@ -110,6 +111,7 @@ export default function Header({ setIsDark, isDark }: IProps) {
       console.error('No localstorage set up', e);
     }
   }, []);
+  useEffect(() => {}, [cart]);
 
   const [isLocalStorageDark, setIsLocalStorageDark] = uselLocalStorage(
     'isDark',
