@@ -10,6 +10,7 @@ import {
   Button,
   Snackbar,
   Typography,
+  CircularProgress,
 } from '@material-ui/core';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -86,6 +87,7 @@ export default function Order({ access, user }: IProps) {
   const [showPayment, setShowPayment] = React.useState(true);
   const [showOnlinePayment, setShowOnlinePayment] = React.useState(false);
   const [valuePayment, setValuePayment] = React.useState('onGet');
+  const [loadOrder, setLoadOrder] = React.useState(false);
 
   const handleChangePayment = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -207,22 +209,24 @@ export default function Order({ access, user }: IProps) {
   type Snack = 'success' | 'error';
   const [snackType, setSnackType] = React.useState<Snack>('success');
 
-  async function handleSendOrder() {
+  async function handleSendOrder(paymentUrl?: string) {
+    setLoadOrder(true);
     const response = await sendOrder(toSend);
-    if (response.status === 201) {
-      setMessage('Заказ успешно отправлен!');
-      setOpenSnak(true);
-      setSnackType('success');
-      dispatch(clearCart());
-      setTimeout(() => {
-        router.push(url.account.orderSuccess());
-      }, 3000);
-    } else {
-      setMessage('Не удалось отправить заказ. Позвоните пожалуйста менеджеру');
-      setSnackType('error');
-      setOpenSnak(true);
-    }
-    setSendActive(false);
+    const pushUrl = paymentUrl ? paymentUrl : url.account.orderSuccess();
+    /* if (response.status === 201) { */
+    /*   setMessage('Заказ успешно отправлен!'); */
+    /*   setOpenSnak(true); */
+    /*   setSnackType('success'); */
+    /*   setLoadOrder(false); */
+    /*   setTimeout(() => { */
+    /*     router.push(pushUrl); */
+    /*   }, 500); */
+    /* } else { */
+    /*   setMessage('Не удалось отправить заказ. Позвоните пожалуйста менеджеру'); */
+    /*   setSnackType('error'); */
+    /*   setOpenSnak(true); */
+    /* } */
+    /* setSendActive(false); */
     if (toSend.email && toSend.phone && emailIsValid(toSend.email)) {
       /* console.log(JSON.stringify(toSend)); */
       try {
@@ -231,10 +235,10 @@ export default function Order({ access, user }: IProps) {
           setMessage('Заказ успешно отправлен!');
           setOpenSnak(true);
           setSnackType('success');
-          dispatch(clearCart());
+          setLoadOrder(false);
           setTimeout(() => {
-            router.push(url.account.orderSuccess());
-          }, 3000);
+            router.push(pushUrl);
+          }, 500);
         } else {
           setMessage(
             'Не удалось отправить заказ. Позвоните пожалуйста менеджеру'
@@ -349,15 +353,21 @@ export default function Order({ access, user }: IProps) {
                           <React.Fragment>
                             <Box
                               className={classes.sendButtonBox}
-                              onClick={handleSendOrder}
+                              onClick={() => handleSendOrder()}
                             >
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                disabled={sendActive}
-                              >
-                                отправить заказ
-                              </Button>
+                              {loadOrder ? (
+                                <Box>
+                                  <CircularProgress />
+                                </Box>
+                              ) : (
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  disabled={sendActive}
+                                >
+                                  отправить заказ
+                                </Button>
+                              )}
                             </Box>
                             <Box className={classes.policy}>
                               <Link href={url.policy()}>

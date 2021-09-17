@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
 import { footerData, SITE_DOMAIN_FULL } from '~/config';
@@ -8,11 +8,18 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import url from '~/services/url';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '~/store/cart/cartAction';
 
 // This is the recommended way for Next.js 9.3 or newer
 export default function OrderSuccess() {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearCart());
+  }, []);
   function goHome() {
     router.push(url.home());
   }

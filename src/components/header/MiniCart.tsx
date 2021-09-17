@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 import {
@@ -63,6 +63,7 @@ interface IProps {
 export default function SimpleMenu({ anchorEl, setAnchorEl }: IProps) {
   const classes = useStyles();
   const cart = useSelector((state: IState) => state.cart);
+  useEffect(() => {}, [cart]);
   const handleClose = () => {
     setAnchorEl(null);
   };

@@ -19,6 +19,8 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ICart } from '~/store/cart/cartTypes';
 import { SITE_DOMAIN_FULL, YANDEX_CREDENTIALS } from '~/config';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '~/store/cart/cartAction';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -125,7 +127,7 @@ interface IProps {
   orderNumber: string;
   cart: ICart;
   disabled: boolean;
-  handleSendOrder(): void;
+  handleSendOrder(pushUrl?: string): void;
 }
 
 export default function OrderTabs({
@@ -153,6 +155,7 @@ export default function OrderTabs({
 }: IProps) {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
   let initTab = 0;
   if (access && user && Object.keys(user).length) {
     initTab = 1;
@@ -177,13 +180,13 @@ export default function OrderTabs({
     };
     const data = {
       amount: {
-        value: value,
+        value: '1.00', //value,
         currency: 'RUB',
       },
       capture: true,
       confirmation: {
         type: 'redirect',
-        return_url: SITE_DOMAIN_FULL,
+        return_url: `${SITE_DOMAIN_FULL}/account/orders/success`,
       },
       description: orderNumber,
     };
@@ -197,8 +200,11 @@ export default function OrderTabs({
       });
     const url = res.data.confirmation.confirmation_url;
     if (url) {
-      handleSendOrder();
-      document.location.href = url;
+      try {
+        handleSendOrder(url);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
