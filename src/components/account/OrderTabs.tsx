@@ -180,7 +180,7 @@ export default function OrderTabs({
     };
     const data = {
       amount: {
-        value: '1.00', //value,
+        value: value,
         currency: 'RUB',
       },
       capture: true,
