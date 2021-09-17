@@ -119,6 +119,16 @@ export const LoginMenu = ({
               <MenuItem>Создать Аккаунт</MenuItem>
             </a>
           </Link>
+          <Link href={url.placeOrder()}>
+            <a>
+              <MenuItem>Оформить заказ</MenuItem>
+            </a>
+          </Link>
+          <Link href={url.cart()}>
+            <a>
+              <MenuItem>Перейти в Корзину</MenuItem>
+            </a>
+          </Link>
         </div>
       ) : (
         <div>
