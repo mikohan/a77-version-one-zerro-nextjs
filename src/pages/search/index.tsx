@@ -27,7 +27,7 @@ import {
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
-import { pageSize } from '~/config';
+import { COMPANY_INFORMATION, pageSize } from '~/config';
 import {
   makeHandleDeleteFilter,
   makeHandleDeleteFilters,
@@ -104,7 +104,7 @@ export default function Cagetory(props: CategoryProps) {
   /* })); */
 
   const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
+    { name: COMPANY_INFORMATION.COMPANY_NAME_ENG, path: '/' },
     { name: search, path: url.search(search) },
   ];
 
