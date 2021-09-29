@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { useMemo } from 'react';
+import { LOCAL } from '~/config';
 
 let store: any;
 
@@ -12,11 +13,15 @@ import rootReducer from './reducers';
 const middleware = [thunk];
 
 function initStore(preloadedState = initialState) {
-  return createStore(
-    rootReducer,
-    preloadedState,
-    composeWithDevTools(applyMiddleware(...middleware))
-  );
+  if (LOCAL) {
+    return createStore(
+      rootReducer,
+      preloadedState,
+      composeWithDevTools(applyMiddleware(...middleware))
+    );
+  } else {
+    return createStore(rootReducer, preloadedState);
+  }
 }
 
 export const initializeStore = (preloadedState: any) => {

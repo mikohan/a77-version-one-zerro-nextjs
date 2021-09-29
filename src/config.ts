@@ -5,8 +5,15 @@ import {
   imageServerUrl,
   SITE_DOMAIN_FULL,
   YANDEX_CREDENTIALS,
+  LOCAL,
 } from '~/config_local';
-export { backServerUrl, imageServerUrl, SITE_DOMAIN_FULL, YANDEX_CREDENTIALS };
+export {
+  backServerUrl,
+  imageServerUrl,
+  SITE_DOMAIN_FULL,
+  YANDEX_CREDENTIALS,
+  LOCAL,
+};
 
 // Edn of server conf
 export const backServerUrlRest = backServerUrl; // url for elastic search
