@@ -250,24 +250,27 @@ export default function ProductPage({
               </Grid>
             </Grid>
             <Grid item className={classes.under} xs={12}></Grid>
+
             <Grid container item>
-              <Grid className={classes.wrapper} item xs={12} md={6}>
-                <Paper>
-                  {product.video && product.video.length ? (
-                    product.video.map((vid: string) => (
-                      <div key={vid} className={classes.third}>
-                        <ResponsivePlayer videoUrl={vid} />
+              <Hidden smDown>
+                <Grid className={classes.wrapper} item xs={12} md={6}>
+                  <Paper>
+                    {product.video && product.video.length ? (
+                      product.video.map((vid: string) => (
+                        <div key={vid} className={classes.third}>
+                          <ResponsivePlayer videoUrl={vid} />
+                        </div>
+                      ))
+                    ) : (
+                      <div>
+                        <ResponsivePlayer
+                          videoUrl={'https://youtu.be/a9I1oNYj26o'}
+                        />
                       </div>
-                    ))
-                  ) : (
-                    <div>
-                      <ResponsivePlayer
-                        videoUrl={'https://youtu.be/a9I1oNYj26o'}
-                      />
-                    </div>
-                  )}
-                </Paper>
-              </Grid>
+                    )}
+                  </Paper>
+                </Grid>
+              </Hidden>
               <Grid className={classes.analogs} item xs={12} md={6}>
                 <Paper className={classes.analogPaper}>
                   <Typography variant="h6">Аналоги</Typography>
