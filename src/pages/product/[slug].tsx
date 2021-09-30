@@ -377,14 +377,14 @@ export const getStaticProps: GetStaticProps = async (
     product.tags && product.tags.length
       ? product.tags.join(' ')
       : `${product.name} ${prodModel}`;
-  const productsByTags = await getProductsByTagOrTags(query, 30);
+  const productsByTags = await getProductsByTagOrTags(query, 10);
   const productsToPost: IProduct[] = translateProducts(
     productsByTags.hits.hits
   );
 
   const safe = `${product.name} ${prodModel}`;
   let posts: IPost[] = [];
-  posts = await searchPosts(safe, 0, 10);
+  posts = await searchPosts(safe, 0, 6);
 
   return {
     revalidate: REVALIDATE,

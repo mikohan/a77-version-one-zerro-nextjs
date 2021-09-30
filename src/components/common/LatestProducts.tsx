@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Image from 'next/image';
 import { IProduct } from '~/interfaces';
 import { Paper, Box } from '@material-ui/core';
-import { imageServerUrl } from '~/config';
 import Link from 'next/link';
 import url from '~/services/url';
 
