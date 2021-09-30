@@ -330,9 +330,6 @@ export default function ProductPage({
   );
 }
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {

@@ -2,13 +2,12 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { IProductElasticHitsSecond } from '~/interfaces/product';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import ChipContainer from '../common/ChipBox';
 import { ICar } from '~/interfaces/ICar';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartAddItem, cartAddItemSuccess } from '~/store/cart/cartAction';
+import { cartAddItemSuccess } from '~/store/cart/cartAction';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
 import { IState } from '~/interfaces';
 import { ICartItem } from '~/store/cart/cartTypes';
@@ -179,7 +178,6 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       <Link href={`/product/${product._source.slug}`}>
         <a className={classes.a}>
           <Image
-            placeholder="blur"
             layout="intrinsic"
             width={245}
             height={245}
