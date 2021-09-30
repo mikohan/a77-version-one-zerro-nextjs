@@ -9,7 +9,6 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 import { SITE_DOMAIN, COMPANY_INFORMATION } from '~/config';
 import { footerData as data } from '~/config';
 import url from '~/services/url';
-import Image from 'next/image';
 interface IPropsCopyright {
   className?: string;
 }
@@ -105,10 +104,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: '3rem',
     },
     payments: {
-      '& span': {
-        marginRight: theme.spacing(1),
-      },
       '& img': {
+        marginRight: theme.spacing(1),
         width: theme.spacing(6),
         height: theme.spacing(6),
       },
@@ -274,34 +271,19 @@ export default function StickyFooter() {
                   <div className={classes.socialMedia}>
                     <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
                       <a rel="noopener noreferrer" target="_blank">
-                        <Image
-                          layout="intrinsic"
-                          width={100}
-                          height={100}
-                          src="/images/local/yt.svg"
-                          alt="YouTube icon"
-                        />
+                        <img src="/images/local/yt.svg" alt="YouTube icon" />
                         <div></div>
                       </a>
                     </Link>
                     <Link href="https://vk.com/angara772018">
                       <a rel="noopener noreferrer" target="_blank">
-                        <Image
-                          layout="intrinsic"
-                          width={100}
-                          height={100}
-                          src="/images/local/vk.svg"
-                          alt="V kontacte icon"
-                        />
+                        <img src="/images/local/vk.svg" alt="V kontacte icon" />
                         <div></div>
                       </a>
                     </Link>
                     <Link href="https://ok.ru/group/52962919973041">
                       <a rel="noopener noreferrer" target="_blank">
-                        <Image
-                          layout="intrinsic"
-                          width={100}
-                          height={100}
+                        <img
                           src="/images/local/ok.svg"
                           alt="Odnoklasniki icon"
                         />
@@ -310,13 +292,7 @@ export default function StickyFooter() {
                     </Link>
                     <Link href="https://www.facebook.com/groups/angara77/">
                       <a rel="noopener noreferrer" target="_blank">
-                        <Image
-                          layout="intrinsic"
-                          width={100}
-                          height={100}
-                          src="/images/local/fb.svg"
-                          alt="Facebook icon"
-                        />
+                        <img src="/images/local/fb.svg" alt="Facebook icon" />
                         <div></div>
                       </a>
                     </Link>
@@ -337,42 +313,13 @@ export default function StickyFooter() {
               </Typography>
             </div>
             <div className={classes.payments}>
-              <span>
-                <Image
-                  layout="intrinsic"
-                  width={100}
-                  height={70}
-                  src="/images/local/visa.svg"
-                  alt="visa icon"
-                />
-              </span>
-              <span>
-                <Image
-                  layout="intrinsic"
-                  width={100}
-                  height={70}
-                  src="/images/local/mastercard.svg"
-                  alt="Mastercard icon"
-                />
-              </span>
-              <span>
-                <Image
-                  layout="intrinsic"
-                  width={100}
-                  height={70}
-                  src="/images/local/generic.svg"
-                  alt="Generic credit card icon"
-                />
-              </span>
-              <span>
-                <Image
-                  layout="intrinsic"
-                  width={100}
-                  height={70}
-                  src="/images/local/mir.svg"
-                  alt="Mir icon"
-                />
-              </span>
+              <img src="/images/local/visa.svg" alt="visa icon" />
+              <img src="/images/local/mastercard.svg" alt="Mastercard icon" />
+              <img
+                src="/images/local/generic.svg"
+                alt="Generic credit card icon"
+              />
+              <img src="/images/local/mir.svg" alt="Mir icon" />
             </div>
           </div>
         </Hidden>

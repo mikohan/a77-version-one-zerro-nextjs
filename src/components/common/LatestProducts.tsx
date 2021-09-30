@@ -77,6 +77,7 @@ export default function LatestPosts({ products }: IProps) {
                   layout="intrinsic"
                   width={120}
                   height={100}
+                  alt={product.full_name ? product.full_name : product.name}
                 />
               </Box>
               <Box className={classes.content}>
