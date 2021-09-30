@@ -130,7 +130,7 @@ export const login = (email: string, password: string) => async (
     dispatch(errorAction(null));
     dispatch(successMessageAction(res.data));
     Router.push(url.account.dashboard());
-  } catch (e) {
+  } catch (e: any) {
     dispatch(errorAction(e.response.data.errors));
     dispatch(successMessageAction(null));
     console.log('Cant login and get jwt in login userAction line 119', e);
