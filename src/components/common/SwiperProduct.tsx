@@ -129,19 +129,19 @@ export default function Swipper({ product }: IProps) {
 
   return (
     <React.Fragment>
-      <SRLWrapper options={options}>
-        <Swiper
-          className={classes.swiperContainer}
-          id="main"
-          thumbs={{ swiper: thumbSwiper }}
-          spaceBetween={10}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-        >
-          {slides}
-        </Swiper>
-      </SRLWrapper>
+      {/* <SRLWrapper options={options}> */}
+      <Swiper
+        className={classes.swiperContainer}
+        id="main"
+        thumbs={{ swiper: thumbSwiper }}
+        spaceBetween={10}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+      >
+        {slides}
+      </Swiper>
+      {/* </SRLWrapper> */}
       <Swiper
         slidesPerView={6}
         style={{ width: '100%' }}
