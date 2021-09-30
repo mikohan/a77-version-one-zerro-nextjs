@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -35,9 +36,13 @@ import MainLayout from '~/layouts/Main';
 import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
 import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
-import SimpleReactLightbox from 'simple-react-lightbox';
+// import SimpleReactLightbox from 'simple-react-lightbox';
 import * as gtag from '~/services/gtag';
 import { useRouter } from 'next/router';
+
+const SimpleReactLightbox = dynamic(() => import('simple-react-lightbox'), {
+  ssr: false,
+});
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
