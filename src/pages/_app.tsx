@@ -35,151 +35,151 @@ import MainLayout from '~/layouts/Main';
 import { shopLastCarAction } from '~/store/shop/shopActions';
 import { shopSetUserId } from '~/store/shop/shopActions';
 import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
-import SimpleReactLightbox from 'simple-react-lightbox';
+// import SimpleReactLightbox from 'simple-react-lightbox';
 import * as gtag from '~/services/gtag';
 import { useRouter } from 'next/router';
 
 Router.events.on('routeChangeStart', () => {
-  NProgress.start();
+	NProgress.start();
 });
 Router.events.on('routeChangeComplete', () => {
-  NProgress.done();
+	NProgress.done();
 });
 Router.events.on('routeChangeError', () => {
-  NProgress.remove();
+	NProgress.remove();
 });
 
 function MyApp(props: any) {
-  const { Component, pageProps } = props;
-  const store = useStore(pageProps.initialReduxState);
-  const [cookies, setCookie] = useCookies(['userUUID']);
-  const [localstorage, setLocalstorage] = useLocalStorage('userUUID', '');
-  const [isDark, setIsDark] = useState(false);
-  const [userId, setUserId] = useState('');
+	const { Component, pageProps } = props;
+	const store = useStore(pageProps.initialReduxState);
+	const [cookies, setCookie] = useCookies(['userUUID']);
+	const [localstorage, setLocalstorage] = useLocalStorage('userUUID', '');
+	const [isDark, setIsDark] = useState(false);
+	const [userId, setUserId] = useState('');
 
-  const isProduction = process.env.NODE_ENV === 'production';
+	const isProduction = process.env.NODE_ENV === 'production';
 
-  /* const useTheme = theme; */
+	/* const useTheme = theme; */
 
-  const useTheme = isDark ? darkTheme : theme;
-  const router = useRouter();
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await getVehicles();
-      const cars = res;
-      store.dispatch({
-        type: GET_ALL_CARS,
-        payload: cars,
-      });
+	const useTheme = isDark ? darkTheme : theme;
+	const router = useRouter();
+	useEffect(() => {
+		const fetchData = async () => {
+			const res = await getVehicles();
+			const cars = res;
+			store.dispatch({
+				type: GET_ALL_CARS,
+				payload: cars,
+			});
 
-      const makesPromise = await getMakes();
-      store.dispatch(makesAction(makesPromise));
-      // Dispatching currentCar to redux
-      let currentCarFromCookies: ICar | undefined;
-      try {
-        currentCarFromCookies = JSON.parse(
-          window.localStorage.getItem('currentCar') as string
-        );
+			const makesPromise = await getMakes();
+			store.dispatch(makesAction(makesPromise));
+			// Dispatching currentCar to redux
+			let currentCarFromCookies: ICar | undefined;
+			try {
+				currentCarFromCookies = JSON.parse(
+					window.localStorage.getItem('currentCar') as string
+				);
 
-        store.dispatch(setCurrentCarAction(currentCarFromCookies));
-      } catch (e) {
-        currentCarFromCookies = undefined;
-      }
-    };
-    fetchData();
-  }, []);
+				store.dispatch(setCurrentCarAction(currentCarFromCookies));
+			} catch (e) {
+				currentCarFromCookies = undefined;
+			}
+		};
+		fetchData();
+	}, []);
 
-  useEffect(() => {
-    const handleRouteChange = (url: URL) => {
-      /* invoke analytics function only for production */
-      if (isProduction) gtag.pageview(url);
-    };
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
+	useEffect(() => {
+		const handleRouteChange = (url: URL) => {
+			/* invoke analytics function only for production */
+			if (isProduction) gtag.pageview(url);
+		};
+		router.events.on('routeChangeComplete', handleRouteChange);
+		return () => {
+			router.events.off('routeChangeComplete', handleRouteChange);
+		};
+	}, [router.events]);
 
-  useEffect(() => {
-    let lastCars: ICar[] = [];
-    try {
-      lastCars = JSON.parse(window.localStorage.getItem('lastCars') as string);
-      store.dispatch(shopLastCarAction(lastCars));
-    } catch (e) {
-      console.error("Can't get lastCars from localstorage", e);
-    }
-  }, []);
+	useEffect(() => {
+		let lastCars: ICar[] = [];
+		try {
+			lastCars = JSON.parse(
+				window.localStorage.getItem('lastCars') as string
+			);
+			store.dispatch(shopLastCarAction(lastCars));
+		} catch (e) {
+			console.error("Can't get lastCars from localstorage", e);
+		}
+	}, []);
 
-  let userUUID: string = '';
+	let userUUID: string = '';
 
-  useEffect(() => {
-    // Trying to get user Id from localstorage
-    // If not exists try to get from cookies
-    // if not exists - set new one
-    // Working tested
-    if (localstorage) {
-      userUUID = localstorage;
-      store.dispatch(shopSetUserId(userUUID));
-    } else {
-      if (cookies.hasOwnProperty('userUUID')) {
-        userUUID = cookies.userUUID;
-        setLocalstorage(userUUID);
-        store.dispatch(shopSetUserId(userUUID));
-      } else {
-        userUUID = uuidv4();
-        setCookie('userUUID', userUUID, {
-          path: '/',
-          maxAge: cookiesAge.cookierUserMaxAge,
-        });
-        store.dispatch(shopSetUserId(userUUID));
-        setLocalstorage(userUUID);
-      }
-    }
-    setUserId(userUUID);
-    async function updateUser() {
-      const autouser = await createOrUpdateUser(userUUID);
-    }
+	useEffect(() => {
+		// Trying to get user Id from localstorage
+		// If not exists try to get from cookies
+		// if not exists - set new one
+		// Working tested
+		if (localstorage) {
+			userUUID = localstorage;
+			store.dispatch(shopSetUserId(userUUID));
+		} else {
+			if (cookies.hasOwnProperty('userUUID')) {
+				userUUID = cookies.userUUID;
+				setLocalstorage(userUUID);
+				store.dispatch(shopSetUserId(userUUID));
+			} else {
+				userUUID = uuidv4();
+				setCookie('userUUID', userUUID, {
+					path: '/',
+					maxAge: cookiesAge.cookierUserMaxAge,
+				});
+				store.dispatch(shopSetUserId(userUUID));
+				setLocalstorage(userUUID);
+			}
+		}
+		setUserId(userUUID);
+		async function updateUser() {
+			const autouser = await createOrUpdateUser(userUUID);
+		}
 
-    updateUser();
-  }, []);
+		updateUser();
+	}, []);
 
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement?.removeChild(jssStyles);
-    }
-  }, []);
-  // console.log(cookies.userUUID, 'In _app');
+	useEffect(() => {
+		// Remove the server-side injected CSS.
+		const jssStyles = document.querySelector('#jss-server-side');
+		if (jssStyles) {
+			jssStyles.parentElement?.removeChild(jssStyles);
+		}
+	}, []);
+	// console.log(cookies.userUUID, 'In _app');
 
-  return (
-    <React.Fragment>
-      <Head>
-        <title>My page</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </Head>
-      <CookiesProvider>
-        <Provider store={store}>
-          <ThemeProvider theme={useTheme}>
-            <SimpleReactLightbox>
-              <CssBaseline />
-              <MainLayout isDark={isDark} setIsDark={setIsDark}>
-                <Component {...pageProps} userUUID={userUUID} />
-              </MainLayout>
-            </SimpleReactLightbox>
-          </ThemeProvider>
-        </Provider>
-      </CookiesProvider>
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<Head>
+				<title>My page</title>
+				<meta
+					name="viewport"
+					content="minimum-scale=1, initial-scale=1, width=device-width"
+				/>
+			</Head>
+			<CookiesProvider>
+				<Provider store={store}>
+					<ThemeProvider theme={useTheme}>
+						<CssBaseline />
+						<MainLayout isDark={isDark} setIsDark={setIsDark}>
+							<Component {...pageProps} userUUID={userUUID} />
+						</MainLayout>
+					</ThemeProvider>
+				</Provider>
+			</CookiesProvider>
+		</React.Fragment>
+	);
 }
 
 MyApp.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
+	Component: PropTypes.elementType.isRequired,
+	pageProps: PropTypes.object.isRequired,
 };
 
 // It is for server side render of redux

@@ -6,7 +6,7 @@ import { COMPANY_INFORMATION, REVALIDATE } from '~/config';
 import { Hidden, Grid, Paper, Typography, Box } from '@material-ui/core';
 import ProductPageHead from '~/components/heads/ProductPageHead';
 
-import { ICar, IPost, IProduct, IProductElasticHitsSecond } from '~/interfaces';
+import { IPost, IProduct, IProductElasticHitsSecond } from '~/interfaces';
 import {
   getProduct,
   getProductsAll,
