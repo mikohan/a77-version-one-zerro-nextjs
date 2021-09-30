@@ -14,7 +14,7 @@ import { IProduct } from '~/interfaces';
 import { IImage } from '~/interfaces/IImage';
 import Image from 'next/image';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { SRLWrapper } from 'simple-react-lightbox';
+import { SRLWrapper, SimpleReactLightbox } from 'simple-react-lightbox';
 import { capitalize } from '~/utils';
 
 // Import Swiper styles
