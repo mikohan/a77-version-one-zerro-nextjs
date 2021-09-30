@@ -43,7 +43,7 @@ export const checkAuthenticated = () => async (
   let token: string | null = null;
   try {
     token = JSON.parse(localStorage.getItem('access') as string);
-  } catch (e) {
+  } catch (e: any) {
     console.log('Cant get tocken from localstorage', e);
   }
 
@@ -61,7 +61,7 @@ export const checkAuthenticated = () => async (
           type: USER_AUTHENTICATED_FAIL,
         });
       }
-    } catch (e) {
+    } catch (e: any) {
       dispatch({
         type: USER_AUTHENTICATED_FAIL,
       });
@@ -79,7 +79,7 @@ export const loadUser = () => async (
   let token = null;
   try {
     token = JSON.parse(localStorage.getItem('access') as string);
-  } catch (e) {
+  } catch (e: any) {
     console.log('Cannot get token from localstorage', e);
   }
 
@@ -97,7 +97,7 @@ export const loadUser = () => async (
         type: USER_LOADED_SUCCESS,
         payload: res.data,
       });
-    } catch (e) {
+    } catch (e: any) {
       console.log('Cant Load User on line 40 userActions in store ', e);
       dispatch({
         type: USER_LOADED_FAIL,
@@ -173,7 +173,7 @@ export const googleLogin = (tokenId: string) => async (
       dispatch(errorAction(null));
       dispatch(successMessageAction(res.data));
       Router.push(url.account.dashboard());
-    } catch (e) {
+    } catch (e: any) {
       //console.log(e);
       dispatch(errorAction(e.response.data.errors));
 
@@ -219,7 +219,7 @@ export const signup = (
     dispatch(errorAction(null));
     dispatch(successMessageAction(res.data));
     Router.push(url.account.registerSuccess());
-  } catch (e) {
+  } catch (e: any) {
     dispatch(errorAction(e.response.data.errors));
     dispatch(successMessageAction(null));
 
@@ -251,7 +251,7 @@ export const verify = (token: string) => async (
     });
     dispatch(errorAction(null));
     dispatch(successMessageAction(response.data));
-  } catch (e) {
+  } catch (e: any) {
     dispatch(errorAction(e.response.data.errors));
     dispatch(successMessageAction(null));
     console.log('Cant create token in actions 21 line', e);
@@ -286,7 +286,7 @@ export const resetPassword = (email: string) => async (
     });
     dispatch(errorAction(null));
     dispatch(successMessageAction(response.data));
-  } catch (e) {
+  } catch (e: any) {
     dispatch(errorAction(e.response.data));
     dispatch(successMessageAction(null));
     console.log('Cannot call api reset password', e);
@@ -310,7 +310,7 @@ export const resetPasswordConfirm = (
     });
     dispatch(errorAction(null));
     dispatch(successMessageAction(response.data));
-  } catch (e) {
+  } catch (e: any) {
     dispatch(errorAction(e.response.data));
     dispatch(successMessageAction(null));
     dispatch({
