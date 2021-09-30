@@ -30,6 +30,7 @@ import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
+import { SimpleReactLightbox } from 'simple-react-lightbox';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
