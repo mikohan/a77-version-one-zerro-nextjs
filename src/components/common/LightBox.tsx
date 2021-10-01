@@ -2,7 +2,7 @@ import React from 'react';
 import classes from '~/components/styles/LightBox.module.scss';
 import Image from 'next/image';
 
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { Navigation } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 

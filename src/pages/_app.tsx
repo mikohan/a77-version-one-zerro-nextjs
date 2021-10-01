@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -39,10 +38,6 @@ import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
 // import SimpleReactLightbox from 'simple-react-lightbox';
 import * as gtag from '~/services/gtag';
 import { useRouter } from 'next/router';
-
-const SimpleReactLightbox = dynamic(() => import('simple-react-lightbox'), {
-  ssr: false,
-});
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -171,9 +166,7 @@ function MyApp(props: any) {
           <ThemeProvider theme={useTheme}>
             <CssBaseline />
             <MainLayout isDark={isDark} setIsDark={setIsDark}>
-              <SimpleReactLightbox>
-                <Component {...pageProps} userUUID={userUUID} />
-              </SimpleReactLightbox>
+              <Component {...pageProps} userUUID={userUUID} />
             </MainLayout>
           </ThemeProvider>
         </Provider>
