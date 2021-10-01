@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { IProduct } from '~/interfaces';
 import parser from 'html-react-parser';
+import NoSsr from '@material-ui/core/NoSsr';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -60,38 +61,40 @@ export default function SimpleTabs({ product }: IProps) {
 
   return (
     <div className={classes.root}>
-      <Tabs
-        className={classes.tabBar}
-        value={value}
-        onChange={handleChange}
-        aria-label="simple tabs example"
-        centered
-      >
-        <Tab label="Описание" {...a11yProps(0)} />
-        <Tab label="Характеристики" {...a11yProps(1)} />
-        <Tab label="Отзывы" {...a11yProps(2)} />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        {product.description ? (
-          <Box>{parser(product.description)}</Box>
-        ) : (
-          <Box>
-            <Typography variant="h6" color="secondary">
-              Probably needs to set some default description
-            </Typography>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa cum
-            nostrum aliquam minima natus, officiis molestiae labore. Odio odit
-            earum cumque voluptatem, quisquam eveniet blanditiis alias
-            distinctio ipsam, quod et!
-          </Box>
-        )}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Характеристики
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Отзывы
-      </TabPanel>
+      <NoSsr>
+        <Tabs
+          className={classes.tabBar}
+          value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+          centered
+        >
+          <Tab label="Описание" {...a11yProps(0)} />
+          <Tab label="Характеристики" {...a11yProps(1)} />
+          <Tab label="Отзывы" {...a11yProps(2)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          {product.description ? (
+            <Box>{parser(product.description)}</Box>
+          ) : (
+            <Box>
+              <Typography variant="h6" color="secondary">
+                Probably needs to set some default description
+              </Typography>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa cum
+              nostrum aliquam minima natus, officiis molestiae labore. Odio odit
+              earum cumque voluptatem, quisquam eveniet blanditiis alias
+              distinctio ipsam, quod et!
+            </Box>
+          )}
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Характеристики
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Отзывы
+        </TabPanel>
+      </NoSsr>
     </div>
   );
 }

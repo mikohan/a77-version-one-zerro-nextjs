@@ -1,11 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import MLink from '@material-ui/core/Link';
 import { List, ListItem } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
-import { createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { SITE_DOMAIN, COMPANY_INFORMATION } from '~/config';
 import { footerData as data } from '~/config';
 import url from '~/services/url';
@@ -27,8 +26,7 @@ function Copyright({ className }: IPropsCopyright) {
 }
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    footer: {
-      border: '1px solid blue',
+    myFooter: {
       color: theme.palette.grey[50],
       minHeight: '20rem',
       background: theme.palette.grey[800],
@@ -150,7 +148,7 @@ export default function StickyFooter() {
   const classes = useStyles();
 
   return (
-    <footer className={classes.footer}>
+    <footer className={classes.myFooter}>
       <div className={classes.root}>
         <div className={classes.contentBox}>
           <div className={classes.wrapper}>
@@ -195,112 +193,104 @@ export default function StickyFooter() {
                 </div>
               </address>
             </div>
-            <Hidden smDown>
-              <Hidden mdDown>
-                <div>
-                  <Typography className={classes.sectionHeader} variant="h5">
-                    ИНФОРМАЦИЯ
-                  </Typography>
-                  <List>
-                    <Link href={url.delivery()}>
-                      <ListItem>
-                        <a>ДОСТАВКА</a>
-                      </ListItem>
-                    </Link>
-                    <Link href={url.payment()}>
-                      <ListItem>
-                        <a>ОПЛАТА</a>
-                      </ListItem>
-                    </Link>
-                    <Link href={url.warranty()}>
-                      <ListItem>
-                        <a>ГАРАНТИИ</a>
-                      </ListItem>
-                    </Link>
-                    <Link href={url.policy()}>
-                      <ListItem>
-                        <a>КОНФИДЕНЦИАЛЬНОСТЬ</a>
-                      </ListItem>
-                    </Link>
-                  </List>
-                </div>
-              </Hidden>
+            <Hidden mdDown>
               <div>
                 <Typography className={classes.sectionHeader} variant="h5">
-                  КОМПАНИЯ
+                  ИНФОРМАЦИЯ
                 </Typography>
                 <List>
-                  <Link href={url.about()}>
+                  <Link href={url.delivery()}>
                     <ListItem>
-                      <a>О КОМПАНИИ</a>
+                      <a>ДОСТАВКА</a>
                     </ListItem>
                   </Link>
-                  <Link href={url.contacts()}>
+                  <Link href={url.payment()}>
                     <ListItem>
-                      <a>КОНТАКТЫ</a>
+                      <a>ОПЛАТА</a>
                     </ListItem>
                   </Link>
-                  <Link href={url.cars()}>
+                  <Link href={url.warranty()}>
                     <ListItem>
-                      <a>МАШИНЫ</a>
+                      <a>ГАРАНТИИ</a>
                     </ListItem>
                   </Link>
-                  <Link href={url.blog()}>
+                  <Link href={url.policy()}>
                     <ListItem>
-                      <a>БЛОГ</a>
+                      <a>КОНФИДЕНЦИАЛЬНОСТЬ</a>
                     </ListItem>
                   </Link>
                 </List>
               </div>
+            </Hidden>
+            <div>
+              <Typography className={classes.sectionHeader} variant="h5">
+                КОМПАНИЯ
+              </Typography>
+              <List>
+                <Link href={url.about()}>
+                  <ListItem>
+                    <a>О КОМПАНИИ</a>
+                  </ListItem>
+                </Link>
+                <Link href={url.contacts()}>
+                  <ListItem>
+                    <a>КОНТАКТЫ</a>
+                  </ListItem>
+                </Link>
+                <Link href={url.cars()}>
+                  <ListItem>
+                    <a>МАШИНЫ</a>
+                  </ListItem>
+                </Link>
+                <Link href={url.blog()}>
+                  <ListItem>
+                    <a>БЛОГ</a>
+                  </ListItem>
+                </Link>
+              </List>
+            </div>
+            <div>
+              <Typography className={classes.sectionHeader} variant="h5">
+                СОЦИАЛЬНЫЕ СЕТИ
+              </Typography>
+              <Typography className={classes.sectionSubheader} variant="body1">
+                {data.SHOP_CONTACT_TEXT}
+              </Typography>
               <div>
-                <Typography className={classes.sectionHeader} variant="h5">
-                  СОЦИАЛЬНЫЕ СЕТИ
-                </Typography>
                 <Typography
                   className={classes.sectionSubheader}
                   variant="body1"
                 >
-                  {data.SHOP_CONTACT_TEXT}
+                  Наши группы в социальных сетях
                 </Typography>
-                <div>
-                  <Typography
-                    className={classes.sectionSubheader}
-                    variant="body1"
-                  >
-                    Наши группы в социальных сетях
-                  </Typography>
-                  <div className={classes.socialMedia}>
-                    <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
-                      <a rel="noopener noreferrer" target="_blank">
-                        <img src="/images/local/yt.svg" alt="YouTube icon" />
-                        <div></div>
-                      </a>
-                    </Link>
-                    <Link href="https://vk.com/angara772018">
-                      <a rel="noopener noreferrer" target="_blank">
-                        <img src="/images/local/vk.svg" alt="V kontacte icon" />
-                        <div></div>
-                      </a>
-                    </Link>
-                    <Link href="https://ok.ru/group/52962919973041">
-                      <a rel="noopener noreferrer" target="_blank">
-                        <img
-                          src="/images/local/ok.svg"
-                          alt="Odnoklasniki icon"
-                        />
-                        <div></div>
-                      </a>
-                    </Link>
-                    <Link href="https://www.facebook.com/groups/angara77/">
-                      <a rel="noopener noreferrer" target="_blank">
-                        <img src="/images/local/fb.svg" alt="Facebook icon" />
-                        <div></div>
-                      </a>
-                    </Link>
-                  </div>
+                <div className={classes.socialMedia}>
+                  <Link href="https://www.youtube.com/channel/UCJ97RljnqyAdKKmAc8mvHZw">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/yt.svg" alt="YouTube icon" />
+                      <div></div>
+                    </a>
+                  </Link>
+                  <Link href="https://vk.com/angara772018">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/vk.svg" alt="V kontacte icon" />
+                      <div></div>
+                    </a>
+                  </Link>
+                  <Link href="https://ok.ru/group/52962919973041">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/ok.svg" alt="Odnoklasniki icon" />
+                      <div></div>
+                    </a>
+                  </Link>
+                  <Link href="https://www.facebook.com/groups/angara77/">
+                    <a rel="noopener noreferrer" target="_blank">
+                      <img src="/images/local/fb.svg" alt="Facebook icon" />
+                      <div></div>
+                    </a>
+                  </Link>
                 </div>
               </div>
-            </Hidden>
+            </div>
           </div>
         </div>
         <Hidden smDown>

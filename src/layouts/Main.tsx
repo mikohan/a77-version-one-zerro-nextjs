@@ -3,7 +3,6 @@ import Head from 'next/head';
 /* import AppBar from '~/components/header/AppBar'; */
 import Header from '~/components/header/Header';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
-import '../../styles/MainLayoutStyles.module.scss';
 import Footer from '~/components/footer/Footer';
 import theme from '~/theme';
 
