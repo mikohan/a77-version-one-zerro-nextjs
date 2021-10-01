@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
@@ -14,7 +15,6 @@ import {
 } from '~/endpoints/productEndpoint';
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import { IBread } from '~/interfaces';
-import ResponsivePlayer from '~/components/common/ResponsivePlayer';
 import SwiperProduct from '~/components/common/SwiperProduct';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
@@ -30,6 +30,10 @@ import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
+
+const ResponsivePlayer = dynamic(
+  () => import('~/components/common/ResponsivePlayer')
+);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
