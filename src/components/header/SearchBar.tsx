@@ -158,7 +158,7 @@ export default function SearchBar() {
             />
           )}
         />
-        <IconButton onClick={handleSubmit}>
+        <IconButton onClick={handleSubmit} aria-label="Search">
           <SearchIcon />
         </IconButton>
       </Box>
