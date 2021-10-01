@@ -28,6 +28,7 @@ function Copyright({ className }: IPropsCopyright) {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     footer: {
+      border: '1px solid blue',
       color: theme.palette.grey[50],
       minHeight: '20rem',
       background: theme.palette.grey[800],
