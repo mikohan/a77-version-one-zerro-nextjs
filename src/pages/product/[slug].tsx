@@ -138,6 +138,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+export const config = {
+  unstable_JsPreload: false,
+};
+
 interface IProps {
   product: IProduct;
   userUUID: string;
