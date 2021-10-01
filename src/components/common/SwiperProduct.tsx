@@ -77,7 +77,7 @@ export default function Swipper({ product }: IProps) {
       slides.push(
         <SwiperSlide key={im.image} className={classes.swiperSlide}>
           <Image
-            layout="intrinsic"
+            layout="responsive"
             width={width}
             height={height}
             src={`${imageServerUrl}${im.image}`}
@@ -90,7 +90,7 @@ export default function Swipper({ product }: IProps) {
       thumbs.push(
         <SwiperSlide key={im.thumbnail}>
           <Image
-            layout="intrinsic"
+            layout="responsive"
             width={tmbWidth}
             height={tmbHeight}
             src={`${imageServerUrl}${im.thumbnail}`}
@@ -106,7 +106,7 @@ export default function Swipper({ product }: IProps) {
       slides.push(
         <SwiperSlide key={i + 1}>
           <Image
-            layout="intrinsic"
+            layout="responsive"
             width={600}
             height={450}
             src={`/images/local/defaultParts1200.jpg`}
@@ -118,7 +118,7 @@ export default function Swipper({ product }: IProps) {
       thumbs.push(
         <SwiperSlide key={i + 1}>
           <Image
-            layout="intrinsic"
+            layout="responsive"
             width={150}
             height={100}
             src={`/images/local/defaultParts245.jpg`}
