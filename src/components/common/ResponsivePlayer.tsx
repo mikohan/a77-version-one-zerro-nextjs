@@ -21,6 +21,14 @@ interface IProps {
   videoUrl: string;
 }
 
+// I am a comment !!
+// I am another comment
+
+const myFunction = () => {
+  console.log('Here is my awesome function!');
+};
+myFunction();
+
 const Player = ({ videoUrl }: IProps) => {
   const classes = useStyles();
   return (
