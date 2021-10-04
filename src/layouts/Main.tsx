@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 /* import AppBar from '~/components/header/AppBar'; */
+import '../../styles/MainLayoutStyles.module.scss';
 import Header from '~/components/header/Header';
 import { createStyles, Theme, makeStyles } from '@material-ui/core';
 import Footer from '~/components/footer/Footer';

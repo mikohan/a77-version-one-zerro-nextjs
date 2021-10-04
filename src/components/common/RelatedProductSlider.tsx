@@ -11,7 +11,7 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IProduct } from '~/interfaces';
 import Image from 'next/image';
-import { Box } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ProductCardGrid from '~/components/common/ProductCardGrid';
 
@@ -95,15 +95,17 @@ export default function Swipper({ products }: IProps) {
 
   return (
     <React.Fragment>
-      <Swiper
-        className={classes.swiperContainer}
-        id="main"
-        spaceBetween={10}
-        slidesPerView={6}
-        navigation
-      >
-        {slides}
-      </Swiper>
+      <Grid container item xs={12}>
+        <Swiper
+          className={classes.swiperContainer}
+          id="main"
+          spaceBetween={10}
+          slidesPerView={6}
+          navigation
+        >
+          {slides}
+        </Swiper>
+      </Grid>
     </React.Fragment>
   );
 }

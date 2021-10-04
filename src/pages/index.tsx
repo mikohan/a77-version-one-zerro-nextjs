@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { GetStaticProps } from 'next';
 import { getVehiclesByPriority } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
-import { Box, Typography, Container, Hidden } from '@material-ui/core';
+import { Box, Typography, Container, Hidden, NoSsr } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 import CarChioserLong from '~/components/car/CarChoiserLong';
 import { getPosts } from '~/endpoints/blogEndpoint';
@@ -84,7 +84,9 @@ export default function Home(props: IHomeProps) {
                     </Typography>
                   </Grid>
                   <Grid item xs={12} style={{ opacity: 0.9 }}>
-                    <CarChioserLong size="lg" />
+                    <NoSsr>
+                      <CarChioserLong size="lg" />
+                    </NoSsr>
                   </Grid>
                 </Grid>
               </Container>
@@ -102,14 +104,14 @@ export default function Home(props: IHomeProps) {
           </div>
           <Divider />
           <Hidden smDown>
-            <div>
+            <Grid container>
               <Typography variant="h6" className={classes.blockTitle}>
                 Популярные товары
               </Typography>
-              <Box>
+              <Grid container>
                 <RelatedProductSlider products={latestProducts} />
-              </Box>
-            </div>
+              </Grid>
+            </Grid>
             <Divider />
             <div>
               <Typography variant="h6" className={classes.blockTitle}>
