@@ -12,12 +12,13 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fit, minmax(300px, 1fr))`,
-      gridGap: theme.spacing(4),
+      gridTemplateColumns: `repeat(auto-fit, minmax(120px, 1fr))`,
+      gridGap: theme.spacing(1),
       marginBottom: theme.spacing(2),
     },
     image: {
       objectFit: 'cover',
+      borderRadus: '5px',
     },
     underImageBox: {
       display: 'flex',
@@ -45,6 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
     brand: {
       textTransform: 'uppercase',
     },
+    paper: {
+      borderRadius: '5px 5px 0 0',
+      '& img': {
+        borderRadius: '5px 5px 0 0',
+      },
+    },
   })
 );
 
@@ -65,11 +72,11 @@ export default function ModelShopList(props: IProps) {
             : '/images/local/defaultParts245.png';
 
           return (
-            <Paper key={product.slug}>
+            <Paper className={classes.paper} key={product.slug}>
               <Link href={url.product(product.slug)}>
                 <a>
                   <Box className={classes.underImageBox}>
-                    <div>
+                    <div className={classes.paper}>
                       <Image
                         className={classes.image}
                         src={imgSrc as string}
