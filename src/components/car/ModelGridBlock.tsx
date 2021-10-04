@@ -13,13 +13,14 @@ import { MODEL_PRIORITY } from '~/config';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      border: '1px solid red',
-      display: 'flex',
-      justifyContent: 'space-around',
+      display: 'grid',
+      gridTemplateColumns: `repeat(auto-fit, minmax(300px, 1fr))`,
+      gridGap: theme.spacing(3),
     },
     containerSily: {
-      display: 'flex',
-      justifyContent: 'space-around',
+      display: 'grid',
+      gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`,
+      gridGap: theme.spacing(3),
     },
     item: {
       padding: theme.spacing(1),
