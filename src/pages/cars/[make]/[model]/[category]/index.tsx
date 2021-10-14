@@ -303,6 +303,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   if (
     Object.entries(filtersQuery).length > 0 &&
+    !Object.keys(filtersQuery).find((key: string) => key === 'utm_source') &&
     !Object.keys(filtersQuery).find((key: string) => key === 'utm')
   ) {
     let filUrl = '';
