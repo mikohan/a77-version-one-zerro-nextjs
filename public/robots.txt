@@ -1,4 +1,5 @@
 # Here will be robots txt file
 User-agent: *
 Allow: /
+Disallow: /*?*
 sitemap: http://partshub.ru/sitemap.xml
