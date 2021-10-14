@@ -34,6 +34,7 @@ export function makePushUrl(
   category?: ICategory,
   search?: string
 ) {
+  console.log('Active filters', activeFilters);
   let mainUrl: string = '';
   if (category && model) {
     mainUrl = url.category(model.make.slug, model.slug, category.slug);
@@ -66,6 +67,7 @@ export function makePushUrl(
       ...params,
     },
   };
+  console.log(urlPush);
   router.push(urlPush);
 }
 
@@ -121,11 +123,11 @@ export function getActiveFilters(
             });
           }
         } else {
-          activeFilters = [];
+          // activeFilters = [];
           const e = new Error(
             'Some bullshit in query strint here the point to make redirect to 404, servises/filters/filterHandler'
           );
-          // throw e;
+          throw e;
         }
       }
     }
@@ -190,6 +192,7 @@ export function makeHandleFilterChange(
       }
     }
     // Call redirect
+
     if (model) {
       makePushUrl(router, dispatch, activeFilters, model, category);
     } else if (search) {
