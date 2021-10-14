@@ -112,7 +112,10 @@ export function getActiveFilters(
           key === 'sort_price' ||
           key === 'page' ||
           key === 'utm' ||
-          key === 'utm_source'
+          key === 'utm_source' ||
+          key === 'utm_medium' ||
+          key === 'utm_campaign' ||
+          key === 'utm_content'
         ) {
           // Added utm here
           /* if (key === 'page' || key === 'utm') { */
