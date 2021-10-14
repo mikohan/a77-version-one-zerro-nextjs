@@ -34,7 +34,6 @@ export function makePushUrl(
   category?: ICategory,
   search?: string
 ) {
-  console.log('Active filters', activeFilters);
   let mainUrl: string = '';
   if (category && model) {
     mainUrl = url.category(model.make.slug, model.slug, category.slug);
@@ -67,7 +66,6 @@ export function makePushUrl(
       ...params,
     },
   };
-  console.log(urlPush);
   router.push(urlPush);
 }
 
@@ -96,6 +94,7 @@ export function getActiveFilters(
   possibleFilters: string[]
 ): IActiveFilterMy[] {
   let activeFilters: IActiveFilterMy[] = [];
+
   if (Object.keys(filtersFromStore).length) {
     for (const [key, value] of Object.entries(filtersFromStore)) {
       activeFilters.push({
@@ -104,18 +103,20 @@ export function getActiveFilters(
       });
     }
   } else {
+    // Finding only query related stuff in rotuterParams, not make, model, category
     for (const [key, value] of Object.entries(routerQuery)) {
       if (!routerParams.hasOwnProperty(key)) {
         if (
           possibleFilters.includes(key) ||
           key === 'filters_chk' ||
           key === 'sort_price' ||
-          key === 'page'
+          key === 'page' ||
+          key === 'utm'
         ) {
           // Added utm here
-          if (key === 'page' || key === 'utm') {
-            continue;
-          }
+          /* if (key === 'page' || key === 'utm') { */
+          /*   continue; */
+          /* } */
           if (value !== '') {
             activeFilters.push({
               filterSlug: key,

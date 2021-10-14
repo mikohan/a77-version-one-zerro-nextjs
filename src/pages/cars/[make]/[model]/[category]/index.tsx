@@ -167,7 +167,6 @@ export default function Cagetory(props: CategoryProps) {
     'category',
     categoriesFilter
   );
-  console.log('Filters from store', filtersFromStore);
   // ************************** End filters *********************
 
   const possibleFilters: string[] = sortedFilters.map(
@@ -266,7 +265,6 @@ export const getServerSideProps: GetServerSideProps = async (
     routerQuery as IRouterStuff,
     routerParams as IRouterStuff
   );
-  console.log(filtersQuery);
   const { category, model } = context.params!;
   const modelSlug: string = model as string;
   // sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss

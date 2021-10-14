@@ -1,5 +1,4 @@
 # Here will be robots txt file
 User-agent: *
 Allow: /
-
 sitemap: http://partshub.ru/sitemap.xml
