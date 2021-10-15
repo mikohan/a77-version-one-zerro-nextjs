@@ -8,7 +8,7 @@ import { Box, Typography, Container, Hidden, NoSsr } from '@material-ui/core';
 import { containerMaxWidth } from '~/config';
 import CarChioserLong from '~/components/car/CarChoiserLong';
 import { getPosts } from '~/endpoints/blogEndpoint';
-import { ICar, IPost, IProduct } from '~/interfaces';
+import { ICar, IPost, IProduct, ICategory } from '~/interfaces';
 import BlogGrid from '~/components/car/BlogGrid';
 import ModelBlockGrid from '~/components/car/ModelGridHomePageBlock';
 import { getLatestProducts } from '~/endpoints/productEndpoint';
@@ -58,6 +58,44 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+const categories: ICategory[] = [
+  {
+    id: 4,
+    type: 'shop',
+    name: 'Автотюнинг',
+    slug: 'avtotjuning',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+  {
+    id: 3,
+    type: 'shop',
+    name: 'Аксессуары',
+    slug: 'aksessuary',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+  {
+    id: 2,
+    type: 'shop',
+    name: 'Жидкости Автохимия',
+    slug: 'zhidkosti-avtohimija',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+  {
+    id: 1,
+    type: 'shop',
+    name: 'Запчасти',
+    slug: 'zapchasti',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+];
 
 interface IHomeProps {
   models: ICar[];
@@ -96,21 +134,17 @@ export default function Home(props: IHomeProps) {
         </Grid>
         <div className={classes.contentContainer}>
           <Grid container>
-            <Grid item container xs={6}>
+            <Grid item xs={6}>
               <Typography variant="h6" className={classes.blockTitle}>
                 Популярные Машины
               </Typography>
-              <Grid container>
-                <ModelBlockGrid models={models} />
-              </Grid>
+              <ModelBlockGrid models={models} />
             </Grid>
-            <Grid item container xs={6}>
+            <Grid item xs={6}>
               <Typography variant="h6" className={classes.blockTitle}>
-                Популярные Машины
+                Масла и Аксесуары
               </Typography>
-              <Grid container>
-                <OilGridHomePage models={models} />
-              </Grid>
+              <OilGridHomePage categories={categories} />
             </Grid>
           </Grid>
           <Divider />
