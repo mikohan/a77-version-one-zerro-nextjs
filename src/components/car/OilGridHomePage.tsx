@@ -6,7 +6,7 @@ import Link from 'next/link';
 import url from '~/services/url';
 import Image from 'next/image';
 import { banner64 } from '~/services/base64';
-import { capitalize, compare } from '~/utils';
+import { capitalize } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,25 +89,25 @@ export default function Oil(props: IOil) {
         {categories &&
           sortedCats.map((cat: ICategory) => {
             return (
-              <React.Fragment>
+              <React.Fragment key={cat.slug}>
                 <Typography className={classes.title} variant="body1">
                   {capitalize(cat.name)}
                 </Typography>
                 <Grid container item xs={12} className={classes.item}>
                   <Paper className={classes.paper} elevation={4}>
-                    <Link href={url.autogoodsCategory(cat.slug)}>
-                      <a>
-                        <Image
-                          src={cat.image!}
-                          layout="responsive"
-                          width={760}
-                          height={145}
-                          blurDataURL={blurDataURL}
-                          placeholder="blur"
-                          className={classes.img}
-                        />
-                      </a>
-                    </Link>
+                    {/* <Link href={url.autogoodsCategory(cat.slug)}> */}
+                    {/* <a> */}
+                    <Image
+                      src={cat.image!}
+                      layout="responsive"
+                      width={760}
+                      height={145}
+                      blurDataURL={blurDataURL}
+                      placeholder="blur"
+                      className={classes.img}
+                    />
+                    {/* </a> */}
+                    {/* </Link> */}
                   </Paper>
                 </Grid>
               </React.Fragment>

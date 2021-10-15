@@ -33,7 +33,7 @@ import {
   shopSetFilterVlue,
   shopSetOldPrice,
 } from '~/store/shop/shopActions';
-import { COMPANY_INFORMATION, pageSize } from '~/config';
+import { COMPANY_INFORMATION, pageSize, filterPossibleValues } from '~/config';
 import {
   getActiveFilters,
   makeHandleDeleteFilter,
@@ -301,16 +301,14 @@ export const getServerSideProps: GetServerSideProps = async (
 
   let url = '';
 
-  if (
-    Object.entries(filtersQuery).length > 0 &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_source') &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_medium') &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_campaign') &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_content')
-  ) {
+  if (Object.entries(filtersQuery).length > 0) {
     let filUrl = '';
     let amp = '&';
     Object.entries(filtersQuery).forEach(([filter, value], i) => {
+      if (!filterPossibleValues.includes(filter)) {
+        console.log(filter);
+        return;
+      }
       if (i === Object.entries(filtersQuery).length - 1) {
         amp = '';
       }

@@ -11,6 +11,7 @@ import {
 import { shopSetFilterVlue, shopDeleteFilter } from '~/store/shop/shopActions';
 import url from '~/services/url';
 import { shopResetFilter, shopResetFilters } from '~/store/shop/shopActions';
+import { filterPossibleValues } from '~/config';
 
 // function return cleared parms after ?
 export function clearParams(
@@ -106,33 +107,13 @@ export function getActiveFilters(
     // Finding only query related stuff in rotuterParams, not make, model, category
     for (const [key, value] of Object.entries(routerQuery)) {
       if (!routerParams.hasOwnProperty(key)) {
-        if (
-          possibleFilters.includes(key) ||
-          key === 'filters_chk' ||
-          key === 'sort_price' ||
-          key === 'page' ||
-          key === 'utm' ||
-          key === 'utm_source' ||
-          key === 'utm_medium' ||
-          key === 'utm_campaign' ||
-          key === 'utm_content'
-        ) {
-          // Added utm here
-          /* if (key === 'page' || key === 'utm') { */
-          /*   continue; */
-          /* } */
+        if (filterPossibleValues.includes(key)) {
           if (value !== '') {
             activeFilters.push({
               filterSlug: key,
               filterValues: value.split(','),
             });
           }
-        } else {
-          // activeFilters = [];
-          const e = new Error(
-            'Some bullshit in query strint here the point to make redirect to 404, servises/filters/filterHandler'
-          );
-          throw e;
         }
       }
     }

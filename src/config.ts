@@ -121,6 +121,23 @@ export const transFilter: ITransFilter = {
   condition: 'Состояние',
 };
 
+export const filterPossibleValues: string[] = [
+  'search',
+  'category',
+  'car_models',
+  'engine',
+  'brand',
+  'price',
+  'bages',
+  'has_photo',
+  'condition',
+  'page_size',
+  'page_from',
+  'page',
+  'filters_chk',
+  'sort_price',
+];
+
 // If priority high and higer show car model homepage if not shop product grid
 export const carHomePagePriority = 4;
 // Threshold when cars becoms ours or not
