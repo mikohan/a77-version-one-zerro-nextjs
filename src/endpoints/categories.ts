@@ -196,3 +196,22 @@ export async function getCategoryAllGQL(): Promise<ICategory[]> {
   });
   return await promise.data.categoryAll;
 }
+
+export async function getCategoryTop(): Promise<ICategory[]> {
+  const query = gql`
+    query {
+      categoryTop {
+        id
+        name
+        slug
+        image
+        parent
+        count
+      }
+    }
+  `;
+  const promise = await client.query({
+    query: query,
+  });
+  return await promise.data.categoryTop;
+}

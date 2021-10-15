@@ -17,6 +17,7 @@ import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import Divider from '~/components/common/Divider';
 import HomeHead from '~/components/heads/HomeHead';
 import OilGridHomePage from '~/components/car/OilGridHomePage';
+import { getCategoryTop } from '~/endpoints/categories';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,55 +59,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-const categories: ICategory[] = [
-  {
-    id: 4,
-    type: 'shop',
-    name: 'Автотюнинг',
-    slug: 'avtotjuning',
-    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
-    parent: null,
-    count: 0,
-  },
-  {
-    id: 3,
-    type: 'shop',
-    name: 'Аксессуары',
-    slug: 'aksessuary',
-    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
-    parent: null,
-    count: 0,
-  },
-  {
-    id: 2,
-    type: 'shop',
-    name: 'Жидкости Автохимия',
-    slug: 'zhidkosti-avtohimija',
-    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
-    parent: null,
-    count: 0,
-  },
-  {
-    id: 1,
-    type: 'shop',
-    name: 'Запчасти',
-    slug: 'zapchasti',
-    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
-    parent: null,
-    count: 0,
-  },
-];
 
 interface IHomeProps {
   models: ICar[];
   posts: IPost[];
   latestProducts: IProduct[];
+  categories: ICategory[];
 }
 
 export default function Home(props: IHomeProps) {
   const classes = useStyles();
 
-  const { posts, models, latestProducts } = props;
+  const { posts, models, latestProducts, categories } = props;
 
   return (
     <React.Fragment>
@@ -134,15 +98,15 @@ export default function Home(props: IHomeProps) {
         </Grid>
         <div className={classes.contentContainer}>
           <Grid container>
-            <Grid item xs={6}>
+            <Grid item sm={12} md={6}>
               <Typography variant="h6" className={classes.blockTitle}>
                 Популярные Машины
               </Typography>
               <ModelBlockGrid models={models} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item sm={12} md={6}>
               <Typography variant="h6" className={classes.blockTitle}>
-                Масла и Аксесуары
+                Автотовары
               </Typography>
               <OilGridHomePage categories={categories} />
             </Grid>
@@ -179,6 +143,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const models = await getVehiclesByPriority(3);
   const latestProds = await getLatestProducts(20);
   const latestProducts = translateProducts(latestProds.hits.hits);
+  const categoriesTop = await getCategoryTop();
 
-  return { props: { posts, models, latestProducts } };
+  return {
+    props: { posts, models, latestProducts, categories: categoriesTop },
+  };
 };
