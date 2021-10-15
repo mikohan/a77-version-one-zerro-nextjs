@@ -108,17 +108,17 @@ export default function AutogoodsCagetory(props: CategoryProps) {
   const count = products.total.value;
 
   const orderedCatBreads = catPath.sort(OrderBreads);
-  /* const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({ */
-  /*   name: item.name, */
-  /*   path: url.category(model.make.slug, model.slug, item.slug), */
-  /* })); */
+  const catBreads: IBread[] = orderedCatBreads?.map((item: ICategory) => ({
+    name: item.name,
+    path: url.autogoodsCategory(item.slug),
+  }));
 
-  /* const breads: IBread[] = [ */
-  /*   { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' }, */
-  /*   { name: model.make.name, path: url.make(model.make.slug) }, */
-  /*   { name: model.model, path: url.model(model.make.slug, model.slug) }, */
-  /*   ...catBreads, */
-  /* ]; */
+  const breads: IBread[] = [
+    { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },
+    ...catBreads,
+  ];
+
+  const header = `${catName}`;
 
   // Make array for brands filter
 
@@ -187,57 +187,53 @@ export default function AutogoodsCagetory(props: CategoryProps) {
   }, []);
 
   // Function for redirection
-  /* const handleFilterChange = makeHandleFilterChange( */
-  /*   activeFilters, */
-  /*   router, */
-  /*   dispatch, */
-  /*   model, */
-  /*   category */
-  /* ); */
+  const handleFilterChange = makeHandleFilterChange(
+    activeFilters,
+    router,
+    dispatch,
+    undefined,
+    category
+  );
 
-  /* const handleDeleteFilter = makeHandleDeleteFilter( */
-  /*   router, */
-  /*   dispatch, */
-  /*   activeFilters, */
-  /*   model, */
-  /*   category */
-  /* ); */
-  /* const handleDeleteFilters = makeHandleDeleteFilters( */
-  /*   router, */
-  /*   dispatch, */
-  /*   model, */
-  /*   category */
-  /* ); */
+  const handleDeleteFilter = makeHandleDeleteFilter(
+    router,
+    dispatch,
+    activeFilters,
+    undefined,
+    category
+  );
+  const handleDeleteFilters = makeHandleDeleteFilters(
+    router,
+    dispatch,
+    undefined,
+    category
+  );
   return (
     <React.Fragment>
-      {/* <CategoryHead */}
-      {/*   category={category} */}
-      {/*   products={headProds} */}
-      {/*   breads={breads} */}
-      {/* /> */}
+      <CategoryHead category={category} products={headProds} breads={breads} />
       <AnimationPage>
         <Container className={classes.container}>
           <Grid container>
-            {/* <PageHeader header={header} breads={breads} count={count} /> */}
+            <PageHeader header={header} breads={breads} count={count} />
             <Hidden smDown>
               <Grid item xs={3}>
                 <LeftSideBar>
-                  {/* <FilterWidget */}
-                  {/*   filters={sortedFilters} */}
-                  {/*   handleChange={handleFilterChange} */}
-                  {/* /> */}
+                  <FilterWidget
+                    filters={sortedFilters}
+                    handleChange={handleFilterChange}
+                  />
                 </LeftSideBar>
               </Grid>
             </Hidden>
             <Grid item xs={12} md={9}>
-              {/* <ShopGrid */}
-              {/*   products={products.hits} */}
-              {/*   totalPages={totalPages} */}
-              {/*   filtersResetHandlers={{ */}
-              {/*     handleDeleteFilter, */}
-              {/*     handleDeleteFilters, */}
-              {/*   }} */}
-              {/* /> */}
+              <ShopGrid
+                products={products.hits}
+                totalPages={totalPages}
+                filtersResetHandlers={{
+                  handleDeleteFilter,
+                  handleDeleteFilters,
+                }}
+              />
             </Grid>
           </Grid>
         </Container>
@@ -252,7 +248,6 @@ export const getServerSideProps: GetServerSideProps = async (
   const routerParams = context.params;
   const routerQuery = context.query;
   const category = context.params?.slug;
-  console.log(context.params?.slug);
 
   // Probably needs to go ouside this file
   // Cleaning filters from pages and main url params
@@ -306,6 +301,7 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
+  console.log('Show url with filters', url);
   const promise = await getProductsByFilters(url);
   if (!promise) {
     return {

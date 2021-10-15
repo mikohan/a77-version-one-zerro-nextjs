@@ -1,12 +1,12 @@
 // Needs to add Schema.org and refactor og
 import Head from 'next/head';
 import { COMPANY_INFORMATION, footerData, SITE_DOMAIN_FULL } from '~/config';
-import { ICar, IMake, IBread, IProduct, ICategory } from '~/interfaces';
+import { ICar, IBread, IProduct, ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
 import url from '~/services/url';
 
 interface IProps {
-  model: ICar;
+  model?: ICar;
   category: ICategory;
   products: IProduct[];
   breads: IBread[];
@@ -18,8 +18,8 @@ export default function CarModelHead({
   products,
   breads,
 }: IProps) {
-  const mk = capitalize(model.make.name);
-  const md = capitalize(model.model);
+  const mk = model ? capitalize(model.make.name) : '';
+  const md = model ? capitalize(model.model) : '';
   const ct = capitalize(category.name);
 
   const items = products.map((product: IProduct, i: number) => ({
@@ -34,6 +34,13 @@ export default function CarModelHead({
     name: bread.name,
     item: `${SITE_DOMAIN_FULL}${bread.path}`,
   }));
+  const uri = model
+    ? `${SITE_DOMAIN_FULL}${url.category(
+        model.make.slug,
+        model.slug,
+        category.slug
+      )}`
+    : `${SITE_DOMAIN_FULL}${url.autogoodsCategory(category.slug)}`;
 
   return (
     <Head>
@@ -46,15 +53,7 @@ export default function CarModelHead({
         content={`${ct} на ${mk} ${md} В Наличии в Интернет Магазине ${COMPANY_INFORMATION.COMPANY_NAME}.
         Доставка и Самовывоз в Москве | ${footerData.SHOP_PHONE} `}
       />
-      <link
-        rel="canonical"
-        key="canonical"
-        href={`${SITE_DOMAIN_FULL}${url.category(
-          model.make.slug,
-          model.slug,
-          category.slug
-        )}`}
-      />
+      <link rel="canonical" key="canonical" href={uri} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
