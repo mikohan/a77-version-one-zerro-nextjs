@@ -207,6 +207,7 @@ export async function getCategoryTop(): Promise<ICategory[]> {
         image
         parent
         count
+        weight
       }
     }
   `;

@@ -94,6 +94,8 @@ export function OrderBreads(a: ICategory, b: ICategory) {
   return 0;
 }
 
+// generic Compare
+
 // Function makes query string frmom active filters
 
 export function makeFiltersQueryString(

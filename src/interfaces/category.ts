@@ -16,6 +16,7 @@ export interface IBaseCategory {
   children?: this[];
   customFields?: any;
   count?: number;
+  weight?: number;
 }
 
 export type IShopCategoryLayout = 'categories' | 'products';

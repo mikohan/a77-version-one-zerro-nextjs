@@ -15,6 +15,7 @@ const url: { [key: string]: any } = {
   ): IAppLinkHref => {
     return `/cars/${make}/${model}/${categorySlug}`;
   },
+  autogoodsCategory: (slug: string) => `/autogoods/${slug}`,
   search: () => `/search`,
   products: (
     make?: string,

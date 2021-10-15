@@ -6,6 +6,7 @@ import Link from 'next/link';
 import url from '~/services/url';
 import Image from 'next/image';
 import { banner64 } from '~/services/base64';
+import { capitalize, compare } from '~/utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IOil {
   categories: ICategory[];
 }
-const src = `/images/local/banners/oil_banner.jpg`;
 
 const srcArray: { [key: string]: string } = {
   maslo: '/images/local/banners/oil_banner.jpg',
@@ -46,108 +46,73 @@ const blurDataURL = banner64;
 export default function Oil(props: IOil) {
   const classes = useStyles();
   const { categories } = props;
-  console.log(srcArray['avtotjuning']);
+
+  const cats = categories.map((cat: ICategory) => {
+    let image = '/images/local/banners/zapchasti.jpg';
+    if (cat.id == 4) {
+      image = '/images/local/banners/accessories.jpg';
+    }
+    if (cat.id == 3) {
+      image = '/images/local/banners/tuning2.jpg';
+    }
+    if (cat.id == 2) {
+      image = '/images/local/banners/oil_banner.jpg';
+    }
+    if (cat.id == 1) {
+      image = '/images/local/banners/zapchasti.jpg';
+    }
+
+    return {
+      id: cat.id,
+      name: cat.name,
+      slug: cat.slug,
+      image: image,
+      weight: cat.weight,
+    };
+  });
+
+  // Helper for compare by id functions
+  function compare(a: any, b: any) {
+    if (a.weight < b.weight) {
+      return 1;
+    }
+    if (a.weight > b.weight) {
+      return -1;
+    }
+    return 0;
+  }
+  const sortedCats = cats.sort(compare);
 
   return (
     <React.Fragment>
       <Grid container item xs={12}>
-        {categories && (
-          <React.Fragment>
-            <Typography className={classes.title} variant="body1">
-              Масло и Смазки
-            </Typography>
-            <Grid container item xs={12} className={classes.item}>
-              <Paper className={classes.paper} elevation={4}>
-                <Link href={url.model('some', 'stuff')}>
-                  <a>
-                    <Image
-                      src={srcArray['maslo']}
-                      layout="responsive"
-                      width={760}
-                      height={145}
-                      blurDataURL={blurDataURL}
-                      placeholder="blur"
-                      className={classes.img}
-                    />
-                  </a>
-                </Link>
-              </Paper>
-            </Grid>
-          </React.Fragment>
-        )}
-
-        {categories && (
-          <React.Fragment>
-            <Typography className={classes.title} variant="body1">
-              Запчасти
-            </Typography>
-            <Grid container item xs={12} className={classes.item}>
-              <Paper className={classes.paper} elevation={4}>
-                <Link href={url.search()}>
-                  <a>
-                    <Image
-                      src={srcArray['zapchasti']}
-                      layout="responsive"
-                      width={760}
-                      height={145}
-                      blurDataURL={blurDataURL}
-                      placeholder="blur"
-                      className={classes.img}
-                    />
-                  </a>
-                </Link>
-              </Paper>
-            </Grid>
-          </React.Fragment>
-        )}
-        {categories && (
-          <React.Fragment>
-            <Typography className={classes.title} variant="body1">
-              Запчасти
-            </Typography>
-            <Grid container item xs={12} className={classes.item}>
-              <Paper className={classes.paper} elevation={4}>
-                <Link href={url.search()}>
-                  <a>
-                    <Image
-                      src={srcArray['aksessuary']}
-                      layout="responsive"
-                      width={760}
-                      height={145}
-                      blurDataURL={blurDataURL}
-                      placeholder="blur"
-                      className={classes.img}
-                    />
-                  </a>
-                </Link>
-              </Paper>
-            </Grid>
-          </React.Fragment>
-        )}
-        {categories && (
-          <React.Fragment>
-            <Typography className={classes.title} variant="body1">
-              Тюнинг
-            </Typography>
-            <Grid container item xs={12} className={classes.item}>
-              <Paper className={classes.paper} elevation={4}>
-                <Link href={url.search()}>
-                  <a>
-                    <Image
-                      src={srcArray['autotuning']}
-                      layout="responsive"
-                      width={760}
-                      height={145}
-                      blurDataURL={blurDataURL}
-                      placeholder="blur"
-                      className={classes.img}
-                    />
-                  </a>
-                </Link>
-              </Paper>
-            </Grid>
-          </React.Fragment>
-        )}
+        {categories &&
+          sortedCats.map((cat: ICategory) => {
+            return (
+              <React.Fragment>
+                <Typography className={classes.title} variant="body1">
+                  {capitalize(cat.name)}
+                </Typography>
+                <Grid container item xs={12} className={classes.item}>
+                  <Paper className={classes.paper} elevation={4}>
+                    <Link href={url.autogoodsCategory(cat.slug)}>
+                      <a>
+                        <Image
+                          src={cat.image!}
+                          layout="responsive"
+                          width={760}
+                          height={145}
+                          blurDataURL={blurDataURL}
+                          placeholder="blur"
+                          className={classes.img}
+                        />
+                      </a>
+                    </Link>
+                  </Paper>
+                </Grid>
+              </React.Fragment>
+            );
+          })}
       </Grid>
     </React.Fragment>
   );
