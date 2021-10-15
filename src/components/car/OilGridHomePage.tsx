@@ -1,7 +1,7 @@
 import React from 'react';
-import { ICar, IMake } from '~/interfaces';
+import { ICar, ICategory, IMake } from '~/interfaces';
 import { capitalize } from '~/utils';
-import { Box, Typography, Grid } from '@material-ui/core';
+import { Paper, Typography, Grid } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import url from '~/services/url';
@@ -26,7 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       padding: theme.spacing(1),
     },
-    image: {},
+    paper: {
+      padding: theme.spacing(1),
+      borderRadius: theme.spacing(1),
+    },
     model: {
       paddingLeft: theme.spacing(2),
       paddingTop: theme.spacing(1),
@@ -35,28 +38,70 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-interface ICarProps {
-  models: ICar[];
+interface IOil {
+  categories: ICategory[];
 }
+const categories: ICategory[] = [
+  {
+    id: 4,
+    type: 'shop',
+    name: 'Автотюнинг',
+    slug: 'avtotjuning',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+  {
+    id: 3,
+    type: 'shop',
+    name: 'Аксессуары',
+    slug: 'aksessuary',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+  {
+    id: 2,
+    type: 'shop',
+    name: 'Жидкости Автохимия',
+    slug: 'zhidkosti-avtohimija',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+  {
+    id: 1,
+    type: 'shop',
+    name: 'Запчасти',
+    slug: 'zapchasti',
+    image: 'http://localhost:8000/media/123/555_tf/IMG_4210.jpg',
+    parent: null,
+    count: 0,
+  },
+];
 
-export default function ModelBlockGrid(props: ICarProps) {
+export default function Oil(props: IOil) {
   const classes = useStyles();
-  const { models } = props;
-  const make: IMake = models[0].make;
+  // const { categories } = props;
 
   return (
-    <React.Fragment>
-      <Grid container item xs={12} className={classes.container}>
-        {models &&
-          models.map((model: ICar) => {
+    <Paper className={classes.paper}>
+      <Grid
+        container
+        item
+        xs={12}
+        className={classes.container}
+        justify="center"
+      >
+        {categories &&
+          categories.map((cat: ICategory) => {
             return (
-              <Link href={url.model(make.slug, model.slug)} key={model.slug}>
+              <Link href={url.model('some', 'stuff')} key={cat.slug}>
                 <a className={classes.item}>
                   <Image
-                    className={classes.image}
                     src={
-                      model && model.image
-                        ? `${imageServerUrl}${model.image}`
+                      cat && cat.image
+                        ? `${cat.image}`
                         : `/images/local/carsAvatar/generic.png`
                     }
                     width={50}
@@ -65,15 +110,13 @@ export default function ModelBlockGrid(props: ICarProps) {
                     placeholder="blur"
                   />
                   <Typography className={classes.model} variant="body2">
-                    {`${capitalize(model.make.name)} ${capitalize(
-                      model.model
-                    )}`}
+                    {`${capitalize(cat.name)}`}
                   </Typography>
                 </a>
               </Link>
             );
           })}
       </Grid>
-    </React.Fragment>
+    </Paper>
   );
 }

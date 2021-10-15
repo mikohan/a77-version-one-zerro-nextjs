@@ -101,7 +101,7 @@ export default function Home(props: IHomeProps) {
                 Популярные Машины
               </Typography>
               <Grid container>
-                <OilGridHomePage models={models} />
+                <ModelBlockGrid models={models} />
               </Grid>
             </Grid>
             <Grid item container xs={6}>
@@ -109,7 +109,7 @@ export default function Home(props: IHomeProps) {
                 Популярные Машины
               </Typography>
               <Grid container>
-                <ModelBlockGrid models={models} />
+                <OilGridHomePage models={models} />
               </Grid>
             </Grid>
           </Grid>
