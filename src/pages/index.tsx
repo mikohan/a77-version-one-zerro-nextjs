@@ -16,6 +16,7 @@ import { translateProducts } from '~/utils';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import Divider from '~/components/common/Divider';
 import HomeHead from '~/components/heads/HomeHead';
+import OilGridHomePage from '~/components/car/OilGridHomePage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,14 +95,24 @@ export default function Home(props: IHomeProps) {
           </Grid>
         </Grid>
         <div className={classes.contentContainer}>
-          <div>
-            <Typography variant="h6" className={classes.blockTitle}>
-              Популярные Машины
-            </Typography>
-            <Box>
-              <ModelBlockGrid models={models} />
-            </Box>
-          </div>
+          <Grid container>
+            <Grid item container xs={6}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Популярные Машины
+              </Typography>
+              <Grid container>
+                <OilGridHomePage models={models} />
+              </Grid>
+            </Grid>
+            <Grid item container xs={6}>
+              <Typography variant="h6" className={classes.blockTitle}>
+                Популярные Машины
+              </Typography>
+              <Grid container>
+                <ModelBlockGrid models={models} />
+              </Grid>
+            </Grid>
+          </Grid>
           <Divider />
           <Hidden smDown>
             <Grid container>

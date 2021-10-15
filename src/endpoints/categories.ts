@@ -1,5 +1,5 @@
 import { clone, error } from '~/utils';
-import { getProductsByCar, getProductsAll } from '~/endpoints/productEndpoint';
+import { getProductsAll } from '~/endpoints/productEndpoint';
 import { client } from './apolloClient';
 import { gql } from '@apollo/client';
 
@@ -8,11 +8,6 @@ import {
   IGetCategoriesOptions,
   IGetCategoryBySlugOptions,
 } from '~/interfaces/api/shop.api';
-import {
-  IAggregationAgg,
-  IAggregationCategory,
-} from '~/interfaces/aggregations';
-import { IProductElasticBase } from '~/interfaces/product';
 
 /*
 Whole file logic

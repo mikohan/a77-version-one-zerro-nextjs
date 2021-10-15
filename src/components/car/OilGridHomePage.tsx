@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICar, IMake } from '~/interfaces';
 import { capitalize } from '~/utils';
-import { Typography, Grid } from '@material-ui/core';
+import { Box, Typography, Grid } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import url from '~/services/url';
