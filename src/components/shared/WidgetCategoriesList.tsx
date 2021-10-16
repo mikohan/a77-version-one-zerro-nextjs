@@ -1,15 +1,13 @@
-// react
 import React from 'react';
-import { useRouter } from 'next/router';
-// third-party
-import classNames from 'classnames';
-// application
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 import AppLink from '~/services/AppLink';
 import Collapse, { ICollapseRenderFnData } from '~/components/shared/Collapse';
 import url from '~/services/url';
 import { ArrowDown9x6Svg } from '~/svg';
 import { ICategory } from '~/interfaces/category';
-import { List, ListItem } from '@material-ui/core';
 
 type RenderFnData = ICollapseRenderFnData<HTMLLIElement, HTMLUListElement>;
 type RenderFn = (data: RenderFnData, category: ICategory) => React.ReactNode;
@@ -20,7 +18,6 @@ interface Props {
 
 function WidgetCategoriesList(props: Props) {
   const { categories } = props;
-  const router = useRouter();
   const { make, model } = { make: 'hyundai', model: 'porter-2' };
 
   const renderCategory: RenderFn = (
