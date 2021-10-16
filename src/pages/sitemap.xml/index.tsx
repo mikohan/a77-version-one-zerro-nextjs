@@ -10,11 +10,7 @@ import {
 } from '~/interfaces';
 import { getProductsAll, getProductsByCar } from '~/endpoints/productEndpoint';
 import url from '~/services/url';
-import {
-  SITE_DOMAIN_FULL,
-  COMPANY_INFORMATION,
-  imageServerUrl,
-} from '~/config';
+import { SITE_DOMAIN_FULL } from '~/config';
 import { getMakes, getVehicles } from '~/endpoints/carsEndpoint';
 import { getBlogCategories, getPosts } from '~/endpoints/blogEndpoint';
 
@@ -67,6 +63,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       });
     });
   }
+
+  // Createing categories for non car parts
+  categories.forEach((cat: ICategory) => {
+    fields.push({
+      loc: `${SITE_DOMAIN_FULL}${url.autogoodsCategory(cat.slug)}`, // Absolute url
+      lastmod: new Date().toISOString(),
+    });
+  });
 
   products.forEach((item: any) => {
     const product: IProduct = item._source;
