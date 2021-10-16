@@ -1,22 +1,23 @@
-// react
 import React from 'react';
-// third-party
-import AppLink from '~/services/AppLink';
-// application
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import url from '~/services/url';
-import { ICategoryFilter } from '~/interfaces/filters';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { Typography, Box } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { useRouter } from 'next/router';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
+import url from '~/services/url';
+import { ICategoryFilter } from '~/interfaces/filters';
 import { asString } from '~/helpers';
 import { ICategory } from '~/interfaces';
 import { capitalize } from '~/utils';
-import { useDispatch } from 'react-redux';
 import { shopResetFilters } from '~/store/shop/shopActions';
+import AppLink from '~/services/AppLink';
 
 interface Props {
   options: ICategoryFilter;

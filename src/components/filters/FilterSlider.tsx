@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filters';
 import Box from '@material-ui/core/Box';
+import Slider from '@material-ui/core/Slider';
+
+import { IRangeFilter, IRangeFilterValue } from '~/interfaces/filters';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

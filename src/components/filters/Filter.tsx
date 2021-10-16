@@ -1,15 +1,19 @@
 import React from 'react';
 
-import { IFilter } from '~/interfaces/filters';
-import FilterCategory from '~/components/filters/FilterCategory';
-import IconButton from '@material-ui/core/IconButton';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { Collapse, Box, Typography } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+
+import FilterCategory from '~/components/filters/FilterCategory';
 import { capitalize } from '~/utils';
 import FilterCheck from '~/components/filters/FilterCheck';
 import FilterSlider from '~/components/filters/FilterSlider';
+import { IFilter } from '~/interfaces/filters';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
