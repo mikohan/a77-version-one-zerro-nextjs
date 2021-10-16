@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { getVehiclesByPriority } from '~/endpoints/carsEndpoint';
 import Animation from '~/components/common/AnimationPage';
 import { Box, Typography, Container, Hidden } from '@material-ui/core';
@@ -127,7 +127,9 @@ export default function Home(props: IHomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const posts = await getPosts(20);
   const models = await getVehiclesByPriority(3);
   const latestProds = await getLatestProducts(20);

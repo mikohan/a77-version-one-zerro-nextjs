@@ -297,7 +297,6 @@ export const getServerSideProps: GetServerSideProps = async (
   } else {
     url = `?category=${category}&page_from=${page_from}&page_size=${pageSize}`;
   }
-  console.log('Show url with filters', url);
   const promise = await getProductsByFilters(url);
   if (!promise) {
     return {
