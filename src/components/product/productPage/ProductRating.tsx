@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import Rating from '@material-ui/lab/Rating';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+
 import { IState } from '~/interfaces/IState';
 import { scoreTransformer } from '~/utils';
 import { createOrUpdateRatings, getRating } from '~/endpoints/carsEndpoint';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

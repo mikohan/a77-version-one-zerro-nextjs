@@ -1,15 +1,20 @@
 import React from 'react';
-import { IProduct } from '~/interfaces';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 import parser from 'html-react-parser';
+
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
 import { DEFAULT_EXCERPT } from '~/config';
 import ProductRating from '~/components/product/productPage/ProductRating';
 import PriceBox from '~/components/product/productPage/PriceBox';
 import { capitalize } from '~/utils';
-import { useSelector } from 'react-redux';
 import { ICar } from '~/interfaces';
 import { IState } from '~/interfaces/IState';
-import { Typography, Box, Grid, Paper } from '@material-ui/core';
+import { IProduct } from '~/interfaces';
 import {
   FiPaymentSecurity48Svg,
   FiFreeDelivery48Svg,
