@@ -34,13 +34,6 @@ interface IOil {
   categories: ICategory[];
 }
 
-const srcArray: { [key: string]: string } = {
-  maslo: '/images/local/banners/oil_banner.jpg',
-  autotuning: '/images/local/banners/tuning2.jpg',
-  aksessuary: '/images/local/banners/accessories.jpg',
-  zapchasti: '/images/local/banners/zapchasti.jpg',
-};
-
 const blurDataURL = banner64;
 
 export default function Oil(props: IOil) {
@@ -49,10 +42,10 @@ export default function Oil(props: IOil) {
 
   const cats = categories.map((cat: ICategory) => {
     let image = '/images/local/banners/zapchasti.jpg';
-    if (cat.id == 4) {
+    if (cat.id == 3) {
       image = '/images/local/banners/accessories.jpg';
     }
-    if (cat.id == 3) {
+    if (cat.id == 4) {
       image = '/images/local/banners/tuning2.jpg';
     }
     if (cat.id == 2) {
