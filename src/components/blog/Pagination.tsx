@@ -1,7 +1,8 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-import { useRouter } from 'next/router';
 import url from '~/services/url';
 
 const useStyles = makeStyles((theme) =>

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Typography,
-  Button,
-  Box,
-  Container,
-  Grid,
-} from '@material-ui/core';
 import { useRouter } from 'next/router';
+
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
 import url from '~/services/url';
 import DashboardLeftMenu from '~/components/account/DashboardLeftMenu';
 import AnimationPage from '~/components/common/AnimationPage';

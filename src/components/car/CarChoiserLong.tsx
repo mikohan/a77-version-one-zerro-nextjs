@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import CarBage from '~/components/car/CarBage';
-
-import { SvgIcon, TextField, Box, Grid, useTheme } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core';
+import CarBage from '~/components/car/CarBage';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+
 import { IState } from '~/interfaces/IState';
 import { IMake, ICar } from '~/interfaces';
 import { setCurrentCarAction } from '~/store/actions';

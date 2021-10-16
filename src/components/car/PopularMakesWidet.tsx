@@ -1,6 +1,11 @@
-import React, { ReactNode } from 'react';
-import { Paper, Grid, Typography, Box } from '@material-ui/core';
+import React from 'react';
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 import { IMake, IProduct } from '~/interfaces';
 import { capitalize } from '~/utils';
 import { imageServerUrl } from '~/config';

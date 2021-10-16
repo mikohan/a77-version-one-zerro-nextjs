@@ -1,9 +1,12 @@
 import React from 'react';
+import Link from 'next/link';
+
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
 import { ICar, IMake } from '~/interfaces';
 import { capitalize } from '~/utils';
-import { Typography, Grid } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
 import url from '~/services/url';
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';

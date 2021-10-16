@@ -1,26 +1,30 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { IUser } from '~/interfaces';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { Button, Divider, TextField } from '@material-ui/core/';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+
+import { IUser } from '~/interfaces';
 import AnimationPage from '~/components/common/AnimationPage';
 import AddressesListing from '~/components/account/AddressesListing';
-import { useRouter } from 'next/router';
 import url from '~/services/url';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import { ICart } from '~/store/cart/cartTypes';
 import { SITE_DOMAIN_FULL } from '~/config';
-import { useDispatch } from 'react-redux';
-import { CircularProgress } from '@material-ui/core';
 
 interface TabPanelProps {
   children?: React.ReactNode;

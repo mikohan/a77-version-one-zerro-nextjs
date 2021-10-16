@@ -1,13 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { Typography, Paper, MenuItem } from '@material-ui/core';
-import { useRouter } from 'next/router';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import url from '~/services/url';
-import { useDispatch } from 'react-redux';
 import { logout } from '~/store/users/userAction';
 
 const useStyles = makeStyles((theme: Theme) =>

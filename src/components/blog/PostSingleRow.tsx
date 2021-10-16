@@ -1,13 +1,19 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Chip from '@material-ui/core/Chip';
+
 import { IBlogCategory, ICar, IPost } from '~/interfaces';
 import { imageServerUrl, BLOG_DATA, durationPage } from '~/config';
 import url from '~/services/url';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Typography, Paper, Button, Box, Chip } from '@material-ui/core';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

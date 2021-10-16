@@ -1,17 +1,17 @@
 import React from 'react';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { IUser } from '~/interfaces';
-import { IAddress } from '~/interfaces';
-import { useRouter } from 'next/router';
-import url from '~/services/url';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import { IUser } from '~/interfaces';
+import { IAddress } from '~/interfaces';
+import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

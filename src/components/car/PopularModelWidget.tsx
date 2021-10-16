@@ -1,11 +1,15 @@
-import React, { ReactNode } from 'react';
-import { Paper, Grid, Typography, Box } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { ICar, IProduct } from '~/interfaces';
-import { capitalize } from '~/utils';
-import { imageServerUrl } from '~/config';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
+import { ICar } from '~/interfaces';
+import { capitalize } from '~/utils';
+import { imageServerUrl } from '~/config';
 import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>

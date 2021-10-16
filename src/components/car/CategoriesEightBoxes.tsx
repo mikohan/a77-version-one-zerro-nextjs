@@ -1,10 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Box, Paper, Typography } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 import { capitalize } from '~/utils';
 import url from '~/services/url';
-import Link from 'next/link';
 import { ICar } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>

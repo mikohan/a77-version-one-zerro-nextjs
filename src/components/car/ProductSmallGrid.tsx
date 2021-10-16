@@ -1,12 +1,15 @@
-import { IProduct } from '~/interfaces';
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import Link from 'next/link';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Box } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+
 import Image from 'next/image';
 import { imageServerUrl } from '~/config';
-import Link from 'next/link';
 import url from '~/services/url';
+import { IProduct } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

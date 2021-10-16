@@ -1,7 +1,10 @@
 import React from 'react';
-import { Avatar, Box, Typography } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Image from 'next/image';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 interface IProps {
   size: string;

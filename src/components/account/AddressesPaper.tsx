@@ -1,6 +1,11 @@
 import React from 'react';
-import { Paper, Grid, Chip, Typography, Box, Button } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+
 import { IUser } from '~/interfaces';
 import { IAddress } from '~/interfaces';
 import { useRouter } from 'next/router';

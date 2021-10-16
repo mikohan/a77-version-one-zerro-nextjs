@@ -1,10 +1,13 @@
-import { IFilter, IProductElasticHitsFirst } from '~/interfaces';
 import React from 'react';
-import { Hidden, Grid } from '@material-ui/core';
+
+import Hidden from '@material-ui/core/Hidden';
+import Grid from '@material-ui/core/Grid';
+
 import PageHeader from '~/components/product/PageHeader';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import FilterWidget from '~/components/product/FilterWidget';
 import ShopGrid from '~/components/product/ShopGrid';
+import { IFilter, IProductElasticHitsFirst } from '~/interfaces';
 
 interface IProps {
   products: IProductElasticHitsFirst;

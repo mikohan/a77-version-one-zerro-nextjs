@@ -1,11 +1,14 @@
-import { ICar, ICategory } from '~/interfaces';
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography, Chip } from '@material-ui/core';
-
 import Link from 'next/link';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+
 import url from '~/services/url';
+import { ICar, ICategory } from '~/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +52,6 @@ interface IPropsBox extends IProps {
   catName: string;
   catSlug: string;
 }
-function handleDelete() {}
 
 const CatBox = ({ categories, catName, model, catSlug }: IPropsBox) => {
   const classes = useStyles();

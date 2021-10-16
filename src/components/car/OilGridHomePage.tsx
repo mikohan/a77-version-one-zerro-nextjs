@@ -1,10 +1,14 @@
 import React from 'react';
-import { ICategory } from '~/interfaces';
-import { Paper, Typography, Grid } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
-import url from '~/services/url';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
+import { ICategory } from '~/interfaces';
+import url from '~/services/url';
 import { banner64 } from '~/services/base64';
 import { capitalize } from '~/utils';
 

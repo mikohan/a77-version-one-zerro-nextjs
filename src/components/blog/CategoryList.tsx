@@ -1,10 +1,13 @@
 import React from 'react';
+import Link from 'next/link';
+
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { Badge, Typography } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import Typography from '@material-ui/core/Typography';
+
 import { IBlogCategory } from '~/interfaces';
-import Link from 'next/link';
 import url from '~/services/url';
 import { Paper } from '@material-ui/core';
 

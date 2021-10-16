@@ -1,3 +1,15 @@
+import React from 'react';
+import Image from 'next/image';
+import parse from 'html-react-parser';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 import {
   IFilter,
   IProductElasticHitsFirst,
@@ -6,18 +18,12 @@ import {
   ICar,
   IPost,
 } from '~/interfaces';
-import React from 'react';
-import { Grid, Box, Hidden } from '@material-ui/core';
 import PageHeader from '~/components/product/PageHeader';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Typography } from '@material-ui/core';
 import { capitalize } from '~/utils';
-import Image from 'next/image';
 import ProductSmallGrid from '~/components/car/ProductSmallGrid';
 import ProductsGrid from '~/components/blog/ProductGrid';
 import BlogGrid from '~/components/car/BlogGrid';
 import CategoriesEightBoxes from '~/components/car/CategoriesEightBoxes';
-import parse from 'html-react-parser';
 import { imageServerUrl } from '~/config_local';
 
 const useStyles = makeStyles((theme: Theme) =>

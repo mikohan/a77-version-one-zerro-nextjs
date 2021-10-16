@@ -1,16 +1,7 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import { IMake } from '~/interfaces';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
+import Grid from '@material-ui/core/Grid';
 
-interface IProps {
-  make: IMake;
-}
-
-export default function MediaCard({ make }: IProps) {
-  const classes = useStyles();
-
+export default function MediaCard() {
   return <Grid container></Grid>;
 }

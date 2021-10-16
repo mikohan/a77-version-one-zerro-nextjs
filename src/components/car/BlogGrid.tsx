@@ -1,10 +1,14 @@
-import { IPost } from '~/interfaces';
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Box, Paper, Typography } from '@material-ui/core';
 import Image from 'next/image';
-import { imageServerUrl } from '~/config';
 import Link from 'next/link';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+import { imageServerUrl } from '~/config';
+import { IPost } from '~/interfaces';
 import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>

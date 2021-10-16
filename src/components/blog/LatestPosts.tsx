@@ -1,11 +1,13 @@
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Image from 'next/image';
-import { IPost } from '~/interfaces';
-import { Box, Grid } from '@material-ui/core';
-import { imageServerUrl } from '~/config';
 import Link from 'next/link';
+import Image from 'next/image';
+
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
+import { IPost } from '~/interfaces';
+import { imageServerUrl } from '~/config';
 import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
