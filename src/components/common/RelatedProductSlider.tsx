@@ -1,5 +1,11 @@
 // import Swiper core and required modules
-import React, { useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
+
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
 import SwiperCore, {
   Thumbs,
   Navigation,
@@ -7,12 +13,9 @@ import SwiperCore, {
   Scrollbar,
   A11y,
 } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { IProduct } from '~/interfaces';
-import Image from 'next/image';
-import { Box, Grid } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ProductCardGrid from '~/components/common/ProductCardGrid';
 
 // Import Swiper styles
@@ -46,14 +49,7 @@ interface IProps {
   products: IProduct[];
 }
 
-interface ISlide {
-  image: string;
-  thumbnail: string;
-}
-
 export default function Swipper({ products }: IProps) {
-  const init: any = null;
-
   const classes = useStyles();
   const images = products?.map((product: IProduct) => {
     const img =
