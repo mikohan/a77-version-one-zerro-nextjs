@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from '~/components/styles/LightBox.module.scss';
 import Image from 'next/image';
-
 import SwiperCore, { Navigation } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import classes from '~/components/styles/LightBox.module.scss';
 
 SwiperCore.use([Navigation]);
 

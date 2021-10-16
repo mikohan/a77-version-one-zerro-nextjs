@@ -1,9 +1,8 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { lightGreen } from '@material-ui/core/colors';
 
-const bageGreen: any = lightGreen['A700'];
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

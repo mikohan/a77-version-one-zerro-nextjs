@@ -10,7 +10,6 @@ import Box from '@material-ui/core/Box';
 
 import { IProduct } from '~/interfaces';
 import url from '~/services/url';
-import { part64 } from '~/services/base64';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
 import { DIVIER_HEIGTH } from '~/config';
 
 const useStyles = makeStyles((theme: Theme) =>

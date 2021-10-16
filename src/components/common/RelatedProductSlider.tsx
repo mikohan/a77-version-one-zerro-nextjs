@@ -1,11 +1,6 @@
 // import Swiper core and required modules
 import React from 'react';
 import Image from 'next/image';
-
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-
 import SwiperCore, {
   Thumbs,
   Navigation,
@@ -14,6 +9,10 @@ import SwiperCore, {
   A11y,
 } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 
 import { IProduct } from '~/interfaces';
 import ProductCardGrid from '~/components/common/ProductCardGrid';

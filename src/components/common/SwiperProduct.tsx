@@ -1,5 +1,7 @@
-// import Swiper core and required modules
 import React, { useState } from 'react';
+import Image from 'next/image';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
 import SwiperCore, {
   Thumbs,
   Navigation,
@@ -9,11 +11,11 @@ import SwiperCore, {
 } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { imageServerUrl } from '~/config';
+
 import { IProduct } from '~/interfaces';
 import { IImage } from '~/interfaces/IImage';
-import Image from 'next/image';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 // import { SRLWrapper } from 'simple-react-lightbox';
 import { capitalize } from '~/utils';
 import { part64 } from '~/services/base64';

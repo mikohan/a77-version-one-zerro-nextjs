@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import { IMake, IProduct } from '~/interfaces';
+import { IMake } from '~/interfaces';
 import { capitalize } from '~/utils';
 import { imageServerUrl } from '~/config';
 import Image from 'next/image';

@@ -1,11 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Typography } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-// Comment
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
