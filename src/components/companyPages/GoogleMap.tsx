@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -14,7 +15,6 @@ const marker = {
   position: center,
   title: 'Компаня Ангара Запчасти',
 };
-const onLoad = (marker: any) => {};
 
 interface IProps {
   google_key: string;
@@ -24,12 +24,7 @@ function MyComponent({ google_key }: IProps) {
     <LoadScript googleMapsApiKey={google_key as string}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={18}>
         <>
-          <Marker
-            onLoad={onLoad}
-            position={center}
-            label={marker.title}
-            title={marker.title}
-          />
+          <Marker position={center} label={marker.title} title={marker.title} />
         </>
       </GoogleMap>
     </LoadScript>
