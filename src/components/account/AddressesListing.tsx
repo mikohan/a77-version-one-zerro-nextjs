@@ -1,5 +1,7 @@
 import React from 'react';
-import { Typography, Box, Button } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { IUser } from '~/interfaces';
 import { IAddress } from '~/interfaces';
