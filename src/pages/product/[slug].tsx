@@ -1,20 +1,29 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import AnimationPage from '~/components/common/AnimationPage';
+// import AnimationPage from '~/components/common/AnimationPage';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { COMPANY_INFORMATION, REVALIDATE } from '~/config';
-import { Hidden, Grid, Paper, Typography, Box } from '@material-ui/core';
-import ProductPageHead from '~/components/heads/ProductPageHead';
+import Hidden from '@material-ui/core/Hidden';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
+import { COMPANY_INFORMATION, REVALIDATE } from '~/config';
 import { IPost, IProduct, IProductElasticHitsSecond } from '~/interfaces';
+import { IBread } from '~/interfaces';
 import {
   getProduct,
   getProductsAll,
   getProductsByTagOrTags,
 } from '~/endpoints/productEndpoint';
+import { searchPosts } from '~/endpoints/blogEndpoint';
+
+import { translateProducts } from '~/utils';
+import url from '~/services/url';
+
+import ProductPageHead from '~/components/heads/ProductPageHead';
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
-import { IBread } from '~/interfaces';
 import SwiperProduct from '~/components/common/SwiperProduct';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
@@ -22,11 +31,8 @@ import {
   getSimilarProductsByModel,
   getProductAnalogs,
 } from '~/endpoints/productEndpoint';
-import { searchPosts } from '~/endpoints/blogEndpoint';
 import ProductAnalogs from '~/components/product/productPage/ProductAnalogs';
 import ProductPriceSideBlock from '~/components/product/productPage/ProductPriseSideBlock';
-import { translateProducts } from '~/utils';
-import url from '~/services/url';
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
@@ -241,99 +247,97 @@ export default function ProductPage({
   return (
     <React.Fragment>
       <ProductPageHead product={product} breads={breads} />
-      <AnimationPage>
-        <div className={classes.mainContainer}>
-          <Grid container>
-            <Grid className={classes.headerContainer} item xs={12}>
-              <ProductPageHeader breads={breads} />
+      <div className={classes.mainContainer}>
+        <Grid container>
+          <Grid className={classes.headerContainer} item xs={12}>
+            <ProductPageHeader breads={breads} />
+          </Grid>
+          <Grid className={classes.gridRow} container item xs={12}>
+            <Grid className={classes.swipeGrid} item xs={12} md={6}>
+              <Paper className={classes.swiperPaper}>
+                <SwiperProduct product={product} />
+              </Paper>
             </Grid>
-            <Grid className={classes.gridRow} container item xs={12}>
-              <Grid className={classes.swipeGrid} item xs={12} md={6}>
-                <Paper className={classes.swiperPaper}>
-                  <SwiperProduct product={product} />
-                </Paper>
-              </Grid>
-              <Grid className={classes.descriptionGrid} item xs={12} md={6}>
-                <ProductPriceSideBlock product={product} />
-              </Grid>
+            <Grid className={classes.descriptionGrid} item xs={12} md={6}>
+              <ProductPriceSideBlock product={product} />
             </Grid>
-            <Grid item className={classes.under} xs={12}></Grid>
+          </Grid>
+          <Grid item className={classes.under} xs={12}></Grid>
 
-            <Grid container item>
-              <Hidden smDown>
-                <Grid className={classes.wrapper} item xs={12} md={6}>
-                  <Paper>
-                    {product.video && product.video.length ? (
-                      product.video.map((vid: string) => (
-                        <div key={vid} className={classes.third}>
-                          <ResponsivePlayer videoUrl={vid} />
-                        </div>
-                      ))
-                    ) : (
-                      <div>
-                        <ResponsivePlayer
-                          videoUrl={'https://youtu.be/a9I1oNYj26o'}
-                        />
+          <Grid container item>
+            <Hidden smDown>
+              <Grid className={classes.wrapper} item xs={12} md={6}>
+                <Paper>
+                  {product.video && product.video.length ? (
+                    product.video.map((vid: string) => (
+                      <div key={vid} className={classes.third}>
+                        <ResponsivePlayer videoUrl={vid} />
                       </div>
-                    )}
-                  </Paper>
-                </Grid>
-              </Hidden>
-              <Grid className={classes.analogs} item xs={12} md={6}>
-                <Paper className={classes.analogPaper}>
-                  <Typography variant="h6">Аналоги</Typography>
-                  <ProductAnalogs products={productAnalogs} />
+                    ))
+                  ) : (
+                    <div>
+                      <ResponsivePlayer
+                        videoUrl={'https://youtu.be/a9I1oNYj26o'}
+                      />
+                    </div>
+                  )}
                 </Paper>
-                <div></div>
               </Grid>
-              {togetherProducts && togetherProducts.length ? (
-                <TogetherProducts />
+            </Hidden>
+            <Grid className={classes.analogs} item xs={12} md={6}>
+              <Paper className={classes.analogPaper}>
+                <Typography variant="h6">Аналоги</Typography>
+                <ProductAnalogs products={productAnalogs} />
+              </Paper>
+              <div></div>
+            </Grid>
+            {togetherProducts && togetherProducts.length ? (
+              <TogetherProducts />
+            ) : (
+              ''
+            )}
+            <Grid item className={classes.tabs} xs={12}>
+              <Paper>
+                <ProductTabs product={product} />
+              </Paper>
+            </Grid>
+            <Divider />
+            <Hidden smDown>
+              {similar && similar.length ? <SimilarProducts /> : ''}
+              {relatedProducts && relatedProducts.length ? (
+                <React.Fragment>
+                  <Divider />
+                  <PopularParts />
+                </React.Fragment>
               ) : (
                 ''
               )}
-              <Grid item className={classes.tabs} xs={12}>
-                <Paper>
-                  <ProductTabs product={product} />
-                </Paper>
-              </Grid>
-              <Divider />
-              <Hidden smDown>
-                {similar && similar.length ? <SimilarProducts /> : ''}
-                {relatedProducts && relatedProducts.length ? (
-                  <React.Fragment>
-                    <Divider />
-                    <PopularParts />
-                  </React.Fragment>
-                ) : (
-                  ''
-                )}
-              </Hidden>
-            </Grid>
-            <Hidden smDown>
-              {productsToPost && (
-                <React.Fragment>
-                  <Divider />
-                  <Grid container item xs={12}>
-                    <Typography className={classes.mayLike} variant="h6">
-                      Вам может понравиться
-                    </Typography>
-                    <ProductGrid products={productsToPost} />
-                  </Grid>
-                </React.Fragment>
-              )}
-            </Hidden>
-            <Hidden smDown>
-              <Divider />
-              <Grid item className={classes.tabs} xs={12}>
-                <Typography className={classes.relatedPostTitle} variant="h6">
-                  Полезная информация
-                </Typography>
-                <RelatedPosts posts={posts} />
-              </Grid>
             </Hidden>
           </Grid>
-        </div>
-      </AnimationPage>
+          <Hidden smDown>
+            {productsToPost && (
+              <React.Fragment>
+                <Divider />
+                <Grid container item xs={12}>
+                  <Typography className={classes.mayLike} variant="h6">
+                    Вам может понравиться
+                  </Typography>
+                  <ProductGrid products={productsToPost} />
+                </Grid>
+              </React.Fragment>
+            )}
+          </Hidden>
+          <Hidden smDown>
+            <Divider />
+            <Grid item className={classes.tabs} xs={12}>
+              <Typography className={classes.relatedPostTitle} variant="h6">
+                Полезная информация
+              </Typography>
+              <RelatedPosts posts={posts} />
+            </Grid>
+          </Hidden>
+        </Grid>
+      </div>
     </React.Fragment>
   );
 }
