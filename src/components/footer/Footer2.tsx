@@ -1,11 +1,14 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
+
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 import MLink from '@material-ui/core/Link';
-import { List, ListItem } from '@material-ui/core';
-import { Hidden } from '@material-ui/core';
-import { createStyles, Theme } from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Hidden from '@material-ui/core/Hidden';
+
 import { SITE_DOMAIN, COMPANY_INFORMATION } from '~/config';
 import { footerData as data } from '~/config';
 import url from '~/services/url';
