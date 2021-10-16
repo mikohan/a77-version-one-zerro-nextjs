@@ -1,17 +1,20 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import Link from 'next/link';
-import url from '~/services/url';
-import { Avatar, Typography } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+
 import { IState } from '~/interfaces';
 import { logout } from '~/store/users/userAction';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { capitalize } from '~/utils';
-import { useRouter } from 'next/router';
+import url from '~/services/url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

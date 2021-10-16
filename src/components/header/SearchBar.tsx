@@ -1,11 +1,12 @@
-// *https://www.registers.service.gov.uk/registers/country/use-the-api*
 import React from 'react';
+import axios from 'axios';
+
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { IconButton, Grid } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { autocompleteUrls } from '~/config';
 import {
   Box,

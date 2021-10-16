@@ -1,19 +1,21 @@
-/* eslint-disable no-use-before-define */
 import React from 'react';
-import { Box, Grid, Hidden, Typography, Badge } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import Link from 'next/link';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+
 import SearchBar from '~/components/header/SearchBar';
 import CarChooseModal from '~/components/car/CarChooseModal';
-import { useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
-import Link from 'next/link';
 import url from '~/services/url';
 import { ICar } from '~/interfaces';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import MiniCart from '~/components/header/MiniCart';
-import { Avatar } from '@material-ui/core';
-import { imageServerUrl } from '~/config';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useRouter } from 'next/router';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
-import { useDispatch, useSelector } from 'react-redux';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import { useMediaQuery, useTheme } from '@material-ui/core';
+
 import { SET_ACTIVE_PAGE } from '~/store/ui/UITypes';
 import SearchBox from '~/components/header/SearchBox';
-import {
-  Tabs,
-  Tab,
-  useTheme,
-  useMediaQuery,
-  SwipeableDrawer,
-  List,
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Grid,
-  Box,
-  Switch,
-  FormControlLabel,
-  Avatar,
-  Typography,
-} from '@material-ui/core';
 
 import { HomeOutlined } from '@material-ui/icons';
 import { IState } from '~/interfaces/IState';
@@ -135,17 +133,6 @@ export default function Header({ setIsDark, isDark }: IProps) {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
-  const pages: string[] = ['/', '/about', '/contacts', '/blog'];
-  const company = ['/delivery', '/warranty', '/payment', '/policy'];
-
-  const router = useRouter();
-  const { pathname } = router;
-
-  const cur = pages.findIndex((item: string) => {
-    if (item !== '/') {
-      return pathname.includes(item);
-    }
-  });
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
