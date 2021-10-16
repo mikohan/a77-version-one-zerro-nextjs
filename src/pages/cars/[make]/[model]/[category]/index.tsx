@@ -306,7 +306,6 @@ export const getServerSideProps: GetServerSideProps = async (
     let amp = '&';
     Object.entries(filtersQuery).forEach(([filter, value], i) => {
       if (!filterPossibleValues.includes(filter)) {
-        console.log(filter);
         return;
       }
       if (i === Object.entries(filtersQuery).length - 1) {

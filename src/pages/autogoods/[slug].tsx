@@ -2,13 +2,12 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
 import { searchTree, translateProducts } from '~/utils';
 import { Grid } from '@material-ui/core';
-import { ICar } from '~/interfaces/ICar';
 import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
 import AnimationPage from '~/components/common/AnimationPage';
-import { getVehicle } from '~/endpoints/carsEndpoint';
+import { filterPossibleValues } from '~/config';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { makeTree, OrderBreads } from '~/utils';
@@ -282,16 +281,13 @@ export const getServerSideProps: GetServerSideProps = async (
 
   let url = '';
 
-  if (
-    Object.entries(filtersQuery).length > 0 &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_source') &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_medium') &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_campaign') &&
-    !Object.keys(filtersQuery).find((key: string) => key === 'utm_content')
-  ) {
+  if (Object.entries(filtersQuery).length > 0) {
     let filUrl = '';
     let amp = '&';
     Object.entries(filtersQuery).forEach(([filter, value], i) => {
+      if (!filterPossibleValues.includes(filter)) {
+        return;
+      }
       if (i === Object.entries(filtersQuery).length - 1) {
         amp = '';
       }

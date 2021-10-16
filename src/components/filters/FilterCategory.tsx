@@ -84,23 +84,40 @@ function FilterCategory(props: Props) {
   return (
     <Box className={classes.root}>
       <List dense>
-        <AppLink
-          href={url.model(carMake, carModel)}
-          onClick={handleClearFilters}
-        >
-          <ListItem className={classes.listItemParent}>
-            <ListItemIcon className={classes.listItemIcon}>
-              <ArrowBackIosIcon className={classes.arrowBack} />
-            </ListItemIcon>
-            <Typography className={classes.categoryName} variant="body2">
-              {capitalize(carMake)} {capitalize(carModel)}
-            </Typography>
-          </ListItem>
-        </AppLink>
+        {carModel ? (
+          <AppLink
+            href={url.model(carMake, carModel)}
+            onClick={handleClearFilters}
+          >
+            <ListItem className={classes.listItemParent}>
+              <ListItemIcon className={classes.listItemIcon}>
+                <ArrowBackIosIcon className={classes.arrowBack} />
+              </ListItemIcon>
+              <Typography className={classes.categoryName} variant="body2">
+                {capitalize(carMake)} {capitalize(carModel)}
+              </Typography>
+            </ListItem>
+          </AppLink>
+        ) : (
+          <AppLink href={url.home()} onClick={handleClearFilters}>
+            <ListItem className={classes.listItemParent}>
+              <ListItemIcon className={classes.listItemIcon}>
+                <ArrowBackIosIcon className={classes.arrowBack} />
+              </ListItemIcon>
+              <Typography className={classes.categoryName} variant="body2">
+                Главная
+              </Typography>
+            </ListItem>
+          </AppLink>
+        )}
         {exceptLast.map((item: ICategory) => (
           <AppLink
             key={item.id}
-            href={url.category(carMake, carModel, item.slug)}
+            href={
+              carModel
+                ? url.category(carMake, carModel, item.slug)
+                : url.autogoodsCategory(item.slug)
+            }
             onClick={handleClearFilters}
           >
             <ListItem className={classes.listItemParent} key={item.id}>
@@ -125,7 +142,11 @@ function FilterCategory(props: Props) {
             <AppLink
               onClick={handleClearFilters}
               className={classes.nameCount}
-              href={url.category(make, model, item.slug)}
+              href={
+                carModel
+                  ? url.category(make, model, item.slug)
+                  : url.autogoodsCategory(item.slug)
+              }
             >
               <Typography className={classes.categoryName} variant="body2">
                 {capitalize(item.name)}

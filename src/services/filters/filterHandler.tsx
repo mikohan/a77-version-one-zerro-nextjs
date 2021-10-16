@@ -42,6 +42,8 @@ export function makePushUrl(
     mainUrl = url.model(model.make.slug, model.slug);
   } else if (search) {
     mainUrl = url.search();
+  } else if (category && !model) {
+    mainUrl = url.autogoodsCategory(category.slug);
   }
 
   const params = {} as IFilterQueryString;

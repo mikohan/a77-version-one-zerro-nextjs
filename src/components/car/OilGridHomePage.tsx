@@ -95,19 +95,19 @@ export default function Oil(props: IOil) {
                 </Typography>
                 <Grid container item xs={12} className={classes.item}>
                   <Paper className={classes.paper} elevation={4}>
-                    {/* <Link href={url.autogoodsCategory(cat.slug)}> */}
-                    {/* <a> */}
-                    <Image
-                      src={cat.image!}
-                      layout="responsive"
-                      width={760}
-                      height={145}
-                      blurDataURL={blurDataURL}
-                      placeholder="blur"
-                      className={classes.img}
-                    />
-                    {/* </a> */}
-                    {/* </Link> */}
+                    <Link href={url.autogoodsCategory(cat.slug)}>
+                      <a>
+                        <Image
+                          src={cat.image!}
+                          layout="responsive"
+                          width={760}
+                          height={145}
+                          blurDataURL={blurDataURL}
+                          placeholder="blur"
+                          className={classes.img}
+                        />
+                      </a>
+                    </Link>
                   </Paper>
                 </Grid>
               </React.Fragment>
