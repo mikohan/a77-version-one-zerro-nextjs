@@ -183,6 +183,8 @@ export function makeHandleFilterChange(
 
     if (model) {
       makePushUrl(router, dispatch, activeFilters, model, category);
+    } else if (!model && category) {
+      makePushUrl(router, dispatch, activeFilters, undefined, category);
     } else if (search) {
       makePushUrl(
         router,

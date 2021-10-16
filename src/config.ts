@@ -76,6 +76,7 @@ export const containerMaxWidth = 'xl';
 
 // Define order of rendering filters on page
 
+// Defines which filters will be on specific page
 export const pageSpecificFilters: { [key: string]: string[] } = {
   search: [
     'car_models',
@@ -88,6 +89,15 @@ export const pageSpecificFilters: { [key: string]: string[] } = {
   ],
   category: [
     'category',
+    'price',
+    'brands',
+    'engines',
+    'has_photo',
+    'condition',
+    'bages',
+  ],
+  autogoods: [
+    'car_models',
     'price',
     'brands',
     'engines',

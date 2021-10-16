@@ -157,7 +157,7 @@ export default function AutogoodsCagetory(props: CategoryProps) {
     aggregations,
     filtersFromStore,
     oldPrice,
-    'category',
+    'autogoods',
     categoriesFilter
   );
   // ************************** End filters *********************

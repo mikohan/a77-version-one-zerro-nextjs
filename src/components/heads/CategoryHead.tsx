@@ -20,6 +20,7 @@ export default function CarModelHead({
 }: IProps) {
   const mk = model ? capitalize(model.make.name) : '';
   const md = model ? capitalize(model.model) : '';
+  const na = model ? 'на' : '';
   const ct = capitalize(category.name);
 
   const items = products.map((product: IProduct, i: number) => ({
@@ -45,12 +46,12 @@ export default function CarModelHead({
   return (
     <Head>
       <title key="title">
-        {ct} на {mk} {md} В Наличии | {COMPANY_INFORMATION.COMPANY_NAME_ENG}
+        {ct} {na} {mk} {md} В Наличии | {COMPANY_INFORMATION.COMPANY_NAME_ENG}
       </title>
       <meta
         key="description"
         name="description"
-        content={`${ct} на ${mk} ${md} В Наличии в Интернет Магазине ${COMPANY_INFORMATION.COMPANY_NAME}.
+        content={`${ct} ${na} ${mk} ${md} В Наличии в Интернет Магазине ${COMPANY_INFORMATION.COMPANY_NAME}.
         Доставка и Самовывоз в Москве | ${footerData.SHOP_PHONE} `}
       />
       <link rel="canonical" key="canonical" href={uri} />

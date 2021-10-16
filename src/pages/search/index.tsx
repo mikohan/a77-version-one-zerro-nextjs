@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Cagetory(props: CategoryProps) {
+export default function Search(props: CategoryProps) {
   const classes = useStyles();
   const { products, aggregations, totalPages, routerQuery } = props;
 
