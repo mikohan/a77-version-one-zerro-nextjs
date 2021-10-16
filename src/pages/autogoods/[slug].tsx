@@ -1,18 +1,25 @@
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
+import { Router } from 'next/dist/client/router';
+import dynamic from 'next/dynamic';
+
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
 import { searchTree, translateProducts } from '~/utils';
-import { Grid } from '@material-ui/core';
 import { getCategoryBySlugGQL } from '~/endpoints/categories';
 import { asString } from '~/helpers';
 import { IFilter } from '~/interfaces/filters';
 import { ICategory, IShopCategory } from '~/interfaces/category';
-import AnimationPage from '~/components/common/AnimationPage';
 import { filterPossibleValues } from '~/config';
 import { IAgregations, IAggregationCategory } from '~/interfaces/aggregations';
 import { IProductElasticHitsFirst } from '~/interfaces/product';
 import { makeTree, OrderBreads } from '~/utils';
 import ShopGrid from '~/components/product/ShopGrid';
-import { Hidden } from '@material-ui/core';
 import FilterWidget from '~/components/product/FilterWidget';
 import LeftSideBar from '~/components/product/LeftSideBar';
 import CategoryHead from '~/components/heads/CategoryHead';
@@ -21,12 +28,10 @@ import { IBread, IRouterStuff } from '~/interfaces';
 import url from '~/services/url';
 import { capitalize } from '~/utils';
 import PageHeader from '~/components/product/PageHeader';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '~/interfaces/IState';
 import { getProductsByFilters } from '~/endpoints/productEndpoint';
 import { IActiveFilterMy } from '~/interfaces';
-import { Router } from 'next/dist/client/router';
+
 import {
   shopProductLoading,
   shopSetFilterVlue,
@@ -41,9 +46,11 @@ import {
   clearParams,
 } from '~/services/filters/filterHandler';
 import { createCheckFilters } from '~/services/filters/filterCreater';
-import { Container } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 // Added stuff for gh
+// import AnimationPage from '~/components/common/AnimationPage';
+const AnimationPage = dynamic(
+  () => import('~/components/common/AnimationPage')
+);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
