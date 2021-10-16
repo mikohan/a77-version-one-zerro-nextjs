@@ -1,17 +1,19 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
 import { IProductElasticHitsSecond } from '~/interfaces/product';
 import ChipContainer from '../common/ChipBox';
 import { ICar } from '~/interfaces/ICar';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItemSuccess } from '~/store/cart/cartAction';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
 import { IState } from '~/interfaces';
 import { ICartItem } from '~/store/cart/cartTypes';
-import { Button } from '@material-ui/core';
 
 interface IProp {
   product: IProductElasticHitsSecond;

@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
-import { Grid, Box } from '@material-ui/core';
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

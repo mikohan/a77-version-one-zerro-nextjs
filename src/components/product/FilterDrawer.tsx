@@ -1,12 +1,9 @@
 import React from 'react';
-import clsx from 'clsx';
+
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Box from '@material-ui/core/Box';

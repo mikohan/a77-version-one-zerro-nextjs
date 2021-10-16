@@ -1,30 +1,34 @@
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { IProductElasticHitsSecond, IProduct } from '~/interfaces/product';
-import { Hidden, Box, Grid, TextField } from '@material-ui/core';
-import { prodCardSize } from '~/config';
+import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
 import Pagination from '@material-ui/lab/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
+import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
+import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
+
+import { prodCardSize } from '~/config';
 import { IState } from '~/interfaces/IState';
 import { SET_SHOP_GRID, SET_SORT_VALUE } from '~/store/ui/UITypes';
 import ProductCardGrid from './ProductCardGrid';
 import ProductCardList from './ProductCardList';
-import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
-import Button from '@material-ui/core/Button';
 import FilterDrawer from '~/components/product/FilterDrawer';
-import Chip from '@material-ui/core/Chip';
-import { capitalize, translateProducts } from '~/utils';
+import { capitalize } from '~/utils';
 import Typography from '@material-ui/core/Typography';
 import ProductCardGridSkeleton from './ProductCardGridSkeleton';
 import ProductCardListSkeleton from './ProductCardListSkeleton';
-import { useRouter } from 'next/router';
 import url from '~/services/url';
 import { asString, conditionToRus } from '~/helpers';
 import { transFilter } from '~/config';
 import { booleanToRus } from '~/helpers';
-import { shopResetFilters } from '~/store/shop/shopActions';
+import { IProductElasticHitsSecond } from '~/interfaces/product';
 
 interface IProps {
   products: IProductElasticHitsSecond[];

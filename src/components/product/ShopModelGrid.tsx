@@ -1,6 +1,8 @@
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
-import { Typography } from '@material-ui/core';
+
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 import { ICar } from '~/interfaces/ICar';
 
 const useStyles = makeStyles((theme: Theme) =>
