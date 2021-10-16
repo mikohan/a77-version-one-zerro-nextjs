@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IBread } from '~/interfaces';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
