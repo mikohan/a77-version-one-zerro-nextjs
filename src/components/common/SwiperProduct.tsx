@@ -118,6 +118,7 @@ export default function Swipper({ product }: IProps) {
             blurDataURL={part64}
             placeholder="blur"
             priority={true}
+            alt={alt}
           />
         </SwiperSlide>
       );
@@ -130,6 +131,7 @@ export default function Swipper({ product }: IProps) {
             src={`/images/local/defaultParts245.jpg`}
             blurDataURL={part64}
             placeholder="blur"
+            alt={alt}
           />
         </SwiperSlide>
       );

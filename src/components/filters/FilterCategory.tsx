@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
-    listItemParent: {},
     catList: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(1),
@@ -90,7 +89,7 @@ function FilterCategory(props: Props) {
             href={url.model(carMake, carModel)}
             onClick={handleClearFilters}
           >
-            <ListItem className={classes.listItemParent}>
+            <ListItem>
               <ListItemIcon className={classes.listItemIcon}>
                 <ArrowBackIosIcon className={classes.arrowBack} />
               </ListItemIcon>
@@ -101,7 +100,7 @@ function FilterCategory(props: Props) {
           </AppLink>
         ) : (
           <AppLink href={url.home()} onClick={handleClearFilters}>
-            <ListItem className={classes.listItemParent}>
+            <ListItem>
               <ListItemIcon className={classes.listItemIcon}>
                 <ArrowBackIosIcon className={classes.arrowBack} />
               </ListItemIcon>
@@ -121,7 +120,7 @@ function FilterCategory(props: Props) {
             }
             onClick={handleClearFilters}
           >
-            <ListItem className={classes.listItemParent} key={item.id}>
+            <ListItem key={item.id}>
               <ListItemIcon className={classes.listItemIcon}>
                 <ArrowBackIosIcon className={classes.arrowBack} />
               </ListItemIcon>

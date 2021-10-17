@@ -207,26 +207,26 @@ export default function StickyFooter() {
                     ИНФОРМАЦИЯ
                   </Typography>
                   <List>
-                    <Link href={url.delivery()}>
-                      <ListItem>
+                    <ListItem>
+                      <Link href={url.delivery()}>
                         <a>ДОСТАВКА</a>
-                      </ListItem>
-                    </Link>
-                    <Link href={url.payment()}>
-                      <ListItem>
+                      </Link>
+                    </ListItem>
+                    <ListItem>
+                      <Link href={url.payment()}>
                         <a>ОПЛАТА</a>
-                      </ListItem>
-                    </Link>
-                    <Link href={url.warranty()}>
-                      <ListItem>
+                      </Link>
+                    </ListItem>
+                    <ListItem>
+                      <Link href={url.warranty()}>
                         <a>ГАРАНТИИ</a>
-                      </ListItem>
-                    </Link>
-                    <Link href={url.policy()}>
-                      <ListItem>
+                      </Link>
+                    </ListItem>
+                    <ListItem>
+                      <Link href={url.policy()}>
                         <a>КОНФИДЕНЦИАЛЬНОСТЬ</a>
-                      </ListItem>
-                    </Link>
+                      </Link>
+                    </ListItem>
                   </List>
                 </div>
               </Hidden>
@@ -235,26 +235,26 @@ export default function StickyFooter() {
                   КОМПАНИЯ
                 </Typography>
                 <List>
-                  <Link href={url.about()}>
-                    <ListItem>
+                  <ListItem>
+                    <Link href={url.about()}>
                       <a>О КОМПАНИИ</a>
-                    </ListItem>
-                  </Link>
-                  <Link href={url.contacts()}>
-                    <ListItem>
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link href={url.contacts()}>
                       <a>КОНТАКТЫ</a>
-                    </ListItem>
-                  </Link>
-                  <Link href={url.cars()}>
-                    <ListItem>
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link href={url.cars()}>
                       <a>МАШИНЫ</a>
-                    </ListItem>
-                  </Link>
-                  <Link href={url.blog()}>
-                    <ListItem>
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link href={url.blog()}>
                       <a>БЛОГ</a>
-                    </ListItem>
-                  </Link>
+                    </Link>
+                  </ListItem>
                 </List>
               </div>
               <div>

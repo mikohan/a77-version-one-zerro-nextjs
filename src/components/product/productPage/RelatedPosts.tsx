@@ -67,6 +67,7 @@ export default function DenseTable({ posts }: IProps) {
                       height={160}
                       blurDataURL={part64}
                       placeholder="blur"
+                      alt={post.title}
                     />
                     <Typography
                       className={classes.title}

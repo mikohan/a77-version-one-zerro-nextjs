@@ -61,6 +61,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
       price: {
         padding: theme.spacing(1),
         fontWeight: 600,
+        fontSize: '1.2rem',
       },
       name: {
         paddingTop: theme.spacing(1),
@@ -189,7 +190,7 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
           />
         </a>
       </Link>
-      <Typography className={classes.price} variant="h6">
+      <Typography className={classes.price} variant="h2">
         {price ? <span>&#8381; {price}</span> : 'Звоните!'}
       </Typography>
       <Typography className={classes.name} variant="subtitle1" component="div">
