@@ -5,7 +5,7 @@ import '../../styles/MainLayoutStyles.module.scss';
 
 import Header from '~/components/header/Header';
 
-import Footer from '~/components/footer/Footer';
+import Footer from '~/components/footer/Footer2';
 import theme from '~/theme';
 
 export default function MainLayout(props: any) {

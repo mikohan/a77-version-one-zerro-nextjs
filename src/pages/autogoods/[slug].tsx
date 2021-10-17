@@ -251,6 +251,10 @@ export default function AutogoodsCagetory(props: CategoryProps) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
   const routerParams = context.params;
   const routerQuery = context.query;
   const category = context.params?.slug;

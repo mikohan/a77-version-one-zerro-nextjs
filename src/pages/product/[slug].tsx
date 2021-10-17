@@ -24,7 +24,6 @@ import url from '~/services/url';
 
 import ProductPageHead from '~/components/heads/ProductPageHead';
 import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
-import SwiperProduct from '~/components/common/SwiperProduct';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
@@ -39,6 +38,10 @@ import Divider from '~/components/common/Divider';
 // import AnimationPage from '~/components/common/AnimationPage';
 const AnimationPage = dynamic(
   () => import('~/components/common/AnimationPage')
+);
+
+const SwiperProduct = dynamic(
+  () => import('~/components/common/SwiperProduct')
 );
 
 const ResponsivePlayer = dynamic(

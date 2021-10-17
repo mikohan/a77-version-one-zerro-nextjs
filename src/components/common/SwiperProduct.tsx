@@ -69,7 +69,7 @@ export default function Swipper({ product }: IProps) {
     for (let im of images) {
       const { width, height } = Object.keys(im.dimension).length
         ? im.dimension
-        : { width: 600, height: 450 };
+        : { width: 900, height: 600 };
       const {
         tmbWidth,
         tmbHeight,
@@ -112,8 +112,8 @@ export default function Swipper({ product }: IProps) {
         <SwiperSlide key={i + 1}>
           <Image
             layout="responsive"
-            width={600}
-            height={450}
+            width={900}
+            height={600}
             src={`/images/local/defaultParts1200.jpg`}
             blurDataURL={part64}
             placeholder="blur"
@@ -150,7 +150,6 @@ export default function Swipper({ product }: IProps) {
       >
         {slides}
       </Swiper>
-      {/* </SRLWrapper> */}
       <Swiper
         slidesPerView={6}
         style={{ width: '100%' }}

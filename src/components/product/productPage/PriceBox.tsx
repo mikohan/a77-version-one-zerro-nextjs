@@ -171,11 +171,11 @@ const PriceBox = ({ product }: IProps) => {
       <Box className={classes.firstRow}>
         <Box className={classes.priceBox}>
           {price ? (
-            <Typography className={classes.price} variant="h6">
+            <Typography className={classes.price} variant="h2">
               <span>&#8381;</span> {price}
             </Typography>
           ) : (
-            <Typography className={classes.price} variant="h6">
+            <Typography className={classes.price} variant="h2">
               <span>Звоните!</span>
             </Typography>
           )}

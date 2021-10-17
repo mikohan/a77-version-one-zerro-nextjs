@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '0 0.5rem',
       background: theme.palette.action.hover,
       borderRadius: '0.1rem',
-      color: theme.palette.text.secondary,
+      color: theme.palette.primary.main,
       fontSize: '0.8rem',
       transition: '0.5s',
       '&:hover': {

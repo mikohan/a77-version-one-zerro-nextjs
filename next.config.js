@@ -20,13 +20,5 @@ module.exports = withBundleAnalyzer({
 
     return config;
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/cat*',
-  //       destination: '/temp/cat*', // Matched parameters can be used in the destination
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+  productionBrowserSourceMaps: true,
 });
