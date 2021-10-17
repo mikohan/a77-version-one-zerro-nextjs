@@ -23,7 +23,6 @@ import { translateProducts } from '~/utils';
 import url from '~/services/url';
 
 import ProductPageHead from '~/components/heads/ProductPageHead';
-import ProductPageHeader from '~/components/product/productPage/ProductPageHeader';
 import ProductTabs from '~/components/product/productPage/ProductTabs';
 import RelatedProductSlider from '~/components/common/RelatedProductSlider';
 import {
@@ -46,6 +45,9 @@ const SwiperProduct = dynamic(
 
 const ResponsivePlayer = dynamic(
   () => import('~/components/common/ResponsivePlayer')
+);
+const ProductPageHeader = dynamic(
+  () => import('~/components/product/productPage/ProductPageHeader')
 );
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 
 import { IBread } from '~/interfaces';
 import BreadCrumbs from '~/components/common/BreadCrumbs';
@@ -37,7 +38,9 @@ export default function PageHeader({ breads }: IProps) {
     <React.Fragment>
       <Grid container>
         <Grid className={classes.breadsContainer} item xs={12}>
-          <BreadCrumbs breadCrumbs={breads} />
+          <Hidden smDown>
+            <BreadCrumbs breadCrumbs={breads} />
+          </Hidden>
         </Grid>
       </Grid>
     </React.Fragment>
