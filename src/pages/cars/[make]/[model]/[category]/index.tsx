@@ -48,9 +48,9 @@ import ShopGrid from '~/components/product/ShopGrid';
 import { createCheckFilters } from '~/services/filters/filterCreater';
 // Added stuff for gh
 // import AnimationPage from '~/components/common/AnimationPage';
-const AnimationPage = dynamic(
-  () => import('~/components/common/AnimationPage')
-);
+/* const AnimationPage = dynamic( */
+/*   () => import('~/components/common/AnimationPage') */
+/* ); */
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -228,33 +228,33 @@ export default function Cagetory(props: CategoryProps) {
         products={headProds}
         breads={breads}
       />
-      <AnimationPage>
-        <Container className={classes.container}>
-          <Grid container>
-            <PageHeader header={header} breads={breads} count={count} />
-            <Hidden smDown>
-              <Grid item xs={3}>
-                <LeftSideBar>
-                  <FilterWidget
-                    filters={sortedFilters}
-                    handleChange={handleFilterChange}
-                  />
-                </LeftSideBar>
-              </Grid>
-            </Hidden>
-            <Grid item xs={12} md={9}>
-              <ShopGrid
-                products={products.hits}
-                totalPages={totalPages}
-                filtersResetHandlers={{
-                  handleDeleteFilter,
-                  handleDeleteFilters,
-                }}
-              />
+      {/* <AnimationPage> */}
+      <Container className={classes.container}>
+        <Grid container>
+          <PageHeader header={header} breads={breads} count={count} />
+          <Hidden smDown>
+            <Grid item xs={3}>
+              <LeftSideBar>
+                <FilterWidget
+                  filters={sortedFilters}
+                  handleChange={handleFilterChange}
+                />
+              </LeftSideBar>
             </Grid>
+          </Hidden>
+          <Grid item xs={12} md={9}>
+            <ShopGrid
+              products={products.hits}
+              totalPages={totalPages}
+              filtersResetHandlers={{
+                handleDeleteFilter,
+                handleDeleteFilters,
+              }}
+            />
           </Grid>
-        </Container>
-      </AnimationPage>
+        </Grid>
+      </Container>
+      {/* </AnimationPage> */}
     </React.Fragment>
   );
 }
