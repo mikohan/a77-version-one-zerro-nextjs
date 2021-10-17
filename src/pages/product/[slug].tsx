@@ -34,6 +34,7 @@ import ProductPriceSideBlock from '~/components/product/productPage/ProductPrise
 import ProductGrid from '~/components/blog/ProductGrid';
 import RelatedPosts from '~/components/product/productPage/RelatedPosts';
 import Divider from '~/components/common/Divider';
+
 // import AnimationPage from '~/components/common/AnimationPage';
 /* const AnimationPage = dynamic( */
 /*   () => import('~/components/common/AnimationPage') */

@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '~/theme';
+import Script from 'next/script';
 
 import { GA_TRACKING_ID } from '~/services/gtag';
 
@@ -16,7 +17,7 @@ export default class MyDocument extends Document {
           {/* enable analytics script only for production */}
           {isProduction && (
             <>
-              <script
+              <Script
                 async
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
               />
