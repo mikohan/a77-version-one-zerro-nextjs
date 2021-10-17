@@ -161,7 +161,7 @@ export default function StickyFooter() {
           <div className={classes.wrapper}>
             <div>
               <address className={classes.address}>
-                <Typography className={classes.sectionHeader} variant="h5">
+                <Typography className={classes.sectionHeader} variant="body1">
                   КОНТАКТЫ
                 </Typography>
                 <Typography
@@ -203,7 +203,7 @@ export default function StickyFooter() {
             <Hidden smDown>
               <Hidden mdDown>
                 <div>
-                  <Typography className={classes.sectionHeader} variant="h5">
+                  <Typography className={classes.sectionHeader} variant="body1">
                     ИНФОРМАЦИЯ
                   </Typography>
                   <List>
@@ -231,7 +231,7 @@ export default function StickyFooter() {
                 </div>
               </Hidden>
               <div>
-                <Typography className={classes.sectionHeader} variant="h5">
+                <Typography className={classes.sectionHeader} variant="body1">
                   КОМПАНИЯ
                 </Typography>
                 <List>
@@ -258,7 +258,7 @@ export default function StickyFooter() {
                 </List>
               </div>
               <div>
-                <Typography className={classes.sectionHeader} variant="h5">
+                <Typography className={classes.sectionHeader} variant="body1">
                   СОЦИАЛЬНЫЕ СЕТИ
                 </Typography>
                 <Typography
