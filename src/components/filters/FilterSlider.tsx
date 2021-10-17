@@ -65,6 +65,7 @@ export default function RangeSlider({ options, handleChange }: IProps) {
         onChangeCommitted={(e, newValue) => handleRemoteChange(e, newValue)}
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"
+        aria-label="price slider"
         getAriaValueText={valuetext}
       />
       <Box className={classes.numbersContainer}>
