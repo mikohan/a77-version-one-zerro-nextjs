@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -37,7 +38,6 @@ import { shopSetUserId } from '~/store/shop/shopActions';
 import { createOrUpdateUser } from '~/endpoints/carsEndpoint';
 // import SimpleReactLightbox from 'simple-react-lightbox';
 import * as gtag from '~/services/gtag';
-import { useRouter } from 'next/router';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -137,7 +137,7 @@ function MyApp(props: any) {
     }
     setUserId(userUUID);
     async function updateUser() {
-      const autouser = await createOrUpdateUser(userUUID);
+      await createOrUpdateUser(userUUID);
     }
 
     updateUser();
@@ -179,27 +179,5 @@ MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
-
-// It is for server side render of redux
-
-/* MyApp.getInitialProps = async (context: any) => { */
-/*   const { req, res } = context.ctx; */
-/*   const isServer = !!req; */
-/*   const isBrowser = !req; */
-/*   const reduxStore = await initializeStore({}); */
-
-/*   const resp = await axios.get(vehiclesUrl); */
-/*   const cars = resp.data; */
-/*   //const allCookies = parseCookies(context.ctx.req); */
-/*   //if (!('UUID' in allCookies)) { */
-/*   //} */
-
-/*   return { */
-/*     ...(await App.getInitialProps(context)), */
-/*     cars, */
-/*     initialReduxState: reduxStore.getState(), */
-/*     /1* allCookies: allCookies, *1/ */
-/*   }; */
-/* }; */
 
 export default MyApp;
