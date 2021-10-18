@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { imageServerUrl } from '~/config';
 import url from '~/services/url';
 import { IProduct } from '~/interfaces';
+import { part64 } from '~/services/base64';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,6 +87,8 @@ export default function ModelShopList(props: IProps) {
                         width={200}
                         height={170}
                         layout="responsive"
+                        blurDataURL={part64}
+                        placeholder="blur"
                       />
                     </div>
                     <div className={classes.name}>{product.name}</div>

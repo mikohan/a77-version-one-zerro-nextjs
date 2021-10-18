@@ -55,6 +55,8 @@ export const getServerSideProps = async ({ res }: any) => {
                     <url>${SITE_DOMAIN_FULL}/product/${
           p.slug
         }?utm_source=market.yandex.ru</url>
+                    <count>${p.stocks[0].quantity}</count>
+                    <period-of-validity-days>P2Y1M30D</period-of-validity-days>
                     <price>${p.stocks[0].price}</price>
                     <currencyId>RUR</currencyId>
                     <categoryId>${
