@@ -13,6 +13,7 @@ import { cartAddItem } from '~/store/cart/cartAction';
 import { IState } from '~/interfaces';
 import { ICartItem } from '~/store/cart/cartTypes';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
+import { part64 } from '~/services/base64';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -194,6 +195,8 @@ export default function ComplexGrid({ product, currentCar }: IProp) {
             height={245}
             src={imgPath}
             alt={product._source.full_name}
+            blurDataURL={part64}
+            placeholder="blur"
           />
         </a>
         <div className={classes.cardContent}>

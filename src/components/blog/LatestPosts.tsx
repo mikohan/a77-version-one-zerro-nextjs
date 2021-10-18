@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { IPost } from '~/interfaces';
 import { imageServerUrl } from '~/config';
 import url from '~/services/url';
+import { part64 } from '~/services/base64';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +63,8 @@ export default function LatestPosts({ posts }: IProps) {
                   layout="intrinsic"
                   width={120}
                   height={100}
+                  blurDataURL={part64}
+                  placeholder="blur"
                 />
               </Grid>
               <Grid item md={12} lg={6} xl={8} className={classes.content}>

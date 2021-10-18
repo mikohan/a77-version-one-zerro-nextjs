@@ -10,6 +10,7 @@ import { IProduct } from '~/interfaces/product';
 import { ICar } from '~/interfaces/ICar';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
 import { cartAddItem } from '~/store/cart/cartAction';
+import { part64 } from '~/services/base64';
 
 interface IProp {
   product: IProduct;
@@ -127,6 +128,8 @@ export default function ProductCardGrid({ product }: IProp) {
             className={classes.image}
             src={imgPath}
             alt={product.full_name}
+            blurDataURL={part64}
+            placeholder="blur"
           />
         </a>
       </Link>

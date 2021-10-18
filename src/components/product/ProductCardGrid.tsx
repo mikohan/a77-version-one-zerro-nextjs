@@ -14,6 +14,7 @@ import { cartAddItemSuccess } from '~/store/cart/cartAction';
 import Snackbar from '~/components/common/AddedToCartSnackBar';
 import { IState } from '~/interfaces';
 import { ICartItem } from '~/store/cart/cartTypes';
+import { part64 } from '~/services/base64';
 
 interface IProp {
   product: IProductElasticHitsSecond;
@@ -187,6 +188,8 @@ export default function ProductCardGrid({ product, currentCar }: IProp) {
             className={classes.image}
             src={imgPath}
             alt={product._source.full_name}
+            blurDataURL={part64}
+            placeholder="blur"
           />
         </a>
       </Link>
