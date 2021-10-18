@@ -38,8 +38,6 @@ interface IOil {
   categories: ICategory[];
 }
 
-const blurDataURL = banner64;
-
 export default function Oil(props: IOil) {
   const classes = useStyles();
   const { categories } = props;
@@ -99,7 +97,7 @@ export default function Oil(props: IOil) {
                           layout="responsive"
                           width={760}
                           height={145}
-                          blurDataURL={blurDataURL}
+                          blurDataURL={banner64}
                           placeholder="blur"
                           className={classes.img}
                         />
