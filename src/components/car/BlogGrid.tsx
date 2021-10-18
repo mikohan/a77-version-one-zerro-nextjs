@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { imageServerUrl } from '~/config';
 import { IPost } from '~/interfaces';
 import url from '~/services/url';
+import { part64 } from '~/services/base64';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +64,8 @@ export default function ModelShopList(props: IProps) {
                   layout="responsive"
                   width={200}
                   height={160}
+                  blurDataURL={part64}
+                  placeholder="blur"
                 />
                 <Typography
                   className={classes.title}
