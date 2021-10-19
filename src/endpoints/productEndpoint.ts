@@ -87,7 +87,7 @@ export async function getProductsByCarModel(
 export async function getProductsByFilters(
   finalUrl: string
 ): Promise<IProductElasticBase> {
-  const url = encodeURI(`${backServerUrl}/api/product/jsontest_v2${finalUrl}`);
+  const url = encodeURI(`${backServerUrl}/api/product/jsontest${finalUrl}`);
   const prom = await axios(url);
 
   return prom.data;
