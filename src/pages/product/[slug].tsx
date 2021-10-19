@@ -45,7 +45,8 @@ const SwiperProduct = dynamic(
 );
 
 const ResponsivePlayer = dynamic(
-  () => import('~/components/common/ResponsivePlayer')
+  () => import('~/components/common/ResponsivePlayer'),
+  { ssr: false }
 );
 const ProductPageHeader = dynamic(
   () => import('~/components/product/productPage/ProductPageHeader')

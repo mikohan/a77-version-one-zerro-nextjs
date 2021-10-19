@@ -1,12 +1,11 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 /* import AppBar from '~/components/header/AppBar'; */
 import '../../styles/MainLayoutStyles.module.scss';
 
-const Header = dynamic(() => import('~/components/header/Header'));
+import Header from '~/components/header/Header';
 
-const Footer = dynamic(() => import('~/components/footer/Footer2'));
+import Footer from '~/components/footer/Footer2';
 import theme from '~/theme';
 
 export default function MainLayout(props: any) {
