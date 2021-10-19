@@ -1,7 +1,6 @@
-import dynamic from 'next/dynamic';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 
-const ReactPlayer = dynamic(() => import('react-player'));
+import ReactPlayer from 'react-player';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
