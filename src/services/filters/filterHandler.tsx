@@ -220,6 +220,8 @@ export function makeHandleDeleteFilter(
     const newFilters = [...activeFilters];
     if (model) {
       makePushUrl(router, dispatch, newFilters, model, category);
+    } else if (!model && category) {
+      makePushUrl(router, dispatch, newFilters, undefined, category);
     } else if (search) {
       makePushUrl(router, dispatch, newFilters, undefined, undefined, search);
     }
@@ -237,6 +239,8 @@ export function makeHandleDeleteFilters(
     dispatch(shopResetFilters());
     if (model) {
       makePushUrl(router, dispatch, [], model, category);
+    } else if (!model && category) {
+      makePushUrl(router, dispatch, [], undefined, category);
     } else if (search) {
       makePushUrl(router, dispatch, [], undefined, undefined, search);
     }

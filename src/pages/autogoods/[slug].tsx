@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { Router } from 'next/dist/client/router';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -48,9 +48,9 @@ import {
 import { createCheckFilters } from '~/services/filters/filterCreater';
 // Added stuff for gh
 // import AnimationPage from '~/components/common/AnimationPage';
-const AnimationPage = dynamic(
-  () => import('~/components/common/AnimationPage')
-);
+/* const AnimationPage = dynamic( */
+/*   () => import('~/components/common/AnimationPage') */
+/* ); */
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -343,7 +343,7 @@ export const getServerSideProps: GetServerSideProps = async (
     catRet = cttt.children.length ? cttt.children : [];
   } catch (e) {
     catRet = null;
-    console.log('Fucks up in ', e);
+    console.log('Fucks up in category get serverside props ', e);
     return {
       notFound: true,
     };
