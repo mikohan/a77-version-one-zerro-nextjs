@@ -1,12 +1,9 @@
 import React from 'react';
 import { getProductsAll } from '~/endpoints/productEndpoint';
-import {
-  SITE_DOMAIN_FULL,
-  COMPANY_INFORMATION,
-  imageServerUrl,
-} from '~/config';
+import { SITE_DOMAIN_FULL, COMPANY_INFORMATION } from '~/config';
 import { capitalize } from '~/utils';
 import { stripHtml } from '~/utils';
+import { IProductElasticHitsSecond } from '~/interfaces';
 
 const Sitemap = () => {
   return <div>Yandex page</div>;
@@ -26,8 +23,14 @@ export const getServerSideProps = async ({ res }: any) => {
   let count = 0;
 
   let offer = '';
-  for (let [i, prod] of products.hits.hits.entries()) {
+  let prod: IProductElasticHitsSecond;
+  let i: number;
+  for ([i, prod] of products.hits.hits.entries()) {
+    /* console.log(prod[0], prod[1]); */
     const p = prod._source;
+    if (!p) {
+      continue;
+    }
 
     let brand = p.brand ? stripHtml(p.brand.name) : null;
     let vendorCode = `${p.cat_number}-${brand}`;
@@ -48,10 +51,10 @@ export const getServerSideProps = async ({ res }: any) => {
           }
           pictures += '<picture>' + img.img800 + '</picture>\n';
         }
-        offer += `<offer id="${p.id}">
-                    <name>${p.name} ${capitalize(
-          p.model[0].make.name
-        )} ${capitalize(p.model[0].name)}</name>
+        offer += `<offer id="${p.one_c_id}">
+                    <name>${p.name} ${
+          p.model.length && capitalize(p.model[0].make.name)
+        } ${p.model.length && capitalize(p.model[0].name!)}</name>
                     <url>${SITE_DOMAIN_FULL}/product/${
           p.slug
         }?utm_source=market.yandex.ru</url>
@@ -63,7 +66,9 @@ export const getServerSideProps = async ({ res }: any) => {
                       p.category[p.category.length - 1].id
                     }</categoryId>
                     ${pictures}
-                    <model>${capitalize(p.model[0].name)}</model>
+                    <model>${
+                      p.model.length && capitalize(p.model[0].name!)
+                    }</model>
                     <vendor>${brand}</vendor>
                     <vendorCode>${vendorCode}</vendorCode>
                     <description>${p.description}</description>
