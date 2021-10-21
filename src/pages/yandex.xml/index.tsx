@@ -23,6 +23,7 @@ export const getServerSideProps = async ({ res }: any) => {
   let offer = '';
   let prod: IProductElasticHitsSecond;
   let i: number;
+  let count = 0;
   for ([i, prod] of products.hits.hits.entries()) {
     /* console.log(prod[0], prod[1]); */
     const p = prod._source;
