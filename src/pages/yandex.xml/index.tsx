@@ -20,8 +20,6 @@ const delivery_cost = COMPANY_INFORMATION.DELIVERY_COST_FROM;
 export const getServerSideProps = async ({ res }: any) => {
   const products = await getProductsAll();
 
-  let count = 0;
-
   let offer = '';
   let prod: IProductElasticHitsSecond;
   let i: number;
@@ -34,6 +32,13 @@ export const getServerSideProps = async ({ res }: any) => {
 
     let brand = p.brand ? stripHtml(p.brand.name) : 'MOBIS';
     let vendorCode = `${p.cat_number}`;
+    const description = p.description
+      ? `<description>${p.description}</description>`
+      : '';
+    let quantity = p.stocks[0].quantity;
+    if (quantity === 0) {
+      quantity = 1;
+    }
 
     if (
       p.images &&
@@ -43,9 +48,6 @@ export const getServerSideProps = async ({ res }: any) => {
       p.category.length
     ) {
       if (p.stocks.length && p.stocks[0].price) {
-        const description = p.description
-          ? `<description>${p.description}</description>`
-          : '';
         let pictures = '';
         for (let [j, img] of p.images.entries()) {
           if (j >= 9) {
@@ -61,7 +63,7 @@ export const getServerSideProps = async ({ res }: any) => {
                     <url>${SITE_DOMAIN_FULL}/product/${
           p.slug
         }?utm_source=market.yandex.ru</url>
-                    <count>${p.stocks[0].quantity}</count>
+                    <count>${quantity}</count>
                     <period-of-validity-days>P2Y1M30D</period-of-validity-days>
                     <price>${p.stocks[0].price}</price>
                     <currencyId>RUR</currencyId>
