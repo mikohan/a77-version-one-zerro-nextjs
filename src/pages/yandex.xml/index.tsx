@@ -36,10 +36,6 @@ export const getServerSideProps = async ({ res }: any) => {
     const description = p.description
       ? `<description>${p.description}</description>`
       : '';
-    let quantity = p.stocks[0].quantity;
-    if (quantity === 0) {
-      quantity = 1;
-    }
 
     if (
       p.images &&
@@ -50,6 +46,8 @@ export const getServerSideProps = async ({ res }: any) => {
     ) {
       if (p.stocks.length && p.stocks[0].price) {
         let pictures = '';
+        let quantity = 1;
+        quantity = p.stocks[0].quantity;
         for (let [j, img] of p.images.entries()) {
           if (j >= 9) {
             continue;
