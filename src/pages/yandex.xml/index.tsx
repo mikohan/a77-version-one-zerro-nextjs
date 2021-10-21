@@ -32,8 +32,8 @@ export const getServerSideProps = async ({ res }: any) => {
       continue;
     }
 
-    let brand = p.brand ? stripHtml(p.brand.name) : null;
-    let vendorCode = `${p.cat_number}-${brand}`;
+    let brand = p.brand ? stripHtml(p.brand.name) : 'MOBIS';
+    let vendorCode = `${p.cat_number}`;
 
     if (
       p.images &&
@@ -43,6 +43,9 @@ export const getServerSideProps = async ({ res }: any) => {
       p.category.length
     ) {
       if (p.stocks.length && p.stocks[0].price) {
+        const description = p.description
+          ? `<description>${p.description}</description>`
+          : '';
         let pictures = '';
         for (let [j, img] of p.images.entries()) {
           if (j >= 9) {
@@ -71,7 +74,7 @@ export const getServerSideProps = async ({ res }: any) => {
                     }</model>
                     <vendor>${brand}</vendor>
                     <vendorCode>${vendorCode}</vendorCode>
-                    <description>${p.description}</description>
+                    ${description}
                     <dimensions>42/53/89</dimensions>
                     <weight>9.5</weight>
                     <delivery>true</delivery>
