@@ -114,7 +114,7 @@ function Model(props: IModelProps) {
 
   const modelName = capitalize(model.model);
   const makeName = capitalize(model.make.name);
-  const header = `Запчасти для ${makeName} ${modelName}`;
+  const header = `Каталог запчастей на ${makeName} ${modelName}`;
   const count: number = products.total.value;
   const breads: IBread[] = [
     { name: `${COMPANY_INFORMATION.COMPANY_NAME_ENG}`, path: '/' },

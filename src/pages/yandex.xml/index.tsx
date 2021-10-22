@@ -45,6 +45,7 @@ export const getServerSideProps = async ({ res }: any) => {
       p.category.length
     ) {
       if (p.stocks.length && p.stocks[0].price) {
+        let cat_to_xml = p.category[1].id;
         let pictures = '';
         let quantity = 1;
         quantity = p.stocks[0].quantity;
@@ -66,9 +67,7 @@ export const getServerSideProps = async ({ res }: any) => {
                     <period-of-validity-days>P2Y1M30D</period-of-validity-days>
                     <price>${p.stocks[0].price}</price>
                     <currencyId>RUR</currencyId>
-                    <categoryId>${
-                      p.category[p.category.length - 1].id
-                    }</categoryId>
+                    <categoryId>${cat_to_xml}</categoryId>
                     ${pictures}
                     <model>${
                       p.model.length && capitalize(p.model[0].name!)

@@ -42,16 +42,14 @@ export default function PageHeader({ header, breads, count }: IProps) {
         <Grid className={classes.breadsContainer} item xs={12}>
           <BreadCrumbs breadCrumbs={breads} />
         </Grid>
-        <Grid className={classes.pageHeader} item xs={12}>
-          <Typography variant="h1">
-            {header}
-            <Typography
-              className={classes.productCount}
-              component="span"
-              variant="body1"
-            >
-              {count && `${count} Запчастей на складе)`}
-            </Typography>
+        <Grid className={classes.pageHeader} alignItems="center" item xs={12}>
+          <Typography variant="h1">{header}</Typography>
+          <Typography
+            className={classes.productCount}
+            component="span"
+            variant="body1"
+          >
+            {count && `(${count} Запчастей на складе)`}
           </Typography>
         </Grid>
       </Grid>
