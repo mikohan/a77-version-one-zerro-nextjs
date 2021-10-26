@@ -7,12 +7,15 @@ import Link from 'next/link';
 import { IBread } from '~/interfaces';
 import { capitalize } from '~/utils';
 import { useRouter } from 'next/router';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
       justifyContent: 'start',
+      alignItems: 'center',
       flexWrap: 'wrap',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
@@ -38,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cursor: {
       cursor: 'pointer',
+      fontSize: '1.1rem',
     },
   })
 );
@@ -57,9 +61,9 @@ export default function BreadCrumbs({ breadCrumbs }: IProps) {
   return (
     <React.Fragment>
       <Box className={classes.container}>
-        <Box onClick={goBack} component="span" className={classes.cursor}>
-          Назад
-        </Box>
+        <Tooltip title="Назад">
+          <ArrowBackIcon onClick={goBack} className={classes.cursor} />
+        </Tooltip>
         <Box className={classes.slash} component="span">
           /
         </Box>
