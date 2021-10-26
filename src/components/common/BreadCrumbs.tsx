@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import Link from 'next/link';
 import { IBread } from '~/interfaces';
 import { capitalize } from '~/utils';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(0.5),
       color: theme.palette.grey[400],
     },
+    cursor: {
+      cursor: 'pointer',
+    },
   })
 );
 
@@ -44,10 +48,21 @@ interface IProps {
 
 export default function BreadCrumbs({ breadCrumbs }: IProps) {
   const classes = useStyles();
+  const router = useRouter();
+  /* const last_element = breadCrumbs[breadCrumbs.length - 1]; */
+  const goBack = () => {
+    router.back();
+  };
 
   return (
     <React.Fragment>
       <Box className={classes.container}>
+        <Box onClick={goBack} component="span" className={classes.cursor}>
+          Назад
+        </Box>
+        <Box className={classes.slash} component="span">
+          /
+        </Box>
         {breadCrumbs.map((item: IBread, i: number) => (
           <React.Fragment key={item.path}>
             <Box component="span">
@@ -70,3 +85,4 @@ export default function BreadCrumbs({ breadCrumbs }: IProps) {
     </React.Fragment>
   );
 }
+
