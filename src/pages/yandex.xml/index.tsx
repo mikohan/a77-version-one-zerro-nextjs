@@ -49,6 +49,9 @@ export const getServerSideProps = async ({ res }: any) => {
         let pictures = '';
         let quantity = 1;
         quantity = p.stocks[0].quantity;
+        if (!quantity || quantity <= 0) {
+          quantity = 1;
+        }
         for (let [j, img] of p.images.entries()) {
           if (j >= 9) {
             continue;
@@ -132,3 +135,4 @@ export const getServerSideProps = async ({ res }: any) => {
 };
 
 export default Sitemap;
+
