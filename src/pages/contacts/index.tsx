@@ -252,7 +252,7 @@ const AboutHead = () => {
   }));
   return (
     <Head>
-      <title key="title">Контакты | Angara Parts</title>
+      <title key="title">Контакты | {COMPANY_INFORMATION.COMPANY_NAME}</title>
       <meta
         key="description"
         name="description"
@@ -276,3 +276,4 @@ const AboutHead = () => {
     </Head>
   );
 };
+
