@@ -256,7 +256,7 @@ const AboutHead = () => {
       <meta
         key="description"
         name="description"
-        content={`Контакты Ангара Запчасти| ${footerData.SHOP_PHONE}. Информация о контактах и способах связи.`}
+        content={`Контакты Ангара Запчасти| ${COMPANY_INFORMATION.SHOP_PHONE}. Информация о контактах и способах связи.`}
       />
       <link
         rel="canonical"

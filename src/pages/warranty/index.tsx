@@ -190,7 +190,7 @@ export default function About({ google_key }: IProps) {
     </React.Fragment>
   );
 }
-export const getStaticProps: any = async (context: any) => {
+export const getStaticProps: any = async () => {
   const google_key = process.env.GOOGLE_MAPS_KEY;
 
   return {
@@ -209,11 +209,11 @@ const AboutHead = () => {
   }));
   return (
     <Head>
-      <title key="title">Гарантия | Angara Parts</title>
+      <title key="title">Гарантия | {COMPANY_INFORMATION.COMPANY_NAME}</title>
       <meta
         key="description"
         name="description"
-        content={`Ангара Запчасти | ${footerData.SHOP_PHONE}. Информация о Гарантии и условиях возврата.`}
+        content={`Ангара Запчасти | ${COMPANY_INFORMATION.SHOP_PHONE}. Информация о Гарантии и условиях возврата.`}
       />
       <link
         rel="canonical"
@@ -233,3 +233,4 @@ const AboutHead = () => {
     </Head>
   );
 };
+

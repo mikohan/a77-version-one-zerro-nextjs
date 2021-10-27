@@ -149,11 +149,11 @@ const AboutHead = () => {
   }));
   return (
     <Head>
-      <title key="title">Оплата | Angara Parts</title>
+      <title key="title">Оплата | {COMPANY_INFORMATION.COMPANY_NAME}</title>
       <meta
         key="description"
         name="description"
-        content={`Способы оплаты Ангара Запчасти | ${footerData.SHOP_PHONE}. Информация о способах оплаты.`}
+        content={`Способы оплаты Ангара Запчасти | ${COMPANY_INFORMATION.SHOP_PHONE}. Информация о способах оплаты.`}
       />
       <link
         rel="canonical"
@@ -173,3 +173,4 @@ const AboutHead = () => {
     </Head>
   );
 };
+

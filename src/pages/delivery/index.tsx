@@ -182,11 +182,11 @@ const AboutHead = () => {
   }));
   return (
     <Head>
-      <title key="title">Доставка | Angara Parts</title>
+      <title key="title">Доставка | {COMPANY_INFORMATION.SHOP_PHONE}</title>
       <meta
         key="description"
         name="description"
-        content={`Доставка компании Ангара Запчасти | ${footerData.SHOP_PHONE}. Информация о способах и стоимости доставки по Москве и в регионы`}
+        content={`Доставка компании Ангара Запчасти | ${COMPANY_INFORMATION.SHOP_PHONE}. Информация о способах и стоимости доставки по Москве и в регионы`}
       />
       <link
         rel="canonical"
@@ -206,3 +206,4 @@ const AboutHead = () => {
     </Head>
   );
 };
+

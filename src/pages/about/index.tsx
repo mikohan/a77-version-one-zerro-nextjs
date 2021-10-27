@@ -248,12 +248,11 @@ const AboutHead = () => {
   }));
   return (
     <Head>
-      <title key="title">О Компании | Angara Parts</title>
+      <title key="title">О Компании | {COMPANY_INFORMATION.COMPANY_NAME}</title>
       <meta
         key="description"
         name="description"
-        content={`Angara 77 | ${footerData.SHOP_PHONE} Information about our
-          company and history of establishment. We are open our dors in 2001 first time`}
+        content={`Angara 77 | ${COMPANY_INFORMATION.SHOP_PHONE} | Продажа автозапчастей для грузовых и легковых автомобилей, спецтехники, мотоциклов.`}
       />
       <link
         rel="canonical"
@@ -273,3 +272,4 @@ const AboutHead = () => {
     </Head>
   );
 };
+

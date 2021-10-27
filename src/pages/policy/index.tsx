@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import AnimationPage from '~/components/common/AnimationPage';
-import { COMPANY_INFORMATION, footerData, SITE_DOMAIN_FULL } from '~/config';
+import { COMPANY_INFORMATION, SITE_DOMAIN_FULL } from '~/config';
 import { Grid, Typography, Paper } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { getPage } from '~/endpoints/blogEndpoint';
@@ -85,7 +85,7 @@ export default function About({ page }: IProps) {
     </React.Fragment>
   );
 }
-export const getStaticProps: any = async (context: any) => {
+export const getStaticProps: any = async () => {
   const page = await getPage('politika-konfidentsialnosti');
 
   return {
@@ -104,11 +104,13 @@ const AboutHead = () => {
   }));
   return (
     <Head>
-      <title key="title">Политика конфиденциальности | Angara Parts</title>
+      <title key="title">
+        Политика конфиденциальности | {COMPANY_INFORMATION.COMPANY_NAME}
+      </title>
       <meta
         key="description"
         name="description"
-        content={`Политика конфиденциальности компании Ангара Запчасти | ${footerData.SHOP_PHONE}`}
+        content={`Политика конфиденциальности компании Ангара Запчасти | ${COMPANY_INFORMATION.SHOP_PHONE}`}
       />
       <link
         rel="canonical"
@@ -128,3 +130,4 @@ const AboutHead = () => {
     </Head>
   );
 };
+
