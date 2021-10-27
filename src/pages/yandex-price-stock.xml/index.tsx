@@ -45,12 +45,13 @@ export const getServerSideProps = async ({ res }: any) => {
         } catch (e) {
           quantity = 1;
         }
+        const price = p.stocks.length ? p.stocks[0].price : 0;
         if (quantity == 0) {
           quantity = 1;
         }
         offer += `<offer id="${p.one_c_id}">
                     <count>${quantity}</count>
-                    <price>${p.stocks[0].price}</price>
+                    <price>${price}</price>
                     <currencyId>RUR</currencyId>
                 </offer>\n`;
         count++;
@@ -86,3 +87,4 @@ export const getServerSideProps = async ({ res }: any) => {
 };
 
 export default Sitemap;
+
