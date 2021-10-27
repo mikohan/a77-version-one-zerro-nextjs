@@ -109,9 +109,9 @@ export const getServerSideProps = async ({ res }: any) => {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <yml_catalog date="${current}">
         <shop>
-            <name>Ангара</name>
+            <name>PartsHub</name>
             <company>Запчасти для грузовиков и автобусов</company>
-            <url>https://angara77.com</url>
+            <url>https://partshub.ru</url>
             <currencies>
                 <currency id="RUR" rate="1"/>
             </currencies>
