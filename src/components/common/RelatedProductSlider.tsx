@@ -22,6 +22,7 @@ import { part64 } from '~/services/base64';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     swiperContainer: {
+      width: '100%',
       '& > div': {
         color: theme.palette.primary.main,
       },
@@ -74,12 +75,12 @@ export default function Swipper({ products }: IProps) {
     for (let i = 0; i < 10; i += 1) {
       slides.push(
         <SwiperSlide key={i + 1}>
-          <Box style={{ width: 300, height: 500 }}>
+          <Box style={{ width: 200, height: 300 }}>
             <Image
               layout="responsive"
-              width={400}
-              height={250}
-              src={`https://picsum.photos/id/${i + 1}/500/300`}
+              width={200}
+              height={120}
+              src={`/images/local/defaultParts245.jpg`}
               blurDataURL={part64}
               placeholder="blur"
             />
@@ -91,7 +92,7 @@ export default function Swipper({ products }: IProps) {
 
   return (
     <React.Fragment>
-      <Grid container item xs={12}>
+      <Grid container item xs={12} style={{ border: '1px solid pink' }}>
         <Swiper
           className={classes.swiperContainer}
           id="main"
@@ -105,3 +106,4 @@ export default function Swipper({ products }: IProps) {
     </React.Fragment>
   );
 }
+

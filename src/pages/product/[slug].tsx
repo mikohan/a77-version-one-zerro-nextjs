@@ -210,35 +210,6 @@ export default function ProductPage({
   const togetherProducts: IProduct[] =
     product.related && product.related.length ? product.related : [];
 
-  const PopularParts = () => {
-    return (
-      <React.Fragment>
-        <Grid item className={classes.tabs} xs={12}>
-          <Typography variant="h6">Популярные запчасти</Typography>
-        </Grid>
-        <Grid item className={classes.tabs} xs={12}>
-          <Box>
-            <RelatedProductSlider products={relatedProducts} />
-          </Box>
-        </Grid>
-      </React.Fragment>
-    );
-  };
-
-  const SimilarProducts = () => {
-    return (
-      <React.Fragment>
-        <Grid item className={classes.tabs} xs={12}>
-          <Typography variant="h6">Похожие запчасти</Typography>
-        </Grid>
-        <Grid item className={classes.tabs} xs={12}>
-          <Box>
-            <RelatedProductSlider products={productSimilar} />
-          </Box>
-        </Grid>
-      </React.Fragment>
-    );
-  };
   const TogetherProducts = () => {
     return (
       <React.Fragment>
@@ -313,18 +284,20 @@ export default function ProductPage({
               </Paper>
             </Grid>
             <Divider />
-            <Hidden smDown>
-              {similar && similar.length ? <SimilarProducts /> : ''}
-              {relatedProducts && relatedProducts.length ? (
-                <React.Fragment>
-                  <Divider />
-                  <PopularParts />
-                </React.Fragment>
-              ) : (
-                ''
-              )}
-            </Hidden>
           </Grid>
+          <Hidden smDown>
+            {productSimilar && (
+              <React.Fragment>
+                <Divider />
+                <Grid container item xs={12}>
+                  <Typography className={classes.mayLike} variant="h6">
+                    Вам может понравиться
+                  </Typography>
+                  <ProductGrid products={productSimilar} />
+                </Grid>
+              </React.Fragment>
+            )}
+          </Hidden>
           <Hidden smDown>
             {productsToPost && (
               <React.Fragment>
@@ -453,3 +426,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: paths,
   };
 };
+
