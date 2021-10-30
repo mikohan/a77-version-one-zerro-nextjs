@@ -291,7 +291,7 @@ export default function ProductPage({
                 <Divider />
                 <Grid container item xs={12}>
                   <Typography className={classes.mayLike} variant="h6">
-                    Вам может понравиться
+                    Похожие запчасти
                   </Typography>
                   <ProductGrid products={productSimilar} />
                 </Grid>
