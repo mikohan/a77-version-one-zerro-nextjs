@@ -165,20 +165,20 @@ const LoginFormPaper = () => {
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
 
-  function handleEmail(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-  }
+  };
   function handlePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
   }
 
-  function handleLogin() {
+  const handleLogin = () => {
     dispatch(login(email, password));
-  }
-  function handleSubmit(e: React.FormEvent) {
+  };
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleLogin();
-  }
+  };
 
   return (
     <Paper>
