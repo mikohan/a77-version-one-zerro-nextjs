@@ -113,7 +113,6 @@ export const loadUser = () => async (
 };
 
 // USER login
-
 export const login = (email: string, password: string) => async (
   dispatch: ThunkDispatch<IState, void, IUserAction>
 ) => {

@@ -172,9 +172,9 @@ const LoginFormPaper = () => {
   function handleLogin() {
     dispatch(login(email, password));
   }
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    handleLogin();
+    await handleLogin();
   }
 
   return (
