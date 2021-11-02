@@ -13,17 +13,17 @@ import rootReducer from './reducers';
 const middleware = [thunk];
 
 function initStore(preloadedState = initialState) {
-  if (LOCAL) {
+  if (process.env.production) {
     return createStore(
       rootReducer,
       preloadedState,
-      composeWithDevTools(applyMiddleware(...middleware))
+      applyMiddleware(...middleware)
     );
   } else {
     return createStore(
       rootReducer,
       preloadedState,
-      applyMiddleware(...middleware)
+      composeWithDevTools(applyMiddleware(...middleware))
     );
   }
 }
