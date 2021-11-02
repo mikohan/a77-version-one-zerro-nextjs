@@ -13,7 +13,7 @@ import rootReducer from './reducers';
 const middleware = [thunk];
 
 function initStore(preloadedState = initialState) {
-  if (process.env.production) {
+  if (process.env.NODE_ENV === 'production') {
     return createStore(
       rootReducer,
       preloadedState,
