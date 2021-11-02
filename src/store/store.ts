@@ -20,7 +20,11 @@ function initStore(preloadedState = initialState) {
       composeWithDevTools(applyMiddleware(...middleware))
     );
   } else {
-    return createStore(rootReducer, preloadedState);
+    return createStore(
+      rootReducer,
+      preloadedState,
+      applyMiddleware(...middleware)
+    );
   }
 }
 
@@ -52,3 +56,4 @@ export function useStore(initialState: any) {
 //   composeWithDevTools(applyMiddleware(...middleware))
 // );
 // export default store;
+
