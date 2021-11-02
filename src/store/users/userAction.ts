@@ -122,7 +122,6 @@ export const login = (email: string, password: string) => async (
   try {
     const res = await axios.post(urlAxios, body);
     const result = await res.data.data;
-    console.log(result);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: result,
@@ -139,9 +138,6 @@ export const login = (email: string, password: string) => async (
       payload: null,
     });
   }
-  return {
-    type: USER_LOGIN_SUCCESS,
-  };
 };
 
 export function googleLoginAction(access: string, refresh: string) {

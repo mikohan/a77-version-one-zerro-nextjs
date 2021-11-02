@@ -11,6 +11,7 @@ import {
   TextField,
   Box,
 } from '@material-ui/core';
+import NoSsr from '@material-ui/core/NoSsr';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { login } from '~/store/users/userAction';
 import { useDispatch } from 'react-redux';
@@ -125,7 +126,9 @@ export default function Register() {
               <BreadCrumbs breadCrumbs={breadCrumbs} />
             </Grid>
             <Grid className={classes.sideGrid} item xs={8}>
-              <LoginFormPaper />
+              <NoSsr>
+                <LoginFormPaper />
+              </NoSsr>
             </Grid>
             <Grid item xs={4}>
               <Paper className={classes.paper}>
