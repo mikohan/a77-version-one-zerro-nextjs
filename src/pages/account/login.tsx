@@ -172,9 +172,9 @@ const LoginFormPaper = () => {
   function handleLogin() {
     dispatch(login(email, password));
   }
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await handleLogin();
+    handleLogin();
   }
 
   return (
@@ -183,7 +183,7 @@ const LoginFormPaper = () => {
         <Grid item xs={12}>
           <Typography variant="h6">Зарегестрированы? Войти.</Typography>
         </Grid>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleLogin}>
           <Grid
             className={classes.textFieldGrid}
             item
@@ -248,7 +248,7 @@ const LoginFormPaper = () => {
               variant="contained"
               color="primary"
               type="submit"
-              onClick={handleLogin}
+              onClick={handleSubmit}
             >
               Войти
             </Button>

@@ -139,6 +139,9 @@ export const login = (email: string, password: string) => async (
       payload: null,
     });
   }
+  return {
+    type: USER_LOGIN_SUCCESS,
+  };
 };
 
 export function googleLoginAction(access: string, refresh: string) {
