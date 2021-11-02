@@ -297,3 +297,4 @@ const RegisterHead = () => (
     <link rel="canonical" key="canonical" href={`${SITE_DOMAIN_FULL}/about`} />
   </Head>
 );
+

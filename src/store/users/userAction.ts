@@ -122,14 +122,15 @@ export const login = (email: string, password: string) => async (
   const urlAxios = `${backServerUrl}/auth/login/`;
   try {
     const res = await axios.post(urlAxios, body);
-    const result = res.data.data;
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: result,
+    res.data.data.then((result: any) => {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: result,
+      });
+      dispatch(errorAction(null));
+      dispatch(successMessageAction(res.data));
+      Router.push(url.account.dashboard());
     });
-    dispatch(errorAction(null));
-    dispatch(successMessageAction(res.data));
-    Router.push(url.account.dashboard());
   } catch (e: any) {
     dispatch(errorAction(e.response.data.errors));
     dispatch(successMessageAction(null));
@@ -319,3 +320,4 @@ export const resetPasswordConfirm = (
     });
   }
 };
+
