@@ -49,6 +49,7 @@ export const getServerSideProps = async ({ res }: any) => {
         if (quantity == 0) {
           quantity = 1;
         }
+        quantity = quantity + 2;
         offer += `<offer id="${p.one_c_id}">
                     <count>${quantity}</count>
                     <price>${price}</price>
