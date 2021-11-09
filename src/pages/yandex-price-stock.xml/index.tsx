@@ -1,8 +1,5 @@
 import React from 'react';
 import { getProductsAll } from '~/endpoints/productEndpoint';
-import { SITE_DOMAIN_FULL, COMPANY_INFORMATION } from '~/config';
-import { capitalize } from '~/utils';
-import { stripHtml } from '~/utils';
 import { IProductElasticHitsSecond } from '~/interfaces';
 
 const Sitemap = () => {
@@ -15,7 +12,6 @@ const formatedTimestamp = () => {
   return `${date} ${time}`;
 };
 const current = formatedTimestamp();
-const delivery_cost = COMPANY_INFORMATION.DELIVERY_COST_FROM;
 
 export const getServerSideProps = async ({ res }: any) => {
   const products = await getProductsAll();
