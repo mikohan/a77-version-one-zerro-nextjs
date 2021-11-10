@@ -55,6 +55,16 @@ export const getServerSideProps = async ({ res }: any) => {
       }
     }
   }
+        offer +=`<offer id="fedor00001">
+                    <count>20</count>
+                    <price>13070</price>
+                    <currencyId>RUR</currencyId>
+                </offer>\n`;  
+        offer +=`<offer id="fedor00002">
+                    <count>20</count>
+                    <price>10895</price>
+                    <currencyId>RUR</currencyId>
+                </offer>\n`;  
 
   console.log('Total products in yandex: ', count);
 
