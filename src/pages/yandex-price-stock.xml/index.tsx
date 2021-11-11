@@ -1,6 +1,6 @@
 import React from 'react';
 import { getProductsAll } from '~/endpoints/productEndpoint';
-import { IProductElasticHitsSecond } from '~/interfaces';
+import { IProductElasticHitsSecond, IProduct } from '~/interfaces';
 
 const Sitemap = () => {
   return <div>Yandex page</div>;
@@ -12,6 +12,16 @@ const formatedTimestamp = () => {
   return `${date} ${time}`;
 };
 const current = formatedTimestamp();
+
+const createCount = (product: IProduct) => {
+  let count = 0;
+  if (maslo_lst.includes(parseInt(product.one_c_id))) {
+    count = 100;
+  } else {
+    count = product.stocks[0].quantity;
+  }
+  return count;
+};
 
 export const getServerSideProps = async ({ res }: any) => {
   const products = await getProductsAll();
@@ -35,17 +45,18 @@ export const getServerSideProps = async ({ res }: any) => {
       p.category.length
     ) {
       if (p.stocks.length && p.stocks[0].price) {
-        let quantity = 1;
+        let quantity = 0;
         try {
-          quantity = p.stocks[0].quantity;
+          quantity = createCount(p);
         } catch (e) {
-          quantity = 1;
+          quantity = 0;
         }
         const price = p.stocks.length ? p.stocks[0].price : 0;
-        if (quantity == 0) {
-          quantity = 1;
-        }
-        quantity = quantity + 20;
+        /* if (quantity == 0) { */
+        /*   quantity = 1; */
+        /* } */
+        /* quantity = quantity + 20; */
+
         offer += `<offer id="${p.one_c_id}">
                     <count>${quantity}</count>
                     <price>${price}</price>
@@ -55,16 +66,16 @@ export const getServerSideProps = async ({ res }: any) => {
       }
     }
   }
-        offer +=`<offer id="fedor00001">
+  offer += `<offer id="fedor00001">
                     <count>20</count>
                     <price>13070</price>
                     <currencyId>RUR</currencyId>
-                </offer>\n`;  
-        offer +=`<offer id="fedor00002">
+                </offer>\n`;
+  offer += `<offer id="fedor00002">
                     <count>20</count>
                     <price>10895</price>
                     <currencyId>RUR</currencyId>
-                </offer>\n`;  
+                </offer>\n`;
 
   console.log('Total products in yandex: ', count);
 
@@ -95,3 +106,65 @@ export const getServerSideProps = async ({ res }: any) => {
 
 export default Sitemap;
 
+const maslo_lst = [
+  24962,
+  25508,
+  3226,
+  25332,
+  24684,
+  24700,
+  16567,
+  23850,
+  24352,
+  16330,
+  16683,
+  16674,
+  23048,
+  14569,
+  24821,
+  24628,
+  14567,
+  24813,
+  24740,
+  25469,
+  22752,
+  22641,
+  24644,
+  11145,
+  24549,
+  23714,
+  11189,
+  23715,
+  15768,
+  15791,
+  24260,
+  23318,
+  24698,
+  15803,
+  23853,
+  24194,
+  3615,
+  25305,
+  23704,
+  24094,
+  25486,
+  25087,
+  25467,
+  25489,
+  25487,
+  23780,
+  23781,
+  25429,
+  25088,
+  25482,
+  25483,
+  25485,
+  25484,
+  25481,
+  24859,
+  23463,
+  24861,
+  24862,
+  25453,
+  3434,
+];
