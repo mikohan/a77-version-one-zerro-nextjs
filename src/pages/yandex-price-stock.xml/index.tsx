@@ -16,7 +16,7 @@ const current = formatedTimestamp();
 const createCount = (product: IProduct) => {
   let count = 0;
   if (maslo_lst.includes(parseInt(product.one_c_id))) {
-    count = 100;
+    count = 10;
   } else {
     count = product.stocks[0].quantity;
   }
@@ -32,8 +32,15 @@ export const getServerSideProps = async ({ res }: any) => {
   let count = 0;
   for ([i, prod] of products.hits.hits.entries()) {
     /* console.log(prod[0], prod[1]); */
+    console.log(prod._source.name);
     const p = prod._source;
     if (!p) {
+      continue;
+    }
+    if (
+      p.name.toLowerCase().includes('стекло') &&
+      p.name.toLowerCase().includes('лобовое')
+    ) {
       continue;
     }
 
@@ -52,10 +59,6 @@ export const getServerSideProps = async ({ res }: any) => {
           quantity = 0;
         }
         const price = p.stocks.length ? p.stocks[0].price : 0;
-        /* if (quantity == 0) { */
-        /*   quantity = 1; */
-        /* } */
-        /* quantity = quantity + 20; */
 
         offer += `<offer id="${p.one_c_id}">
                     <count>${quantity}</count>
@@ -107,64 +110,10 @@ export const getServerSideProps = async ({ res }: any) => {
 export default Sitemap;
 
 const maslo_lst = [
-  24962,
-  25508,
-  3226,
-  25332,
-  24684,
-  24700,
-  16567,
-  23850,
-  24352,
-  16330,
-  16683,
-  16674,
-  23048,
-  14569,
-  24821,
-  24628,
-  14567,
-  24813,
-  24740,
-  25469,
-  22752,
-  22641,
-  24644,
-  11145,
-  24549,
-  23714,
-  11189,
-  23715,
-  15768,
-  15791,
-  24260,
-  23318,
-  24698,
-  15803,
-  23853,
-  24194,
-  3615,
-  25305,
-  23704,
-  24094,
-  25486,
-  25087,
-  25467,
-  25489,
-  25487,
-  23780,
-  23781,
-  25429,
-  25088,
-  25482,
-  25483,
-  25485,
-  25484,
-  25481,
-  24859,
-  23463,
-  24861,
-  24862,
-  25453,
-  3434,
+  24962, 25508, 3226, 25332, 24684, 24700, 16567, 23850, 24352, 16330, 16683,
+  16674, 23048, 14569, 24821, 24628, 14567, 24813, 24740, 25469, 22752, 22641,
+  24644, 11145, 24549, 23714, 11189, 23715, 15768, 15791, 24260, 23318, 24698,
+  15803, 23853, 24194, 3615, 25305, 23704, 24094, 25486, 25087, 25467, 25489,
+  25487, 23780, 23781, 25429, 25088, 25482, 25483, 25485, 25484, 25481, 24859,
+  23463, 24861, 24862, 25453, 3434,
 ];
