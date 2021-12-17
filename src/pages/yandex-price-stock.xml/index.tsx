@@ -61,6 +61,7 @@ export const getServerSideProps = async ({ res }: any) => {
         const price = p.stocks.length ? p.stocks[0].price : 0;
 
         offer += `<offer id="${p.one_c_id}">
+                    <availability>yes</availability>
                     <count>${quantity}</count>
                     <price>${price}</price>
                     <currencyId>RUR</currencyId>
@@ -76,6 +77,7 @@ export const getServerSideProps = async ({ res }: any) => {
                     <currencyId>RUR</currencyId>
                 </offer>\n`;
   offer += `<offer id="fedor00002">
+                    <availability>yes</availability>
                     <count>20</count>
                     <price>10895</price>
                     <currencyId>RUR</currencyId>
