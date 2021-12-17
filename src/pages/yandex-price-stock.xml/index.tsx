@@ -5,13 +5,6 @@ import { IProductElasticHitsSecond, IProduct } from '~/interfaces';
 const Sitemap = () => {
   return <div>Yandex page</div>;
 };
-const formatedTimestamp = () => {
-  const d = new Date();
-  const date = d.toISOString().split('T')[0];
-  const time = d.toTimeString().split(' ')[0];
-  return `${date} ${time}`;
-};
-const current = formatedTimestamp();
 
 const createCount = (product: IProduct) => {
   let count = 0;
@@ -24,6 +17,13 @@ const createCount = (product: IProduct) => {
 };
 
 export const getServerSideProps = async ({ res }: any) => {
+  const formatedTimestamp = () => {
+    const d = new Date();
+    const date = d.toISOString().split('T')[0];
+    const time = d.toTimeString().split(' ')[0];
+    return `${date} ${time}`;
+  };
+  const current = formatedTimestamp();
   const products = await getProductsAll();
 
   let offer = '';
@@ -32,7 +32,7 @@ export const getServerSideProps = async ({ res }: any) => {
   let count = 0;
   for ([i, prod] of products.hits.hits.entries()) {
     /* console.log(prod[0], prod[1]); */
-    console.log(prod._source.name);
+
     const p = prod._source;
     if (!p) {
       continue;
@@ -70,6 +70,7 @@ export const getServerSideProps = async ({ res }: any) => {
     }
   }
   offer += `<offer id="fedor00001">
+                    <availability>yes</availability>
                     <count>20</count>
                     <price>13070</price>
                     <currencyId>RUR</currencyId>
