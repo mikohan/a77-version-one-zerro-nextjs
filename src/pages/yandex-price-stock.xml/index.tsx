@@ -59,6 +59,9 @@ export const getServerSideProps = async ({ res }: any) => {
           quantity = 0;
         }
         const price = p.stocks.length ? p.stocks[0].price : 0;
+        if (price < 100) {
+          quantity = 0;
+        }
 
         offer += `<offer id="${p.one_c_id}">
                     <availability>yes</availability>
