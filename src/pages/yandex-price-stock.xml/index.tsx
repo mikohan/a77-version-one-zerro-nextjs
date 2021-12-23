@@ -55,6 +55,10 @@ export const getServerSideProps = async ({ res }: any) => {
         let quantity = 0;
         try {
           quantity = createCount(p);
+          // Changed here check it in future
+          if (p.name.toLowerCase().includes('бампер')) {
+            quantity = 0;
+          }
         } catch (e) {
           quantity = 0;
         }
