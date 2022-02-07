@@ -66,7 +66,7 @@ export const getServerSideProps = async ({ res }: any) => {
         if (price < 100) {
           quantity = 0;
         }
-
+        // added some comment
         offer += `<offer id="${p.one_c_id}">
                     <availability>yes</availability>
                     <count>${quantity}</count>
