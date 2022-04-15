@@ -160,7 +160,7 @@ export const COMPANY_INFORMATION = {
   COMPANY_WEBSITE: 'partshub.ru',
   COMPANY_NAME_ENG: 'PartsHub',
   COMPANY_NAME_LOGO: 'PARTSHUB',
-  SHOP_PHONE: '+7 (495) 201-87-85',
+  SHOP_PHONE: '+7 (495) 777-93-75',
   SHOP_PHONE_TWO: '+7 (495) 777-93-75',
   SHOP_PHONE_THREE: '+7 (926) 515-38-74',
   SHOP_ADDRESS: 'г. Москва, Соловьиная Роща дoм 8 корпус 2',
