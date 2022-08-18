@@ -287,12 +287,6 @@ export default function StickyFooter() {
                       <div></div>
                     </a>
                   </Link>
-                  <Link href="https://www.facebook.com/groups/angara77/">
-                    <a rel="noopener noreferrer" target="_blank">
-                      <img src="/images/local/fb.svg" alt="Facebook icon" />
-                      <div></div>
-                    </a>
-                  </Link>
                 </div>
               </div>
             </div>
