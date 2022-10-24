@@ -191,7 +191,7 @@ export default function About({ google_key }: IProps) {
   );
 }
 export const getStaticProps: any = async () => {
-  const google_key = process.env.GOOGLE_MAPS_KEY;
+  const google_key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
   return {
     props: {

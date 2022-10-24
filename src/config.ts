@@ -5,14 +5,12 @@ import {
   imageServerUrl,
   SITE_DOMAIN_FULL,
   YANDEX_CREDENTIALS,
-  LOCAL,
 } from '~/config_local';
 export {
   backServerUrl,
   imageServerUrl,
   SITE_DOMAIN_FULL,
   YANDEX_CREDENTIALS,
-  LOCAL,
 };
 
 // Edn of server conf
@@ -23,37 +21,36 @@ export const autocompleteUrls = {
   string: `${backServerUrl}/api/product/autocomplete`,
 };
 
-export const apiUrl = 'http://localhost:8000/testcategory/';
+export const apiUrl = `{backServerUrl}/testcategory/`;
 export const elasticApiUrl = `${backServerUrl}/api/product/jsontest`;
 export const elasticApiSearchUrl = `${backServerUrl}/api/product/searchapi`;
 // export const elasticApiUrl = 'http://192.168.0.109:8000/api/product/jsontest';
 
 export const vehiclesUrl = `${apiUrl}testproducts/vehicles/`;
-// export const vehiclesUrl = `http://localhost:8000/api/product/getcarmodelsiteall/`;
+// export const vehiclesUrl = `{backServerUrl}/api/product/getcarmodelsiteall/`;
 
-export const productUrl = `http://localhost:8000/testcategory/testproducts/testproducts/`;
+export const productUrl = `{backServerUrl}/testcategory/testproducts/testproducts/`;
 
 // This url getting all categories from API in flat fashon only one level of parent present
 // Then category by slug will be taken from that url
-// export const categoriesUrl = `http://localhost:8000/testcategory/testcategories/`;
-export const categoriesUrl = 'http://localhost:8000/api/product/a77categories/';
-export const getModelsByMakeUrl =
-  'http://localhost:8000/testcategory/testmodels/';
+// export const categoriesUrl = `{backServerUrl}/testcategory/testcategories/`;
+export const categoriesUrl = `{backServerUrl}/api/product/a77categories/`;
+export const getModelsByMakeUrl = `{backServerUrl}/testcategory/testmodels/`;
 
-export const makesUrl = 'http://localhost:8000/testcategory/testmakes/';
+export const makesUrl = `{backServerUrl}/testcategory/testmakes/`;
 
 export const cagegoriesUrl =
-  'http://localhost:8000/testcategory/categories-for-testes/';
+  `{backServerUrl}/testcategory/categories-for-testes/`;
 
 // export const getCategoryBySlugUrl =
-//  'http://localhost:8000/testcategory/testcategory/';
+//  '{backServerUrl}/testcategory/testcategory/';
 //Here starts account endpoints
 
 export const userAddressesListUrl = `${backServerUrlRest}/api/user/addresses/`;
 export const userRegisterUrl = `${backServerUrlRest}/api/rest-auth/registration/`;
 
 export const getCategoryBySlugUrl =
-  'http://localhost:8000/api/product/a77category/';
+  `{backServerUrl}/api/product/a77category/`;
 
 export const REVALIDATE: number = 20; // Revalidate time for all pages in seconds
 
