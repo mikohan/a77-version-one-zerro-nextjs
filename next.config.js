@@ -9,6 +9,8 @@ module.exports = withBundleAnalyzer({
       'angara77.ru',
       'angara77.ml',
       'angara77.com',
+      'angara77.ga',
+      '0.0.0.0'
     ],
   },
   crossOrigin: 'anonymous',

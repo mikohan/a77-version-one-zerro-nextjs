@@ -51,6 +51,8 @@ function flatten(items: any): any {
 export default function CarModelGrid({ items, car, parts }: IProps) {
   const classes = useStyles();
   let catZapEight: any = [];
+console.log(items)
+try {
   if (parts) {
     catZapEight = items[0].children
       .filter((cat: any) => cat.children.length > 3)
@@ -65,6 +67,13 @@ export default function CarModelGrid({ items, car, parts }: IProps) {
       };
     });
   }
+  
+} catch (error) {
+  console.error(error)
+  
+}
+
+
 
   return (
     <React.Fragment>
