@@ -51,7 +51,6 @@ function flatten(items: any): any {
 export default function CarModelGrid({ items, car, parts }: IProps) {
   const classes = useStyles();
   let catZapEight: any = [];
-console.log(items)
 try {
   if (parts) {
     catZapEight = items[0].children
