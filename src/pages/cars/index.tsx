@@ -135,5 +135,10 @@ export const getStaticProps: GetStaticProps = async (
   const latestProds = await getLatestProducts(20);
   const latestProducts = translateProducts(latestProds.hits.hits);
 
-  return { props: { posts, models, latestProducts } };
+  return {
+    props: {
+       posts,
+      models, latestProducts
+    }
+  };
 };

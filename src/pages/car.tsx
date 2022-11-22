@@ -65,7 +65,7 @@ function Car(props: ICarProps) {
   const { makes, popularMakes, latestPosts, products } = props;
 
   const breads: IBread[] = [
-    { name: 'Ангара77', path: '/' },
+    { name: 'Partshub', path: '/' },
     { name: 'Машины', path: url.cars() },
   ];
   return (
@@ -124,18 +124,18 @@ export const getStaticProps: GetServerSideProps = async () => {
     return false;
   });
 
-  const latestPosts = await getPosts(6);
-  const productsByTags = await getProductsByTagOrTags('двигатель', 30);
-  const productsToPost: IProduct[] = translateProducts(
-    productsByTags.hits.hits
-  );
+  // const latestPosts = await getPosts(6);
+  // const productsByTags = await getProductsByTagOrTags('двигатель', 30);
+  // const productsToPost: IProduct[] = translateProducts(
+    // productsByTags.hits.hits
+  //);
 
   return {
     props: {
-      makes: sortedMakes,
-      popularMakes,
-      latestPosts,
-      products: productsToPost,
+      // makes: sortedMakes,
+      // popularMakes,
+      // latestPosts,
+      // products: productsToPost,
     },
   };
 };
