@@ -155,12 +155,6 @@ function MyApp(props: any) {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>My page</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
         <Script
           id='yandex-metrika'
           strategy="afterInteractive"
@@ -180,6 +174,12 @@ function MyApp(props: any) {
             });
             `,
           }}
+        />
+      <Head>
+        <title>My page</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
       <CookiesProvider>
