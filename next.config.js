@@ -10,7 +10,8 @@ module.exports = withBundleAnalyzer({
       'angara77.ml',
       'angara77.com',
       'angara77.ga',
-      '0.0.0.0'
+      '0.0.0.0',
+      'cdn2.angara77.ru'
     ],
   },
   crossOrigin: 'anonymous',
