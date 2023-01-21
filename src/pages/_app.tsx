@@ -181,6 +181,7 @@ function MyApp(props: any) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <meta name="yandex-verification" content="158cff6ecc0fc83d" />
       </Head>
       <CookiesProvider>
         <Provider store={store}>
