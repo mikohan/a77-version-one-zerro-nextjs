@@ -8,8 +8,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 55.89152,
-  lng: 37.402525,
+  lat: 55.72341840072208,
+  lng: 37.389013427695836,
 };
 const marker = {
   position: center,
